@@ -88,7 +88,8 @@ def c55_seed(job) -> dict:
     criteria_d2.supplier_run.cache_clear()  # a cached summary would skip the override
     try:
         with mock.patch.object(criteria_d2, "scenario", scenario):
-            summary = criteria_d2.supplier_run(seed, settings["years"], settings["window_from_year"])
+            summary = criteria_d2.supplier_run(seed, settings["years"], settings["window_from_year"],
+                                               settings["relief_lead_weeks"])
     finally:
         criteria_d2.supplier_run.cache_clear()
     kinds = load_supply_kinds()

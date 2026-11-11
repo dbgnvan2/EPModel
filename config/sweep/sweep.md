@@ -18,10 +18,11 @@
 > the upper half short, or the raised low end the lower half); an `integer` range uniformly over its whole values.
 >
 > **Grades.** The grade column gives the constant's grade as `docs/model_explainer.md` gives it, found by grep of the
-> constant's name. Of the 78 constants below (327 rows, 34 criteria), five are named there: `defence_threshold` (§11.3,
+> constant's name. Of the 85 constants below (341 rows, 36 criteria), five are named there: `defence_threshold` (§11.3,
 > graded `[I]`), `cutoff_stock_cap` and `cutoff_threat_weight` (§11.5, each graded `[I]`), and `system_adjust_gain`
-> (§3.2a) and `practice_window` (§19.4), each without a grade; none of the other 73 is named there by its code name
-> (checked 2026-10-23), so each is `[I]` until proven otherwise, as
+> (§3.2a) and `practice_window` (§19.4), each without a grade; none of the other 80 is named there by its code
+> name (checked 2026-10-23, and the fourteen rows added 2026-11-10 checked then), so each is `[I]` until proven
+> otherwise, as
 > `config/bowen/constants.md` already grades it; the column says so. Every constant in
 > `config/bowen/constants.md` is graded `[I]` there (checked 2026-10-23), so no constant a mechanism reads is left out of
 > its set for carrying another grade.
@@ -52,7 +53,16 @@
 > run), `birth_focus_gain` outside
 > `M11.C.2[twelve-person family]` (whose class row credits `M7.E.1c`), `refusal_cost_gain` in `M11.C.10` (the refused
 > sender's cost, not the rejection the readout reads), and `M1.B.3c`'s constants in `M11.C.48` (a refusal is a
-> negative contact, but the readout counts contacts, not a state). Each row's last column names the spec ID and says
+> negative contact, but the readout counts contacts, not a state); and, in the two cue criteria declared at spec
+> revision 57, every cue constant no row credits — `M4.C.11`'s nonverbal weight, `M4.C.1e`'s channel weights,
+> `M4.C.12`'s and `M4.C.14`'s detection, bias and meaning error, `M4.C.15`'s attention load and `M9.9`'s beliefs
+> all act in `M11.C.52`'s and `M11.C.55`'s runs, with the cues on in both arms, and neither criterion's row nor
+> its `M11.5` row credits them, so they are out of both sets. `M11.C.52`'s set is `M4.C.6`'s window and
+> `M4.C.13`'s six leak constants, the mechanisms its rows credit; the learner is left out, as its readout is a
+> state (the summed acute anxiety) and no row names learning. `M11.C.55`'s set is the learner's seven, which its
+> `M11.5` row credits and whose selections the readout counts; its own `relief_lead_weeks` is a criterion
+> setting in `config/bowen/criteria.md`, not a constant, so the sweep does not reach it ⟦rev57 · T-206, T-208⟧.
+> Each row's last column names the spec ID and says
 > what the constant does in that criterion. These are judgments; the plan's §2.10 lists them.
 >
 > **Named ratios** (spec revision 39, `M17.E.1`; the owner's D24–D26 of 2026-10-24). `M17.E.1` names one ratio that is
@@ -413,6 +423,20 @@
 | `M11.C.48[phase_d]` | `cutoff_decay_weeks` | 130 | 520 | integer | — | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M1.D.2b`: the weeks over which an uncontacted cut tie's stock decays to its floor |
 | `M11.C.48[phase_d]` | `cutoff_floor_share` | 0.05 | 0.2 | log | 1 | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M1.D.2b`: the floor the stock decays to, as a share of its peak |
 | `M11.C.48[phase_d]` | `positive_bridge_dissipation` | 0.4 | 1.0 | log | 1 | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M1.D.2b`: the share of the stock a positive contact removes, the contact that ends a cutoff; 0.8 runs 0.4 to its bound 1 |
+| `M11.C.52` | `reappraisal_window` | 2 | 8 | integer | — | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M4.C.6`: the fast ticks a received event is reappraised over — the window the self-attribution discount acts in |
+| `M11.C.52` | `cue_leak_gain` | 0.3 | 1.2 | log | — | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M4.C.13`: the cue units leaked at an excess of `defence_threshold`, the leak each member reads from the other |
+| `M11.C.52` | `cue_leak_expectations_share` | 0.25 | 1.0 | log | 1 | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M4.C.13`: the share of the leak on the expectations cue |
+| `M11.C.52` | `cue_leak_distress_share` | 0.25 | 1.0 | log | 1 | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M4.C.13`: the share of the leak on the distress cue |
+| `M11.C.52` | `cue_tone_share` | 0.5 | 1.0 | log | 1 | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M4.C.13`: the share of a leak the tone channel carries; its central value is its bound, so the upper half of half-to-double is cut to it |
+| `M11.C.52` | `cue_face_share` | 0.5 | 1.0 | log | 1 | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M4.C.13`: the share of a leak the face channel carries; its central value is its bound, so the upper half of half-to-double is cut to it |
+| `M11.C.52` | `cue_posture_share` | 0.25 | 1.0 | log | 1 | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M4.C.13`: the share of a leak the posture channel carries |
+| `M11.C.55` | `learning_rate` | 0.1 | 0.4 | log | — | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M4.D.6`: both arms learn; the share of the gap to the signal taken per update — the relief predictor is the learned value it builds |
+| `M11.C.55` | `credit_horizon` | 2 | 6 | integer | — | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M4.D.6b`: the ticks over which felt relief is credited |
+| `M11.C.55` | `credit_discount` | 0.35 | 1.0 | log | 1 | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M4.D.6`: the weight per tick of age; 1 is no discount |
+| `M11.C.55` | `cross_person_weight` | 0.25 | 1.0 | log | 1 | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M4.D.6e`: the others' relief in the signal; 1 weights it as the actor's own |
+| `M11.C.55` | `policy_temperature` | 0.5 | 2.0 | log | — | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M4.D.1`: how sharply a learned value turns into a selection — the supplying moves the readout counts |
+| `M11.C.55` | `habituation_rate` | 0.35 | 1.0 | log | 1 | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M4.G.3`: relief kept per earlier repetition; 1 is no habituation |
+| `M11.C.55` | `habituation_window` | 4 | 16 | integer | — | [I] — not named in `model_explainer.md`; `constants.md` grades it [I] | `M4.G.3`: the ticks a repetition counts over |
 
 ## Named ratios
 

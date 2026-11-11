@@ -59,6 +59,11 @@ Items from `docs/proposal_social_cues.md`, decided by the owner on 2026-11-07 (Q
   window that is not the window's own start. They wait for the next batch that moves the engine hash, because the
   criterion's code and settings are in it and every record would rerun. Then: regenerate once, record the verdict as
   found with no tuning, and close this item. Open until then.
+  *Built 2026-11-10 (spec revision 57, the version 2 definition plan's step 2):* `M11.C.55` now reads two directional
+  readouts, the relief predictor against the main supplier over the weeks before the window and against the run's own
+  chance, with birth order and the supplied count report-only, and reads the relief `relief_lead_weeks` (52) before
+  the window. The engine hash moved from `927550dfcb8a` to `d3779684dd53`. The verdict is read at the plan's step 4's
+  regeneration, as found; this item closes then.
 - [x] T-207 ⟨now⟩ **How the LLM experiment's committed runs follow an engine-hash move (2026-11-08).** T-202 moved the
   engine hash; the runs under `experiments/llm_agents/runs/` record `0b363cb3186c`. With `social_cues_enabled` off the
   engine computes the same runs (the golden fingerprints hold), but a replay restamps the hash into the summary, and
@@ -106,3 +111,11 @@ Items from `docs/proposal_social_cues.md`, decided by the owner on 2026-11-07 (Q
   (2026-11-09).** The first-born is the main supplier in years 20–30 for 0.307 parents per seed against chance 0.633
   with learning on, and 0.080 with it off (T-206's probe). Candidates: age at the window, leaving the parents'
   household. Left open by the owner, 2026-11-09; not run.
+- [ ] T-212 ⟨later⟩ **Whether `M11.C.55`'s two predictors should be read to the same week (2026-11-10).** Spec
+  revision 57 reads the relief `relief_lead_weeks` (52) before the window and counts the supply it is compared with
+  over every week up to the window's start, so the prior-supply predictor sees 52 weeks the relief predictor does not:
+  the arms differ in a second condition, the class T-194 and T-195 recorded (learnings P7). The asymmetry strengthens
+  the baseline, so it runs against a pass and a pass stays readable, but a fail is not attributable to the predictor
+  alone. `M11.5`'s row names it. The alternative is to count the supply over `[0, start − relief_lead_weeks)` as well,
+  one line in `supplier_run`, which moves the engine hash and so waits for a batch that does. Raised by the
+  learning-qa and correctness passes on revision 57's diff, 2026-11-10; the owner's call.

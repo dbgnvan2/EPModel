@@ -1,10 +1,41 @@
 # Spec revision log
 
-**Status: the record of every revision of `bowen_agent_model_spec_v2.md`, 4 to 56 (revision 56, the owner's decisions on the social-cue probes written into `M11.5`, wording in `M11` only, relayed by another Claude session, 2026-11-09; revision 55, the social cues, behind a switch that is off by default, choices taken as recommended pending the owner's review, 2026-11-08; revision 54, `M11.5`'s note for `M11.C.42` names `M4.C.1d`'s relieved party correctly, wording only, pending the owner's review, 2026-11-06; revision 53, `M11.C.2`'s mutation cell restated to the current mutation record, wording only, pending the owner's review, 2026-11-06; revision 52, T-196's and T-197's probes in `M11.5`, wording only, pending the owner's review, 2026-11-06; revision 51, the within-run rows whose arms differ in `M11.5`, wording only, 2026-11-05; revision 50, what carries `M11.C.48[phase_d]` in `M11.5` and the criterion's row, wording only, 2026-11-05; revision 49, the emergence audit's survivors in `M11.5` and `M11.1g`'s scope, wording only, 2026-11-05; revision 48, `M11.1g`, the emergence audit, version 3's first revision, 2026-11-03; revision 47, `M11.C.48`'s readout reads both arms under one contact condition, after the tag `version-2`, 2026-11-02–03; revision 46, wording only, after the tag `version-2`, from T-173's two mutants, 2026-11-01; revision 45, wording only, from the pre-tag milestone review's triage, 2026-11-01; revision 44, the batch from the owner's D4 and D5, 2026-10-31; revision 43, the version 2 definition batch, 2026-10-29; revision 40 applied 2026-10-28, from the stage 3 milestone review's triage; revision 41, its hash-moving batch, the same day; revision 42, wording only, 2026-10-29). Moved out of the spec at revision 35, 2026-10-22; nothing a run computes changed.**
+**Status: the record of every revision of `bowen_agent_model_spec_v2.md`, 4 to 57 (revision 57, `M11.C.55`'s relief predictor compared with chance and with prior supply and read before the window, and `M11.C.48`'s baseline matched on the tie's sides, the version 2 definition plan's step 2, 2026-11-10; revision 56, the owner's decisions on the social-cue probes written into `M11.5`, wording in `M11` only, relayed by another Claude session, 2026-11-09; revision 55, the social cues, behind a switch that is off by default, choices taken as recommended pending the owner's review, 2026-11-08; revision 54, `M11.5`'s note for `M11.C.42` names `M4.C.1d`'s relieved party correctly, wording only, pending the owner's review, 2026-11-06; revision 53, `M11.C.2`'s mutation cell restated to the current mutation record, wording only, pending the owner's review, 2026-11-06; revision 52, T-196's and T-197's probes in `M11.5`, wording only, pending the owner's review, 2026-11-06; revision 51, the within-run rows whose arms differ in `M11.5`, wording only, 2026-11-05; revision 50, what carries `M11.C.48[phase_d]` in `M11.5` and the criterion's row, wording only, 2026-11-05; revision 49, the emergence audit's survivors in `M11.5` and `M11.1g`'s scope, wording only, 2026-11-05; revision 48, `M11.1g`, the emergence audit, version 3's first revision, 2026-11-03; revision 47, `M11.C.48`'s readout reads both arms under one contact condition, after the tag `version-2`, 2026-11-02–03; revision 46, wording only, after the tag `version-2`, from T-173's two mutants, 2026-11-01; revision 45, wording only, from the pre-tag milestone review's triage, 2026-11-01; revision 44, the batch from the owner's D4 and D5, 2026-10-31; revision 43, the version 2 definition batch, 2026-10-29; revision 40 applied 2026-10-28, from the stage 3 milestone review's triage; revision 41, its hash-moving batch, the same day; revision 42, wording only, 2026-10-29). Moved out of the spec at revision 35, 2026-10-22; nothing a run computes changed.**
 
 The spec holds the current rules; this file holds how they got there. Until revision 34 the revision sections stood at the end of the spec, under `M17`, and the front matter's `status:` line listed every revision since 10. `docs/plan_model_ergonomics.md` Part E moved both here (the owner's answer to its §8 Q2, 2026-10-22, "as revision 35"), so a session reading the spec reads 480 fewer lines of history. The sections below are the spec's own text as it stood, tags and all, with the newest first; revisions 13 to 33 were written inline in the requirement bodies and have no section of their own, which Part E's second step records under revision 35.
 
 The sections `### Revision 34` to `### Revision 5` and the undated section are the spec's text as it stood, moved whole; a statement inside one of them (revision 34's, that revisions 13 to 33 are "not here") was true when written, before the bodies' narratives were moved under their own revisions. Those narratives are the bullets `- \`ID\`: sentence`, each the sentence as it stood in the body, under the revision it names, in sections titled "inline narratives moved from the bodies at revision 35" where no section existed.
+
+### Revision 57 — `M11.C.55`'s predictor and `M11.C.48`'s matched baseline, 2026-11-10 ⟦rev57 · the owner 2026-11-09 (revision 56's "Hold for next batch"; the version 2 definition plan's Q3 (a)), T-185, T-206⟧
+
+The two changes the owner decided at revision 56 and held for the next batch that moves the engine hash, built
+together as the version 2 definition plan's step 2 (`docs/implementation_plan_version_2_definition.md` §4.1).
+
+**`M11.C.55` (T-206).** The criterion compared the relief predictor's hits with birth order's and read the relief at
+the window's own start, so the policy's own input stood in both arms and the comparison did not say the relief
+predicts more than what is already known. It now reads two directional readouts: the relief predictor against the
+main supplier over the weeks before the window (`predicted_main_supplier`), and the relief predictor against the
+run's own chance of naming the child who is supplied (`predicted_over_chance`); a pass needs both. Birth order and
+the supplied count stay, report-only, as `birth_order_hits` and `parents_supplied`. The relief is read
+`relief_lead_weeks` (52, `[I]`, `config/bowen/criteria.md`) before the window rather than at its start; the lead is a
+criterion setting, not a model constant, so the sweep does not reach it and no constant moved.
+
+**`M11.C.48[phase_d]` (T-185, the owner's Q3 (a)).** The baseline read every uncut tie in contact, and T-185's probe
+(`tools/c48_carrier_probe.py`) measured that the cut ties are two-sided in 51–53% of runs against 32–33% of the
+baseline ties and that a two-sided tie holds about 0.8 weeks longer, so part of the direction came from what the arms
+were made of rather than from the cutoff. The baseline now reads only the uncut ties acted on by as many of their two
+members as the cut tie (`src/bowen/readouts/negative_runs.py`: `acted_across`, `sides`). A first cutoff with uncut
+ties in contact but none of its own sides is left out of both arms and counted in a fourth exit, `unsided_cutoffs`
+(report-only), beside `unmatched_cutoffs` (T-123) and `no_contact_cutoffs` (T-179); the four exits are exclusive and a
+`FirstCutoff` whose flags disagree now raises (learnings P2). This changes `M11.C.48` on the Phase B family too, whose
+fail is the owner's accepted finding of 2026-11-03; that acceptance stops applying if the verdict moves at the
+regeneration.
+
+**The engine hash moved from `927550dfcb8a` to `d3779684dd53`.** Nothing else about a run changed: the committed
+Phase C trace is byte-identical but for its revision stamp. The records are regenerated once on the new hash at the
+plan's step 4, not here, and until then the record-current tests that read the engine hash are strict expected
+failures, each with that reason (the pattern revision 55 set for the same situation). No verdict is claimed for either
+criterion until that regeneration, and the owner's dispositions on any moved verdict are the plan's step 6.
 
 ### Revision 56 — the social-cue passes probed, 2026-11-09 ⟦rev56 · the owner 2026-11-09 ("go with your recommendations"; item 2 "Hold for next batch"; relayed by another Claude session), T-205, T-206, T-208⟧
 

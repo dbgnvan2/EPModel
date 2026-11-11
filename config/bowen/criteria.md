@@ -104,6 +104,12 @@
 > criterion gates on the pair's deviation at the end of the week the act's effect lands (`latency`, 1 week after
 > t0, as `M11.C.3`), and reports every week from t0 + 1 to t0 + `report_weeks` (12, `[I]`) beside it, never gating.
 > `run_after` is retired. `M11.C.4`'s nodal event stays at week 104.
+>
+> **`M11.C.55`'s lead, 2026-11-10 (T-206, the owner's decision of 2026-11-09, `docs/implementation_plan_version_2_definition.md`
+> §3 B1).** `relief_lead_weeks` 52 — the relief predictor is read a year before the window, not at the window's own
+> start, so the value is not the one the policy selects by over the window it predicts. One year, `[I]`: the window is
+> declared in years and the run is read in weeks. A run too short to reach that week leaves the predictor unread and is
+> refused, as before.
 
 | criterion | setting | value | grade |
 |---|---|---|---|
@@ -280,3 +286,4 @@
 | M11.C.54 | believed_threat | -0.8 | [I] |
 | M11.C.55 | years | 30 | [I] |
 | M11.C.55 | window_from_year | 20 | [I] |
+| M11.C.55 | relief_lead_weeks | 52 | [I] |

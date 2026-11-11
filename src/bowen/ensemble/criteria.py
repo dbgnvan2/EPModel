@@ -130,7 +130,7 @@ REQUIRED = {
     "M11.C.52": ("weeks", "start_excess", "perspective"),
     "M11.C.53": ("t0", "stressor_weeks", "stressor_kind", "stressor_intensity"),
     "M11.C.54": ("weeks", "believed_threat"),
-    "M11.C.55": ("years", "window_from_year"),
+    "M11.C.55": ("years", "window_from_year", "relief_lead_weeks"),  # the lead: T-206, the owner 2026-11-09
 }
 
 

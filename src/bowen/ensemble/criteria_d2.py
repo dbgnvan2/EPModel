@@ -112,19 +112,24 @@ def arm_c15(arm, seed, settings):
 
 
 @functools.lru_cache(maxsize=None)
-def negative_run_values(family: str, seed: int, weeks: int) -> tuple[float, float, int, int, int, bool, tuple]:
+def negative_run_values(family: str, seed: int, weeks: int
+                        ) -> tuple[float, float, int, int, int, int, bool, float, float, tuple]:
     """Purpose: one seed of `M11.C.48`: the family as declared, under its baseline stressor spell (the Phase B family)
     or its nodal load (the twelve-person family); returns the mean negative run before the seed's matched first
-    cutoffs, the mean run standing in those weeks on the ties not cut off, how many first cutoffs there were, how many
-    of them were unmatched and left out (T-123), how many fell on a tie with no contact by their week and were left
-    out (T-179), whether any was matched (a seed with none reads 0 in both arms), and the run's books. Cached
+    cutoffs, the mean run standing in those weeks on the matched uncut ties, how many first cutoffs there were, how
+    many of them were unmatched and left out (T-123), how many fell on a tie with no contact by their week and were
+    left out (T-179), how many had no uncut tie with as many sides and were left out (T-185), whether any was matched
+    (a seed with none reads 0 in both arms), the mean run before the cutoffs the unmatched and the unsided exits left
+    out (reported, so a drop that selects on the run itself is visible — learning-qa 2026-11-10, P2/P9), and the run's
+    books. Cached
     per process: both arms read one run (``docs/readouts_phase_c.md``, "Negative runs").
     Spec:    docs/bowen_agent_model_spec_v2.md#M11.C.48, #M1.D.2b
     Tests:   tests/bowen/test_phase_d2_criteria.py::test_m11c48_reads_the_run_before_the_first_cutoff
     """
     from src.bowen.engine.objects import Role
     from src.bowen.ensemble.criteria import spell
-    from src.bowen.readouts.negative_runs import arm_values, first_cutoff_runs, no_contact, unmatched
+    from src.bowen.readouts.negative_runs import (arm_values, first_cutoff_runs, left_out_mean_run, no_contact,
+                                                  unmatched, unsided)
 
     declared: set = set()
 
@@ -140,26 +145,33 @@ def negative_run_values(family: str, seed: int, weeks: int) -> tuple[float, floa
     members = frozenset(p for p, q in state.people.items() if q.role is Role.MEMBER)
     firsts = first_cutoff_runs(records, state.kinds, members, frozenset(declared))
     run, uncut = arm_values(firsts)
-    return run, uncut, len(firsts), unmatched(firsts), no_contact(firsts), any(f.matched for f in firsts), tuple(Counter(b) for b in scripted_bookkeeping(records))
+    return (run, uncut, len(firsts), unmatched(firsts), no_contact(firsts), unsided(firsts),
+            any(f.matched for f in firsts), left_out_mean_run(firsts, "unmatched"),
+            left_out_mean_run(firsts, "unsided"), tuple(Counter(b) for b in scripted_bookkeeping(records)))
 
 
 def _arm_c48(family: str, arm: str, seed: int, weeks: int) -> ArmResult:
-    run, uncut, firsts, alone, silent, read, books = negative_run_values(family, seed, weeks)
+    (run, uncut, firsts, alone, silent, lopsided, read, alone_run, lopsided_run,
+     books) = negative_run_values(family, seed, weeks)
     if arm == "baseline":
         readouts = {"negative_run": uncut, "run_before_cutoff": 0.0, "first_cutoffs": float(firsts),
-                    "unmatched_cutoffs": 0.0, "no_contact_cutoffs": 0.0, "matched_seed": 0.0}
+                    "unmatched_cutoffs": 0.0, "no_contact_cutoffs": 0.0, "unsided_cutoffs": 0.0,
+                    "unmatched_left_out_run": 0.0, "unsided_left_out_run": 0.0, "matched_seed": 0.0}
     else:
         # matched_seed: 1 on a seed with a matched first cutoff, so its mean is the share of seeds the arms read; a seed
         # with none reads 0 in both arms (learning-qa, 2026-11-02, P2/P9)
         readouts = {"negative_run": run, "run_before_cutoff": run, "first_cutoffs": float(firsts),
-                    "unmatched_cutoffs": float(alone), "no_contact_cutoffs": float(silent), "matched_seed": float(read)}
+                    "unmatched_cutoffs": float(alone), "no_contact_cutoffs": float(silent),
+                    "unsided_cutoffs": float(lopsided), "unmatched_left_out_run": alone_run,
+                    "unsided_left_out_run": lopsided_run, "matched_seed": float(read)}
     return ArmResult(readouts, *(Counter(c) for c in books))
 
 
 def arm_c48(arm, seed, settings):
     """Purpose: `M11.C.48` on the Phase B family over ten years: the treatment reads the negative run (`contact_classes.md`)
     straight before each tie's first cutoff, the baseline the run standing in that same week on the seed's ties not
-    cut off by then; a cutoff that follows a longer run than the uncut ties hold is the emergent order G1 restores.
+    cut off by then with as many sides as the cut tie (T-185); a cutoff that follows a longer run than those ties hold
+    is the emergent order G1 restores.
     Spec:    docs/bowen_agent_model_spec_v2.md#M11.C.48
     Tests:   tests/bowen/test_phase_d2_criteria.py::test_m11c48_reads_the_run_before_the_first_cutoff
     """
@@ -458,18 +470,26 @@ def arm_c47(arm, seed, settings):
 
 
 @functools.lru_cache(maxsize=2)
-def supplier_run(seed: int, years: int, from_year: int) -> dict:
+def supplier_run(seed: int, years: int, from_year: int, lead_weeks: int) -> dict:
     """Purpose: one run of the twelve-person family with the social cues on (`M4.C.1f`), summarised for `M11.C.55`:
              per parent, the child who was the main supplier over ``[from_year, years)`` (`M11.G.5`), the child with
-             the highest felt relief from supplying that parent at ``from_year`` (its learned values on the supplying
-             kinds toward that parent, summed over bands and positions, `M4.D.6`), and the first-born child.
+             the highest felt relief from supplying that parent ``lead_weeks`` before that window (its learned values
+             on the supplying kinds toward that parent, summed over bands and positions, `M4.D.6`), the child who
+             supplied that parent most over the run before the window, and the first-born child.
     Spec:    docs/bowen_agent_model_spec_v2.md#M11.C.55, #M11.G.5, #M1.A.14b
-    Tests:   tests/bowen/test_criteria_sc.py::test_m11c55_predictors_read_before_the_window
+    Tests:   tests/bowen/test_criteria_sc.py::test_m11c55_predictors_read_before_the_window,
+             tests/bowen/test_criteria_sc.py::test_m11c55_t206_the_relief_is_read_a_lead_before_the_window
 
-    Both predictors are read from the same run (the lesson of T-194): the relief at ``from_year``, before any move the
-    window counts, and the birth order, which is static (`M1.A.14`). A child with no learned value on those kinds toward
-    the parent reads 0. A predictor that names no one (a tie for the highest) is a miss, as is a parent no child
-    supplied over the window.
+    Every predictor is read from the same run (the lesson of T-194): the relief at ``start - lead_weeks``, a week
+    before the window that is not the window's own start, so the value is not the one the policy selects by over the
+    window (T-206, the owner's decision of 2026-11-09); the supply before the window; and the birth order, which is
+    static (`M1.A.14`). The two are not read to the same week: the supply is counted over ``[0, start)`` and so sees
+    the ``lead_weeks`` the relief predictor does not. That asymmetry strengthens the baseline, so it runs against a
+    pass rather than toward one, but it is a second difference between the arms and `M11.5`'s row names it
+    (learning-qa 2026-11-10; the class T-194 and T-195 recorded). A child with no learned value on those kinds toward
+    the parent reads 0. A predictor that names no one (a tie for the highest, or no supply before the window) is a
+    miss, as is a parent no child supplied over the window. ``chance`` is what a predictor drawing one of the children
+    at random would name, ``parents_supplied`` ÷ the children.
     """
     from src.bowen.engine.value_keys import key_parts
     from src.bowen.readouts.roles import load_supply_kinds, main_supplier, supply_counts
@@ -479,10 +499,11 @@ def supplier_run(seed: int, years: int, from_year: int) -> dict:
     family = load_family(FAMILIES["phase_d"])
     children = tuple(sorted(p for p in family.people if set(family.parents_of(p)) == set(parents)))
     start = from_year * YEAR
+    read_week = start - lead_weeks  # the relief is read here, a lead before the window (T-206)
     relief: dict = {}
 
     def watch(state):
-        if state.tick == start:  # the week just run is the last before the window
+        if state.tick == read_week:  # the week just run is ``lead_weeks`` before the window
             for c in children:
                 for parent in parents:
                     relief[c, parent] = math.fsum(v for k, v in state.people[c].learned_values.items()
@@ -490,10 +511,12 @@ def supplier_run(seed: int, years: int, from_year: int) -> dict:
 
     state, records = scenario("phase_d", seed, years * YEAR, watch=watch, overrides={"social_cues_enabled": 1})
     counts = supply_counts(records, kinds, since=start)
+    before = supply_counts(records, kinds, since=0, until=start)
     first = tuple(c for c in children if state.people[c].sibling_position.rank == 1)
     if len(relief) != len(children) * len(parents):
-        raise RuntimeError(f"M11.C.55: the relief predictor was not read at week {start} (run of {years * YEAR} weeks)")
-    hits = {"relief": 0, "birth_order": 0}
+        raise RuntimeError(f"M11.C.55: the relief predictor was not read at week {read_week} "
+                           f"(run of {years * YEAR} weeks)")
+    hits = {"relief": 0, "prior_supply": 0, "birth_order": 0}
     supplied = 0
     for parent in parents:
         main = main_supplier(counts, parent, children)
@@ -502,17 +525,25 @@ def supplier_run(seed: int, years: int, from_year: int) -> dict:
         if main is not None:
             supplied += 1
             hits["relief"] += by_relief == main
+            hits["prior_supply"] += main_supplier(before, parent, children) == main
             hits["birth_order"] += first == (main,)
-    return {"hits": hits, "parents_supplied": supplied, "relief": dict(relief), "records": records}
+    return {"hits": hits, "parents_supplied": supplied, "chance": supplied / len(children),
+            "read_week": read_week, "relief": dict(relief), "records": records}
 
 
 def arm_c55(arm, seed, settings):
-    """M11.C.55: the baseline reads how often birth order names each parent's main supplier, the treatment how often
-    the learned relief does, on the same run (see ``supplier_run``)."""
-    summary = supplier_run(seed, settings["years"], settings["window_from_year"])
-    hit = summary["hits"]["birth_order" if arm == "baseline" else "relief"]
-    return result({"predicted_main_supplier": float(hit), "parents_supplied": float(summary["parents_supplied"])},
-                  summary["records"])
+    """M11.C.55: the treatment reads how often the learned relief names each parent's main supplier over the window,
+    the baseline how often the supply before the window does (`predicted_main_supplier`) and what a predictor drawing a
+    child at random would name (`predicted_over_chance`); birth order, the baseline until T-206, is reported beside
+    them. One run per seed (see ``supplier_run``)."""
+    summary = supplier_run(seed, settings["years"], settings["window_from_year"], settings["relief_lead_weeks"])
+    hits = summary["hits"]
+    readouts = ({"predicted_main_supplier": float(hits["prior_supply"]), "predicted_over_chance": summary["chance"]}
+                if arm == "baseline" else
+                {"predicted_main_supplier": float(hits["relief"]), "predicted_over_chance": float(hits["relief"])})
+    readouts["parents_supplied"] = float(summary["parents_supplied"])
+    readouts["birth_order_hits"] = float(hits["birth_order"])
+    return result(readouts, summary["records"])
 
 
 C = Criterion
@@ -539,18 +570,28 @@ CRITERIA_D2: dict[str, Criterion] = {
     "M11.C.48": C("M11.C.48", "composite", ("baseline", "treatment"),
                   (Readout("negative_run", +1), Readout("run_before_cutoff", +1, report_only=True),
                    Readout("first_cutoffs", +1, report_only=True), Readout("unmatched_cutoffs", +1, report_only=True),
-                   Readout("no_contact_cutoffs", +1, report_only=True), Readout("matched_seed", +1, report_only=True)),
+                   Readout("no_contact_cutoffs", +1, report_only=True), Readout("unsided_cutoffs", +1, report_only=True),
+                   Readout("unmatched_left_out_run", +1, report_only=True),
+                   Readout("unsided_left_out_run", +1, report_only=True),
+                   Readout("matched_seed", +1, report_only=True)),
                   arm_c48, ("CUTOFF",), settings=SETTINGS["M11.C.48"], seeds=SETTINGS["M11.C.48"]["seeds"]),
     "M11.C.48[phase_d]": C("M11.C.48", "composite", ("baseline", "treatment"),
                            (Readout("negative_run", +1), Readout("run_before_cutoff", +1, report_only=True),
                             Readout("first_cutoffs", +1, report_only=True),
                             Readout("unmatched_cutoffs", +1, report_only=True),
                             Readout("no_contact_cutoffs", +1, report_only=True),
+                            Readout("unsided_cutoffs", +1, report_only=True),
+                            Readout("unmatched_left_out_run", +1, report_only=True),
+                            Readout("unsided_left_out_run", +1, report_only=True),
                             Readout("matched_seed", +1, report_only=True)),
                            arm_c48_phase_d, ("CUTOFF",), settings=SETTINGS["M11.C.48"],
                            seeds=SETTINGS["M11.C.48"]["seeds"]),
-    # Spec revision 55 (T-202): the cues on in its one run; two predictors of the same run's main supplier.
+    # Spec revision 55 (T-202): the cues on in its one run; the predictors of the same run's main supplier. Since
+    # T-206 (the owner 2026-11-09) the relief is read against prior supply and against chance, and birth order, the
+    # baseline until then, is reported only: it predicts the window below chance, so it was a weak bar.
     "M11.C.55": C("M11.C.55", "composite", ("baseline", "treatment"),
-                  (Readout("predicted_main_supplier", +1), Readout("parents_supplied", +1, report_only=True)),
+                  (Readout("predicted_main_supplier", +1), Readout("predicted_over_chance", +1),
+                   Readout("parents_supplied", +1, report_only=True),
+                   Readout("birth_order_hits", +1, report_only=True)),
                   arm_c55, settings=SETTINGS["M11.C.55"]),
 }

@@ -13,7 +13,9 @@ Purpose: T-176 (`docs/todo/2026-11-01_pre_tag_milestone_review.md`; the pre-tag 
          `docs/review/t176_negative_run_trace.md` and keeps that page's hand-written "Reading" section.
          Since spec revision 47 (T-179) the readout leaves out a cut tie with no contact by its week, so the criterion's
          rows read the cut ties with a contact; one row keeps revision 46's reading, a cut tie with no contact at a run
-         of 0, beside it.
+         of 0, beside it. Since T-185 (the owner's Q3 (a) of 2026-11-09) the readout's baseline reads only the uncut
+         ties with as many sides as the cut tie, so every row here reads those ties; revision 46's row still reads
+         whether any uncut tie was in contact.
 Spec:    docs/bowen_agent_model_spec_v2.md#M11.C.48
 Tests:   tests/test_t176_negative_run_trace.py::test_m11c48_t176_trace_reproduces_the_criterions_arms,
          tests/test_t176_negative_run_trace.py::test_m11c48_t176_rows_the_reading_rests_on_read_what_they_say
@@ -87,8 +89,8 @@ def _mean(values) -> float | None:
 
 def trace(records, kinds, members, declared, relations) -> dict:
     """Every first cutoff the readout reads, with the trace's baselines beside the criterion's."""
-    from src.bowen.readouts.negative_runs import (arm_values, contacts, first_cutoff_runs, first_cutoffs, run_at,
-                                                  runs_by_week)
+    from src.bowen.readouts.negative_runs import (acted_across, arm_values, contacts, first_cutoff_runs, first_cutoffs,
+                                                  run_at, runs_by_week, sides)
 
     per_tie = defaultdict(list)
     for c in contacts(records, kinds, members):
@@ -97,6 +99,7 @@ def trace(records, kinds, members, declared, relations) -> dict:
     runs = {tie: runs_by_week(cs) for tie, cs in per_tie.items()}
     cutoffs = {t: w for t, w in first_cutoffs(records, members).items() if t not in declared}
     firsts = first_cutoff_runs(records, kinds, members, declared)
+    acted = acted_across(records)
 
     def window(tie, week):
         cs = [c for c in per_tie.get(tie, []) if week - WINDOW < c.week <= week]
@@ -105,8 +108,11 @@ def trace(records, kinds, members, declared, relations) -> dict:
     rows = []
     for f in firsts:
         tie, week = f.tie, f.week
-        uncut = [t for t in sorted(runs, key=str) if t != tie and (t not in cutoffs or cutoffs[t] > week)
-                 and any(w <= week for w, _ in runs[t])]
+        in_contact = [t for t in sorted(runs, key=str) if t != tie and (t not in cutoffs or cutoffs[t] > week)
+                      and any(w <= week for w, _ in runs[t])]
+        # the readout's own baseline ties since T-185: those with as many sides as the cut tie. ``in_contact`` is kept
+        # for revision 46's contrast row, which matched a cutoff whenever any uncut tie was in contact.
+        uncut = [t for t in in_contact if sides(acted, t, week) == sides(acted, tie, week)]
         standing = {t: run_at(runs[t], week + 1) for t in uncut}
         relation = relations.get(tie, UNDECLARED)
         own = runs.get(tie, [])
@@ -119,7 +125,10 @@ def trace(records, kinds, members, declared, relations) -> dict:
         rows.append({
             "tie": tie, "week": week, "relation": relation, "run": f.run, "uncut": f.uncut, "matched": f.matched,
             "own_contact": any(w <= week for w, _ in own),
-            "matched_rev46": bool(uncut),  # revision 46's readout matched a cutoff whenever an uncut tie was in contact
+            "matched_rev46": bool(in_contact),  # revision 46's readout matched a cutoff whenever an uncut tie was in contact
+            # the readout's exits since T-185: a cutoff in contact with uncut ties but none of its own sides is
+            # "unsided", not "unmatched" (learning-qa 2026-11-10: the summary pooled the two)
+            "any_uncut": bool(in_contact), "sided": bool(uncut),
             "uncut_never": _mean(standing[t] for t in uncut if t not in cutoffs),
             "uncut_later": _mean(standing[t] for t in uncut if t in cutoffs),
             "uncut_same": _mean(standing[t] for t in uncut if relations.get(t, UNDECLARED) == relation),
@@ -228,7 +237,8 @@ def summarise(rows: list[dict]) -> dict:
             "firsts": len(cut), "matched": len(matched),
             "zero_run": sum(1 for c in matched if c["run"] == 0),
             "no_contact": sum(1 for c in cut if not c["own_contact"]),
-            "unmatched": sum(1 for c in cut if c["own_contact"] and not c["matched"]),
+            "unmatched": sum(1 for c in cut if c["own_contact"] and not c["any_uncut"]),
+            "unsided": sum(1 for c in cut if c["own_contact"] and c["any_uncut"] and not c["sided"]),
             "no_contact_rev46": sum(1 for c in cut if not c["own_contact"] and c["matched_rev46"]),
             "median_week": statistics.median(c["week"] for c in matched) if matched else None,
             "early": sum(1 for c in matched if c["week"] < 13),
@@ -272,7 +282,8 @@ def render(summary: dict, engine: str, when: str, keep: str) -> str:
     for family, s in summary.items():
         lines += ["", f"## {LABELS[family]}", "",
                   f"{s['seeds']} seeds; {s['firsts']} first cutoffs: {s['matched']} matched, {s['unmatched']} "
-                  f"unmatched and {s['no_contact']} on a tie with no contact by the cutoff's week, the last two left "
+                  f"unmatched, {s['unsided']} with no uncut tie of their own sides (T-185) "
+                  f"and {s['no_contact']} on a tie with no contact by the cutoff's week, the last three left "
                   f"out as the readout leaves them out ({s['no_contact_rev46']} of the no-contact cutoffs had an uncut "
                   f"tie in contact, so revision 46's readout matched them at a run of 0); "
                   f"{s['with_matched']} seeds with a matched cutoff. Of the matched cutoffs, {s['zero_run']} stand on "

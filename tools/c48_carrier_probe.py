@@ -1,8 +1,15 @@
 """T-185's per-act probe of `M11.C.48[phase_d]`: what carries the cut tie's longer negative run. A measurement, never a verdict.
 
 Purpose: run the row's own scenario (the twelve-person family, its nodal load, 40 years; ``criteria_d2.negative_run_values``)
-         and, for each matched first cutoff, split the comparison the row makes. The row's baseline is the mean run
-         standing that week on every uncut tie in contact. Here it is also read on three subsets of those ties: the
+         and, for each matched first cutoff, split the comparison the row makes. The row's baseline was, when this
+         probe was written, the mean run standing that week on every uncut tie in contact; since T-185 was applied
+         (the owner's Q3 (a), 2026-11-09) the row matches on sides too, so its baseline is this probe's
+         ``same_sides_mean`` and a cutoff with no uncut tie of its own sides is no longer matched at all.
+         ``uncut_mean`` keeps the probe's own meaning throughout — the mean over every uncut tie in contact, the
+         unmatched-on-sides baseline the probe was built to compare against — while ``readout_baseline`` is what the
+         row now reads and ``check`` holds it against ``same_sides_mean`` (learning-qa 2026-11-10: the check compared
+         it against ``uncut_mean`` and the probe exited on real seeds).
+         The baseline is also read on three subsets of those ties: the
          cutter's own other ties, the other member's own other ties, and the ties touching neither. If the cut tie's run
          is no longer than the cutter's other ties' runs, the difference comes from who cuts (a person-level term), not
          from the tie's own history. The probe also reports, for the cut tie and the baseline ties, the share of each
@@ -105,23 +112,12 @@ def rows_for_seed(seed: int, family: str = "phase_d") -> list[dict]:
         return (sum(1 for k in ks if k in subset) / len(ks)) if ks else None
 
     # a tie's sides at a week: how many of its members had sent any move but CUTOFF across it by then (week included,
-    # as the run's own window is)
-    first_sent: dict = {}
-    for r in records:
-        if not isinstance(r, EmittedRecord) or r.event.mechanism is not Mechanism.MOVE or r.event.sender is None:
-            continue
-        e = r.event
-        if e.kind == nr.CUTOFF:
-            continue
-        for t in e.targets:
-            if t == e.sender:
-                continue
-            key = (TieId.of(e.sender, t), e.sender)
-            if key not in first_sent or e.timestamp < first_sent[key]:
-                first_sent[key] = e.timestamp
+    # as the run's own window is). The readout computes this itself since T-185 was applied, so the probe reads its
+    # functions rather than keeping a second copy.
+    acted = nr.acted_across(records)
 
     def sides(tie, week):
-        return sum(1 for m in tie.members() if first_sent.get((tie, m), week + 1) <= week)
+        return nr.sides(acted, tie, week)
 
     out = []
     for f in firsts:
@@ -147,7 +143,8 @@ def rows_for_seed(seed: int, family: str = "phase_d") -> list[dict]:
         like_never = [t for t in like if t not in cut_weeks]
         out.append({
             "seed": seed, "week": f.week, "tie": str(f.tie), "cutter": str(a),
-            "run": f.run, "uncut_mean": f.uncut, "check": abs(_mean(standing.values()) - f.uncut) < 1e-9,
+            "run": f.run, "uncut_mean": _mean(standing.values()), "readout_baseline": f.uncut,
+            "check": abs(_mean(same) - f.uncut) < 1e-9,
             "cutter_other_mean": _mean(mine), "cutter_other_n": len(mine),
             "other_other_mean": _mean(theirs), "other_other_n": len(theirs),
             "neither_mean": _mean(neither), "neither_n": len(neither),
@@ -207,7 +204,8 @@ def summarise(rows: list[dict]) -> list[str]:
     if not rows:
         raise SystemExit("no rows")
     if not all(r["check"] for r in rows):
-        raise SystemExit("a row's baseline does not equal the readout's: the probe no longer reads what the row reads")
+        raise SystemExit("a row's same-sided mean does not equal the readout's baseline: the probe no longer reads "
+                         "what the row reads")
 
     def diff(a, b):
         return lambda r: r[a] - r[b] if r[a] is not None and r[b] is not None else None

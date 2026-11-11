@@ -8,11 +8,14 @@ Tests:   this file
 """
 from __future__ import annotations
 
+import pytest
+
 from src.bowen.engine.events import Channel, Event, EventId, Mechanism, SourcePosition
 from src.bowen.engine.identifiers import PersonId, TieId
 from src.bowen.engine.log_records import EffectRecord, EmittedRecord
 from src.bowen.io.load import load_event_kinds
-from src.bowen.readouts.negative_runs import arm_values, contacts, first_cutoff_runs, first_cutoffs, runs_by_week
+from src.bowen.readouts.negative_runs import (FirstCutoff, acted_across, arm_values, contacts, first_cutoff_runs,
+                                               first_cutoffs, runs_by_week, sides)
 
 KINDS = load_event_kinds()
 A, B, C, D, E, F = (PersonId(x) for x in "abcdef")
@@ -120,6 +123,42 @@ def test_m11c48_t123_an_unmatched_first_cutoff_is_left_out_of_both_arms_and_coun
     assert arm_values(firsts) == (2.0, 0.0) and unmatched(firsts) == 0
 
 
+def test_m11c48_t185_a_first_cutoff_cannot_disagree_with_its_own_exit():
+    """Each first cutoff is matched, no-contact, unmatched or unsided, and only one of them (spec revision 57), so the
+    flags are checked where the record is built: a record that says it is unmatched while a same-sided uncut tie stood
+    that week would be counted under no exit at all, and the four counts would not sum to the cutoffs (learnings P2).
+    Mutation: dropping the whole check lets such a record through, and `unmatched` + `no_contact` + `unsided` + the
+    matched ones no longer sum (measured 2026-11-10). It must be the whole check: either clause alone catches all four
+    of the records below, so removing one of the two leaves this test green, and neither clause is proved on its own."""
+    FirstCutoff(TieId.of(A, B), 3, 2, 1.0, 2)  # the matched default
+    FirstCutoff(TieId.of(A, B), 3, 0, 0.0, 0, matched=False, contact=False, any_uncut=False, sided=False)
+    FirstCutoff(TieId.of(A, B), 3, 2, 0.0, 0, matched=False, contact=True, any_uncut=False, sided=False)
+    FirstCutoff(TieId.of(A, B), 3, 2, 0.0, 0, matched=False, contact=True, any_uncut=True, sided=False)
+    for bad in ({"matched": False, "contact": True, "any_uncut": True, "sided": True},
+                {"matched": True, "contact": True, "any_uncut": True, "sided": False},
+                {"matched": True, "contact": False, "any_uncut": True, "sided": True},
+                {"matched": False, "contact": True, "any_uncut": False, "sided": True}):
+        with pytest.raises(ValueError):
+            FirstCutoff(TieId.of(A, B), 3, 2, 1.0, 2, **bad)
+
+
+def test_m11c48_t185_each_exits_left_out_runs_are_reported():
+    """A count says how many cutoffs an exit left out, not which way the drop moved an arm: on the Phase B family the
+    unsided drop leaves out runs shorter than the matched ones, which raises the treatment arm, and the unmatched drop
+    leaves out longer ones (learning-qa 2026-11-10, P2/P9). So the mean run of each exit's left-out cutoffs is
+    reported beside the arms. Here one cutoff is unmatched at a run of 5 and one unsided at a run of 1, and an exit
+    that left nothing out reads 0.0.
+    Mutation: reporting the matched cutoffs' mean, or pooling the two exits into one figure, reads 3.0 for both."""
+    from src.bowen.readouts.negative_runs import left_out_mean_run
+
+    firsts = [FirstCutoff(TieId.of(A, B), 3, 5, 0.0, 0, matched=False, contact=True, any_uncut=False, sided=False),
+              FirstCutoff(TieId.of(C, D), 4, 1, 0.0, 0, matched=False, contact=True, any_uncut=True, sided=False),
+              FirstCutoff(TieId.of(E, F), 5, 9, 2.0, 3)]
+    assert left_out_mean_run(firsts, "unmatched") == 5.0
+    assert left_out_mean_run(firsts, "unsided") == 1.0
+    assert left_out_mean_run(firsts[2:], "unsided") == 0.0 == left_out_mean_run(firsts[2:], "unmatched")
+
+
 def test_m11c48_t179_a_cut_tie_with_no_contact_is_left_out_of_both_arms_and_counted():
     """T-179 (the owner's option (a), 2026-11-02; learnings P7): the baseline reads an uncut tie only if it had a
     contact by the cutoff's week, so a first cutoff on a tie with no contact by its week is left out of both arms and
@@ -141,7 +180,7 @@ def test_m11c48_t179_each_first_cutoff_is_counted_once():
     contact and no tie in contact either: it counts as no-contact, not also as unmatched. c~d has a contact and no
     uncut tie in contact by week 2: unmatched. e~f, two conflicts, is cut at week 5 against the uncut tie a~d, in
     contact from week 3: matched."""
-    from src.bowen.readouts.negative_runs import no_contact, unmatched
+    from src.bowen.readouts.negative_runs import no_contact, unmatched, unsided
 
     AD = TieId.of(A, D)
     records = [act("CUTOFF", A, B, 1), act("CONFLICT", C, D, 2), act("CUTOFF", C, D, 2), act("CONFLICT", A, D, 3),
@@ -149,8 +188,56 @@ def test_m11c48_t179_each_first_cutoff_is_counted_once():
     firsts = first_cutoff_runs(records, KINDS)
     assert [(f.tie, f.contact, f.matched) for f in firsts] == [(AB, False, False), (CD, True, False), (EF, True, True)]
     assert (no_contact(firsts), unmatched(firsts), sum(f.matched for f in firsts)) == (1, 1, 1)
-    assert no_contact(firsts) + unmatched(firsts) + sum(f.matched for f in firsts) == len(firsts)
+    assert unsided(firsts) == 0  # T-185: a fourth way out, counted apart from the other two
+    assert (no_contact(firsts) + unmatched(firsts) + unsided(firsts)
+            + sum(f.matched for f in firsts) == len(firsts))
     assert arm_values(firsts) == (2.0, 1.0) and AD not in {f.tie for f in firsts}
+
+
+def test_m11c48_t185_a_ties_sides_are_the_members_who_acted_on_it_by_a_week():
+    """T-185: a tie's sides at a week are how many of its members had sent a move other than a `CUTOFF` across it by
+    then, the week included. a~b: A acts in week 1 and B in week 3, so the tie is one-sided in weeks 1 and 2 and
+    two-sided from week 3. A `CUTOFF` is not an act on the tie: c~d, where only C's move is a cutoff, stays one-sided."""
+    records = [act("CONFLICT", A, B, 1), act("STAY-IN-CONTACT", B, A, 3),
+               act("CONFLICT", D, C, 1), act("CUTOFF", C, D, 2)]
+    acted = acted_across(records)
+    assert [sides(acted, AB, w) for w in (0, 1, 2, 3, 9)] == [0, 1, 1, 2, 2]
+    assert [sides(acted, CD, w) for w in (1, 2, 9)] == [1, 1, 1]
+
+
+def test_m11c48_t185_the_baseline_reads_the_uncut_ties_with_as_many_sides():
+    """T-185 (the owner's Q3 (a) of 2026-11-09; learnings P7): the baseline reads only the uncut ties with as many
+    sides as the cut tie, since a cut tie is more often one both members act on and such ties hold longer runs. a~b
+    is two-sided (both A and B send conflicts) and is cut at week 5 on a run of 4. c~d is two-sided with a standing run
+    of 1; e~f is one-sided with a standing run of 3. The baseline is c~d's 1 alone, and the longest run reported beside
+    it is c~d's too. Read over both uncut ties it would be 2.0, which is what the readout gave before this change."""
+    from src.bowen.readouts.negative_runs import unsided
+
+    records = ([act("CONFLICT", A, B, w) for w in (1, 2, 3)] + [act("CONFLICT", B, A, 4), act("CUTOFF", A, B, 5)] +
+               [act("CONFLICT", C, D, 1), act("CONFLICT", D, C, 2), act("STAY-IN-CONTACT", C, D, 3),
+                act("CONFLICT", D, C, 4)] +
+               [act("CONFLICT", E, F, w) for w in (1, 2, 3)])
+    firsts = first_cutoff_runs(records, KINDS)
+    assert [(f.tie, f.run, f.uncut, f.longest_uncut, f.matched, f.sided) for f in firsts] == [(AB, 4, 1.0, 2, True, True)]
+    assert arm_values(firsts) == (4.0, 1.0) and unsided(firsts) == 0
+
+
+def test_m11c48_t185_a_cutoff_with_no_uncut_tie_of_its_sides_is_left_out_and_counted():
+    """T-185: a first cutoff with an uncut tie in its week but none with as many sides has no matched baseline. It is
+    left out of both arms and counted (``unsided``), as T-123's and T-179's cutoffs are, since reading it against ties
+    of other sides is the unmatched comparison the change removes. a~b is two-sided and cut at week 5; the only uncut
+    tie, e~f, is one-sided. c~d, two-sided and cut at week 9, is matched against e~f only if sides are ignored."""
+    from src.bowen.readouts.negative_runs import no_contact, unmatched, unsided
+
+    records = ([act("CONFLICT", A, B, w) for w in (1, 2, 3)] + [act("CONFLICT", B, A, 4), act("CUTOFF", A, B, 5)] +
+               [act("CONFLICT", C, D, 6), act("CONFLICT", D, C, 7), act("CUTOFF", C, D, 9)] +
+               [act("CONFLICT", E, F, w) for w in (1, 2, 3)])
+    firsts = first_cutoff_runs(records, KINDS)
+    assert [(f.tie, f.contact, f.any_uncut, f.sided, f.matched) for f in firsts] == [
+        (AB, True, True, False, False), (CD, True, True, False, False)]
+    assert arm_values(firsts) == (0.0, 0.0)  # no matched first cutoff on the seed: 0 in both arms
+    assert (unsided(firsts), unmatched(firsts), no_contact(firsts)) == (2, 0, 0)
+    assert unsided(firsts) + unmatched(firsts) + no_contact(firsts) + sum(f.matched for f in firsts) == len(firsts)
 
 
 def test_m11c48_t179_a_contact_in_the_cutoffs_week_counts_on_both_sides():

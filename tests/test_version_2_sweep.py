@@ -29,6 +29,7 @@ import tools.version_2_sweep as tool
 from tools.mutant_runner import apply
 from tools.record_cache import Cache
 from src.bowen.io.load import load_constants
+from src.bowen.scenario.constants import SCHEMA
 
 REPO = Path(__file__).resolve().parents[1]
 CONFIG_TEXT = REPO.joinpath("config", "sweep", "sweep.md").read_text(encoding="utf-8")
@@ -419,6 +420,31 @@ def test_s2_5_a_premise_is_never_swept(tmp_path):
 
 # --- S2.6 config ------------------------------------------------------------------------------------------------
 
+def test_m17e1_s2_6_the_two_cue_criteria_are_declared_with_their_credited_mechanisms():
+    """Spec revision 57, the version 2 definition plan's step 3: `M11.C.52` and `M11.C.55` were W4's two unswept keys,
+    and their ranges are declared here. Each set is the `[I]` constants registered under the mechanisms its criterion
+    row and its `M11.5` row credit, by `config/sweep/sweep.md`'s rule: `M4.C.6`'s reappraisal window and `M4.C.13`'s
+    six leak constants for `M11.C.52`, the learner's seven for `M11.C.55`, whose row credits learning from relief and
+    whose readout counts selected acts. No cue constant that no row credits is in either set (T-126's rule), and the
+    learner's seven are declared over the same ranges as every other criterion that reads them. Mutation: a cue
+    constant no row credits added to either set, or a learner range that departs from the others, fails here."""
+    _rules, ranges = sweep_config.load_config()
+    registered = {name: key.spec for name, key in SCHEMA.items()}
+    assert [r.constant for r in ranges["M11.C.52"]] == [
+        "reappraisal_window", "cue_leak_gain", "cue_leak_expectations_share", "cue_leak_distress_share",
+        "cue_tone_share", "cue_face_share", "cue_posture_share"]
+    assert {registered[r.constant] for r in ranges["M11.C.52"]} == {"M4.C.6", "M4.C.13"}
+    learner = [r.constant for r in ranges["M11.C.55"]]
+    assert learner == ["learning_rate", "credit_horizon", "credit_discount", "cross_person_weight",
+                       "policy_temperature", "habituation_rate", "habituation_window"]
+    assert {registered[c] for c in learner} == {"M4.D.6", "M4.D.6b", "M4.D.6e", "M4.D.1", "M4.G.3"}
+    elsewhere = {r.constant: (r.low, r.high, r.scale, r.bound) for r in ranges["M11.C.48[phase_d]"]}
+    elsewhere.update({r.constant: (r.low, r.high, r.scale, r.bound) for r in ranges["M11.C.16"]})
+    for r in ranges["M11.C.55"]:
+        assert (r.low, r.high, r.scale, r.bound) == elsewhere[r.constant], r.constant
+
+
+
 def test_s2_6_sweep_config_is_loaded_strictly_with_grades():
     """The committed config loads; each malformed form raises: a range that does not bracket the central value, a
     high above its bound, an unknown constant, a bad scale, a non-whole integer range, a missing grade, a duplicate
@@ -607,7 +633,7 @@ def test_s2_6_not_run_list_is_loaded_strictly():
 
 # --- S2.11 the committed record ---------------------------------------------------------------------------------
 
-@pytest.mark.xfail(strict=True, reason="T-202 (spec revision 55, D4, the owner 2026-11-07): the social cues moved the engine hash and this record is not rerun until the stage end or the owner's decision on the switch's default; with the switch off its rows cannot change, which the batch's regeneration of every other record shows")
+@pytest.mark.xfail(strict=True, reason="T-202 (spec revision 55, D4, the owner 2026-11-07) and T-185 (spec revision 57, 2026-11-10): the social cues and then `M11.C.48`'s matched baseline each moved the engine hash, and this record is not rerun until the stage end (the version 2 definition plan's step 7). Revision 55's rows could not change, the cue switch being off; revision 57's can, since it changed a readout that runs with the switch off and the record holds `M11.C.48`'s two keys, so this record is stale in substance and not only in its hash")
 def test_s2_11_sweep_record_is_current():
     """The committed sweep record is what the tool renders from the committed cache for the current engine and
     config, without running anything (P6); a stale cache or a changed range would raise here."""

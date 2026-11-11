@@ -2,11 +2,110 @@
 
 The entries of `CHANGELOG.md` dated before 2026-10-19, the day version 2 began at the tag `version-1`, moved
 here verbatim on 2026-10-22, the entries of 2026-10-19 and 2026-10-20 on 2026-10-23, and the entries of
-2026-10-21 later on 2026-10-23, the earliest entry of 2026-10-22 (the SP-1 proposal's eight questions) on 2026-10-24, and the next (SP-1 built, with spec revision 34) later on 2026-10-24, and the next (Model ergonomics, Parts A–C) on 2026-10-25, and the next (Model ergonomics, Part D) later on 2026-10-25, and the next (Model ergonomics, Part E) later on 2026-10-25, and the next (Model ergonomics follow-ups) later on 2026-10-25, and the next (the closed and old parts of `TODO.md` and `CHANGELOG.md` archived) on 2026-10-26, and the next (`TODO.md` an index over records; a changelog index) later on 2026-10-26, and the next (Revision 35's dispositions approved by the owner) later on 2026-10-26, and the next two (Spec revision 36, of 2026-10-22, and Revision 36's records regenerated, of 2026-10-23) later on 2026-10-26, and the next five (from the cloud sessions' SessionStart hook to Stage 2: Phase C's directional criteria swept, all of 2026-10-23) later on 2026-10-26, and the next three (from the night's decisions listed for the owner to Stage 2: Phase D part I's directional criteria swept, all of 2026-10-23) on 2026-10-27, and the next (Stage 2: the sweep can run on two Macs, of 2026-10-23) later on 2026-10-27, and the next (The two-Mac cross-check run live, of 2026-10-23) on 2026-10-28, and the next four (from Stage 2: Phase D part II's sweep ranges declared to When the full sweep runs, the last of 2026-10-23) on 2026-10-29, and the next three (from Stage 2: Phase D part II's seven criteria swept across two Macs to The stage 2 milestone review triaged, spec revision 38, the earliest of 2026-10-24) later on 2026-10-29, and the next five (from Version 2 stage 3's implementation plan drafted to Rule: a finished session writes the next session's brief, the last of 2026-10-24) on 2026-10-30, and the next (Stage 3 step 3: P2 (displaced coping) drafted with F1, probed, for the owner's approval, the earliest of 2026-10-25) on 2026-10-31, and the next three (from The two-Mac driver reaches Mac Mini1 through the `macmini1` alias to Stage 3 step 3: P2 and F1 probed together on Mac Mini1, all of 2026-10-25) later on 2026-10-31, and the next (Stage 3 step 4: spec revision 39, part 1 drafted (group C), for the owner's approval, of 2026-10-25) on 2026-11-01, and the next (Stage 3 step 4: spec revision 39, parts 2 and 3 drafted; revision 39 approved by the owner, of 2026-10-25) later on 2026-11-01, and the next (Stage 3 step 5: the tests first, red, of 2026-10-25) later on 2026-11-01, and the next (Stage 3 step 6: the batch's first commit, T-130's wording, T-014 and T-129, of 2026-10-25) later on 2026-11-01, and the next (Stage 3 step 7: group C, displaced coping, the floor-held ledger and lent functioning returned, of 2026-10-26) on 2026-11-03, and the next (Stage 3 step 8: group F, the I-position as a mixture of self-statement and demand, of 2026-10-26) on 2026-11-04, and the next (Stage 3 step 9: group A, contact returned by a relieved receiver and TRIANGLE with distance, of 2026-10-26) later on 2026-11-04, and the next (Stage 3 step 10: the sweep's named ratio, one regeneration, the open batch closed, of 2026-10-26) on 2026-11-05, and the next (Stage 3 step 11: the stage-end sweep with the named ratio, of 2026-10-27) later on 2026-11-05, and the next (Stage 3 step 12: the reviews of stage 3's whole diff, of 2026-10-27) later on 2026-11-05, and the next (Stage 3 milestone review triage: spec revision 40, wording only, of 2026-10-28) later on 2026-11-05, and the next (Stage 3 milestone review triage batch: spec revision 41, one regeneration, of 2026-10-28) on 2026-11-06, and the next (Stage 3's stage-end sweep on revision 41's engine; spec revision 42, wording only, of 2026-10-29) later on 2026-11-06, and the next (Version 2's definition: the plan, and version 2's dispositions, of 2026-10-29) later on 2026-11-06, and the next (The version 2 definition batch: spec revision 43, one regeneration, of 2026-10-30) later on 2026-11-06, and the next (The stage-end sweep on revision 43's engine, of 2026-10-30) later on 2026-11-06, and the next (Version 2's definition, step 7: Claude's recommendations for the owner's review; T-166, of 2026-10-30) later on 2026-11-06, and the next (Version 2's definition, step 7: the owner's decisions D1–D6, of 2026-10-31) later on 2026-11-06, and the next (Spec revision 44: the owner's D4 and D5, one regeneration, of 2026-10-31) later on 2026-11-06, and the next (The stage-end sweep on revision 44's engine; the owner's decisions on `M11.C.21` and `M11.C.17`, of 2026-11-01) on 2026-11-07, and the next (Version 2's W5 to W8: the owner's sign-offs; T-151, of 2026-11-01) later on 2026-11-07, and the next three (Version 2 tagged, T-173's learned limb under two mutants, both of 2026-11-01, and T-176: why `M11.C.48`'s direction is reversed, a trace (2026-11-02)) on 2026-11-09, and the next two (T-179: the owner's decision on `M11.C.48`'s readout, and the plan, of 2026-11-02, and Spec revision 47: `M11.C.48` reads both arms under one contact condition, of 2026-11-03) later on 2026-11-09, so that the live file stays short enough to read (`tests/test_doc_size.py` bounds its size). The heading below is the section they
+2026-10-21 later on 2026-10-23, the earliest entry of 2026-10-22 (the SP-1 proposal's eight questions) on 2026-10-24, and the next (SP-1 built, with spec revision 34) later on 2026-10-24, and the next (Model ergonomics, Parts A–C) on 2026-10-25, and the next (Model ergonomics, Part D) later on 2026-10-25, and the next (Model ergonomics, Part E) later on 2026-10-25, and the next (Model ergonomics follow-ups) later on 2026-10-25, and the next (the closed and old parts of `TODO.md` and `CHANGELOG.md` archived) on 2026-10-26, and the next (`TODO.md` an index over records; a changelog index) later on 2026-10-26, and the next (Revision 35's dispositions approved by the owner) later on 2026-10-26, and the next two (Spec revision 36, of 2026-10-22, and Revision 36's records regenerated, of 2026-10-23) later on 2026-10-26, and the next five (from the cloud sessions' SessionStart hook to Stage 2: Phase C's directional criteria swept, all of 2026-10-23) later on 2026-10-26, and the next three (from the night's decisions listed for the owner to Stage 2: Phase D part I's directional criteria swept, all of 2026-10-23) on 2026-10-27, and the next (Stage 2: the sweep can run on two Macs, of 2026-10-23) later on 2026-10-27, and the next (The two-Mac cross-check run live, of 2026-10-23) on 2026-10-28, and the next four (from Stage 2: Phase D part II's sweep ranges declared to When the full sweep runs, the last of 2026-10-23) on 2026-10-29, and the next three (from Stage 2: Phase D part II's seven criteria swept across two Macs to The stage 2 milestone review triaged, spec revision 38, the earliest of 2026-10-24) later on 2026-10-29, and the next five (from Version 2 stage 3's implementation plan drafted to Rule: a finished session writes the next session's brief, the last of 2026-10-24) on 2026-10-30, and the next (Stage 3 step 3: P2 (displaced coping) drafted with F1, probed, for the owner's approval, the earliest of 2026-10-25) on 2026-10-31, and the next three (from The two-Mac driver reaches Mac Mini1 through the `macmini1` alias to Stage 3 step 3: P2 and F1 probed together on Mac Mini1, all of 2026-10-25) later on 2026-10-31, and the next (Stage 3 step 4: spec revision 39, part 1 drafted (group C), for the owner's approval, of 2026-10-25) on 2026-11-01, and the next (Stage 3 step 4: spec revision 39, parts 2 and 3 drafted; revision 39 approved by the owner, of 2026-10-25) later on 2026-11-01, and the next (Stage 3 step 5: the tests first, red, of 2026-10-25) later on 2026-11-01, and the next (Stage 3 step 6: the batch's first commit, T-130's wording, T-014 and T-129, of 2026-10-25) later on 2026-11-01, and the next (Stage 3 step 7: group C, displaced coping, the floor-held ledger and lent functioning returned, of 2026-10-26) on 2026-11-03, and the next (Stage 3 step 8: group F, the I-position as a mixture of self-statement and demand, of 2026-10-26) on 2026-11-04, and the next (Stage 3 step 9: group A, contact returned by a relieved receiver and TRIANGLE with distance, of 2026-10-26) later on 2026-11-04, and the next (Stage 3 step 10: the sweep's named ratio, one regeneration, the open batch closed, of 2026-10-26) on 2026-11-05, and the next (Stage 3 step 11: the stage-end sweep with the named ratio, of 2026-10-27) later on 2026-11-05, and the next (Stage 3 step 12: the reviews of stage 3's whole diff, of 2026-10-27) later on 2026-11-05, and the next (Stage 3 milestone review triage: spec revision 40, wording only, of 2026-10-28) later on 2026-11-05, and the next (Stage 3 milestone review triage batch: spec revision 41, one regeneration, of 2026-10-28) on 2026-11-06, and the next (Stage 3's stage-end sweep on revision 41's engine; spec revision 42, wording only, of 2026-10-29) later on 2026-11-06, and the next (Version 2's definition: the plan, and version 2's dispositions, of 2026-10-29) later on 2026-11-06, and the next (The version 2 definition batch: spec revision 43, one regeneration, of 2026-10-30) later on 2026-11-06, and the next (The stage-end sweep on revision 43's engine, of 2026-10-30) later on 2026-11-06, and the next (Version 2's definition, step 7: Claude's recommendations for the owner's review; T-166, of 2026-10-30) later on 2026-11-06, and the next (Version 2's definition, step 7: the owner's decisions D1–D6, of 2026-10-31) later on 2026-11-06, and the next (Spec revision 44: the owner's D4 and D5, one regeneration, of 2026-10-31) later on 2026-11-06, and the next (The stage-end sweep on revision 44's engine; the owner's decisions on `M11.C.21` and `M11.C.17`, of 2026-11-01) on 2026-11-07, and the next (Version 2's W5 to W8: the owner's sign-offs; T-151, of 2026-11-01) later on 2026-11-07, and the next three (Version 2 tagged, T-173's learned limb under two mutants, both of 2026-11-01, and T-176: why `M11.C.48`'s direction is reversed, a trace (2026-11-02)) on 2026-11-09, and the next two (T-179: the owner's decision on `M11.C.48`'s readout, and the plan, of 2026-11-02, and Spec revision 47: `M11.C.48` reads both arms under one contact condition, of 2026-11-03) later on 2026-11-09, and the next two (The full sweep on revision 47's engine, of 2026-11-04, and The emergence audit, built, and its pilot; spec revision 48 adds `M11.1g`, of 2026-11-03) on 2026-11-10, and the next (The emergence audit's step 4: L0 on every in-scope row, of 2026-11-04) later on 2026-11-10 and the next (The emergence audit's carriers of the 10 L0 survivors, after T-184's fixes, of 2026-11-04) later on 2026-11-10, so that the live file stays short enough to read (`tests/test_doc_size.py` bounds its size). The heading below is the section they
 were under; nothing in this file is reworded. Later entries are in `CHANGELOG.md`.
 
 ## [Unreleased] — 2026-10-11
 
+### The emergence audit's carriers of the 10 L0 survivors, after T-184's fixes (T-182, T-184) (2026-11-04)
+
+- **What.** T-184: `tools/emergence_audit.py` records NumPy in its cache's `_meta` and refuses a mismatch (the sweep's
+  `check_numpy`); `tools/merge_cache.py` refuses a merge while an audit, not only a sweep, runs here; `--criteria`
+  runs one machine's share of the rows, `--candidates` one row's share of its carriers, and a share flushes the
+  cache without pruning and writes no record; `--render-only` runs nothing. The 15 committed results, unstamped,
+  were stamped NumPy 1.26.4 once by hand, as the sweep's cache was on 2026-10-23 (both Macs measured at 1.26.4).
+  A new stage `carriers` runs L0 on every in-scope row and the controls and the carriers of each L0 survivor, with
+  no L1–L4 (the owner's choice of 2026-11-04); the config is set to it. No file under `src/bowen/` or
+  `config/bowen/` changed; the engine hash did not move (`0b363cb3186c`, Phase D `020160abb6db`).
+- **The run.** Plan §7 step 6: 113 joint mutants, split across both Macs, 15:19 to 17:19 (Mac Mini1
+  `M11.C.48[phase_d]`'s C1–C4 and `M11.C.15` at 10 workers; this Mac the rest at 8 under `nice -n 15`). Both shares
+  exited 0; the merge added Mac Mini1's 12 results and found 15 equal; no worker was left on either Mac.
+- **Result.** Nine survivors have at least one carrier; `M11.C.48[phase_d]` has none among its seven candidates,
+  though its `M11.5` note says it comes from `CUTOFF`'s learned value. Each row's carriers against its `M11.5` note,
+  and one proposed T-item per survivor, are in the T-182 record; the owner orders the triage.
+- **Tests.** `test_m111g_ea12_carriers_stage_runs_l0_and_carriers_and_no_l1_to_l4` and seven `test_t184_…` tests in
+  `tests/test_emergence_audit.py`, each proved red by its mutation (fourteen mutations);
+  `test_m111g_ea12_the_config_is_parsed_strictly` takes the new stage. 1335 tests: 1333 pass, 2 strict xfail.
+- **Reviews.** learning-qa and a correctness pass on the diff, no high-confidence defect. Fixed: the running check's
+  pattern matched the test files' names (now the name must start a word or follow a slash); `--render-only` raised a
+  bare `KeyError` on a missing result (now a message, and no record written); a share's L0 gate, `--render-only` and
+  the argument refusals had no test. Left: a refused share still rewrites the cache file unchanged, with its NumPy
+  version; `--probe` takes precedence over the other options.
+- **Documents.** `docs/emergence_audit_record.md` and its cache, `config/audit/emergence_audit.md`,
+  `docs/two_mac_sweep.md` (*The emergence audit*), the plan's status line, the T-182 and T-184 record (T-184 ticked),
+  `TODO.md`, `docs/TODO_archive.md`, `CLAUDE.md`, `README.md`, `docs/theory/_STATUS.md`, `docs/model_explainer.md`,
+  `docs/REVIEWER_READING_LIST.md`, `docs/SPEC_REVIEW_CHECKLIST.md`; `docs/CHANGELOG_archive.md` (stage 3 step 9's
+  entry moved there verbatim, for the size limit); `docs/spec_index.jsonl` and
+  `docs/spec_coverage.md` regenerated for the new tests; step 4's suite size added to `tests/doc_claims.json`'s
+  history.
+
+### The emergence audit's step 4: L0 on every in-scope row (T-182) (2026-11-04)
+
+- **What.** `docs/plan_v3_emergence_audit.md` §7 step 4, the owner's choice of 2026-11-03 (L0 first). A new stage
+  `l0` in `tools/emergence_audit.py` and `config/audit/emergence_audit.md` runs L0 on every in-scope row and the two
+  controls, with no L1–L4 and no carriers; the config is set to it. On `0b363cb3186c` (Phase D `020160abb6db`), split
+  across both Macs: Mac Mini1 ran `M11.C.10[family of origin]` and `M11.C.2[twelve-person family]` at 10 workers
+  (43 min); this Mac the eight other uncached rows at 8 under `nice -n 15` (6 min); the pilot's five results were
+  reused. No file under `src/bowen/` or `config/bowen/` changed; the engine hash did not move.
+- **Result.** Both controls hold, and both L0 twins agree with the mutation records. 10 of 13 rows survive L0;
+  `M11.C.34`, `M11.C.10[family of origin]` and `M11.C.2[twelve-person family]` go red. A survivor is evidence for
+  triage, not a defect; its carriers are not run yet.
+- **The merge.** The audit's cache records no NumPy version, so `tools/merge_cache.py` refuses it (T-184). Both
+  interpreters were measured at NumPy 1.26.4; `merge_cache.merge` was run on scratch copies stamped with that version,
+  for its conflict check, and the union written back unstamped. The row runner's `Cache.save` kept only the keys it
+  read, which dropped the pilot's five results from the file; they were merged back from the committed file through
+  the same check (0 conflicts).
+- **Tests.** `test_m111g_ea12_l0_stage_runs_l0_on_every_row_and_nothing_else`, proved red by three mutations (L1–L4
+  run at `l0`, carriers run at `l0`, the *not run* line dropped); `test_m111g_ea12_the_config_is_parsed_strictly`
+  takes the new stage. 1327 tests: 1325 pass, 2 strict xfail.
+- **Documents.** `docs/emergence_audit_record.md` and its cache, `config/audit/emergence_audit.md`, the plan's status
+  line, the T-182 record (and T-184, new), `TODO.md`, `CLAUDE.md`, `README.md`, `docs/theory/_STATUS.md`,
+  `docs/model_explainer.md`, `docs/REVIEWER_READING_LIST.md`, `docs/SPEC_REVIEW_CHECKLIST.md`; `docs/spec_index.jsonl`
+  and `docs/spec_coverage.md` regenerated for the new test; T-181's suite size added to `tests/doc_claims.json`'s
+  history.
+
+### The full sweep on revision 47's engine (T-181) (2026-11-04)
+
+- **What.** `tools/version_2_sweep.py` over all 34 declared keys on `0b363cb3186c` (Phase D `020160abb6db`), split
+  across both Macs (`docs/two_mac_sweep.md`): a cross-check on `M11.C.16` and `M11.C.23` first (the merge added 0 and
+  found 510 equal), then Mac Mini1 ran `M11.C.6`, `M11.C.10`, `M11.C.10[family of origin]` and `M11.C.15` at 10
+  workers and this Mac the other 30 at 8 under `nice -n 15`, 19:02 to 05:51. The merge added Mac Mini1's 47 entries
+  and found 510 equal. No file under `src/bowen/` or `config/bowen/` changed; the engine hash did not move.
+- **Result.** Only `M11.C.48` (0 → 3 of 8 held; central FAIL) and `M11.C.48[phase_d]` (0 → 8 of 8; central PASS)
+  moved against revision 44's sweep; both had been run into the cache at T-179. Every other key's samples are
+  unchanged. `docs/version_2_status.md` now shows W4 met.
+- **Tests.** `test_s2_11_sweep_record_is_current` lost its strict xfail mark: 1326 tests, 1324 pass, 2 strict xfail.
+- **Documents.** `docs/version_2_sweep_record.md` and its cache, `docs/version_2_status.md` (regenerated),
+  `docs/two_mac_sweep.md` (status line and *Not verified*), T-181 ticked, `TODO.md`, `CLAUDE.md`, `README.md`,
+  `docs/theory/_STATUS.md`, `docs/REVIEWER_READING_LIST.md`, `docs/SPEC_REVIEW_CHECKLIST.md`, and the emergence
+  audit plan's status line (its step 4, L0 only, can start; steps 5–6 wait for the owner after L0).
+
+### The emergence audit, built, and its pilot; spec revision 48 adds `M11.1g` (T-182) (2026-11-03)
+
+- **What.** `docs/plan_v3_emergence_audit.md` §7 steps 1–3: `tools/emergence_audit.py`, `config/audit/emergence_audit.md`
+  and `tests/test_emergence_audit.py` (EA-1 to EA-15; EA-16 is `tests/test_doc_checklist.py`). Spec revision 48 adds
+  `M11.1g`; the plan called it `M11.1f`, which already held the missing-move rule. Wording only: the engine hash stays
+  `0b363cb3186c` (Phase D `020160abb6db`).
+- **Proved.** Each test was turned red by the mutation plan §6 names, in a copy of the tree: all 16 red (EA-2 by
+  `apply`'s SystemExit; EA-13 and EA-15 by a KeyError in the fixture build, since the changed key or the premise row
+  finds no cached result; EA-6 used `witness_window` 13 → 12).
+- **The pilot** (this Mac, `nice -n 15`, 8 workers, 28 min): both controls hold (`M11.C.39` red under L0 with
+  identical arms, `M11.C.3` survives), and L0's `M11.C.39` row agrees with `learning-off-in-both-arms`. All three pilot
+  rows **survive L0**: `M11.C.27[unstable,remove_one]`, `M11.C.41[light: lower level]` and `M11.C.48[phase_d]`
+  (`negative_run` +0.245 ± 0.076 with learning off, at 200 seeds, T-180). `M11.C.48[phase_d]` alone took about 23.5
+  min, about 17,700 seed-ticks a minute against the plan's 19,000. Carriers were not run (the full stage).
+- **Review fixes** (learning-qa and one correctness pass, before push; the record re-rendered from the cache, nothing
+  rerun). A mixed row with no premise limbs declared in `premise_limbs()` (`M11.C.41`, `M11.C.34`, `M11.C.11`, pending
+  the owner) now says in its note that it is judged on every limb. A Phase C mixed row with premise limbs is refused up
+  front, because the Phase C child prints no `p`. An equivalence limb without `within_bound` raises. A control that
+  failed to run is reported as not run rather than blamed on the ablation, and the positive control needs a real FAIL.
+  A carrier needs a FAIL: a RAISED or UNDETERMINED row is listed but not named. The agreement check raises if plan §2's
+  two L0 twins drift, and its disagreement path is tested. Config tables raise on a wrong cell count or a duplicate
+  row. Not changed: the Holm family for a mixed row includes the premise limbs, as the runner's does (now stated in
+  the docstring).
+- **Documents.** The spec, `docs/spec_revision_log.md`, `docs/spec_index.jsonl`, `docs/spec_rules/`,
+  `docs/model_explainer.md` §18.6 and §19.6, `docs/SPEC_REVIEW_CHECKLIST.md`, `docs/REVIEWER_READING_LIST.md` §5 and
+  §7, the plan's status line, `docs/theory/_STATUS.md`, T-180 and T-182.
 ### Spec revision 47: `M11.C.48` reads both arms under one contact condition (T-179, with T-177) (2026-11-03)
 
 - **What.** The plan `docs/plan_t179_negative_run_contact_condition.md`, built. `first_cutoff_runs` tests contact with

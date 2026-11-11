@@ -13,7 +13,10 @@ Tests:   tests/bowen/test_negative_runs.py::test_m11c48_run_before_the_first_cut
          tests/bowen/test_negative_runs.py::test_m11c48_members_filter_and_no_cutoff_seed,
          tests/bowen/test_negative_runs.py::test_m11c48_t179_a_cut_tie_with_no_contact_is_left_out_of_both_arms_and_counted,
          tests/bowen/test_negative_runs.py::test_m11c48_t179_each_first_cutoff_is_counted_once,
-         tests/bowen/test_negative_runs.py::test_m11c48_t179_a_contact_in_the_cutoffs_week_counts_on_both_sides
+         tests/bowen/test_negative_runs.py::test_m11c48_t179_a_contact_in_the_cutoffs_week_counts_on_both_sides,
+         tests/bowen/test_negative_runs.py::test_m11c48_t185_a_ties_sides_are_the_members_who_acted_on_it_by_a_week,
+         tests/bowen/test_negative_runs.py::test_m11c48_t185_the_baseline_reads_the_uncut_ties_with_as_many_sides,
+         tests/bowen/test_negative_runs.py::test_m11c48_t185_a_cutoff_with_no_uncut_tie_of_its_sides_is_left_out_and_counted
 
 The definitions, `[I]` (`docs/readouts_phase_c.md`, "Negative runs"; the proposal
 `docs/PROPOSAL — CUTOFF ANXIETY, BRIDGING AND REPAIR.md` §4, the owner's D12):
@@ -37,9 +40,16 @@ The definitions, `[I]` (`docs/readouts_phase_c.md`, "Negative runs"; the proposa
   toward a pass (learnings P7; T-123, spec revision 43);
 * a first cutoff on a tie with **no contact** by its week is left out of both arms and counted (``no_contact``): the
   baseline reads an uncut tie only if it had a contact by that week, so the cut tie is read under the same condition,
-  not at a run of 0 (learnings P7; T-179, the owner's option (a), spec revision 47). Each first cutoff is matched,
-  unmatched or no-contact, and only one of them. Uncut ties with no contact are not counted: that needs the week from
-  which each tie existed (T-179's option (b), not chosen).
+  not at a run of 0 (learnings P7; T-179, the owner's option (a), spec revision 47). Uncut ties with no contact are not
+  counted: that needs the week from which each tie existed (T-179's option (b), not chosen);
+* a tie's **sides** at a week are how many of its members had sent a move other than a ``CUTOFF`` across it by then
+  (``acted_across``, ``sides``): 2 on a tie both members act on, 1 on a tie only one of them does. The baseline reads
+  only the uncut ties with as many sides as the cut tie, since a cut tie is more often one both members act on and such
+  ties hold longer runs, so unmatched arms carry part of the difference (learnings P7; T-185's measurement,
+  `tools/c48_carrier_probe.py`; the owner's Q3 (a) of 2026-11-09,
+  `docs/implementation_plan_version_2_definition.md`). A first cutoff with an uncut tie in its week but none of its
+  sides is left out of both arms and counted (``unsided``). Each first cutoff is matched, no-contact, unmatched or
+  unsided, and only one of them.
 """
 
 from __future__ import annotations
@@ -73,6 +83,19 @@ class FirstCutoff:
     longest_uncut: int  # reported only: the longest run those ties reached within the window
     matched: bool = True  # False when no tie was uncut in the cutoff's week (T-123) or the tie had no contact (T-179)
     contact: bool = True  # False when the cut tie had no contact by the cutoff's week: left out of both arms (T-179)
+    any_uncut: bool = True  # False when no tie was uncut and in contact in the cutoff's week (T-123)
+    sided: bool = True  # False when no such tie had as many sides as the cut tie: left out of both arms (T-185)
+
+    def __post_init__(self) -> None:
+        """`M11.C.48`: each first cutoff is matched, no-contact, unmatched or unsided, and only one of them, so the
+        flags cannot disagree — a baseline exists exactly when the tie was in contact and a same-sided uncut tie stood
+        that week, and a same-sided tie is an uncut one. A record that says otherwise would be counted under no exit
+        at all (learnings P2)."""
+        if self.sided and not self.any_uncut:
+            raise ValueError("a same-sided uncut tie is an uncut tie (M11.C.48)")
+        if self.matched != (self.contact and self.sided):
+            raise ValueError("a first cutoff is matched exactly when its tie was in contact and a same-sided uncut "
+                             "tie stood that week (M11.C.48)")
 
 
 def contacts(records, kinds: EventKinds, members: frozenset[PersonId] | None = None) -> list[Contact]:
@@ -150,15 +173,46 @@ def in_contact(runs: list[tuple[int, int]], week: int) -> bool:
     return any(w <= week for w, _ in runs)
 
 
+def acted_across(records) -> dict[tuple[TieId, PersonId], int]:
+    """Purpose: the first week each person sent a move other than a ``CUTOFF`` across each tie — what a tie's sides are
+    read from (T-185's measurement, `tools/c48_carrier_probe.py`).
+    Spec:    docs/bowen_agent_model_spec_v2.md#M11.C.48
+    Tests:   tests/bowen/test_negative_runs.py::test_m11c48_t185_a_ties_sides_are_the_members_who_acted_on_it_by_a_week
+    """
+    first: dict[tuple[TieId, PersonId], int] = {}
+    for r in records:
+        if not isinstance(r, EmittedRecord) or r.event.mechanism is not Mechanism.MOVE or r.event.sender is None:
+            continue
+        e = r.event
+        if e.kind == CUTOFF:
+            continue  # the cutoff is not an act on the tie the run precedes
+        for target in e.targets:
+            if target == e.sender:
+                continue
+            key = (TieId.of(e.sender, target), e.sender)
+            if key not in first or e.timestamp < first[key]:
+                first[key] = e.timestamp
+    return first
+
+
+def sides(acted: dict[tuple[TieId, PersonId], int], tie: TieId, week: int) -> int:
+    """How many of a tie's members had acted on it by ``week``, the week included, as the run's own window is: 2 on a
+    tie both members act on, 1 on a tie only one of them does (T-185)."""
+    return count(1 for m in tie.members() if acted.get((tie, m), week + 1) <= week)
+
+
 def first_cutoff_runs(records, kinds: EventKinds, members: frozenset[PersonId] | None = None,
                       declared_cut: frozenset[TieId] = frozenset()) -> list[FirstCutoff]:
     """Purpose: each tie's first cutoff with the negative run before it, the mean run standing in that week on the
     seed's ties not cut off by then (the baseline), and the longest run those ties reached in the window (reported).
     A tie the family declares cut off (``declared_cut``) has no first cutoff in the run and is not an uncut tie
     either: it is left out on both sides. A tie with no contact in the window is not an uncut tie in it, and a first
-    cutoff on a tie with no contact by its week is not matched (T-179).
+    cutoff on a tie with no contact by its week is not matched (T-179). The baseline reads only the uncut ties with as
+    many sides as the cut tie, and the longest run is reported over those same ties; a cutoff with none of its sides is
+    not matched (T-185, the owner's Q3 (a) of 2026-11-09).
     Spec:    docs/bowen_agent_model_spec_v2.md#M11.C.48
     Tests:   tests/bowen/test_negative_runs.py::test_m11c48_run_before_the_first_cutoff_against_uncut_ties,
+             tests/bowen/test_negative_runs.py::test_m11c48_t185_the_baseline_reads_the_uncut_ties_with_as_many_sides,
              tests/bowen/test_negative_runs.py::test_m11c48_a_declared_cut_off_tie_is_left_out_on_both_sides,
              tests/bowen/test_negative_runs.py::test_m11c48_t179_a_cut_tie_with_no_contact_is_left_out_of_both_arms_and_counted,
              tests/bowen/test_negative_runs.py::test_m11c48_t179_a_contact_in_the_cutoffs_week_counts_on_both_sides
@@ -169,25 +223,30 @@ def first_cutoff_runs(records, kinds: EventKinds, members: frozenset[PersonId] |
             per_tie[c.tie].append(c)
     runs = {tie: runs_by_week(cs) for tie, cs in per_tie.items()}
     cutoffs = {t: w for t, w in first_cutoffs(records, members).items() if t not in declared_cut}
+    acted = acted_across(records)
     out = []
     for tie, week in sorted(cutoffs.items(), key=lambda kv: (kv[1], str(kv[0]))):
         own = run_at(runs.get(tie, []), week + 1)  # contacts in the cutoff's week count (same-week batch, M1.F.8)
         uncut = [t for t in sorted(runs, key=str) if t != tie and (t not in cutoffs or cutoffs[t] > week)
                  and in_contact(runs[t], week)]
-        standing = [run_at(runs[t], week + 1) for t in uncut]
+        same = [t for t in uncut if sides(acted, t, week) == sides(acted, tie, week)]
+        standing = [run_at(runs[t], week + 1) for t in same]
         mean = math.fsum(standing) / len(standing) if standing else 0.0
-        longest = max((longest_run_within(runs[t], week) for t in uncut), default=0)
+        longest = max((longest_run_within(runs[t], week) for t in same), default=0)
         contact = in_contact(runs.get(tie, []), week)
-        out.append(FirstCutoff(tie, week, own, mean, longest, contact and bool(standing), contact))
+        out.append(FirstCutoff(tie, week, own, mean, longest, contact and bool(standing), contact,
+                               bool(uncut), bool(same)))
     return out
 
 
 def arm_values(firsts: list[FirstCutoff]) -> tuple[float, float]:
     """`M11.C.48`'s two arms for one seed: the mean run before its matched first cutoffs (treatment) and the mean of
     the uncut ties' standing runs in those weeks (baseline). A first cutoff with no uncut tie in its week is left out of
-    both (T-123; ``unmatched`` counts it), and so is one on a tie with no contact by its week (T-179; ``no_contact``
-    counts it). A seed with no matched cutoff gives 0 in both arms, and is counted (``M11.C.48``'s report-only
-    ``matched_seed`` is 0 on it, learning-qa 2026-11-02)."""
+    both (T-123; ``unmatched`` counts it), one on a tie with no contact by its week (T-179; ``no_contact`` counts it),
+    and one with no uncut tie of its own sides (T-185; ``unsided`` counts it). A seed with no matched cutoff gives 0
+    in both arms, and is counted (``M11.C.48``'s report-only
+    ``matched_seed`` is 0 on it, learning-qa 2026-11-02). The mean run of the cutoffs each exit leaves out is
+    reported beside the arms by ``left_out_mean_run``."""
     matched = [f for f in firsts if f.matched]
     if not matched:
         return 0.0, 0.0
@@ -197,12 +256,39 @@ def arm_values(firsts: list[FirstCutoff]) -> tuple[float, float]:
 
 def unmatched(firsts: list[FirstCutoff]) -> int:
     """Purpose: how many first cutoffs on a tie in contact had no uncut tie in their week, so were left out of both
-    arms (T-123); a cutoff with no contact is counted by ``no_contact`` instead (T-179).
+    arms (T-123); a cutoff with no contact is counted by ``no_contact`` instead (T-179), and one whose uncut ties all
+    had a different number of sides by ``unsided`` (T-185).
     Spec:    docs/bowen_agent_model_spec_v2.md#M11.C.48
     Tests:   tests/bowen/test_negative_runs.py::test_m11c48_t123_an_unmatched_first_cutoff_is_left_out_of_both_arms_and_counted,
              tests/bowen/test_negative_runs.py::test_m11c48_t179_each_first_cutoff_is_counted_once
     """
-    return count(1 for f in firsts if f.contact and not f.matched)
+    return count(1 for f in firsts if f.contact and not f.any_uncut)
+
+
+def unsided(firsts: list[FirstCutoff]) -> int:
+    """Purpose: how many first cutoffs on a tie in contact had an uncut tie in their week but none with as many sides,
+    so were left out of both arms (T-185); none of them is also counted as unmatched or no-contact.
+    Spec:    docs/bowen_agent_model_spec_v2.md#M11.C.48
+    Tests:   tests/bowen/test_negative_runs.py::test_m11c48_t185_a_cutoff_with_no_uncut_tie_of_its_sides_is_left_out_and_counted,
+             tests/bowen/test_negative_runs.py::test_m11c48_t179_each_first_cutoff_is_counted_once
+    """
+    return count(1 for f in firsts if f.contact and f.any_uncut and not f.sided)
+
+
+def left_out_mean_run(firsts: list[FirstCutoff], exit: str) -> float:
+    """Purpose: the mean negative run before the first cutoffs one exit left out of the arms, reported beside the
+    verdict so a drop that selects on the run itself is visible and not only counted (learning-qa 2026-11-10, P2/P9).
+    A count alone cannot say which way a drop moved an arm: on the Phase B family the unsided drop (T-185) leaves out
+    runs shorter than the matched ones, which raises the treatment arm, while the unmatched drop (T-123) leaves out
+    longer ones. ``exit`` is "unmatched" or "unsided"; a no-contact cutoff stands on a run of 0 by construction
+    (T-179), so there is nothing to report for it. A seed whose exit left nothing out reads 0.0.
+    Spec:    docs/bowen_agent_model_spec_v2.md#M11.C.48
+    Tests:   tests/bowen/test_negative_runs.py::test_m11c48_t185_each_exits_left_out_runs_are_reported
+    """
+    left = {"unmatched": lambda f: f.contact and not f.any_uncut,
+            "unsided": lambda f: f.contact and f.any_uncut and not f.sided}[exit]
+    out = [f.run for f in firsts if left(f)]
+    return math.fsum(out) / len(out) if out else 0.0
 
 
 def no_contact(firsts: list[FirstCutoff]) -> int:

@@ -257,7 +257,8 @@ def test_m11c48_cutoffs_follow_negative_runs_in_the_twelve_person_family():
 def test_m11c48_reads_the_run_before_the_first_cutoff():
     """The treatment arm is the mean negative run straight before each tie's first cutoff, the baseline the mean run
     standing in those weeks on the matched uncut ties; both arms read the same run of the same seed, and a seed with
-    no cutoff reads 0 in both and is counted (``negative_runs.arm_values``)."""
+    no cutoff reads 0 in both and is counted (``negative_runs.arm_values``). Since spec revision 57 a fourth count
+    rides on the treatment arm: the cutoffs whose uncut ties were none of them of its own sides (T-185)."""
     from src.bowen.ensemble.criteria_d2 import arm_c48, negative_run_values
     from src.bowen.readouts.negative_runs import FirstCutoff, arm_values
 
@@ -265,7 +266,8 @@ def test_m11c48_reads_the_run_before_the_first_cutoff():
     assert arm_values(firsts) == (2.0, 1.5) and arm_values([]) == (0.0, 0.0)
     settings = {"weeks": 104}
     base, treat = arm_c48("baseline", 7, settings), arm_c48("treatment", 7, settings)
-    run, uncut, firsts_n, alone, silent, read, _ = negative_run_values("phase_c", 7, 104)
+    (run, uncut, firsts_n, alone, silent, lopsided, read, alone_run, lopsided_run,
+     _) = negative_run_values("phase_c", 7, 104)
     assert treat.readouts["negative_run"] == run == treat.readouts["run_before_cutoff"]
     assert base.readouts["negative_run"] == uncut and base.readouts["run_before_cutoff"] == 0.0
     assert base.readouts["first_cutoffs"] == treat.readouts["first_cutoffs"] == float(firsts_n)
@@ -273,25 +275,34 @@ def test_m11c48_reads_the_run_before_the_first_cutoff():
     assert treat.readouts["unmatched_cutoffs"] == float(alone) and base.readouts["unmatched_cutoffs"] == 0.0
     # T-179: a first cutoff on a tie with no contact by its week is counted on the treatment arm, as unmatched is
     assert treat.readouts["no_contact_cutoffs"] == float(silent) and base.readouts["no_contact_cutoffs"] == 0.0
+    # T-185: and so are the cutoffs with uncut ties but none of the cut tie's sides
+    assert treat.readouts["unsided_cutoffs"] == float(lopsided) and base.readouts["unsided_cutoffs"] == 0.0
+    # learning-qa 2026-11-10 (P2/P9): the mean run of the cutoffs each exit left out rides beside the counts, so a
+    # drop that selects on the run itself is visible and not only counted
+    assert treat.readouts["unmatched_left_out_run"] == alone_run and base.readouts["unmatched_left_out_run"] == 0.0
+    assert treat.readouts["unsided_left_out_run"] == lopsided_run and base.readouts["unsided_left_out_run"] == 0.0
     # a seed whose first cutoffs are all left out reads 0 in both arms; matched_seed shows how many seeds the arms read
     assert read and treat.readouts["matched_seed"] == 1.0 and base.readouts["matched_seed"] == 0.0
     for cid in ("M11.C.48", "M11.C.48[phase_d]"):
         assert CRITERIA_D2[cid].seeds == 200 and CRITERIA_D2[cid].cls == "composite"  # T-163
         assert [(r.name, r.direction, r.report_only) for r in CRITERIA_D2[cid].readouts] == [
             ("negative_run", +1, False), ("run_before_cutoff", +1, True), ("first_cutoffs", +1, True),
-            ("unmatched_cutoffs", +1, True), ("no_contact_cutoffs", +1, True), ("matched_seed", +1, True)]
+            ("unmatched_cutoffs", +1, True), ("no_contact_cutoffs", +1, True), ("unsided_cutoffs", +1, True),
+            ("unmatched_left_out_run", +1, True), ("unsided_left_out_run", +1, True), ("matched_seed", +1, True)]
 
 
 def test_m11c48_t179_a_seed_whose_cutoffs_are_all_left_out_reads_0_and_is_counted():
-    """T-179 (learning-qa, 2026-11-02, P2/P9): a seed whose first cutoffs are all unmatched or no-contact reads 0 in
-    both arms, so ``matched_seed`` reads 0 on it and its mean over seeds is the share the arms read; each count is its
-    own. The readout is replaced by one no-contact cutoff and one unmatched cutoff on seed 7's run. Mutations: reading
-    ``matched_seed`` as ``bool(firsts)`` or as a constant 1 fails here."""
+    """T-179 (learning-qa, 2026-11-02, P2/P9): a seed whose first cutoffs are all left out reads 0 in both arms, so
+    ``matched_seed`` reads 0 on it and its mean over seeds is the share the arms read; each count is its own. The
+    readout is replaced by one no-contact cutoff, one unmatched cutoff and, since spec revision 57, one unsided cutoff
+    on seed 7's run. Mutations: reading ``matched_seed`` as ``bool(firsts)`` or as a constant 1, or folding the unsided
+    count into the unmatched one, fails here."""
     from src.bowen.ensemble.criteria_d2 import arm_c48, negative_run_values
     from src.bowen.readouts.negative_runs import FirstCutoff
 
-    left_out = [FirstCutoff("a~b", 3, 0, 0.0, 0, matched=False, contact=False),
-                FirstCutoff("c~d", 5, 2, 0.0, 0, matched=False, contact=True)]
+    left_out = [FirstCutoff("a~b", 3, 0, 0.0, 0, matched=False, contact=False, any_uncut=False, sided=False),
+                FirstCutoff("c~d", 5, 2, 0.0, 0, matched=False, contact=True, any_uncut=False, sided=False),
+                FirstCutoff("e~f", 7, 4, 0.0, 0, matched=False, contact=True, any_uncut=True, sided=False)]
     negative_run_values.cache_clear()
     try:
         with mock.patch("src.bowen.readouts.negative_runs.first_cutoff_runs", return_value=left_out):
@@ -300,5 +311,6 @@ def test_m11c48_t179_a_seed_whose_cutoffs_are_all_left_out_reads_0_and_is_counte
     finally:
         negative_run_values.cache_clear()
     assert treat.readouts["negative_run"] == base.readouts["negative_run"] == 0.0
-    assert treat.readouts["matched_seed"] == 0.0 and treat.readouts["first_cutoffs"] == 2.0
+    assert treat.readouts["matched_seed"] == 0.0 and treat.readouts["first_cutoffs"] == 3.0
     assert treat.readouts["unmatched_cutoffs"] == 1.0 and treat.readouts["no_contact_cutoffs"] == 1.0
+    assert treat.readouts["unsided_cutoffs"] == 1.0

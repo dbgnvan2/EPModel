@@ -49,7 +49,7 @@ Acts count when they pass between the two members of the tie, in either directio
 > **Owner review (plan §9), 2026-10-10:** the definitions above are the owner's. Rendering one trace per pattern is
 > done by the run visualization (`tools/famdiag_export.py`). No criterion reads these readouts (checked 2026-10-10).
 
-## Negative runs — what `M11.C.48` reads (version 2 group G1, spec revision 36; T-123 at revision 43; T-179 at revision 47)
+## Negative runs — what `M11.C.48` reads (version 2 group G1, spec revision 36; T-123 at revision 43; T-179 at revision 47; T-185 at revision 57)
 
 `src/bowen/readouts/negative_runs.py`; `tests/bowen/test_negative_runs.py` checks each definition on hand-built records.
 Each definition is `[I]` (the owner's D12 of 2026-10-19, `docs/PROPOSAL — CUTOFF ANXIETY, BRIDGING AND REPAIR.md` §4;
@@ -66,9 +66,12 @@ The classes of contact are `config/bowen/contact_classes.md`.
 - A tie's **first cutoff** is the first `CUTOFF` emitted across it; its run is the run standing in that week, the
   cutoff's own week counted and the cutoff itself not. A tie the family declares cut off has no first cutoff and is
   not an uncut tie: it is left out on both sides.
+- A tie's **sides** at a week is how many of its two members had sent across it, by then, a move other than
+  `CUTOFF` — two-sided, one-sided or neither. The cutoff itself is not such a move: it is the act the run precedes.
 - The **baseline** for a first cutoff is the mean of the runs standing, in the cutoff's week, on the seed's ties with
-  no `CUTOFF` by then and a contact in the window: the same point in time, read the same way, so neither arm has more
-  weeks to build a run in. The longest run those ties reached within the window is reported beside it, not compared:
+  no `CUTOFF` by then, a contact in the window, and as many sides as the cut tie: the same point in time, read the
+  same way, with the same number of members acting, so neither arm has more weeks to build a run in nor more members
+  putting contacts into it. The longest run those ties reached within the window is reported beside it, not compared:
   a maximum over ties and weeks set against one point is biased against the criterion (learnings P7).
 - **Defect found at the re-sweep of 2026-10-23 (T-123, learnings P7):** a first cutoff with no such tie (no other tie
   with a contact in the window by that week) was given a baseline of 0 and its own run kept in the treatment arm.
@@ -88,17 +91,40 @@ The classes of contact are `config/bowen/contact_classes.md`.
   cutoff on a tie with no contact by its week is **no-contact**: it is left out of both arms and counted
   (`FirstCutoff.contact`, `no_contact`; the treatment arm's report-only readout `no_contact_cutoffs`). Each first
   cutoff is matched, unmatched or no-contact, and only one of them: a no-contact cutoff with no uncut tie either is
-  counted as no-contact, and `unmatched` counts only cutoffs on a tie in contact. Uncut ties with no contact are still
+  counted as no-contact, and `unmatched` counts only cutoffs on a tie in contact.
+  Uncut ties with no contact are still
   left out and not counted: counting them needs the week from which each tie existed (people are born in the
   twelve-person family's run), the option (b) the owner did not choose. So the version 2 plan's design point for G1,
   that ties with no contact are "reported, not dropped" (`docs/version_2_plan.md`), is met for cut ties and not for
   uncut ones.
+- **Since revision 57 (T-185, the owner's Q3 (a) of 2026-11-09):** the baseline reads only the uncut ties in contact
+  with as many sides as the cut tie. A first cutoff with none is **unsided**: it is left out of both arms and counted
+  (`FirstCutoff.sided`, `unsided`; the treatment arm's report-only readout `unsided_cutoffs`). Each first cutoff is now
+  matched, no-contact, unmatched or unsided, and only one of them, in that order of precedence: a no-contact cutoff is
+  counted as no-contact whatever its uncut ties, `unmatched` counts a cutoff in contact with no uncut tie in contact at
+  all, and `unsided` one with such ties, none of them of its own sides. The reason is T-185's measurement: 51–53% of
+  cut ties are two-sided against 32–33% of baseline ties, and a two-sided tie holds a run about 0.8 longer, so an
+  unmatched baseline carries part of the direction (learnings P7). What is left after matching is +0.104 ± 0.070 with
+  the emergence audit's L0 applied and +0.098 ± 0.082 with learning on.
+  A tie's sides are counted over every move but `CUTOFF` sent across it, which is wider than the contact the run itself
+  is built from (`M4.C` contacts only): a tie one member only ever pressured or distanced across counts as acted on by
+  that member. The sides condition therefore matches on who acts, not on who makes contact.
+  Each of the three exits that leaves a first cutoff out of both arms reports the mean run of what it left out, beside
+  the arms and report-only: `unmatched_left_out_run` and `unsided_left_out_run` (a no-contact cutoff stands on a run of
+  0 by construction, so there is nothing to report for it). A drop that selects on the run itself is then visible and
+  not only counted (learnings P2/P9). Measured on the Phase B family over the criterion's own 200 seeds (2026-11-10,
+  before the regeneration): of 1400 first cutoffs, 365 are no-contact and 1035 in contact; of those 1035, 696 are
+  matched and carry a mean run of 1.91, 227 are unmatched with a mean of 4.18, and 112 are unsided with a mean of 1.35.
+  Each drop therefore selects on the run, and in opposite directions: the unmatched exit leaves out longer runs than it
+  keeps and lowers the treatment arm, the unsided exit shorter ones and raises it. Neither is a verdict; the arms are
+  read at the regeneration.
   On the regenerated record (`0b363cb3186c`, `docs/phase_d2_ensemble_record.md`) `M11.C.48` fails with no difference
   and `M11.C.48[phase_d]` passes; the named mutant survives on the latter (T-180). It passes with all learning removed too: its arms differ in how
   many members act on the tie (51% of cut ties are acted on by both members, against 33% of the baseline's), and such ties
   hold longer runs, and the cutter's other ties run longer than the family's;
-  about +0.10 left after matching on how many members act is not explained (T-185, `tools/c48_carrier_probe.py`; spec
-  revision 50). On the Phase B family the fail is not a finding about the run before a cutoff either: its arms are
+  the +0.104 ± 0.070 left after matching on how many members act is not explained (T-185,
+  `tools/c48_carrier_probe.py`; spec revision 50). Revision 57 puts that matching into the baseline, so these verdicts
+  and counts are reread at the regeneration on its engine. On the Phase B family the fail is not a finding about the run before a cutoff either: its arms are
   unmatched in the same way, and its baseline also mixes tie types, the spouse and parent ties (conductance 1.0) with the
   grandparent ties (0.6), and counts ties cut later in the run (spec revision 51, T-195). T-196's probe (spec revision
   52) found that matched on tie class no difference is detected (−0.004 ± 0.186), and that at every matched cutoff all the uncut
@@ -133,5 +159,10 @@ scans config keys and `Person` fields for the words in `config/lint/role_labels.
   never by witnesses, and reports the mean perceived attention and approval cue per (sender, receiver).
 - A role name may label this readout in a report ("the one who supplies the mother most"), never a person.
 - `M11.C.54` reports the child's supplying moves toward the parent; `M11.C.55` compares, per parent, how often the
-  child with the highest learned value on the supplying kinds toward that parent at the window's start, and how often
-  the first-born, is that parent's main supplier over the window.
+  child with the highest learned value on the supplying kinds toward that parent is that parent's main supplier over
+  the window against two things: how often the child who supplied that parent most before the window is, and what a
+  predictor drawing one of the children at random would name (the parents supplied ÷ the children). Both have to hold.
+  Since revision 57 the learned value is read `relief_lead_weeks` (52) weeks before the window, not at its start, so
+  it is not the value the policy selects by over the window, and how often the first-born is the main supplier is
+  reported beside the arms instead of being the comparison — on the twelve-person family it predicts below chance
+  (T-206, the owner's decision of 2026-11-09; `docs/review/2026-11-09_sc_pass_probes.md`).

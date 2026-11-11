@@ -12,7 +12,8 @@ Purpose: the readout G1's order of work puts first (`docs/PROPOSAL — CUTOFF AN
 Spec:    docs/bowen_agent_model_spec_v2.md#M1.D.2b, #M11.C.48
 Tests:   tests/test_group_g_readout.py::test_g1_readout_section_is_rendered_from_measurements,
          tests/test_group_g_readout.py::test_g1_readout_page_keeps_the_other_labels_section,
-         tests/test_group_g_readout.py::test_m11c48_t166_readout_leaves_unmatched_first_cutoffs_out_of_the_run_columns_and_counts_them
+         tests/test_group_g_readout.py::test_m11c48_t166_readout_leaves_unmatched_first_cutoffs_out_of_the_run_columns_and_counts_them,
+         tests/test_group_g_readout.py::test_m11c48_t185_readout_counts_unsided_first_cutoffs_apart_from_unmatched_ones
 
     python3 tools/group_g_readout.py --label before|after [--seeds 20] [--workers 10]
 """
@@ -45,9 +46,10 @@ names, on the reference families (`config/bowen/family_phase_c.md` under `M11.C.
 the first cutoff" and "matched uncut run" are `M11.C.48`'s two arms (`docs/readouts_phase_c.md`, "Negative runs");
 "longest uncut run", the span-longest run on the uncut ties, is reported only (a "before" section has only that one).
 The run columns read only matched first cutoffs: one with no uncut tie in its week has no baseline (T-123, T-166),
-and one on a tie with no contact by its week is not read under the baseline's condition (T-179, spec revision 47); each
-is left out of them and counted, under "unmatched" or "no contact" (a section measured before revision 47 has no "no
-contact" column). The committed "before" section has no "unmatched" column: it was measured
+one on a tie with no contact by its week is not read under the baseline's condition (T-179, spec revision 47), and one
+whose uncut ties all had a different number of sides is not read under the baseline's sides either (T-185, the owner's
+Q3 (a) of 2026-11-09); each is left out of them and counted, under "unmatched", "no contact" or "unsided" (a section
+measured before revision 47 has no "no contact" column, and one measured before T-185 no "unsided" column). The committed "before" section has no "unmatched" column: it was measured
 on the earlier definition, which counted such a cutoff with a baseline of 0.
 "Excess anxiety" is the mean over living family members and weeks of acute anxiety above the chronic floor. "Symptom
 weeks" is the share of living-member weeks with any active symptom channel. A seed with no cutoff is counted in
@@ -97,7 +99,8 @@ def one_run(args: tuple[str, int]) -> dict:
     firsts = first_cutoff_runs(records, load_event_kinds(), members, frozenset(declared))
     return {
         "family": family, "seed": seed, "cuts": cuts,
-        "firsts": [(str(f.tie), f.week, f.run, f.uncut, f.longest_uncut, f.matched, f.contact) for f in firsts],
+        "firsts": [(str(f.tie), f.week, f.run, f.uncut, f.longest_uncut, f.matched, f.contact, f.any_uncut, f.sided)
+                   for f in firsts],
         "excess": excess_sum / excess_n if excess_n else 0.0,
         "symptom_share": symptom_weeks / member_weeks if member_weeks else 0.0,
     }
@@ -117,6 +120,17 @@ def _contact(first: tuple) -> bool:
     return first[6] if len(first) > 6 else True
 
 
+def _left_out(first: tuple) -> str:
+    """Why a first cutoff is out of the run columns, or "" when they read it: "no contact" (T-179), "unmatched" (no
+    uncut tie in its week, T-123) or "unsided" (uncut ties, none with as many sides, T-185). A measurement taken
+    before T-185 has no sides fields, and every cutoff it left out with a contact was unmatched."""
+    if not _contact(first):
+        return "no contact"
+    if first[5]:
+        return ""
+    return "unsided" if len(first) > 8 and first[7] and not first[8] else "unmatched"
+
+
 def _fmt(x: float) -> str:
     return f"{x:.4g}"
 
@@ -124,9 +138,10 @@ def _fmt(x: float) -> str:
 def render_section(label: str, results: list[dict], engine: str, seeds: int) -> str:
     lines = [f"## {label} — engine hash `{engine[:12]}`, {seeds} seeds per family, {dt.date.today().isoformat()}", ""]
     lines.append("| family | weeks | cuts | largest stock at a cut (tie, week, seed) | median stock at a cut | "
-                 "seeds with a cutoff | first cutoffs | unmatched | no contact | mean run before the first cutoff | median run | "
+                 "seeds with a cutoff | first cutoffs | unmatched | no contact | unsided | "
+                 "mean run before the first cutoff | median run | "
                  "mean matched uncut run | mean longest uncut run | excess anxiety | symptom weeks |")
-    lines.append("|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|")
+    lines.append("|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|")
     for family in RUNS:
         rows = [r for r in results if r["family"] == family]
         cuts = [(c, r["seed"]) for r in rows for c in r["cuts"]]
@@ -141,10 +156,11 @@ def render_section(label: str, results: list[dict], engine: str, seeds: int) -> 
         runs = [f[2] for f in kept]
         matched = [f[3] for f in kept]
         best = [f[4] for f in kept]
-        lines.append("| {} | {} | {} | {} | {} | {} of {} | {} | {} | {} | {} | {} | {} | {} | {} | {} |".format(
+        lines.append("| {} | {} | {} | {} | {} | {} of {} | {} | {} | {} | {} | {} | {} | {} | {} | {} | {} |".format(
             family, RUNS[family], len(cuts), largest, _fmt(statistics.median(stocks)) if stocks else "—",
             sum(1 for r in rows if r["firsts"]), len(rows), len(firsts),
-            sum(1 for f in firsts if _contact(f) and not f[5]), sum(1 for f in firsts if not _contact(f)),
+            sum(1 for f in firsts if _left_out(f) == "unmatched"), sum(1 for f in firsts if not _contact(f)),
+            sum(1 for f in firsts if _left_out(f) == "unsided"),
             _fmt(statistics.mean(runs)) if runs else "—", _fmt(statistics.median(runs)) if runs else "—",
             _fmt(statistics.mean(matched)) if matched else "—", _fmt(statistics.mean(best)) if best else "—",
             _fmt(statistics.mean(r["excess"] for r in rows)), _fmt(statistics.mean(r["symptom_share"] for r in rows))))
@@ -155,9 +171,11 @@ def render_section(label: str, results: list[dict], engine: str, seeds: int) -> 
         "mean_run": {f: (statistics.mean([x[2] for r in results if r["family"] == f for x in r["firsts"] if x[5]])
                          if any(x[5] for r in results if r["family"] == f for x in r["firsts"]) else None)
                      for f in RUNS},
-        "unmatched": {f: sum(1 for r in results if r["family"] == f for x in r["firsts"] if _contact(x) and not x[5])
+        "unmatched": {f: sum(1 for r in results if r["family"] == f for x in r["firsts"] if _left_out(x) == "unmatched")
                       for f in RUNS},
         "no_contact": {f: sum(1 for r in results if r["family"] == f for x in r["firsts"] if not _contact(x)) for f in RUNS},
+        "unsided": {f: sum(1 for r in results if r["family"] == f for x in r["firsts"] if _left_out(x) == "unsided")
+                    for f in RUNS},
         "excess": {f: statistics.mean(r["excess"] for r in results if r["family"] == f) for f in RUNS},
         "symptom_share": {f: statistics.mean(r["symptom_share"] for r in results if r["family"] == f) for f in RUNS},
     }) + " -->")

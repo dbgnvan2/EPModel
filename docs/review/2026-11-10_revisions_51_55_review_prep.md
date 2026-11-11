@@ -1,6 +1,6 @@
 # Spec revisions 51–55: the parts pending the owner's review, prepared
 
-**Status: prepared 2026-11-10; decided by the owner 2026-11-10 (§10). The decisions are not yet written into the spec, the revision log or the status lines; that waits for the version 2 definition plan's step 4 to land (§10).** Prepared at spec revision 57,
+**Status: prepared 2026-11-10; decided by the owner 2026-11-10 (§10); written into the spec, the revision log and the status lines at spec revision 58 (2026-11-11), after the version 2 definition plan's step 4 landed.** Prepared at spec revision 57,
 engine hash `d3779684dd53`, commit `3d84065`. This document changes no rule, class, verdict, record or status line.
 A recommendation is Claude's; a status line changes only when the owner decides the item.
 
@@ -395,8 +395,9 @@ Asked in this order, in one dialog, each with "Other" available.
 | F-1 | **Fix**: move `M4.C.1e`'s table and paragraph and `M4.C.14`'s bullets and closing paragraph back under their own rules |
 | F-2, F-3, F-4 | Not selected; not acted on |
 
-**Not yet done; to do after step 4 lands** (step 4 edits the same status files on its own branch,
-`claude/nifty-allen-37cdf4`). All of it is wording only, and the engine hash does not move:
+**Done at spec revision 58, 2026-11-11, after step 4 landed** (step 4 edited the same status files on its own branch,
+`claude/nifty-allen-37cdf4`). All of it was wording only, and the engine hash did not move (`d3779684dd53`). No todo
+record is settled by these decisions; T-209 stays open and now also carries R55-14:
 
 1. Write R53-1's change into `M11.C.2`'s row in `docs/bowen_agent_model_spec_v2.md`, and R53-2's into its note in
    `docs/version_2_dispositions.md`, with that row's `decided` cell set to the owner, 2026-11-10; regenerate

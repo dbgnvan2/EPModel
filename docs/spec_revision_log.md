@@ -1,10 +1,34 @@
 # Spec revision log
 
-**Status: the record of every revision of `bowen_agent_model_spec_v2.md`, 4 to 57 (revision 57, `M11.C.55`'s relief predictor compared with chance and with prior supply and read before the window, and `M11.C.48`'s baseline matched on the tie's sides, the version 2 definition plan's step 2, 2026-11-10; revision 56, the owner's decisions on the social-cue probes written into `M11.5`, wording in `M11` only, relayed by another Claude session, 2026-11-09; revision 55, the social cues, behind a switch that is off by default, choices taken as recommended pending the owner's review, 2026-11-08; revision 54, `M11.5`'s note for `M11.C.42` names `M4.C.1d`'s relieved party correctly, wording only, pending the owner's review, 2026-11-06; revision 53, `M11.C.2`'s mutation cell restated to the current mutation record, wording only, pending the owner's review, 2026-11-06; revision 52, T-196's and T-197's probes in `M11.5`, wording only, pending the owner's review, 2026-11-06; revision 51, the within-run rows whose arms differ in `M11.5`, wording only, 2026-11-05; revision 50, what carries `M11.C.48[phase_d]` in `M11.5` and the criterion's row, wording only, 2026-11-05; revision 49, the emergence audit's survivors in `M11.5` and `M11.1g`'s scope, wording only, 2026-11-05; revision 48, `M11.1g`, the emergence audit, version 3's first revision, 2026-11-03; revision 47, `M11.C.48`'s readout reads both arms under one contact condition, after the tag `version-2`, 2026-11-02–03; revision 46, wording only, after the tag `version-2`, from T-173's two mutants, 2026-11-01; revision 45, wording only, from the pre-tag milestone review's triage, 2026-11-01; revision 44, the batch from the owner's D4 and D5, 2026-10-31; revision 43, the version 2 definition batch, 2026-10-29; revision 40 applied 2026-10-28, from the stage 3 milestone review's triage; revision 41, its hash-moving batch, the same day; revision 42, wording only, 2026-10-29). Moved out of the spec at revision 35, 2026-10-22; nothing a run computes changed.**
+**Status: the record of every revision of `bowen_agent_model_spec_v2.md`, 4 to 58 (revision 58, the owner's decisions on the parts of revisions 51–55 pending review, with `M11.C.2`'s row restated and two misplaced blocks moved back, wording only, 2026-11-10; revision 57, `M11.C.55`'s relief predictor compared with chance and with prior supply and read before the window, and `M11.C.48`'s baseline matched on the tie's sides, the version 2 definition plan's step 2, 2026-11-10; revision 56, the owner's decisions on the social-cue probes written into `M11.5`, wording in `M11` only, relayed by another Claude session, 2026-11-09; revision 55, the social cues, behind a switch that is off by default, choices taken as recommended approved by the owner 2026-11-10, 2026-11-08; revision 54, `M11.5`'s note for `M11.C.42` names `M4.C.1d`'s relieved party correctly, wording only, approved by the owner 2026-11-10, 2026-11-06; revision 53, `M11.C.2`'s mutation cell restated to the current mutation record, wording only, approved by the owner 2026-11-10, 2026-11-06; revision 52, T-196's and T-197's probes in `M11.5`, wording only, approved by the owner 2026-11-10, 2026-11-06; revision 51, the within-run rows whose arms differ in `M11.5`, wording only, 2026-11-05; revision 50, what carries `M11.C.48[phase_d]` in `M11.5` and the criterion's row, wording only, 2026-11-05; revision 49, the emergence audit's survivors in `M11.5` and `M11.1g`'s scope, wording only, 2026-11-05; revision 48, `M11.1g`, the emergence audit, version 3's first revision, 2026-11-03; revision 47, `M11.C.48`'s readout reads both arms under one contact condition, after the tag `version-2`, 2026-11-02–03; revision 46, wording only, after the tag `version-2`, from T-173's two mutants, 2026-11-01; revision 45, wording only, from the pre-tag milestone review's triage, 2026-11-01; revision 44, the batch from the owner's D4 and D5, 2026-10-31; revision 43, the version 2 definition batch, 2026-10-29; revision 40 applied 2026-10-28, from the stage 3 milestone review's triage; revision 41, its hash-moving batch, the same day; revision 42, wording only, 2026-10-29). Moved out of the spec at revision 35, 2026-10-22; nothing a run computes changed.**
 
 The spec holds the current rules; this file holds how they got there. Until revision 34 the revision sections stood at the end of the spec, under `M17`, and the front matter's `status:` line listed every revision since 10. `docs/plan_model_ergonomics.md` Part E moved both here (the owner's answer to its §8 Q2, 2026-10-22, "as revision 35"), so a session reading the spec reads 480 fewer lines of history. The sections below are the spec's own text as it stood, tags and all, with the newest first; revisions 13 to 33 were written inline in the requirement bodies and have no section of their own, which Part E's second step records under revision 35.
 
 The sections `### Revision 34` to `### Revision 5` and the undated section are the spec's text as it stood, moved whole; a statement inside one of them (revision 34's, that revisions 13 to 33 are "not here") was true when written, before the bodies' narratives were moved under their own revisions. Those narratives are the bullets `- \`ID\`: sentence`, each the sentence as it stood in the body, under the revision it names, in sections titled "inline narratives moved from the bodies at revision 35" where no section existed.
+
+### Revision 58 — the owner's decisions on revisions 51–55, 2026-11-10 ⟦rev58 · the owner 2026-11-10, `docs/review/2026-11-10_revisions_51_55_review_prep.md` §10⟧
+
+The owner decided, 2026-11-10, each part of revisions 51–55 that was Claude's recommendation pending review, from the
+review prep written that day (21 items and four findings). Wording only.
+
+- **Approved as they stand:** R51-1, R52-1, R52-2, R53-3, R54-1, R55-1 to R55-3, R55-5 to R55-10 and R55-13. R55-4,
+  R55-11 and R55-12 needed no decision. The status tags of revisions 51–55, here, in the spec and in the documents
+  that restate them, now say approved by the owner 2026-11-10.
+- **Approved with a change (R53-1, R53-2):** `M11.C.2`'s row and its version 2 note (`docs/version_2_dispositions.md`)
+  no longer say the twelve-person pass needs the witness path. They give the two mutants' numbers from
+  `docs/phase_d_mutation_record.md` and say the record does not show which path carries the pass, since each
+  mutant's interval contains the other's mean and the two are not compared with each other. The five version 2
+  `note` rows of 2026-11-06 are decided `owner 2026-11-10`.
+- **Moved here from `M11.C.2`'s row** (revision 35's rule for dated narratives), as it stood: Mutations (`docs/phase_d_mutation_record.md`): focus on a child's weakness with focus steering removed (`M1.B.8a`, `M4.D.1g`) turns it **red** (+0.73 ± 1.8); the witness path removed does not (+1.72 ± 1.5), so the pass is carried by the parents' focus, not by witnessing ⟦rev31 · measured 2026-10-16⟧
+- **Approved as built, to be decided again with T-209 (R55-14):** with the cues on, the words part of a received move
+  is not reattributed (`M4.C.6`). It is settled before any decision to turn `social_cues_enabled` on.
+- **F-1, fixed:** revision 55's commit left `M4.C.1e`'s cue table and closing paragraph under `M4.C.1f`, and
+  `M4.C.14`'s two bullets and closing paragraph under `M4.C.15`. They are back in the approved draft's order; no
+  word changed. `docs/spec_index.jsonl` and `docs/spec_rules/` are regenerated.
+- **Not acted on:** F-2 (`KS23.1` graded `[K]` in a `[K-ext]` chapter), F-3 (the two probes' per-seed rows), F-4
+  (whether `M11.C.53`'s too-little limb is a premise limb).
+
+No rule a run reads changed, no class or verdict changed, and the engine hash did not move (`d3779684dd53`).
 
 ### Revision 57 — `M11.C.55`'s predictor and `M11.C.48`'s matched baseline, 2026-11-10 ⟦rev57 · the owner 2026-11-09 (revision 56's "Hold for next batch"; the version 2 definition plan's Q3 (a)), T-185, T-206⟧
 
@@ -64,7 +88,7 @@ and the golden fingerprints hold. 31 constants, all `[I]`, in `config/bowen/cons
 emergence audit and the version 2 sweep was regenerated once on it (D4; `docs/version_3_revision_55_changes.md`).
 
 **Departures from the approved draft**, each taken as recommended under the owner's overnight instruction of
-2026-11-08, pending the owner's review:
+2026-11-08, approved by the owner 2026-11-10:
 
 - The supply readout is `M11.G.5`, not `M11.G.4`, which already names another readout.
 - The constants are rows of `config/bowen/constants.md`, not a new `config/bowen/social_cues.md` (one register, one
@@ -102,16 +126,16 @@ predictor is more than the policy's own input). With the cues on, the words part
 reattributed under `M4.C.6` (as the approved draft says): an agent with systems perspective whose nonverbal channels
 are neutral loses that reattribution. For the owner's review.
 
-### Revision 54 — `M11.5`'s note for `M11.C.42` corrected, 2026-11-06 ⟦rev54 · Claude's recommendation 2026-11-06 under the owner's instruction to proceed, pending the owner's review (T-199)⟧
+### Revision 54 — `M11.5`'s note for `M11.C.42` corrected, 2026-11-06 ⟦rev54 · Claude's recommendation 2026-11-06 under the owner's instruction to proceed, approved by the owner 2026-11-10 (T-199)⟧
 
 Wording in `M11` only. `M11.5`'s note for `M11.C.42` said reuse is read with `M4.C.1d`'s contact "returned to a
 relieved seeker". `M4.C.1d` returns part of a delivered contact to its sender when the delivery relieves its receiver,
 so the relieved party is the receiver. The note now says the contact is returned to its sender by a relieved receiver,
 as T-171's version 2 note on `M11.C.42` in `docs/version_2_dispositions.md` does. No rule, class, verdict or status
 changed, and the engine hash did not move (`0b363cb3186c`). Claude's recommendation under the owner's instruction to
-proceed, pending the owner's review.
+proceed, approved by the owner 2026-11-10.
 
-### Revision 53 — `M11.C.2`'s twelve-person carrier restated, 2026-11-06 ⟦rev53 · Claude's recommendation 2026-11-06 under the owner's instruction of 2026-11-05 to proceed, pending the owner's review (T-171)⟧
+### Revision 53 — `M11.C.2`'s twelve-person carrier restated, 2026-11-06 ⟦rev53 · Claude's recommendation 2026-11-06 under the owner's instruction of 2026-11-05 to proceed, approved by the owner 2026-11-10 (T-171)⟧
 
 Wording in `M11` only. `M11.C.2`'s mutation cell said that on the twelve-person family removing the witness path
 survives and that the pass is proved by removing `M1.B.8a` with `M4.D.1g`, and its revision 31 sentence said the pass
@@ -126,7 +150,7 @@ Claude's recommendation under the owner's instruction of 2026-11-05 to proceed w
 review. No class and no verdict changed. No rule changed and nothing a run computes changed: the spec is not in the
 engine hash, which stays `0b363cb3186c`.
 
-### Revision 52 — the matched probes of the within-run rows, 2026-11-06 ⟦rev52 · Claude's recommendation 2026-11-06 under the owner's instruction of 2026-11-05 to proceed, pending the owner's review (T-196, T-197, T-198)⟧
+### Revision 52 — the matched probes of the within-run rows, 2026-11-06 ⟦rev52 · Claude's recommendation 2026-11-06 under the owner's instruction of 2026-11-05 to proceed, approved by the owner 2026-11-10 (T-196, T-197, T-198)⟧
 
 Wording in `M11` only. Revision 51 wrote that `M11.C.48` on the Phase B family and both rows of `M11.C.2` compare arms
 that differ in a condition besides the one compared, and left two probes open. T-196
@@ -141,7 +165,7 @@ with their early state held, at the edge of detection (+0.80 ± 0.63). `M11.5`'s
 probes, whose numbers are not the record's; revision 51's "among them" before the tie classes is removed, since the
 baseline holds only the 1.0 and 0.6 ties (the readout reads contacts between members only, and Dr Halim is external).
 The criterion rows are unchanged. Folding the probes in was Claude's recommendation (T-198), taken under the owner's
-instruction of 2026-11-05 to proceed without stopping, pending the owner's review. No class changed. No rule changed
+instruction of 2026-11-05 to proceed without stopping, approved by the owner 2026-11-10. No class changed. No rule changed
 and nothing a run computes changed: the spec is not in the engine hash, which stays `0b363cb3186c` (Phase D
 `020160abb6db`).
 
@@ -164,7 +188,7 @@ says the same in one sentence. `M11.C.11`'s return limb, whose windows differ by
 change. The two follow-up checks are open: T-196 (`M11.C.48`'s carrier probe on the Phase B family) and T-197 (whether
 `M11.C.2[twelve-person family]`'s pass holds with the arms matched); what they find is folded in at a later revision.
 The order (this wording before those checks) was Claude's recommendation, taken under the owner's instruction of
-2026-11-05 to proceed without stopping, pending the owner's review. No class changed. No rule changed and nothing a
+2026-11-05 to proceed without stopping, approved by the owner 2026-11-10. No class changed. No rule changed and nothing a
 run computes changed: the spec is not in the engine hash, which stays `0b363cb3186c` (Phase D `020160abb6db`).
 Adjacent, not fixed: `M11.C.2`'s criterion row (its mutation cell and its revision 31 sentence) still states revision 31's carrier on
 the twelve-person family (the witness path removed survives; the pass is proved by removing focus on weakness), while

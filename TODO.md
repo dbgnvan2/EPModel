@@ -7,14 +7,18 @@ Open items, one line each: ID, date raised, title, record. **Now** blocks the cu
 `docs/todo/` (grep its ID). To close one, tick it in its record and run `python3 tools/todo_index.py`: its line
 moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's text; that form is in git history.
 
-## Now (4)
+## Now (8)
 
 - T-001 · 2026-10-19 · Version 2, next · [record](docs/todo/2026-08-22_blocking_the_next_phase.md)
 - T-002 · 2026-10-19 · `/csdp` sweep of 2026-10-19, items not fixed · [record](docs/todo/2026-08-22_blocking_the_next_phase.md)
 - T-003 · 2026-10-20 · Coverage page, minor, from the Part A review … · [record](docs/todo/2026-08-22_blocking_the_next_phase.md)
 - T-004 · 2026-10-20 · Coverage page, from Part B's drafting (2026-10-20), not … · [record](docs/todo/2026-08-22_blocking_the_next_phase.md)
+- T-214 · 2026-11-11 · Fix: beliefs created at a pairing, birth or … · [record](docs/todo/2026-11-11_whole_repo_review.md)
+- T-220 · 2026-11-11 · Fix: delete `tests/test_review_rev31.py` (2026-11-11) · [record](docs/todo/2026-11-11_whole_repo_review.md)
+- T-224 · 2026-11-11 · Fix: stale status lines and pointers (2026-11-11) · [record](docs/todo/2026-11-11_whole_repo_review.md)
+- T-225 · 2026-11-11 · Fix: keep revision history in one place (2026-11-11) · [record](docs/todo/2026-11-11_whole_repo_review.md)
 
-## Later (141)
+## Later (157)
 
 - T-006 · 2026-10-22 · D4, long `Spec:` lines (Part D, 2026-10-22; the … · [record](docs/todo/2026-10-22_model_ergonomics.md)
 - T-007 · 2026-10-22 · Adjacent issues found by Part D's docstring pass, … · [record](docs/todo/2026-10-22_model_ergonomics.md)
@@ -157,3 +161,19 @@ moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's te
 - T-211 · 2026-11-09 · Why birth order predicts the main supplier below … · [record](docs/todo/2026-11-07_social_cues.md)
 - T-212 · 2026-11-10 · Whether `M11.C.55`'s two predictors should be read to … · [record](docs/todo/2026-11-07_social_cues.md)
 - T-213 · 2026-11-11 · The emergence audit on `d3779684dd53`: its scope and … · [record](docs/todo/2026-11-03_version_3_emergence_audit.md)
+- T-215 · 2026-11-11 · Fix: two I-POSITION exits skip their cleanup (2026-11-11) · [record](docs/todo/2026-11-11_whole_repo_review.md)
+- T-216 · 2026-11-11 · Fix: the required-move gate reads the treatment arm … · [record](docs/todo/2026-11-11_whole_repo_review.md)
+- T-217 · 2026-11-11 · Fix: exclusion counts recorded by arms reach no … · [record](docs/todo/2026-11-11_whole_repo_review.md)
+- T-218 · 2026-11-11 · Fix: the log header's `config_hash` omits config that … · [record](docs/todo/2026-11-11_whole_repo_review.md)
+- T-219 · 2026-11-11 · Fix: minor engine and loader defects, one batch … · [record](docs/todo/2026-11-11_whole_repo_review.md)
+- T-221 · 2026-11-11 · Fix: delete the closed open-batch mechanism (2026-11-11) · [record](docs/todo/2026-11-11_whole_repo_review.md)
+- T-222 · 2026-11-11 · Fix: remove tests that pin hand-kept numbers or … · [record](docs/todo/2026-11-11_whole_repo_review.md)
+- T-223 · 2026-11-11 · Fix: small test gaps and leftovers (2026-11-11) · [record](docs/todo/2026-11-11_whole_repo_review.md)
+- T-226 · 2026-11-11 · Fix: archive finished-work documents and delete grid-engine leftovers … · [record](docs/todo/2026-11-11_whole_repo_review.md)
+- T-227 · 2026-11-11 · Fix: comments and README (2026-11-11) · [record](docs/todo/2026-11-11_whole_repo_review.md)
+- T-228 · 2026-11-11 · Decide: a second I-POSITION during a running sequence … · [record](docs/todo/2026-11-11_whole_repo_review.md)
+- T-229 · 2026-11-11 · Decide: what the headline should say about learning … · [record](docs/todo/2026-11-11_whole_repo_review.md)
+- T-230 · 2026-11-11 · Decide: act payoffs set what is learned (2026-11-11) · [record](docs/todo/2026-11-11_whole_repo_review.md)
+- T-231 · 2026-11-11 · Decide: the learning signal (2026-11-11) · [record](docs/todo/2026-11-11_whole_repo_review.md)
+- T-232 · 2026-11-11 · Decide: a command that runs the learning family … · [record](docs/todo/2026-11-11_whole_repo_review.md)
+- T-233 · 2026-11-11 · Decide: smaller questions from the review (2026-11-11) · [record](docs/todo/2026-11-11_whole_repo_review.md)

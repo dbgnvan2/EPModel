@@ -107,7 +107,7 @@ def test_m111g_ea1_scope_is_passing_composite_and_mixed():
 def test_m111g_ea1_the_real_scope_is_the_plans():
     """On the committed records the scope is plan §3's thirteen rows less `M11.C.41`'s two level cells (T-192), with
     `M11.C.39` excluded as the control, and the two cue rows that pass since spec revision 55, `M11.C.52` and
-    `M11.C.55` (Claude's recommendation 2026-11-11, pending the owner's review: `M11.1g` audits every passing composite
+    `M11.C.55` (Claude's recommendation 2026-11-11, approved by the owner 2026-11-11: `M11.1g` audits every passing composite
     row, so they enter by its rule)."""
     audited, rows, by_class, excluded = ea.in_scope(ea.read_records(), ea.read_config())
     ea.check_registries(rows)

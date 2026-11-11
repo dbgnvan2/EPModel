@@ -478,8 +478,9 @@ for one spec revision that takes all nine.
   run 2026-11-11 under the owner's instruction of that night to proceed with the recommendations, split across both
   Macs (this Mac's nine rows in 53 min at 6 workers, Mac Mini1's four 2080-tick rows in 2 h 53 min at 10; the merge
   added Mini1's 11 results and found 128 equal; the controls held). `docs/emergence_audit_record.md` is current and its
-  two strict expected failures are off. Each item below is Claude's recommendation, pending the owner's review; nothing
-  in the spec was changed for them.
+  two strict expected failures are off. Each item below was Claude's recommendation; the owner approved all four as
+  recommended 2026-11-11. Nothing in the spec is changed yet: (b) is written in at the next spec revision, which
+  closes this item, and (c) is folded into T-209.
   (a) **Scope.** On the current records 13 rows are in scope: the 11 of 2026-11-05 and `M11.C.52` and `M11.C.55`, which
   pass since spec revision 55. `M11.1g` audits every passing composite row, so both are in; the scope test
   (`tests/test_emergence_audit.py::test_m111g_ea1_the_real_scope_is_the_plans`) now asserts 13. **Recommended: keep

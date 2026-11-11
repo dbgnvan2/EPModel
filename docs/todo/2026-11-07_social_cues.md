@@ -111,7 +111,9 @@ Items from `docs/proposal_social_cues.md`, decided by the owner on 2026-11-07 (Q
   removes a detected +4.5 ± 1.5 of the pass and a detected −12.5 ± 10.2 remains, carried by `systems_perspective`'s
   other paths. Build a mutant that removes every path but the by-channel discount, or a baseline arm that has the
   other paths and lacks the discount, so that the residual paths no longer carry the pass (the owner, 2026-11-09).
-  `M11.G.5`'s perceived-cue half enters the reports when this exists (T-205).
+  `M11.G.5`'s perceived-cue half enters the reports when this exists (T-205). Also read here, at more seeds than
+  100, the emergence audit's carriers for `M11.C.52` under L0: on 2026-11-11 only C2's interval lay clear of L0's
+  mean (T-213 (c), the owner 2026-11-11).
 - [ ] T-210 ⟨later⟩ **`M11.C.55` under frozen learning (2026-11-09).** Learning on up to the relief's read week, off
   from then: does the window's supply follow the values held at that week without further learning? Left open by the
   owner, 2026-11-09; not run (`docs/review/2026-11-09_sc_pass_probes.md`, "What this record does not cover").

@@ -78,7 +78,7 @@ put back, and says nothing about the check. `M11.C.16` is the cheapest: 8 sample
 (8 of the pilot's 24 child runs, which took 476 s together here).
 
 ```
-python3 tools/two_mac_sweep.py start --criteria M11.C.16 --recompute --workers 10
+python3 tools/two_mac_sweep.py start --criteria M11.C.16 --recompute --workers 8
 python3 tools/two_mac_sweep.py status
 python3 tools/two_mac_sweep.py fetch /path/to/scratch/mini1_check.json
 python3 tools/merge_cache.py /path/to/scratch/mini1_check.json
@@ -94,7 +94,7 @@ refuses, the two Macs do not compute the same numbers: do not split, and report 
 List the keys still to sweep from the Ranges table of `config/sweep/sweep.md`. Results already cached are read, not
 rerun. Split the keys into two shares of about equal projected time. A criterion's cost is about its one-seed run time
 (`measure_run_length`, timed) times the seeds its samples took at the last sweep, first runs and reruns; weigh each
-Mac by its workers (this Mac at 6 under `nice`, Mac Mini1 at 10). At stage 2, with no per-criterion projection, part
+Mac by its workers (this Mac at 6 under `nice -n 19`, Mac Mini1 at 8 under `nice -n 19`: the owner, 2026-11-11, so that screen sharing and other work still run there; `start` refuses more than 8). At stage 2, with no per-criterion projection, part
 II's seven were split by count, four and three, the longest in the smaller share. A key with spaces or brackets, such as
 `M11.C.7[joint over sided]`, is quoted on the command line.
 
@@ -103,7 +103,7 @@ II's seven were split by count, four and three, the longest in the smaller share
 Start Mac Mini1's share first:
 
 ```
-python3 tools/two_mac_sweep.py start --criteria KEY_A KEY_B KEY_C --workers 10
+python3 tools/two_mac_sweep.py start --criteria KEY_A KEY_B KEY_C --workers 8
 ```
 
 `start` goes through these steps in order:
@@ -114,7 +114,7 @@ python3 tools/two_mac_sweep.py start --criteria KEY_A KEY_B KEY_C --workers 10
 4. It runs this command on Mac Mini1, detached, with idle sleep held off:
 
    ```
-   cd ~/ProjectsMini1/EPModel && nohup sh -c 'echo "START $(date) …"; caffeinate -i .venv/bin/python tools/version_2_sweep.py --criteria KEY_A KEY_B KEY_C --workers 10; echo "EXIT $? $(date)"' >> ~/epmodel_sweep.log 2>&1 < /dev/null &
+   cd ~/ProjectsMini1/EPModel && nohup sh -c 'echo "START $(date) …"; caffeinate -i nice -n 19 .venv/bin/python tools/version_2_sweep.py --criteria KEY_A KEY_B KEY_C --workers 8; echo "EXIT $? $(date)"' >> ~/epmodel_sweep.log 2>&1 < /dev/null &
    ```
 
 5. After 15 s it checks that the run is still alive. If the run has stopped, it prints the log.
@@ -122,7 +122,7 @@ python3 tools/two_mac_sweep.py start --criteria KEY_A KEY_B KEY_C --workers 10
 Then start this Mac's share:
 
 ```
-caffeinate -i python3 tools/version_2_sweep.py --criteria KEY_D KEY_E KEY_F KEY_G --workers 10
+caffeinate -i nice -n 19 python3 tools/version_2_sweep.py --criteria KEY_D KEY_E KEY_F KEY_G --workers 6
 ```
 
 Check Mac Mini1 at any time:
@@ -262,3 +262,8 @@ sweep's own check had enforced on this Mac for T-181 the same days.
   before. The whole run that followed ran only the two controls. Because `tools/merge_cache.py` refuses while a sweep
   runs on this Mac, this Mac's share of the stage-end sweep, started when its audit share ended, was stopped by
   SIGTERM for the merge and the controls and then restarted from its cache; only the sample in flight was lost.
+- On 2026-11-11 Mac Mini1's share of the stage-end sweep, started at 10 workers without `nice`, pushed its load average
+  to about 97 and left it unreachable over the network for a time; the owner could not use screen sharing. Its
+  processes were reniced to 19 while running, and the owner set the rule that Mac Mini1 runs at most 8 workers at
+  `nice -n 19`. `tools/two_mac_sweep.py start` now launches under `nice -n 19`, takes 8 workers when none are given,
+  and refuses more than 8 (`tests/test_sweep_two_macs.py::test_m17e1_driver_defaults_to_eight_workers_and_refuses_more`).

@@ -391,15 +391,15 @@ def _drive(remote, *argv, here=None):
 
 def test_m17e1_driver_starts_the_share_with_the_venv_python_detached():
     remote = _Remote(_facts())
-    _drive(remote, "start", "--criteria", "M11.C.2", "M11.C.7[joint over sided]", "--workers", "10")
+    _drive(remote, "start", "--criteria", "M11.C.2", "M11.C.7[joint over sided]", "--workers", "8")
     [start] = remote.launches()
     assert start[:-2] == ["ssh", *driver.SSH_OPTIONS] and start[-2] == driver.HOST
     words = shlex.split(start[-1])
     assert words[:6] == ["cd", driver.REMOTE_REPO, "&&", "nohup", "sh", "-c"]
     assert words[7:] == [">>", driver.REMOTE_LOG, "2>&1", "<", "/dev/null", "&"]
     inner = words[6]
-    assert (f"caffeinate -i {driver.REMOTE_PYTHON} tools/version_2_sweep.py --criteria M11.C.2 "
-            "'M11.C.7[joint over sided]' --workers 10;") in inner
+    assert (f"caffeinate -i nice -n 19 {driver.REMOTE_PYTHON} tools/version_2_sweep.py --criteria M11.C.2 "
+            "'M11.C.7[joint over sided]' --workers 8;") in inner
     assert inner.startswith('echo "START $(date) ') and inner.endswith('echo "EXIT $? $(date)"')
     assert "python3 " not in start[-1]
 
@@ -409,7 +409,7 @@ def test_m17e1_driver_start_command_runs_under_sh(tmp_path):
     arguments as one word each and the EXIT line."""
     remote = _Remote(_facts())
     _drive(remote, "start", "--criteria", "M11.C.7[joint over sided]", "--recompute")
-    inner = shlex.split(remote.launches()[0][-1])[6].replace(f"caffeinate -i {driver.REMOTE_PYTHON}", "printf '<%s>'")
+    inner = shlex.split(remote.launches()[0][-1])[6].replace(f"caffeinate -i nice -n 19 {driver.REMOTE_PYTHON}", "printf '<%s>'")
     out = subprocess.run(["sh", "-c", inner], capture_output=True, text=True, timeout=30, cwd=tmp_path).stdout
     assert "<tools/version_2_sweep.py><--criteria><M11.C.7[joint over sided]><--recompute>" in out
     assert re.search(r"EXIT 0 \w", out)
@@ -429,6 +429,18 @@ def test_m17e1_driver_reports_a_different_macos_and_goes_on(capsys):
     remote = _Remote(_facts(macos="15.7.8"))
     _drive(remote, "start", "--criteria", "M11.C.2")
     assert remote.launches() and "macOS differs" in capsys.readouterr().out
+
+
+def test_m17e1_driver_defaults_to_eight_workers_and_refuses_more():
+    """The owner, 2026-11-11: Mac Mini1 runs at most 8 of its 10 cores, at nice 19. With no ``--workers`` the share
+    takes 8; asking for 10 is refused before any SSH call."""
+    remote = _Remote(_facts())
+    _drive(remote, "start", "--criteria", "M11.C.2")
+    assert "nice -n 19" in remote.launches()[0][-1] and "--workers 8;" in remote.launches()[0][-1]
+    remote = _Remote(_facts())
+    with pytest.raises(SystemExit, match="1 to 8"):
+        _drive(remote, "start", "--criteria", "M11.C.2", "--workers", "10")
+    assert not remote.commands
 
 
 def test_m17e1_driver_refuses_an_undeclared_key_before_any_ssh():

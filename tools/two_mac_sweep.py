@@ -7,7 +7,7 @@ Spec:    docs/bowen_agent_model_spec_v2.md#M17.E.1; docs/implementation_plan_ver
 Tests:   tests/test_sweep_two_macs.py (the test_m17e1_driver_* tests; ``subprocess.run`` stubbed, no SSH opened)
 
     python3 tools/two_mac_sweep.py check
-    python3 tools/two_mac_sweep.py start --criteria KEY ... [--recompute] [--workers N]
+    python3 tools/two_mac_sweep.py start --criteria KEY ... [--recompute] [--workers N]   # N at most 8; nice 19
     python3 tools/two_mac_sweep.py status
     python3 tools/two_mac_sweep.py fetch OUT
     python3 tools/two_mac_sweep.py facts          # this machine's facts as JSON; what ``check`` runs on Mac Mini1
@@ -43,6 +43,8 @@ TIMEOUT_S = 120  # one SSH or git call; the facts call hashes the engine on the 
 RETRIES, BACKOFF_S = 3, 5  # read-only calls: attempts and the first wait, doubled each time
 SAME = ("head", "engine", "phase_d_engine", "python", "machine")  # must be equal on both machines
 STARTUP_WAIT_S = 15  # after a start, how long before the driver checks the run is still alive
+MAX_WORKERS = 8  # the owner, 2026-11-11: at most 8 of Mac Mini1's 10 cores, so screen sharing and other work run
+NICE = 19  # the lowest priority, for the same reason
 
 
 def _run(argv: list[str], retry: bool) -> str:
@@ -119,6 +121,9 @@ def _last_lines() -> str:
 def start(criteria: list[str], workers: int | None, recompute: bool = False) -> None:
     from tools.version_2_sweep import _checked
 
+    workers = MAX_WORKERS if workers is None else workers
+    if not 1 <= workers <= MAX_WORKERS:
+        raise SystemExit(f"--workers {workers}: Mac Mini1 takes 1 to {MAX_WORKERS}; nothing started")
     _checked(criteria)  # a mistyped key stops here, not on Mac Mini1 after "started" (check: same commit and config)
     check()
     now = state()
@@ -126,9 +131,9 @@ def start(criteria: list[str], workers: int | None, recompute: bool = False) -> 
         raise SystemExit(f"Mac Mini1: {'a sweep is already running' if now == 'running' else 'pgrep failed'}; "
                          "nothing started")
     args = ["--criteria", *criteria, *(["--recompute"] if recompute else []),
-            *(["--workers", str(workers)] if workers else [])]
+            "--workers", str(workers)]
     quoted = " ".join(shlex.quote(a) for a in args)
-    inner = (f'echo "START $(date) {quoted}"; caffeinate -i {REMOTE_PYTHON} tools/version_2_sweep.py {quoted}; '
+    inner = (f'echo "START $(date) {quoted}"; caffeinate -i nice -n {NICE} {REMOTE_PYTHON} tools/version_2_sweep.py {quoted}; '
              'echo "EXIT $? $(date)"')
     ssh(f"cd {REMOTE_REPO} && nohup sh -c {shlex.quote(inner)} >> {REMOTE_LOG} 2>&1 < /dev/null &", retry=False)
     time.sleep(STARTUP_WAIT_S)

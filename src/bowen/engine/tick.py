@@ -132,26 +132,26 @@ def run_tick(
     records: list = [TickRecord(state.tick)]
     before = snapshot(state)
     start_acute = {pid: p.acute_anxiety for pid, p in state.people.items()}  # the learner's baseline
-    start_level = week_start_levels(state)  # M6.I.4a's capacity at the week's start: the end of last week (revision 41)
+    start_level = week_start_levels(state)  # M6.I.4a's capacity at the week's start: the end of last week
 
     # 1 — standing load, before anything is delivered (M3.D.2, M6.I.8). A spike that has ended can never count again,
     # so it is dropped first (review 2026-10-17: unpruned, 2,543 accumulated over 40 years and slowed the run by half).
     state.triggers = [t for t in state.triggers if t.last_tick >= state.tick]
     effects, loaded = apply_standing_load(state, params)
     records += effects
-    records += stressor_load(state, params)  # revision 18: a lasting stressor keeps weighing (M1.F.6)
-    records += reactive_cutoff_cost(state, params)  # revision 29: a held reactive cutoff costs its holder (M1.B.3d)
-    records += cutoff_threat(state, params)  # revision 36: a cut-off tie's stock weighs on both members (M1.D.2b)
+    records += stressor_load(state, params)  # a lasting stressor keeps weighing (M1.F.6)
+    records += reactive_cutoff_cost(state, params)  # a held reactive cutoff costs its holder (M1.B.3d)
+    records += cutoff_threat(state, params)  # a cut-off tie's stock weighs on both members (M1.D.2b)
     steps.append("standing_load")
 
     # 2 — deliver.
-    # Spec revision 28: the life course's events of last year's slow tick (deaths, births, grief, lost income) arrive
+    # the life course's events of last year's slow tick (deaths, births, grief, lost income) arrive
     # with the source's own.
     for event in sorted(source.scheduled(state.tick) + due_events(state) + state.arising_due(), key=lambda e: e.id):
         if event.timestamp != state.tick:
             raise ValueError(f"source scheduled {event.id} for tick {state.tick}")
         records += inject(state, event, visibility)
-        records += nodal_spike(state, event, params)  # M4.C.1c, revision 32: a nodal event spikes cut ties
+        records += nodal_spike(state, event, params)  # M4.C.1c: a nodal event spikes cut ties
         register_stressors(state, (event,))
         if event.mechanism in STRUCTURAL:
             records += apply_structural_event(state, state.store.event(event.id), params)
@@ -161,14 +161,14 @@ def run_tick(
     batch, refusals = refuse(state, batch, params)
     records += refusals
     records += record_deliveries(state, batch)
-    note_witnessed_cutoffs(state, batch)  # revision 29: a witnessed cutoff is read for what follows it (M4.D.6f)
+    note_witnessed_cutoffs(state, batch)  # a witnessed cutoff is read for what follows it (M4.D.6f)
     steps.append("deliver")
 
     # 3 — perceive.
     perceived = perceive(state, batch)
     records += update_beliefs(state, perceived, params)
-    records += update_attribution(state, perceived, batch, params)  # M9.6, revision 25
-    records += update_focus(state, batch, params)  # M1.A.11c, revision 25: what the family's anxious attention focuses
+    records += update_attribution(state, perceived, batch, params)  # M9.6
+    records += update_focus(state, batch, params)  # M1.A.11c: what the family's anxious attention focuses
     steps.append("perceive")
 
     # 4 — appraise.
@@ -176,9 +176,9 @@ def run_tick(
     records += effects
     records += apply_delivered_cutoffs(state, batch, params)
     records += apply_move_effects(state, batch, params)
-    records += bridge_ties(state, batch, refusals, params)  # revision 36: this week's contact across each tie (M1.D.2b, c)
+    records += bridge_ties(state, batch, refusals, params)  # this week's contact across each tie (M1.D.2b, c)
     records += apply_landed_contacts(state, batch, params)
-    records += update_danger(state, batch, params)  # M1.B.3e, revision 30: danger read from received intrusion
+    records += update_danger(state, batch, params)  # M1.B.3e: danger read from received intrusion
     steps.append("appraise")
 
     # 5, 6 — before selection, because gates and propensities read them (M3.D.3).
@@ -216,48 +216,48 @@ def run_tick(
     for selection in sorted(selections, key=lambda s: (s.actor, s.index)):
         records += act(state, selection, visibility, params)
     register_acts(state, selections, params)  # M4.D.6: the policy's automatic acts open their accounts
-    records += self_practice(state, selections, load_at_selection, params)  # M1.E.7, revision 18
-    record_stances(state, selections, params)  # M1.B.5, revision 21: whom each person is holding a position toward
-    records += respond(state, selections, load_at_selection, params)  # M1.A.5e, revision 18: coping or soothing
-    update_usual(state, load_at_selection, params)  # M1.A.5e, revision 22: each person's usual level follows slowly
-    records += find_work(state, load_at_selection, params)  # M7.C.1k, revision 28: after a lost income
+    records += self_practice(state, selections, load_at_selection, params)  # M1.E.7
+    record_stances(state, selections, params)  # M1.B.5: whom each person is holding a position toward
+    records += respond(state, selections, load_at_selection, params)  # M1.A.5e: coping or soothing
+    update_usual(state, load_at_selection, params)  # M1.A.5e: each person's usual level follows slowly
+    records += find_work(state, load_at_selection, params)  # M7.C.1k: after a lost income
     steps.append("act")
 
     # 9 — consolidate, then the invariants assert (M4.G.2). The integrator reads this
     # tick's time above the floor before decay (M4.C.3a).
     records += accumulate_symptoms(state, params, visibility)
     sent = [r.event for r in records if isinstance(r, EmittedRecord)]
-    attended = own_acts_attention(state, attended, sent, params)  # M1.B.8b, revision 30: attention follows acts
+    attended = own_acts_attention(state, attended, sent, params)  # M1.B.8b: attention follows acts
     records += update_attention_state(state, attended, params)
-    records += weakness_focus(state, load_at_selection, params)  # revision 29: focus on a child's weakness (M1.B.8a)
+    records += weakness_focus(state, load_at_selection, params)  # focus on a child's weakness (M1.B.8a)
     records += update_outside_ness(state, readings, params)
     records += settle_functioning(state, params)
-    # M6.I.4a, revision 39: lent functioning returns with lost capacity, just before the settling back.
+    # M6.I.4a: lent functioning returns with lost capacity, just before the settling back.
     records += return_lent_functioning(state, params, start_level, exchanged(records))
-    records += relax_pseudo_self(state, params)  # M6.I.4, revision 27: borrowed pseudo-self settles back
+    records += relax_pseudo_self(state, params)  # M6.I.4: borrowed pseudo-self settles back
     records += allocate_sinks(state, params)
-    records += decay_cutoff_stock(state, params)  # revision 36: a cut-off tie's stock falls toward its floor (M1.D.2b)
+    records += decay_cutoff_stock(state, params)  # a cut-off tie's stock falls toward its floor (M1.D.2b)
     records += consolidate(state, params)
-    records += fade_rejection(state, params)  # M1.B.3c, revision 16: unrenewed rejection wears off
-    note_origin_cutoff(state, params)  # M1.D.8a, revision 30: the cutoff each child grows up with
+    records += fade_rejection(state, params)  # M1.B.3c: unrenewed rejection wears off
+    note_origin_cutoff(state, params)  # M1.D.8a: the cutoff each child grows up with
     # M4.D.6: the tick's felt change, decay included, is credited after consolidation.
     records += learn(state, start_acute, params)
-    records += soothing_review(state, params)  # revision 19: "is soothing helping me?"
-    records += learn_from_witnessed(state, params)  # revision 29: what followed a witnessed cutoff (M4.D.6f)
+    records += soothing_review(state, params)  # "is soothing helping me?"
+    records += learn_from_witnessed(state, params)  # what followed a witnessed cutoff (M4.D.6f)
     steps.append("consolidate")
     records.append(assert_invariants(state, before, loaded, tuple(steps), params.invariant_tolerance, tuple(records)))
     emitted = [r.event for r in records if isinstance(r, EmittedRecord)]
     record_week(state, params, load_at_selection, selections, emitted)
-    note_parental_acts(state, emitted, params)  # M7.E.1f, revision 31: the acts that open a child's band
+    note_parental_acts(state, emitted, params)  # M7.E.1f: the acts that open a child's band
     # The slow tick (M3.B.1, plan B5): after the fast tick's invariants, at the end of week 51, 103, … — week 0 is
     # the start, not a step (M2.A.0b). It checks its own invariants.
     if (state.tick + 1) % params.slow_tick_fast_ticks == 0:
         records += run_slow_tick(state, params)
-        records += yearly(state, params)  # M7.C.1, revision 28: the life course, after the slow tick's invariants
+        records += yearly(state, params)  # M7.C.1: the life course, after the slow tick's invariants
 
     for record in records:
         emitter.emit(record)
-    # Revision 41 (T-145): the level each person ends the week at, the next week's start for M6.I.4a.
+    # The level each person ends the week at, the next week's start for M6.I.4a.
     state.week_end_tick, state.week_end_level = state.tick, {pid: p.functional_level for pid, p in state.people.items()}
     state.tick += 1
     return tuple(steps)

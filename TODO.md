@@ -7,18 +7,15 @@ Open items, one line each: ID, date raised, title, record. **Now** blocks the cu
 `docs/todo/` (grep its ID). To close one, tick it in its record and run `python3 tools/todo_index.py`: its line
 moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's text; that form is in git history.
 
-## Now (8)
+## Now (5)
 
 - T-001 · 2026-10-19 · Version 2, next · [record](docs/todo/2026-08-22_blocking_the_next_phase.md)
 - T-002 · 2026-10-19 · `/csdp` sweep of 2026-10-19, items not fixed · [record](docs/todo/2026-08-22_blocking_the_next_phase.md)
 - T-003 · 2026-10-20 · Coverage page, minor, from the Part A review … · [record](docs/todo/2026-08-22_blocking_the_next_phase.md)
 - T-004 · 2026-10-20 · Coverage page, from Part B's drafting (2026-10-20), not … · [record](docs/todo/2026-08-22_blocking_the_next_phase.md)
 - T-214 · 2026-11-11 · Fix: beliefs created at a pairing, birth or … · [record](docs/todo/2026-11-11_whole_repo_review.md)
-- T-220 · 2026-11-11 · Fix: delete `tests/test_review_rev31.py` (2026-11-11) · [record](docs/todo/2026-11-11_whole_repo_review.md)
-- T-224 · 2026-11-11 · Fix: stale status lines and pointers (2026-11-11) · [record](docs/todo/2026-11-11_whole_repo_review.md)
-- T-225 · 2026-11-11 · Fix: keep revision history in one place (2026-11-11) · [record](docs/todo/2026-11-11_whole_repo_review.md)
 
-## Later (157)
+## Later (153)
 
 - T-006 · 2026-10-22 · D4, long `Spec:` lines (Part D, 2026-10-22; the … · [record](docs/todo/2026-10-22_model_ergonomics.md)
 - T-007 · 2026-10-22 · Adjacent issues found by Part D's docstring pass, … · [record](docs/todo/2026-10-22_model_ergonomics.md)
@@ -120,7 +117,6 @@ moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's te
 - T-108 · 2026-08-28 · The sweep covered one failure family only · [record](docs/todo/2026-08-28_batch_backlog.md)
 - T-109 · 2026-08-28 · Decide whether `M16`'s renderer output format is worth … · [record](docs/todo/2026-08-28_batch_backlog.md)
 - T-110 · 2026-08-28 · `M11.F.9(c)` deserves a worked demonstration before anyone relies … · [record](docs/todo/2026-08-28_batch_backlog.md)
-- T-111 · 2026-08-28 · No `LEARNINGS.md` · [record](docs/todo/2026-08-22_repository_hygiene.md)
 - T-112 · 2026-08-22 · `§n` cross-references are ambiguous across documents · [record](docs/todo/2026-08-22_documentation_hygiene.md)
 - T-113 · 2026-08-23 · Locate the rest of the Kerr–Bowen interview series · [record](docs/todo/2026-08-23_sources.md)
 - T-114 · 2026-08-23 · Probe the remaining 11 validation items against the … · [record](docs/todo/2026-08-23_sources.md)
@@ -148,7 +144,6 @@ moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's te
 - T-157 · 2026-10-28 · Probe-page tests for frozen pages take 17% of … · [record](docs/todo/2026-10-28_stage_3_milestone_review.md)
 - T-160 · 2026-10-28 · `phase_c_completion_report.md`'s other rows quote the numbers of Phase … · [record](docs/todo/2026-10-28_stage_3_milestone_review.md)
 - T-164 · 2026-10-29 · The merge's running-sweep guard matches the sweep's test … · [record](docs/todo/2026-10-28_stage_3_milestone_review.md)
-- T-168 · 2026-10-31 · `tests/test_stale_text.py`'s phrase misses the possessive form (the `learning-qa` … · [record](docs/todo/2026-10-29_version_2_definition.md)
 - T-169 · 2026-10-31 · A coach's completed `I-POSITION` exchange still acts on … · [record](docs/todo/2026-10-29_version_2_definition.md)
 - T-172 · 2026-11-01 · Three minor items from the W5–W8 reviews (2026-11-01) · [record](docs/todo/2026-10-29_version_2_definition.md)
 - T-174 · 2026-11-01 · `tools/group_g_readout.py` keeps no per-run results (review MR-15, 2026-11-01) · [record](docs/todo/2026-11-01_pre_tag_milestone_review.md)
@@ -166,8 +161,6 @@ moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's te
 - T-217 · 2026-11-11 · Fix: exclusion counts recorded by arms reach no … · [record](docs/todo/2026-11-11_whole_repo_review.md)
 - T-218 · 2026-11-11 · Fix: the log header's `config_hash` omits config that … · [record](docs/todo/2026-11-11_whole_repo_review.md)
 - T-219 · 2026-11-11 · Fix: minor engine and loader defects, one batch … · [record](docs/todo/2026-11-11_whole_repo_review.md)
-- T-221 · 2026-11-11 · Fix: delete the closed open-batch mechanism (2026-11-11) · [record](docs/todo/2026-11-11_whole_repo_review.md)
-- T-222 · 2026-11-11 · Fix: remove tests that pin hand-kept numbers or … · [record](docs/todo/2026-11-11_whole_repo_review.md)
 - T-223 · 2026-11-11 · Fix: small test gaps and leftovers (2026-11-11) · [record](docs/todo/2026-11-11_whole_repo_review.md)
 - T-226 · 2026-11-11 · Fix: archive finished-work documents and delete grid-engine leftovers … · [record](docs/todo/2026-11-11_whole_repo_review.md)
 - T-227 · 2026-11-11 · Fix: comments and README (2026-11-11) · [record](docs/todo/2026-11-11_whole_repo_review.md)

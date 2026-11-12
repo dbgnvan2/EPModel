@@ -43,8 +43,8 @@ FAMILIES = {
     "dyad": CONFIG_DIR / "fixtures" / "dyad.md",
     "triad": CONFIG_DIR / "fixtures" / "triad.md",
     "four": CONFIG_DIR / "fixtures" / "nuclear_four.md",
-    "phase_d": CONFIG_DIR / "family_phase_d.md",  # spec revision 28: the twelve-person family with its life course
-    "danger": CONFIG_DIR / "fixtures" / "danger.md",  # spec revision 30: M11.C.47
+    "phase_d": CONFIG_DIR / "family_phase_d.md",  # the twelve-person family with its life course
+    "danger": CONFIG_DIR / "fixtures" / "danger.md",  # M11.C.47
 }
 
 
@@ -93,38 +93,38 @@ REQUIRED = {
     "M11.C.18": ("weeks", "act_every"),
     "M11.C.20": ("weeks", "support_weeks", "support_every", "act_every"),
     "M11.C.33": ("weeks", "act_every"),
-    # Phase D step 7, the symptom channels (B7, spec revision 24).
+    # Phase D step 7, the symptom channels (B7).
     "M11.C.30": ("weeks", "held_load"),
     "M11.C.22": ("removal_week", "after", "mild", "severe"),
     "M11.C.12": ("remission_week", "after", "severity"),
     "M11.C.31": ("t0", "weeks", "held"),
     "M11.C.11": ("removal_week", "away", "window"),
-    # Phase D step 8, beliefs as a channel (B8, spec revision 25).
+    # Phase D step 8, beliefs as a channel (B8).
     "M11.C.26": ("weeks", "act_every"),
     "M11.C.36": ("weeks", "act_every", "believed_tension"),
     "M11.C.14": ("weeks", "act_every", "start_severity"),
-    # Phase D step 9, projection (B9, spec revision 26).
-    # years: the twelve-person family's run (part II, spec revision 28); the three ages read it by age (revision 29)
+    # Phase D step 9, projection (B9).
+    # years: the twelve-person family's run (part II); the three ages read it by age
     "M11.C.2": ("weeks", "years", "projection_until_age", "load_from_age", "load_to_age"),
-    # Phase D part II, the life course (spec revision 28).
+    # Phase D part II, the life course.
     "M11.C.15": ("severity", "change_week", "after"),
-    "M11.C.6": ("child",),  # revision 32: the paired same-child arm
-    "M11.C.10": ("years", "renew_every", "seeds"),  # renew_every (revision 29); seeds, fixed at 200 (revision 30)
-    "M11.C.47": ("weeks", "level_low", "level_high", "stress_every", "stress_kind", "stress_intensity"),  # revision 30
-    # Version 2 group G1 (spec revision 36): the Phase B family's weeks, the twelve-person family's years, fixed seeds.
+    "M11.C.6": ("child",),  # the paired same-child arm
+    "M11.C.10": ("years", "renew_every", "seeds"),  # renew_every; seeds, fixed at 200
+    "M11.C.47": ("weeks", "level_low", "level_high", "stress_every", "stress_kind", "stress_intensity"),
+    # Version 2 group G1: the Phase B family's weeks, the twelve-person family's years, fixed seeds.
     "M11.C.48": ("weeks", "years", "seeds"),
     # Phase D step 10, criteria on existing mechanisms.
     "M11.C.39": ("spell_weeks", "after", "quiet", "every", "intensity"),
     "M11.C.40": ("weeks", "window"),
     "M11.C.43": ("spell_weeks", "gap", "window", "every", "intensity"),
     "M11.C.34": ("t0", "window", "level_low", "level_high", "severity"),
-    "M11.C.21": ("t0", "after", "drop", "act_every"),  # act_every: the lent balance first (revision 31)
+    "M11.C.21": ("t0", "after", "drop", "act_every"),  # act_every: the lent balance first
     "M11.C.23": ("t0", "weeks", "act_every", "start_severity", "suppression"),
     "M11.C.24": ("diverge_weeks", "after", "act_every"),
-    # Version 1 (2026-10-17): the triangle change proved (spec revision 15).
+    # Version 1 (2026-10-17): the triangle change proved.
     "M11.C.46": ("t0", "latency", "bond_near", "bond_far"),
     "M11.C.7": ("weeks", "window"),
-    # Spec revision 55 (T-202): the social cues' criteria, built in ``criteria_sc`` (M11.C.55 in ``criteria_d2``).
+    # The social cues' criteria, built in ``criteria_sc`` (M11.C.55 in ``criteria_d2``).
     "M11.C.50": ("t0", "window", "after", "high_excess", "low_excess", "scripted_kind"),
     "M11.C.51": ("weeks", "believed_disapproval"),
     "M11.C.52": ("weeks", "start_excess", "perspective"),
@@ -152,7 +152,7 @@ def load_settings(path=CONFIG_DIR / "criteria.md") -> dict[str, dict]:
     settings: dict[str, dict] = {}
     for row, line in zip(document.rows, document.row_lines):
         section, name = row["criterion"], row["setting"]
-        if row["grade"] != "[I]":  # revision 31 (R31.B2): every declared setting is invented, and says so
+        if row["grade"] != "[I]":  # Every declared setting is invented, and says so
             raise ConfigError(f"{path}:{line}: {section} {name} has grade {row['grade']!r}; every setting is [I]")
         if name not in REQUIRED.get(section, ()):
             raise ConfigError(f"{path}:{line}: {section} has no setting {name!r}")
@@ -250,7 +250,7 @@ class Forced:
                 continue
             legal = {o.label for o in legal_outcomes(observe(state, actor, self.policy.params), state.kinds,
                                                      self.policy.params)}
-            # A scripted hold with no target is labelled by its kind alone (M11.C.14's baseline, revision 31).
+            # A scripted hold with no target is labelled by its kind alone (M11.C.14's baseline).
             label = f"{selection.kind}>{selection.targets[0]}" if selection.targets else selection.kind
             if label not in legal:
                 self.skipped += 1
@@ -270,7 +270,7 @@ class Forced:
         # An I-POSITION is made either as an act or as the start of a sequence, which emits nothing that week (M5.D.9).
         begun = {(pid, r.tick) for r in records if isinstance(r, EffectRecord) and r.mechanism == "iposition"
                  for pid, flag, _ in r.people if flag.startswith("iposition:begin")}
-        # A hold emits nothing: it was made if its actor emitted no move that week (revision 31).
+        # A hold emits nothing: it was made if its actor emitted no move that week.
         moved = {(sender, t) for sender, t, _, _ in emitted}
         counts = Counter()
         for (t, actor), selection in self.forced.items():
@@ -413,17 +413,17 @@ def mover_at(who: str, level: float):
 
 def act_window(t0: int) -> range:
     """The weeks of an `I-POSITION` scripted at ``t0`` up to its `DEFINE`: ``t0`` to ``t0 + prepare_ticks``, inclusive
-    (spec revision 39, D21; the step 5 reading: the week `DEFINE` falls due is in the window)."""
+    (D21; the step 5 reading: the week `DEFINE` falls due is in the window)."""
     return range(t0, t0 + int(load_constants()["prepare_ticks"]) + 1)
 
 
 def suspended(spells, person: str, weeks: range) -> tuple[Event, ...]:
     """``spells`` without ``person``'s spell events in ``weeks``: the act's window clear of their spell, every other
-    person's spell kept (`M11.C.29`, `M11.C.49`; revision 39, D21)."""
+    person's spell kept (`M11.C.29`, `M11.C.49`; D21)."""
     return tuple(e for e in spells if not (e.targets == (P(person),) and e.timestamp in weeks))
 
 
-COMPLETED = "(I-POSITION completed)"  # the mover's completed exchanges, a required "move" (M11.C.29, revision 39)
+COMPLETED = "(I-POSITION completed)"  # the mover's completed exchanges, a required "move" (M11.C.29)
 
 
 def completions(records, mover: str) -> int:
@@ -617,7 +617,7 @@ def arm_c27(arm, seed, settings):
 
 def arm_c29(arm, seed, settings):
     weeks, t0 = settings["weeks"], settings["t0"]
-    # Revision 39 (the owner's D21, 2026-10-24): the mover F at level `mover_level` in both arms, as in M11.C.32, and
+    # The mover F at level `mover_level` in both arms, as in M11.C.32, and
     # F's spell suspended over the act's window in both arms, M's kept, so the third still carries load (T-020). At
     # level 40, with the spell on F's PREPARE window, 58 of 100 seeds failed PREPARE and 37 ran as the assertion form.
     setup = mover_at("f", settings["mover_level"])
@@ -642,7 +642,7 @@ def arm_c29(arm, seed, settings):
                               held_open=held(t0 + span, "f-m"), watch=watch)
     done = result({"budget": state.family.undifferentiation_budget, "third_symptom_weeks": float(count(active)),
                    "completions": float(completions(records, "f"))}, records)
-    done.moves[COMPLETED] += completions(records, "f")  # the row fails if none completes (revision 39)
+    done.moves[COMPLETED] += completions(records, "f")  # the row fails if none completes
     return done
 
 
@@ -663,7 +663,7 @@ def arm_c32(arm, seed, settings):
             state.ties[TieId.of(P("a"), P("b"))].felt_impingement[P("a")] = settings["angry_impingement"]
 
     state, records = scenario("dyad", seed, settings["weeks"], forced=act("a", "I-POSITION", "b", t0), setup=anger)
-    # Revision 39: the assertion form is the I-POSITION with demand share 1, the angry form (M5.D.4a, M5.F.4). From
+    # the assertion form is the I-POSITION with demand share 1, the angry form (M5.D.4a, M5.F.4). From
     # revision 41 (T-133) that includes a sequence's DEFINE said in anger, in either arm.
     assertion = count(1 for r in records if isinstance(r, EmittedRecord) and r.event.demand_share >= 1.0)
     peaks = count(1 for r in records if isinstance(r, EffectRecord) and r.mechanism == "iposition"
@@ -720,7 +720,7 @@ def _c49_run(seed, weeks, t0, length, level, said):
 
 def arm_c49(arm, seed, settings):
     """The baseline is the mover at ``level_high``, the treatment at ``level_low``; each readout is the act run less
-    its control on the same seed (`M11.C.49`, revision 39). Completions are the act run's, reported."""
+    its control on the same seed (`M11.C.49`). Completions are the act run's, reported."""
     level = settings["level_high"] if arm == "baseline" else settings["level_low"]
     run = (seed, settings["weeks"], settings["t0"], settings["window"], level)
     _, control = _c49_run(*run, said=False)
@@ -859,7 +859,7 @@ CRITERIA: dict[str, Criterion] = {
     # Version 1 (2026-10-17; Claude's recommendation, approved by the owner 2026-10-17): the budget limb (M6.I.1) is
     # proved by tests/bowen/test_sinks.py::test_m6i1_only_a_completed_exchange_reduces_the_budget and reported here; the
     # third person's time course is emergent, so the criterion is mixed and gates on that limb alone.
-    # Revision 39 (D21): F at level 60, F's spell suspended over the act's window, and completions reported; the row
+    # F at level 60, F's spell suspended over the act's window, and completions reported; the row
     # fails if the mover completes no exchange (COMPLETED, a required "move").
     "M11.C.29": C("M11.C.29", "mixed", ("baseline", "treatment"),
                   (Readout("budget", -1, report_only=True), Readout("third_symptom_weeks", -1),
@@ -876,7 +876,7 @@ CRITERIA: dict[str, Criterion] = {
                   arm_spell_triad, settings=SETTINGS["M11.C.44"]),
     "M11.C.45": C("M11.C.45", "composite", ("baseline", "treatment"), (Readout("triangle_rate", +1),),
                   arm_spell_triad, ("TRIANGLE",), settings=SETTINGS["M11.C.45"]),
-    # Spec revision 39 (D20): the baseline is the mover at level 60, the treatment at 35. Mixed: the family-excess and
+    # The baseline is the mover at level 60, the treatment at 35. Mixed: the family-excess and
     # CONFLICT-share limbs gate (composite); the target's felt impingement is the premise limb, reported.
     "M11.C.49": C("M11.C.49", "mixed", ("baseline", "treatment"),
                   (Readout("family_excess", +1), Readout("conflict_share", +1),
@@ -913,7 +913,7 @@ NOT_BUILT = {
 }
 # M11.C.7 and M11.C.14 were not built in Phase C; both are built in Phase D (docs/phase_d_ensemble_record.md).
 
-# Spec revision 55 (T-202): the social cues' criteria on the Phase C families, both arms with the cues on (M4.C.1f).
+# The social cues' criteria on the Phase C families, both arms with the cues on (M4.C.1f).
 # Imported last, as a module: ``criteria_sc`` reads this module's helpers and adds its criteria to ``CRITERIA`` itself,
 # so the table is whole whichever of the two modules is imported first (a worker that unpickles one of
 # ``criteria_sc``'s arms imports it first).

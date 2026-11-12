@@ -47,25 +47,25 @@ LEDGER = {
     "cutoff": SOURCE,               # M4.C.1: the relief a delivered CUTOFF is appraised as
     "competing_urges": SOURCE,      # M4.D.1d
     "refusal": SOURCE,              # M1.B.3c, a refused move's cost to its sender
-    "stressor_load": SOURCE,        # M1.F.6, revision 18: a lasting stressor's later weeks
-    "reactive_cutoff": SOURCE,      # M1.B.3d, revision 29: a held reactive cutoff's weekly cost to its holder
-    "danger_contact": SOURCE,       # M1.B.3e, revision 30: accepted contact from a person felt as dangerous
-    "cutoff_threat": SOURCE,        # M1.D.2b, revision 36: a cut-off tie's stock weighs on both members
-    "cutoff_threat_renewed": SOURCE,  # M1.D.2b, revision 36: a negative contact returns the stock to its peak
-    "tie_repair_reversed": SOURCE,  # M1.D.2c, revision 36: a negative contact adds a third of the reference level back
+    "stressor_load": SOURCE,        # M1.F.6: a lasting stressor's later weeks
+    "reactive_cutoff": SOURCE,      # M1.B.3d: a held reactive cutoff's weekly cost to its holder
+    "danger_contact": SOURCE,       # M1.B.3e: accepted contact from a person felt as dangerous
+    "cutoff_threat": SOURCE,        # M1.D.2b: a cut-off tie's stock weighs on both members
+    "cutoff_threat_renewed": SOURCE,  # M1.D.2b: a negative contact returns the stock to its peak
+    "tie_repair_reversed": SOURCE,  # M1.D.2c: a negative contact adds a third of the reference level back
     "acute_decay": SINK,            # M1.A.8, toward the chronic floor
-    "cutoff_cap_dissipation": SINK,  # M1.D.2b, revision 36: the stock above the cap at the week of the cut
-    "cutoff_decay": SINK,           # M1.D.2b, revision 36: the stock's fall toward its floor
-    "cutoff_bridge_dissipation": SINK,  # M1.D.2b, revision 36: what a positive contact across a cut-off tie lets go
-    "tie_repair_dissipation": SINK,  # M1.D.2c, revision 36: what a positive contact removes from a tie's stock
+    "cutoff_cap_dissipation": SINK,  # M1.D.2b: the stock above the cap at the week of the cut
+    "cutoff_decay": SINK,           # M1.D.2b: the stock's fall toward its floor
+    "cutoff_bridge_dissipation": SINK,  # M1.D.2b: what a positive contact across a cut-off tie lets go
+    "tie_repair_dissipation": SINK,  # M1.D.2c: what a positive contact removes from a tie's stock
     "calm_contact": TRANSFER,       # M4.C.10
     "distance_binding": TRANSFER,   # M1.D.2a, person to tie
-    "conflict_binding": TRANSFER,   # M1.D.2c, revision 36: person to tie, at a smaller share than distance
+    "conflict_binding": TRANSFER,   # M1.D.2c: person to tie, at a smaller share than distance
     "triangle_transfer": TRANSFER,  # M1.C.1, seeker to outsider, plus KS03.1's source
     "reconciliation": TRANSFER,     # M4.A.3, tie back to its members
     "reduce_cutoff": TRANSFER,      # M5.B.3: lowers rejection; moves no stock since revision 36 (D7), kept for the record's name
     "binder_unavailable": TRANSFER, # M1.F.9, a binder's hold back to the family budget; a symptom's to its partners
-    "lock_in": TRANSFER,            # M7.D.2a, M7.D.2d (revision 24): partners to a symptom's bound stock and back
+    "lock_in": TRANSFER,            # M7.D.2a, M7.D.2d: partners to a symptom's bound stock and back
 }
 # Named sources a transfer record may carry on top of its balance (logged in ``people``).
 NAMED_SOURCES = {"positional_anxiety"}
@@ -109,7 +109,7 @@ def ledger_problems(state: RunState, before: Snapshot, records, tolerance: float
     problems = []
     logged_acute: dict[PersonId, float] = {}
     logged_bound: dict[TieId, float] = {}
-    logged_held: dict[PersonId, float] = {}  # revision 24: what symptoms hold (M7.D.2a)
+    logged_held: dict[PersonId, float] = {}  # what symptoms hold (M7.D.2a)
     for record in records:
         if not isinstance(record, EffectRecord):
             continue
@@ -170,7 +170,7 @@ def budget_problems(state: RunState, before: Snapshot, records, tolerance: float
         problems.append(f"a negative allocation: {dict(family.sink_allocations)}, overflow {family.overflow}")
     if math.fsum(allocations) > family.undifferentiation_budget + tolerance:
         problems.append(f"allocations {math.fsum(allocations)} exceed the budget {family.undifferentiation_budget}")
-    for other in state.families()[1:]:  # spec revision 28: the families partnering makes; their budgets do not move
+    for other in state.families()[1:]:  # the families partnering makes; their budgets do not move
         allocated = [*other.sink_allocations.values(), other.overflow]
         if any(v < -tolerance for v in allocated) or math.fsum(allocated) > other.undifferentiation_budget + tolerance:
             problems.append(f"{other.household}: allocations {allocated} outside its budget {other.undifferentiation_budget}")

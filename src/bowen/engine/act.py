@@ -151,7 +151,7 @@ def act(state: RunState, selection: Selection, visibility: HouseholdConductanceV
         route=selection.route,
         fidelity=visibility.fidelity_for(selection.route),
         demand_share=demand,
-        # M1.F.1c (spec revision 55): the signal channels, from the sender's state, only while the cues are on.
+        # M1.F.1c: the signal channels, from the sender's state, only while the cues are on.
         signals=cues.sender_signals(state, selection.actor, tuple(sorted(selection.targets)), params)
         if cues.on(params) else None,
     )

@@ -8,8 +8,8 @@ moved from `927550dfcb8a` to `d3779684dd53`. Step 4, the one regeneration, ran 2
 Macs (Q8 (a)): every record in scope is current on `d3779684dd53`, the eleven revision-57 marks are off, and
 `docs/version_3_revision_57_changes.md` says what moved — no criterion's verdict changed, and two mutants of the
 Phase D mutation record did (`cutoff-blind-to-learned-value` survived to red on `M11.C.48[phase_d]`, which meets W3,
-and `supply-by-birth-order` reversed to red on `M11.C.55`). The version 2 sweep record and the emergence audit record
-stayed on `927550dfcb8a` by decision. Step 5 ran 2026-11-11, split across both Macs, under the owner's instruction of
+and `supply-by-birth-order` reversed to red on `M11.C.55`). The version 2 sweep record (on `0b363cb3186c`) and the
+emergence audit record stayed on earlier hashes by decision. Step 5 ran 2026-11-11, split across both Macs, under the owner's instruction of
 that night to proceed with the recommendations: `docs/emergence_audit_record.md` is current on `d3779684dd53` and its
 two strict expected failures are off; its results and their recommendations are T-213, approved by the owner 2026-11-11.
 Step 6 is done: the owner accepted the four failing cue rows as findings 2026-11-11, as Claude recommended

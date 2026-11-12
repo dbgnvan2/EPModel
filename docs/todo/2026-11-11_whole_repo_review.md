@@ -35,42 +35,50 @@ Nothing here is built or decided. Items marked *verified* survived the review's 
 
 ## Fix — tests
 
-- [ ] T-220 ⟨now⟩ **Fix: delete `tests/test_review_rev31.py` (2026-11-11).** [T1, *verified*] Six blocks assert
+- [x] T-220 ⟨now⟩ **Fix: delete `tests/test_review_rev31.py` (2026-11-11).** [T1, *verified*] Six blocks assert
   exact prose, which effort budget rule 5 bans. 159 lines, 16 tests.
-- [ ] T-221 ⟨later⟩ **Fix: delete the closed open-batch mechanism (2026-11-11).** [T2, *verified*]
+  *Done 2026-11-11: deleted; its one structural check (every row of `config/bowen/criteria.md` graded `[I]`) moved to `tests/bowen/test_config.py::test_m0_1_criteria_settings_graded`.*
+- [x] T-221 ⟨later⟩ **Fix: delete the closed open-batch mechanism (2026-11-11).** [T2, *verified*]
   `tests/open_batch.py`, `tests/test_open_batch.py` and the hooks in `conftest.py`, `test_version_2_status.py:30-38`
   and `test_spec_consistency.py:404-437`. About 540 lines, 11 tests; `OPEN` has been None since 2026-10-26.
-- [ ] T-222 ⟨later⟩ **Fix: remove tests that pin hand-kept numbers or re-check fixed history (2026-11-11).** [T3,
+  *Done 2026-11-11: `tests/open_batch.py`, `tests/test_open_batch.py`, the `conftest.py` fixture and the `test_version_2_status.py` hooks removed.*
+- [x] T-222 ⟨later⟩ **Fix: remove tests that pin hand-kept numbers or re-check fixed history (2026-11-11).** [T3,
   T4] The suite count in `CLAUDE.md`, the exact `Spec:` reference count, the 140-name constant set in
   `bowen/test_log.py:147-212`, the revision and requirement count restated across documents; the `version-1` tag
   re-run, the nine rebuilt revision pages, `pytest --collect-only` inside the suite. Goes with T-225.
+  *Done 2026-11-11: removed the suite-count test with its `pytest --collect-only` and the D4 phrasing tests, D1's revision checks, the requirement-count test, MR-13's three-document hash check (the hash is read into `docs/STATUS.md`), and the `version-1` tag re-run; the constant set in `bowen/test_log.py` is computed from the two registers; only the live revision page is rebuilt. Kept by the owner's choice of 2026-11-11: the exact `Spec:` count (`M11.D.9` requires it; the rule goes to the Decide session).*
 - [ ] T-223 ⟨later⟩ **Fix: small test gaps and leftovers (2026-11-11).** [Minor] Add a cross-process determinism test
   of a policy run under a changed hash salt; delete `bowen/test_log.py:31-43` (vacuous by its docstring); archive the
   five closed probe tools and their tests; replace report-fragment assertions with assertions on the numbers; pin
   CI's NumPy and add a manual `-m ensemble` job; `tools/c2_matched_probe.py` has no test.
+  *Partly done 2026-11-11: added `tests/bowen/test_determinism.py::test_m11d5_policy_run_same_log_across_hash_salts`. Kept `bowen/test_log.py:31-43`: it checks that the sink writes every record, and the frozen Phase B mutation gate and two `Tests:` lines name it. Not done: the probe tools' archive (with T-226's move), the report-fragment assertions, the CI NumPy pin (1.26.4 has no wheel for Python 3.13; whether CI runs at all is T-233), the manual `-m ensemble` job, a test for `tools/c2_matched_probe.py`.*
 
 ## Fix — documents
 
-- [ ] T-224 ⟨now⟩ **Fix: stale status lines and pointers (2026-11-11).** [D1, D2, P5] Recheck each against `HEAD`
+- [x] T-224 ⟨now⟩ **Fix: stale status lines and pointers (2026-11-11).** [D1, D2, P5] Recheck each against `HEAD`
   first; they were read while another session was editing. `docs/proposal_social_cues.md:3-6` and
   `docs/spec_revision_55_draft.md:3-4` say not built; `SPEC_REVIEW_CHECKLIST.md:218, 262, 264` and
   `REVIEWER_READING_LIST.md:196-199` repeat it. The sweep record's hash is `0b363cb3186c`, not `927550dfcb8a`
   (`REVIEWER_READING_LIST.md:421, 435`, `CHANGELOG.md:118-120`). `model_explainer.md:2332` says 10 of 13 audited rows
   survive; the record shows 9. `version_2_status.md:114` contradicts itself on `M11.C.48[phase_d]`. T-111 and T-168
   point at things that no longer hold. The checklist files the current status page under "not for review".
-- [ ] T-225 ⟨now⟩ **Fix: keep revision history in one place (2026-11-11).** [D3, D4] It is hand-restated in
+  *Done 2026-11-11, except P5 (`version_2_status.md:114`), which goes to the Decide session by the owner's choice of 2026-11-11: the status lines of the social-cues proposal and the revision 55 draft, the checklist's and the reading list's rows, the sweep record's hash (`0b363cb3186c`), the explainer's audit count (9 of 13), the six current records moved into the checklist's Part 3. T-111 and T-168 closed.*
+- [x] T-225 ⟨now⟩ **Fix: keep revision history in one place (2026-11-11).** [D3, D4] It is hand-restated in
   `CLAUDE.md:28, 96`, `README.md:54`, `REVIEWER_READING_LIST.md:3, 226-436`, the spec's line 4,
   `docs/theory/_STATUS.md:3` and `spec_revision_log.md:3`. Keep it in the revision log and the changelog; elsewhere
   one sentence and a pointer, from one generated status file with one test. Cuts `CLAUDE.md` by about half. Relates
   to T-175.
+  *Done 2026-11-11 (option A, the owner's choice): `tools/status.py` writes `docs/STATUS.md`, checked by `tests/test_status.py`; the status texts of the spec, the revision log, `_STATUS.md`, `README.md`, `CLAUDE.md` and the reading list are one sentence and a pointer, and the old texts are in `docs/spec_revision_log.md` under "Status text moved here 2026-11-11 (T-225)", verbatim. The explainer's §11.3-11.5 stay (T-227).*
 - [ ] T-226 ⟨later⟩ **Fix: archive finished-work documents and delete grid-engine leftovers (2026-11-11).** [D5,
   Minor] About 55 files to an archive: 15 finished plans, 20 applied proposals, decisions and drafts, past reviews
   and phase reports, eight frozen comparison pages, 17 Phase C QA-gate logs. Delete `gemini.md`,
   `monte_carlo_results.txt`, `data/` and six grid-engine documents. Check `tests/test_doc_claims.py`,
   `tests/test_doc_checklist.py` and `tools/record_changes.py` for path dependencies first. The list is in the report.
+  *Partly done 2026-11-11: the six grid-engine documents, `gemini.md`, `monte_carlo_results.txt` and `data/` removed (`git rm`; all at the tag `version-1`). The archive move goes with the engine batch (the owner's choice of 2026-11-12): 17 candidates are cited by hashed `config/bowen/*.md` prose (6), by version 1's tag-checked files (2), by the LLM experiment's code and prompts (3) and by generated records (6), and that batch moves the hash and regenerates every record anyway.*
 - [ ] T-227 ⟨later⟩ **Fix: comments and README (2026-11-11).** [Minor] 416 "revision N" comments in 44 engine files
   carry history where the current rule belongs (comments are outside the hash); explainer §11.3-11.5 are "what
   revision N changed" sections; README "Running" lacks a policy run; 12 filenames have spaces and em dashes.
+  *Partly done 2026-11-11: 374 of the 416 "revision N" provenance tags removed from comments in `src/bowen/` (the engine hash did not move; one mutant's site, `displaced-coping-removed` in `stress_response.py`, kept as it was); the 42 left are narrative. README "Running" gives the scripted and policy runs. Not done: the explainer's §11.3-11.5 (`config/sweep/sweep.md` and the explainer itself cite them by number) and the 12 filenames with spaces (with T-226's move).*
 
 ## Decide
 

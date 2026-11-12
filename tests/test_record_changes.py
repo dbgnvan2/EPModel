@@ -29,7 +29,11 @@ D2 = rc.Record("d2", "criterion", ("criterion",), "outcome", positional=True)
 
 
 def test_s1_10b_changes_page_is_current():
-    for name, page in rc.PAGES.items():
+    """The page that reads the working tree is rebuilt; the pages whose two sides are both git refs are frozen and
+    are not rebuilt on every run (T-222, 2026-11-11)."""
+    live = {name: page for name, page in rc.PAGES.items() if page.now is None}
+    assert live
+    for name, page in live.items():
         assert page.out.read_text(encoding="utf-8") == rc.build(page), \
             f"stale: rerun python3 tools/record_changes.py {name}"
 

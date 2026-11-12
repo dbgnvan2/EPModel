@@ -117,46 +117,46 @@ SCHEMA: Mapping[str, KeySpec] = MappingProxyType(
         "lock_in_turn": KeySpec(float, "[I]", "M7.D.2d"),
         "pseudo_self_relaxation_rate": KeySpec(float, "[I]", "M6.I.4"),
         "exchange_window": KeySpec(int, "[I]", "M6.I.4"),
-        "acting_age_years": KeySpec(int, "[I]", "M7.C.1f"),  # spec revision 28
-        "development_start_age_years": KeySpec(int, "[I]", "M7.E.1f"),  # spec revision 28
-        "development_end_age_years": KeySpec(int, "[I]", "M7.E.1f"),  # spec revision 28
-        "development_band": KeySpec(float, "[I]", "M7.E.1f"),  # spec revision 28
-        "development_rate": KeySpec(float, "[I]", "M7.E.1f"),  # spec revision 28
-        "development_band_projection": KeySpec(float, "[I]", "M7.E.1f"),  # spec revision 31 (R31.B7)
-        "development_band_support": KeySpec(float, "[I]", "M7.E.1f"),  # spec revision 31 (R31.B7)
-        "witnessed_gain": KeySpec(float, "[I]", "M7.B.1a"),  # spec revision 28
-        "launch_age_years": KeySpec(int, "[I]", "M7.C.1g"),  # spec revision 28
-        "working_age_years": KeySpec(int, "[I]", "M7.C.1k"),  # spec revision 28
-        "find_work_rate": KeySpec(float, "[I]", "M7.C.1k"),  # spec revision 28
-        "find_work_pressure_scale": KeySpec(float, "[I]", "M7.C.1k"),  # spec revision 28
-        "grief_weight": KeySpec(float, "[I]", "M6.3g"),  # spec revision 36 (replaced grief_scale)
-        "lcu_scale": KeySpec(float, "[I]", "M1.F.6a"),  # spec revision 36
-        "grief_min_weeks": KeySpec(int, "[I]", "M6.3g"),  # spec revision 28
-        "grief_extra_weeks": KeySpec(int, "[I]", "M6.3g"),  # spec revision 28
-        "income_loss_intensity": KeySpec(float, "[I]", "M6.3h"),  # spec revision 28
-        "income_shortfall_share": KeySpec(float, "[I]", "M6.3h"),  # spec revision 28
-        "mortality_a": KeySpec(float, "[I]", "M7.C.1j"),  # spec revision 28
-        "mortality_b": KeySpec(float, "[I]", "M7.C.1j"),  # spec revision 28
-        "budget_per_undifferentiation": KeySpec(float, "[I]", "M7.C.1h"),  # spec revision 28
-        "coach_start_age_years": KeySpec(int, "[I]", "M2.A.0k"),  # spec revision 28
-        "coach_retirement_age_years": KeySpec(int, "[I]", "M2.A.0k"),  # spec revision 28
-        "new_tie_investment_share": KeySpec(float, "[I]", "M7.C.1a"),  # spec revision 28
-        "birth_focus_gain": KeySpec(float, "[I]", "M7.E.1c"),  # spec revision 28
-        "death_transfer_share": KeySpec(float, "[I]", "M6.3b"),  # spec revision 28
-        "reactive_cutoff_gain": KeySpec(float, "[I]", "M1.B.3d"),  # spec revision 29
-        "witnessed_cutoff_gain": KeySpec(float, "[I]", "M4.D.6f"),  # spec revision 29
-        "witness_window": KeySpec(int, "[I]", "M4.D.6f"),  # spec revision 29
-        "perceived_weakness_gain": KeySpec(float, "[I]", "M1.B.8a"),  # spec revision 29
-        "focus_steer_gain": KeySpec(float, "[I]", "M4.D.1g"),  # spec revision 29
-        "origin_cutoff_anxiety_gain": KeySpec(float, "[I]", "M1.D.8a"),  # spec revision 30
-        "origin_fusion_gain": KeySpec(float, "[I]", "M1.D.8a"),  # spec revision 30
-        "nodal_spike_intensity": KeySpec(float, "[I]", "M4.C.1c"),  # spec revision 32
-        "danger_window": KeySpec(int, "[I]", "M1.B.3e"),  # spec revision 30
-        "danger_threshold": KeySpec(float, "[I]", "M1.B.3e"),  # spec revision 30
-        "danger_gain": KeySpec(float, "[I]", "M1.B.3e"),  # spec revision 30
-        "focus_reinforce_gain": KeySpec(float, "[I]", "M1.B.8b"),  # spec revision 30
-        "force_anxiety_gain": KeySpec(float, "[I]", "M4.D.1h"),  # spec revision 30
-        "focus_compound_gain": KeySpec(float, "[I]", "M1.B.8b"),  # spec revision 30
+        "acting_age_years": KeySpec(int, "[I]", "M7.C.1f"),
+        "development_start_age_years": KeySpec(int, "[I]", "M7.E.1f"),
+        "development_end_age_years": KeySpec(int, "[I]", "M7.E.1f"),
+        "development_band": KeySpec(float, "[I]", "M7.E.1f"),
+        "development_rate": KeySpec(float, "[I]", "M7.E.1f"),
+        "development_band_projection": KeySpec(float, "[I]", "M7.E.1f"),  # R31.B7
+        "development_band_support": KeySpec(float, "[I]", "M7.E.1f"),  # R31.B7
+        "witnessed_gain": KeySpec(float, "[I]", "M7.B.1a"),
+        "launch_age_years": KeySpec(int, "[I]", "M7.C.1g"),
+        "working_age_years": KeySpec(int, "[I]", "M7.C.1k"),
+        "find_work_rate": KeySpec(float, "[I]", "M7.C.1k"),
+        "find_work_pressure_scale": KeySpec(float, "[I]", "M7.C.1k"),
+        "grief_weight": KeySpec(float, "[I]", "M6.3g"),  # replaced grief_scale
+        "lcu_scale": KeySpec(float, "[I]", "M1.F.6a"),
+        "grief_min_weeks": KeySpec(int, "[I]", "M6.3g"),
+        "grief_extra_weeks": KeySpec(int, "[I]", "M6.3g"),
+        "income_loss_intensity": KeySpec(float, "[I]", "M6.3h"),
+        "income_shortfall_share": KeySpec(float, "[I]", "M6.3h"),
+        "mortality_a": KeySpec(float, "[I]", "M7.C.1j"),
+        "mortality_b": KeySpec(float, "[I]", "M7.C.1j"),
+        "budget_per_undifferentiation": KeySpec(float, "[I]", "M7.C.1h"),
+        "coach_start_age_years": KeySpec(int, "[I]", "M2.A.0k"),
+        "coach_retirement_age_years": KeySpec(int, "[I]", "M2.A.0k"),
+        "new_tie_investment_share": KeySpec(float, "[I]", "M7.C.1a"),
+        "birth_focus_gain": KeySpec(float, "[I]", "M7.E.1c"),
+        "death_transfer_share": KeySpec(float, "[I]", "M6.3b"),
+        "reactive_cutoff_gain": KeySpec(float, "[I]", "M1.B.3d"),
+        "witnessed_cutoff_gain": KeySpec(float, "[I]", "M4.D.6f"),
+        "witness_window": KeySpec(int, "[I]", "M4.D.6f"),
+        "perceived_weakness_gain": KeySpec(float, "[I]", "M1.B.8a"),
+        "focus_steer_gain": KeySpec(float, "[I]", "M4.D.1g"),
+        "origin_cutoff_anxiety_gain": KeySpec(float, "[I]", "M1.D.8a"),
+        "origin_fusion_gain": KeySpec(float, "[I]", "M1.D.8a"),
+        "nodal_spike_intensity": KeySpec(float, "[I]", "M4.C.1c"),
+        "danger_window": KeySpec(int, "[I]", "M1.B.3e"),
+        "danger_threshold": KeySpec(float, "[I]", "M1.B.3e"),
+        "danger_gain": KeySpec(float, "[I]", "M1.B.3e"),
+        "focus_reinforce_gain": KeySpec(float, "[I]", "M1.B.8b"),
+        "force_anxiety_gain": KeySpec(float, "[I]", "M4.D.1h"),
+        "focus_compound_gain": KeySpec(float, "[I]", "M1.B.8b"),
         "attribution_rate": KeySpec(float, "[I]", "M9.6"),
         "focus_rate": KeySpec(float, "[I]", "M1.A.11c"),
         "belief_appraisal_gain": KeySpec(float, "[I]", "M9.7"),
@@ -214,13 +214,13 @@ SCHEMA: Mapping[str, KeySpec] = MappingProxyType(
         "withhold_investment_gain": KeySpec(float, "[I]", "M4.D.1b"),
         "loaded_tie_threshold": KeySpec(float, "[I]", "M4.D.3b"),
         "distance_binding_rate": KeySpec(float, "[I]", "M1.D.2a"),
-        "conflict_binding_rate": KeySpec(float, "[I]", "M1.D.2c"),  # spec revision 36
-        "cutoff_stock_cap": KeySpec(float, "[I]", "M1.D.2b"),  # spec revision 36
-        "cutoff_threat_weight": KeySpec(float, "[I]", "M1.D.2b"),  # spec revision 36
-        "cutoff_decay_weeks": KeySpec(int, "[I]", "M1.D.2b"),  # spec revision 36
-        "cutoff_floor_share": KeySpec(float, "[I]", "M1.D.2b"),  # spec revision 36
-        "positive_bridge_dissipation": KeySpec(float, "[I]", "M1.D.2b"),  # spec revision 36
-        "tie_repair_steps": KeySpec(int, "[I]", "M1.D.2c"),  # spec revision 36
+        "conflict_binding_rate": KeySpec(float, "[I]", "M1.D.2c"),
+        "cutoff_stock_cap": KeySpec(float, "[I]", "M1.D.2b"),
+        "cutoff_threat_weight": KeySpec(float, "[I]", "M1.D.2b"),
+        "cutoff_decay_weeks": KeySpec(int, "[I]", "M1.D.2b"),
+        "cutoff_floor_share": KeySpec(float, "[I]", "M1.D.2b"),
+        "positive_bridge_dissipation": KeySpec(float, "[I]", "M1.D.2b"),
+        "tie_repair_steps": KeySpec(int, "[I]", "M1.D.2c"),
         "triangle_transfer_rate": KeySpec(float, "[I]", "M1.C.1"),
         "outsider_positional_gain": KeySpec(float, "[I]", "M1.C.1"),
         "balance_push_gain": KeySpec(float, "[I]", "M1.B.5"),
@@ -228,37 +228,37 @@ SCHEMA: Mapping[str, KeySpec] = MappingProxyType(
         "balance_harden_rate": KeySpec(float, "[I]", "M1.B.6"),
         "reversal_asymmetry": KeySpec(float, "[I]", "M1.B.7"),
         "pseudo_self_transfer_gain": KeySpec(float, "[I]", "M6.I.4"),
-        "social_cues_enabled": KeySpec(int, "[I]", "M4.C.1f"),  # spec revision 55
-        "cue_attention_contact_weight": KeySpec(float, "[I]", "M4.C.1e"),  # spec revision 55
-        "cue_attention_impingement_weight": KeySpec(float, "[I]", "M4.C.1e"),  # spec revision 55
-        "cue_approval_contact_weight": KeySpec(float, "[I]", "M4.C.1e"),  # spec revision 55
-        "cue_approval_impingement_weight": KeySpec(float, "[I]", "M4.C.1e"),  # spec revision 55
-        "cue_expectations_contact_weight": KeySpec(float, "[I]", "M4.C.1e"),  # spec revision 55
-        "cue_expectations_impingement_weight": KeySpec(float, "[I]", "M4.C.1e"),  # spec revision 55
-        "cue_distress_contact_weight": KeySpec(float, "[I]", "M4.C.1e"),  # spec revision 55
-        "cue_distress_impingement_weight": KeySpec(float, "[I]", "M4.C.1e"),  # spec revision 55
-        "unmet_expectation_weight": KeySpec(float, "[I]", "M4.C.1e"),  # spec revision 55
-        "cue_leak_gain": KeySpec(float, "[I]", "M4.C.13"),  # spec revision 55
-        "cue_leak_expectations_share": KeySpec(float, "[I]", "M4.C.13"),  # spec revision 55
-        "cue_leak_distress_share": KeySpec(float, "[I]", "M4.C.13"),  # spec revision 55
-        "cue_tone_share": KeySpec(float, "[I]", "M4.C.13"),  # spec revision 55
-        "cue_face_share": KeySpec(float, "[I]", "M4.C.13"),  # spec revision 55
-        "cue_posture_share": KeySpec(float, "[I]", "M4.C.13"),  # spec revision 55
-        "nonverbal_weight_base": KeySpec(float, "[I]", "M4.C.11"),  # spec revision 55
-        "nonverbal_weight_anxiety_gain": KeySpec(float, "[I]", "M4.C.11"),  # spec revision 55
-        "nonverbal_weight_cap": KeySpec(float, "[I]", "M4.C.11"),  # spec revision 55
-        "cue_sensitivity_floor": KeySpec(float, "[I]", "M4.C.14"),  # spec revision 55
-        "cue_sensitivity_level_gain": KeySpec(float, "[I]", "M4.C.14"),  # spec revision 55
-        "cue_bias_floor": KeySpec(float, "[I]", "M4.C.14"),  # spec revision 55
-        "cue_bias_level_gain": KeySpec(float, "[I]", "M4.C.14"),  # spec revision 55
-        "cue_bias_anxiety_gain": KeySpec(float, "[I]", "M4.C.12"),  # spec revision 55
-        "cue_bias_belief_gain": KeySpec(float, "[I]", "M4.C.12"),  # spec revision 55
-        "cue_spread_floor": KeySpec(float, "[I]", "M4.C.14"),  # spec revision 55
-        "cue_spread_level_gain": KeySpec(float, "[I]", "M4.C.14"),  # spec revision 55
-        "attention_load_gain": KeySpec(float, "[I]", "M4.C.15"),  # spec revision 55
-        "attention_load_scale": KeySpec(float, "[I]", "M4.C.15"),  # spec revision 55
-        "belief_cue_rate": KeySpec(float, "[I]", "M9.9"),  # spec revision 55
-        "belief_leak_gain": KeySpec(float, "[I]", "M9.9"),  # spec revision 55
+        "social_cues_enabled": KeySpec(int, "[I]", "M4.C.1f"),
+        "cue_attention_contact_weight": KeySpec(float, "[I]", "M4.C.1e"),
+        "cue_attention_impingement_weight": KeySpec(float, "[I]", "M4.C.1e"),
+        "cue_approval_contact_weight": KeySpec(float, "[I]", "M4.C.1e"),
+        "cue_approval_impingement_weight": KeySpec(float, "[I]", "M4.C.1e"),
+        "cue_expectations_contact_weight": KeySpec(float, "[I]", "M4.C.1e"),
+        "cue_expectations_impingement_weight": KeySpec(float, "[I]", "M4.C.1e"),
+        "cue_distress_contact_weight": KeySpec(float, "[I]", "M4.C.1e"),
+        "cue_distress_impingement_weight": KeySpec(float, "[I]", "M4.C.1e"),
+        "unmet_expectation_weight": KeySpec(float, "[I]", "M4.C.1e"),
+        "cue_leak_gain": KeySpec(float, "[I]", "M4.C.13"),
+        "cue_leak_expectations_share": KeySpec(float, "[I]", "M4.C.13"),
+        "cue_leak_distress_share": KeySpec(float, "[I]", "M4.C.13"),
+        "cue_tone_share": KeySpec(float, "[I]", "M4.C.13"),
+        "cue_face_share": KeySpec(float, "[I]", "M4.C.13"),
+        "cue_posture_share": KeySpec(float, "[I]", "M4.C.13"),
+        "nonverbal_weight_base": KeySpec(float, "[I]", "M4.C.11"),
+        "nonverbal_weight_anxiety_gain": KeySpec(float, "[I]", "M4.C.11"),
+        "nonverbal_weight_cap": KeySpec(float, "[I]", "M4.C.11"),
+        "cue_sensitivity_floor": KeySpec(float, "[I]", "M4.C.14"),
+        "cue_sensitivity_level_gain": KeySpec(float, "[I]", "M4.C.14"),
+        "cue_bias_floor": KeySpec(float, "[I]", "M4.C.14"),
+        "cue_bias_level_gain": KeySpec(float, "[I]", "M4.C.14"),
+        "cue_bias_anxiety_gain": KeySpec(float, "[I]", "M4.C.12"),
+        "cue_bias_belief_gain": KeySpec(float, "[I]", "M4.C.12"),
+        "cue_spread_floor": KeySpec(float, "[I]", "M4.C.14"),
+        "cue_spread_level_gain": KeySpec(float, "[I]", "M4.C.14"),
+        "attention_load_gain": KeySpec(float, "[I]", "M4.C.15"),
+        "attention_load_scale": KeySpec(float, "[I]", "M4.C.15"),
+        "belief_cue_rate": KeySpec(float, "[I]", "M9.9"),
+        "belief_leak_gain": KeySpec(float, "[I]", "M9.9"),
     }
 )
 
@@ -273,7 +273,7 @@ RETIRED: Mapping[str, KeySpec] = MappingProxyType(
         "interactive_standing_fraction": KeySpec(float, "[I]", "M4.A.3"),
         "tension_activation_threshold": KeySpec(float, "[I]", "M1.C.3"),
         "pattern_pole": KeySpec(float, "[I]", "M5.A.1a"),
-        "assertion_perspective_threshold": KeySpec(float, "[I]", "M5.F.4"),  # spec revision 39 (Q8): retired
+        "assertion_perspective_threshold": KeySpec(float, "[I]", "M5.F.4"),  # Retired
     }
 )
 

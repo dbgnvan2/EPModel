@@ -234,7 +234,7 @@ def self_practice(state: RunState, selections, load: dict, params: EngineParams)
             continue
         if partner.alive:
             before_level = partner.functional_level
-            # Revision 20 (owner decision 2026-10-12): a level, not a stack. The other is up by system_adjust_gain
+            # A level, not a stack. The other is up by system_adjust_gain
             # while the stance keeps working; a renewed stance tops it back up, and it never accumulates past the gain.
             top_up = max(0.0, params.system_adjust_gain - partner.adjust_swing)
             partner.functional_level = min(SCALE_MAX, before_level + top_up)
@@ -245,7 +245,7 @@ def self_practice(state: RunState, selections, load: dict, params: EngineParams)
     for selection in sorted(selections, key=lambda s: s.actor):
         person = state.people[selection.actor]
         self_directed = selection.kind == WITHHOLD or state.kinds.channels.get(selection.kind) == SELF_CHANNEL
-        # Under load means above the person's usual level, as for the stress response (M1.A.5e, revision 22).
+        # Under load means above the person's usual level, as for the stress response (M1.A.5e).
         if not (self_directed and person.alive and selection.targets
                 and above_usual(person, load.get(selection.actor, 0.0)) > 0):
             continue

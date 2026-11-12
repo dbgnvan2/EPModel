@@ -66,3 +66,40 @@ def test_m11d6_second_run_is_clean():
     run_phase_b(7, script=load_script().without("JOB_LOSS"))
     after_other = run_phase_b(7).records
     assert digest(after_other) == fresh_process_log_digest(7, "3")
+
+
+_POLICY_RUN = (
+    "import sys, hashlib; sys.path.insert(0, {repo!r})\n"
+    "from src.bowen.engine.log_records import serialize\n"
+    "from src.bowen.engine.tick import run\n"
+    "from src.bowen.io.load import CONFIG_DIR, load_constants, load_event_kinds, load_family, load_policy_rules, load_script\n"
+    "from src.bowen.scenario.assemble import assemble\n"
+    "from src.bowen.scenario.policy_source import PolicySource\n"
+    "from src.bowen.scenario.scripted_source import ScriptedSource\n"
+    "class Collect:\n"
+    "    def __init__(self): self.records = []\n"
+    "    def emit(self, record): self.records.append(record)\n"
+    "kinds = load_event_kinds()\n"
+    "script = load_script(kinds=kinds, family=load_family())\n"
+    "events = ScriptedSource('events', {weeks}, script.events, ())\n"
+    "parts = assemble(load_constants(), kinds, load_family(CONFIG_DIR / 'family_phase_c.md'), events, seed={seed})\n"
+    "sink = Collect()\n"
+    "run(parts.state, PolicySource(events, parts.params, load_policy_rules()), parts.params, parts.visibility,\n"
+    "    parts.activation, sink, ticks={weeks})\n"
+    "print(len(sink.records), hashlib.sha256(''.join(serialize(r) + '\\n' for r in sink.records).encode()).hexdigest())\n"
+)
+
+
+def test_m11d5_policy_run_same_log_across_hash_salts():
+    """T-223: a policy run, which draws, gives a byte-identical log in two processes with different hash salts (the
+    scripted run above draws nothing, so it cannot show this)."""
+    program = _POLICY_RUN.format(repo=str(REPO), seed=5, weeks=40)
+    outputs = set()
+    for salt in ("1", "2"):
+        result = subprocess.run([sys.executable, "-c", program], capture_output=True, text=True, timeout=120,
+                                env=dict(os.environ, PYTHONHASHSEED=salt))
+        assert result.returncode == 0, result.stderr
+        outputs.add(result.stdout.strip())
+    assert len(outputs) == 1
+    count, _ = outputs.pop().split()
+    assert int(count) > 40  # more than one record per week: the run acted

@@ -37,10 +37,10 @@ The definitions, `[I]` (`docs/readouts_phase_c.md`, "Negative runs"; the proposa
   against the criterion (learnings P7; the revision 36 report's decisions);
 * a first cutoff with **no uncut tie** in its week has no baseline. It is left out of both arms and counted
   (``unmatched``), since reading its baseline as 0 while its own run stays in the treatment biases the comparison
-  toward a pass (learnings P7; T-123, spec revision 43);
+  toward a pass (learnings P7; T-123);
 * a first cutoff on a tie with **no contact** by its week is left out of both arms and counted (``no_contact``): the
   baseline reads an uncut tie only if it had a contact by that week, so the cut tie is read under the same condition,
-  not at a run of 0 (learnings P7; T-179, the owner's option (a), spec revision 47). Uncut ties with no contact are not
+  not at a run of 0 (learnings P7; T-179, the owner's option (a)). Uncut ties with no contact are not
   counted: that needs the week from which each tie existed (T-179's option (b), not chosen);
 * a tie's **sides** at a week are how many of its members had sent a move other than a ``CUTOFF`` across it by then
   (``acted_across``, ``sides``): 2 on a tie both members act on, 1 on a tie only one of them does. The baseline reads

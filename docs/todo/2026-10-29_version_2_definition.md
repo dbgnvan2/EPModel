@@ -86,13 +86,14 @@ on the owner's instruction of 2026-10-29 to proceed with Claude's recommendation
   *Closed 2026-10-30:* the sweep reran on `da5981f6ec0b`, split across both Macs after a cross-check (`docs/two_mac_sweep.md`,
   "Not verified"). Only `M11.C.48` and `M11.C.48[phase_d]` moved: each holds 0 of 8, and neither is refused. The
   strict expected failure is gone from `test_s2_11_sweep_record_is_current`, and `docs/version_2_status.md`'s W4 is met.
-- [ ] T-168 ⟨later⟩ **`tests/test_stale_text.py`'s phrase misses the possessive form (the `learning-qa` review of the
+- [x] T-168 ⟨later⟩ **`tests/test_stale_text.py`'s phrase misses the possessive form (the `learning-qa` review of the
   owner's step 7 decisions, 2026-10-31; not fixed).** `PHRASE` matches "pending owner review" and not "pending the
   owner's review", the form version 2's documents use, so `PENDING` was emptied on 2026-10-31 while the scan could
   not see that form; the review found three such sites the scan missed (`CLAUDE.md`'s revisions 42 and 43,
   `README.md`'s revision 43), fixed by hand the same day. Widen it to both forms; it will then flag MR-22's genuinely
   pending text (revision 40, the spec's status line and `docs/spec_revision_log.md`) and dated history entries, which
   need `PENDING` entries or an exemption rule. Changes no engine file.
+  *Closed 2026-11-11 (T-224): moot, `tests/test_stale_text.py` was retired in `273398b`.*
 - [ ] T-169 ⟨later⟩ **A coach's completed `I-POSITION` exchange still acts on the member (spec revision 44's
   `learning-qa` review, 2026-10-31; not decided).** Revision 44 (T-165, D5) takes away `M5.D.5`'s pull-up when the mover
   is the external agent. When that exchange completes (`complete`, `src/bowen/engine/iposition.py`), the member target's

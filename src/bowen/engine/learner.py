@@ -179,7 +179,7 @@ def soothing_review(state: RunState, params: EngineParams) -> list[EffectRecord]
     return [EffectRecord(state.tick, "soothing_review", None, people=tuple(rows))] if rows else []
 
 
-# --- M4.D.6f, revision 29: learning from what follows a witnessed cutoff -----------------------------------------
+# --- M4.D.6f: learning from what follows a witnessed cutoff -----------------------------------------
 
 CUTOFF_KIND = "CUTOFF"  # M5.A.1 fixes the repertoire, so the name is the spec's, not editorial content
 

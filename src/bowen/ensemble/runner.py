@@ -52,7 +52,7 @@ class Readout:
     bounds: tuple[float, float] = (-math.inf, math.inf)
     report_only: bool = False           # reported beside the verdict, never tested (e.g. M11.C.16's top share)
     # With direction 0: 0 is a two-sided null; +1 a one-sided bound, the treatment MUST NOT fall below the baseline
-    # by more than the equivalence bound (M11.C.14, revision 31: the interval's lower end above −bound); −1 the mirror.
+    # by more than the equivalence bound (M11.C.14: the interval's lower end above −bound); −1 the mirror.
     bound_side: int = 0
 
     def __post_init__(self):
@@ -78,7 +78,7 @@ class Criterion:
     requires_moves: tuple[str, ...] = ()
     settings: dict = field(default_factory=dict)
     note: str = ""
-    seeds: int | None = None            # a fixed seed count (M11.C.10, revision 30: "200 instead"); else adaptive
+    seeds: int | None = None            # a fixed seed count (M11.C.10: "200 instead"); else adaptive
 
 
 @dataclass

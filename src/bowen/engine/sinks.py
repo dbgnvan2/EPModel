@@ -41,7 +41,7 @@ CONFLICT, OVERFUNCTION, UNDERFUNCTION, PURSUE, TRIANGLE = (
     "CONFLICT", "OVERFUNCTION", "UNDERFUNCTION", "PURSUE", "TRIANGLE",
 )
 # The child-projection sink's acts: equal to the projection row of config/bowen/pattern_acts.md (a test ties them), and
-# the kinds a parent's focus steers (M4.D.1g, revision 29).
+# the kinds a parent's focus steers (M4.D.1g).
 PROJECTION_KINDS = (OVERFUNCTION, PURSUE, TRIANGLE)
 
 
@@ -63,7 +63,7 @@ def sink_weights(state: RunState, params: EngineParams, family=None) -> dict[str
     spouses: set[PersonId] = set(family.marital_tie.members()) if family.marital_tie else set()
     for event in state.store.moves_in(state.tick - params.sink_window, state.tick):
         if any(not state.people[p].alive for p in (event.sender, *event.targets) if p is not None):
-            continue  # M6.3f, revision 28: an act with someone since dead no longer draws the budget
+            continue  # M6.3f: an act with someone since dead no longer draws the budget
         if family.marital_tie and _on(event, family.marital_tie):
             if event.kind == CONFLICT:
                 weights[Sink.MARITAL_CONFLICT.value] += 1
@@ -85,7 +85,7 @@ def allocate_sinks(state: RunState, params: EngineParams) -> list[EffectRecord]:
     records = []
     for family in state.families():
         if family.dissolved:
-            continue  # M6.3f, revision 28: both spouses have died
+            continue  # M6.3f: both spouses have died
         records += _allocate(state, params, family)
     return records
 
@@ -95,7 +95,7 @@ def _allocate(state: RunState, params: EngineParams, family) -> list[EffectRecor
     total = math.fsum(weights.values())
     if total <= 0 or family.undifferentiation_budget <= 0:
         return []
-    # The reference family's rows keep their names; another family's carry its household (revision 28).
+    # The reference family's rows keep their names; another family's carry its household.
     prefix = "" if family is state.family else f"{family.household}/"
     changes = []
     for sink in Sink:

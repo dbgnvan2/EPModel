@@ -5,7 +5,7 @@
    "tests/bowen/test_config.py::test_m0_1_grade_must_match_the_spec",
    "tests/bowen/test_config.py::test_m0_1_unknown_grade_rejected",
    "tests/bowen/test_config.py::test_m101_repository_constants_load_and_are_graded",
-   "tests/test_review_rev31.py::test_r31b2_criteria_settings_graded",
+   "tests/bowen/test_config.py::test_m0_1_criteria_settings_graded",
    "tests/bowen/test_family.py::test_m2_family_declaration_must_be_graded_invented"
   ],
   "note": "every config constant carries a grade that must equal the register's (`test_m0_1_grade_must_match_the_spec`, `test_m101_repository_constants_load_and_are_graded`), as do criteria settings and family declarations; no test compares a grade with `docs/model_explainer.md`, which names `tie_wear_rate` and the wear offset without a grade"
@@ -1268,9 +1268,9 @@
   "status": "partial",
   "evidence": [
    "tests/bowen/test_engine_purity.py::test_m11d4_invented_constants_labelled",
-   "tests/test_review_rev31.py::test_r31b2_criteria_settings_graded"
+   "tests/bowen/test_config.py::test_m0_1_criteria_settings_graded"
   ],
-  "note": "the register's entries (witness weight, fallback rate, habituation, the `M17.A.1` and `M17.A.4` ensemble rules) are `[I]` (`test_m11d4_invented_constants_labelled`); `M11.C.38`'s and `M11.C.41`'s levels and loads are `[I]` in `config/bowen/criteria.md` (`test_r31b2_criteria_settings_graded`); the activation regime and tie-break and fallback rules say `[I]` in prose only; `M11.1c`'s clamp tolerance (`1e-12`, `tools/mutation_record.py`) has no label; `M11.4c` has no instance; `M17.C`–`M17.F`'s entries are Phase E"
+  "note": "the register's entries (witness weight, fallback rate, habituation, the `M17.A.1` and `M17.A.4` ensemble rules) are `[I]` (`test_m11d4_invented_constants_labelled`); `M11.C.38`'s and `M11.C.41`'s levels and loads are `[I]` in `config/bowen/criteria.md` (`test_m0_1_criteria_settings_graded`); the activation regime and tie-break and fallback rules say `[I]` in prose only; `M11.1c`'s clamp tolerance (`1e-12`, `tools/mutation_record.py`) has no label; `M11.4c` has no instance; `M17.C`–`M17.F`'s entries are Phase E"
  },
  "M10.C.2": {
   "status": "not done",

@@ -1,4 +1,4 @@
-"""The four signal channels a move carries and the four cues each one carries (spec revision 55, T-202).
+"""The four signal channels a move carries and the four cues each one carries (T-202).
 
 Purpose: the data a move's ``signals`` field holds when the social cues are on: four signal channels — words, tone,
          face, posture — each a cue vector over attention, approval, expectations and distress, each cue in [−1, 1],

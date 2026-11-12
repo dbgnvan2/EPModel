@@ -37,7 +37,7 @@ class Mechanism(enum.Enum):
     BINDER_UNAVAILABLE = "binder_unavailable"  # M1.F.9
     EXOGENOUS_STRESSOR = "exogenous_stressor"  # M1.F.6 — a spell, never a per-tick draw
     ENDOGENOUS_SYMPTOM = "endogenous_symptom"  # M7.D.1 — emitted when symptom load crosses threshold (M1.F.7)
-    LIFE_EVENT = "life_event"                  # M7.C.1, revision 28 — a death, birth, partnering, launch or FIND_WORK:
+    LIFE_EVENT = "life_event"                  # M7.C.1 — a death, birth, partnering, launch or FIND_WORK:
                                                # delivered so it counts as a nodal event, never appraised
 
 
@@ -91,21 +91,21 @@ class EventKinds:
     # 0 the oldest. Both editorial, from config (Phase C step 6).
     channels: Mapping[str, str] = field(default_factory=lambda: MappingProxyType({}))
     layers: Mapping[str, int] = field(default_factory=lambda: MappingProxyType({}))
-    # M1.A.4k, revision 17: the kinds that are nodal events — any major event on a person. Editorial, from
+    # M1.A.4k: the kinds that are nodal events — any major event on a person. Editorial, from
     # config/bowen/nodal_events.md; the estimator's breadth counts them.
     nodal: frozenset[str] = frozenset()
     # How far each nodal kind reaches: "reached" (whom it happens to, its targets, witnesses and named tie) or "ties"
     # (also everyone tied to its targets: a member leaving). From config/bowen/nodal_events.md.
     nodal_reach: Mapping[str, str] = field(default_factory=lambda: MappingProxyType({}))
-    # Revision 18 (M1.A.5e): the acts that avoid or soothe under load. From config/bowen/stress_response.md.
+    # The acts that avoid or soothe under load. From config/bowen/stress_response.md.
     soothing: frozenset[str] = frozenset()
-    # Revision 39 (M1.A.5f): the acts through whose receiver a loaded sender meets their load (displaced coping). From
+    # The acts through whose receiver a loaded sender meets their load (displaced coping). From
     # config/bowen/stress_response.md's second table; never a soothing kind.
     displacing: frozenset[str] = frozenset()
     # Revision 19 (M4.D.1a): +1 for an act perspective steers toward, -1 for one it steers away from.
     # From config/bowen/perspective_steering.md.
     steering: Mapping[str, int] = field(default_factory=lambda: MappingProxyType({}))
-    # Revision 25 (M9.6, M1.A.11c): where each act places the family's difficulty ("other", "target", "sender"), and
+    # Where each act places the family's difficulty ("other", "target", "sender"), and
     # the symptom channel a family's anxious attention by that act focuses. From config/bowen/attribution.md.
     attribution: Mapping[str, str] = field(default_factory=lambda: MappingProxyType({}))
     focus: Mapping[str, str] = field(default_factory=lambda: MappingProxyType({}))
@@ -116,12 +116,12 @@ class EventKinds:
     side_taking: frozenset[str] | None = None
     family_to_external: frozenset[str] | None = None
     external_repertoire: frozenset[str] | None = None
-    # Spec revision 36 (M1.D.2b, M1.D.2c, M11.C.48): the acts that are negative or positive contact across a tie, and
+    # The acts that are negative or positive contact across a tie, and
     # the rebuffs the negative-run readout also counts. From config/bowen/contact_classes.md. None until loaded.
     negative_contacts: frozenset[str] | None = None
     positive_contacts: frozenset[str] | None = None
     rebuffs: frozenset[str] | None = None
-    # Spec revision 36 (M1.F.6a, M7.C.1l, M7.D.1a): each sized event's Holmes–Rahe life change units and weeks, keyed
+    # Each sized event's Holmes–Rahe life change units and weeks, keyed
     # (kind, who). From config/bowen/event_sizes.md. None until loaded.
     sizes: Mapping[tuple[str, str], "EventSize"] | None = None
 
@@ -274,11 +274,11 @@ class Event:
     attention: Attention = Attention.NONE
     # M1.A.18a, M1.A.19: an evaluation of the target, -1 blame, +1 praise, 0 none. Two-sided by design.
     valence: int = 0
-    # M5.F.4 (revision 39): the demand share of an I-POSITION, 1 − the mover's self-channel weight at DEFINE, 1 for
+    # M5.F.4: the demand share of an I-POSITION, 1 − the mover's self-channel weight at DEFINE, 1 for
     # the assertion form (M5.D.4a), 0 for every other event. It raises reactivity on the tie, scales down the debit of
     # the target's felt contact and counts against the claimant (M5.F.2a). Set by the engine at act, never by a policy.
     demand_share: float = 0.0
-    # M1.F.1c (spec revision 55): the four signal channels, set by the engine at act while the social cues are on
+    # M1.F.1c: the four signal channels, set by the engine at act while the social cues are on
     # (M4.C.1f); None while they are off, and then left out of the run log (``log_records.plain``), so a run with the
     # cues off logs what the engine logged before the revision.
     signals: Signals | None = field(default=None, metadata={LOG_OMIT_NONE: True})

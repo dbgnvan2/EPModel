@@ -29,7 +29,7 @@ say whether that test was proved failing by mutation unless its note does.
 
 | ID | Status | Evidence | Note |
 |---|---|---|---|
-| M0.1 | partial | `tests/bowen/test_config.py::test_m0_1_grade_must_match_the_spec`<br>`tests/bowen/test_config.py::test_m0_1_unknown_grade_rejected`<br>`tests/bowen/test_config.py::test_m101_repository_constants_load_and_are_graded`<br>`tests/test_review_rev31.py::test_r31b2_criteria_settings_graded`<br>`tests/bowen/test_family.py::test_m2_family_declaration_must_be_graded_invented` | every config constant carries a grade that must equal the register's (`test_m0_1_grade_must_match_the_spec`, `test_m101_repository_constants_load_and_are_graded`), as do criteria settings and family declarations; no test compares a grade with `docs/model_explainer.md`, which names `tie_wear_rate` and the wear offset without a grade |
+| M0.1 | partial | `tests/bowen/test_config.py::test_m0_1_grade_must_match_the_spec`<br>`tests/bowen/test_config.py::test_m0_1_unknown_grade_rejected`<br>`tests/bowen/test_config.py::test_m101_repository_constants_load_and_are_graded`<br>`tests/bowen/test_config.py::test_m0_1_criteria_settings_graded`<br>`tests/bowen/test_family.py::test_m2_family_declaration_must_be_graded_invented` | every config constant carries a grade that must equal the register's (`test_m0_1_grade_must_match_the_spec`, `test_m101_repository_constants_load_and_are_graded`), as do criteria settings and family declarations; no test compares a grade with `docs/model_explainer.md`, which names `tie_wear_rate` and the wear offset without a grade |
 | M0.2 | partial | `tests/bowen/test_engine_purity.py::test_m11d4_invented_constants_labelled`<br>`tests/bowen/test_engine_purity.py::test_m11d4_scan_finds_a_constant_described_as_sourced`<br>`tests/bowen/test_config.py::test_m0_1_grade_must_match_the_spec` | a scan of every `src/bowen` line that names an `[I]` key alongside words such as 'sourced' or 'calibrated to' finds nothing (`test_m11d4_invented_constants_labelled`) and catches a planted description (`test_m11d4_scan_finds_a_constant_described_as_sourced`); `tools/`, whose records are output, and the prose in `config/bowen` are not scanned |
 | M0.3 | done | `tests/bowen/test_mechanisms.py::test_m03_engine_params_come_from_the_register`<br>`tests/bowen/test_engineering_gates.py::test_m11d2_no_magic_literals_in_engine`<br>`tests/bowen/test_engineering_gates.py::test_m11d2_check_catches_a_literal_in_the_policy` | every `EngineParams` field equals its `[I]` row in `config/bowen/constants.md` (`test_m03_engine_params_come_from_the_register`); the magic-literal scan of `src/bowen/engine` and `src/bowen/policy` finds none (`test_m11d2_no_magic_literals_in_engine`) and catches a planted one (`test_m11d2_check_catches_a_literal_in_the_policy`) |
 | M0.4 | partial | `tests/bowen/test_ensemble.py::test_m04_a_reversed_effect_fails` | the runner compares two arms by construction (`ensemble/runner.py::Criterion`) and a reversed effect fails (`test_m04_a_reversed_effect_fails`); no test checks that every criterion is a two-arm direction or listed at `M11.4`, or that no readout is an absolute threshold |
@@ -405,7 +405,7 @@ say whether that test was proved failing by mutation unless its note does.
 | M10.B.4 | done | `tests/bowen/test_config.py::test_m10b4_a_retired_key_is_rejected_in_the_live_register`<br>`tests/bowen/test_config.py::test_m10b4_frozen_at_parses_a_date_and_rejects_anything_else`<br>`tests/bowen/test_phase_b_gate.py::test_m10b4_constants_frozen_before_suite` | — |
 | M10.B.5 | done | `tests/bowen/test_phase_d_criteria.py::test_m10b5_learning_is_switched_off_only_by_a_declared_override` | — |
 | M10.C.1 | partial | `tests/bowen/test_engine_purity.py::test_m11d4_invented_constants_labelled`<br>`tests/bowen/test_config.py::test_m0_1_grade_must_match_the_spec`<br>`tests/bowen/test_family.py::test_m2_family_declaration_must_be_graded_invented` | every register constant is `[I]` and no engine line calls one sourced (`test_m11d4_invented_constants_labelled`); a relabelled grade fails to load (`test_m0_1_grade_must_match_the_spec`); the family declaration must say `grade: [I]` (`test_m2_family_declaration_must_be_graded_invented`); untested: the trace's 'invented constants' sentence and the `[I]` labels on the standing-load and appraisal forms (docstrings); `societal_leadership` and sibling-position effects are not built |
-| M10.C.1a | partial | `tests/bowen/test_engine_purity.py::test_m11d4_invented_constants_labelled`<br>`tests/test_review_rev31.py::test_r31b2_criteria_settings_graded` | the register's entries (witness weight, fallback rate, habituation, the `M17.A.1` and `M17.A.4` ensemble rules) are `[I]` (`test_m11d4_invented_constants_labelled`); `M11.C.38`'s and `M11.C.41`'s levels and loads are `[I]` in `config/bowen/criteria.md` (`test_r31b2_criteria_settings_graded`); the activation regime and tie-break and fallback rules say `[I]` in prose only; `M11.1c`'s clamp tolerance (`1e-12`, `tools/mutation_record.py`) has no label; `M11.4c` has no instance; `M17.C`–`M17.F`'s entries are Phase E |
+| M10.C.1a | partial | `tests/bowen/test_engine_purity.py::test_m11d4_invented_constants_labelled`<br>`tests/bowen/test_config.py::test_m0_1_criteria_settings_graded` | the register's entries (witness weight, fallback rate, habituation, the `M17.A.1` and `M17.A.4` ensemble rules) are `[I]` (`test_m11d4_invented_constants_labelled`); `M11.C.38`'s and `M11.C.41`'s levels and loads are `[I]` in `config/bowen/criteria.md` (`test_m0_1_criteria_settings_graded`); the activation regime and tie-break and fallback rules say `[I]` in prose only; `M11.1c`'s clamp tolerance (`1e-12`, `tools/mutation_record.py`) has no label; `M11.4c` has no instance; `M17.C`–`M17.F`'s entries are Phase E |
 | M10.C.2 | not done | — | no behaviour a test can check (a list of which corpus quantities may serve as calibration targets, and which may not; nothing in version 1 calibrates); checked by review |
 | M10.C.2a | not done | — | not built: no check or report uses the DSI–trait-anxiety association, so its two limits travel with nothing; nothing sets a parameter from it (searched `src/bowen`, `config/bowen`, `tools`, `tests` for `Skowron`, `DSI`, `.64`) |
 | M10.C.2b | partial | — | built, no test: `src/bowen/render/trace.py::FRAMING` tells every trace it is 'not a measurement'; no test asserts that sentence, and no output is scanned for a claim of measured differentiation or of precision |
@@ -492,7 +492,7 @@ say whether that test was proved failing by mutation unless its note does.
 | M11.D.2 | done | `tests/bowen/test_engineering_gates.py::test_m11d2_check_catches_a_literal_in_the_criteria`<br>`tests/bowen/test_engineering_gates.py::test_m11d2_check_catches_a_literal_in_the_policy`<br>`tests/bowen/test_engineering_gates.py::test_m11d2_no_magic_literals_in_engine` | — |
 | M11.D.3 | done | `tests/bowen/test_config.py::test_m11d3_config_rejects_duplicate_key`<br>`tests/bowen/test_config.py::test_m11d3_config_rejects_float_for_integer_key`<br>`tests/bowen/test_config.py::test_m11d3_config_rejects_malformed_line`<br>`tests/bowen/test_config.py::test_m11d3_config_rejects_missing_frozen_at`<br>`tests/bowen/test_config.py::test_m11d3_config_rejects_missing_required_key`<br>`tests/bowen/test_config.py::test_m11d3_config_rejects_non_numeric_value`<br>`tests/bowen/test_config.py::test_m11d3_config_rejects_unknown_key`<br>`tests/bowen/test_config.py::test_m11d3_config_rejects_unknown_metadata_key`<br>`tests/bowen/test_config.py::test_m11d3_config_rejects_wrong_cell_count`<br>`tests/bowen/test_config.py::test_m11d3_config_rejects_wrong_table_header`<br>`tests/bowen/test_config.py::test_m11d3_good_document_parses` | — |
 | M11.D.4 | done | `tests/bowen/test_engine_purity.py::test_m11d4_invented_constants_labelled`<br>`tests/bowen/test_engine_purity.py::test_m11d4_scan_finds_a_constant_described_as_sourced` | — |
-| M11.D.5 | done | `tests/bowen/test_determinism.py::test_m11d5_a_different_seed_is_recorded_in_the_header`<br>`tests/bowen/test_determinism.py::test_m11d5_same_seed_same_log` | — |
+| M11.D.5 | done | `tests/bowen/test_determinism.py::test_m11d5_a_different_seed_is_recorded_in_the_header`<br>`tests/bowen/test_determinism.py::test_m11d5_policy_run_same_log_across_hash_salts`<br>`tests/bowen/test_determinism.py::test_m11d5_same_seed_same_log` | — |
 | M11.D.15 | done | `tests/bowen/test_engineering_gates.py::test_m11d15_placebo_arm_is_byte_identical` | — |
 | M11.D.16 | done | `tests/bowen/test_engineering_gates.py::test_m11d16_batch_order_permutation_is_invariant`<br>`tests/bowen/test_engineering_gates.py::test_m11d16_symmetric_family_is_permutation_equivariant` | — |
 | M11.D.6 | done | `tests/bowen/test_determinism.py::test_m11d6_second_run_is_clean` | — |
@@ -632,10 +632,11 @@ say whether that test was proved failing by mutation unless its note does.
 | M17.G.2 | not done | — | no test named for it; Phase E builds it and is not built yet |
 | M17.G.3 | not done | — | no test named for it; Phase E builds it and is not built yet |
 
-## Tests named for no spec ID (369)
+## Tests named for no spec ID (331)
 
 Their names embed no requirement ID, so they count only where an override cites them (marked *cited*). The rest check spec documents, tooling or helpers.
 
+- `tests/bowen/test_config.py::test_m0_1_criteria_settings_graded` — *cited*
 - `tests/bowen/test_config.py::test_m0_1_grade_must_match_the_spec` — *cited*
 - `tests/bowen/test_config.py::test_m0_1_unknown_grade_rejected` — *cited*
 - `tests/bowen/test_config.py::test_s1_3a_act_classes_come_from_config` — *cited*
@@ -842,13 +843,6 @@ Their names embed no requirement ID, so they count only where an override cites 
 - `tests/test_asr_quotations.py::test_sp1_5_frozen_records_carry_note`
 - `tests/test_doc_checklist.py::test_every_checklist_link_exists`
 - `tests/test_doc_checklist.py::test_every_document_is_in_the_checklist`
-- `tests/test_doc_claims.py::test_d1_a_moved_spec_revision_is_reported_in_every_place`
-- `tests/test_doc_claims.py::test_d1_a_place_that_stops_naming_a_revision_fails`
-- `tests/test_doc_claims.py::test_d1_an_unreadable_front_matter_fails`
-- `tests/test_doc_claims.py::test_d1_history_does_not_trip_and_a_future_revision_does`
-- `tests/test_doc_claims.py::test_d1_spec_revision_restatements_match_the_front_matter`
-- `tests/test_doc_claims.py::test_d1_the_checklist_drift_of_2026_10_19_is_reported`
-- `tests/test_doc_claims.py::test_d1_the_checklist_is_read_by_its_exact_claim`
 - `tests/test_doc_claims.py::test_d2_a_marker_about_something_else_does_not_excuse_a_path`
 - `tests/test_doc_claims.py::test_d2_a_retired_path_passes_only_in_its_own_sentence`
 - `tests/test_doc_claims.py::test_d2_paths_with_spaces_and_module_commands_resolve`
@@ -878,17 +872,6 @@ Their names embed no requirement ID, so they count only where an override cites 
 - `tests/test_group_g_readout.py::test_g1_readout_page_keeps_the_other_labels_section`
 - `tests/test_group_g_readout.py::test_g1_readout_section_is_rendered_from_measurements`
 - `tests/test_lint.py::test_s3_22_ruff_f_clean`
-- `tests/test_open_batch.py::test_d31_a_criterion_added_to_a_mutant_is_cut_by_its_own_definition`
-- `tests/test_open_batch.py::test_d31_a_record_the_batch_does_not_list_cannot_be_marked`
-- `tests/test_open_batch.py::test_d31_a_table_is_cut_by_the_file_that_defines_it`
-- `tests/test_open_batch.py::test_d31_a_tool_that_imports_mutants_gets_the_defining_files_cut`
-- `tests/test_open_batch.py::test_d31_every_listed_record_is_marked_and_no_other`
-- `tests/test_open_batch.py::test_d31_the_hash_as_found_is_the_hash_the_records_were_built_on`
-- `tests/test_open_batch.py::test_d31_the_mark_excuses_only_a_failure_the_hash_explains`
-- `tests/test_open_batch.py::test_d31_the_records_are_all_as_found_or_all_regenerated`
-- `tests/test_open_batch.py::test_d31_the_rerun_leaves_out_a_criterion_added_since_the_batch_opened`
-- `tests/test_open_batch.py::test_d31_the_rerun_leaves_out_a_mutant_added_since_the_batch_opened`
-- `tests/test_open_batch.py::test_d31_the_status_tool_reads_the_criteria_the_batch_found`
 - `tests/test_python_versions.py::test_every_tracked_python_file_compiles_on_the_oldest_supported_python`
 - `tests/test_record_changes.py::test_s1_10b_a_changed_verdict_and_a_moved_effect_are_listed`
 - `tests/test_record_changes.py::test_s1_10b_a_later_page_matches_d2_rows_by_key_and_lists_a_new_criterion`
@@ -911,29 +894,8 @@ Their names embed no requirement ID, so they count only where an override cites 
 - `tests/test_requirements.py::test_t151_bounds_that_look_right_and_are_not`
 - `tests/test_requirements.py::test_t151_ruff_is_pinned_and_numpys_major_version_bounded`
 - `tests/test_requirements.py::test_t151_the_file_before_t151_is_reported`
-- `tests/test_review_rev31.py::test_r31a10_launch_age_approved`
-- `tests/test_review_rev31.py::test_r31a11_plan_closes_the_two_owner_questions`
-- `tests/test_review_rev31.py::test_r31a12_spec_status_names_revision_31`
-- `tests/test_review_rev31.py::test_r31a1_channel_focus_row_not_from_belief`
-- `tests/test_review_rev31.py::test_r31a2_tolerance_row_per_member`
-- `tests/test_review_rev31.py::test_r31a3_c6_limit_a_restated`
-- `tests/test_review_rev31.py::test_r31a3_explainer_marks_traversal_contested`
-- `tests/test_review_rev31.py::test_r31a4_c14_row_restated`
-- `tests/test_review_rev31.py::test_r31a5_m4d6f_gap_mentions_felt_danger`
-- `tests/test_review_rev31.py::test_r31a6_m7e1c_not_open`
-- `tests/test_review_rev31.py::test_r31a7_c10_superseded_clauses_struck`
-- `tests/test_review_rev31.py::test_r31a8_c2_settings_not_to_be_added`
-- `tests/test_review_rev31.py::test_r31a9_no_pending_review_tags_for_rev24_30`
-- `tests/test_review_rev31.py::test_r31a9_tag_check_catches_a_pending_tag`
-- `tests/test_review_rev31.py::test_r31b1_symptoms_docstring_not_belief`
-- `tests/test_review_rev31.py::test_r31b2_criteria_settings_graded` — *cited*
-- `tests/test_spec_consistency.py::test_claimed_test_count_matches_the_suite`
-- `tests/test_spec_consistency.py::test_d4_history_entries_still_exist`
-- `tests/test_spec_consistency.py::test_d4_suite_size_phrasings_are_recognised`
 - `tests/test_spec_consistency.py::test_every_citing_document_resolves_against_the_spec`
 - `tests/test_spec_consistency.py::test_every_spec_reference_resolves_within_the_spec`
-- `tests/test_spec_consistency.py::test_mr13_current_engine_hash_is_the_one_the_documents_name`
-- `tests/test_spec_consistency.py::test_requirement_counts_agree_with_the_spec`
 - `tests/test_stage_3_probes.py::test_stage_3_displaced_coping_probe_f1_ledger_holds_at_the_floor_and_sheds_off_it`
 - `tests/test_stage_3_probes.py::test_stage_3_displaced_coping_probe_joins_split_runs_by_seed`
 - `tests/test_stage_3_probes.py::test_stage_3_displaced_coping_probe_moves_conserved_stress_functioning`
@@ -942,6 +904,7 @@ Their names embed no requirement ID, so they count only where an override cites 
 - `tests/test_stage_3_probes.py::test_stage_3_targeted_run_renders_rows_and_mutants`
 - `tests/test_stage_3_probes.py::test_stage_3_targeted_run_sends_each_criterion_to_its_phase`
 - `tests/test_stage_3_probes.py::test_stage_3_trace_reproduces_the_development_step`
+- `tests/test_status.py::test_t225_status_page_is_current`
 - `tests/test_sweep.py::test_base_id_strips_the_version_suffix`
 - `tests/test_sweep.py::test_catalogue_ids_are_unversioned_whichever_form_the_index_uses`
 - `tests/test_sweep.py::test_main_drops_a_catalogued_paper_returned_with_a_version_suffix`
@@ -971,7 +934,6 @@ Their names embed no requirement ID, so they count only where an override cites 
 - `tests/test_version_1_outputs.py::test_v7_virtual_family_appears_only_where_it_is_framed` — *cited*
 - `tests/test_version_1_status.py::test_v1_the_committed_page_and_dispositions_are_the_tags`
 - `tests/test_version_1_status.py::test_v1_the_tag_marks_the_commit_the_owner_chose`
-- `tests/test_version_1_status.py::test_v1_the_tags_status_tests_pass_in_a_copy_of_the_tagged_tree`
 - `tests/test_version_2_outputs.py::test_w8_a_page_without_the_framing_is_reported`
 - `tests/test_version_2_outputs.py::test_w8_every_version_2_readout_page_carries_the_framing`
 - `tests/test_version_2_status.py::test_s2_11_records_read_shows_every_hash_a_record_keys_by`

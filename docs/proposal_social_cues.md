@@ -1,9 +1,8 @@
 # Proposal — social cues and the channels a signal travels on
 
 **Status: DECIDED 2026-11-07 (Q1–Q11, each as recommended; Q5 in the owner's own words, with its follow-up that the
-imagined part of a cue is meaning only); not built.** The build waits for T-183's cross-check (T-202, which starts with
-Q7's ledger search); `KS10.1`'s uncertainty term is a separate proposal (T-203). No requirement in the spec changed,
-no file under `src/bowen/` or `config/bowen/` changed, and the engine hash did not move. The owner asked on
+imagined part of a cue is meaning only); BUILT 2026-11-09 as spec revision 55 (`a19a690`), behind `social_cues_enabled`, off by default (T-202).** `KS10.1`'s uncertainty term is a separate
+proposal (T-203). The text below is the proposal as decided; the spec is the contract. The owner asked on
 2026-11-07 (1) whether Kerr's four social cues can be a structure in the model's appraisal and (2) whether a
 message can be sent as "[words], [tone], [expression]". This document answers both, maps the answer onto the
 current rules, proposes requirements `SC-1` to `SC-12` with a criterion for each, and ends with the questions the

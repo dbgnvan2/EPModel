@@ -63,8 +63,8 @@ class Week:
     load: float
     self_directed: bool
     nodal: tuple[str, ...]  # the kinds of nodal event that reached them that week: a recurring stressor is one situation
-    soothed: bool = False   # revision 19: they met the week with an avoiding or soothing act (the soothing review)
-    displaced: float = 0.0  # revision 41 (T-131): displaced_swing that week; M7.E.1f's parents' term leaves it out
+    soothed: bool = False   # they met the week with an avoiding or soothing act (the soothing review)
+    displaced: float = 0.0  # Displaced_swing that week; M7.E.1f's parents' term leaves it out
 
 
 def history_length(params: EngineParams) -> int:
@@ -116,16 +116,16 @@ def record_week(state: RunState, params: EngineParams, load: dict, selections, e
         kind = chose.get(pid)
         self_directed = kind == WITHHOLD or (kind is not None and state.kinds.channels.get(kind) == SELF_CHANNEL)
         weeks = state.estimator_history.setdefault(pid, deque(maxlen=size))
-        # Revision 19 (owner decision 2026-10-11): the borrowed part — positive pseudo-self taken by over-functioning
+        # The borrowed part — positive pseudo-self taken by over-functioning
         # — is not read. "Overfunctioning is a dysfunctional behaviour — pseudo-self looks better. It's not principle
         # based improved functioning" (M1.A.5c: a borrowed rise does not survive withdrawal of the source).
-        # Revision 20 (owner decision 2026-10-11): nor the gain taken when someone else's held stance worked
+        # Nor the gain taken when someone else's held stance worked
         # (adjust_swing, M1.E.7). It is the system adjusting to another's stance, not this person's own functioning.
-        # Revision 23 (owner decision 2026-10-12): what was given way is added back too. Pseudo-self is read with its
+        # What was given way is added back too. Pseudo-self is read with its
         # sign: the exchange shifts functional level in both people and leaves basic level alone, so neither the gain
         # borrowed nor the loss lent is the person's own. Leaving out only the gain read the Phase C family's coached
         # people about 9 points below basic (traced 2026-10-12).
-        # Revision 39 (F1, owner decision 2026-10-25): nor what the stress floor held while the swings decayed (floor_held,
+        # Nor what the stress floor held while the swings decayed (floor_held,
         # M1.A.5e). Unledgered, the estimator credited it as the person's own (measured 2026-10-25).
         own = person.functional_level - (person.pseudo_self or 0.0) - max(0.0, person.adjust_swing) - person.floor_held
         weeks.append(Week(state.tick, own, load.get(pid, 0.0), self_directed,
@@ -179,7 +179,7 @@ def run_slow_tick(state: RunState, params: EngineParams) -> list[EffectRecord]:
         if not person.alive:
             continue
         if person.age_years is not None and person.age_years < params.development_end_age_years:
-            continue  # M7.E.1f, revision 28: a child's level develops by its own rule until 20
+            continue  # M7.E.1f: a child's level develops by its own rule until 20
         reading = estimate(state.estimator_history.get(pid, ()), person.basic_level, person.financially_dependent,
                            params)
         if reading is None or reading.rise <= 0:

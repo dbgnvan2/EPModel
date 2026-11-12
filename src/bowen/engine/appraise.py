@@ -73,7 +73,7 @@ than its target, ``calm_transfer_rate × conductance × gap`` moves from the tar
 the sender — a transfer, logged as one (`M6.4`). Seeking it is never a move; the
 learner finds it.
 
-**Contact that relieves returns in part** (`M4.C.1d`, spec revision 39): when a move
+**Contact that relieves returns in part** (`M4.C.1d`): when a move
 whose contact component is positive lowers its target's two-sided deviation on the
 tie (contact and impingement together, from the pre-batch state), a share
 ``reciprocal_contact_share`` of the Δ contact the target took in is added to the

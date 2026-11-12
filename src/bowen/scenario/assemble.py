@@ -44,7 +44,7 @@ def assemble(
         params = dataclasses.replace(params, **overrides)
     state = new_run_state(dict(family.people), dict(family.ties), family.family, kinds, seed=seed)
     initialise_run(state, params)
-    if family.life is not None:  # spec revision 28: the life course (Phase D part II)
+    if family.life is not None:  # the life course (Phase D part II)
         new_life_course(state, family.life, {p: tuple(sorted(family.parents_of(p))) for p in family.people
                                              if family.parents_of(p)}, params)
     return Assembled(

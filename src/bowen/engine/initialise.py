@@ -24,7 +24,7 @@ from src.bowen.engine.state import RunState
 
 def initialise_run(state: RunState, params: EngineParams) -> RunState:
     seed_declared_rejection(state.ties, params)  # M1.B.3c: before contact, so a declared cutoff starts empty
-    enter_declared_cutoffs(state, params)  # M1.D.2b, revision 36: a declared cutoff is capped and has its peak at week 0
+    enter_declared_cutoffs(state, params)  # M1.D.2b: a declared cutoff is capped and has its peak at week 0
     initialise_contact(state.people, state.ties, params)
     initialise_outside_ness(state.people, params)
     initialise_beliefs(state.people, state.ties, params)

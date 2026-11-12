@@ -49,7 +49,7 @@ def evaluate(state: RunState, records, params: EngineParams, framing: str, windo
     Spec:    docs/bowen_agent_model_spec_v2.md#M11.G.1, #M11.G.2, #M11.G.3, #M11.G.4
     Tests:   tests/bowen/test_evaluation.py::test_m11g1_the_evaluation_has_exactly_components_one_to_eight
     """
-    # Revision 28: an inactive family-of-origin holder is not counted as a member (M7.C.1h).
+    # an inactive family-of-origin holder is not counted as a member (M7.C.1h).
     members = sorted(p for p, person in state.people.items()
                      if person.role is Role.MEMBER and person.alive and not person.inactive)
     since = state.tick - window
@@ -75,7 +75,7 @@ def evaluate(state: RunState, records, params: EngineParams, framing: str, windo
         if generations.get(pid) is not None:
             by_generation.setdefault(generations[pid], []).append(state.people[pid].basic_level)
 
-    # Revision 36 (`M7.D.1a`): a symptom's own load and its family's are raised by an onset inside the run, on the
+    # A symptom's own load and its family's are raised by an onset inside the run, on the
     # `ENDOGENOUS` channel; they are not stress from outside, so adaptiveness is not divided by them.
     exogenous = [e for e in moves if e.exogenous and e.mechanism is Mechanism.EXOGENOUS_STRESSOR
                  and e.channel is not Channel.ENDOGENOUS]

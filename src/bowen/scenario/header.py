@@ -30,11 +30,11 @@ def resolved_config(constants: Constants, kinds: EventKinds, family: FamilyInsta
         "activation_regime": constants.activation_regime,
         "event_kinds": {k: m.value for k, m in sorted(kinds.mechanisms.items())},
         "signs": sorted([k, p.value, s] for (k, p), s in kinds.signs.items()),
-        "nodal": [[k, kinds.nodal_reach.get(k, "")] for k in sorted(kinds.nodal)],  # M1.A.4k, revision 17
-        "soothing": sorted(kinds.soothing),                                      # M1.A.5e, revision 18
-        "steering": sorted([k, d] for k, d in kinds.steering.items()),          # M4.D.1a, revision 19
-        "attribution": sorted([k, v] for k, v in kinds.attribution.items()),    # M9.6, revision 25
-        "focus": sorted([k, v] for k, v in kinds.focus.items()),                # M1.A.11c, revision 25
+        "nodal": [[k, kinds.nodal_reach.get(k, "")] for k in sorted(kinds.nodal)],  # M1.A.4k
+        "soothing": sorted(kinds.soothing),                                      # M1.A.5e
+        "steering": sorted([k, d] for k, d in kinds.steering.items()),          # M4.D.1a
+        "attribution": sorted([k, v] for k, v in kinds.attribution.items()),    # M9.6
+        "focus": sorted([k, v] for k, v in kinds.focus.items()),                # M1.A.11c
         "channels": sorted([k, c] for k, c in kinds.channels.items()),          # M4.D.1a (review 2026-10-11)
         "layers": sorted([k, n] for k, n in kinds.layers.items()),              # M4.D.3a (review 2026-10-11)
         "act_classes": [[c, sorted(getattr(kinds, c))] for c in ACT_CLASSES],  # S1.3 (rule 9)

@@ -1,4 +1,4 @@
-"""The supply readout: who supplied attention, approval and help to whom, computed after a run (spec revision 55).
+"""The supply readout: who supplied attention, approval and help to whom, computed after a run.
 
 Purpose: per ordered pair, the count of moves from the kinds ``config/lint/supply_kinds.md`` lists as supplying, and,
          when the social cues were on, the mean perceived attention and approval cue each person received from each

@@ -20,7 +20,7 @@ A run has a life course only when its family declares one (``state.life`` is not
    child's mean load over the year (`M7.B.1a`);
 3. a child develops (`M7.E.1f`): held at the parents' mean before 5; anchored at 5; from 6 to 20 moved by
    ``development_rate × d`` within a band around the anchor, where ``d`` is half the parents' mean functioning above
-   basic over the year, less what each gained or gave by displaced coping (revision 41), and half the child's own. The band opens with the parents' acts to the child: from
+   basic over the year, less what each gained or gave by displaced coping, and half the child's own. The band opens with the parents' acts to the child: from
    ``anchor × (1 − development_band − (development_band_projection − development_band) × p)`` to
    ``anchor × (1 + development_band + (development_band_support − development_band) × s)``, where ``p`` and ``s``
    are the shares of every act a living parent has sent the child since 5 that were projection-type and supportive
@@ -70,7 +70,7 @@ from src.bowen.engine.counting import count
 DEATH, BIRTH, PARTNERING, LAUNCH, FIND_WORK, RETIREMENT = (
     "DEATH", "BIRTH", "PARTNERING", "LAUNCH", "FIND_WORK", "RETIREMENT")
 GRIEF, INCOME_LOSS = "GRIEF", "INCOME_LOSS"
-# M7.C.1l, revision 36: the load an addition carries, sized from event_sizes.md, beside the structural event itself.
+# M7.C.1l: the load an addition carries, sized from event_sizes.md, beside the structural event itself.
 PARTNERING_LOAD, BIRTH_LOAD, LAUNCH_LOAD, FIND_WORK_LOAD, RETIREMENT_LOAD = (
     "PARTNERING_LOAD", "BIRTH_LOAD", "LAUNCH_LOAD", "FIND_WORK_LOAD", "RETIREMENT_LOAD")
 
@@ -133,11 +133,11 @@ class LifeCourse:
     income: dict[str, list] = field(default_factory=dict)  # household -> [[event id, resolved], ...]
     coach: PersonId | None = None
     coach_template: tuple | None = None  # the original coach's (basic, chronic, channel prior, tie values)
-    # M7.B.1a, revision 29: each child's mean load for every year of childhood the run has observed
+    # M7.B.1a: each child's mean load for every year of childhood the run has observed
     childhood_loads: dict[PersonId, list] = field(default_factory=dict)
-    # M1.D.8a, revision 30: each child's sum of their parents' largest held rejection, and the weeks summed, until 20
+    # M1.D.8a: each child's sum of their parents' largest held rejection, and the weeks summed, until 20
     origin_exposure: dict[PersonId, list] = field(default_factory=dict)
-    # M7.E.1f, revision 31: each developing child's [all, projection-type, supportive] acts received from a parent
+    # M7.E.1f: each developing child's [all, projection-type, supportive] acts received from a parent
     parental_acts: dict[PersonId, list] = field(default_factory=dict)
     slow_ticks: int = 0
 
@@ -291,7 +291,7 @@ def _life_event(state: RunState, kind: str, origin: str, targets, *, exogenous: 
 
 def _addition_load(state: RunState, kind: str, origin: str, targets, params: EngineParams, *,
                    who: str = "self", reach: float = 1.0) -> Event:
-    """Purpose: the load an addition to the family carries (M7.C.1l, revision 36): a lasting stressor to those it lands
+    """Purpose: the load an addition to the family carries (M7.C.1l): a lasting stressor to those it lands
     on, sized from ``event_sizes.md`` and arriving the week after the structural event, with it.
     Spec:    docs/bowen_agent_model_spec_v2.md#M7.C.1l, #M1.F.6a
     Tests:   tests/bowen/test_event_sizes.py::test_m7c1l_an_addition_carries_a_load_for_its_weeks
@@ -379,7 +379,7 @@ def _childhood(state: RunState, params: EngineParams) -> list[tuple]:
                                           _parents_mean(state, pid, "basic_level"))
         # The age was just advanced, so the year lived at fixation − 1 is read here, then the value is fixed.
         if age <= params.chronic_anxiety_fixation_age_years and parents_chronic is not None:
-            # Revision 29: chronic anxiety builds over childhood, the mean of every observed year's load (the owner).
+            # chronic anxiety builds over childhood, the mean of every observed year's load (the owner).
             years = life.childhood_loads.setdefault(pid, [])
             years.append(_year_mean(state, pid, params, lambda w: w.load) or 0.0)
             chronic = parents_chronic + params.witnessed_gain * math.fsum(years) / len(years)
@@ -613,7 +613,7 @@ def die(state: RunState, pid: PersonId, params: EngineParams) -> EffectRecord:
     life = state.life
     if mourners:  # a nodal event must reach someone (slow_tick.reached_by); a death no one survives is logged below only
         life.pending.append(_life_event(state, DEATH, f"life:death:{pid}", mourners))
-    for other in mourners:  # M6.3g — grief, in proportion to the tie; sized from the scale (M1.F.6a, revision 36)
+    for other in mourners:  # M6.3g — grief, in proportion to the tie; sized from the scale (M1.F.6a)
         share = bond[other] / SCALE_MAX
         weeks = params.grief_min_weeks + round(params.grief_extra_weeks * share)
         who = "spouse" if _is_spouse(state, pid, other) else "relative"
@@ -805,7 +805,7 @@ def _birth(state: RunState, row: PartnerRow, order: int, params: EngineParams) -
     _introduce(state, child, ties, params)
     family = state.other_families.get(household)
     # M7.E.1c: the firstborn; the firstborn of its sex; the last-born; a birth at a time of high stress (a parent above
-    # their usual level). A reality defect is a declared weakness (M1.B.8a, revision 29); no birth declares one, so it
+    # their usual level). A reality defect is a declared weakness (M1.B.8a); no birth declares one, so it
     # adds nothing here, and a declared weakness acts through weakness_focus instead.
     earlier = [child_id(a, b, k) for k in range(1, order)]
     earlier_sexes = {state.people[c].sex for c in earlier if c in state.people}  # living or dead (review 2026-10-13)

@@ -31,7 +31,7 @@ debits nothing and raises the claimant's outward axis by ``assertion_evidence_ga
   capacity to hold lower, which is how an unprepared sequence is less likely to peak.
 * ``DEFINE`` (an outcome) — the genuine `I-POSITION` event to ``T``, part self-statement,
   share ``w``, and part demand, share ``1 − w``, with ``w`` the mover's self-channel weight
-  that week (`M5.F.4`, revision 39). On delivery the demand adds ``(1 − w) × assertion_gain``
+  that week (`M5.F.4`). On delivery the demand adds ``(1 − w) × assertion_gain``
   to the impingement, the self-statement withdraws ``w × debit_gain`` of ``T``'s felt contact
   on the tie (`M5.E.7`; a contact proxy, since `life_energy` is not built), and the mover's
   outward axis rises by ``(1 − w) × assertion_evidence_gain`` (`M5.F.2a`). The others'
@@ -52,7 +52,7 @@ debits nothing and raises the claimant's outward axis by ``assertion_evidence_ga
   no attack in ``hold_window`` weeks the sequence settles without a peak.
 * ``RESOLVE`` — the opposition pulls up to the mover's level: ``T``'s functional level
   closes ``pull_up_rate`` of the gap to the mover's, if the mover's is higher (`M5.D.5`;
-  solid self, outside `M6.I.4`); an external mover pulls no one up (revision 44, T-165). ``FOLLOW_UP`` is due the next week (`M5.D.6`).
+  solid self, outside `M6.I.4`); an external mover pulls no one up (T-165). ``FOLLOW_UP`` is due the next week (`M5.D.6`).
 * ``FOLLOW_UP`` (an outcome) — `STAY-IN-CONTACT` to ``T``. If it cannot be made (the tie
   is not live, or ``T`` has died) the pull-up is reverted and nothing completes. Made, the
   exchange is **complete** (`M5.D.7`): the mover's functional level rises by the small
@@ -126,7 +126,7 @@ def angry(state: RunState, mover: PersonId, target: PersonId, params: EnginePara
 
 def assertion_form(state: RunState, mover: PersonId, target: PersonId, params: EngineParams) -> bool:
     """Purpose: whether an I-POSITION executes as the assertion form: only when the mover is angry (M5.D.4a). No
-             threshold on systems perspective decides it (revision 39, M5.F.4, M5.F.2c).
+             threshold on systems perspective decides it (M5.F.4, M5.F.2c).
     Spec:    docs/bowen_agent_model_spec_v2.md#M5.F.4, #M5.D.4a, #M5.F.2c
     Tests:   tests/bowen/test_iposition.py::test_m5d4a_an_angry_mover_executes_the_assertion_form,
              tests/bowen/test_iposition.py::test_m5f4_low_perspective_starts_a_sequence
@@ -136,7 +136,7 @@ def assertion_form(state: RunState, mover: PersonId, target: PersonId, params: E
 
 def demand_share(state: RunState, mover: PersonId, params: EngineParams) -> float:
     """Purpose: the demand share of a genuine I-POSITION, ``1 − w``, with ``w`` the mover's self-channel weight that
-             week (M5.F.4, revision 39: the lower the level, the more the act comes out as a demand).
+             week (M5.F.4: the lower the level, the more the act comes out as a demand).
     Spec:    docs/bowen_agent_model_spec_v2.md#M5.F.4, #M4.D.1a
     Tests:   tests/bowen/test_iposition.py::test_m5f4_s3_6_demand_share_falls_with_level
 
@@ -266,7 +266,7 @@ def resolve(state: RunState, mover: PersonId, params: EngineParams) -> EffectRec
     Tests:   tests/bowen/test_iposition.py::test_m5d5_opposition_pulls_up_to_the_movers_level,
              tests/bowen/test_iposition.py::test_m5d5_t165_an_external_movers_resolve_pulls_no_one_up
 
-    An external mover pulls no one up (revision 44, T-165): a rise toward the coach's own level is not the member's.
+    An external mover pulls no one up (T-165): a rise toward the coach's own level is not the member's.
     """
     seq = state.people[mover].iposition_state
     other = state.people[seq.target]

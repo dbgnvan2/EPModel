@@ -168,7 +168,7 @@ def load_steering(kinds: EventKinds, path: Path = CONFIG_DIR / "perspective_stee
     return {k: 1 if d == "toward" else -1 for k, d in rows}
 
 
-DISPLACING = "## Displacing"  # config/bowen/stress_response.md's second table (revision 39, M1.A.5f)
+DISPLACING = "## Displacing"  # config/bowen/stress_response.md's second table (M1.A.5f)
 
 
 def _stress_response_parts(path: Path) -> tuple[str, str | None, int]:
@@ -251,7 +251,7 @@ def load_family(path: Path = CONFIG_DIR / "family_reduced.md", constants: Consta
     Tests:   tests/bowen/test_family.py::test_m21_family_declared_in_markdown
     """
     text = read_text(path)
-    partners = partners_file(text)  # spec revision 28: a family with a life course names its partner settings
+    partners = partners_file(text)  # a family with a life course names its partner settings
     partners_path = Path(path).parent / partners if partners else None
     return build_family(text, constants or load_constants(), source=str(path),
                         partners_text=read_text(partners_path) if partners_path else None,

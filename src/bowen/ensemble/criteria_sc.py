@@ -1,4 +1,4 @@
-"""The social cues' acceptance criteria, `M11.C.50`–`M11.C.54` on the Phase C families (spec revision 55, T-202).
+"""The social cues' acceptance criteria, `M11.C.50`–`M11.C.54` on the Phase C families (T-202).
 
 Purpose: each criterion as two arms on identical seeds, **both with ``social_cues_enabled`` on** (`M4.C.1f`): an
          experimental override the criterion declares, so the criteria test the cues while every other record runs

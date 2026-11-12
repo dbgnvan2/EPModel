@@ -1,4 +1,4 @@
-"""The social cues: what a move's signal channels carry, and how a receiver reads them (spec revision 55, T-202).
+"""The social cues: what a move's signal channels carry, and how a receiver reads them (T-202).
 
 Purpose: while ``social_cues_enabled`` is on (`M4.C.1f`), stamp each move with its four signal channels from the
          sender's state (`M1.F.1c`, `M4.C.13`, `M4.C.15`, `M9.9`), read them at the receiver as a perceived cue vector

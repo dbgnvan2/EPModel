@@ -51,17 +51,17 @@ class EngineParams:
     outside_ness_rate: float               # M1.A.9 — share of the gap to this tick's behaviour closed per tick
     hollow_gain: float                     # M5.F.1 — how far inward impingement empties a move's contact
     assault_gain: float                    # M5.F.1 — impingement a move gains per unit of outward impingement
-    outside_ness_threshold_outward: float  # M5.C.1, revision 12 P9 — the gate fails above this on the outward axis
-    outside_ness_threshold_inward: float   # M5.C.1, revision 12 P9 — and above this on the inward axis
+    outside_ness_threshold_outward: float  # M5.C.1 — the gate fails above this on the outward axis
+    outside_ness_threshold_inward: float   # M5.C.1 — and above this on the inward axis
     involvement_membership_threshold: float  # M1.A.12 — membership is a threshold over involvement
     distance_binding_rate: float  # M1.D.2a — share of the distancer's excess bound into the tie per unit scaled intensity
-    conflict_binding_rate: float  # M1.D.2c, revision 36 — the same for a conflict, a smaller share
-    cutoff_stock_cap: float       # M1.D.2b, revision 36 — the most stock a cut-off tie holds (the largest measured at a cut)
-    cutoff_threat_weight: float   # M1.D.2b, revision 36 — intensity per unit of stock per week at bond energy 100
-    cutoff_decay_weeks: int       # M1.D.2b, revision 36 — weeks for a cut-off tie's stock to fall to its floor (the owner's five years)
-    cutoff_floor_share: float     # M1.D.2b, revision 36 — the floor as a share of the peak (the owner's 10%)
-    positive_bridge_dissipation: float  # M1.D.2b, revision 36 — share of the stock a positive contact across a cut tie lets go (the owner's 80%)
-    tie_repair_steps: int         # M1.D.2c, revision 36 — positive contacts that repair a distant or conflicted tie (the owner's thirds)
+    conflict_binding_rate: float  # M1.D.2c — the same for a conflict, a smaller share
+    cutoff_stock_cap: float       # M1.D.2b — the most stock a cut-off tie holds (the largest measured at a cut)
+    cutoff_threat_weight: float   # M1.D.2b — intensity per unit of stock per week at bond energy 100
+    cutoff_decay_weeks: int       # M1.D.2b — weeks for a cut-off tie's stock to fall to its floor (the owner's five years)
+    cutoff_floor_share: float     # M1.D.2b — the floor as a share of the peak (the owner's 10%)
+    positive_bridge_dissipation: float  # M1.D.2b — share of the stock a positive contact across a cut tie lets go (the owner's 80%)
+    tie_repair_steps: int         # M1.D.2c — positive contacts that repair a distant or conflicted tie (the owner's thirds)
     triangle_transfer_rate: float # M1.C.1 — share of the seeker's excess passed to the outsider per unit scaled intensity, before capacity and the third's help
     outsider_positional_gain: float # M1.C.1, KS03.1 — the outsider's own positional anxiety per unit absorbed
     balance_push_gain: float      # M1.B.5 — how far one act pushes the functioning balance per unit scaled intensity
@@ -116,80 +116,80 @@ class EngineParams:
     rejection_relief: float                # M1.B.3c, M5.B.3 — rejection an accepted REDUCE_CUTOFF removes per unit strength
     refusal_cost_gain: float               # M1.B.3c — the refused sender's acute anxiety per unit strength × conductance × steepness
     declared_rejection: float              # M1.B.3c — each member's rejection on a tie the family declares cut off
-    rejection_refusal_threshold: float     # M1.B.3c, revision 16 — rejection above which a move is refused
-    rejection_fade: float                  # M1.B.3c, revision 16 — rejection lost per week
+    rejection_refusal_threshold: float     # M1.B.3c — rejection above which a move is refused
+    rejection_fade: float                  # M1.B.3c — rejection lost per week
     estimator_window: int                  # M1.A.4k — slow ticks of functioning history the estimator reads
     estimator_breadth: int                 # M1.A.4k — distinct kinds of nodal event the window must include
     estimator_sd_weight: float             # M1.A.4k — how far the load-weighted spread discounts the mean
     estimator_rate: float                  # M1.A.4k — share of the evidence a slow tick turns into a rise
     tie_wear_rate: float                   # M7.E.4 — conductance lost per slow tick per unit mean chronic anxiety / 100
     wear_offset_per_act: float             # M7.E.4 — share of a year's wear each STAY-IN-CONTACT on the tie offsets
-    perspective_channel_gain: float        # M4.D.1a, revision 18 — how far perspective opens the self-directed channel
-    self_practice_gain: float              # M1.E.7, revision 18 — perspective a self-directed act under load adds, of its distance from 1
-    stressor_persistence: float            # M1.F.6, revision 18 — each later week of a lasting stressor, as a share of its arrival
-    response_up_gain: float                # M1.A.5e, revision 18 — functioning gained per unit load by coping, at basic level 100
-    response_down_gain: float              # M1.A.5e, revision 18 — functioning lost per unit load by soothing, at basic level 0
+    perspective_channel_gain: float        # M4.D.1a — how far perspective opens the self-directed channel
+    self_practice_gain: float              # M1.E.7 — perspective a self-directed act under load adds, of its distance from 1
+    stressor_persistence: float            # M1.F.6 — each later week of a lasting stressor, as a share of its arrival
+    response_up_gain: float                # M1.A.5e — functioning gained per unit load by coping, at basic level 100
+    response_down_gain: float              # M1.A.5e — functioning lost per unit load by soothing, at basic level 0
     response_relaxation_rate: float        # M1.A.5e, M7.A.1 — share of the stress-moved swing shed per calm week
-    stress_floor_below_basic: float        # M1.A.5e, revision 19 — how far below basic_level stress can push functioning
-    practice_window: int                   # M1.E.7, revision 19 — weeks after a self-directed act before it is judged to have worked; M1.B.5, revision 21 — how long a stance holds
-    perspective_steer_gain: float          # M4.D.1a, revision 19 — how far full perspective scales a steered act's weight
-    system_adjust_gain: float              # M1.E.7, revision 19 — functioning the other gains when a held stance works
-    soothing_review_every: int             # M4.D.6, revision 19 — weeks between a person's chances to ask whether soothing helped
-    soothing_review_penalty: float         # M4.D.6, revision 19 — share of a soothing act's learned value lost when it did not help
-    usual_level_rate: float                # M1.A.5e, revision 22 — share per week by which a person's usual level follows their excess
-    constitution_strength: float           # M1.A.11c, revision 24 — how strongly the constitutional channel prior holds against a family focus
-    channel_protection: float              # M7.D.2c, revision 24 — how much load in other channels slows a channel's feed
-    lock_in_gain: float                    # M7.D.2a, revision 24 — scale of the share of a partner's excess an active symptom holds
-    attribution_rate: float                # M9.6, revision 25 — share per unit of fidelity by which attribution moves toward what a move places
-    focus_rate: float                      # M1.A.11c, revision 25 — weekly decay of the family's focus, and its gain per anxious act
-    marital_distance_fraction: float       # M5.C.1, revision 25 — felt contact below this share of optimum, both spouses, is marital distance
-    belief_appraisal_gain: float           # M9.7, revision 25 — how much a witness's believed tension of the tie scales its appraisal
-    pseudo_self_relaxation_rate: float     # M6.I.4, revision 27 — weekly share of a pair's opposite pseudo-self that settles back
-    exchange_window: int                   # M6.I.4, revision 27 — weeks without over/under-functioning before it settles
-    acting_age_years: int                  # M7.C.1f, revision 28 — a person selects acts from this age until death
-    development_start_age_years: int       # M7.E.1f, revision 28 — a child's basic level is fixed to its anchor and develops from this age
-    development_end_age_years: int         # M7.E.1f, revision 28 — development levels off; the estimator governs from here
-    development_band: float                # M7.E.1f, revision 28 — how far a child's level may end from the anchor
-    development_rate: float                # M7.E.1f, revision 28 — how far a year's functioning moves a developing child's level
-    development_band_projection: float     # M7.E.1f, revision 31 — the floor's room when every parental act to the child was projection
-    development_band_support: float        # M7.E.1f, revision 31 — the ceiling's room when every parental act to the child was supportive
-    witnessed_gain: float                  # M7.B.1a, revision 28 — a child's own load raises its chronic anxiety above the parents' before the fixation age
+    stress_floor_below_basic: float        # M1.A.5e — how far below basic_level stress can push functioning
+    practice_window: int                   # M1.E.7 — weeks after a self-directed act before it is judged to have worked; M1.B.5 — how long a stance holds
+    perspective_steer_gain: float          # M4.D.1a — how far full perspective scales a steered act's weight
+    system_adjust_gain: float              # M1.E.7 — functioning the other gains when a held stance works
+    soothing_review_every: int             # M4.D.6 — weeks between a person's chances to ask whether soothing helped
+    soothing_review_penalty: float         # M4.D.6 — share of a soothing act's learned value lost when it did not help
+    usual_level_rate: float                # M1.A.5e — share per week by which a person's usual level follows their excess
+    constitution_strength: float           # M1.A.11c — how strongly the constitutional channel prior holds against a family focus
+    channel_protection: float              # M7.D.2c — how much load in other channels slows a channel's feed
+    lock_in_gain: float                    # M7.D.2a — scale of the share of a partner's excess an active symptom holds
+    attribution_rate: float                # M9.6 — share per unit of fidelity by which attribution moves toward what a move places
+    focus_rate: float                      # M1.A.11c — weekly decay of the family's focus, and its gain per anxious act
+    marital_distance_fraction: float       # M5.C.1 — felt contact below this share of optimum, both spouses, is marital distance
+    belief_appraisal_gain: float           # M9.7 — how much a witness's believed tension of the tie scales its appraisal
+    pseudo_self_relaxation_rate: float     # M6.I.4 — weekly share of a pair's opposite pseudo-self that settles back
+    exchange_window: int                   # M6.I.4 — weeks without over/under-functioning before it settles
+    acting_age_years: int                  # M7.C.1f — a person selects acts from this age until death
+    development_start_age_years: int       # M7.E.1f — a child's basic level is fixed to its anchor and develops from this age
+    development_end_age_years: int         # M7.E.1f — development levels off; the estimator governs from here
+    development_band: float                # M7.E.1f — how far a child's level may end from the anchor
+    development_rate: float                # M7.E.1f — how far a year's functioning moves a developing child's level
+    development_band_projection: float     # M7.E.1f — the floor's room when every parental act to the child was projection
+    development_band_support: float        # M7.E.1f — the ceiling's room when every parental act to the child was supportive
+    witnessed_gain: float                  # M7.B.1a — a child's own load raises its chronic anxiety above the parents' before the fixation age
     chronic_anxiety_fixation_age_years: int  # M2.A.0a, M7.B.1a — revision 28 reads it: a child's chronic anxiety is derived until this age
     spouse_basic_level_tolerance: float    # M2.A.0e — revision 28 reads it: a partner's level is drawn within it (M7.C.1h)
-    launch_age_years: int                  # M7.C.1g, revision 28 — a child leaves the household and supports themselves
-    working_age_years: int                 # M7.C.1k, revision 28 — the youngest who can take FIND_WORK
-    find_work_rate: float                  # M7.C.1k, revision 28 — how readily a pressed member finds work
-    find_work_pressure_scale: float        # M7.C.1k, revision 28 — the load above usual at which the pressure to find work is full
-    grief_weight: float                    # M6.3g, revision 36 — grief's size as a multiple of its Holmes–Rahe size (M1.F.6a); 0 switches it off
-    lcu_scale: float                       # M1.F.6a, revision 36 — intensity units per life change unit (the owner's anchor: 324 ÷ 47)
-    grief_min_weeks: int                   # M6.3g, revision 28 — grief on the weakest tie lasts a year (the owner's 1-3 years)
-    grief_extra_weeks: int                 # M6.3g, revision 28 — grief on the strongest tie lasts two more years
-    income_loss_intensity: float           # M6.3h, revision 28 — the size of the stress of a lost income
-    income_shortfall_share: float          # M6.3h, revision 28 — what remains of the stress once someone finds work
-    mortality_a: float                     # M7.C.1j, revision 28 — the Gompertz curve's level: with mortality_b, a median age at death near 80
-    mortality_b: float                     # M7.C.1j, revision 28 — the Gompertz curve's rise with age
-    budget_per_undifferentiation: float    # M7.C.1h, revision 28 — a new family's budget; 1.49 gives about 90 at the ravi_marta family's 39.5
-    coach_start_age_years: int             # M2.A.0k, revision 28 — a new coach's age at entry
-    coach_retirement_age_years: int        # M2.A.0k, revision 28 — the coach retires and a new one starts over
-    new_tie_investment_share: float        # M7.C.1a, revision 28 — what a new tie claims of a person's investment at partnering or birth
-    birth_focus_gain: float                # M7.E.1c, revision 28 — each of the five situations at a birth adds anxious focus
-    death_transfer_share: float            # M6.3b, revision 28 — 1 is the rule; only M11.C.37's mutant sets 0
-    reactive_cutoff_gain: float            # M1.B.3d, revision 29 — a held reactive cutoff's weekly cost to its holder
-    witnessed_cutoff_gain: float           # M4.D.6f, revision 29 — learning per point of functional change seen
-    witness_window: int                    # M4.D.6f, revision 29 — weeks between a witnessed cutoff and its reading
-    perceived_weakness_gain: float         # M1.B.8a, revision 29 — focus per point of a child's shortfall
-    focus_steer_gain: float                # M4.D.1g, revision 29 — how strongly focus steers projection-type acts
-    origin_cutoff_anxiety_gain: float        # M1.D.8a, revision 30 — intensity a child carries from the cutoff they grew up with
-    origin_fusion_gain: float                # M1.D.8a, revision 30 — the pull toward fusion a child carries from it
-    nodal_spike_intensity: float             # M4.C.1c, revision 32 — a nodal event's spike on the cut ties of those it reaches
-    danger_window: int                       # M1.B.3e, revision 30 — weeks of received intrusion that make felt danger
-    danger_threshold: float                  # M1.B.3e, revision 30 — intrusion beyond ordinary family life
-    danger_gain: float                       # M1.B.3e, revision 30 — what contact with a dangerous person costs
-    focus_reinforce_gain: float              # M1.B.8b, revision 30 — attention follows one's own anxious acts
-    force_anxiety_gain: float                # M4.D.1h, revision 30 — an anxious person acts with more force
-    focus_compound_gain: float               # M1.B.8b, revision 30 — anxious focus grows where it already is
-    lock_in_turn: float                    # M7.D.2d, revision 24 — the severity (load over threshold) past which lock-in turns over
-    # Spec revision 55 (T-202): the social cues, behind one switch that is off by default (M4.C.1f).
+    launch_age_years: int                  # M7.C.1g — a child leaves the household and supports themselves
+    working_age_years: int                 # M7.C.1k — the youngest who can take FIND_WORK
+    find_work_rate: float                  # M7.C.1k — how readily a pressed member finds work
+    find_work_pressure_scale: float        # M7.C.1k — the load above usual at which the pressure to find work is full
+    grief_weight: float                    # M6.3g — grief's size as a multiple of its Holmes–Rahe size (M1.F.6a); 0 switches it off
+    lcu_scale: float                       # M1.F.6a — intensity units per life change unit (the owner's anchor: 324 ÷ 47)
+    grief_min_weeks: int                   # M6.3g — grief on the weakest tie lasts a year (the owner's 1-3 years)
+    grief_extra_weeks: int                 # M6.3g — grief on the strongest tie lasts two more years
+    income_loss_intensity: float           # M6.3h — the size of the stress of a lost income
+    income_shortfall_share: float          # M6.3h — what remains of the stress once someone finds work
+    mortality_a: float                     # M7.C.1j — the Gompertz curve's level: with mortality_b, a median age at death near 80
+    mortality_b: float                     # M7.C.1j — the Gompertz curve's rise with age
+    budget_per_undifferentiation: float    # M7.C.1h — a new family's budget; 1.49 gives about 90 at the ravi_marta family's 39.5
+    coach_start_age_years: int             # M2.A.0k — a new coach's age at entry
+    coach_retirement_age_years: int        # M2.A.0k — the coach retires and a new one starts over
+    new_tie_investment_share: float        # M7.C.1a — what a new tie claims of a person's investment at partnering or birth
+    birth_focus_gain: float                # M7.E.1c — each of the five situations at a birth adds anxious focus
+    death_transfer_share: float            # M6.3b — 1 is the rule; only M11.C.37's mutant sets 0
+    reactive_cutoff_gain: float            # M1.B.3d — a held reactive cutoff's weekly cost to its holder
+    witnessed_cutoff_gain: float           # M4.D.6f — learning per point of functional change seen
+    witness_window: int                    # M4.D.6f — weeks between a witnessed cutoff and its reading
+    perceived_weakness_gain: float         # M1.B.8a — focus per point of a child's shortfall
+    focus_steer_gain: float                # M4.D.1g — how strongly focus steers projection-type acts
+    origin_cutoff_anxiety_gain: float        # M1.D.8a — intensity a child carries from the cutoff they grew up with
+    origin_fusion_gain: float                # M1.D.8a — the pull toward fusion a child carries from it
+    nodal_spike_intensity: float             # M4.C.1c — a nodal event's spike on the cut ties of those it reaches
+    danger_window: int                       # M1.B.3e — weeks of received intrusion that make felt danger
+    danger_threshold: float                  # M1.B.3e — intrusion beyond ordinary family life
+    danger_gain: float                       # M1.B.3e — what contact with a dangerous person costs
+    focus_reinforce_gain: float              # M1.B.8b — attention follows one's own anxious acts
+    force_anxiety_gain: float                # M4.D.1h — an anxious person acts with more force
+    focus_compound_gain: float               # M1.B.8b — anxious focus grows where it already is
+    lock_in_turn: float                    # M7.D.2d — the severity (load over threshold) past which lock-in turns over
+    # The social cues, behind one switch that is off by default (M4.C.1f).
     social_cues_enabled: int  # M4.C.1f
     cue_attention_contact_weight: float  # M4.C.1e
     cue_attention_impingement_weight: float  # M4.C.1e
@@ -281,7 +281,7 @@ class EngineParams:
                      "conflict_binding_rate", "cutoff_floor_share", "positive_bridge_dissipation"):
             if not 0.0 <= getattr(self, name) <= 1.0:
                 raise ValueError(f"{name} must be in [0, 1]")
-        # Revision 36 (M1.D.2b, c): the cap and weight are non-negative; the decay needs a positive span and a floor
+        # The cap and weight are non-negative; the decay needs a positive span and a floor
         # share above zero (a zero share makes the weekly factor 0); repair needs at least one step.
         if self.cutoff_stock_cap < 0 or self.cutoff_threat_weight < 0:
             raise ValueError("cutoff_stock_cap and cutoff_threat_weight must be non-negative")
@@ -343,7 +343,7 @@ class EngineParams:
                              "budget_per_undifferentiation and birth_focus_gain must be non-negative")
         if self.find_work_pressure_scale <= 0 or self.grief_min_weeks < 0 or self.grief_extra_weeks < 0:
             raise ValueError("find_work_pressure_scale must be positive and the grief weeks non-negative")
-        # Revision 29 (learning-qa review 2026-10-14): the witnessed-cutoff step stays bounded only for a gain in [0, 1].
+        # The witnessed-cutoff step stays bounded only for a gain in [0, 1].
         if self.nodal_spike_intensity < 0:
             raise ValueError("nodal_spike_intensity must be non-negative")
         if not 0.0 <= self.witnessed_cutoff_gain <= 1.0 or self.witness_window < 1:
@@ -356,7 +356,7 @@ class EngineParams:
                self.force_anxiety_gain, self.focus_compound_gain) < 0:
             raise ValueError("origin_cutoff_anxiety_gain, origin_fusion_gain, danger_gain, focus_reinforce_gain, "
                              "force_anxiety_gain and focus_compound_gain must be non-negative")
-        # Spec revision 55 (M4.C.1f): the switch is 0 or 1; every cue gain is non-negative; shares and probabilities
+        # The switch is 0 or 1; every cue gain is non-negative; shares and probabilities
         # are in [0, 1]; the nonverbal weight's cap is below one and at least its base.
         if self.social_cues_enabled not in (0, 1):
             raise ValueError("social_cues_enabled is 0 (off) or 1 (on)")

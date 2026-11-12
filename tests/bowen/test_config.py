@@ -491,3 +491,15 @@ def test_m1a5f_s3_1c_displacing_kinds_come_from_config(tmp_path):
         path.write_text(STRESS_RESPONSE.format(rows=bad), encoding="utf-8")
         with pytest.raises(ConfigError):
             load_displacing(kinds, path)
+
+
+def test_m0_1_criteria_settings_graded():
+    """Every row of `config/bowen/criteria.md`'s settings carries a grade, `[I]` (moved from the retired
+    revision 31 test file, T-220)."""
+    from pathlib import Path
+
+    text = (Path(__file__).resolve().parents[2] / "config" / "bowen" / "criteria.md").read_text(encoding="utf-8")
+    rows = [line for line in text.splitlines() if line.startswith("| ") and not line.startswith("|---")]
+    assert rows[0] == "| criterion | setting | value | grade |"
+    ungraded = [row for row in rows[1:] if not row.endswith("| [I] |")]
+    assert rows[1:] and ungraded == []

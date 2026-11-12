@@ -1,165 +1,22 @@
 """Documents that restate a fact held somewhere else must still agree with it.
 
-Purpose: D1, the spec's revision as README.md, CLAUDE.md, `_STATUS.md` and the checklist restate it; D2, the repo paths
-         README.md and CLAUDE.md name. Each check is a function over a checkout that returns its findings, so the
-         self-tests can run it on a copy that carries the drift it exists to catch.
-Spec:    docs/plan_doc_claim_tests.md#D1, #D2
+Purpose: D2, the repo paths README.md and CLAUDE.md name. Each check is a function over a checkout that returns its
+         findings, so the self-tests can run it on a copy that carries the drift it exists to catch. D1, the spec's
+         revision as four documents restated it, was retired 2026-11-11 (T-225): those documents point to
+         `docs/STATUS.md`, which `tools/status.py` generates.
+Spec:    docs/plan_doc_claim_tests.md#D2
 Tests:   this file
 """
 
 from __future__ import annotations
 
 import re
-import shutil
 from dataclasses import dataclass, field
 from pathlib import Path
 
 from doc_text import claims_data, phrase_pattern, sentences, tracked_files
 
 REPO = Path(__file__).resolve().parents[1]
-
-# ---------------------------------------------------------------------------------------------------- D1
-
-SPEC = "docs/bowen_agent_model_spec_v2.md"
-_FRONT_REVISION = re.compile(r"^version:\s*2\.0,\s*revision\s+(\d+)\s*$", re.M)
-# A range ("revisions 24–30", "revisions 24 to 27") counts as its upper end.
-_REVISION = re.compile(r"\brevisions?\s+(\d+)(?:\s*(?:–|-|to)\s*(\d+))?", re.I)
-
-# Each place that restates the current revision: its file, the region that holds the restatement, and the exact form
-# of the claim where the place has one (the checklist's "the spec (v2.0, revision N"). Without an exact form, the
-# largest revision the region names is its claim.
-PLACES = {
-    "the checklist's spec entry": (
-        "docs/SPEC_REVIEW_CHECKLIST.md",
-        re.compile(r"^- \[[ x]\] \[bowen_agent_model_spec_v2\.md\]\(bowen_agent_model_spec_v2\.md\).*?(?=\n- |\n\n|\Z)",
-                   re.M | re.S),
-        re.compile(r"the spec \(v2\.0, revision (\d+)")),
-    "CLAUDE.md's spec row": ("CLAUDE.md", re.compile(r"^\| `docs/bowen_agent_model_spec_v2\.md`.*$", re.M), None),
-    "_STATUS.md's ▶ STATE line": ("docs/theory/_STATUS.md", re.compile(r"^> ## ▶ STATE.*$", re.M), None),
-    "README.md's Status section": ("README.md", re.compile(r"^## Status\n.*?(?=^## |\Z)", re.M | re.S), None),
-}
-
-
-def spec_revision(spec_text: str) -> int | None:
-    """D1.1: the revision in the spec's front matter, or None when the front matter does not state one."""
-    match = _FRONT_REVISION.search(spec_text.split("\n---", 1)[0])
-    return int(match.group(1)) if match else None
-
-
-def revision_findings(repo: Path) -> dict[str, str]:
-    """D1.2–D1.7: each place whose largest named revision is not the spec's, with what it says.
-
-    A place names past revisions too ("revision 28 built 2026-10-13"), and none can be larger than the current one, so
-    the largest it names is its claim about the current revision.
-    """
-    current = spec_revision((repo / SPEC).read_text(encoding="utf-8"))
-    if current is None:
-        return {SPEC: "its front matter names no revision, so there is nothing to compare the restatements with"}
-    findings = {}
-    for place, (path, region, exact) in PLACES.items():
-        match = region.search((repo / path).read_text(encoding="utf-8"))
-        if match is None:
-            findings[place] = f"not found in {path}; the restatement is gone"
-            continue
-        if exact:
-            named = [int(n) for n in exact.findall(match.group(0))]
-        else:
-            named = [int(high or low) for low, high in _REVISION.findall(match.group(0))]
-        if not named:
-            findings[place] = f"names no revision; the restatement is gone (the spec is at {current})"
-        elif max(named) != current:
-            findings[place] = f"names revision {max(named)}; the spec is at {current}"
-    return findings
-
-
-def _copy(repo: Path, tmp_path: Path, paths) -> Path:
-    for rel in paths:
-        (tmp_path / rel).parent.mkdir(parents=True, exist_ok=True)
-        shutil.copyfile(repo / rel, tmp_path / rel)
-    return tmp_path
-
-
-def _d1_copy(tmp_path: Path) -> Path:
-    return _copy(REPO, tmp_path, [SPEC] + [path for path, _, _ in PLACES.values()])
-
-
-def _edit(path: Path, old: str, new: str, count: int = 1) -> None:
-    text = path.read_text(encoding="utf-8")
-    assert old in text, f"fixture edit not applicable: {old!r} is not in {path.name}"
-    path.write_text(text.replace(old, new, count), encoding="utf-8")
-
-
-def test_d1_spec_revision_restatements_match_the_front_matter():
-    """D1.1–D1.5: the four places agree with the spec's front matter."""
-    assert spec_revision((REPO / SPEC).read_text(encoding="utf-8")) is not None, "the spec's front matter names no revision"
-    assert revision_findings(REPO) == {}
-
-
-def test_d1_a_moved_spec_revision_is_reported_in_every_place(tmp_path):
-    """The drift the test exists for: the spec moves to the next revision and none of the copies do."""
-    copy = _d1_copy(tmp_path)
-    current = spec_revision((REPO / SPEC).read_text(encoding="utf-8"))
-    _edit(copy / SPEC, f"version: 2.0, revision {current}\n", f"version: 2.0, revision {current + 1}\n")
-    findings = revision_findings(copy)
-    assert sorted(findings) == sorted(PLACES)
-    assert all(f"the spec is at {current + 1}" in message for message in findings.values())
-
-
-def test_d1_the_checklist_drift_of_2026_10_19_is_reported(tmp_path):
-    """At `7aa9fc5` the checklist's spec entry said revision 27 while the spec was at 33."""
-    copy = _d1_copy(tmp_path)
-    entry = PLACES["the checklist's spec entry"]
-    text = (copy / entry[0]).read_text(encoding="utf-8")
-    old = entry[1].search(text).group(0)
-    new = re.sub(r"the spec \(v2\.0, revision \d+; version 1 is\s+revision 32\)", "the spec (v2.0, revision 27)", old)
-    assert new != old, "the checklist's spec entry no longer has the wording this fixture edits"
-    (copy / entry[0]).write_text(text.replace(old, new), encoding="utf-8")
-    assert list(revision_findings(copy)) == ["the checklist's spec entry"]
-    assert "names revision 27" in revision_findings(copy)["the checklist's spec entry"]
-
-
-def test_d1_the_checklist_is_read_by_its_exact_claim(tmp_path):
-    """D1.2 (adversarial): the spec moves on and the checklist's entry mentions the new revision in its description but
-    still claims the old one. The largest number in the entry is right; its claim is not, so it is reported."""
-    copy = _d1_copy(tmp_path)
-    current = spec_revision((REPO / SPEC).read_text(encoding="utf-8"))
-    _edit(copy / SPEC, f"version: 2.0, revision {current}\n", f"version: 2.0, revision {current + 1}\n")
-    _edit(copy / PLACES["the checklist's spec entry"][0], " out of scope (M12),",
-          f" out of scope (M12, which revision {current + 1} widens),")
-    assert f"names revision {current}" in revision_findings(copy).get("the checklist's spec entry", "")
-
-
-def test_d1_a_place_that_stops_naming_a_revision_fails(tmp_path):
-    """D1.6: `_STATUS.md`'s state line as it was at `7aa9fc5`, which names no revision."""
-    copy = _d1_copy(tmp_path)
-    status = copy / "docs/theory/_STATUS.md"
-    text = status.read_text(encoding="utf-8")
-    line = PLACES["_STATUS.md's ▶ STATE line"][1].search(text).group(0)
-    old_line = ("> ## ▶ STATE — the corpus is closed and the spec is current. **Phase C is closed with its gate failing "
-                "(owner decision, 2026-10-09).**")
-    status.write_text(text.replace(line, old_line), encoding="utf-8")
-    findings = revision_findings(copy)
-    assert list(findings) == ["_STATUS.md's ▶ STATE line"]
-    assert "names no revision" in findings["_STATUS.md's ▶ STATE line"]
-
-
-def test_d1_history_does_not_trip_and_a_future_revision_does(tmp_path):
-    """D1.7 (adversarial): a past revision in the row is history; a revision past the spec's is a wrong claim."""
-    copy = _d1_copy(tmp_path)
-    current = spec_revision((REPO / SPEC).read_text(encoding="utf-8"))
-    row = "| `docs/bowen_agent_model_spec_v2.md` |"
-    _edit(copy / "CLAUDE.md", row, row + " revision 28 built 2026-10-13;")
-    assert revision_findings(copy) == {}
-    _edit(copy / "CLAUDE.md", row, row + f" revision {current + 1} planned;")
-    findings = revision_findings(copy)
-    assert list(findings) == ["CLAUDE.md's spec row"]
-    assert f"names revision {current + 1}" in findings["CLAUDE.md's spec row"]
-
-
-def test_d1_an_unreadable_front_matter_fails():
-    """D1.1: the front matter is the source; without it there is nothing to compare."""
-    assert spec_revision("---\ntags: [spec]\nversion: 2.0\n---\nrevision 33 in the body\n") is None
-
 
 # ---------------------------------------------------------------------------------------------------- D2
 

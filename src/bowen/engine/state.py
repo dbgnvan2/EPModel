@@ -31,7 +31,7 @@ class ActiveStressor:
     target: PersonId
     intensity: float
     first_tick: int
-    last_tick: int | None  # None: no end (spec revision 28, M6.3h: a lost income lasts until someone finds work)
+    last_tick: int | None  # None: no end (M6.3h: a lost income lasts until someone finds work)
 
 
 @dataclass(frozen=True)
@@ -54,16 +54,16 @@ class RunState:
     queue: EventQueue = field(default_factory=EventQueue)
     store: EventStore = field(default_factory=EventStore)
     triggers: list[ActiveTrigger] = field(default_factory=list)
-    stressors: list[ActiveStressor] = field(default_factory=list)  # revision 18: stressors that last
-    # Revision 36 (M7.D.1a): stressors that arise inside a tick after step 2 (an illness at a symptom's onset) and
+    stressors: list[ActiveStressor] = field(default_factory=list)  # stressors that last
+    # Stressors that arise inside a tick after step 2 (an illness at a symptom's onset) and
     # arrive at the next week's step 2 with the source's own, as the life course's pending events do.
     arising: list = field(default_factory=list)
-    # Revision 19 (M1.E.7): self-directed acts under load awaiting judgement (external.Practice).
+    # Self-directed acts under load awaiting judgement (external.Practice).
     practice: list = field(default_factory=list)
-    adjusted: dict = field(default_factory=dict)  # revision 19: (actor, other) -> the week the other last adjusted
+    adjusted: dict = field(default_factory=dict)  # (actor, other) -> the week the other last adjusted
     # Revision 21 (M1.B.5): (actor, other) -> the week of the actor's last self-directed act or hold toward the other.
     stances: dict = field(default_factory=dict)
-    # Revision 29 (M4.D.6f): witnessed cutoffs awaiting the reading of what followed them (learner.Witnessed).
+    # Witnessed cutoffs awaiting the reading of what followed them (learner.Witnessed).
     witnessed: list = field(default_factory=list)
     tick: int = 0
     draws: DrawService = field(default_factory=lambda: DrawService(0))
@@ -73,12 +73,12 @@ class RunState:
     # week_end_tick, which the next tick reads as its week's start (tick.week_start_levels). Owner decision 2026-10-28.
     week_end_tick: int | None = None
     week_end_level: dict = field(default_factory=dict)
-    # Spec revision 28 (Phase D part II): the families other than the reference one, keyed by household (M7.C.1h), and
+    # The families other than the reference one, keyed by household (M7.C.1h), and
     # the life course's own state (``life_course.LifeCourse``); None when the run has no life course, as every run
     # before part II.
     other_families: dict = field(default_factory=dict)
     life: object | None = None
-    # Spec revision 55 (M4.C.12): each delivery's cue reading, keyed by (event id, recipient), made once when the
+    # Each delivery's cue reading, keyed by (event id, recipient), made once when the
     # delivery is appraised and read again by later steps of the same week (``cues.reading``). Empty while the social
     # cues are off.
     cue_readings: dict = field(default_factory=dict)
@@ -124,7 +124,7 @@ class RunState:
         return tuple(added)
 
     def arising_due(self) -> tuple[Event, ...]:
-        """Purpose: the stressors that arose last week, due at this week's step 2 (revision 36, M7.D.1a).
+        """Purpose: the stressors that arose last week, due at this week's step 2 (M7.D.1a).
         Spec:    docs/bowen_agent_model_spec_v2.md#M7.D.1a
         Tests:   tests/bowen/test_event_sizes.py::test_m7d1a_a_symptom_onset_loads_the_bearer_and_the_family
         """
@@ -211,15 +211,15 @@ def canonical_state(state: RunState) -> str:
         "life": plain(state.life),  # the life course, revision 28; None when the run has none
         "store": [plain(e) for e in state.store.events()],
         "queue": plain(state.queue.scheduled()),  # deliveries still to land
-        "triggers": [plain(t) for t in state.triggers],  # revision 32: a spike still to land is state
+        "triggers": [plain(t) for t in state.triggers],  # a spike still to land is state
         "stressors": [plain(s) for s in state.stressors],  # version 2 stage 1 (S1.2): a stressor still weighing
-        "arising": [plain(e) for e in state.arising],  # revision 36: a stressor arising this week, due next
+        "arising": [plain(e) for e in state.arising],  # a stressor arising this week, due next
         "practice": plain(state.practice),
         "adjusted": plain(state.adjusted),
         "stances": plain(state.stances),
         "witnessed": plain(state.witnessed),
         "estimator_history": plain({p: list(weeks) for p, weeks in state.estimator_history.items()}),  # deques
-        "week_end_tick": state.week_end_tick,  # revision 41 (T-145): M6.I.4a's week start, read next tick
+        "week_end_tick": state.week_end_tick,  # M6.I.4a's week start, read next tick
         "week_end_level": plain(state.week_end_level),
     }
     return json.dumps(body, sort_keys=True, separators=(",", ":"), default=str)

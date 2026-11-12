@@ -108,7 +108,7 @@ def arm_c15(arm, seed, settings):
     return result({"death_rise": death, "recovery_rise": recovery}, records)
 
 
-# --- M11.C.48: the negative run before a cutoff (version 2 group G1, spec revision 36) -----------------------------
+# --- M11.C.48: the negative run before a cutoff (version 2 group G1) -----------------------------
 
 
 @functools.lru_cache(maxsize=None)
@@ -466,7 +466,7 @@ def arm_c47(arm, seed, settings):
                    "held_weeks": count(held)}, records)
 
 
-# --- M11.C.55: who supplies a parent is learned, not given by birth order (spec revision 55, M1.A.14b) -------------
+# --- M11.C.55: who supplies a parent is learned, not given by birth order (M1.A.14b) -------------
 
 
 @functools.lru_cache(maxsize=2)
@@ -565,7 +565,7 @@ CRITERIA_D2: dict[str, Criterion] = {
                   arm_c47, settings=SETTINGS["M11.C.47"]),
     "M11.C.2[twelve-person family]": C("M11.C.2", "composite", ("baseline", "treatment"),
                                        (Readout("symptom_load", +1),), arm_c2_twelve, settings=SETTINGS["M11.C.2"]),
-    # Version 2 group G1 (spec revision 36): cutoffs follow negative runs. Within-run arms, a fixed 200 seeds ([I]; 100
+    # Version 2 group G1: cutoffs follow negative runs. Within-run arms, a fixed 200 seeds ([I]; 100
     # until revision 43, T-163: at least the sweep's rerun count, so M17.A.1 never refuses it).
     "M11.C.48": C("M11.C.48", "composite", ("baseline", "treatment"),
                   (Readout("negative_run", +1), Readout("run_before_cutoff", +1, report_only=True),
@@ -586,7 +586,7 @@ CRITERIA_D2: dict[str, Criterion] = {
                             Readout("matched_seed", +1, report_only=True)),
                            arm_c48_phase_d, ("CUTOFF",), settings=SETTINGS["M11.C.48"],
                            seeds=SETTINGS["M11.C.48"]["seeds"]),
-    # Spec revision 55 (T-202): the cues on in its one run; the predictors of the same run's main supplier. Since
+    # The cues on in its one run; the predictors of the same run's main supplier. Since
     # T-206 (the owner 2026-11-09) the relief is read against prior supply and against chance, and birth order, the
     # baseline until then, is reported only: it predicts the window below chance, so it was a weak bar.
     "M11.C.55": C("M11.C.55", "composite", ("baseline", "treatment"),

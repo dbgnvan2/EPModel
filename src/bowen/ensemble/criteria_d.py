@@ -171,7 +171,7 @@ CRITERIA_D: dict[str, Criterion] = {
 
 
 # --- Phase D step 7: the symptom channels (B7, spec revision 24; Claude's recommendation, approved 2026-10-16) ---
-#
+
 # Every arm runs the nuclear-four fixture (config/bowen/fixtures/nuclear_four.md), except M11.C.12 on the dyad, as the
 # plan's §3 has it. A held severity is a declared
 # condition, set before every tick as M11.C.33's dependence is: driving a symptom by stressors does not reach a chosen
@@ -671,9 +671,9 @@ def arm_c21(arm, seed, settings):
     """M11.C.21: the nuclear four. In both arms both parents over-function toward C1 every ``act_every`` weeks from week
     0 to week ``t0 − 1``: they are projecting parents, and C1 has lent functioning when they collapse. The scripted acts
     end at ``t0`` in both arms, so after it the parents act on their own policy and the arms differ by the drop alone
-    (revision 44, T-161 (b)). At week ``t0`` both parents' functional level drops by ``drop`` in the treatment (none in
+    (T-161 (b)). At week ``t0`` both parents' functional level drops by ``drop`` in the treatment (none in
     the baseline), C1 untouched. Read: C1's functional level at the end of the run less at the end of week ``t0 − 1``, just
-    before the drop, so what returns to C1 in week ``t0`` counts (revision 41, T-145: the drop falls between weeks
+    before the drop, so what returns to C1 in week ``t0`` counts (T-145: the drop falls between weeks
     ``t0 − 1`` and ``t0``, and `M6.I.4a` reads week ``t0``'s start at the end of week ``t0 − 1``)."""
     t0, after, drop, every = settings["t0"], settings["after"], settings["drop"], settings["act_every"]
     weeks = t0 + after
@@ -688,7 +688,7 @@ def arm_c21(arm, seed, settings):
             for parent in (FATHER, MOTHER):
                 person = state.people[parent]
                 person.functional_level = max(0.0, person.functional_level - drop)
-                person.stress_swing -= drop  # the fall is stress's, in its ledger (revision 20: one ledger each)
+                person.stress_swing -= drop  # the fall is stress's, in its ledger (one ledger each)
 
     at = {}
     state, records = scenario("four", seed, weeks, before=collapse, forced=forced,

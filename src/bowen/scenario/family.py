@@ -33,11 +33,11 @@ PEOPLE_COLUMNS = (
 )
 TIE_COLUMNS = ("a", "b", "relation", "conductance", "bond_energy", "latency", "tie_state", "interactive")
 METADATA = frozenset({"instance_id", "grade", "nuclear_household", "undifferentiation_budget"})
-# Spec revision 29: principled cutoffs (M1.B.3d), as ``holder>other`` pairs, and a child's real weakness (M1.B.8a), as
+# principled cutoffs (M1.B.3d), as ``holder>other`` pairs, and a child's real weakness (M1.B.8a), as
 # ``person=value`` pairs, each comma-separated, are declared only. Spec revision 30: a person's declared danger to others
 # (M1.B.3e), and the origin cutoff of a person whose childhood is not simulated (M1.D.8a), as ``person=value`` pairs.
 OPTIONAL_METADATA = frozenset({"principled_cutoffs", "weaknesses", "dangers"})
-# Spec revision 28 (M2.A.0j, M2.A.0k, M7.C.1h): a family with a life course declares its starting ages as three
+# A family with a life course declares its starting ages as three
 # settings, each person's gap to their generation's anchor, who earns, the coachee, the successor coach's sex, and the
 # file of partner settings. Children below the fixation age carry no chronic anxiety, and children below the end of
 # development no basic level: both are derived from their parents (M7.B.1a, M7.E.1f).
@@ -84,7 +84,7 @@ class FamilyInstance:
     relations: Mapping[TieId, Relation]
     parent_on_tie: Mapping[TieId, PersonId]
     nuclear_household: str
-    life: LifeSettings | None = None  # spec revision 28: None for a family with no life course
+    life: LifeSettings | None = None  # None for a family with no life course
 
     def parents_of(self, person: PersonId) -> frozenset[PersonId]:
         return frozenset(
@@ -333,7 +333,7 @@ def build_family(text: str, constants: Constants, *, source: str = "<family>",
                 role=_choice(row["role"], roles, where, "role"),
                 sex=sexes[row["sex"]],
                 household_id=row["household"],
-                # A derived value starts at 0 and is set from the parents once the ties are read (revision 28).
+                # A derived value starts at 0 and is set from the parents once the ties are read.
                 basic_level=0.0 if row["basic_level"] in _NONE else _number(row["basic_level"], float, where, "basic_level"),
                 functional_level=0.0 if row["functional_level"] in _NONE else _number(
                     row["functional_level"], float, where, "functional_level"),

@@ -147,10 +147,10 @@ class Person:
     structural_importance: StructuralTier | None = None
     functional_sibling_position: SiblingPosition | None = None
     beliefs: dict[str, object] = field(default_factory=dict)
-    # M9.8, revision 12 P2a: belief about each tie the person is not party to.
+    # M9.8: belief about each tie the person is not party to.
     # Written by ``beliefs.initialise_beliefs`` and step 3's ``beliefs.update_beliefs``.
     tie_beliefs: dict | None = None
-    # M9.9 (spec revision 55): the believed cue vector each partner sends this person, keyed by the partner's id,
+    # M9.9: the believed cue vector each partner sends this person, keyed by the partner's id,
     # written only from the cues the person perceives as a target (``cues.update_cue_beliefs``). None, or a partner
     # missing, means neutral. Used only while the social cues are on.
     cue_beliefs: dict | None = None
@@ -166,14 +166,14 @@ class Person:
     systems_perspective: float | None = None
     reactive_state: dict[str, float] | None = None
     pseudo_self: float | None = None
-    # Spec revision 18: the part of functional_level that stress moved — up by coping, down by soothing — which
+    # the part of functional_level that stress moved — up by coping, down by soothing — which
     # settles back slowly when calm (stress_response.respond). Kept apart from borrowed pseudo-self (M6.I.4).
     stress_swing: float = 0.0
-    # Spec revision 20: the part of functional_level gained when someone's held stance worked and "the system adjusts"
+    # the part of functional_level gained when someone's held stance worked and "the system adjusts"
     # (external.self_practice): a level up to system_adjust_gain, not a stack. It settles back when calm at the rate
     # stress_swing does. Every change to functional_level goes to exactly one ledger. Owner decisions 2026-10-11/12.
     adjust_swing: float = 0.0
-    # Spec revision 39 (F1, M1.A.5e): the functioning a bound — the stress floor, or the scale's 0–100 — kept from moving
+    # The functioning a bound — the stress floor, or the scale's 0–100 — kept from moving
     # while the swings decayed, so functional_level − stress_swing − adjust_swing − floor_held is unchanged by the bound.
     # Shed with the swings when calm; the estimator leaves it out (M1.A.4k). Owner decision 2026-10-25.
     floor_held: float = 0.0
@@ -181,22 +181,22 @@ class Person:
     # down in the receiver — settling back with the swing. A record within stress_swing, not another ledger of
     # functional_level; M7.E.1f's parents' term leaves it out. Owner decision 2026-10-28.
     displaced_swing: float = 0.0
-    # Spec revision 22: the person's usual excess anxiety — the plain mean of their weeks so far for the first
+    # the person's usual excess anxiety — the plain mean of their weeks so far for the first
     # 1 / usual_level_rate weeks, then a running average over about a year. Calm is at or below it; the stress response
     # is driven by the load above it. None until the first week; usual_weeks counts the weeks it has seen.
     usual_excess: float | None = None
     usual_weeks: int = 0
-    # Spec revision 24 (B7, Claude's recommendation, approved 2026-10-16): what the family attends to in this person,
+    # What the family attends to in this person,
     # per channel (M1.A.11c's family-focus term; written by B8 from belief, until then by a scenario), and how strongly
     # the constitutional prior holds against it (1 overrides any focus). symptom_bound is the anxiety the family's
     # focus on an active symptom holds (M7.D.2a), a stock in M6.4's table.
     channel_focus: dict[SymptomChannel, float] = field(default_factory=dict)
     constitution_strength: float | None = None  # None: the declared constant, constitution_strength
     symptom_bound: float = 0.0
-    # M11.C.23's suppression term ("medication", revision 15): scales what enters the person's symptom load each week,
+    # M11.C.23's suppression term ("medication"): scales what enters the person's symptom load each week,
     # leaving appraisal and acute anxiety untouched. 1 is none; set by a criterion, never by config.
     symptom_suppression: float = 1.0
-    # Spec revision 25 (B8, Claude's recommendation, approved 2026-10-16): where this person believes the family's
+    # Where this person believes the family's
     # difficulty lies, a weight per family member summing to at most 1 (M9.6). Written in step 3 from the moves the
     # person sent or was delivered; empty at the start (no one blamed).
     attribution: dict[PersonId, float] = field(default_factory=dict)
@@ -209,12 +209,12 @@ class Person:
     age_years: int | None = None
     earner: bool = False
     inactive: bool = False
-    # M1.B.8a, revision 29: a child's real weakness, 0 to 1, declared in config only; 0 for everyone else.
+    # M1.B.8a: a child's real weakness, 0 to 1, declared in config only; 0 for everyone else.
     weakness: float = 0.0
-    # M1.D.8a, revision 30: the mean rejection this person's parents held over their years at home, set at 20; 0 for a
+    # M1.D.8a: the mean rejection this person's parents held over their years at home, set at 20; 0 for a
     # person whose childhood is not simulated. It raises their pull toward closeness on every tie.
     origin_cutoff: float = 0.0
-    # M1.B.3e, revision 30: a declared danger to others, 0 to 1 (abusive, criminal, addicted); config only. A floor
+    # M1.B.3e: a declared danger to others, 0 to 1 (abusive, criminal, addicted); config only. A floor
     # under what others come to feel from this person's behaviour.
     danger: float = 0.0
 
@@ -261,18 +261,18 @@ class Relationship:
     # Written by ``rejection``, a delivered CUTOFF and REDUCE_CUTOFF.
     rejection: dict[PersonId, float] = field(default_factory=dict)
     # M1.B.3c: the state a cutoff replaced (ordinary or distant), restored by the positive contact that reopens the
-    # tie once no rejection is left (spec revision 36, M1.D.2b).
+    # tie once no rejection is left (M1.D.2b).
     uncut_state: TieState = TieState.ORDINARY
-    # M1.D.2b, revision 36: the highest stock since the tie was cut off, never above the cap; None while not cut off,
+    # M1.D.2b: the highest stock since the tie was cut off, never above the cap; None while not cut off,
     # and in the week it becomes cut off until step 4 enters the cut (``cutoff_stock.enter_cutoff``).
     cutoff_peak: float | None = None
-    # M1.D.2c, revision 36: the stock a distant or conflicted tie held when it hardened — what repair removes by thirds.
+    # M1.D.2c: the stock a distant or conflicted tie held when it hardened — what repair removes by thirds.
     reference_level: float = 0.0
-    # M1.B.3d, revision 29: the members whose cutoff on this tie is principled (for safety), declared in config only.
+    # M1.B.3d: the members whose cutoff on this tie is principled (for safety), declared in config only.
     # Every other held rejection is reactive. A holder leaves it when their declared rejection fades to zero or their
     # own policy cuts off on the tie (``rejection.end_principled``).
     principled: tuple[PersonId, ...] = ()
-    # M1.B.3e, revision 30: each member's running average of the intrusion received from the other, and the danger
+    # M1.B.3e: each member's running average of the intrusion received from the other, and the danger
     # they feel from the other (0 to 1) — read from behaviour, or the other's declared danger, whichever is larger.
     received_intrusion: dict[PersonId, float] = field(default_factory=dict)
     felt_danger: dict[PersonId, float] = field(default_factory=dict)
@@ -343,7 +343,7 @@ class Family:
     overflow: float = 0.0
     differentiation_capacity: bool | None = None
     tolerance: dict[PersonId, float] = field(default_factory=dict)
-    # M5.C.1, M7.D.4 (spec revision 24): decision ownership relocated outside the family suppresses removal.
+    # M5.C.1, M7.D.4: decision ownership relocated outside the family suppresses removal.
     decision_ownership_external: bool = False
     ambient_anxiety: float = 0.0
     # M1.D.1, M1.D.3: the structure sink allocation reads — the nuclear marital tie, the
@@ -352,7 +352,7 @@ class Family:
     marital_tie: TieId | None = None
     parent_child_ties: tuple[TieId, ...] = ()
     origin_ties: tuple[TieId, ...] = ()
-    # Spec revision 28 (M7.C.1h, M6.3f): the household this family is, and whether both spouses have died, after which
+    # The household this family is, and whether both spouses have died, after which
     # it takes no allocations. The reference family's household is the declaration's nuclear household.
     household: str | None = None
     dissolved: bool = False

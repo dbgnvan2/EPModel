@@ -47,7 +47,7 @@ def consolidate(state: RunState, params: EngineParams) -> list[EffectRecord]:
     for pid in sorted(state.people):
         person = state.people[pid]
         if not person.alive:
-            continue  # M6.3b, revision 28: a dead person's anxiety went to the living; nothing decays back to them
+            continue  # M6.3b: a dead person's anxiety went to the living; nothing decays back to them
         before = person.acute_anxiety
         excess = max(0.0, before - person.chronic_anxiety)
         person.acute_anxiety = person.chronic_anxiety + excess * (1.0 - params.acute_decay_rate)
@@ -66,7 +66,7 @@ def consolidate(state: RunState, params: EngineParams) -> list[EffectRecord]:
         recent = _recent_moves_on(state, tie_id, params.hardening_run_length)
         if len(recent) != params.hardening_run_length:
             continue
-        # M4.G.1, M1.D.2c (revision 36): a run of withdrawals hardens the tie distant, a run of conflicts hardens it
+        # M4.G.1, M1.D.2c: a run of withdrawals hardens the tie distant, a run of conflicts hardens it
         # into open conflict; either records the stock it holds as the reference level repair works against.
         if all(k == DISTANCE_KIND for k in recent):
             tie.tie_state = TieState.DISTANT

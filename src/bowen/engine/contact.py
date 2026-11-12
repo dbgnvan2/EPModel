@@ -63,7 +63,7 @@ def optimum(person: Person, tie: Relationship, params: EngineParams) -> float:
              tests/bowen/test_origin_danger_focus.py::test_m1d8a_and_seeks_more_closeness
     """
     base = tie.bond_energy / SCALE_MAX
-    fusion = 1.0 + params.origin_fusion_gain * person.origin_cutoff  # M1.D.8a, revision 30: the cutoff grown up with
+    fusion = 1.0 + params.origin_fusion_gain * person.origin_cutoff  # M1.D.8a: the cutoff grown up with
     return min(1.0, base * fusion * (1.0 + params.anxiety_togetherness_gain * excess(person) / SCALE_MAX))
 
 

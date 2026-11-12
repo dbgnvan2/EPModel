@@ -15,7 +15,7 @@ Absence of interaction is distance, not cutoff (`M1.B.3c`). So:
   bears the refusal as acute anxiety. Below the threshold the move is received as usual (graded rejection);
 * rejection fades by ``rejection_fade`` every week (``fade_rejection``), so a single cutoff stops refusing unless
   refusals or further cutoffs renew it. The tie stays cut off until a positive contact is delivered with no rejection
-  left (spec revision 36, `M1.D.2b`; ``cutoff_stock.bridge_ties``): a cut is a tie in state ``CUT_OFF``, not a tie
+  left (`M1.D.2b`; ``cutoff_stock.bridge_ties``): a cut is a tie in state ``CUT_OFF``, not a tie
   holding rejection;
 * ``REDUCE_CUTOFF`` is the contact the cutter accepts. It lowers both members' rejection (``moves.reduce_cutoff``);
 * the pull back toward contact is not written here. While a tie is cut, neither member rests at any contact
@@ -90,7 +90,7 @@ def strength(intensity: float, params: EngineParams) -> float:
 
 def refuses(state: RunState, recipient: PersonId, sender: PersonId, kind: str, params: EngineParams) -> bool:
     """Purpose: whether ``recipient`` refuses a move of ``kind`` from ``sender`` (M1.B.3c), the one test both
-             `refuse` (at delivery) and displaced coping (`M1.A.5f`, at selection; revision 41, T-146) read.
+             `refuse` (at delivery) and displaced coping (`M1.A.5f`, at selection; T-146) read.
     Spec:    docs/bowen_agent_model_spec_v2.md#M1.B.3c, #M1.A.5f
     Tests:   tests/bowen/test_rejection.py::test_m1b3c_a_refused_approach_never_reaches_the_cutter_and_costs_the_sender,
              tests/bowen/test_stress_response.py::test_m1a5f_t146_a_target_who_would_refuse_is_not_a_receiver
@@ -185,7 +185,7 @@ def reactive_cutoff_cost(state: RunState, params: EngineParams) -> list[EffectRe
         tie = state.ties[tie_id]
         for member, held in sorted(tie.rejection.items()):
             person = state.people[member]
-            weight = loss_weight(person, tie)  # principled: 0; toward danger: 1 − the danger felt (revision 30)
+            weight = loss_weight(person, tie)  # principled: 0; toward danger: 1 − the danger felt
             if held <= 0.0 or not person.alive or weight == 0.0:
                 continue
             paid[member] = paid.get(member, 0.0) + weight * (

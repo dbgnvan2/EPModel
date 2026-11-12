@@ -188,7 +188,7 @@ def weakness_focus(state: RunState, load: dict, params: EngineParams) -> list[Ef
                 shortfall = max(0.0, math.fsum(others) / len(others) - state.people[child].functional_level) if others else 0.0
                 shortfall += state.people[child].weakness * SCALE_MAX
                 gain = params.perceived_weakness_gain * pressure / SCALE_MAX * shortfall
-                # M1.B.8b, revision 30: anxious focus moves to where it already is — a child above the mean share gains
+                # M1.B.8b: anxious focus moves to where it already is — a child above the mean share gains
                 # what a child below it loses, so the larger share grows and the total is unchanged (zero-sum over the
                 # children, since Σ share × (share − Σ share²) = 0). Never below zero investment.
                 if total > 0.0:

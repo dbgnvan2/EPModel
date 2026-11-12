@@ -53,7 +53,7 @@ taking charge, conserved (`M6.I.4`), never carrying either outside [0, 100].
 *One area, ``DEFAULT_AREA``, until the family declares areas of joint activity
 (`M1.B.9`).*
 
-**Lent functioning returns with lost capacity, step 9** (`M6.I.4a`, revision 39). A
+**Lent functioning returns with lost capacity, step 9** (`M6.I.4a`). A
 person holding borrowed pseudo-self whose room above the stress floor fell over the
 week, by any cause but the exchange itself, gives back the same share of what they
 borrowed, with the same of ``functional_level``, to the partners who lent it, in
@@ -67,7 +67,7 @@ flip against a hardened habit reverts unless the mover sustains it long enough f
 habit to cross (`M1.B.6`).
 
 **`REDUCE_CUTOFF`** (`M5.B.3`, `M5.B.3a`, `L22.6`). On delivery it lowers both members'
-rejection (`M1.B.3c`, Phase D B4) and moves no stock (spec revision 36, D7). The tie
+rejection (`M1.B.3c`, Phase D B4) and moves no stock (D7). The tie
 leaves `CUT_OFF` only on a positive contact with no rejection held (`M1.B.3c`,
 `M1.D.2b`). More contact is never penalised as contact; its impingement component can
 still carry the receiver past its optimum (`M4.C.1`). The cost to the third party whose
@@ -143,7 +143,7 @@ def bind_distance(state: RunState, event: Event, tie: Relationship, params: Engi
 
 
 def bind_conflict(state: RunState, event: Event, tie: Relationship, params: EngineParams) -> EffectRecord | None:
-    """Purpose: a conflict binds into the tie as distance does, at a smaller share (spec revision 36).
+    """Purpose: a conflict binds into the tie as distance does, at a smaller share.
     Spec:    docs/bowen_agent_model_spec_v2.md#M1.D.2c, #M6.4
     Tests:   tests/bowen/test_tie_repair.py::test_m1d2c_conflict_binds_a_smaller_share_than_distance
     """
@@ -303,7 +303,7 @@ def stress_floor(person: Person, params: EngineParams) -> float:
 
 def capacity(person: Person, level: float, params: EngineParams) -> float:
     """Purpose: a person's room above the stress floor at ``level``, as a share of basic level's room: 1 at or above
-    basic, 0 at the floor (`M6.I.4`'s capacity, revision 31). With no span (basic level 0, or no floor below basic) the
+    basic, 0 at the floor (`M6.I.4`'s capacity). With no span (basic level 0, or no floor below basic) the
     floor is basic itself, and a level at it has full capacity.
     Spec:    docs/bowen_agent_model_spec_v2.md#M6.I.4, #M6.I.4a
     Tests:   tests/bowen/test_moves.py::test_m6i4_collapsed_taker_takes_in_proportion_to_room,
@@ -324,7 +324,7 @@ def functioning_shift(state: RunState, event: Event, tie: Relationship, target: 
              tests/bowen/test_moves.py::test_m6i4_a_taker_at_basic_zero_takes_in_full,
              tests/bowen/test_moves.py::test_m6i4_with_no_floor_below_basic_a_taker_below_basic_takes_nothing
     """
-    # Revision 21 (owner decision 2026-10-12): the exchange takes two. A person holding a position toward the sender
+    # The exchange takes two. A person holding a position toward the sender
     # neither gives way to being taken over nor takes over for someone who under-functions toward them.
     if holds_position(state, target, event.sender, params):
         return EffectRecord(state.tick, "position_held", event.id, people=((target, "position_held", 1.0),))
@@ -342,9 +342,9 @@ def functioning_shift(state: RunState, event: Event, tie: Relationship, target: 
     tie.functioning_balance[DEFAULT_AREA] = new_balance
 
     giver, taker = state.people[under], state.people[over]
-    # Revision 19 (owner decision 2026-10-11): giving way cannot take the giver below basic_level −
+    # Giving way cannot take the giver below basic_level −
     # stress_floor_below_basic, the same floor stress has (M1.A.5e); without it 2 of 20 runs still ran away.
-    # Revision 31 (`M11.C.21`, the owner's form 2026-10-16): what the over-functioner takes is scaled by their own room
+    # What the over-functioner takes is scaled by their own room
     # above the stress floor, full at or above basic, none at the floor; the mirror of the giver's floor, made gradual.
     # The floor is clamped at 0, as the giver's and stress's are (learning-qa 2026-10-16). With no span (basic level 0,
     # or no floor below basic) the floor is basic itself, and a taker at it takes in full (fix-loop re-sweep 2026-10-16).
@@ -392,7 +392,7 @@ def settle_functioning(state: RunState, params: EngineParams) -> list[EffectReco
 
 def relax_pseudo_self(state: RunState, params: EngineParams) -> list[EffectRecord]:
     """Purpose: step 9 — on a tie with no over/under-functioning exchange for ``exchange_window`` weeks, the pair's
-    borrowed and lent pseudo-self settle back toward their own levels, as a conserved transfer (revision 27).
+    borrowed and lent pseudo-self settle back toward their own levels, as a conserved transfer.
     Spec:    docs/bowen_agent_model_spec_v2.md#M6.I.4, #M1.A.5c, #M11.C.24
     Tests:   tests/bowen/test_moves.py::test_m6i4_pseudo_self_settles_back_when_the_exchange_stops
 
@@ -412,7 +412,7 @@ def relax_pseudo_self(state: RunState, params: EngineParams) -> list[EffectRecor
         tie = state.ties[tid]
         balance = tie.functioning_balance.get(DEFAULT_AREA, 0.0)
         a, b = (state.people[m] for m in tid.members())
-        # M6.3e, revision 28: a balance with someone who has died settles back too, nothing returned to or taken from
+        # M6.3e: a balance with someone who has died settles back too, nothing returned to or taken from
         # the dead beyond the conserved transfer itself.
         if balance == 0 or not (a.alive or b.alive):
             continue
@@ -523,7 +523,7 @@ def reduce_cutoff(state: RunState, event: Event, tie: Relationship, params: Engi
 
 def iposition_effect(state: RunState, event: Event, tie: Relationship, target: PersonId, params: EngineParams) -> EffectRecord:
     """Purpose: an I-POSITION's self-statement withdraws contact the other was receiving, and its demand counts against
-             its sender (revision 39: the two in proportion to the event's demand share).
+             its sender (the two in proportion to the event's demand share).
     Spec:    docs/bowen_agent_model_spec_v2.md#M5.E.7, #M5.F.2a, #M5.F.4
     Tests:   tests/bowen/test_iposition.py::test_m5f4_s3_6_demand_share_falls_with_level,
              tests/bowen/test_iposition.py::test_m5d4a_an_angry_mover_executes_the_assertion_form
@@ -569,7 +569,7 @@ def apply_move_effects(state: RunState, batch: tuple[Delivery, ...], params: Eng
         if event.kind == DISTANCE:
             record = bind_distance(state, event, tie, params)
         elif event.kind == CONFLICT:
-            record = bind_conflict(state, event, tie, params)  # M1.D.2c, revision 36
+            record = bind_conflict(state, event, tie, params)  # M1.D.2c
         elif event.kind == TRIANGLE:
             record = triangle_transfer(state, event, delivery.recipient, params)
         elif event.kind in (OVERFUNCTION, UNDERFUNCTION):

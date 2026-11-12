@@ -80,8 +80,8 @@ DRAW_CLASSES: Mapping[str, DrawClass] = MappingProxyType(
             _cls("tie_break_fallback", "M4.D.1f", "tick, actor, purpose, index", Keying.SLOT),
             _cls("landed_contact", "M1.E.7", "tick, actor, partner, purpose, index", Keying.DYAD),
             _cls("soothing_review", "M4.D.6", "tick, actor, purpose, index", Keying.SLOT),
-            _cls("life_course", "M7.C.1", "tick, person, purpose", Keying.PER_PERSON),  # spec revision 28
-            _cls("cue_perception", "M4.C.12", "tick, actor, partner, purpose, index", Keying.DYAD),  # spec revision 55
+            _cls("life_course", "M7.C.1", "tick, person, purpose", Keying.PER_PERSON),
+            _cls("cue_perception", "M4.C.12", "tick, actor, partner, purpose, index", Keying.DYAD),
         )
     }
 )

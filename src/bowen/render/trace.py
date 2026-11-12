@@ -64,16 +64,16 @@ CAUSED = frozenset({"appraisal", "calm_contact", "symptom_onset", "distance_bind
                     "functioning_shift", "position_held", "reduce_cutoff", "refusal", "stressor_load", "assertion", "debit", "landed_contact", "trigger", "nodal_spike", "cutoff", "reconciliation", "institutionalize", "binder_unavailable", "lock_in", "conflict_binding"})
 SYSTEM_SHOWN = frozenset({"triangle_recompute", "consolidation", "rejection_fade", "slow_tick",
                           "lock_in",  # version 2 stage 1 (D6 (a)): a release has its own row; the weekly hold does not
-                          # revision 36 (G1): what a week's contact did to a tie's stock, and a tie's state moves.
+                          # What a week's contact did to a tie's stock, and a tie's state moves.
                           "cutoff_cap_dissipation", "cutoff_threat_renewed", "cutoff_bridge_dissipation",
                           "tie_repair_reversed", "tie_repair_dissipation"})
 SYSTEM_SUMMARISED = frozenset({
-    "cutoff_threat", "cutoff_decay",  # revision 36 (G1): weekly on every cut-off tie
+    "cutoff_threat", "cutoff_decay",  # Weekly on every cut-off tie
     "standing_load", "reactive_cutoff", "weakness_focus", "acute_decay", "contact_relaxation", "symptom_accumulation", "investment", "reactive_state",
     "outside_ness", "belief", "functioning_settle", "competing_urges", "withhold", "learning", "sink_allocation",
     "self_practice", "stress_response", "soothing_review", "witnessed_cutoff", "attribution", "family_focus", "pseudo_self_relaxation",
-    "pseudo_self_return",  # revision 39 (M6.I.4a): lent functioning returns with lost capacity
-    "danger_contact", "felt_danger",  # revision 30: weekly, read from received intrusion (M1.B.3e)
+    "pseudo_self_return",  # Lent functioning returns with lost capacity
+    "danger_contact", "felt_danger",  # weekly, read from received intrusion (M1.B.3e)
 })  # every week, everyone; stated once
 
 
@@ -128,7 +128,7 @@ def _what_it_did(event: Event, index: _Index, names: _Names, view: PersonId | No
         parts.append(f"arrives week {', '.join(str(t) for t in sorted(arrival))}")
     roles = {d.recipient: d.role for d in delivered}
     if event.mechanism is Mechanism.EXOGENOUS_STRESSOR:
-        # Revision 18 (M1.F.6): a stressor weighs for its declared duration; later weeks show as "still weighing".
+        # A stressor weighs for its declared duration; later weeks show as "still weighing".
         parts.append(f"a {event.duration}-week spell" + ("" if event.duration > 1 else ", one week"))
     for effect in index.effects.get(event.id, []):
         if effect.mechanism == "appraisal":
@@ -151,7 +151,7 @@ def _what_it_did(event: Event, index: _Index, names: _Names, view: PersonId | No
                     f"standing load on {names.tie(tie)} spikes next week (too-little side +{intensity:g} × optimum) "
                     f"for {event.duration} week{'s' if event.duration != 1 else ''}; no event crosses the tie"
                 )
-        elif effect.mechanism == "nodal_spike":  # M4.C.1c, revision 32
+        elif effect.mechanism == "nodal_spike":  # M4.C.1c
             for tie, _, intensity in effect.ties:
                 parts.append(f"the nodal event re-opens the cut tie {names.tie(tie)}: its standing load spikes next week "
                              f"(too-little side +{intensity:g} × optimum)")
@@ -210,13 +210,13 @@ def _what_it_did(event: Event, index: _Index, names: _Names, view: PersonId | No
             for p, _, v in effect.people:  # M5.F.4: the said position's demand share counts against the speaker
                 parts.append(f"the demand in it raises {names(p)}'s outward axis ({v:+.3f})")
         elif effect.mechanism == "reduce_cutoff":
-            # Revision 36 (G1, D7): the move lowers rejection only; the tie's stock is bridged by contact, not moved.
+            # The move lowers rejection only; the tie's stock is bridged by contact, not moved.
             parts += [f"{names(PersonId(f.split(':', 1)[1]))}'s rejection {v:+.2f}" for _, f, v in effect.ties
                       if f.startswith("rejection:")]
         elif effect.mechanism == "institutionalize":
             parts.append(f"{len(effect.ties)} ties become worry edges (no events; bond energy kept)")
         elif effect.mechanism == "binder_unavailable":
-            # Revision 24: a symptom channel's release credits nothing to the budget; its hold returns as lock_in.
+            # a symptom channel's release credits nothing to the budget; its hold returns as lock_in.
             parts += [f"{v:.1f} returned to the family budget" for _, v in effect.sinks if v] or ["the symptom ends"]
         elif effect.mechanism == "lock_in":
             parts.append(_lock_in_text(effect, names))
@@ -290,7 +290,7 @@ def _system_rows(effect: EffectRecord, names: _Names) -> list[str]:
         rows += [f"{names.tie(tie)}: rejection has faded; the tie is no longer cut off ({field.split('_', 2)[2]})"
                  for tie, field, _ in effect.ties if field.startswith("tie_state_")]
     elif effect.mechanism in STOCK_WORDS:
-        # Revision 36 (G1): a week's contact acting on a tie's held anxiety (M1.D.2b, M1.D.2c).
+        # A week's contact acting on a tie's held anxiety (M1.D.2b, M1.D.2c).
         words = STOCK_WORDS[effect.mechanism]
         for tie, field, value in effect.ties:
             if field == "distance_bound_anxiety":

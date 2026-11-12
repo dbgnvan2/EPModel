@@ -1,4 +1,4 @@
-"""Event sizes from the Holmes–Rahe scale (version 2, spec revision 36).
+"""Event sizes from the Holmes–Rahe scale (version 2).
 
 Purpose: size the life course's stressors from one table (``config/bowen/event_sizes.md``) instead of a constant per
          event. The scale's life change units (LCU) order the events; ``lcu_scale`` (6.9 intensity units per LCU,

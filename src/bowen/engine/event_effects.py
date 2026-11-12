@@ -117,7 +117,7 @@ def apply_structural_event(state: RunState, event: Event, params: EngineParams) 
     if event.mechanism is Mechanism.BINDER_UNAVAILABLE:
         records = [_release_binder(state, event)]
         if event.binder.kind is BinderKind.SYMPTOM_CHANNEL:
-            # Revision 24 (M7.D.2a): what the family's focus on the symptom held goes back to the partners.
+            # What the family's focus on the symptom held goes back to the partners.
             from src.bowen.engine.symptoms import release_bound
 
             bearer = PersonId(event.binder.target.split(":")[0])
@@ -148,7 +148,7 @@ def _release_binder(state: RunState, event: Event) -> EffectRecord:
     elif binder.kind is BinderKind.SYMPTOM_CHANNEL:
         person_id, channel = binder.target.split(":")
         person = state.people[PersonId(person_id)]
-        # Revision 24 (review 2026-10-12): the symptom ends, and its load — an integral of weeks above the usual level,
+        # The symptom ends, and its load — an integral of weeks above the usual level,
         # not an anxiety stock — is not credited to the budget. What the symptom held of the family's anxiety is its
         # hold (symptom_bound), which apply_structural_event returns to the partners.
         held = 0.0

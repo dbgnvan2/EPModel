@@ -1,7 +1,7 @@
 # Spec revision 55 — draft (T-202, social cues and signal channels)
 
 > **Status: APPROVED by the owner 2026-11-08, as a whole, through `AskUserQuestion`, with R55-Q1 and R55-Q2 each as
-> recommended (the unmet expectation term kept; §4's values accepted as `[I]` starting values); not yet applied.** This draft is T-202's step 2 (`docs/plan_t202_social_cues.md`, approved
+> recommended (the unmet expectation term kept; §4's values accepted as `[I]` starting values); APPLIED 2026-11-09 as spec revision 55 (`a19a690`).** This draft is T-202's step 2 (`docs/plan_t202_social_cues.md`, approved
 > by the owner 2026-11-07 with D1–D6 each as recommended). It turns `SC-1` to `SC-11` of `docs/proposal_social_cues.md`
 > (decided 2026-11-07, Q1–Q11 each as recommended) into requirement text. `SC-12` is not in it (plan D5; T-204).
 > This page edits nothing under `src/bowen/` or `config/bowen/`, and nothing in the spec itself. The text is applied with

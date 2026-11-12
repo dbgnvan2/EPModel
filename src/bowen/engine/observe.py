@@ -57,7 +57,7 @@ class TieView:
     deviation: float          # the person's own deviation on the tie (M4.C.1)
     other_alive: bool
     other_external: bool
-    investment_share: float = 0.0  # M1.B.8: the share of the person's attention this tie holds (M4.D.1g, revision 29)
+    investment_share: float = 0.0  # M1.B.8: the share of the person's attention this tie holds (M4.D.1g)
 
 
 @dataclass(frozen=True)
@@ -98,7 +98,7 @@ def self_channel_weight(functional_level: float, params: EngineParams, perspecti
              tests/bowen/test_policy.py::test_m4d1a_perspective_opens_the_self_directed_channel
 
     ``f = (functional_level / 100) ** self_channel_exponent``, and ``w = f + perspective_channel_gain × perspective ×
-    (1 − f)``: with no perspective, ``w = f``; perspective, from coaching or a person's own practice, raises it. It lives in the engine (revision 41, T-147) so that
+    (1 − f)``: with no perspective, ``w = f``; perspective, from coaching or a person's own practice, raises it. It lives in the engine (T-147) so that
     `M5.F.4`'s demand share (`iposition.demand_share`) and the policy read one definition, and the engine never imports
     the policy.
     """

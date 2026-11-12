@@ -148,61 +148,8 @@ def test_m16a7_header_flags_constants_changed_after_freeze():
     constants, frozen = load_constants(), load_frozen_constants()
     since_freeze = {k for k in constants.values if k not in frozen.values or constants[k] != frozen[k]}
     baseline = {k for k, flag in header().constant_changed_after_freeze if flag}
-    # Re-frozen for Phase C at step 14. Changed since, logged in constants_changes.md: the pattern readouts'
-    # window and threshold (owner decision D1, 2026-10-10; no criterion reads them). pattern_pole was retired.
-    # Phase D B4 (2026-10-11) added the seven rejection constants (M1.B.3c, revisions 14 and 16).
-    assert baseline == since_freeze == {"pattern_window", "pattern_min_acts", "pattern_projection_hold",
-                                        "rejection_cutoff_gain", "rejection_refusal_gain", "rejection_relief",
-                                        "refusal_cost_gain", "declared_rejection", "rejection_refusal_threshold",
-                                        "rejection_fade", "estimator_window", "estimator_breadth",
-                                        "estimator_sd_weight", "estimator_rate", "tie_wear_rate",
-                                        "wear_offset_per_act", "perspective_channel_gain", "self_practice_gain",
-                                        "stressor_persistence", "response_up_gain", "response_down_gain",
-                                        "response_relaxation_rate", "stress_floor_below_basic", "practice_window",
-                                        "perspective_steer_gain", "system_adjust_gain", "soothing_review_every",
-                                        "soothing_review_penalty", "usual_level_rate",
-                                        "constitution_strength", "channel_protection", "lock_in_gain", "lock_in_turn",
-                                        "attribution_rate", "focus_rate", "belief_appraisal_gain", "marital_distance_fraction",
-                                        "pseudo_self_relaxation_rate", "exchange_window",
-                                        # spec revision 28, the life course (Phase D part II)
-                                        "acting_age_years", "development_start_age_years", "development_end_age_years",
-                                        "development_band", "development_rate", "development_band_projection",
-                                        "development_band_support", "witnessed_gain", "launch_age_years",
-                                        "working_age_years", "find_work_rate", "find_work_pressure_scale",
-                                        "grief_min_weeks", "grief_extra_weeks", "income_loss_intensity",
-                                        "income_shortfall_share", "mortality_a", "mortality_b",
-                                        "budget_per_undifferentiation", "coach_start_age_years",
-                                        "coach_retirement_age_years", "new_tie_investment_share", "birth_focus_gain",
-                                        "death_transfer_share",
-                                        # spec revision 29, cutoff and focus (plan §4.8)
-                                        "reactive_cutoff_gain", "witnessed_cutoff_gain", "witness_window",
-                                        "perceived_weakness_gain", "focus_steer_gain",
-                                        # spec revision 30, origin cutoff, danger and focus (plan §4.10)
-                                        "origin_cutoff_anxiety_gain", "origin_fusion_gain", "danger_window",
-                                        "danger_threshold", "danger_gain", "focus_reinforce_gain",
-                                        "force_anxiety_gain", "focus_compound_gain",
-                                        # spec revision 32, the nodal-event spike (plan §4.12)
-                                        "nodal_spike_intensity",
-                                        # spec revision 36, version 2 group G and the event sizes (grief_scale retired)
-                                        "conflict_binding_rate", "cutoff_stock_cap", "cutoff_threat_weight",
-                                        "cutoff_decay_weeks", "cutoff_floor_share", "positive_bridge_dissipation",
-                                        "tie_repair_steps", "grief_weight", "lcu_scale",
-                                        # spec revision 39, group A (stage 3 step 9)
-                                        "reciprocal_contact_share",
-                                        # spec revision 55, the social cues (T-202)
-                                        "social_cues_enabled", "cue_attention_contact_weight",
-                                        "cue_attention_impingement_weight", "cue_approval_contact_weight",
-                                        "cue_approval_impingement_weight", "cue_expectations_contact_weight",
-                                        "cue_expectations_impingement_weight", "cue_distress_contact_weight",
-                                        "cue_distress_impingement_weight", "unmet_expectation_weight",
-                                        "cue_leak_gain", "cue_leak_expectations_share", "cue_leak_distress_share",
-                                        "cue_tone_share", "cue_face_share", "cue_posture_share",
-                                        "nonverbal_weight_base", "nonverbal_weight_anxiety_gain",
-                                        "nonverbal_weight_cap", "cue_sensitivity_floor",
-                                        "cue_sensitivity_level_gain", "cue_bias_floor", "cue_bias_level_gain",
-                                        "cue_bias_anxiety_gain", "cue_bias_belief_gain", "cue_spread_floor",
-                                        "cue_spread_level_gain", "attention_load_gain", "attention_load_scale",
-                                        "belief_cue_rate", "belief_leak_gain"}
+    # The flagged set is computed from the frozen and current registers, not pinned by hand (T-222, 2026-11-11).
+    assert baseline == since_freeze and baseline
     changed = dataclasses.replace(
         constants,
         values=MappingProxyType({**constants.values,

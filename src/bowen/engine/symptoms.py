@@ -65,7 +65,7 @@ from src.bowen.engine.stress_response import above_usual
 from src.bowen.engine.visibility import HouseholdConductanceVisibility
 
 SYMPTOM_KIND = "SYMPTOM_ONSET"
-OWN_ILLNESS_KIND, FAMILY_ILLNESS_KIND = "OWN_ILLNESS", "FAMILY_ILLNESS"  # M7.D.1a, revision 36
+OWN_ILLNESS_KIND, FAMILY_ILLNESS_KIND = "OWN_ILLNESS", "FAMILY_ILLNESS"  # M7.D.1a
 REMOVAL_KIND = "INSTITUTIONALIZE"
 CHANNELS = tuple(SymptomChannel)
 
@@ -145,7 +145,7 @@ def _member_partners(state: RunState, pid: PersonId) -> tuple[PersonId, ...]:
 
 def _release_shares(state: RunState, pid: PersonId) -> tuple[tuple[PersonId, float], ...]:
     """Purpose: how what a bearer's symptom held is split when it is released — by the bond energy of the bearer's
-    interactive ties to living family members (G2, spec revision 36): a parent takes more than a sibling, an outsider
+    interactive ties to living family members (G2): a parent takes more than a sibling, an outsider
     none. Ties all at zero bond energy split equally. Returns ``(partner, share)`` with shares summing to 1, or
     nothing when no living member is on an interactive tie, in which case the hold stays with the bearer.
     Spec:    docs/bowen_agent_model_spec_v2.md#M7.D.2a, #M7.D.2d, #M1.F.9, #M6.4
@@ -260,7 +260,7 @@ def tolerance_removal(state: RunState, params: EngineParams, visibility: Househo
                           channel=Channel.ENDOGENOUS)
             from src.bowen.engine.event_effects import apply_structural_event, nodal_spike
 
-            records = inject(state, event, visibility) + nodal_spike(state, event, params)  # M4.C.1c, revision 32
+            records = inject(state, event, visibility) + nodal_spike(state, event, params)  # M4.C.1c
             return records + apply_structural_event(state, state.store.event(event.id), params)
     return []
 
@@ -276,7 +276,7 @@ def _onset(state: RunState, pid: PersonId, channel: SymptomChannel, params: Engi
     )
     from src.bowen.engine.event_effects import nodal_spike  # event_effects imports from this module's neighbours
 
-    records = inject(state, event, visibility) + nodal_spike(state, event, params) + [  # M4.C.1c, revision 32
+    records = inject(state, event, visibility) + nodal_spike(state, event, params) + [  # M4.C.1c
         EffectRecord(state.tick, "symptom_onset", event.id, sinks=((f"symptom_load:{channel.value}", 1.0),))]
     return records + _illness_loads(state, pid, channel, params, visibility)
 

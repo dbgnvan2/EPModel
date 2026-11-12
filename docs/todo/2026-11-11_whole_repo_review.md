@@ -2,7 +2,8 @@
 
 Items from `REVIEW-EPModel-2026-11-11.md` (repo root), a read-only review of the code, tests and documents. The
 report's finding ID is in brackets. "Fix" items have a known fix; "Decide" items need the owner's answer first.
-Nothing here is built or decided. Items marked *verified* survived the review's challenge pass against the code.
+The Decide items T-228 to T-233 and the carried-over T-241 were decided on 2026-11-12; T-234 to T-242 carry the work
+they set. Each item's own line says whether it is done. Items marked *verified* survived the review's challenge pass against the code.
 
 ## Fix — engine and criteria
 
@@ -82,26 +83,76 @@ Nothing here is built or decided. Items marked *verified* survived the review's 
 
 ## Decide
 
-- [ ] T-228 ⟨later⟩ **Decide: a second I-POSITION during a running sequence (2026-11-11).** [C1, *verified*]
+- [x] T-228 ⟨later⟩ **Decide: a second I-POSITION during a running sequence (2026-11-11).** [C1, *verified*]
   `act.py:124-130` overwrites the running sequence with no `end` record; a RESOLVE-stage pull-up is never reverted.
   `M5.D.9` does not say whether it is illegal, redirected or a restart. May bear on T-158.
-- [ ] T-229 ⟨later⟩ **Decide: what the headline should say about learning (2026-11-11).** [P1, P6] Of 13 audited
+  *Decided by the owner 2026-11-12 through `AskUserQuestion`: "Illegal (Recommended)". While a sequence runs, I-POSITION toward anyone else is not a legal move: one sequence per person at a time. Built by T-234.*
+- [x] T-229 ⟨later⟩ **Decide: what the headline should say about learning (2026-11-11).** [P1, P6] Of 13 audited
   passing rows, 9 pass with learning off; five need it and two of those are robust; 216 invented constants stand
   behind them. Whether the status page's summary shows the learning-dependent tally beside the pass count.
-- [ ] T-230 ⟨later⟩ **Decide: act payoffs set what is learned (2026-11-11).** [P2] DISTANCE relieves more at once
+  *Decided by the owner 2026-11-12 through `AskUserQuestion`: "Add the tally (Recommended)". `tools/version_2_status.py` adds, beside the pass count, a generated line read from the emergence audit record: how many passing rows need learning and how many of those are robust. Built by T-235.*
+- [x] T-230 ⟨later⟩ **Decide: act payoffs set what is learned (2026-11-11).** [P2] DISTANCE relieves more at once
   than TRIANGLE inside the 3-week horizon, so triangling is not learned (`M11.C.42`, `C.44`, `C.45`). Whether to
   sweep `distance_binding_rate` against `triangle_transfer_rate` on those criteria.
-- [ ] T-231 ⟨later⟩ **Decide: the learning signal (2026-11-11).** [P3, *verified* as code] (a) It includes ordinary
+  *Decided 2026-11-12 as recommended, under the owner's message of 2026-11-12, "continue with your recommendations", sent while T-230 was asked: sweep, report only. After the engine batch, a targeted two-constant sweep of `distance_binding_rate` against `triangle_transfer_rate` on `M11.C.42`, `C.44` and `C.45` (`tools/version_2_sweep.py --criteria`), recorded as a sensitivity result. The constants are not moved to make the rows pass (`M10.B.4`). Built by T-236.*
+- [x] T-231 ⟨later⟩ **Decide: the learning signal (2026-11-11).** [P3, *verified* as code] (a) It includes ordinary
   decay with no baseline (`tick.py:134, 243`, `learner.py:130`); a mutant against `M11.C.39`, `C.16`, `C.34` would
   show what that carries. (b) It reads others' true anxiety and functional level (`learner.py:120, 215-253`);
   `M4.B.2` does not say whether learning is exempt from the perception boundary.
-- [ ] T-232 ⟨later⟩ **Decide: a command that runs the learning family (2026-11-11).** [P4, *verified*]
+  *Decided 2026-11-12 as recommended, under the owner's message of 2026-11-12, "continue with your recommendations", sent while T-230 was asked: measure before changing a rule. (a) A mutant that subtracts the expected decay toward the chronic floor from the felt relief, run on `M11.C.39`, `C.16` and `C.34`. (b) `M4.B.2` states the learner's exemption from the perception boundary as an `[I]` modelling choice, and a mutant that reads the learner's perceived values instead of others' true anxiety and level runs on `M11.C.10[family of origin]`; whether to close the exemption is decided on that result. Built by T-237.*
+- [x] T-232 ⟨later⟩ **Decide: a command that runs the learning family (2026-11-11).** [P4, *verified*]
   `src/bowen/run.py` runs the scripted Phase B family only; `tools/phase_c_trace.py` runs the Phase C family. Nothing
   runs the twelve-person family with the life course and renders it.
-- [ ] T-233 ⟨later⟩ **Decide: smaller questions from the review (2026-11-11).** Whether `settle_functioning`
+  *Decided 2026-11-12 as recommended, under the owner's message of 2026-11-12, "continue with your recommendations", sent while T-230 was asked: yes. A tool in `tools/` (outside the engine hash) runs the twelve-person family with the life course under the policy and renders its trace, reusing `tools/phase_c_trace.py`'s renderer; README "Running" names it. Built by T-238.*
+- [x] T-233 ⟨later⟩ **Decide: smaller questions from the review (2026-11-11).** Whether `settle_functioning`
   (`moves.py:370-390`) is act physics or a written pattern; whether `M11.C.55`'s reversal with learning off, partly
   by definition, counts as evidence of learning; whether a within-run criterion needs a minimum share of non-zero
   pairs; whether the LLM experiment is finished, so its code, tests and the `anthropic` dependency can go; whether a
   tick's records should be emitted when its invariants fail; whether sibling ties and sibling position belong in the
   reference family; whether the engine hash should be split per criterion [C6]; whether CI's `@v7` actions exist and
   CI is green.
+  *Decided 2026-11-12 as recommended, under the owner's message of 2026-11-12, "continue with your recommendations", sent while T-230 was asked. (1) `settle_functioning` is set act physics, required by `M1.B.5` and `M1.B.6`; it is listed among the acknowledged set mechanisms in `M11.5` and explainer §19. (2) The part of `M11.C.55`'s reversal with learning off that holds by definition (a tie counts as a miss) is not evidence of learning; the audit row says so. (3) Every within-run criterion first reports its share of non-zero pairs; a minimum is decided after the shares are seen. (4) The LLM experiment is not finished while T-201 is open; its code, tests and the `anthropic` dependency stay until T-201 closes, then go. (5) A tick's records are emitted before an invariant failure is raised, with a record of the failure, so the log holds the failing tick; logging stays a pure observer. (6) Sibling ties and sibling position are not added in version 2; they need a proposal with ledger sources first. (7) The engine hash is split per criterion after the tag, as its own tools batch, so the stage-end sweep and the tag cite one hash. (8) The `@v7` actions exist: CI runs on all three Pythons. CI on `main` was red from 2026-11-11 on one test, `tests/experiments/llm_agents/test_cache.py::test_lx25_committed_pilot_replays_fixed`, which compared gzip bytes that differ between platforms; changed 2026-11-12 to compare the decompressed content. Items (1), (2), (3) and (5) are T-239; (4), (6) and (7) are T-240.*
+
+## Carried over from the documents-and-tests batch (`bda211e`)
+
+- [x] T-241 ⟨now⟩ **Decide: `M11.C.48[phase_d]`'s status-page row, and `M11.D.9`'s exact count (2026-11-12).** [P5]
+  `docs/version_2_status.md:114` shows the row as proved by `cutoff-blind-to-learned-value` turning red and counts it
+  toward W3, while the audit shows the row passes with all learning removed and the disposition text
+  (`docs/version_2_dispositions.md:36`) still says the mutant survives. [T3] `M11.D.9` requires the exact `Spec:`
+  reference count that `tests/bowen/test_engineering_gates.py` pins (`EXPECTED_SPEC_REFERENCES = 1097`).
+  *Decided 2026-11-12 as recommended, under the owner's message of 2026-11-12, "continue with your recommendations", sent while T-230 was asked. P5: the disposition text is rewritten after step 4's regeneration,
+  against the Phase D mutation record and the emergence audit as regenerated there. It says that the mutant's red
+  (the mutant makes `CUTOFF` top-weighted whenever it is legal) does not show that learning carries the row, since the
+  row passes with learning removed. W3 counts the row only if the mutant is red in the regenerated record. `M11.D.9`:
+  the exact count is replaced by a check that the scan covers every `.py` file under `src/bowen/` and that every
+  reference resolves; `EXPECTED_SPEC_REFERENCES` goes, and `M11.D.8` and `M11.D.9` change at the next spec revision.
+  Built by T-242.*
+
+## Fix — from the owner's decisions of 2026-11-12
+
+- [ ] T-234 ⟨now⟩ **Fix: I-POSITION is illegal while a sequence runs (2026-11-12).** From T-228. Mask I-POSITION
+  toward anyone other than the running sequence's target in legality; state it in `M5.D.9`; a test that a person in
+  RESOLVE cannot open a second sequence and that the target's pull-up is followed up or reverted. Moves the engine
+  hash; goes in the engine batch. Check whether it changes T-158's expected failure.
+- [ ] T-235 ⟨now⟩ **Fix: the status page's summary shows the learning-dependent tally (2026-11-12).** From T-229.
+  Generated by `tools/version_2_status.py` from the emergence audit record and checked by the existing status test.
+  Built after step 4's regeneration, so it reads the regenerated audit. No engine change.
+- [ ] T-236 ⟨now⟩ **Sweep: `distance_binding_rate` against `triangle_transfer_rate` on `M11.C.42`, `C.44`, `C.45`
+  (2026-11-12).** From T-230. After the engine batch, recorded as a sensitivity result; no constant is moved by it.
+- [ ] T-237 ⟨now⟩ **Mutants: the learning signal's decay baseline and its perception exemption (2026-11-12).** From
+  T-231. (a) Subtract the expected decay toward the chronic floor from the felt relief; run on `M11.C.39`, `C.16`,
+  `C.34`. (b) Read the learner's perceived values in `cross_person_relief` and the level terms; run on
+  `M11.C.10[family of origin]`. State the exemption in `M4.B.2` as `[I]`. The mutants live in
+  `tools/mutant_runner.py`, which is in the engine hash, so they go in the engine batch.
+- [ ] T-238 ⟨later⟩ **Build: a trace command for the twelve-person family with the life course (2026-11-12).** From
+  T-232. A tool in `tools/`, outside the hash, reusing `tools/phase_c_trace.py`'s renderer; README "Running" names it.
+- [ ] T-239 ⟨now⟩ **Fix: the engine-batch parts of T-233 (2026-11-12).** List `settle_functioning` among the
+  acknowledged set mechanisms (`M11.5`, explainer §19); note in the audit that part of `M11.C.55`'s reversal with
+  learning off holds by definition; report each within-run criterion's share of non-zero pairs (with T-217's counts);
+  emit a tick's records before an invariant failure is raised, with a failure record.
+- [ ] T-240 ⟨later⟩ **Later parts of T-233 (2026-11-12).** Remove the LLM experiment's code, tests and the
+  `anthropic` dependency once T-201 closes; split the engine hash per criterion after the tag (C6), as its own tools
+  batch; a proposal with ledger sources before sibling ties or sibling position enter the reference family.
+- [ ] T-242 ⟨now⟩ **Fix: P5's disposition text and `M11.D.9`'s scan check (2026-11-12).** From T-241. The
+  disposition is rewritten after step 4's regeneration; the scan-coverage check replaces `EXPECTED_SPEC_REFERENCES`,
+  with `M11.D.8` and `M11.D.9` changed at the next spec revision.

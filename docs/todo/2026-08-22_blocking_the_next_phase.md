@@ -17,7 +17,9 @@
   revision and the 2026-11-11 review's items T-214 to T-233. The owner decided 2026-11-11, each as recommended, through
   `AskUserQuestion`: no tag until after the engine batch (T-214 and the other fixes that move the engine hash, one
   regeneration, then the stage-end sweep); first the documents-and-tests batch that moves no hash (T-220 to T-227),
-  then the owner's answers on T-228 to T-233, then the engine batch.*
+  then the owner's answers on T-228 to T-233, then the engine batch. Step 2 done 2026-11-12: T-228 and T-229 answered by the owner, the rest
+  decided as recommended under the owner's "continue with your recommendations"; the work they set is T-234 to T-242
+  (`docs/todo/2026-11-11_whole_repo_review.md`). Next: the engine batch (step 3).*
 - [ ] T-002 ⟨now⟩ **`/csdp` sweep of 2026-10-19, items not fixed** (each with its reason; the last three are the fix re-sweep's
   minor items, recorded under the owner's three-or-fewer rule).
   - The owner's Holmes–Rahe Q3 ("additions carry load", decided 2026-10-19) cited `KS07.1`, which §2 then misdescribed

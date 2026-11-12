@@ -7,15 +7,21 @@ Open items, one line each: ID, date raised, title, record. **Now** blocks the cu
 `docs/todo/` (grep its ID). To close one, tick it in its record and run `python3 tools/todo_index.py`: its line
 moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's text; that form is in git history.
 
-## Now (5)
+## Now (11)
 
 - T-001 · 2026-10-19 · Version 2, next · [record](docs/todo/2026-08-22_blocking_the_next_phase.md)
 - T-002 · 2026-10-19 · `/csdp` sweep of 2026-10-19, items not fixed · [record](docs/todo/2026-08-22_blocking_the_next_phase.md)
 - T-003 · 2026-10-20 · Coverage page, minor, from the Part A review … · [record](docs/todo/2026-08-22_blocking_the_next_phase.md)
 - T-004 · 2026-10-20 · Coverage page, from Part B's drafting (2026-10-20), not … · [record](docs/todo/2026-08-22_blocking_the_next_phase.md)
 - T-214 · 2026-11-11 · Fix: beliefs created at a pairing, birth or … · [record](docs/todo/2026-11-11_whole_repo_review.md)
+- T-234 · 2026-11-12 · Fix: I-POSITION is illegal while a sequence runs … · [record](docs/todo/2026-11-11_whole_repo_review.md)
+- T-235 · 2026-11-12 · Fix: the status page's summary shows the learning-dependent … · [record](docs/todo/2026-11-11_whole_repo_review.md)
+- T-236 · 2026-11-12 · Sweep: `distance_binding_rate` against `triangle_transfer_rate` on `M11.C.42`, `C.44`, `C.45` · [record](docs/todo/2026-11-11_whole_repo_review.md)
+- T-237 · 2026-11-12 · Mutants: the learning signal's decay baseline and its … · [record](docs/todo/2026-11-11_whole_repo_review.md)
+- T-239 · 2026-11-12 · Fix: the engine-batch parts of T-233 (2026-11-12) · [record](docs/todo/2026-11-11_whole_repo_review.md)
+- T-242 · 2026-11-12 · Fix: P5's disposition text and `M11.D.9`'s scan check … · [record](docs/todo/2026-11-11_whole_repo_review.md)
 
-## Later (153)
+## Later (149)
 
 - T-006 · 2026-10-22 · D4, long `Spec:` lines (Part D, 2026-10-22; the … · [record](docs/todo/2026-10-22_model_ergonomics.md)
 - T-007 · 2026-10-22 · Adjacent issues found by Part D's docstring pass, … · [record](docs/todo/2026-10-22_model_ergonomics.md)
@@ -164,9 +170,5 @@ moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's te
 - T-223 · 2026-11-11 · Fix: small test gaps and leftovers (2026-11-11) · [record](docs/todo/2026-11-11_whole_repo_review.md)
 - T-226 · 2026-11-11 · Fix: archive finished-work documents and delete grid-engine leftovers … · [record](docs/todo/2026-11-11_whole_repo_review.md)
 - T-227 · 2026-11-11 · Fix: comments and README (2026-11-11) · [record](docs/todo/2026-11-11_whole_repo_review.md)
-- T-228 · 2026-11-11 · Decide: a second I-POSITION during a running sequence … · [record](docs/todo/2026-11-11_whole_repo_review.md)
-- T-229 · 2026-11-11 · Decide: what the headline should say about learning … · [record](docs/todo/2026-11-11_whole_repo_review.md)
-- T-230 · 2026-11-11 · Decide: act payoffs set what is learned (2026-11-11) · [record](docs/todo/2026-11-11_whole_repo_review.md)
-- T-231 · 2026-11-11 · Decide: the learning signal (2026-11-11) · [record](docs/todo/2026-11-11_whole_repo_review.md)
-- T-232 · 2026-11-11 · Decide: a command that runs the learning family … · [record](docs/todo/2026-11-11_whole_repo_review.md)
-- T-233 · 2026-11-11 · Decide: smaller questions from the review (2026-11-11) · [record](docs/todo/2026-11-11_whole_repo_review.md)
+- T-238 · 2026-11-12 · Build: a trace command for the twelve-person family … · [record](docs/todo/2026-11-11_whole_repo_review.md)
+- T-240 · 2026-11-12 · Later parts of T-233 (2026-11-12) · [record](docs/todo/2026-11-11_whole_repo_review.md)

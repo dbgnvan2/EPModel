@@ -187,8 +187,11 @@ def test_lx25_committed_pilot_replays_fixed(tmp_path):
     assert out.record["status"] == "complete" and out.record["option_order"] == "fixed"
     assert out.summary["summary_hash"] == json.loads((committed / "summary.json").read_text())["summary_hash"]
     assert json.loads((tmp_path / "pilot-A1-s1" / "run.json").read_text()) == rec, "the record is left as it was"
-    # The matched replay writes the run's choices with their positions, the same as the committed file.
-    assert (tmp_path / "pilot-A1-s1" / CHOICES).read_bytes() == (committed / CHOICES).read_bytes()
+    # The matched replay writes the run's choices with their positions, the same as the committed file. The content is
+    # compared, not the gzip bytes: zlib's output differs between platforms (CI on Linux, 2026-11-12).
+    assert gzip.decompress((tmp_path / "pilot-A1-s1" / CHOICES).read_bytes()) == gzip.decompress(
+        (committed / CHOICES).read_bytes()
+    )
 
 
 def test_lx8_t207_replay_refuses_a_changed_status_or_a_complete_run_without_its_summary(tmp_path):

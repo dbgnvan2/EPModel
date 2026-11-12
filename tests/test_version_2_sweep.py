@@ -633,7 +633,6 @@ def test_s2_6_not_run_list_is_loaded_strictly():
 
 # --- S2.11 the committed record ---------------------------------------------------------------------------------
 
-@pytest.mark.xfail(strict=True, reason="T-202 (spec revision 55, D4, the owner 2026-11-07) and T-185 (spec revision 57, 2026-11-10): the social cues and then `M11.C.48`'s matched baseline each moved the engine hash, and this record is not rerun until the stage end (the version 2 definition plan's step 7). Revision 55's rows could not change, the cue switch being off; revision 57's can, since it changed a readout that runs with the switch off and the record holds `M11.C.48`'s two keys, so this record is stale in substance and not only in its hash")
 def test_s2_11_sweep_record_is_current():
     """The committed sweep record is what the tool renders from the committed cache for the current engine and
     config, without running anything (P6); a stale cache or a changed range would raise here."""

@@ -1,6 +1,6 @@
 # Running the stage-end sweep on two Macs
 
-**Status: BUILT 2026-10-23** (`docs/implementation_plan_version_2.md` §2.10); first used for part II's sweep, 2026-10-23–24 (four criteria on Mac Mini1, three here); used for stage 3's stage-end sweep, 2026-10-27 (all 34 declared directional keys: six on Mac Mini1, 28 here; `docs/implementation_plan_version_2_stage_3.md`, step 11), and for its rerun on revision 41's engine, 2026-10-29 (T-159: six keys planned on Mac Mini1 at 8 workers, 28 here; three of Mini1's taken here while it ran); its rerun on revision 43's engine, 2026-10-30 (T-167: four keys on Mac Mini1 at 8 workers, 30 here); its rerun on revision 44's engine, 2026-10-31 to 2026-11-01 (T-170: four keys on Mac Mini1 at 10 workers, 30 here at 8); and its rerun on revision 47's engine, 2026-11-03 to 2026-11-04 (T-181: the same split).
+**Status: BUILT 2026-10-23** (`docs/implementation_plan_version_2.md` §2.10); first used for part II's sweep, 2026-10-23–24 (four criteria on Mac Mini1, three here); used for stage 3's stage-end sweep, 2026-10-27 (all 34 declared directional keys: six on Mac Mini1, 28 here; `docs/implementation_plan_version_2_stage_3.md`, step 11), and for its rerun on revision 41's engine, 2026-10-29 (T-159: six keys planned on Mac Mini1 at 8 workers, 28 here; three of Mini1's taken here while it ran); its rerun on revision 43's engine, 2026-10-30 (T-167: four keys on Mac Mini1 at 8 workers, 30 here); its rerun on revision 44's engine, 2026-10-31 to 2026-11-01 (T-170: four keys on Mac Mini1 at 10 workers, 30 here at 8); and its rerun on revision 47's engine, 2026-11-03 to 2026-11-04 (T-181: the same split); and the stage-end sweep on `d3779684dd53`, 2026-11-11 (T-001's step 7: eight keys planned on Mac Mini1, six run there, 30 and then two more here).
 
 How to split the constant sweep (`tools/version_2_sweep.py`, `M17.E.1`) between this Mac (davemini2) and Mac
 Mini1, 10 cores each, and combine the results into one record. The tools are `tools/version_2_sweep.py --criteria`
@@ -267,3 +267,11 @@ sweep's own check had enforced on this Mac for T-181 the same days.
   processes were reniced to 19 while running, and the owner set the rule that Mac Mini1 runs at most 8 workers at
   `nice -n 19`. `tools/two_mac_sweep.py start` now launches under `nice -n 19`, takes 8 workers when none are given,
   and refuses more than 8 (`tests/test_sweep_two_macs.py::test_m17e1_driver_defaults_to_eight_workers_and_refuses_more`).
+- The stage-end sweep of 2026-11-11 on `d3779684dd53`, from a clean `git worktree` of `6c35437` here and Mac Mini1's
+  checkout at the same commit. This Mac's 30 keys ran 08:13 to 17:45 at 6 workers under `nice -n 19` (after the
+  restart for the audit's merge). Mac Mini1's eight keys started at 08:12 at 10 workers; it ran `M11.C.16`, `M11.C.23`,
+  `M11.C.6` and `M11.C.10`, was restarted at 17:09 at 8 workers under `nice -n 19` (above), and at 19:55 its list was cut
+  to `M11.C.10[family of origin]`, `M11.C.15` and `M11.C.16`, ending at 20:34. `M11.C.48` and `M11.C.55` moved here and
+  ran 17:50 to 22:02. Mac Mini1's SSH connection timed out often all day, at low load as well as high, so `fetch` was
+  done by `scp` once it answered. The merge added Mac Mini1's 47 results and found 492 equal, among them `M11.C.16`'s
+  and `M11.C.23`'s, which ran on both Macs.

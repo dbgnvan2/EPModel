@@ -434,6 +434,12 @@ and all agreeing, were brought to the paper's wording at step 6 (T-130).
   (`docs/version_2_dispositions.md`); the owner decided them as recommended the same day, so W1 is met. T-213 holds
   the audit's recommendations, approved by the owner 2026-11-11. Known problems: the version 2 sweep record still stands on
   `927550dfcb8a` and reruns at step 7, so its record-current test is a strict expected failure.
+- 2026-11-11: the version 2 definition plan's steps 6 to 8. The owner decided the four cue rows and T-213 as
+  recommended. The stage-end sweep ran on `d3779684dd53`, split across both Macs, and `docs/version_2_sweep_record.md`
+  is current: against the sweep before, only `M11.C.48` (3 to 4 of 8) and `M11.C.48[phase_d]` (8 to 5 of 8) moved, and
+  `M11.C.52` (6 of 8) and `M11.C.55` (8 of 8) are swept for the first time. `docs/version_2_status.md` reads W1–W4 met
+  on the current engine; the next point is the owner's call on a tag (the plan's §10). Known problems: the 2026-11-11
+  whole-repo review's items T-214 to T-233 are open.
 
 ## 9. Not relevant to how the model works now
 

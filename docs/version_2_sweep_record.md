@@ -22,8 +22,8 @@ counted here and left out of the denominator, never dropped.
 full sweeps: one sample is an eighth of a fraction, so no band is drawn round it and no *narrow* mark is read,
 which needs at least 32 samples (D14).
 
-engine_hash: 0b363cb3186c68d36d8c1f92c6a354e5d2f374a7464209e35737e6bf8de9994e
-phase_d_engine_hash: 020160abb6db9dcee64df84aaa217e82c5e5842ead860614556101d501aecd30
+engine_hash: d3779684dd5358f830691be1d251b5d6b22cc5ea19e6ccdcef82eb6ff1910354
+phase_d_engine_hash: 2a61518d5824672b11ba4fd9923fdea455afc01703dac00c1d013b4070475743
 
 A Phase C criterion is run by `tools/mutant_runner.py` and its results cached under `engine_hash`; a Phase D
 criterion by `tools/phase_d_mutant_child.py` under `phase_d_engine_hash`, which adds that child and the source of
@@ -64,14 +64,16 @@ cache.
 | `M11.C.10` | composite | FAIL | `learning_rate` 0.1–0.4; `credit_horizon` 2–6; `credit_discount` 0.35–1; `cross_person_weight` 0.25–1; `policy_temperature` 0.5–2; `habituation_rate` 0.35–1; `habituation_window` 4–16; `witnessed_cutoff_gain` 0.025–0.1; `witness_window` 7–26; `reactive_cutoff_gain` 0.05–0.2; `origin_cutoff_anxiety_gain` 5–20; `origin_fusion_gain` 0.25–1; `rejection_cutoff_gain` 0.25–1; `rejection_refusal_gain` 0.05–0.2; `rejection_relief` 0.125–0.5; `rejection_refusal_threshold` 0.15–0.6; `rejection_fade` 0.025–0.1; `calm_transfer_rate` 0.025–0.1; `tie_wear_to_transfer_ratio` 0.00480769–0.0769231; `tie_wear_rate` derived | 3 of 8 | 1 of 6 | 2 of 2 | 0 | 0 | 0 |
 | `M11.C.10[family of origin]` | composite | PASS | `learning_rate` 0.1–0.4; `credit_horizon` 2–6; `credit_discount` 0.35–1; `cross_person_weight` 0.25–1; `policy_temperature` 0.5–2; `habituation_rate` 0.35–1; `habituation_window` 4–16; `witnessed_cutoff_gain` 0.025–0.1; `witness_window` 7–26; `reactive_cutoff_gain` 0.05–0.2; `origin_cutoff_anxiety_gain` 5–20; `origin_fusion_gain` 0.25–1; `rejection_cutoff_gain` 0.25–1; `rejection_refusal_gain` 0.05–0.2; `rejection_relief` 0.125–0.5; `rejection_refusal_threshold` 0.15–0.6; `rejection_fade` 0.025–0.1; `calm_transfer_rate` 0.025–0.1; `tie_wear_to_transfer_ratio` 0.00480769–0.0769231; `tie_wear_rate` derived | 7 of 8 | 5 of 6 | 2 of 2 | 0 | 0 | 0 |
 | `M11.C.15` | composite | PASS | `lock_in_gain` 0.1–0.4; `acute_decay_rate` 0.1–0.4; `calm_transfer_rate` 0.025–0.1; `tie_wear_to_transfer_ratio` 0.00480769–0.0769231; `tie_wear_rate` derived | 5 of 8 | 3 of 3 | 2 of 5 | 0 | 3 | 0 |
-| `M11.C.48` | composite | FAIL | `learning_rate` 0.1–0.4; `credit_horizon` 2–6; `credit_discount` 0.35–1; `cross_person_weight` 0.25–1; `policy_temperature` 0.5–2; `habituation_rate` 0.35–1; `habituation_window` 4–16; `cutoff_stock_cap` 791.5–3166; `cutoff_threat_weight` 0.00156–0.00624; `cutoff_decay_weeks` 130–520; `cutoff_floor_share` 0.05–0.2; `positive_bridge_dissipation` 0.4–1; `calm_transfer_rate` 0.025–0.1; `tie_wear_to_transfer_ratio` 0.00480769–0.0769231; `tie_wear_rate` derived | 3 of 8 | 1 of 3 | 2 of 5 | 0 | 0 | 0 |
-| `M11.C.48[phase_d]` | composite | PASS | `learning_rate` 0.1–0.4; `credit_horizon` 2–6; `credit_discount` 0.35–1; `cross_person_weight` 0.25–1; `policy_temperature` 0.5–2; `habituation_rate` 0.35–1; `habituation_window` 4–16; `cutoff_stock_cap` 791.5–3166; `cutoff_threat_weight` 0.00156–0.00624; `cutoff_decay_weeks` 130–520; `cutoff_floor_share` 0.05–0.2; `positive_bridge_dissipation` 0.4–1; `calm_transfer_rate` 0.025–0.1; `tie_wear_to_transfer_ratio` 0.00480769–0.0769231; `tie_wear_rate` derived | 8 of 8 | 4 of 4 | 4 of 4 | 0 | 0 | 0 |
+| `M11.C.48` | composite | FAIL | `learning_rate` 0.1–0.4; `credit_horizon` 2–6; `credit_discount` 0.35–1; `cross_person_weight` 0.25–1; `policy_temperature` 0.5–2; `habituation_rate` 0.35–1; `habituation_window` 4–16; `cutoff_stock_cap` 791.5–3166; `cutoff_threat_weight` 0.00156–0.00624; `cutoff_decay_weeks` 130–520; `cutoff_floor_share` 0.05–0.2; `positive_bridge_dissipation` 0.4–1; `calm_transfer_rate` 0.025–0.1; `tie_wear_to_transfer_ratio` 0.00480769–0.0769231; `tie_wear_rate` derived | 4 of 8 | 1 of 3 | 3 of 5 | 0 | 0 | 0 |
+| `M11.C.48[phase_d]` | composite | PASS | `learning_rate` 0.1–0.4; `credit_horizon` 2–6; `credit_discount` 0.35–1; `cross_person_weight` 0.25–1; `policy_temperature` 0.5–2; `habituation_rate` 0.35–1; `habituation_window` 4–16; `cutoff_stock_cap` 791.5–3166; `cutoff_threat_weight` 0.00156–0.00624; `cutoff_decay_weeks` 130–520; `cutoff_floor_share` 0.05–0.2; `positive_bridge_dissipation` 0.4–1; `calm_transfer_rate` 0.025–0.1; `tie_wear_to_transfer_ratio` 0.00480769–0.0769231; `tie_wear_rate` derived | 5 of 8 | 3 of 4 | 2 of 4 | 0 | 0 | 0 |
+| `M11.C.52` | composite | PASS | `reappraisal_window` 2–8; `cue_leak_gain` 0.3–1.2; `cue_leak_expectations_share` 0.25–1; `cue_leak_distress_share` 0.25–1; `cue_tone_share` 0.5–1; `cue_face_share` 0.5–1; `cue_posture_share` 0.25–1 | 6 of 8 | — | — | 0 | 8 | 0 |
+| `M11.C.55` | composite | PASS | `learning_rate` 0.1–0.4; `credit_horizon` 2–6; `credit_discount` 0.35–1; `cross_person_weight` 0.25–1; `policy_temperature` 0.5–2; `habituation_rate` 0.35–1; `habituation_window` 4–16; `calm_transfer_rate` 0.025–0.1; `tie_wear_to_transfer_ratio` 0.00480769–0.0769231; `tie_wear_rate` derived | 8 of 8 | 5 of 5 | 3 of 3 | 0 | 2 | 0 |
 
-Directional criteria of the ensemble records with no ranges declared in `config/sweep/sweep.md`, so not swept: `M11.C.49` (mixed, FAIL).
+Directional criteria of the ensemble records with no ranges declared in `config/sweep/sweep.md`, so not swept: `M11.C.49` (mixed, FAIL), `M11.C.50` (composite, FAIL), `M11.C.51` (composite, FAIL), `M11.C.53` (composite, FAIL), `M11.C.54` (composite, FAIL).
 
 ## The named ratio `tie_wear_to_transfer_ratio` (`M17.E.1`): where it entered
 
-`tie_wear_to_transfer_ratio` = `tie_wear_rate` ÷ (`slow_tick_fast_ticks` × `calm_transfer_rate`), [I]: central value 0.01923, range 0.004808–0.07692 (log). The units differ: the numerator is a share per week (per slow tick), the denominator a share per contact, so the ratio is per week ÷ per contact. It entered the set of every swept criterion whose run is longer than `slow_tick_fast_ticks` (52) fast ticks, so that a slow tick fires before the run's last tick, and of no other (Q14); in each entered criterion every sample drew the ratio and `calm_transfer_rate` and derived `tie_wear_rate` from them. A run length is measured: seed 0 of each arm at the central constants, the longest arm's fast ticks. 26 of 34 criteria entered.
+`tie_wear_to_transfer_ratio` = `tie_wear_rate` ÷ (`slow_tick_fast_ticks` × `calm_transfer_rate`), [I]: central value 0.01923, range 0.004808–0.07692 (log). The units differ: the numerator is a share per week (per slow tick), the denominator a share per contact, so the ratio is per week ÷ per contact. It entered the set of every swept criterion whose run is longer than `slow_tick_fast_ticks` (52) fast ticks, so that a slow tick fires before the run's last tick, and of no other (Q14); in each entered criterion every sample drew the ratio and `calm_transfer_rate` and derived `tie_wear_rate` from them. A run length is measured: seed 0 of each arm at the central constants, the longest arm's fast ticks. 27 of 36 criteria entered.
 
 | Criterion | Run (fast ticks) | The ratio |
 |---|---|---|
@@ -109,6 +111,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
 | `M11.C.15` | 104 | entered: longer than `slow_tick_fast_ticks` (52), so a slow tick fires before its last tick |
 | `M11.C.48` | 520 | entered: longer than `slow_tick_fast_ticks` (52), so a slow tick fires before its last tick |
 | `M11.C.48[phase_d]` | 2080 | entered: longer than `slow_tick_fast_ticks` (52), so a slow tick fires before its last tick |
+| `M11.C.52` | 26 | not entered: not longer than `slow_tick_fast_ticks` (52), so tie wear acts at no slow tick before its last tick |
+| `M11.C.55` | 1560 | entered: longer than `slow_tick_fast_ticks` (52), so a slow tick fires before its last tick |
 
 ## `M11.C.16` — 8 of 8 samples held
 
@@ -574,35 +578,63 @@ Directional criteria of the ensemble records with no ranges declared in `config/
 | 6 | `lock_in_gain` 0.152639, `acute_decay_rate` 0.288631, `calm_transfer_rate` 0.053666, `tie_wear_rate` 0.0773196; ratio 0.02771 (per week ÷ per contact) | 50 then 200 | yes (first FAIL) | FAIL | `death_rise` -0.639 ± 0.21; `recovery_rise` +2.39 ± 0.21 |
 | 7 | `lock_in_gain` 0.183078, `acute_decay_rate` 0.1278, `calm_transfer_rate` 0.0523472, `tie_wear_rate` 0.0293682; ratio 0.01079 (per week ÷ per contact) | 100 | no | PASS | `death_rise` +15.9 ± 2.4; `recovery_rise` +13.2 ± 1.8 |
 
-## `M11.C.48` — 3 of 8 samples held
+## `M11.C.48` — 4 of 8 samples held
 
-`tie_wear_to_transfer_ratio` (per week ÷ per contact) entered: held 1 of 3 below its central value 0.01923 and 2 of 5 at or above it.
-
-| Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |
-|---|---|---|---|---|---|
-| 0 | `learning_rate` 0.247892, `credit_horizon` 5, `credit_discount` 0.672568, `cross_person_weight` 0.712342, `policy_temperature` 1.61102, `habituation_rate` 0.394202, `habituation_window` 7, `cutoff_stock_cap` 1712.32, `cutoff_threat_weight` 0.00382396, `cutoff_decay_weeks` 314, `cutoff_floor_share` 0.106912, `positive_bridge_dissipation` 0.732122, `calm_transfer_rate` 0.0458045, `tie_wear_rate` 0.0818156; ratio 0.03435 (per week ÷ per contact) | 200 | no | PASS | `negative_run` +0.117 ± 0.13 |
-| 1 | `learning_rate` 0.376126, `credit_horizon` 6, `credit_discount` 0.571656, `cross_person_weight` 0.493781, `policy_temperature` 0.978477, `habituation_rate` 0.998807, `habituation_window` 14, `cutoff_stock_cap` 1872.46, `cutoff_threat_weight` 0.00622121, `cutoff_decay_weeks` 361, `cutoff_floor_share` 0.0619932, `positive_bridge_dissipation` 0.475072, `calm_transfer_rate` 0.0491674, `tie_wear_rate` 0.1283; ratio 0.05018 (per week ÷ per contact) | 200 | no | FAIL | `negative_run` +0.0586 ± 0.13 |
-| 2 | `learning_rate` 0.134183, `credit_horizon` 6, `credit_discount` 0.956053, `cross_person_weight` 0.559969, `policy_temperature` 0.558845, `habituation_rate` 0.601236, `habituation_window` 9, `cutoff_stock_cap` 910.191, `cutoff_threat_weight` 0.00200315, `cutoff_decay_weeks` 434, `cutoff_floor_share` 0.183506, `positive_bridge_dissipation` 0.690904, `calm_transfer_rate` 0.029131, `tie_wear_rate` 0.0150323; ratio 0.009924 (per week ÷ per contact) | 200 | no | FAIL | `negative_run` +0.0309 ± 0.13 |
-| 3 | `learning_rate` 0.132511, `credit_horizon` 2, `credit_discount` 0.625784, `cross_person_weight` 0.853318, `policy_temperature` 0.627963, `habituation_rate` 0.682449, `habituation_window` 12, `cutoff_stock_cap` 1546.55, `cutoff_threat_weight` 0.00390046, `cutoff_decay_weeks` 179, `cutoff_floor_share` 0.0517486, `positive_bridge_dissipation` 0.888263, `calm_transfer_rate` 0.0302485, `tie_wear_rate` 0.0156122; ratio 0.009926 (per week ÷ per contact) | 200 | no | PASS | `negative_run` +0.118 ± 0.13 |
-| 4 | `learning_rate` 0.187776, `credit_horizon` 5, `credit_discount` 0.37549, `cross_person_weight` 0.250366, `policy_temperature` 1.54959, `habituation_rate` 0.456227, `habituation_window` 12, `cutoff_stock_cap` 2182.26, `cutoff_threat_weight` 0.00619186, `cutoff_decay_weeks` 162, `cutoff_floor_share` 0.121419, `positive_bridge_dissipation` 0.772162, `calm_transfer_rate` 0.0813982, `tie_wear_rate` 0.049161; ratio 0.01161 (per week ÷ per contact) | 200 | no | FAIL | `negative_run` +0.0896 ± 0.14 |
-| 5 | `learning_rate` 0.194065, `credit_horizon` 2, `credit_discount` 0.435368, `cross_person_weight` 0.870515, `policy_temperature` 0.859063, `habituation_rate` 0.413353, `habituation_window` 6, `cutoff_stock_cap` 1555.53, `cutoff_threat_weight` 0.00210926, `cutoff_decay_weeks` 436, `cutoff_floor_share` 0.0770757, `positive_bridge_dissipation` 0.73602, `calm_transfer_rate` 0.0354213, `tie_wear_rate` 0.12847; ratio 0.06975 (per week ÷ per contact) | 200 | no | FAIL | `negative_run` +0.102 ± 0.14 |
-| 6 | `learning_rate` 0.375307, `credit_horizon` 4, `credit_discount` 0.978037, `cross_person_weight` 0.464834, `policy_temperature` 0.555075, `habituation_rate` 0.818658, `habituation_window` 15, `cutoff_stock_cap` 1860.44, `cutoff_threat_weight` 0.0042895, `cutoff_decay_weeks` 362, `cutoff_floor_share` 0.0594356, `positive_bridge_dissipation` 0.7915, `calm_transfer_rate` 0.0337366, `tie_wear_rate` 0.036246; ratio 0.02066 (per week ÷ per contact) | 200 | no | PASS | `negative_run` +0.165 ± 0.2 |
-| 7 | `learning_rate` 0.217627, `credit_horizon` 5, `credit_discount` 0.694019, `cross_person_weight` 0.255281, `policy_temperature` 1.7415, `habituation_rate` 0.65354, `habituation_window` 12, `cutoff_stock_cap` 1185.86, `cutoff_threat_weight` 0.00184698, `cutoff_decay_weeks` 405, `cutoff_floor_share` 0.0854268, `positive_bridge_dissipation` 0.461717, `calm_transfer_rate` 0.0554836, `tie_wear_rate` 0.0663722; ratio 0.023 (per week ÷ per contact) | 200 | no | FAIL | `negative_run` +0.0958 ± 0.13 |
-
-## `M11.C.48[phase_d]` — 8 of 8 samples held
-
-`tie_wear_to_transfer_ratio` (per week ÷ per contact) entered: held 4 of 4 below its central value 0.01923 and 4 of 4 at or above it.
+`tie_wear_to_transfer_ratio` (per week ÷ per contact) entered: held 1 of 3 below its central value 0.01923 and 3 of 5 at or above it.
 
 | Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |
 |---|---|---|---|---|---|
-| 0 | `learning_rate` 0.24419, `credit_horizon` 2, `credit_discount` 0.796021, `cross_person_weight` 0.309535, `policy_temperature` 1.3338, `habituation_rate` 0.639086, `habituation_window` 8, `cutoff_stock_cap` 1441.13, `cutoff_threat_weight` 0.00277184, `cutoff_decay_weeks` 301, `cutoff_floor_share` 0.0890746, `positive_bridge_dissipation` 0.609697, `calm_transfer_rate` 0.090142, `tie_wear_rate` 0.295153; ratio 0.06297 (per week ÷ per contact) | 200 | no | PASS | `negative_run` +0.334 ± 0.076 |
-| 1 | `learning_rate` 0.362105, `credit_horizon` 2, `credit_discount` 0.578237, `cross_person_weight` 0.901504, `policy_temperature` 1.18975, `habituation_rate` 0.773857, `habituation_window` 9, `cutoff_stock_cap` 1101.41, `cutoff_threat_weight` 0.00156209, `cutoff_decay_weeks` 217, `cutoff_floor_share` 0.199758, `positive_bridge_dissipation` 0.453333, `calm_transfer_rate` 0.075583, `tie_wear_rate` 0.0469057; ratio 0.01193 (per week ÷ per contact) | 200 | no | PASS | `negative_run` +0.387 ± 0.08 |
-| 2 | `learning_rate` 0.242537, `credit_horizon` 5, `credit_discount` 0.458654, `cross_person_weight` 0.287328, `policy_temperature` 1.30557, `habituation_rate` 0.989447, `habituation_window` 6, `cutoff_stock_cap` 1215.66, `cutoff_threat_weight` 0.00465533, `cutoff_decay_weeks` 274, `cutoff_floor_share` 0.131322, `positive_bridge_dissipation` 0.40812, `calm_transfer_rate` 0.0331747, `tie_wear_rate` 0.0113581; ratio 0.006584 (per week ÷ per contact) | 200 | no | PASS | `negative_run` +0.324 ± 0.075 |
-| 3 | `learning_rate` 0.104382, `credit_horizon` 6, `credit_discount` 0.959591, `cross_person_weight` 0.389648, `policy_temperature` 0.745754, `habituation_rate` 0.350142, `habituation_window` 6, `cutoff_stock_cap` 1114.98, `cutoff_threat_weight` 0.00206921, `cutoff_decay_weeks` 269, `cutoff_floor_share` 0.164162, `positive_bridge_dissipation` 0.983134, `calm_transfer_rate` 0.092571, `tie_wear_rate` 0.243201; ratio 0.05052 (per week ÷ per contact) | 200 | no | PASS | `negative_run` +0.195 ± 0.06 |
-| 4 | `learning_rate` 0.376206, `credit_horizon` 2, `credit_discount` 0.785203, `cross_person_weight` 0.477829, `policy_temperature` 1.9944, `habituation_rate` 0.564005, `habituation_window` 10, `cutoff_stock_cap` 1708.69, `cutoff_threat_weight` 0.00483194, `cutoff_decay_weeks` 474, `cutoff_floor_share` 0.0554266, `positive_bridge_dissipation` 0.5437, `calm_transfer_rate` 0.0967873, `tie_wear_rate` 0.0305304; ratio 0.006066 (per week ÷ per contact) | 200 | no | PASS | `negative_run` +0.315 ± 0.09 |
-| 5 | `learning_rate` 0.330207, `credit_horizon` 3, `credit_discount` 0.639876, `cross_person_weight` 0.948444, `policy_temperature` 0.851724, `habituation_rate` 0.847914, `habituation_window` 11, `cutoff_stock_cap` 2541.14, `cutoff_threat_weight` 0.00577269, `cutoff_decay_weeks` 317, `cutoff_floor_share` 0.0760002, `positive_bridge_dissipation` 0.459051, `calm_transfer_rate` 0.0849694, `tie_wear_rate` 0.192865; ratio 0.04365 (per week ÷ per contact) | 200 | no | PASS | `negative_run` +0.259 ± 0.081 |
-| 6 | `learning_rate` 0.193397, `credit_horizon` 5, `credit_discount` 0.780096, `cross_person_weight` 0.828628, `policy_temperature` 1.28402, `habituation_rate` 0.837309, `habituation_window` 7, `cutoff_stock_cap` 1207.89, `cutoff_threat_weight` 0.0015714, `cutoff_decay_weeks` 354, `cutoff_floor_share` 0.137174, `positive_bridge_dissipation` 0.465099, `calm_transfer_rate` 0.0271436, `tie_wear_rate` 0.0610813; ratio 0.04328 (per week ÷ per contact) | 200 | no | PASS | `negative_run` +0.336 ± 0.075 |
-| 7 | `learning_rate` 0.128485, `credit_horizon` 3, `credit_discount` 0.506122, `cross_person_weight` 0.339178, `policy_temperature` 1.70249, `habituation_rate` 0.482606, `habituation_window` 12, `cutoff_stock_cap` 831.482, `cutoff_threat_weight` 0.0034399, `cutoff_decay_weeks` 472, `cutoff_floor_share` 0.0551299, `positive_bridge_dissipation` 0.413452, `calm_transfer_rate` 0.0629708, `tie_wear_rate` 0.045015; ratio 0.01375 (per week ÷ per contact) | 200 | no | PASS | `negative_run` +0.267 ± 0.071 |
+| 0 | `learning_rate` 0.247892, `credit_horizon` 5, `credit_discount` 0.672568, `cross_person_weight` 0.712342, `policy_temperature` 1.61102, `habituation_rate` 0.394202, `habituation_window` 7, `cutoff_stock_cap` 1712.32, `cutoff_threat_weight` 0.00382396, `cutoff_decay_weeks` 314, `cutoff_floor_share` 0.106912, `positive_bridge_dissipation` 0.732122, `calm_transfer_rate` 0.0458045, `tie_wear_rate` 0.0818156; ratio 0.03435 (per week ÷ per contact) | 200 | no | PASS | `negative_run` +0.0898 ± 0.15 |
+| 1 | `learning_rate` 0.376126, `credit_horizon` 6, `credit_discount` 0.571656, `cross_person_weight` 0.493781, `policy_temperature` 0.978477, `habituation_rate` 0.998807, `habituation_window` 14, `cutoff_stock_cap` 1872.46, `cutoff_threat_weight` 0.00622121, `cutoff_decay_weeks` 361, `cutoff_floor_share` 0.0619932, `positive_bridge_dissipation` 0.475072, `calm_transfer_rate` 0.0491674, `tie_wear_rate` 0.1283; ratio 0.05018 (per week ÷ per contact) | 200 | no | FAIL | `negative_run` +0.0824 ± 0.15 |
+| 2 | `learning_rate` 0.134183, `credit_horizon` 6, `credit_discount` 0.956053, `cross_person_weight` 0.559969, `policy_temperature` 0.558845, `habituation_rate` 0.601236, `habituation_window` 9, `cutoff_stock_cap` 910.191, `cutoff_threat_weight` 0.00200315, `cutoff_decay_weeks` 434, `cutoff_floor_share` 0.183506, `positive_bridge_dissipation` 0.690904, `calm_transfer_rate` 0.029131, `tie_wear_rate` 0.0150323; ratio 0.009924 (per week ÷ per contact) | 200 | no | FAIL | `negative_run` +0.0531 ± 0.15 |
+| 3 | `learning_rate` 0.132511, `credit_horizon` 2, `credit_discount` 0.625784, `cross_person_weight` 0.853318, `policy_temperature` 0.627963, `habituation_rate` 0.682449, `habituation_window` 12, `cutoff_stock_cap` 1546.55, `cutoff_threat_weight` 0.00390046, `cutoff_decay_weeks` 179, `cutoff_floor_share` 0.0517486, `positive_bridge_dissipation` 0.888263, `calm_transfer_rate` 0.0302485, `tie_wear_rate` 0.0156122; ratio 0.009926 (per week ÷ per contact) | 200 | no | PASS | `negative_run` +0.175 ± 0.16 |
+| 4 | `learning_rate` 0.187776, `credit_horizon` 5, `credit_discount` 0.37549, `cross_person_weight` 0.250366, `policy_temperature` 1.54959, `habituation_rate` 0.456227, `habituation_window` 12, `cutoff_stock_cap` 2182.26, `cutoff_threat_weight` 0.00619186, `cutoff_decay_weeks` 162, `cutoff_floor_share` 0.121419, `positive_bridge_dissipation` 0.772162, `calm_transfer_rate` 0.0813982, `tie_wear_rate` 0.049161; ratio 0.01161 (per week ÷ per contact) | 200 | no | FAIL | `negative_run` +0.0686 ± 0.16 |
+| 5 | `learning_rate` 0.194065, `credit_horizon` 2, `credit_discount` 0.435368, `cross_person_weight` 0.870515, `policy_temperature` 0.859063, `habituation_rate` 0.413353, `habituation_window` 6, `cutoff_stock_cap` 1555.53, `cutoff_threat_weight` 0.00210926, `cutoff_decay_weeks` 436, `cutoff_floor_share` 0.0770757, `positive_bridge_dissipation` 0.73602, `calm_transfer_rate` 0.0354213, `tie_wear_rate` 0.12847; ratio 0.06975 (per week ÷ per contact) | 200 | no | PASS | `negative_run` +0.156 ± 0.16 |
+| 6 | `learning_rate` 0.375307, `credit_horizon` 4, `credit_discount` 0.978037, `cross_person_weight` 0.464834, `policy_temperature` 0.555075, `habituation_rate` 0.818658, `habituation_window` 15, `cutoff_stock_cap` 1860.44, `cutoff_threat_weight` 0.0042895, `cutoff_decay_weeks` 362, `cutoff_floor_share` 0.0594356, `positive_bridge_dissipation` 0.7915, `calm_transfer_rate` 0.0337366, `tie_wear_rate` 0.036246; ratio 0.02066 (per week ÷ per contact) | 200 | no | PASS | `negative_run` +0.221 ± 0.27 |
+| 7 | `learning_rate` 0.217627, `credit_horizon` 5, `credit_discount` 0.694019, `cross_person_weight` 0.255281, `policy_temperature` 1.7415, `habituation_rate` 0.65354, `habituation_window` 12, `cutoff_stock_cap` 1185.86, `cutoff_threat_weight` 0.00184698, `cutoff_decay_weeks` 405, `cutoff_floor_share` 0.0854268, `positive_bridge_dissipation` 0.461717, `calm_transfer_rate` 0.0554836, `tie_wear_rate` 0.0663722; ratio 0.023 (per week ÷ per contact) | 200 | no | FAIL | `negative_run` +0.101 ± 0.15 |
+
+## `M11.C.48[phase_d]` — 5 of 8 samples held
+
+`tie_wear_to_transfer_ratio` (per week ÷ per contact) entered: held 3 of 4 below its central value 0.01923 and 2 of 4 at or above it.
+
+| Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |
+|---|---|---|---|---|---|
+| 0 | `learning_rate` 0.24419, `credit_horizon` 2, `credit_discount` 0.796021, `cross_person_weight` 0.309535, `policy_temperature` 1.3338, `habituation_rate` 0.639086, `habituation_window` 8, `cutoff_stock_cap` 1441.13, `cutoff_threat_weight` 0.00277184, `cutoff_decay_weeks` 301, `cutoff_floor_share` 0.0890746, `positive_bridge_dissipation` 0.609697, `calm_transfer_rate` 0.090142, `tie_wear_rate` 0.295153; ratio 0.06297 (per week ÷ per contact) | 200 | no | PASS | `negative_run` +0.1 ± 0.086 |
+| 1 | `learning_rate` 0.362105, `credit_horizon` 2, `credit_discount` 0.578237, `cross_person_weight` 0.901504, `policy_temperature` 1.18975, `habituation_rate` 0.773857, `habituation_window` 9, `cutoff_stock_cap` 1101.41, `cutoff_threat_weight` 0.00156209, `cutoff_decay_weeks` 217, `cutoff_floor_share` 0.199758, `positive_bridge_dissipation` 0.453333, `calm_transfer_rate` 0.075583, `tie_wear_rate` 0.0469057; ratio 0.01193 (per week ÷ per contact) | 200 | no | PASS | `negative_run` +0.145 ± 0.09 |
+| 2 | `learning_rate` 0.242537, `credit_horizon` 5, `credit_discount` 0.458654, `cross_person_weight` 0.287328, `policy_temperature` 1.30557, `habituation_rate` 0.989447, `habituation_window` 6, `cutoff_stock_cap` 1215.66, `cutoff_threat_weight` 0.00465533, `cutoff_decay_weeks` 274, `cutoff_floor_share` 0.131322, `positive_bridge_dissipation` 0.40812, `calm_transfer_rate` 0.0331747, `tie_wear_rate` 0.0113581; ratio 0.006584 (per week ÷ per contact) | 200 | no | PASS | `negative_run` +0.128 ± 0.081 |
+| 3 | `learning_rate` 0.104382, `credit_horizon` 6, `credit_discount` 0.959591, `cross_person_weight` 0.389648, `policy_temperature` 0.745754, `habituation_rate` 0.350142, `habituation_window` 6, `cutoff_stock_cap` 1114.98, `cutoff_threat_weight` 0.00206921, `cutoff_decay_weeks` 269, `cutoff_floor_share` 0.164162, `positive_bridge_dissipation` 0.983134, `calm_transfer_rate` 0.092571, `tie_wear_rate` 0.243201; ratio 0.05052 (per week ÷ per contact) | 200 | no | FAIL | `negative_run` +0.0086 ± 0.073 |
+| 4 | `learning_rate` 0.376206, `credit_horizon` 2, `credit_discount` 0.785203, `cross_person_weight` 0.477829, `policy_temperature` 1.9944, `habituation_rate` 0.564005, `habituation_window` 10, `cutoff_stock_cap` 1708.69, `cutoff_threat_weight` 0.00483194, `cutoff_decay_weeks` 474, `cutoff_floor_share` 0.0554266, `positive_bridge_dissipation` 0.5437, `calm_transfer_rate` 0.0967873, `tie_wear_rate` 0.0305304; ratio 0.006066 (per week ÷ per contact) | 200 | no | PASS | `negative_run` +0.0901 ± 0.094 |
+| 5 | `learning_rate` 0.330207, `credit_horizon` 3, `credit_discount` 0.639876, `cross_person_weight` 0.948444, `policy_temperature` 0.851724, `habituation_rate` 0.847914, `habituation_window` 11, `cutoff_stock_cap` 2541.14, `cutoff_threat_weight` 0.00577269, `cutoff_decay_weeks` 317, `cutoff_floor_share` 0.0760002, `positive_bridge_dissipation` 0.459051, `calm_transfer_rate` 0.0849694, `tie_wear_rate` 0.192865; ratio 0.04365 (per week ÷ per contact) | 200 | no | FAIL | `negative_run` +0.0499 ± 0.086 |
+| 6 | `learning_rate` 0.193397, `credit_horizon` 5, `credit_discount` 0.780096, `cross_person_weight` 0.828628, `policy_temperature` 1.28402, `habituation_rate` 0.837309, `habituation_window` 7, `cutoff_stock_cap` 1207.89, `cutoff_threat_weight` 0.0015714, `cutoff_decay_weeks` 354, `cutoff_floor_share` 0.137174, `positive_bridge_dissipation` 0.465099, `calm_transfer_rate` 0.0271436, `tie_wear_rate` 0.0610813; ratio 0.04328 (per week ÷ per contact) | 200 | no | PASS | `negative_run` +0.138 ± 0.082 |
+| 7 | `learning_rate` 0.128485, `credit_horizon` 3, `credit_discount` 0.506122, `cross_person_weight` 0.339178, `policy_temperature` 1.70249, `habituation_rate` 0.482606, `habituation_window` 12, `cutoff_stock_cap` 831.482, `cutoff_threat_weight` 0.0034399, `cutoff_decay_weeks` 472, `cutoff_floor_share` 0.0551299, `positive_bridge_dissipation` 0.413452, `calm_transfer_rate` 0.0629708, `tie_wear_rate` 0.045015; ratio 0.01375 (per week ÷ per contact) | 200 | no | FAIL | `negative_run` +0.0253 ± 0.082 |
+
+## `M11.C.52` — 6 of 8 samples held
+
+| Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |
+|---|---|---|---|---|---|
+| 0 | `reappraisal_window` 8, `cue_leak_gain` 0.834413, `cue_leak_expectations_share` 0.450271, `cue_leak_distress_share` 0.499492, `cue_tone_share` 0.781687, `cue_face_share` 0.675026, `cue_posture_share` 0.262025 | 100 then 200 | yes (first PASS) | PASS | `escalation` -19.3 ± 16 |
+| 1 | `reappraisal_window` 6, `cue_leak_gain` 0.57229, `cue_leak_expectations_share` 0.355762, `cue_leak_distress_share` 0.504755, `cue_tone_share` 0.543409, `cue_face_share` 0.706918, `cue_posture_share` 0.844849 | 100 then 200 | yes (first FAIL) | PASS | `escalation` -16.3 ± 16 |
+| 2 | `reappraisal_window` 8, `cue_leak_gain` 0.393409, `cue_leak_expectations_share` 0.320007, `cue_leak_distress_share` 0.477702, `cue_tone_share` 0.696172, `cue_face_share` 0.781289, `cue_posture_share` 0.545063 | 100 then 200 | yes (first FAIL) | FAIL | `escalation` -12.8 ± 16 |
+| 3 | `reappraisal_window` 7, `cue_leak_gain` 0.967904, `cue_leak_expectations_share` 0.511327, `cue_leak_distress_share` 0.581995, `cue_tone_share` 0.622029, `cue_face_share` 0.631152, `cue_posture_share` 0.429903 | 100 then 200 | yes (first PASS) | PASS | `escalation` -19.5 ± 16 |
+| 4 | `reappraisal_window` 2, `cue_leak_gain` 0.691206, `cue_leak_expectations_share` 0.577764, `cue_leak_distress_share` 0.251876, `cue_tone_share` 0.546104, `cue_face_share` 0.59696, `cue_posture_share` 0.459313 | 100 then 200 | yes (first FAIL) | FAIL | `escalation` -15.2 ± 16 |
+| 5 | `reappraisal_window` 8, `cue_leak_gain` 0.652612, `cue_leak_expectations_share` 0.279758, `cue_leak_distress_share` 0.657791, `cue_tone_share` 0.521444, `cue_face_share` 0.597166, `cue_posture_share` 0.264126 | 100 then 200 | yes (first PASS) | PASS | `escalation` -18.1 ± 17 |
+| 6 | `reappraisal_window` 6, `cue_leak_gain` 0.870236, `cue_leak_expectations_share` 0.667958, `cue_leak_distress_share` 0.533516, `cue_tone_share` 0.689351, `cue_face_share` 0.685083, `cue_posture_share` 0.401137 | 100 then 200 | yes (first FAIL) | PASS | `escalation` -17.6 ± 17 |
+| 7 | `reappraisal_window` 6, `cue_leak_gain` 0.357375, `cue_leak_expectations_share` 0.678501, `cue_leak_distress_share` 0.269732, `cue_tone_share` 0.868816, `cue_face_share` 0.980382, `cue_posture_share` 0.378369 | 100 then 200 | yes (first FAIL) | PASS | `escalation` -17.5 ± 17 |
+
+## `M11.C.55` — 8 of 8 samples held
+
+`tie_wear_to_transfer_ratio` (per week ÷ per contact) entered: held 5 of 5 below its central value 0.01923 and 3 of 3 at or above it.
+
+| Sample | Values | Seeds | Rerun | Verdict | Gating readouts (mean difference ± half-width) |
+|---|---|---|---|---|---|
+| 0 | `learning_rate` 0.185538, `credit_horizon` 2, `credit_discount` 0.632813, `cross_person_weight` 0.836202, `policy_temperature` 0.915178, `habituation_rate` 0.641182, `habituation_window` 4, `calm_transfer_rate` 0.0304204, `tie_wear_rate` 0.00918616; ratio 0.005807 (per week ÷ per contact) | 150 | no | PASS | `predicted_main_supplier` +0.427 ± 0.17; `predicted_over_chance` +0.404 ± 0.11 |
+| 1 | `learning_rate` 0.154739, `credit_horizon` 5, `credit_discount` 0.880247, `cross_person_weight` 0.542807, `policy_temperature` 0.729661, `habituation_rate` 0.420798, `habituation_window` 7, `calm_transfer_rate` 0.0561269, `tie_wear_rate` 0.0200778; ratio 0.006879 (per week ÷ per contact) | 150 | no | PASS | `predicted_main_supplier` +0.367 ± 0.16; `predicted_over_chance` +0.402 ± 0.11 |
+| 2 | `learning_rate` 0.296759, `credit_horizon` 6, `credit_discount` 0.648163, `cross_person_weight` 0.322061, `policy_temperature` 0.927177, `habituation_rate` 0.402575, `habituation_window` 7, `calm_transfer_rate` 0.0265436, `tie_wear_rate` 0.0139304; ratio 0.01009 (per week ÷ per contact) | 150 | no | PASS | `predicted_main_supplier` +0.453 ± 0.16; `predicted_over_chance` +0.433 ± 0.11 |
+| 3 | `learning_rate` 0.217003, `credit_horizon` 2, `credit_discount` 0.817914, `cross_person_weight` 0.319155, `policy_temperature` 0.982724, `habituation_rate` 0.390012, `habituation_window` 4, `calm_transfer_rate` 0.0870683, `tie_wear_rate` 0.0283089; ratio 0.006253 (per week ÷ per contact) | 150 | no | PASS | `predicted_main_supplier` +0.5 ± 0.14; `predicted_over_chance` +0.447 ± 0.11 |
+| 4 | `learning_rate` 0.167928, `credit_horizon` 6, `credit_discount` 0.73982, `cross_person_weight` 0.579873, `policy_temperature` 0.507255, `habituation_rate` 0.881803, `habituation_window` 9, `calm_transfer_rate` 0.0294764, `tie_wear_rate` 0.0403188; ratio 0.0263 (per week ÷ per contact) | 150 then 200 | yes (first PASS) | PASS | `predicted_main_supplier` +0.25 ± 0.14; `predicted_over_chance` +0.432 ± 0.097 |
+| 5 | `learning_rate` 0.140904, `credit_horizon` 2, `credit_discount` 0.425046, `cross_person_weight` 0.61814, `policy_temperature` 1.1722, `habituation_rate` 0.640217, `habituation_window` 13, `calm_transfer_rate` 0.0322645, `tie_wear_rate` 0.066964; ratio 0.03991 (per week ÷ per contact) | 150 | no | PASS | `predicted_main_supplier` +0.653 ± 0.13; `predicted_over_chance` +0.402 ± 0.11 |
+| 6 | `learning_rate` 0.186105, `credit_horizon` 5, `credit_discount` 0.359477, `cross_person_weight` 0.366983, `policy_temperature` 0.558294, `habituation_rate` 0.803718, `habituation_window` 6, `calm_transfer_rate` 0.0579594, `tie_wear_rate` 0.0465694; ratio 0.01545 (per week ÷ per contact) | 150 then 200 | yes (first PASS) | PASS | `predicted_main_supplier` +0.17 ± 0.14; `predicted_over_chance` +0.315 ± 0.1 |
+| 7 | `learning_rate` 0.169748, `credit_horizon` 6, `credit_discount` 0.424318, `cross_person_weight` 0.430164, `policy_temperature` 0.54066, `habituation_rate` 0.350717, `habituation_window` 8, `calm_transfer_rate` 0.0454208, `tie_wear_rate` 0.0683811; ratio 0.02895 (per week ÷ per contact) | 150 | no | PASS | `predicted_main_supplier` +0.393 ± 0.17; `predicted_over_chance` +0.507 ± 0.12 |
 
 ## Machine-readable
 
@@ -13673,7 +13705,7 @@ Directional criteria of the ensemble records with no ranges declared in `config/
   "criterion": "M11.C.48",
   "samples": 8,
   "counted": 8,
-  "held": 3,
+  "held": 4,
   "undetermined": 0,
   "errored": 0,
   "reruns": 0,
@@ -13801,8 +13833,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "negative_run",
-      "mean_difference": 0.1169736111111111,
-      "half_width": 0.12869461299674906,
+      "mean_difference": 0.0898388888888889,
+      "half_width": 0.1462807554406665,
       "direction": 1
      }
     ],
@@ -13833,8 +13865,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "negative_run",
-      "mean_difference": 0.05861250000000001,
-      "half_width": 0.12940539922211453,
+      "mean_difference": 0.0824138888888889,
+      "half_width": 0.1460990697870402,
       "direction": 1
      }
     ],
@@ -13865,8 +13897,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "negative_run",
-      "mean_difference": 0.03092916666666667,
-      "half_width": 0.13207296779484842,
+      "mean_difference": 0.05307499999999999,
+      "half_width": 0.15241621335866273,
       "direction": 1
      }
     ],
@@ -13897,8 +13929,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "negative_run",
-      "mean_difference": 0.11814722222222222,
-      "half_width": 0.13425313017636104,
+      "mean_difference": 0.17494444444444443,
+      "half_width": 0.1607494944756385,
       "direction": 1
      }
     ],
@@ -13929,8 +13961,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "negative_run",
-      "mean_difference": 0.08959722222222222,
-      "half_width": 0.1407636585133626,
+      "mean_difference": 0.0685611111111111,
+      "half_width": 0.15612328339022405,
       "direction": 1
      }
     ],
@@ -13956,13 +13988,13 @@ Directional criteria of the ensemble records with no ranges declared in `config/
      "calm_transfer_rate": "0.0354213",
      "tie_wear_rate": "0.12847"
     },
-    "outcome": "FAIL",
+    "outcome": "PASS",
     "seeds": 200,
     "readouts": [
      {
       "readout": "negative_run",
-      "mean_difference": 0.10165694444444444,
-      "half_width": 0.1388387470074628,
+      "mean_difference": 0.15590277777777778,
+      "half_width": 0.16411721829862708,
       "direction": 1
      }
     ],
@@ -13993,8 +14025,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "negative_run",
-      "mean_difference": 0.1653972222222222,
-      "half_width": 0.19874431518119062,
+      "mean_difference": 0.22132638888888884,
+      "half_width": 0.26547333582972515,
       "direction": 1
      }
     ],
@@ -14025,8 +14057,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "negative_run",
-      "mean_difference": 0.09578611111111111,
-      "half_width": 0.12909443810794885,
+      "mean_difference": 0.10056805555555556,
+      "half_width": 0.1509899452648197,
       "direction": 1
      }
     ],
@@ -14043,7 +14075,7 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "counted": 3
    },
    "above": {
-    "held": 2,
+    "held": 3,
     "counted": 5
    }
   },
@@ -14058,7 +14090,7 @@ Directional criteria of the ensemble records with no ranges declared in `config/
   "criterion": "M11.C.48[phase_d]",
   "samples": 8,
   "counted": 8,
-  "held": 8,
+  "held": 5,
   "undetermined": 0,
   "errored": 0,
   "reruns": 0,
@@ -14186,8 +14218,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "negative_run",
-      "mean_difference": 0.333997475253524,
-      "half_width": 0.07608751463614298,
+      "mean_difference": 0.1001318438156148,
+      "half_width": 0.0858170233769083,
       "direction": 1
      }
     ],
@@ -14218,8 +14250,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "negative_run",
-      "mean_difference": 0.3870414521193173,
-      "half_width": 0.07981121323237274,
+      "mean_difference": 0.14518746595070467,
+      "half_width": 0.09021925144124415,
       "direction": 1
      }
     ],
@@ -14250,8 +14282,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "negative_run",
-      "mean_difference": 0.3238316639069599,
-      "half_width": 0.07455438355262513,
+      "mean_difference": 0.1284811830768632,
+      "half_width": 0.08131464855252697,
       "direction": 1
      }
     ],
@@ -14277,13 +14309,13 @@ Directional criteria of the ensemble records with no ranges declared in `config/
      "calm_transfer_rate": "0.092571",
      "tie_wear_rate": "0.243201"
     },
-    "outcome": "PASS",
+    "outcome": "FAIL",
     "seeds": 200,
     "readouts": [
      {
       "readout": "negative_run",
-      "mean_difference": 0.19486380568803555,
-      "half_width": 0.059536099693843644,
+      "mean_difference": 0.008602534215833,
+      "half_width": 0.07323802537254308,
       "direction": 1
      }
     ],
@@ -14314,8 +14346,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "negative_run",
-      "mean_difference": 0.3150922361959132,
-      "half_width": 0.08984949085812487,
+      "mean_difference": 0.09010411549700445,
+      "half_width": 0.09385388914687658,
       "direction": 1
      }
     ],
@@ -14341,13 +14373,13 @@ Directional criteria of the ensemble records with no ranges declared in `config/
      "calm_transfer_rate": "0.0849694",
      "tie_wear_rate": "0.192865"
     },
-    "outcome": "PASS",
+    "outcome": "FAIL",
     "seeds": 200,
     "readouts": [
      {
       "readout": "negative_run",
-      "mean_difference": 0.2589894416162407,
-      "half_width": 0.08116530916938412,
+      "mean_difference": 0.049902847148959484,
+      "half_width": 0.08627528510732208,
       "direction": 1
      }
     ],
@@ -14378,8 +14410,8 @@ Directional criteria of the ensemble records with no ranges declared in `config/
     "readouts": [
      {
       "readout": "negative_run",
-      "mean_difference": 0.3356812771115089,
-      "half_width": 0.07469721652831668,
+      "mean_difference": 0.13837929856480277,
+      "half_width": 0.082365127751225,
       "direction": 1
      }
     ],
@@ -14405,13 +14437,13 @@ Directional criteria of the ensemble records with no ranges declared in `config/
      "calm_transfer_rate": "0.0629708",
      "tie_wear_rate": "0.045015"
     },
-    "outcome": "PASS",
+    "outcome": "FAIL",
     "seeds": 200,
     "readouts": [
      {
       "readout": "negative_run",
-      "mean_difference": 0.26666391989295124,
-      "half_width": 0.07116018587965478,
+      "mean_difference": 0.025335138253559323,
+      "half_width": 0.08159624065927525,
       "direction": 1
      }
     ],
@@ -14424,17 +14456,747 @@ Directional criteria of the ensemble records with no ranges declared in `config/
    "ratio": "tie_wear_to_transfer_ratio",
    "central": 0.019230769230769232,
    "below": {
-    "held": 4,
+    "held": 3,
     "counted": 4
    },
    "above": {
-    "held": 4,
+    "held": 2,
     "counted": 4
    }
   },
   "ratio_scope": {
    "ratio": "tie_wear_to_transfer_ratio",
    "run_ticks": 2080,
+   "period": 52,
+   "entered": true
+  }
+ },
+ {
+  "criterion": "M11.C.52",
+  "samples": 8,
+  "counted": 8,
+  "held": 6,
+  "undetermined": 0,
+  "errored": 0,
+  "reruns": 8,
+  "constants": [
+   {
+    "constant": "reappraisal_window",
+    "low": 2.0,
+    "high": 8.0,
+    "scale": "integer",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "cue_leak_gain",
+    "low": 0.3,
+    "high": 1.2,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "cue_leak_expectations_share",
+    "low": 0.25,
+    "high": 1.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "cue_leak_distress_share",
+    "low": 0.25,
+    "high": 1.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "cue_tone_share",
+    "low": 0.5,
+    "high": 1.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "cue_face_share",
+    "low": 0.5,
+    "high": 1.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "cue_posture_share",
+    "low": 0.25,
+    "high": 1.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   }
+  ],
+  "rows": [
+   {
+    "index": 0,
+    "values": {
+     "reappraisal_window": "8",
+     "cue_leak_gain": "0.834413",
+     "cue_leak_expectations_share": "0.450271",
+     "cue_leak_distress_share": "0.499492",
+     "cue_tone_share": "0.781687",
+     "cue_face_share": "0.675026",
+     "cue_posture_share": "0.262025"
+    },
+    "outcome": "PASS",
+    "seeds": 100,
+    "readouts": [
+     {
+      "readout": "escalation",
+      "mean_difference": -25.827496767024364,
+      "half_width": 24.340207654497025,
+      "direction": -1
+     }
+    ],
+    "rerun": true,
+    "error": "",
+    "first_outcome": "PASS",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "escalation",
+      "mean_difference": -19.31963724311575,
+      "half_width": 16.308012506052975,
+      "direction": -1
+     }
+    ]
+   },
+   {
+    "index": 1,
+    "values": {
+     "reappraisal_window": "6",
+     "cue_leak_gain": "0.57229",
+     "cue_leak_expectations_share": "0.355762",
+     "cue_leak_distress_share": "0.504755",
+     "cue_tone_share": "0.543409",
+     "cue_face_share": "0.706918",
+     "cue_posture_share": "0.844849"
+    },
+    "outcome": "PASS",
+    "seeds": 100,
+    "readouts": [
+     {
+      "readout": "escalation",
+      "mean_difference": -18.361161346391672,
+      "half_width": 23.7559276102363,
+      "direction": -1
+     }
+    ],
+    "rerun": true,
+    "error": "",
+    "first_outcome": "FAIL",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "escalation",
+      "mean_difference": -16.272123623180406,
+      "half_width": 16.114671341703275,
+      "direction": -1
+     }
+    ]
+   },
+   {
+    "index": 2,
+    "values": {
+     "reappraisal_window": "8",
+     "cue_leak_gain": "0.393409",
+     "cue_leak_expectations_share": "0.320007",
+     "cue_leak_distress_share": "0.477702",
+     "cue_tone_share": "0.696172",
+     "cue_face_share": "0.781289",
+     "cue_posture_share": "0.545063"
+    },
+    "outcome": "FAIL",
+    "seeds": 100,
+    "readouts": [
+     {
+      "readout": "escalation",
+      "mean_difference": -13.697148211156959,
+      "half_width": 23.66276339964117,
+      "direction": -1
+     }
+    ],
+    "rerun": true,
+    "error": "",
+    "first_outcome": "FAIL",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "escalation",
+      "mean_difference": -12.797317769968622,
+      "half_width": 16.435954829558572,
+      "direction": -1
+     }
+    ]
+   },
+   {
+    "index": 3,
+    "values": {
+     "reappraisal_window": "7",
+     "cue_leak_gain": "0.967904",
+     "cue_leak_expectations_share": "0.511327",
+     "cue_leak_distress_share": "0.581995",
+     "cue_tone_share": "0.622029",
+     "cue_face_share": "0.631152",
+     "cue_posture_share": "0.429903"
+    },
+    "outcome": "PASS",
+    "seeds": 100,
+    "readouts": [
+     {
+      "readout": "escalation",
+      "mean_difference": -24.5470620885347,
+      "half_width": 24.464978119899442,
+      "direction": -1
+     }
+    ],
+    "rerun": true,
+    "error": "",
+    "first_outcome": "PASS",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "escalation",
+      "mean_difference": -19.492857689635013,
+      "half_width": 16.371153514940787,
+      "direction": -1
+     }
+    ]
+   },
+   {
+    "index": 4,
+    "values": {
+     "reappraisal_window": "2",
+     "cue_leak_gain": "0.691206",
+     "cue_leak_expectations_share": "0.577764",
+     "cue_leak_distress_share": "0.251876",
+     "cue_tone_share": "0.546104",
+     "cue_face_share": "0.59696",
+     "cue_posture_share": "0.459313"
+    },
+    "outcome": "FAIL",
+    "seeds": 100,
+    "readouts": [
+     {
+      "readout": "escalation",
+      "mean_difference": -20.39986336014617,
+      "half_width": 24.147214805987982,
+      "direction": -1
+     }
+    ],
+    "rerun": true,
+    "error": "",
+    "first_outcome": "FAIL",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "escalation",
+      "mean_difference": -15.17186796169418,
+      "half_width": 16.206643651700322,
+      "direction": -1
+     }
+    ]
+   },
+   {
+    "index": 5,
+    "values": {
+     "reappraisal_window": "8",
+     "cue_leak_gain": "0.652612",
+     "cue_leak_expectations_share": "0.279758",
+     "cue_leak_distress_share": "0.657791",
+     "cue_tone_share": "0.521444",
+     "cue_face_share": "0.597166",
+     "cue_posture_share": "0.264126"
+    },
+    "outcome": "PASS",
+    "seeds": 100,
+    "readouts": [
+     {
+      "readout": "escalation",
+      "mean_difference": -22.775102798223298,
+      "half_width": 24.940841289726457,
+      "direction": -1
+     }
+    ],
+    "rerun": true,
+    "error": "",
+    "first_outcome": "PASS",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "escalation",
+      "mean_difference": -18.078811748266943,
+      "half_width": 16.837575376892087,
+      "direction": -1
+     }
+    ]
+   },
+   {
+    "index": 6,
+    "values": {
+     "reappraisal_window": "6",
+     "cue_leak_gain": "0.870236",
+     "cue_leak_expectations_share": "0.667958",
+     "cue_leak_distress_share": "0.533516",
+     "cue_tone_share": "0.689351",
+     "cue_face_share": "0.685083",
+     "cue_posture_share": "0.401137"
+    },
+    "outcome": "PASS",
+    "seeds": 100,
+    "readouts": [
+     {
+      "readout": "escalation",
+      "mean_difference": -22.464292888768295,
+      "half_width": 24.997646305512134,
+      "direction": -1
+     }
+    ],
+    "rerun": true,
+    "error": "",
+    "first_outcome": "FAIL",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "escalation",
+      "mean_difference": -17.553782728830562,
+      "half_width": 16.556269942478412,
+      "direction": -1
+     }
+    ]
+   },
+   {
+    "index": 7,
+    "values": {
+     "reappraisal_window": "6",
+     "cue_leak_gain": "0.357375",
+     "cue_leak_expectations_share": "0.678501",
+     "cue_leak_distress_share": "0.269732",
+     "cue_tone_share": "0.868816",
+     "cue_face_share": "0.980382",
+     "cue_posture_share": "0.378369"
+    },
+    "outcome": "PASS",
+    "seeds": 100,
+    "readouts": [
+     {
+      "readout": "escalation",
+      "mean_difference": -22.046368015360958,
+      "half_width": 24.603609028063534,
+      "direction": -1
+     }
+    ],
+    "rerun": true,
+    "error": "",
+    "first_outcome": "FAIL",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "escalation",
+      "mean_difference": -17.482604052840024,
+      "half_width": 16.76440203816537,
+      "direction": -1
+     }
+    ]
+   }
+  ],
+  "ratio_scope": {
+   "ratio": "tie_wear_to_transfer_ratio",
+   "run_ticks": 26,
+   "period": 52,
+   "entered": false
+  }
+ },
+ {
+  "criterion": "M11.C.55",
+  "samples": 8,
+  "counted": 8,
+  "held": 8,
+  "undetermined": 0,
+  "errored": 0,
+  "reruns": 2,
+  "constants": [
+   {
+    "constant": "learning_rate",
+    "low": 0.1,
+    "high": 0.4,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "credit_horizon",
+    "low": 2.0,
+    "high": 6.0,
+    "scale": "integer",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "credit_discount",
+    "low": 0.35,
+    "high": 1.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "cross_person_weight",
+    "low": 0.25,
+    "high": 1.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "policy_temperature",
+    "low": 0.5,
+    "high": 2.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "habituation_rate",
+    "low": 0.35,
+    "high": 1.0,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "habituation_window",
+    "low": 4.0,
+    "high": 16.0,
+    "scale": "integer",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "calm_transfer_rate",
+    "low": 0.025,
+    "high": 0.1,
+    "scale": "log",
+    "grade": "[I] \u2014 not named in `model_explainer.md`; `constants.md` grades it [I]"
+   },
+   {
+    "constant": "tie_wear_to_transfer_ratio",
+    "low": 0.004807692307692308,
+    "high": 0.07692307692307693,
+    "scale": "log",
+    "grade": "[I]"
+   }
+  ],
+  "rows": [
+   {
+    "index": 0,
+    "values": {
+     "learning_rate": "0.185538",
+     "credit_horizon": "2",
+     "credit_discount": "0.632813",
+     "cross_person_weight": "0.836202",
+     "policy_temperature": "0.915178",
+     "habituation_rate": "0.641182",
+     "habituation_window": "4",
+     "calm_transfer_rate": "0.0304204",
+     "tie_wear_rate": "0.00918616"
+    },
+    "outcome": "PASS",
+    "seeds": 150,
+    "readouts": [
+     {
+      "readout": "predicted_main_supplier",
+      "mean_difference": 0.4266666666666667,
+      "half_width": 0.167225377976917,
+      "direction": 1
+     },
+     {
+      "readout": "predicted_over_chance",
+      "mean_difference": 0.4044444444444445,
+      "half_width": 0.11237086332254685,
+      "direction": 1
+     }
+    ],
+    "rerun": false,
+    "error": "",
+    "ratio": 0.00580718606845811
+   },
+   {
+    "index": 1,
+    "values": {
+     "learning_rate": "0.154739",
+     "credit_horizon": "5",
+     "credit_discount": "0.880247",
+     "cross_person_weight": "0.542807",
+     "policy_temperature": "0.729661",
+     "habituation_rate": "0.420798",
+     "habituation_window": "7",
+     "calm_transfer_rate": "0.0561269",
+     "tie_wear_rate": "0.0200778"
+    },
+    "outcome": "PASS",
+    "seeds": 150,
+    "readouts": [
+     {
+      "readout": "predicted_main_supplier",
+      "mean_difference": 0.36666666666666664,
+      "half_width": 0.16418614052272026,
+      "direction": 1
+     },
+     {
+      "readout": "predicted_over_chance",
+      "mean_difference": 0.40222222222222226,
+      "half_width": 0.11384156233164816,
+      "direction": 1
+     }
+    ],
+    "rerun": false,
+    "error": "",
+    "ratio": 0.0068792600065483486
+   },
+   {
+    "index": 2,
+    "values": {
+     "learning_rate": "0.296759",
+     "credit_horizon": "6",
+     "credit_discount": "0.648163",
+     "cross_person_weight": "0.322061",
+     "policy_temperature": "0.927177",
+     "habituation_rate": "0.402575",
+     "habituation_window": "7",
+     "calm_transfer_rate": "0.0265436",
+     "tie_wear_rate": "0.0139304"
+    },
+    "outcome": "PASS",
+    "seeds": 150,
+    "readouts": [
+     {
+      "readout": "predicted_main_supplier",
+      "mean_difference": 0.4533333333333333,
+      "half_width": 0.16012638706953744,
+      "direction": 1
+     },
+     {
+      "readout": "predicted_over_chance",
+      "mean_difference": 0.4333333333333335,
+      "half_width": 0.1134135260435659,
+      "direction": 1
+     }
+    ],
+    "rerun": false,
+    "error": "",
+    "ratio": 0.010092538604119551
+   },
+   {
+    "index": 3,
+    "values": {
+     "learning_rate": "0.217003",
+     "credit_horizon": "2",
+     "credit_discount": "0.817914",
+     "cross_person_weight": "0.319155",
+     "policy_temperature": "0.982724",
+     "habituation_rate": "0.390012",
+     "habituation_window": "4",
+     "calm_transfer_rate": "0.0870683",
+     "tie_wear_rate": "0.0283089"
+    },
+    "outcome": "PASS",
+    "seeds": 150,
+    "readouts": [
+     {
+      "readout": "predicted_main_supplier",
+      "mean_difference": 0.5,
+      "half_width": 0.1408991261803609,
+      "direction": 1
+     },
+     {
+      "readout": "predicted_over_chance",
+      "mean_difference": 0.4466666666666669,
+      "half_width": 0.10629972903886452,
+      "direction": 1
+     }
+    ],
+    "rerun": false,
+    "error": "",
+    "ratio": 0.006252584730342996
+   },
+   {
+    "index": 4,
+    "values": {
+     "learning_rate": "0.167928",
+     "credit_horizon": "6",
+     "credit_discount": "0.73982",
+     "cross_person_weight": "0.579873",
+     "policy_temperature": "0.507255",
+     "habituation_rate": "0.881803",
+     "habituation_window": "9",
+     "calm_transfer_rate": "0.0294764",
+     "tie_wear_rate": "0.0403188"
+    },
+    "outcome": "PASS",
+    "seeds": 150,
+    "readouts": [
+     {
+      "readout": "predicted_main_supplier",
+      "mean_difference": 0.3333333333333333,
+      "half_width": 0.1695932406177687,
+      "direction": 1
+     },
+     {
+      "readout": "predicted_over_chance",
+      "mean_difference": 0.49777777777777793,
+      "half_width": 0.11085826539047823,
+      "direction": 1
+     }
+    ],
+    "rerun": true,
+    "error": "",
+    "ratio": 0.02630448557020323,
+    "first_outcome": "PASS",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "predicted_main_supplier",
+      "mean_difference": 0.25,
+      "half_width": 0.144891919518338,
+      "direction": 1
+     },
+     {
+      "readout": "predicted_over_chance",
+      "mean_difference": 0.4316666666666668,
+      "half_width": 0.09657212716614269,
+      "direction": 1
+     }
+    ]
+   },
+   {
+    "index": 5,
+    "values": {
+     "learning_rate": "0.140904",
+     "credit_horizon": "2",
+     "credit_discount": "0.425046",
+     "cross_person_weight": "0.61814",
+     "policy_temperature": "1.1722",
+     "habituation_rate": "0.640217",
+     "habituation_window": "13",
+     "calm_transfer_rate": "0.0322645",
+     "tie_wear_rate": "0.066964"
+    },
+    "outcome": "PASS",
+    "seeds": 150,
+    "readouts": [
+     {
+      "readout": "predicted_main_supplier",
+      "mean_difference": 0.6533333333333333,
+      "half_width": 0.13239165632200472,
+      "direction": 1
+     },
+     {
+      "readout": "predicted_over_chance",
+      "mean_difference": 0.40222222222222237,
+      "half_width": 0.10709921965298147,
+      "direction": 1
+     }
+    ],
+    "rerun": false,
+    "error": "",
+    "ratio": 0.039912883533581196
+   },
+   {
+    "index": 6,
+    "values": {
+     "learning_rate": "0.186105",
+     "credit_horizon": "5",
+     "credit_discount": "0.359477",
+     "cross_person_weight": "0.366983",
+     "policy_temperature": "0.558294",
+     "habituation_rate": "0.803718",
+     "habituation_window": "6",
+     "calm_transfer_rate": "0.0579594",
+     "tie_wear_rate": "0.0465694"
+    },
+    "outcome": "PASS",
+    "seeds": 150,
+    "readouts": [
+     {
+      "readout": "predicted_main_supplier",
+      "mean_difference": 0.16,
+      "half_width": 0.15631692925388682,
+      "direction": 1
+     },
+     {
+      "readout": "predicted_over_chance",
+      "mean_difference": 0.3133333333333334,
+      "half_width": 0.11499882384380553,
+      "direction": 1
+     }
+    ],
+    "rerun": true,
+    "error": "",
+    "ratio": 0.015451598612397376,
+    "first_outcome": "PASS",
+    "rerun_seeds": 200,
+    "rerun_readouts": [
+     {
+      "readout": "predicted_main_supplier",
+      "mean_difference": 0.17,
+      "half_width": 0.13901711257230062,
+      "direction": 1
+     },
+     {
+      "readout": "predicted_over_chance",
+      "mean_difference": 0.31500000000000006,
+      "half_width": 0.10053326035568666,
+      "direction": 1
+     }
+    ]
+   },
+   {
+    "index": 7,
+    "values": {
+     "learning_rate": "0.169748",
+     "credit_horizon": "6",
+     "credit_discount": "0.424318",
+     "cross_person_weight": "0.430164",
+     "policy_temperature": "0.54066",
+     "habituation_rate": "0.350717",
+     "habituation_window": "8",
+     "calm_transfer_rate": "0.0454208",
+     "tie_wear_rate": "0.0683811"
+    },
+    "outcome": "PASS",
+    "seeds": 150,
+    "readouts": [
+     {
+      "readout": "predicted_main_supplier",
+      "mean_difference": 0.3933333333333333,
+      "half_width": 0.16778974663344876,
+      "direction": 1
+     },
+     {
+      "readout": "predicted_over_chance",
+      "mean_difference": 0.5066666666666668,
+      "half_width": 0.11640024344529436,
+      "direction": 1
+     }
+    ],
+    "rerun": false,
+    "error": "",
+    "ratio": 0.02895195931921397
+   }
+  ],
+  "ratio_split": {
+   "ratio": "tie_wear_to_transfer_ratio",
+   "central": 0.019230769230769232,
+   "below": {
+    "held": 5,
+    "counted": 5
+   },
+   "above": {
+    "held": 3,
+    "counted": 3
+   }
+  },
+  "ratio_scope": {
+   "ratio": "tie_wear_to_transfer_ratio",
+   "run_ticks": 1560,
    "period": 52,
    "entered": true
   }

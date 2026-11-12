@@ -2,7 +2,7 @@
 conflicted tie.
 
 Purpose: give a tie's bound anxiety (``distance_bound_anxiety``, the stock ``s``) the life the owner decided for group
-         G of version 2 (`docs/PROPOSAL — CUTOFF ANXIETY, BRIDGING AND REPAIR.md`, decided 2026-10-19): while a tie is
+         G of version 2 (`docs/archive/PROPOSAL — CUTOFF ANXIETY, BRIDGING AND REPAIR.md`, decided 2026-10-19): while a tie is
          cut off its stock weighs on both members in proportion to bond energy; it is capped at the cut and decays to a
          floor; a negative contact across the cut tie renews it to its peak and a positive one lets most of it go;
          the tie reopens only on a positive contact once no rejection is held. A distant or conflicted tie keeps the

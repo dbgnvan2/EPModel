@@ -9,8 +9,8 @@ Purpose: generate ``docs/version_2_status.md`` from the records, so no status on
          ``docs/version_1_dispositions.md`` (frozen at the tag) and ``docs/version_2_dispositions.md``; the sweep's
          rules are in ``config/sweep/sweep.md``.
 Spec:    docs/implementation_plan_version_2.md#2.2 (D11), #2.3 (S2.8–S2.11); docs/bowen_agent_model_spec_v2.md#M11.5;
-         docs/implementation_plan_version_2_stage_3.md (S3.24: each verdict beside version 1's and revision 38's);
-         docs/version_2_definition_plan.md §3 (version 2's dispositions)
+         docs/archive/implementation_plan_version_2_stage_3.md (S3.24: each verdict beside version 1's and revision 38's);
+         docs/archive/version_2_definition_plan.md §3 (version 2's dispositions)
 Tests:   tests/test_version_2_status.py
 
 The rules, version 1's (``docs/version_1_definition.md`` §1, approved 2026-10-15) carried into stage 2:
@@ -33,7 +33,7 @@ The rules, version 1's (``docs/version_1_definition.md`` §1, approved 2026-10-1
   verdict that is not the tag's. A version 2 disposition the owner made, other than a `note`, is the owner's review of
   the verdict it names, so the row is no longer held as changed since the tag (a note changes no status, so it reviews
   nothing: 2026-10-31, `M11.C.21`); one that is Claude's recommendation is shown and leaves the row as it was
-  (``docs/version_2_definition_plan.md`` §3).
+  (``docs/archive/version_2_definition_plan.md`` §3).
 * The **revision 38 column** shows the verdict this page gave at commit ``REVISION_38`` (the records as revision 38
   left them, before stage 3's regeneration), read from git; it is shown, never used for a status: a verdict that
   differs from it is a new result under revision 39's rules (`M11.F`), and the rules above still read only the tag.
@@ -204,7 +204,7 @@ def sweep_refused(path: Path = SWEEP_RECORD) -> dict[str, str]:
 def v2_dispositions(path: Path = V2_DISPOSITIONS) -> dict[str, dict]:
     """Purpose: read version 2's dispositions, strictly: one table, five cells a row, a known kind, a verdict of
     PASS or FAIL, an `accepted finding` only on a FAIL, `decided` in version 1's two forms, one row a key.
-    Spec:    docs/version_2_definition_plan.md §3
+    Spec:    docs/archive/version_2_definition_plan.md §3
     Tests:   tests/test_version_2_status.py::test_w1_v2_dispositions_parse_strictly
     """
     if not path.exists():
@@ -485,7 +485,7 @@ def render(rows: list[Status]) -> str:
         "the tag's page does not have is new since the tag. The **at revision 38** column is this page's verdict at",
         f"commit `{REVISION_38}`, before stage 3's regeneration: shown beside the verdict, never used for a status, since a",
         "verdict that differs from it is a new result under revision 39's rules (`M11.F`;",
-        "`docs/version_2_revision_39_changes.md` lists every changed field). The **sweep** column is a measurement, *n of S* samples",
+        "`docs/archive/version_2_revision_39_changes.md` lists every changed field). The **sweep** column is a measurement, *n of S* samples",
         "over the declared ranges in which the direction held (`docs/version_2_sweep_record.md`), never a verdict",
         "(`M11.5`); a premise or check is not swept. A criterion the sweep refused at the rerun (`M17.A.1`) is shown",
         "so, with the sample, and has no fraction, so W4 counts it as not swept.",

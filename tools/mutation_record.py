@@ -341,6 +341,13 @@ MUTANTS = (
     Mutant("clamp-within-tolerance", REPRESENTATION, ("*",), "src/bowen/engine/contact.py",
            "    return min(1.0, max(0.0, value))\n", "    return min(1.0 - 1e-12, max(1e-12, value))\n",
            "felt contact and impingement clamped 1e-12 inside [0, 1]"),
+    # T-237 (a), spec revision 59: the felt relief less the decay toward the chronic floor the week would bring anyway,
+    # so a reinforced act is one followed by more relief than waiting gives. [I] Run at step 4.
+    Mutant("relief-less-expected-decay", NAMED, ("M11.C.16",), "src/bowen/engine/learner.py",
+           'relief = {pid: start_acute[pid] - p.acute_anxiety for pid, p in state.people.items() if pid in start_acute}',
+           'relief = {pid: start_acute[pid] - p.acute_anxiety - max(0.0, start_acute[pid] - p.chronic_anxiety) * params.acute_decay_rate for pid, p in state.people.items() if pid in start_acute}',
+           "M4.D.6's felt relief taken net of the expected decay toward the chronic floor (acute_decay_rate of the "
+           "week's excess), so decay alone teaches nothing"),
 )
 
 

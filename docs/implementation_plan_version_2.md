@@ -10,7 +10,7 @@ approval; CI run 39449517708 passed on Python 3.11, 3.12 and 3.13 (S1.10c). A co
 2026-10-20 (§1.10) and pushed the same day with the owner's approval (`0d86b29`); CI run 39482917825 passed on
 Python 3.11, 3.12 and 3.13.** Written from
 `docs/version_2_plan.md` §3 (stage 1) and the `TODO.md` entries it collects, each checked against the code on
-2026-10-19. Later stages add their own sections here, as the Phase D plan did; stage 3's is a file of its own, `docs/implementation_plan_version_2_stage_3.md`, numbered §3.
+2026-10-19. Later stages add their own sections here, as the Phase D plan did; stage 3's is a file of its own, `docs/archive/implementation_plan_version_2_stage_3.md`, numbered §3.
 
 ## 1. Stage 1: one engineering batch that moves the engine hash once
 
@@ -153,7 +153,7 @@ mutation before it counts. The table is written for the recommended answers; ano
 | S1.8c | The Phase D ensemble results are cached in `docs/records_cache/`, keyed as Phase C's are, and the Phase D records re-render from the cache | `tests/bowen/test_phase_d_record.py::test_s1_8c_records_render_from_the_cache`; dirty state (P8): `::test_s1_8c_a_stale_entry_is_rerun` | the key without the engine hash |
 | S1.9 | The riders (D7) | (i) `tests/test_stale_text.py::test_s1_9_no_pending_review_text_for_decided_items`, retired 2026-11-10 with D5a (effort budget rule 5, `docs/plan_doc_claim_tests.md`); (ii) `tests/bowen/test_patterns.py::test_s1_9_readouts_read_now`; (iii) is S1.5b; (iv) `tests/bowen/test_phase_d_mutation_record.py::test_s1_9_engine_hash_ignores_comments`; (v) no new test: the trace's record-current test covers it | (i) one stale string put back; (ii) `now` ignored; (iv) `inspect.getsource` restored |
 | S1.10a | Every record is regenerated once on the new hash and matches its record-current test | the existing record-current tests | — |
-| S1.10b | Each criterion's verdict, effect and p at the tag `version-1` against stage 1's records, in a generated page | `tools/record_changes.py` writes `docs/version_2_stage_1_changes.md`; `tests/test_record_changes.py::test_s1_10b_changes_page_is_current` | a hand edit to the page |
+| S1.10b | Each criterion's verdict, effect and p at the tag `version-1` against stage 1's records, in a generated page | `tools/record_changes.py` writes `docs/archive/version_2_stage_1_changes.md`; `tests/test_record_changes.py::test_s1_10b_changes_page_is_current` | a hand edit to the page |
 | S1.10c | The suite passes, and CI passes on 3.11, 3.12 and 3.13 | `python3 -m pytest tests/`; `.github/workflows/tests.yml` on the pushed commit | — |
 
 The golden fingerprint fixtures change with S1.1 (learnings P23). They are regenerated in the same commit with the
@@ -186,7 +186,7 @@ record's renderer re-renders in seconds.
 
 S1.1 changes the last bits of many sums, and the selection draws read some of them, so a seed's trajectory can change
 from the week a draw lands on a boundary. Verdicts are expected to hold, but that is a prediction, not a measurement.
-`docs/version_2_stage_1_changes.md` lists every criterion whose verdict changed and every effect that moved by more
+`docs/archive/version_2_stage_1_changes.md` lists every criterion whose verdict changed and every effect that moved by more
 than its stated precision. A changed verdict is reported to the owner before stage 1 is checked off. It is a measured
 change, not a defect to be fixed in this stage; if the owner wants its cause, each item's effect can be separated with
 ad hoc runs of that criterion alone.
@@ -207,7 +207,7 @@ ad hoc runs of that criterion alone.
 ### 1.8 Not code-testable
 
 - D3's theory question, if the owner takes it to stage 3.
-- Whether a measured change of verdict is acceptable: the owner reads `docs/version_2_stage_1_changes.md`.
+- Whether a measured change of verdict is acceptable: the owner reads `docs/archive/version_2_stage_1_changes.md`.
 - Whether the trace reads well with the new lock-in rows: the owner reads week 74 of the seed-7 trace.
 
 ### 1.9 Adjacent issues found while planning, not fixed
@@ -366,7 +366,7 @@ about 2 hours on 10 cores plus the mutation records). Every step exited 0 and no
 | Phase D ensembles, part II (D2) | 5655 s |
 | Phase D mutation | 3866 s |
 
-`docs/version_2_stage_1_changes.md` (S1.10b) compares the rows of the records in its table with the tag `version-1`'s,
+`docs/archive/version_2_stage_1_changes.md` (S1.10b) compares the rows of the records in its table with the tag `version-1`'s,
 every field (since the step 8 sweep; before, verdicts and mean differences only): **no verdict changed, no effect
 moved, and no value differs at all**, across 24 Phase C ensemble rows, 25 Phase D ensemble rows, 6
 D2 rows, 114 Phase C mutation rows, 14 Phase D mutation rows, 54 sweep rows and 4 level-occupancy rows. The page lists
@@ -413,7 +413,7 @@ test shown failing under its mutation:
   that fails raises its own error), and the one-shot test now checks every stop signal, not only the one sent.
 - This section's run record: the mutation row was labelled "mutation and sweep" and left out the sweep's own 391 s,
   the estimate was cited from the wrong section, and the trace and chart claims named less than their diffs held.
-- `docs/version_2_stage_1_changes.md` lists the fam-diag export among what it does not compare, with why.
+- `docs/archive/version_2_stage_1_changes.md` lists the fam-diag export among what it does not compare, with why.
 
 | Test | Mutation | Result |
 |---|---|---|
@@ -473,7 +473,7 @@ failing under its mutation on a copy:
 - **C1 (medium):** `tools/record_cache.py`'s `exit_status` counted only FAILED rows, so a run with a RAISED or
   BROKEN row (written into the record, never cached) exited 0 while the record's test failed. Every errored row now
   gives exit 1, and the message says that rerunning will not change a row that raises every time.
-- **C5:** `docs/version_2_stage_1_changes.md` now lists the frozen Phase B mutation record and version 1's status
+- **C5:** `docs/archive/version_2_stage_1_changes.md` now lists the frozen Phase B mutation record and version 1's status
   page among what it does not compare, with why; a test fails when a page under `docs/` whose header says a tool
   generated it, or a committed file under `docs/review/`, is in neither list. The fix's re-sweep found the Phase B
   seed-7 traces in neither list too; they are listed. The page was regenerated.

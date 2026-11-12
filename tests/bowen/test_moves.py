@@ -736,3 +736,11 @@ def test_m6i4a_exchanged_reads_only_the_exchange():
                EffectRecord(1, "pseudo_self_relaxation", None, people=((RAVI, "pseudo_self", 5.0),)),
                EffectRecord(1, "pseudo_self_return", None, people=((RAVI, "pseudo_self", 7.0),))]
     assert exchanged(records) == {RAVI: -3.0, NADIA: 2.0, MARTA: 1.0}
+
+
+def test_t219_ties_in_the_third_go_to_the_shorter_identifier():
+    """T-219 (3): of two equal candidates whose identifiers share a prefix, the smaller one, the shorter, wins."""
+    from src.bowen.engine.moves import _desc
+
+    assert max((PersonId("leo2"), PersonId("leo")), key=_desc) == PersonId("leo")
+    assert max((PersonId("b"), PersonId("a")), key=_desc) == PersonId("a")

@@ -1,7 +1,7 @@
 # EPModel v2 — event sizes from the Holmes–Rahe scale
 
 > Read by `src/bowen/io/load.py::load_event_sizes` and carried on `EventKinds.sizes` (spec `M1.F.6a`, `M7.C.1l`,
-> `M7.D.1a`; `docs/PROPOSAL — EVENT SIZES FROM THE HOLMES–RAHE SCALE.md`, decided by the owner 2026-10-19, built at
+> `M7.D.1a`; `docs/archive/PROPOSAL — EVENT SIZES FROM THE HOLMES–RAHE SCALE.md`, decided by the owner 2026-10-19, built at
 > spec revision 36). Which Holmes–Rahe item stands for which event kind is editorial, so it lives here (rule 9).
 >
 > **The scale is used as an ordering of base sizes only** (the owner, Q1). Every value is graded `[I]`: the life

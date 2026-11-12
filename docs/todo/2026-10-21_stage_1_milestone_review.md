@@ -92,7 +92,7 @@ owner's ten decisions and what this batch fixed are in `CHANGELOG.md`. Open:
     Mixed). Is that intended?
   - `M7.D.1a` (stage 2 review Q5, owner 2026-10-24): every illness onset takes the "personal injury or illness"
     size on all three channels. Should a social or mental onset carry it?
-  - *Decided by the owner 2026-10-24, each as recommended, in stage 3's plan (`docs/implementation_plan_version_2_stage_3.md`
+  - *Decided by the owner 2026-10-24, each as recommended, in stage 3's plan (`docs/archive/implementation_plan_version_2_stage_3.md`
     §3.5, D27–D30): the avoidance gate dropped; fusion left unbuilt, `M8.1` partial; the coach's going along with a
     SPLIT declared a premise of `M11.C.7`'s arm; the illness size kept on all three channels. Open until built.*
   - *Closed 2026-10-25 at stage 3 step 6: built and written into the spec at revision 39 (draft §21) —

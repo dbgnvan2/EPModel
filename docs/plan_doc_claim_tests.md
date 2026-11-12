@@ -105,7 +105,7 @@ This would have caught `python3 src/main.py`. README at `423bbed` still had it i
 - **D2.1 Candidates.** Every backtick span in prose, every line of a fenced block, and every relative link target. A
   token counts as a repo path if it starts with `src/`, `tools/`, `tests/`, `docs/` or `config/`, or ends in `.py`. A
   `-m` module (`python3 -m src.bowen.run`) is checked as `src/bowen/run.py`. A whole span that is an existing path with
-  spaces in it (`docs/DECISIONS — FAMILY EVALUATION.md`) counts as one path. Tokens with `*`, `<`, `>`, `{`, `}` or
+  spaces in it (`docs/archive/DECISIONS — FAMILY EVALUATION.md`) counts as one path. Tokens with `*`, `<`, `>`, `{`, `}` or
   `$` are patterns or placeholders and are skipped. A `::test_name` suffix is dropped.
 - **D2.2 Exists** means git tracks it, as a file or as a directory holding tracked files. A bare `name.py` exists if
   any tracked file has that name. **Git, not the disk:** a stray untracked copy of a removed file must not hide the
@@ -327,7 +327,7 @@ The word lists go in `tests/doc_claims.json` (rule 9) without a question. Moving
 - `_STATUS.md`'s state line on `docs-stale-fixes` says the regeneration run is next. Step 7 ran it.
 - CLAUDE.md line 3 says "unit, family, and societal levels". The model is one three-generation family.
 - `test_stale_text.py` keeps its `PHRASE` regex and `PENDING` table in Python source, not a data file (rule 9).
-- `docs/phase_d_status_2026-10-13.md`, a dated report, says in its status paragraph that revisions 24–27 are "pending
+- `docs/archive/phase_d_status_2026-10-13.md`, a dated report, says in its status paragraph that revisions 24–27 are "pending
   owner review". D5a reads only the bold part of a status line, so it is not reported; its checklist entry now says the
   owner reviewed them on 2026-10-16. Found during the build.
 
@@ -355,7 +355,7 @@ Live mutations, one edit to a real file each, all reverted:
 | D3 | deleted the `numpy` line from `requirements.txt` | test_d3_requirements_match_the_imports | "{'imported, not in requirements.txt': ['numpy (src/bowen/engine/counting.py, src/bowen/engine/draws.py, …)']}" | reverted |
 | D5a | README: "Spec revisions 24–27 were Claude's recommendations; the owner reviewed them on 2026-10-16." → "Spec revisions 24–27 are Claude's recommendations, pending owner review." | test_d5a_current_state_documents_carry_no_stale_pending_review | "{'README.md': 1}" | reverted |
 | D5b.3 | checklist label for `version_2_plan.md`: "Approved 2026-10-19:" → "For review, 2026-10-18:" | test_d5b_status_claims_agree_with_each_documents_own_status; test_d5b_the_scan_is_not_vacuous | "docs/SPEC_REVIEW_CHECKLIST.md calls docs/version_2_plan.md open ('For review, 2026-10-18'); its own status is settled: 'APPROVED 2026-10-19.'"; the pair is no longer settled on both sides | reverted |
-| D5b.4 | checklist label for the learning-by-level proposal: "Draft for review, 2026-10-18:" → "Approved 2026-10-19:" | test_d5b_status_claims_agree_with_each_documents_own_status | "… calls docs/PROPOSAL — LEARNING BY LEVEL, ASKING WHAT TO DO DIFFERENTLY.md settled ('Approved 2026-10-19'); its own status is open: 'DRAFT 2026-10-18, for owner review. …'" | reverted |
+| D5b.4 | checklist label for the learning-by-level proposal: "Draft for review, 2026-10-18:" → "Approved 2026-10-19:" | test_d5b_status_claims_agree_with_each_documents_own_status | "… calls docs/archive/PROPOSAL — LEARNING BY LEVEL, ASKING WHAT TO DO DIFFERENTLY.md settled ('Approved 2026-10-19'); its own status is open: 'DRAFT 2026-10-18, for owner review. …'" | reverted |
 
 The D4 edit was run with CLAUDE.md's count set to the suite collected at the time (942), so the only finding was the
 mutation's.

@@ -86,11 +86,11 @@ and the review's open checks are below.
   **Decided 2026-11-02:** the owner chose (a) through `AskUserQuestion`: leave out a first cutoff on a tie with no
   contact by its week, and count it. The readout is in the engine hash (`tools/ensemble_record.py`'s `code_hash` reads
   `src/bowen/**/*.py` but `render/`), so the change moves it and needs one regeneration. The plan,
-  `docs/plan_t179_negative_run_contact_condition.md`, was approved by the owner as written the same day (§5's Q1 as
+  `docs/archive/plan_t179_negative_run_contact_condition.md`, was approved by the owner as written the same day (§5's Q1 as
   recommended).
   **Done 2026-11-03** as spec revision 47 (the plan's §3.1 is the status report). The engine hash moved from
   `09ca2b46c7e0` to `0b363cb3186c`; every record but the sweep record was regenerated once on it, split across both Macs
-  (`docs/version_2_revision_47_changes.md`). `M11.C.48` fails with no difference (its interval contains zero) and
+  (`docs/archive/version_2_revision_47_changes.md`). `M11.C.48` fails with no difference (its interval contains zero) and
   `M11.C.48[phase_d]` passes, each equal to the trace's same-condition row (T179.6); the named mutant survives on the
   latter (T179.7, T-180). No other verdict moved. The owner decided through `AskUserQuestion` (2026-11-03) to sweep
   only `M11.C.48`'s two keys on the new engine, into the cache (the sweep record waits for T-181), and both disposition

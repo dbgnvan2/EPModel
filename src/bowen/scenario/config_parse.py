@@ -30,6 +30,14 @@ class ConfigError(ValueError):
     """A config document is malformed, incomplete, or names something unknown."""
 
 
+def finite(raw: str, where: str) -> float:
+    """A config number, never ``nan`` or ``inf``: a NaN tolerance compares false and would switch a check off (T-219 (6))."""
+    value = float(raw)
+    if value != value or value in (float("inf"), float("-inf")):
+        raise ConfigError(f"{where}: {raw!r} is not a finite number")
+    return value
+
+
 @dataclass(frozen=True)
 class TableDocument:
     """A parsed config document: declared metadata and table rows keyed by column."""

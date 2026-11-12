@@ -3,7 +3,7 @@
 Purpose: report, for each composite criterion, its verdict and each readout's direction at a low and a
          high declared setting of the learning rate α, the credit horizon H and the policy temperature,
          beside the central setting in docs/phase_c_ensemble_record.md, and flag a direction that reverses.
-Spec:    docs/bowen_agent_model_spec_v2.md#M11.5, #M17.E.1; docs/implementation_plan_phase_c.md#D9
+Spec:    docs/bowen_agent_model_spec_v2.md#M11.5, #M17.E.1; docs/archive/implementation_plan_phase_c.md#D9
 Tests:   tests/bowen/test_ensemble_record.py::test_d9_sweep_record_is_current
 
     python3 tools/sweep_record.py [--workers N]

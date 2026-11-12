@@ -48,7 +48,7 @@ _spec = importlib.util.spec_from_file_location("tools.ensemble_record", REPO / "
 _record = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(_record)
 
-# Phase D part I criteria with no arm yet, and why (docs/implementation_plan_phase_d.md, step 10).
+# Phase D part I criteria with no arm yet, and why (docs/archive/implementation_plan_phase_d.md, step 10).
 NOT_BUILT = {
     "M11.C.9": "no rule reads sibling position, so building it means a new mechanism, not a gate (`M1.A.14c`); "
                "out of version 1, Claude's recommendation 2026-10-17, decided by the owner 2026-10-17 "

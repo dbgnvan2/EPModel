@@ -1,6 +1,6 @@
 """Probe one genuine `I-POSITION` from a level-35 and a level-60 mover: a measurement, never a verdict.
 
-Purpose: stage 3 step 2b (`docs/implementation_plan_version_2_stage_3.md` §3.3.2, owner decision D20). On the triad
+Purpose: stage 3 step 2b (`docs/archive/implementation_plan_version_2_stage_3.md` §3.3.2, owner decision D20). On the triad
          fixture, mover F, target M, third C, the same seeds: F's basic and functional level set to 35 or 60 (what
          initialisation derives from level derived again, as `M11.C.32`'s arm does) and F's systems perspective 1.0,
          so the act starts as the genuine sequence unless F is angry (`M5.F.4`, `M5.D.4a`). F's `I-POSITION` toward M

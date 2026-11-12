@@ -7,25 +7,30 @@ they set. Each item's own line says whether it is done. Items marked *verified* 
 
 ## Fix — engine and criteria
 
-- [ ] T-214 ⟨now⟩ **Fix: beliefs created at a pairing, birth or succession are one shared object (2026-11-11).** [B1,
+- [x] T-214 ⟨now⟩ **Fix: beliefs created at a pairing, birth or succession are one shared object (2026-11-11).** [B1,
   *verified*] `src/bowen/engine/life_course.py:226-233` assigns one `TieBelief` to every entry, and
   `beliefs.update_beliefs` mutates in place, so one person's belief update changes others'. Build one object per
   entry; add a test that updates one belief after a birth and asserts no other entry moved. Moves the engine hash and
   every life-course record, so it goes in the next batch that moves the hash.
-- [ ] T-215 ⟨later⟩ **Fix: two I-POSITION exits skip their cleanup (2026-11-11).** [C2, *verified*]
+  *Done 2026-11-12: one `TieBelief` per holder at every entry; spec revision 59, the engine batch (T-001 step 3; `docs/plan_engine_batch_2026-11-12.md`), criterion 1.*
+- [x] T-215 ⟨later⟩ **Fix: two I-POSITION exits skip their cleanup (2026-11-11).** [C2, *verified*]
   `iposition.py:212-214` (`mover_died` in RESOLVE leaves the target's pull-up) and `:400-401` (a twice-deferred
   abort ends without `restore_prior_balance`). No test names either exit. Moves the engine hash.
-- [ ] T-216 ⟨later⟩ **Fix: the required-move gate reads the treatment arm only (2026-11-11).** [C3, *verified*]
+  *Done 2026-11-12: (a) a mover dead in `RESOLVE` reverts the pull-up, logged; (b) an abort ended by a second deferral restores the prior balance; spec revision 59, the engine batch (T-001 step 3; `docs/plan_engine_batch_2026-11-12.md`), criteria 2 and 3.*
+- [x] T-216 ⟨later⟩ **Fix: the required-move gate reads the treatment arm only (2026-11-11).** [C3, *verified*]
   `src/bowen/ensemble/runner.py:207-213`. A move scripted in the baseline (`M11.C.18`, `M11.C.20`, `M11.C.23`) is not
   gated. No current verdict is wrong because of it.
-- [ ] T-217 ⟨later⟩ **Fix: exclusion counts recorded by arms reach no verdict or record (2026-11-11).** [C4,
+  *Done 2026-11-12: `Criterion.requires_moves_baseline`; `M11.C.18`, `C.20`, `C.23` split by arm; spec revision 59, the engine batch (T-001 step 3; `docs/plan_engine_batch_2026-11-12.md`), criterion 5.*
+- [x] T-217 ⟨later⟩ **Fix: exclusion counts recorded by arms reach no verdict or record (2026-11-11).** [C4,
   *verified*] `runner.py:84-95`; keys at `criteria_d2.py:393, 404`, `criteria.py:733-735`. Add a counts field to
   `Verdict` or make each a report-only readout. Includes `M11.C.6` reading a dead child as 0.0, `M11.C.25` passing
   with no pole formed, and `M11.C.26` booking one of its three runs.
-- [ ] T-218 ⟨later⟩ **Fix: the log header's `config_hash` omits config that changes a run (2026-11-11).** [C5,
+  *Done 2026-11-12: `Verdict.counts` per arm, rendered in the ensemble and Phase D records when present; spec revision 59, the engine batch (T-001 step 3; `docs/plan_engine_batch_2026-11-12.md`), criterion 6. The records show them once step 4 regenerates them.*
+- [x] T-218 ⟨later⟩ **Fix: the log header's `config_hash` omits config that changes a run (2026-11-11).** [C5,
   *verified*] `src/bowen/scenario/header.py:27-55` leaves out event-kind components, the accommodating and displacing
   sets, contact classes, event sizes, `family.life` and the policy rules.
-- [ ] T-219 ⟨later⟩ **Fix: minor engine and loader defects, one batch (2026-11-11).** [Minor] `consolidate.py:51-55`
+  *Done 2026-11-12: `config_hash` hashes every loaded config input; spec revision 59, the engine batch (T-001 step 3; `docs/plan_engine_batch_2026-11-12.md`), criterion 7.*
+- [x] T-219 ⟨later⟩ **Fix: minor engine and loader defects, one batch (2026-11-11).** [Minor] `consolidate.py:51-55`
   logs a snap up to the floor as positive `acute_decay`; `appraise.py:332-357` gates on the reference family only;
   `moves.py:192-194` `_desc` prefers the longer id; `iposition.py:327` logs the unclamped gain; `act.py:113-163`
   degrades I-POSITION when `params` is None; loaders accept `nan`, `inf` and out-of-range values, and a NaN
@@ -33,6 +38,7 @@ they set. Each item's own line says whether it is done. Items marked *verified* 
   `partners:` path is unchecked; `M6.I.2` and the tie half of `M6.I.8` cannot fire; `fast_tick_weeks` is read by no
   code; the two definitions of "automatic" differ (`criteria.py:172` against `event_kinds.md`); act sets live in
   Python and are duplicated in config (`sinks.py:40-45`, `criteria.py:172, 812`, `iposition.py:95`).
+  *Done 2026-11-12: items (1) to (12), one guard each; spec revision 59, the engine batch (T-001 step 3; `docs/plan_engine_batch_2026-11-12.md`), criterion 8. (7) checks a triangle-position binder's three members only, since triangles form during the run; (2) does not filter a couple who have both died (noted, not changed).*
 
 ## Fix — tests
 
@@ -57,8 +63,8 @@ they set. Each item's own line says whether it is done. Items marked *verified* 
 ## Fix — documents
 
 - [x] T-224 ⟨now⟩ **Fix: stale status lines and pointers (2026-11-11).** [D1, D2, P5] Recheck each against `HEAD`
-  first; they were read while another session was editing. `docs/proposal_social_cues.md:3-6` and
-  `docs/spec_revision_55_draft.md:3-4` say not built; `SPEC_REVIEW_CHECKLIST.md:218, 262, 264` and
+  first; they were read while another session was editing. `docs/archive/proposal_social_cues.md:3-6` and
+  `docs/archive/spec_revision_55_draft.md:3-4` say not built; `SPEC_REVIEW_CHECKLIST.md:218, 262, 264` and
   `REVIEWER_READING_LIST.md:196-199` repeat it. The sweep record's hash is `0b363cb3186c`, not `927550dfcb8a`
   (`REVIEWER_READING_LIST.md:421, 435`, `CHANGELOG.md:118-120`). `model_explainer.md:2332` says 10 of 13 audited rows
   survive; the record shows 9. `version_2_status.md:114` contradicts itself on `M11.C.48[phase_d]`. T-111 and T-168
@@ -70,12 +76,13 @@ they set. Each item's own line says whether it is done. Items marked *verified* 
   one sentence and a pointer, from one generated status file with one test. Cuts `CLAUDE.md` by about half. Relates
   to T-175.
   *Done 2026-11-11 (option A, the owner's choice): `tools/status.py` writes `docs/STATUS.md`, checked by `tests/test_status.py`; the status texts of the spec, the revision log, `_STATUS.md`, `README.md`, `CLAUDE.md` and the reading list are one sentence and a pointer, and the old texts are in `docs/spec_revision_log.md` under "Status text moved here 2026-11-11 (T-225)", verbatim. The explainer's §11.3-11.5 stay (T-227).*
-- [ ] T-226 ⟨later⟩ **Fix: archive finished-work documents and delete grid-engine leftovers (2026-11-11).** [D5,
+- [x] T-226 ⟨later⟩ **Fix: archive finished-work documents and delete grid-engine leftovers (2026-11-11).** [D5,
   Minor] About 55 files to an archive: 15 finished plans, 20 applied proposals, decisions and drafts, past reviews
   and phase reports, eight frozen comparison pages, 17 Phase C QA-gate logs. Delete `gemini.md`,
   `monte_carlo_results.txt`, `data/` and six grid-engine documents. Check `tests/test_doc_claims.py`,
   `tests/test_doc_checklist.py` and `tools/record_changes.py` for path dependencies first. The list is in the report.
   *Partly done 2026-11-11: the six grid-engine documents, `gemini.md`, `monte_carlo_results.txt` and `data/` removed (`git rm`; all at the tag `version-1`). The archive move goes with the engine batch (the owner's choice of 2026-11-12): 17 candidates are cited by hashed `config/bowen/*.md` prose (6), by version 1's tag-checked files (2), by the LLM experiment's code and prompts (3) and by generated records (6), and that batch moves the hash and regenerates every record anyway.*
+  *Done 2026-11-12: the archive move: 49 of the 60 finished documents and the 17 Phase C QA-gate logs moved to `docs/archive/` (`docs/archive/cycles/`), live references rewritten by script; the 11 kept in place are listed in the plan's criterion 14. Moved unedited, so their own relative links to documents still in `docs/` no longer resolve. The 12 filenames with spaces were not renamed.*
 - [ ] T-227 ⟨later⟩ **Fix: comments and README (2026-11-11).** [Minor] 416 "revision N" comments in 44 engine files
   carry history where the current rule belongs (comments are outside the hash); explainer §11.3-11.5 are "what
   revision N changed" sections; README "Running" lacks a policy run; 12 filenames have spaces and em dashes.
@@ -130,10 +137,11 @@ they set. Each item's own line says whether it is done. Items marked *verified* 
 
 ## Fix — from the owner's decisions of 2026-11-12
 
-- [ ] T-234 ⟨now⟩ **Fix: I-POSITION is illegal while a sequence runs (2026-11-12).** From T-228. Mask I-POSITION
+- [x] T-234 ⟨now⟩ **Fix: I-POSITION is illegal while a sequence runs (2026-11-12).** From T-228. Mask I-POSITION
   toward anyone other than the running sequence's target in legality; state it in `M5.D.9`; a test that a person in
   RESOLVE cannot open a second sequence and that the target's pull-up is followed up or reverted. Moves the engine
   hash; goes in the engine batch. Check whether it changes T-158's expected failure.
+  *Done 2026-11-12: `I-POSITION` toward anyone but the running sequence's target is not legal, and a scripted one raises; spec revision 59, the engine batch (T-001 step 3; `docs/plan_engine_batch_2026-11-12.md`), criterion 4. `M5.D.3`'s counts moved to 55 abort, 64 hold, 122 said in anger.*
 - [ ] T-235 ⟨now⟩ **Fix: the status page's summary shows the learning-dependent tally (2026-11-12).** From T-229.
   Generated by `tools/version_2_status.py` from the emergence audit record and checked by the existing status test.
   Built after step 4's regeneration, so it reads the regenerated audit. No engine change.
@@ -144,15 +152,18 @@ they set. Each item's own line says whether it is done. Items marked *verified* 
   `C.34`. (b) Read the learner's perceived values in `cross_person_relief` and the level terms; run on
   `M11.C.10[family of origin]`. State the exemption in `M4.B.2` as `[I]`. The mutants live in
   `tools/mutant_runner.py`, which is in the engine hash, so they go in the engine batch.
+  *Partly done 2026-11-12: `M4.B.2` states the exemption as `[I]`; the two mutants (`relief-less-expected-decay`, `learner-reads-own-state-only`) are defined in the two record tools at spec revision 59, the engine batch (T-001 step 3; `docs/plan_engine_batch_2026-11-12.md`), criterion 12, each applying once. Not done: running them, at step 4.*
 - [ ] T-238 ⟨later⟩ **Build: a trace command for the twelve-person family with the life course (2026-11-12).** From
   T-232. A tool in `tools/`, outside the hash, reusing `tools/phase_c_trace.py`'s renderer; README "Running" names it.
-- [ ] T-239 ⟨now⟩ **Fix: the engine-batch parts of T-233 (2026-11-12).** List `settle_functioning` among the
+- [x] T-239 ⟨now⟩ **Fix: the engine-batch parts of T-233 (2026-11-12).** List `settle_functioning` among the
   acknowledged set mechanisms (`M11.5`, explainer §19); note in the audit that part of `M11.C.55`'s reversal with
   learning off holds by definition; report each within-run criterion's share of non-zero pairs (with T-217's counts);
   emit a tick's records before an invariant failure is raised, with a failure record.
+  *Done 2026-11-12: (a) `settle_functioning` listed in `M11.5` and explainer §19; (b) `M11.5`'s `M11.C.55` note, printed by the audit renderer beside a reversed row; (c) every row reports its share of non-zero pairs; (d) a failing tick logs its records and an `InvariantRecord` before it raises; spec revision 59, the engine batch (T-001 step 3; `docs/plan_engine_batch_2026-11-12.md`), criteria 6, 9, 10, 11.*
 - [ ] T-240 ⟨later⟩ **Later parts of T-233 (2026-11-12).** Remove the LLM experiment's code, tests and the
   `anthropic` dependency once T-201 closes; split the engine hash per criterion after the tag (C6), as its own tools
   batch; a proposal with ledger sources before sibling ties or sibling position enter the reference family.
 - [ ] T-242 ⟨now⟩ **Fix: P5's disposition text and `M11.D.9`'s scan check (2026-11-12).** From T-241. The
   disposition is rewritten after step 4's regeneration; the scan-coverage check replaces `EXPECTED_SPEC_REFERENCES`,
   with `M11.D.8` and `M11.D.9` changed at the next spec revision.
+  *Partly done 2026-11-12: `M11.D.8` and `M11.D.9` amended and the scan check built (`EXPECTED_SPEC_REFERENCES` removed) at spec revision 59, the engine batch (T-001 step 3; `docs/plan_engine_batch_2026-11-12.md`), criterion 13. Not done: P5's disposition text, after step 4's regeneration.*

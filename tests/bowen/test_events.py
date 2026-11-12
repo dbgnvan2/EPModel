@@ -329,7 +329,7 @@ def _scan_moves(store, after, upto):
 
 def test_b1_indexes_match_a_full_scan():
     """Purpose: every index query equals filtering events(), including for events recorded out of id order.
-    Spec:    docs/bowen_agent_model_spec_v2.md#M16.B.3; docs/implementation_plan_phase_d.md B1
+    Spec:    docs/bowen_agent_model_spec_v2.md#M16.B.3; docs/archive/implementation_plan_phase_d.md B1
     """
     rng = random.Random(3)
     people = (RAVI, MARTA, NADIA, PIA)

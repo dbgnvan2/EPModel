@@ -62,8 +62,9 @@ def apply_standing_load(state: RunState, params: EngineParams) -> tuple[list[Eff
     Spec:    docs/bowen_agent_model_spec_v2.md#M4.A.1, #M6.I.8
     Tests:   tests/bowen/test_mechanisms.py::test_m4a2_trigger_spikes_standing_load_without_contact
 
-    Returns the effect records and the set of ties that loaded, which the
-    invariant check compares with the whole tie set (M6.I.8). All loads are
+    Returns the effect records and the set of ties that loaded on a living
+    member, which the invariant check compares with the ties that had a living
+    member at the tick's start (M6.I.8). All loads are
     computed from the state before any is applied.
     """
     loads: dict[PersonId, float] = {}
@@ -76,7 +77,7 @@ def apply_standing_load(state: RunState, params: EngineParams) -> tuple[list[Eff
             if not person.alive:
                 continue
             loads[member] = loads.get(member, 0.0) + tie_term(person, tie, spike, params)
-        loaded.add(tie_id)
+            loaded.add(tie_id)  # T-219 (9): loaded means a living member took the term, so M6.I.8 can fail
     for pid in sorted(state.people):
         person = state.people[pid]
         if person.alive:

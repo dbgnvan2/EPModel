@@ -91,8 +91,6 @@ PREPARE, DEFINE, OPPOSITION, ABORT, HOLD, PEAK, RESOLVE, FOLLOW_UP = (
 )
 STATES = (PREPARE, DEFINE, OPPOSITION, ABORT, HOLD, PEAK, RESOLVE, FOLLOW_UP)  # M5.D.2, in order
 OUTCOME_STEPS = frozenset({DEFINE, ABORT, FOLLOW_UP})
-# M5.D.3's three abort branches, as acts: defend, counterattack, go silent. [I]
-ABORT_ACTS = ("PURSUE", "CONFLICT", "DISTANCE")
 I_POSITION, STAY_IN_CONTACT = "I-POSITION", "STAY-IN-CONTACT"
 
 
@@ -209,7 +207,8 @@ def advance_sequences(state: RunState, params: EngineParams) -> list[EffectRecor
         seq = person.iposition_state
         if seq is None:
             continue
-        if not person.alive:
+        if not person.alive:  # T-215 (a): a dead mover makes no follow-up, so a RESOLVE pull-up goes (M5.D.6)
+            records += revert_pull_up(state, pid) if seq.stage == RESOLVE else []
             records.append(end(state, pid, "mover_died"))
             continue
         if seq.due is not None:
@@ -287,7 +286,8 @@ def restore_prior_balance(state: RunState, mover: PersonId) -> None:
     person = state.people[mover]
     seq = person.iposition_state
     tie = state.tie_between(mover, seq.target)
-    tie.functioning_balance[DEFAULT_AREA] = seq.start_balance
+    if tie is not None:  # an abort ended because the tie is gone restores the axes alone (T-215 (b))
+        tie.functioning_balance[DEFAULT_AREA] = seq.start_balance
     person.outside_ness_outward, person.outside_ness_inward = seq.start_axes
 
 
@@ -324,7 +324,8 @@ def complete(state: RunState, mover: PersonId, params: EngineParams) -> list[Eff
     """
     person = state.people[mover]
     target = person.iposition_state.target
-    person.functional_level = min(SCALE_MAX, person.functional_level + params.exchange_gain)
+    before = person.functional_level
+    person.functional_level = min(SCALE_MAX, before + params.exchange_gain)
     lowered = []
     for tri_id in sorted(state.triangles):
         if mover in tri_id.members and target in tri_id.members:
@@ -339,16 +340,23 @@ def complete(state: RunState, mover: PersonId, params: EngineParams) -> list[Eff
     state.tie_between(mover, target).functioning_habit[DEFAULT_AREA] = 0.0
     person.iposition_state = None
     done = EffectRecord(state.tick, "iposition", None, triangles=tuple(lowered), people=(
-        (mover, "iposition:end:completed", 1.0), (mover, "functional_level", params.exchange_gain)))
+        (mover, "iposition:end:completed", 1.0), (mover, "functional_level", person.functional_level - before)))
     budget = reduce_budget(state, params, None)  # M6.I.1: the budget's one sink
     return [done] + ([budget] if budget is not None else [])
 
 
-def skip_follow_up(state: RunState, mover: PersonId) -> EffectRecord:
-    """Purpose: a follow-up that cannot be made reverts the gain (M5.D.6)."""
+def revert_pull_up(state: RunState, mover: PersonId) -> list[EffectRecord]:
+    """Purpose: take back the target's RESOLVE pull-up, logged beside its cause (M5.D.6, M16.A.4)."""
     seq = state.people[mover].iposition_state
+    if not seq.pull_up:
+        return []
     state.people[seq.target].functional_level -= seq.pull_up
-    return end(state, mover, "follow_up_skipped")
+    return [EffectRecord(state.tick, "iposition", None, people=((seq.target, "functional_level", -seq.pull_up),))]
+
+
+def skip_follow_up(state: RunState, mover: PersonId) -> list[EffectRecord]:
+    """Purpose: a follow-up that cannot be made reverts the gain (M5.D.6)."""
+    return revert_pull_up(state, mover) + [end(state, mover, "follow_up_skipped")]
 
 
 def tie_of(seq: Sequence, mover: PersonId) -> TieId:
@@ -369,12 +377,13 @@ def _abort_act(state: RunState, mover: PersonId, target: PersonId, params: Engin
 
     learned = state.people[mover].learned_values
     weights = []
-    for kind in ABORT_ACTS:
+    abort_acts = state.kinds.iposition_abort  # M5.D.3's branches, from config/bowen/act_classes.md (T-219)
+    for kind in abort_acts:
         values = [v for k, v in learned.items() if act_and_where(k) == (kind, target.value)]
         mean = math.fsum(values) / len(values) if values else 0.0
         weights.append(math.exp(mean / params.policy_temperature))
     key = DrawKey.make("move_selection", tick=state.tick, actor=mover, purpose="abort", index=0)
-    return ABORT_ACTS[state.draws.categorical(key, weights)]
+    return abort_acts[state.draws.categorical(key, weights)]
 
 
 def sequence_selections(state: RunState, params: EngineParams) -> tuple[list, list[EffectRecord]]:
@@ -396,8 +405,10 @@ def sequence_selections(state: RunState, params: EngineParams) -> tuple[list, li
             continue
         if not _live(state, pid, seq.target):
             if seq.due == FOLLOW_UP:
-                records.append(skip_follow_up(state, pid))
+                records += skip_follow_up(state, pid)
             elif seq.deferrals >= 1:
+                if seq.due == ABORT:  # T-215 (b): an abort that cannot be made still restores the balance (M5.D.3)
+                    restore_prior_balance(state, pid)
                 records.append(end(state, pid, f"{seq.due.lower()}_impossible"))
             else:
                 seq.deferrals += 1

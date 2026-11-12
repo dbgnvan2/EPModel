@@ -15,13 +15,13 @@
 > the run of negative contacts before a cutoff against the run standing on the uncut ties in the same week. Every
 > owner-level choice is listed in the revision 36 report and approved by the owner 2026-10-24 (T-125); the Holmes–Rahe Q3
 > stands as decided and cites no source (T-013 closed). The engine hash moved once; every record was regenerated once
-> (2026-10-23, 2 h 36 min of runs; `docs/version_2_revision_36_changes.md`): `M11.C.48` passes on both families, a pass the re-sweep found is not evidence (a zero baseline for a first cutoff
+> (2026-10-23, 2 h 36 min of runs; `docs/archive/version_2_revision_36_changes.md`): `M11.C.48` passes on both families, a pass the re-sweep found is not evidence (a zero baseline for a first cutoff
 > with no matched uncut tie, T-123);
 > `M11.C.44` FAIL → PASS; `M11.C.17`, `M11.C.7[joint over one spouse]`, `M11.C.10[family of origin]` and
 > `M11.C.2[twelve-person family]` PASS → FAIL, all composite, for the owner's review (T-122); three named mutants
 > survive, `M11.C.48`'s among them, so A11 is not met (T-119 to T-121, T-123). Phase C's 14 directional criteria were swept 2026-10-23 at 8 samples on the branch `stage-2-phase-c-sweep` (27 min,
 > 155 child runs; fractions in `docs/version_2_sweep_record.md`, each a measurement and not a verdict; `implementation_plan_version_2.md` §2.10). Phase D part I's 13 directional keys were swept the same day on the branch `stage-2-part-i-sweep` and merged into `main` (3 h 34 min of run time, 182 child runs, reruns at 200 seeds on 78 of 104 samples; §2.10). Part II's seven directional keys had their ranges declared the same day, with no run (81 rows in `config/sweep/sweep.md`, now 327 rows, 78 constants, 34 criteria; the owner's choice: declare now, run later on Mac Mini1 alone at 8 samples; §2.10). The owner approved revision 36's
-> decisions, D8–D16 and the Phase C, part I and part II constant sets on 2026-10-24 (§2.10's numbered judgments; T-125, decisions 20–26, 29–44 and 45–53; T-126 closed 2026-10-23, the owner keeping `nodal_spike_intensity` out of both `M11.C.2` sets). Part II's seven were swept 2026-10-23–24, split across both Macs (`M11.C.6`, `.10[family of origin]`, `.48` and `.48[phase_d]` on Mac Mini1, 6 h 52 min; `.2[twelve-person family]`, `.10` and `.15` here, 7 h 54 min; fractions in `docs/version_2_sweep_record.md`, plan §2.10), which completes stage 2's full sweep. The stage 2 milestone review (`docs/cycles/2026-10-24_milestone-review_v2-stage-2.md`, 1 major and 27 minor findings) was triaged 2026-10-24: every finding was fixed or deferred, none rejected (`docs/todo/2026-10-24_stage_2_milestone_review.md`). **Next (2026-10-24):** stage 3's implementation plan, `docs/implementation_plan_version_2_stage_3.md`, drafted 2026-10-24 with the owner's decisions D18–D31 (each as recommended: groups C, F and A, `M17.E.1`'s named ratio for T-128, T-014's four questions, one batch with one regeneration), approved by the owner 2026-10-24. Step 2 done 2026-10-24: the projection trace (`docs/review/stage_3_projection_trace.md`) showed the parents' term is not what lifts `M11.C.6`'s child (−0.0072 ± 0.0296 of +0.0886; the child's own term +0.0951 ± 0.0362), and the owner chose P2, displaced coping, over P1 (D18, revisited); the I-position probe (`docs/review/stage_3_iposition_probe.md`) did not show the direction with no rule change, so D20 stands. Step 1 (T-130) is done: all thirteen event sizes agree with the paper's Table 3, and two item names differ from its wording (`docs/review/stage_3_t130_event_sizes.md`); the config, spec and explainer edits and T-130's tick wait for step 6. Step 3 done 2026-10-25: P2 drafted (`docs/PROPOSAL — DISPLACED COPING (P2).md`) and probed (`docs/review/stage_3_displaced_coping_probe.md`): at coping size it leaves `M11.C.6` at +0.0919 ± 0.0420 (as built +0.0886), and the other half of the child's lift is functioning the stress floor holds (+0.0620 ± 0.0308), so the owner chose P2 plus F1, that functioning put on a ledger the estimator leaves out (D18, third reading). P2 and F1 were probed together on Mac Mini1 the same day: the difference falls from +0.089 to +0.018 ± 0.025, unresolved, and no variant shows the decline `M11.C.6` expects. Step 4 done 2026-10-25: the owner decided Q1–Q4 as recommended (`OVERFUNCTION` alone; `floor_held` shed; conserved; revision 39 with P2 and F1, `M11.C.6` reported as read); revision 39's three parts (group C and T-130's wording; groups F and A; T-128 and T-014) are drafted in `docs/spec_revision_39_draft.md`, the owner decided its Q5–Q14 as recommended (among them: `KS00.9` recorded against `M7.E.1f`'s parents' term, T-131; each group's approved text lands with its code; `assertion_perspective_threshold` retired; `reciprocal_contact_share` 0.5; the ratio enters runs longer than one slow tick), and approved revision 39 as a whole the same day. Step 5 done 2026-10-25: the sixteen stage 3 tests for steps 6–10 are written and each is shown failing on its missing rule; fifteen are strict expected failures in the default run, each naming the step that turns it green, and the new I-position criterion's is `ensemble`-marked (the plan's step 5 row lists the names the tests fix for the build). Step 6 done 2026-10-25, the batch's first commit: T-130's wording, T-014's revision 39 part 3 text with `avoidance_available` removed, and T-129's lint fixes; S3.20 and S3.22 green; the engine hash moved from `66dcbb1e8ba5` to `f90285984f32` and the golden fingerprints pass unchanged. The records keyed by the hash stay stale until step 10 (D31); the eleven tests that read them are expected failures of the open batch (`tests/open_batch.py`, checked by `tests/test_open_batch.py`). The suite is 1236 tests: 1211 pass, 14 are strict expected failures and 11 are expected failures of the open batch. Steps 7–12 followed (2026-10-26–27); where stage 3 stands now is line 3. From stage 3 on, the full sweep runs only at a stage's end and a change between is swept only on the criteria it targets (the owner, 2026-10-23; plan §2.10, D17).
+> decisions, D8–D16 and the Phase C, part I and part II constant sets on 2026-10-24 (§2.10's numbered judgments; T-125, decisions 20–26, 29–44 and 45–53; T-126 closed 2026-10-23, the owner keeping `nodal_spike_intensity` out of both `M11.C.2` sets). Part II's seven were swept 2026-10-23–24, split across both Macs (`M11.C.6`, `.10[family of origin]`, `.48` and `.48[phase_d]` on Mac Mini1, 6 h 52 min; `.2[twelve-person family]`, `.10` and `.15` here, 7 h 54 min; fractions in `docs/version_2_sweep_record.md`, plan §2.10), which completes stage 2's full sweep. The stage 2 milestone review (`docs/cycles/2026-10-24_milestone-review_v2-stage-2.md`, 1 major and 27 minor findings) was triaged 2026-10-24: every finding was fixed or deferred, none rejected (`docs/todo/2026-10-24_stage_2_milestone_review.md`). **Next (2026-10-24):** stage 3's implementation plan, `docs/archive/implementation_plan_version_2_stage_3.md`, drafted 2026-10-24 with the owner's decisions D18–D31 (each as recommended: groups C, F and A, `M17.E.1`'s named ratio for T-128, T-014's four questions, one batch with one regeneration), approved by the owner 2026-10-24. Step 2 done 2026-10-24: the projection trace (`docs/review/stage_3_projection_trace.md`) showed the parents' term is not what lifts `M11.C.6`'s child (−0.0072 ± 0.0296 of +0.0886; the child's own term +0.0951 ± 0.0362), and the owner chose P2, displaced coping, over P1 (D18, revisited); the I-position probe (`docs/review/stage_3_iposition_probe.md`) did not show the direction with no rule change, so D20 stands. Step 1 (T-130) is done: all thirteen event sizes agree with the paper's Table 3, and two item names differ from its wording (`docs/review/stage_3_t130_event_sizes.md`); the config, spec and explainer edits and T-130's tick wait for step 6. Step 3 done 2026-10-25: P2 drafted (`docs/archive/PROPOSAL — DISPLACED COPING (P2).md`) and probed (`docs/review/stage_3_displaced_coping_probe.md`): at coping size it leaves `M11.C.6` at +0.0919 ± 0.0420 (as built +0.0886), and the other half of the child's lift is functioning the stress floor holds (+0.0620 ± 0.0308), so the owner chose P2 plus F1, that functioning put on a ledger the estimator leaves out (D18, third reading). P2 and F1 were probed together on Mac Mini1 the same day: the difference falls from +0.089 to +0.018 ± 0.025, unresolved, and no variant shows the decline `M11.C.6` expects. Step 4 done 2026-10-25: the owner decided Q1–Q4 as recommended (`OVERFUNCTION` alone; `floor_held` shed; conserved; revision 39 with P2 and F1, `M11.C.6` reported as read); revision 39's three parts (group C and T-130's wording; groups F and A; T-128 and T-014) are drafted in `docs/archive/spec_revision_39_draft.md`, the owner decided its Q5–Q14 as recommended (among them: `KS00.9` recorded against `M7.E.1f`'s parents' term, T-131; each group's approved text lands with its code; `assertion_perspective_threshold` retired; `reciprocal_contact_share` 0.5; the ratio enters runs longer than one slow tick), and approved revision 39 as a whole the same day. Step 5 done 2026-10-25: the sixteen stage 3 tests for steps 6–10 are written and each is shown failing on its missing rule; fifteen are strict expected failures in the default run, each naming the step that turns it green, and the new I-position criterion's is `ensemble`-marked (the plan's step 5 row lists the names the tests fix for the build). Step 6 done 2026-10-25, the batch's first commit: T-130's wording, T-014's revision 39 part 3 text with `avoidance_available` removed, and T-129's lint fixes; S3.20 and S3.22 green; the engine hash moved from `66dcbb1e8ba5` to `f90285984f32` and the golden fingerprints pass unchanged. The records keyed by the hash stay stale until step 10 (D31); the eleven tests that read them are expected failures of the open batch (`tests/open_batch.py`, checked by `tests/test_open_batch.py`). The suite is 1236 tests: 1211 pass, 14 are strict expected failures and 11 are expected failures of the open batch. Steps 7–12 followed (2026-10-26–27); where stage 3 stands now is line 3. From stage 3 on, the full sweep runs only at a stage's end and a change between is swept only on the criteria it targets (the owner, 2026-10-23; plan §2.10, D17).
 >
 > **2026-10-22 — model ergonomics built (`docs/plan_model_ergonomics.md`), with spec revision 35.** The spec and
 > the ledger have machine-readable indexes (`docs/spec_index.jsonl`, `docs/theory/ledger_index.jsonl`, the latter
@@ -56,7 +56,7 @@
 > (`docs/cycles/2026-10-21_milestone-review_v2-stage-1.md`, branch `review/2026-10-21-v2-stage-1`), triaged the same day.
 > No code or config that changes what a run computes changed. **Next:** the owner's approval of the §4 texts in the
 > proposal to paraphrase the quoted ASR passages (the review's SP-1, owner 2026-10-21; drafted the same day, its
-> eight questions answered 2026-10-22, `docs/PROPOSAL — ASR QUOTATIONS (SP-1).md`), which once approved goes into spec revision 34 with the review's
+> eight questions answered 2026-10-22, `docs/archive/PROPOSAL — ASR QUOTATIONS (SP-1).md`), which once approved goes into spec revision 34 with the review's
 > spec wording fixes; then the G2 proposal, group G and the event sizes as one revision and one regeneration, and stage 2's pilot
 > (`docs/version_2_plan.md` §6; `TODO.md`).
 >
@@ -64,7 +64,7 @@
 > by the owner 2026-10-19 with D1–D7 as recommended; build record §1.10): the grid engine retired (`M13.2` amended),
 > every float total a `math.fsum`, the canonical state sees stressors, the act classes in config, triangle activity
 > decided by presence (`M8.5` amended), the renderer out of the engine hash and the Phase D ensembles cached. No rule
-> changed. The one regeneration ran the same day (3 h 35 min); `docs/version_2_stage_1_changes.md` compares the
+> changed. The one regeneration ran the same day (3 h 35 min); `docs/archive/version_2_stage_1_changes.md` compares the
 > records in its table (the ensemble, mutation, sweep and level-occupancy records) with the tag `version-1` and lists
 > the rest as not compared: no verdict changed and no value differs.
 >
@@ -132,15 +132,15 @@
 >   file is `config/bowen/family_phase_d.md`.
 > - **Pattern readouts.** The owner's definitions (`docs/readouts_phase_c.md`): 3 acts in 4 weeks; a pattern ends when a
 >   new one emerges; projection holds 12 weeks.
-> - **Cutoff.** Rejection, not severing, held for Phase D (`docs/DECISIONS — CUTOFF SEMANTICS.md`). The long silences in
+> - **Cutoff.** Rejection, not severing, held for Phase D (`docs/archive/DECISIONS — CUTOFF SEMANTICS.md`). The long silences in
 >   the seed-7 run are ties the engine's CUTOFF severed.
 > - **Visualization.** Runs are drawn in **EPModel Fam-Diag** (`../epmodel-fam-diag`), a copy of fam-diag; the owner's
 >   fam-diag is unchanged.
 > - **Open:** the Phase C trace review and `M5.F.2`'s threshold. Bruno's fallback was recorded as a Phase C finding.
-> - **Next:** the owner's decisions and approval of `docs/implementation_plan_phase_d.md`. No Phase D code before that.
+> - **Next:** the owner's decisions and approval of `docs/archive/implementation_plan_phase_d.md`. No Phase D code before that.
 >
 > **2026-10-09 — Phase C closed.** The approved failing-criteria decisions were carried out (`docs/DECISIONS — PHASE C
-> FAILING.md`), the owner's triangle account was built (`docs/PROPOSAL — TRIANGLE RELIEF AND CREDIT.md`), and the owner
+> FAILING.md`), the owner's triangle account was built (`docs/archive/PROPOSAL — TRIANGLE RELIEF AND CREDIT.md`), and the owner
 > closed Phase C with its gate failing. Done: `M11.C.1`, `.3`, `.19`, `.25`, `.32`, `.35`, `.38`. Partial: `.16`, `.27`
 > (1 of 4 cells), `.41` (2 of 4). Not done: `.4`, `.5`, `.29`, `.42`, `.44`, `.45`, recorded as findings with their
 > measured causes in `docs/phase_c_completion_report.md` §13, which also lists what the next phase inherits. **Open:**
@@ -148,16 +148,16 @@
 >
 > **2026-10-08 — Phase C built (steps 0–16), and `TRIANGLE`'s roles decided.** The gate does not pass: 7 criteria pass and are
 > mutation-proved (`M11.C.1`, `.3`, `.19`, `.25`, `.32`, `.35`, `.38`), `.16` passes but is not proved, `.27` passes in one cell, and
-> `.4`, `.5`, `.29`, `.41`, `.42`, `.44` and `.45` fail. `.7`, `.13` and `.14` moved to Phase D (2026-10-09). **Next:** the approved plan for the failing criteria, `docs/plan_phase_c_failing_criteria.md`, then the owner's decisions in `docs/phase_c_completion_report.md`
+> `.4`, `.5`, `.29`, `.41`, `.42`, `.44` and `.45` fail. `.7`, `.13` and `.14` moved to Phase D (2026-10-09). **Next:** the approved plan for the failing criteria, `docs/archive/plan_phase_c_failing_criteria.md`, then the owner's decisions in `docs/phase_c_completion_report.md`
 > §6 and `TODO.md` ("Phase C — open after the build"). Phase D should not start on this gate.
 >
 > **2026-10-06 — Phase B built.** All 14 automated exit criteria pass, each mutation-proved
 > (`docs/phase_b_mutation_record.md`). Pending: the owner's read of the rendered trace, then the
-> `learning-qa` review and a push. Report: `docs/phase_b_completion_report.md`. **Next after that:
+> `learning-qa` review and a push. Report: `docs/archive/phase_b_completion_report.md`. **Next after that:
 > settle the Phase C prerequisites the report lists, then plan Phase C.**
 >
 > **2026-10-07 — spec revision 12 approved: 542 unique IDs, 45 acceptance criteria.** The Phase C prerequisites, with
-> the Phase C plan (`docs/implementation_plan_phase_c.md`). Phase C gates 19 criteria. **Phase B closed the same day** (the owner's
+> the Phase C plan (`docs/archive/implementation_plan_phase_c.md`). Phase C gates 19 criteria. **Phase B closed the same day** (the owner's
 > trace read, no findings). **Next: Phase C step 1** — the revision-11 rework of appraisal, standing load and
 > triangle activity.
 >
@@ -166,7 +166,7 @@
 > against revision 10's `M4.C.1`, `M4.A.1` and `M1.C.3` no longer conforms; the Phase C plan must rework it.
 >
 > **2026-10-06 — Phase B plan approved; the spec was then at 526 unique IDs** (`M2.A.0i`, the sex column, added at step 5). Building has started at step 0 of
-> `docs/implementation_plan_phase_b.md`.
+> `docs/archive/implementation_plan_phase_b.md`.
 >
 > **2026-10-06 — spec revision 10 approved: 519 unique IDs over 17 modules, 41 acceptance criteria.** The
 > plan covers **Phase B only**, and the 2026-09-23 external review's findings travel in it as blockers on the
@@ -177,7 +177,7 @@
 > 219 findings, pass 2, folded into `_LEDGER.md` as **Source 7**. See `family_evaluation/_INDEX.md`.
 >
 > **Its decisions were taken on 2026-08-27 and spec revision 4 is applied.** All nine items in
-> `docs/DECISIONS — FAMILY EVALUATION.md` are resolved; that file is now the record of how each was
+> `docs/archive/DECISIONS — FAMILY EVALUATION.md` are resolved; that file is now the record of how each was
 > decided, not an open question.
 >
 > ⚠ **One of them was a real defect, not a refinement.** `M5.D.4` said *anger* is the gate admitting the
@@ -199,8 +199,8 @@
 > | **Kerr & Bowen, *Family Evaluation* (1988), 12 segments — 219 findings** | **complete 2026-08-26** |
 > | External measures (the DSI) | recorded |
 > | Spec v2.0 — **427 unique IDs, 0 unresolved, 0 dangling references** | **approved 2026-08-25; revisions 1–6 applied.** Revisions 4–5 landed 2026-08-27, revision 6 on 2026-08-28 |
-> | **`docs/DECISIONS — FAMILY EVALUATION.md`** | ✅ **closed 2026-08-27** — all nine items decided and applied |
-> | `docs/DECISIONS FOR APPROVAL.md` | approved 2026-08-25; propagation complete |
+> | **`docs/archive/DECISIONS — FAMILY EVALUATION.md`** | ✅ **closed 2026-08-27** — all nine items decided and applied |
+> | `docs/archive/DECISIONS FOR APPROVAL.md` | approved 2026-08-25; propagation complete |
 > | Code | **none. Nothing until the spec and then the plan are approved.** |
 >
 > **Revision 5, same day.** Arising from a working session on whether the model can answer *"if you changed
@@ -487,7 +487,7 @@ none removed, 256 unique, 0 duplicates, 0 unresolved. Consequence: the G4/G6/G9 
 that file; do not edit it without asking.
 
 ### The blocking item
-`docs/DECISIONS FOR APPROVAL.md`, sections A, B, C, D, E1, E4, E5. **E2 and E3 are answered.**
+`docs/archive/DECISIONS FOR APPROVAL.md`, sections A, B, C, D, E1, E4, E5. **E2 and E3 are answered.**
 
 ### Step 2 — propagation **COMPLETE**
 
@@ -572,7 +572,7 @@ per-generation bound and `KS11.1`'s traversal timing, which dissolved inside the
 
 ### Still needing a human
 
-- ~~**`docs/DECISIONS — FAMILY EVALUATION.md`**~~ — ✅ **closed 2026-08-27.** All nine items decided;
+- ~~**`docs/archive/DECISIONS — FAMILY EVALUATION.md`**~~ — ✅ **closed 2026-08-27.** All nine items decided;
   the 4 contradictions, 21 requirement candidates, the `M12` prohibition and both `M11.F` entries are
   applied at spec revision 4.
 - ~~**The Ch13 re-read** on anger (`A3`)~~ — ✅ **done 2026-08-27**, and it changed the answer: the

@@ -199,3 +199,14 @@ def test_m10b2_family_sections_parse_strictly():
         build(FAMILY_TEXT.rstrip("\n") + "\n| `ravi` | `teodor` | sibling | 1.0 | 60 | 1 | ordinary | yes |\n")
     with pytest.raises(ConfigError, match="inside a ## section"):
         build("| x |\n" + FAMILY_TEXT)
+
+
+@pytest.mark.parametrize("name, message", [("../partners_phase_d.md", "bare file name"),
+                                           ("sub/partners_phase_d.md", "bare file name"),
+                                           ("missing.md", "no partner settings file")])
+def test_m7c1h_t219_the_partners_file_is_a_file_beside_the_family(tmp_path, name, message):
+    text = PHASE_D.read_text(encoding="utf-8").replace("partners: partners_phase_d.md", f"partners: {name}")
+    family = tmp_path / "family.md"
+    family.write_text(text, encoding="utf-8")
+    with pytest.raises(ConfigError, match=message):
+        load_family(family)

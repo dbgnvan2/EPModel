@@ -15,6 +15,7 @@ from __future__ import annotations
 import enum
 import math
 import re
+from pathlib import Path
 from dataclasses import dataclass
 from types import MappingProxyType
 from typing import Mapping
@@ -24,7 +25,7 @@ from src.bowen.engine.life_course import LifeSettings, PartnerRow, TieValues
 from src.bowen.engine.objects import (
     REACTIVE_DETECTORS, Family, Person, Relationship, Role, Sex, SiblingPosition, SymptomChannel, TieState,
 )
-from src.bowen.scenario.config_parse import ConfigError, parse_sectioned_document
+from src.bowen.scenario.config_parse import ConfigError, finite, parse_sectioned_document
 from src.bowen.scenario.constants import Constants
 
 PEOPLE_COLUMNS = (
@@ -121,7 +122,9 @@ def _number(raw: str, kind: type, where: str, name: str):
             if not raw.isdigit():
                 raise ValueError
             return int(raw)
-        return float(raw)
+        return finite(raw, f"{where}: {name}")
+    except ConfigError:
+        raise
     except ValueError:
         raise ConfigError(f"{where}: {name} {raw!r} is not a valid {kind.__name__}") from None
 
@@ -140,7 +143,12 @@ def declares_life_course(text: str) -> bool:
 def partners_file(text: str) -> str | None:
     """The partner settings file a family with a life course names, relative to its own (M7.C.1h)."""
     match = re.search(r"^partners:\s*(\S+)\s*$", text, re.M)
-    return match.group(1) if match else None
+    if match is None:
+        return None
+    name = match.group(1)
+    if Path(name).name != name or name in (".", ".."):  # T-219 (8): never a path out of the config directory
+        raise ConfigError(f"partners: {name!r} must be a bare file name beside the family file")
+    return name
 
 
 def _ages(rows, meta, generations, source: str) -> dict:

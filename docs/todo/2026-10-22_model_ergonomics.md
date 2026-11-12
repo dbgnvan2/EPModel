@@ -25,7 +25,7 @@
   - `scenario/header.py::resolved_config` hashes neither `kinds.components` nor `kinds.accommodating`, so a change
     to a kind's components or its `accommodates` flag leaves `config_hash` unchanged; check against `M16.A.1`.
   - `scenario/policy_source.py` implements `M1.E.8` (its comment says so) without citing it.
-  - `src/bowen/__init__.py` names `docs/implementation_plan_phase_b.md` as the build order; stale since version 2.
+  - `src/bowen/__init__.py` names `docs/archive/implementation_plan_phase_b.md` as the build order; stale since version 2.
   - `run.py` composes a `ScriptedSource` only; `PolicySource` is not reachable from the composition root.
   - `readouts/evaluation.py` line 103 emits phase narration inside a readout value ("from Phase D part II").
   - `ensemble/counterfeit.py` cites `M5.C.1` for "the gate's two thresholds" while `M5.C.1`'s first sentence is

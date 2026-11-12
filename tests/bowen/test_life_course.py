@@ -116,6 +116,20 @@ def test_m1a20_a_birth_identifier_is_stable_across_arms():
     assert ids[0] == ids[1] == [child_id(LEO, P("sara"), 1), child_id(LEO, P("sara"), 2)]
 
 
+def test_t214_each_belief_made_at_an_entry_is_its_own():
+    """T-214 (`M9.8`): a pairing and the births after it give every holder its own belief object about each new tie, so
+    one person's belief update moves no one else's (one shared object did)."""
+    built = pair_now(1)
+    for _ in range(5):  # the pairing, then both children
+        yearly(built.state, built.params)
+    stores = [(pid, tid, b) for pid, p in built.state.people.items() for tid, b in (p.tie_beliefs or {}).items()]
+    assert len({id(b) for _, _, b in stores}) == len(stores)
+    pid, tid, belief = next(s for s in stores if "#" in s[0].value)  # a child born into the field
+    before = {(q, t): b.tension for q, t, b in stores if (q, t) != (pid, tid)}
+    belief.tension = 0.9
+    assert {(q, t): b.tension for q, t, b in stores if (q, t) != (pid, tid)} == before
+
+
 def test_m1d1_each_household_couple_has_its_own_family(paired):
     built, _ = paired
     state = built.state

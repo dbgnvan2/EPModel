@@ -1,6 +1,6 @@
 # Version 2's definition — the batch, 2026-10-29
 
-Items found while building the version 2 definition batch (`docs/version_2_definition_plan.md` §2, spec revision 43),
+Items found while building the version 2 definition batch (`docs/archive/version_2_definition_plan.md` §2, spec revision 43),
 on the owner's instruction of 2026-10-29 to proceed with Claude's recommendations.
 
 - [x] T-199 ⟨later⟩ **`M11.5`'s note for `M11.C.42` says `M4.C.1d`'s contact is "returned to a relieved seeker"
@@ -51,21 +51,21 @@ on the owner's instruction of 2026-10-29 to proceed with Claude's recommendation
   received the coach's `I-POSITION`. Spec revision 43 names `coach-pull-up-removed` in the row, so the mutation proves
   the path; whether a pull-up toward the coach's level is "earned in behaviour" (`M11.C.17`, `FE11.6`) is a theory
   question for the owner.
-  - 2026-10-30, Claude's recommendation 2026-10-30 under the owner's instruction of that night to proceed without stopping, pending the owner's review (`docs/version_2_definition_plan.md` §8, D5): **not earned.** `FE06.10` (`[K]`: a motivated member can go beyond the therapist's
+  - 2026-10-30, Claude's recommendation 2026-10-30 under the owner's instruction of that night to proceed without stopping, pending the owner's review (`docs/archive/version_2_definition_plan.md` §8, D5): **not earned.** `FE06.10` (`[K]`: a motivated member can go beyond the therapist's
     level; differentiation depends on knowledge, not on the coach's level) and `FE11.6` (`[B]`: the therapist may be a
     model; instruction makes the family dependent) both place a rise toward the coach's own level outside what
     `M11.C.17` counts, and `M5.D.5`'s reason the gain is solid self (both parties rise) does not hold for a mover
     outside the family. Recommended rule: `M5.D.5`'s pull-up does not apply when the mover is the external agent
     (the alternative, booking it as borrowed functioning the estimator removes, needs a new ledger). Moves the hash;
     `M11.C.17` is then expected to fail (`coach-pull-up-removed` reads −0.00003 ± 0.00017) and need a decision.
-  - 2026-10-31, owner 2026-10-31 (`docs/version_2_definition_plan.md` §8, D5, as recommended): **not earned.**
+  - 2026-10-31, owner 2026-10-31 (`docs/archive/version_2_definition_plan.md` §8, D5, as recommended): **not earned.**
     `M5.D.5`'s pull-up does not apply when the mover is the external agent; it replaces revision 43's
     `coach-pull-up-removed` clause in `M11.C.17` (D1). Built at spec revision 44 with T-161, tests first; `M11.C.17`
     is then expected to fail and is decided again.
   - 2026-10-31, built at spec revision 44 (`src/bowen/engine/iposition.py`, test
     `test_m5d5_t165_an_external_movers_resolve_pulls_no_one_up`, shown red first); `coach-pull-up-removed` retired.
     Regenerated on `09ca2b46c7e0` (Mac Mini1): `M11.C.17` fails, `coached_rise` −0.00003 ± 0.00017, p 0.43 (150
-    seeds); in 136 of 150 seeds the two arms' coached rise is the same (`docs/version_2_revision_44_changes.md`).
+    seeds); in 136 of 150 seeds the two arms' coached rise is the same (`docs/archive/version_2_revision_44_changes.md`).
   - 2026-10-31, owner 2026-10-31, through `AskUserQuestion`: `M11.C.17`'s FAIL accepted as a finding
     (`docs/version_2_dispositions.md`); why the remaining path is flat is T-169. Closed.
 - [x] T-166 ⟨later⟩ **`tools/group_g_readout.py` still averages unmatched first cutoffs (the batch's `learning-qa`

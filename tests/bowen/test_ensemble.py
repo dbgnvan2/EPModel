@@ -105,6 +105,24 @@ def test_m111f_a_criterion_fails_when_its_move_never_occurs():
     assert verdict.outcome == FAIL and verdict.missing_moves == ["CUTOFF"]
 
 
+def test_m111f_t216_a_baseline_move_that_never_occurs_fails():
+    """T-216: the gate reads each arm's own moves, so a move the baseline scripts and never makes fails the verdict."""
+    criterion = Criterion("toy", "check", ("baseline", "treatment"), (Readout("x", +1),), noisy, ("CUTOFF",),
+                          {"effect": 1.0, "baseline_cutoffs": 0}, requires_moves_baseline=("CUTOFF",))
+    verdict = run_criterion(criterion, RULES)
+    assert verdict.outcome == FAIL and verdict.missing_moves == ["CUTOFF (baseline)"]
+
+
+def test_m111f_t217_an_arms_count_reaches_the_verdict():
+    """T-217, T-239 (c): each arm's recorded counts reach the verdict, and every readout, report-only included, carries
+    its share of seeds whose pair differs."""
+    verdict = run_criterion(crit((Readout("x", +1), Readout("bounded", +1, report_only=True)), effect=1.0, dropped=2),
+                            RULES)
+    assert verdict.counts == {"baseline": {"(dropped)": 2 * verdict.seeds}, "treatment": {"(dropped)": 0}}
+    shares = {r["readout"]: r["nonzero_share"] for r in verdict.readouts}
+    assert shares == {"x": 1.0, "bounded": 0.0}
+
+
 def test_m11d18_fallback_rate_is_reported_and_flagged():
     verdict = run_criterion(crit(effect=1.0, fallbacks=5), RULES)
     assert verdict.fallback_rate == pytest.approx(0.5) and verdict.fallback_by_person == {"ravi": 0.5}

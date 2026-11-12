@@ -18,7 +18,7 @@ from src.bowen.engine.attribution import loci, update_attribution, update_focus
 from src.bowen.engine.events import Channel, Delivery, Event, EventId, Mechanism, Role, SourcePosition
 from src.bowen.engine.identifiers import PersonId, TieId
 from src.bowen.engine.initialise import initialise_run
-from src.bowen.engine.objects import Sink, SymptomChannel
+from src.bowen.engine.objects import Family, Sink, SymptomChannel
 from src.bowen.engine.state import new_run_state
 from src.bowen.io.load import load_constants, load_event_kinds, load_family
 from src.bowen.readouts.attribution import sink_from_allocations, sink_from_beliefs
@@ -169,6 +169,27 @@ def test_m5c1_under_marital_distance_no_move_improves_the_symptom_bearer():
     assert marta.acute_anxiety < was
     assert run(distant=True, symptomatic=False)[1] < 0
     assert run(distant=False, symptomatic=True)[1] < 0
+
+
+def test_m5c1_t219_each_couple_gates_its_own_children():
+    """T-219 (2): the gate reads each family's marital tie, not only the reference family's. Marta is a child of the
+    ana~bruno couple; with that couple distant and her own marriage close, a move to her symptomatic self cannot
+    relieve her."""
+    state = fresh()
+    grandparents = TieId.of(ANA, PersonId("bruno"))
+    state.other_families["origin"] = Family(undifferentiation_budget=0.0, marital_tie=grandparents,
+                                            parent_child_ties=(TieId.of(ANA, MARTA),), household="origin")
+    for m in grandparents.members():
+        state.ties[grandparents].felt_contact[m] = 0.0
+    for m in TieId.of(RAVI, MARTA).members():
+        state.ties[TieId.of(RAVI, MARTA)].felt_contact[m] = 1.0
+    marta = state.people[MARTA]
+    marta.acute_anxiety += 20
+    marta.symptom_active[marta.channel_prior] = True
+    perceived, _ = deliver(state, move("STAY-IN-CONTACT", NADIA, MARTA))
+    was = marta.acute_anxiety
+    apply_appraisal(state, perceived, PARAMS)
+    assert marta.acute_anxiety >= was
 
 
 def test_m96_the_readout_recovers_each_pattern():

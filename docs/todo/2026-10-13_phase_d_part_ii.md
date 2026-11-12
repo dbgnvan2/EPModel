@@ -1,6 +1,6 @@
 # Phase D part II — open after the build, 2026-10-13
 
-Plan §4.7 and `docs/phase_d2_status_2026-10-13.md` hold the evidence.
+Plan §4.7 and `docs/archive/phase_d2_status_2026-10-13.md` hold the evidence.
 - [ ] T-041 ⟨later⟩ **Owner: the ±2% band against `M11.C.6`'s traversal limit (a)**, and development as `M7.E.1f`'s rule against
   the estimator bounded to the band. `M11.C.6` measured +0.018 ± 0.028 under a band of about ±0.8 points.
 - [ ] T-042 ⟨later⟩ **Owner: `M11.C.10`.** The declared cutoff ends within about 2 years, and the uncut baseline is cut within weeks,

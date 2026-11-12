@@ -8,6 +8,8 @@ Tests:   this file
 
 from __future__ import annotations
 
+import pytest
+
 import importlib.util
 import shutil
 import sys
@@ -38,6 +40,7 @@ def test_m111a_every_phase_d_mutant_applies_exactly_once(tmp_path):
             assert new in (root / file).read_text(encoding="utf-8"), mutant.id
 
 
+@pytest.mark.xfail(strict=True, reason="spec revision 59 (the engine batch, T-001 step 3, 2026-11-12): the batch moved the engine hash from d3779684dd53 to 95368d6ddf18, and every record is regenerated once on it at step 4 (docs/todo/2026-08-22_blocking_the_next_phase.md, T-001), not here, so this record is stale by decision until then")
 def test_m111d_phase_d_mutation_record_is_current():
     try:
         rendered = _tool.build(Cache("phase_d_mutation"))

@@ -3,9 +3,9 @@
 The owner decided that version 3 adds two utilities: this emergence audit and a separate LLM-agent experiment
 (planned in its own session). The audit reruns every passing composite and mixed criterion with learning from felt
 relief removed, reports which results survive, and traces each survivor to the non-learning term that carries it.
-The plan is `docs/plan_v3_emergence_audit.md`.
+The plan is `docs/archive/plan_v3_emergence_audit.md`.
 
-- [x] T-182 ⟨later⟩ **The emergence audit: build the approved plan (2026-11-03).** `docs/plan_v3_emergence_audit.md`,
+- [x] T-182 ⟨later⟩ **The emergence audit: build the approved plan (2026-11-03).** `docs/archive/plan_v3_emergence_audit.md`,
   written on spec revision 47 (engine hash `0b363cb3186c`), approved by the owner 2026-11-03. It sets
   five ablations (L0 all learning off; L1–L4 one learning path each), the scope (passing composite and mixed rows of
   the three ensemble records; premises and checks out; `M11.C.39` the positive control, `M11.C.3` the negative), the
@@ -473,8 +473,8 @@ for one spec revision that takes all nine.
   the record's. Rows: scratchpad only, not committed (about 9 minutes per 150 seeds on 8 workers). Folded into the
   spec by T-198.
 
-- [ ] T-213 ⟨later⟩ **The emergence audit on `d3779684dd53`: its scope and three rows for the owner (2026-11-11).** From
-  the version 2 definition plan's step 5 (`docs/implementation_plan_version_2_definition.md` §4.2, the owner's Q7 (a)),
+- [x] T-213 ⟨later⟩ **The emergence audit on `d3779684dd53`: its scope and three rows for the owner (2026-11-11).** From
+  the version 2 definition plan's step 5 (`docs/archive/implementation_plan_version_2_definition.md` §4.2, the owner's Q7 (a)),
   run 2026-11-11 under the owner's instruction of that night to proceed with the recommendations, split across both
   Macs (this Mac's nine rows in 53 min at 6 workers, Mac Mini1's four 2080-tick rows in 2 h 53 min at 10; the merge
   added Mini1's 11 results and found 128 equal; the controls held). `docs/emergence_audit_record.md` is current and its
@@ -499,3 +499,4 @@ for one spec revision that takes all nine.
   more seeds.
   (d) **`M11.C.55` reverses under L0.** With learning off its relief predictor names no parent (a tie names no one,
   T-206's probe), so it fails by its own definition and no carrier runs. **Recommended: no change; not a finding.**
+  *Done 2026-11-12: (b) written into `M11.5`'s `M11.C.48` row at spec revision 59, the engine batch (T-001 step 3; `docs/plan_engine_batch_2026-11-12.md`), criterion 11; (c) is in T-209.*

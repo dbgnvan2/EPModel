@@ -1,7 +1,7 @@
 """The pages of what a regeneration changed in the records are current, and list what they say they list (S1.10b).
 
-Purpose: `docs/version_2_stage_1_changes.md` is generated from the records at the tag `version-1` and at stage 1's
-         regeneration (`7aa9fc5`), both from git, so it is frozen (T-028); `docs/version_2_revision_36_changes.md`
+Purpose: `docs/archive/version_2_stage_1_changes.md` is generated from the records at the tag `version-1` and at stage 1's
+         regeneration (`7aa9fc5`), both from git, so it is frozen (T-028); `docs/archive/version_2_revision_36_changes.md`
          from `7aa9fc5` and the records as committed now. A hand edit, or a record regenerated without the second
          page, fails the first test. The others check the
          comparison on rows built here: a changed verdict is listed, an effect that moved past the tag's half-width

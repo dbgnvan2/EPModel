@@ -89,7 +89,7 @@ without `M11.F`'s framing) was entered in the spec text directly, marked ⟦prop
   - **Corpus item found while checking, not from a paper.** FE05.17 (protecting children from one's own problems
     transmits them) is marked testable in `fe05.md`, but no `M11` criterion covers it.
 - [ ] T-086 ⟨later⟩ **Owner questions from the 2026-09 maturity-and-emotion conversation.** Added 2026-10-05. These four ideas
-  come from Claude's reasoning in `docs/conversation_agents_maturity_emotion_2026-09.md` §4, not from a paper or
+  come from Claude's reasoning in `docs/archive/conversation_agents_maturity_emotion_2026-09.md` §4, not from a paper or
   the corpus. Each is `[I]` until corpus support is found. None is a requirement, and each needs an owner decision
   before it can become a proposal.
   - **Goals and shared resources.** Each person holds weighted goals (closeness, achievement, money, autonomy,

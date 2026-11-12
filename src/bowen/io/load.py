@@ -10,10 +10,11 @@ from __future__ import annotations
 import dataclasses
 from pathlib import Path
 
-from src.bowen.engine.events import ACT_CLASSES, EventKinds, EventSize
+from src.bowen.engine.events import ACT_CLASSES, ORDERED_ACT_CLASSES, EventKinds, EventSize
 from src.bowen.policy.rules import PolicyRules
 from src.bowen.scenario.constants import RETIRED, SCHEMA, Constants, parse_constants
 from src.bowen.scenario.event_kinds import parse_event_kinds
+from src.bowen.scenario.config_parse import ConfigError, finite
 from src.bowen.scenario.family import FamilyInstance, build_family, partners_file
 from src.bowen.scenario.policy_rules import parse_policy_rules
 from src.bowen.scenario.scripted_source import ScriptedSource, build_script
@@ -101,24 +102,26 @@ def load_event_sizes(kinds: EventKinds, path: Path = CONFIG_DIR / "event_sizes.m
             continue
         try:
             weeks = None if row["weeks"].strip() == "—" else int(row["weeks"])
-            sizes[(kind, who)] = EventSize(kind, who, row["item"].strip(), float(row["lcu"]), weeks)
+            sizes[(kind, who)] = EventSize(kind, who, row["item"].strip(), finite(row["lcu"], f"{path}: {kind}/{who}: lcu"), weeks)
         except ValueError as e:
             raise ConfigError(f"{path}: {kind}/{who}: {e}") from None
     return sizes
 
 
-def load_act_classes(kinds: EventKinds, path: Path = CONFIG_DIR / "act_classes.md") -> dict[str, frozenset[str]]:
+def load_act_classes(kinds: EventKinds, path: Path = CONFIG_DIR / "act_classes.md") -> dict:
     """Purpose: read the act classes the engine and the policy read; every class must be declared, once, and every act
              a declared move (version 2 stage 1, S1.3; rule 9).
     Spec:    docs/bowen_agent_model_spec_v2.md#M5.B.4, #M5.B.5, #M8.3, #M10.B.2
     Tests:   tests/bowen/test_config.py::test_s1_3a_act_classes_come_from_config,
-             tests/bowen/test_config.py::test_s1_3b_an_undeclared_act_fails_to_load
+             tests/bowen/test_config.py::test_s1_3b_an_undeclared_act_fails_to_load,
+             tests/bowen/test_config.py::test_s1_3a_t219_the_readout_and_abort_sets_are_read_from_config
     """
-    from src.bowen.scenario.config_parse import ConfigError, parse_table_document
+    from src.bowen.scenario.config_parse import parse_table_document
 
     doc = parse_table_document(read_text(path), columns=("class", "acts", "used by"), metadata_keys=frozenset(),
                                source=str(path))
-    classes = {row["class"]: frozenset(a.strip() for a in row["acts"].split(",") if a.strip()) for row in doc.rows}
+    ordered = {row["class"]: tuple(a.strip() for a in row["acts"].split(",") if a.strip()) for row in doc.rows}
+    classes = {c: acts if c in ORDERED_ACT_CLASSES else frozenset(acts) for c, acts in ordered.items()}
     if set(classes) != set(ACT_CLASSES) or len(classes) != len(doc.rows):
         raise ConfigError(f"{path}: the classes must be exactly {sorted(ACT_CLASSES)}, each once; found {sorted(classes)}")
     unknown = sorted(a for acts in classes.values() for a in acts if a not in kinds.moves())
@@ -127,6 +130,8 @@ def load_act_classes(kinds: EventKinds, path: Path = CONFIG_DIR / "act_classes.m
     empty = sorted(c for c, acts in classes.items() if not acts)
     if empty:  # an empty class silently never applies, as a misspelt act does
         raise ConfigError(f"{path}: a class with no acts: {empty}")
+    if any(len(set(acts)) != len(acts) for acts in ordered.values()):
+        raise ConfigError(f"{path}: an act listed twice in one class")
     if not classes["side_taking"] <= classes["family_to_external"]:  # M8.3: made toward an external agent (M5.B.4)
         raise ConfigError(f"{path}: a side-taking act must be a family-to-external move: "
                           f"{sorted(classes['side_taking'] - classes['family_to_external'])}")
@@ -253,6 +258,8 @@ def load_family(path: Path = CONFIG_DIR / "family_reduced.md", constants: Consta
     text = read_text(path)
     partners = partners_file(text)  # a family with a life course names its partner settings
     partners_path = Path(path).parent / partners if partners else None
+    if partners_path is not None and not partners_path.is_file():
+        raise ConfigError(f"{path}: no partner settings file {partners!r} beside it")
     return build_family(text, constants or load_constants(), source=str(path),
                         partners_text=read_text(partners_path) if partners_path else None,
                         partners_source=str(partners_path))

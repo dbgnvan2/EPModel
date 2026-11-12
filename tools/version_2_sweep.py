@@ -12,7 +12,7 @@ Purpose: for each criterion declared in ``config/sweep/sweep.md``, report *n of 
          that child; any other by ``tools/mutant_runner.py``'s child under the engine hash.
 Spec:    docs/bowen_agent_model_spec_v2.md#M17.E.1, #M17.A.1 (the detection-limit rule, revision 37);
          docs/implementation_plan_version_2.md#2.2 (D8, D10, D11);
-         docs/implementation_plan_version_2_stage_3.md#3.4 (the named ratio, D24–D26, Q14)
+         docs/archive/implementation_plan_version_2_stage_3.md#3.4 (the named ratio, D24–D26, Q14)
 Tests:   tests/test_version_2_sweep.py
 
     python3 tools/version_2_sweep.py [--workers N] [--criteria KEY ... [--recompute] | --render-only]

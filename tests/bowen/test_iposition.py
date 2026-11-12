@@ -235,7 +235,7 @@ def test_m5d3_abort_returns_the_mover_to_the_prior_balance():
     ip.advance_sequences(state, PARAMS)
     assert seq(state).due == ip.ABORT
     [event] = [r.event for r in take_owed_step(state) if isinstance(r, EmittedRecord)]
-    assert event.kind in ip.ABORT_ACTS and seq(state) is None
+    assert event.kind in state.kinds.iposition_abort and seq(state) is None
     assert axes(state.people[RAVI]) == start_axes
     assert state.ties[TieId.of(RAVI, MARTA)].functioning_balance[DEFAULT_AREA] == start_balance
 
@@ -412,6 +412,74 @@ def test_m5d9_a_step_that_cannot_be_made_is_deferred_and_logged():
     assert owed == [] and seq(state).due == ip.DEFINE and any("deferred" in f for r in records for _, f, _ in r.people)
 
 
+def test_m5d6_t215_a_mover_dead_in_resolve_reverts_the_pull_up():
+    """T-215 (a): a mover who dies in `RESOLVE` can make no follow-up, so the target's pull-up is reverted and logged,
+    as `M5.D.6`'s skipped follow-up is (it was left in place)."""
+    state = fresh()
+    state.people[RAVI].functional_level = 60.0
+    marta_before = state.people[MARTA].functional_level
+    drive_to_resolve(state)
+    pull_up = seq(state).pull_up
+    assert pull_up > 0
+    state.people[RAVI].alive = False
+    records = week(state)
+    assert seq(state) is None and state.people[MARTA].functional_level == pytest.approx(marta_before)
+    assert (MARTA, "functional_level", -pull_up) in [c for r in records for c in r.people]
+
+
+def test_m5d3_t215_a_twice_deferred_abort_restores_the_balance():
+    """T-215 (b): an abort that cannot be made twice ends the sequence with `M5.D.3`'s prior balance restored."""
+    state = fresh()
+    choose_iposition(state)
+    start_balance, start_axes = seq(state).start_balance, seq(state).start_axes
+    for _ in range(PARAMS.prepare_ticks):
+        calm(state, RAVI)
+        week(state)
+    take_owed_step(state)
+    state.tick += 1
+    deliver_to(state, RAVI, MARTA)
+    state.people[RAVI].acute_anxiety = state.people[RAVI].chronic_anxiety + 99.0
+    ip.advance_sequences(state, PARAMS)
+    assert seq(state).due == ip.ABORT
+    tie = state.ties[TieId.of(RAVI, MARTA)]
+    tie.functioning_balance[DEFAULT_AREA] = start_balance + 0.3
+    tie.interactive, tie.tie_state = False, TieState.CUT_OFF
+    ip.sequence_selections(state, PARAMS)
+    state.tick += 1
+    ip.sequence_selections(state, PARAMS)
+    assert seq(state) is None
+    assert axes(state.people[RAVI]) == start_axes and tie.functioning_balance[DEFAULT_AREA] == start_balance
+
+
+def test_m5d9_t234_no_second_iposition_while_a_sequence_runs():
+    """T-234 (`M5.D.9`, the owner 2026-11-12): while a sequence runs, `I-POSITION` toward anyone but its target is not
+    in the legal set, and a scripted one raises instead of overwriting the running sequence."""
+    from src.bowen.engine.observe import observe
+    from src.bowen.policy.policy import legal_outcomes
+
+    state = fresh()
+    state.people[RAVI].functional_level = 60.0
+    before = {o.target for o in legal_outcomes(observe(state, RAVI, PARAMS), KINDS, PARAMS) if o.kind == "I-POSITION"}
+    assert NADIA in before
+    drive_to_resolve(state)
+    during = {o.target for o in legal_outcomes(observe(state, RAVI, PARAMS), KINDS, PARAMS) if o.kind == "I-POSITION"}
+    assert during <= {MARTA}
+    with pytest.raises(ValueError, match="sequence"):
+        choose_iposition(state, target=NADIA)
+    with pytest.raises(ValueError, match="sequence"):  # toward its own target too: the tick redirects that one first
+        choose_iposition(state, target=MARTA)
+    assert seq(state).stage == ip.RESOLVE and seq(state).target == MARTA
+
+
+def test_m5d7_t219_a_completion_at_the_scale_top_logs_the_gain_it_made():
+    """T-219 (4): `complete` logs the level gain actually made, which the scale's top clamps."""
+    state = fresh()
+    drive_to_resolve(state)
+    state.people[RAVI].functional_level = ip.SCALE_MAX
+    [done, *_] = ip.complete(state, RAVI, PARAMS)
+    assert (RAVI, "functional_level", 0.0) in done.people
+
+
 # --- what usually happens: an ensemble --------------------------------------------------------
 
 
@@ -471,8 +539,8 @@ def attempts_over_seeds(seeds=192, weeks=100):
 @pytest.mark.xfail(strict=True, raises=AssertionError,
                    reason="T-158: since revision 41 (T-133) a mover angry at DEFINE says the position as a demand and "
                    "the sequence ends before any opposition, so the movers who reach the first opposition are "
-                   "calmer: over the 192 seeds, 62 abort there and 66 hold (125 and 106 at revision 40), and 118 "
-                   "sequences end said in anger. The claim is unchanged; the owner kept it as a finding (2026-10-31, "
+                   "calmer: over the 192 seeds, 55 abort there and 64 hold (125 and 106 at revision 40), and 122 "
+                   "sequences end said in anger (spec revision 59). The claim is unchanged; the owner kept it as a finding (2026-10-31, "
                    "T-158 (b)).")
 def test_m5d3_abort_is_the_usual_first_outcome():
     """At the first opposition, aborting is commoner than holding."""

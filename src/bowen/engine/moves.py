@@ -190,8 +190,8 @@ def triangle_partner(state: RunState, sender: PersonId, target: PersonId, params
 
 
 def _desc(pid: PersonId) -> tuple:
-    # max() with ties broken toward the smallest identifier.
-    return tuple(-ord(ch) for ch in pid.value)
+    # max() with ties broken toward the smallest identifier; the end mark makes a prefix the smaller (T-219 (3)).
+    return tuple(-ord(ch) for ch in pid.value) + (1,)
 
 
 def routing_capacity(members: tuple[Person, ...]) -> float:

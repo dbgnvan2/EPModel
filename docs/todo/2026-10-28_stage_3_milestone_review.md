@@ -84,11 +84,11 @@ records are regenerated once.
   ("at the first opposition") to match; (b) keep `M5.D.3` as it is and record the failure as a finding; or (c) revisit
   where T-133's gate is read. Claude's recommendation under the owner's instruction of 2026-10-28, pending the owner's
   review: (b) until the owner decides, since (a) and (c) change a rule.
-  - 2026-10-30, Claude's recommendation 2026-10-30 under the owner's instruction of that night to proceed without stopping, pending the owner's review (`docs/version_2_definition_plan.md` §8, D6): **(b)** stands. (a) counts an angry position as an abort branch so the test passes, which
+  - 2026-10-30, Claude's recommendation 2026-10-30 under the owner's instruction of that night to proceed without stopping, pending the owner's review (`docs/archive/version_2_definition_plan.md` §8, D6): **(b)** stands. (a) counts an angry position as an abort branch so the test passes, which
     redefines the outcome to fit, and an angry position falls before the first opposition where `M5.D.3` places the
     branches; (c) moves the gate the owner chose. (a)'s theory case (an angry position is reactive, as a counterattack
     is) is the owner's to weigh. Nothing changed; the strict expected failure stays.
-  - 2026-10-31, owner 2026-10-31 (`docs/version_2_definition_plan.md` §8, D6, as recommended): **(b)**. `M5.D.3` and
+  - 2026-10-31, owner 2026-10-31 (`docs/archive/version_2_definition_plan.md` §8, D6, as recommended): **(b)**. `M5.D.3` and
     its strict expected failure are kept as a finding: after T-133 an abort is not the usual first outcome in the
     model. Closed; nothing changed.
 - [x] T-159 ⟨now⟩ **The stage-end sweep on the triage batch's engine (2026-10-28).** The batch moved the engine hash to
@@ -136,7 +136,7 @@ records are regenerated once.
   target rises when both overfunctioners' capacity falls; whether collapsed parents should keep acting as projecting
   parents is the arm's design, not a rule, and changing it moves the engine hash (the arm is under
   `src/bowen/`). To decide with the next batch that moves the hash.
-  - 2026-10-29, the version 2 definition batch (`docs/version_2_definition_plan.md` §2): built as Claude's
+  - 2026-10-29, the version 2 definition batch (`docs/archive/version_2_definition_plan.md` §2): built as Claude's
     recommendation (the treatment's lending stops at `t0`, the baseline's runs on) and **withdrawn before the
     regeneration** on the batch's `learning-qa` review. That form makes the arms differ by the scripted lending as well
     as the collapse, and the lending alone carries the pass, which is a rule writing the outcome (§19). Ad hoc, 40 seeds
@@ -147,13 +147,13 @@ records are regenerated once.
     the whole run), or (b) stop the lending at `t0` in **both** arms, so the arms differ by the drop alone; ad hoc, (b)
     reads 5.37 against 6.14, a fail. Claude's recommendation: (b), since it is the only form whose arms differ by the
     collapse alone; it reverses the owner's arm design of 2026-10-16 and turns the verdict, so it waits for the owner.
-  - 2026-10-30, Claude's recommendation 2026-10-30 under the owner's instruction of that night to proceed without stopping, pending the owner's review (`docs/version_2_definition_plan.md` §8, D4): **(b)**, now measured at the criterion's own 100 seeds on `da5981f6ec0b`, ad hoc (a
+  - 2026-10-30, Claude's recommendation 2026-10-30 under the owner's instruction of that night to proceed without stopping, pending the owner's review (`docs/archive/version_2_definition_plan.md` §8, D4): **(b)**, now measured at the criterion's own 100 seeds on `da5981f6ec0b`, ad hoc (a
     scratch copy with `arm_c21`'s scripted acts ending at `t0` in both arms, `tools/stage_3_targeted_run.py --criteria
     M11.C.21`, no record): FAIL, `target_rise` −0.72 ± 1.09, p 0.94. The reason for (b) is restated: form (a) also
     differs by the drop alone, so that is not what sets (b) apart; (b) is the only form in which nothing after the
     collapse is scripted, so whether collapsed parents lend less is their own policy's (§19). Moves the hash; waits
     for the owner, then goes in one batch with T-165's rule if the owner takes it.
-  - 2026-10-31, owner 2026-10-31 (`docs/version_2_definition_plan.md` §8, D4, as recommended): **(b)**, the scripted
+  - 2026-10-31, owner 2026-10-31 (`docs/archive/version_2_definition_plan.md` §8, D4, as recommended): **(b)**, the scripted
     `OVERFUNCTION` ends at `t0` in both arms, reversing the arm design of 2026-10-16. Built at spec revision 44 with
     T-165, tests first; `M11.C.21` is then expected to fail and is decided again on the verdict that run gives.
   - 2026-10-31, built at spec revision 44 (`src/bowen/ensemble/criteria_d.py` `arm_c21`, test

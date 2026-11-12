@@ -1,6 +1,6 @@
 """Unit tests for the social cues and signal channels (spec revision 55, T-202).
 
-Purpose: each `SC-` requirement of `docs/proposal_social_cues.md`, as `docs/spec_revision_55_draft.md` states it,
+Purpose: each `SC-` requirement of `docs/archive/proposal_social_cues.md`, as `docs/archive/spec_revision_55_draft.md` states it,
          tested at the unit level; the ensemble criteria `M11.C.50`–`M11.C.55` are in
          `tests/bowen/test_criteria_sc.py`.
 Spec:    docs/bowen_agent_model_spec_v2.md#M1.F.1c, #M4.C.1e, #M4.C.1f, #M4.C.11, #M4.C.12, #M4.C.13, #M4.C.14,

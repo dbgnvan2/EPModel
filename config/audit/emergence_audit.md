@@ -7,7 +7,7 @@
 > Parsed strictly: a row the records do not hold, an exclusion of a row that is not in scope, a control on a row that
 > does not pass, an unknown ablation or expectation, a stage other than `pilot`, `l0`, `carriers` or `full`, or a pilot row that is not
 > in scope raises. The ablations and carrier candidates are code edits and stay in the tool, beside the other mutants
-> (`docs/plan_v3_emergence_audit.md` §5).
+> (`docs/archive/plan_v3_emergence_audit.md` §5).
 
 ## Exclusions
 
@@ -30,7 +30,7 @@ doing what it says. A control is never a finding.
 
 ## Stage
 
-`pilot` renders the pilot only (`docs/plan_v3_emergence_audit.md` §7 step 3): L0 on the rows below and on the two
+`pilot` renders the pilot only (`docs/archive/plan_v3_emergence_audit.md` §7 step 3): L0 on the rows below and on the two
 controls, with no carriers. `l0` renders every in-scope row and the two controls under L0 only, with no carriers (step 4; the
 owner's choice of 2026-11-03: L0 first, then L1 to L4 and the carriers costed from its survivors). `carriers` renders every
 in-scope row and the two controls under L0, and the carriers of each L0 survivor, with no L1 to L4 (steps 4 and 6; the

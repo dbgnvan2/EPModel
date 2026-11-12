@@ -9,7 +9,7 @@ below is `[I]`. Each is declared here before any criterion reads it. The code is
 **W** is `pattern_window` (4 weeks); **N** is `pattern_min_acts` (3). The other parameters are in
 `config/bowen/constants.md`.
 
-**The owner's definitions, 2026-10-10** (`docs/PROPOSAL — RUN VISUALIZATION MAPPING.md` §0 and §4; this is the
+**The owner's definitions, 2026-10-10** (`docs/archive/PROPOSAL — RUN VISUALIZATION MAPPING.md` §0 and §4; this is the
 plan §9 review of this document):
 - An emotional pattern is a **repeating** pattern of activity: N or more acts in W. A single act is an event, not a pattern.
 - **A pattern ends only when a new pattern emerges** on the same subject (`current_patterns`).
@@ -52,7 +52,7 @@ Acts count when they pass between the two members of the tie, in either directio
 ## Negative runs — what `M11.C.48` reads (version 2 group G1, spec revision 36; T-123 at revision 43; T-179 at revision 47; T-185 at revision 57)
 
 `src/bowen/readouts/negative_runs.py`; `tests/bowen/test_negative_runs.py` checks each definition on hand-built records.
-Each definition is `[I]` (the owner's D12 of 2026-10-19, `docs/PROPOSAL — CUTOFF ANXIETY, BRIDGING AND REPAIR.md` §4;
+Each definition is `[I]` (the owner's D12 of 2026-10-19, `docs/archive/PROPOSAL — CUTOFF ANXIETY, BRIDGING AND REPAIR.md` §4;
 the baseline as built, decided as recommended under the owner's instruction of 2026-10-22, approved by the owner 2026-10-24 in T-125).
 The classes of contact are `config/bowen/contact_classes.md`.
 
@@ -86,7 +86,7 @@ The classes of contact are `config/bowen/contact_classes.md`.
   1137 matched first cutoffs on the Phase B family and 1419 of 4791 on the twelve-person family were such ties; with
   the same condition on both arms the difference was +0.029 ± 0.136 and +0.344 ± 0.078 against the record's −0.319 ±
   0.104 and −0.113 ± 0.062 (`docs/review/t176_negative_run_trace.md`; the runs are those of `09ca2b46c7e0`, and the trace was regenerated at `0b363cb3186c` with the same runs).
-- **Since revision 47 (T-179, the owner's option (a) of 2026-11-02; `docs/plan_t179_negative_run_contact_condition.md`):**
+- **Since revision 47 (T-179, the owner's option (a) of 2026-11-02; `docs/archive/plan_t179_negative_run_contact_condition.md`):**
   one contact condition on both arms, a contact in the cutoff's week or before (`negative_runs.in_contact`). A first
   cutoff on a tie with no contact by its week is **no-contact**: it is left out of both arms and counted
   (`FirstCutoff.contact`, `no_contact`; the treatment arm's report-only readout `no_contact_cutoffs`). Each first
@@ -166,3 +166,17 @@ scans config keys and `Person` fields for the words in `config/lint/role_labels.
   it is not the value the policy selects by over the window, and how often the first-born is the main supplier is
   reported beside the arms instead of being the comparison — on the twelve-person family it predicts below chance
   (T-206, the owner's decision of 2026-11-09; `docs/review/2026-11-09_sc_pass_probes.md`).
+
+## What a verdict reports beside its readouts (`M11.1f`, spec revision 59, T-216, T-217, T-239 (c))
+
+- **Each arm's required moves.** A criterion names the moves its treatment arm must make (`requires_moves`) and, since
+  revision 59, those its baseline must make (`requires_moves_baseline`); a move that never occurs in its own arm fails
+  the verdict and is listed with "(baseline)" when it is the baseline's. `M11.C.18` (baseline `CUTOFF`), `M11.C.20`
+  (baseline `UNDERFUNCTION`) and `M11.C.23` (baseline `STAY-IN-CONTACT`) gate both arms.
+- **Each arm's counts.** Every count an arm records under a parenthesised key — a child who died before the age read
+  (`M11.C.6`), a dyad with no pole formed (`M11.C.25`, new), the drivings booked (`M11.C.26`, which now books all
+  three, not the last), the exits `M11.C.48` leaves out — is summed over the seeds per arm and printed in the record's
+  "Counts the arms record" section. The scripted-act bookkeeping is reported apart, as before.
+- **The share of differing pairs.** Every readout, report-only rows included, carries the share of seeds whose two
+  arms differ (`nonzero_share`), printed as "pairs differing". No minimum is set; one is decided after the shares are
+  seen at the next regeneration.

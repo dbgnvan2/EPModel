@@ -2,7 +2,8 @@
 
 Purpose: build M16.A.1's self-describing header from the parsed configuration.
 Spec:    docs/bowen_agent_model_spec_v2.md#M16.A.1, #M16.A.1a, #M16.A.7, #M10.B.4
-Tests:   tests/bowen/test_log.py::test_m16a1_header_hashes_the_resolved_config
+Tests:   tests/bowen/test_log.py::test_m16a1_header_hashes_the_resolved_config,
+         tests/bowen/test_log.py::test_m16a1_t218_every_config_input_moves_the_hash
 
 ``config_hash`` is SHA-256 over the *resolved* configuration — parsed values,
 not file text — so editing a comment in a config file leaves it unchanged and
@@ -16,36 +17,25 @@ import hashlib
 import json
 
 from src.bowen.engine.activation import SynchronousActivation
-from src.bowen.engine.events import ACT_CLASSES, EventKinds
+from src.bowen.engine.events import EventKinds
 from src.bowen.engine.log_records import LogHeader, plain
 from src.bowen.engine.visibility import HouseholdConductanceVisibility
+from src.bowen.policy.rules import PolicyRules
 from src.bowen.scenario.constants import Constants
 from src.bowen.scenario.family import FamilyInstance
 from src.bowen.scenario.scripted_source import ScriptedSource
 
 
-def resolved_config(constants: Constants, kinds: EventKinds, family: FamilyInstance, script: ScriptedSource) -> dict:
+def resolved_config(constants: Constants, kinds: EventKinds, family: FamilyInstance, script: ScriptedSource,
+                    policy: PolicyRules | None = None) -> dict:
+    """Every loaded input that can change a run, as parsed values (T-218): the whole ``EventKinds``, the whole
+    ``FamilyInstance`` (its life course included) and the policy rules, each by its own fields, so a new field is in."""
     return {
         "constants": {k: [c.value, c.grade] for k, c in sorted(constants.values.items())},
         "activation_regime": constants.activation_regime,
-        "event_kinds": {k: m.value for k, m in sorted(kinds.mechanisms.items())},
-        "signs": sorted([k, p.value, s] for (k, p), s in kinds.signs.items()),
-        "nodal": [[k, kinds.nodal_reach.get(k, "")] for k in sorted(kinds.nodal)],  # M1.A.4k
-        "soothing": sorted(kinds.soothing),                                      # M1.A.5e
-        "steering": sorted([k, d] for k, d in kinds.steering.items()),          # M4.D.1a
-        "attribution": sorted([k, v] for k, v in kinds.attribution.items()),    # M9.6
-        "focus": sorted([k, v] for k, v in kinds.focus.items()),                # M1.A.11c
-        "channels": sorted([k, c] for k, c in kinds.channels.items()),          # M4.D.1a (review 2026-10-11)
-        "layers": sorted([k, n] for k, n in kinds.layers.items()),              # M4.D.3a (review 2026-10-11)
-        "act_classes": [[c, sorted(getattr(kinds, c))] for c in ACT_CLASSES],  # S1.3 (rule 9)
-        "family": {
-            "instance_id": family.instance_id,
-            "nuclear_household": family.nuclear_household,
-            "people": [plain(family.people[p]) for p in sorted(family.people)],
-            "ties": [plain(family.ties[t]) for t in sorted(family.ties)],
-            "relations": sorted([str(t), r.value] for t, r in family.relations.items()),
-            "budget": family.family.undifferentiation_budget,
-        },
+        "kinds": plain(kinds),
+        "family": plain(family),
+        "policy": plain(policy),
         "script": {
             "script_id": script.script_id,
             "ticks": script.ticks,
@@ -71,6 +61,7 @@ def build_header(
     script: ScriptedSource,
     activation: SynchronousActivation,
     visibility: HouseholdConductanceVisibility,
+    policy: PolicyRules | None = None,
 ) -> LogHeader:
     """Purpose: the header record that opens every log.
     Spec:    docs/bowen_agent_model_spec_v2.md#M16.A.1, #M16.A.1a, #M16.A.7
@@ -81,7 +72,7 @@ def build_header(
     )
     return LogHeader(
         seed=seed,
-        config_hash=config_hash(resolved_config(constants, kinds, family, script)),
+        config_hash=config_hash(resolved_config(constants, kinds, family, script, policy)),
         spec_revision=spec_revision,
         instance_id=family.instance_id,
         activation_component=activation.component_id,

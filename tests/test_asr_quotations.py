@@ -13,7 +13,7 @@ Purpose: the 1979 tapes and the Kerr–Bowen interviews are ASR transcripts, and
          only tracked `.md` and `.html` files are read. In HTML a block is a blank-line chunk, which can hold several
          elements, and a Markdown block quote is one block however many paragraphs it has, so a citation anywhere in it
          flags every quotation in it (the proposal's §5, form A; §9).
-Spec:    docs/PROPOSAL — ASR QUOTATIONS (SP-1).md#SP1.2, #SP1.4, #SP1.5
+Spec:    docs/archive/PROPOSAL — ASR QUOTATIONS (SP-1).md#SP1.2, #SP1.4, #SP1.5
 Tests:   this file
 """
 
@@ -235,7 +235,7 @@ def test_sp1_5_frozen_records_carry_note():
     record without the note fails (the second assertion's copy)."""
     rules = load_rules()
     records = frozen_records(rules)
-    assert sorted(records) == ["docs/DECISIONS FOR APPROVAL.md", "docs/proposal_rev11_emergence.md"]
+    assert sorted(records) == ["docs/archive/DECISIONS FOR APPROVAL.md", "docs/archive/proposal_rev11_emergence.md"]
     missing = [path for path in records if missing_note((REPO / path).read_text(encoding="utf-8"), rules)]
     assert not missing, f"frozen record(s) without the SP-1 note: {missing}"
     assert missing_note("# A record\n\n> *Quotations in this record are ASR text.*\n", rules)

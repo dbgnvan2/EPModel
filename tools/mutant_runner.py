@@ -63,9 +63,10 @@ def child(ids: list[str], workers: int) -> None:
         try:
             v = run_criterion(CRITERIA[cid], rules, workers=workers)
             readouts = [{"readout": r["readout"], "direction": r["direction"], "mean_difference": r["mean_difference"],
-                         "half_width": r["half_width"], "report_only": r.get("report_only", False)} for r in v.readouts]
+                         "half_width": r["half_width"], "report_only": r.get("report_only", False),
+                         "nonzero_share": r["nonzero_share"]} for r in v.readouts]
             print(json.dumps({"criterion": cid, "outcome": v.outcome, "seeds": v.seeds, "readouts": readouts,
-                              "missing_moves": v.missing_moves},
+                              "missing_moves": v.missing_moves, "counts": v.counts},
                              default=float), flush=True)
         except BROKEN_ERRORS as error:  # the replacement text itself is broken (an unimported name): no evidence
             print(json.dumps({"criterion": cid, "outcome": "BROKEN", "seeds": 0,

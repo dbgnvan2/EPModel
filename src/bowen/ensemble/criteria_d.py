@@ -40,7 +40,7 @@ from src.bowen.engine.identifiers import PersonId
 from src.bowen.engine.log_records import EffectRecord, EmittedRecord
 from src.bowen.engine.objects import Role
 from src.bowen.ensemble.criteria import FAMILIES, ROLES, SETTINGS, result, scenario
-from src.bowen.ensemble.runner import Criterion, Readout
+from src.bowen.ensemble.runner import ArmResult, Criterion, Readout
 from src.bowen.io.load import load_constants, load_event_kinds, load_family
 
 P = PersonId
@@ -158,10 +158,10 @@ def arm_c17(arm, seed, settings):
 C = Criterion
 CRITERIA_D: dict[str, Criterion] = {
     "M11.C.18": C("M11.C.18", "check", ("baseline", "treatment"), (Readout("rise", +1),), arm_c18,
-                  ("CUTOFF", "I-POSITION"), settings=SETTINGS["M11.C.18"]),
+                  ("I-POSITION",), settings=SETTINGS["M11.C.18"], requires_moves_baseline=("CUTOFF",)),  # T-216
     "M11.C.20": C("M11.C.20", "check", ("baseline", "treatment"),
                   (Readout("rise", +1), Readout("support_blocked", -1, report_only=True)), arm_c20,
-                  ("UNDERFUNCTION", "I-POSITION"), settings=SETTINGS["M11.C.20"]),
+                  ("I-POSITION",), settings=SETTINGS["M11.C.20"], requires_moves_baseline=("UNDERFUNCTION",)),
     "M11.C.33": C("M11.C.33", "premise", ("baseline", "treatment"), (Readout("rise", +1),), arm_c33,
                   ("I-POSITION",), settings=SETTINGS["M11.C.33"]),
     "M11.C.17": C("M11.C.17", "composite", ("baseline", "treatment"),
@@ -384,16 +384,21 @@ def arm_c26(arm, seed, settings):
     weeks, every = settings["weeks"], settings["act_every"]
     names = {"conflict": Sink.MARITAL_CONFLICT, "dysfunction": Sink.SPOUSE_DYSFUNCTION, "projection": Sink.CHILD_PROJECTION}
     children = frozenset({CHILD, PARTNER})
-    read_beliefs, read_sinks, records = [], [], []
+    read_beliefs, read_sinks = [], []
+    booked = ArmResult({})  # not result(): that would book the previous scenario's scripted acts
     for driving in DRIVINGS:
         state, records = scenario("four", seed, weeks, forced=_driven(driving, weeks, every))
+        each = result({}, records)  # T-217: every driving is booked, not the last one only
+        booked.moves.update(each.moves); booked.fallbacks.update(each.fallbacks); booked.selections.update(each.selections)
         attributions = {p: dict(state.people[p].attribution) for p in (FATHER, MOTHER)}
         read_beliefs.append(sink_from_beliefs(attributions, (FATHER, MOTHER), children))
         read_sinks.append(sink_from_allocations(dict(state.family.sink_allocations)))
     beliefs, sinks = score_c26(read_beliefs, read_sinks, [names[d] for d in DRIVINGS], 0 if arm == "treatment" else 1)
     # Review 2026-10-12: here the largest allocation always names the driving's own sink, so reading the belief
     # pattern from the allocation is the same comparison; it is reported, not tested.
-    return result({"belief_to_sink": beliefs, "sink_to_belief": sinks}, records)
+    booked.readouts = {"belief_to_sink": beliefs, "sink_to_belief": sinks}
+    booked.moves["(drivings booked)"] += len(DRIVINGS)
+    return booked
 
 
 def score_c26(read_beliefs, read_sinks, driven, shift: int) -> tuple[float, float]:
@@ -741,7 +746,7 @@ CRITERIA_D.update({
                   settings=SETTINGS["M11.C.21"]),
     # Reclassified as a composite (the owner, 2026-10-16): it compares the sizes of two mechanisms (M11.5).
     "M11.C.23": C("M11.C.23", "composite", ("baseline", "treatment"), (Readout("relapses", +1),), arm_c23,
-                  ("CONFLICT", "STAY-IN-CONTACT"), settings=SETTINGS["M11.C.23"]),
+                  ("CONFLICT",), settings=SETTINGS["M11.C.23"], requires_moves_baseline=("STAY-IN-CONTACT",)),
 })
 
 

@@ -2,7 +2,7 @@
 
 Purpose: `tools/stage_3_projection_trace.py`, `tools/stage_3_iposition_probe.py` and
          `tools/stage_3_displaced_coping_probe.py` write the review pages the owner's decisions D18 and D20 wait on
-         (`docs/implementation_plan_version_2_stage_3.md` §3.3.1, §3.3.2). These
+         (`docs/archive/implementation_plan_version_2_stage_3.md` §3.3.1, §3.3.2). These
          tests run each tool's own arm functions on a few seeds and check that what they read is what the engine did:
          the trace's terms reproduce the development step, and the probe's arms differ only in the mover's level and
          in whether the act is scripted. Each tool's page keeps its hand-written "Reading" section when rewritten.
@@ -93,7 +93,7 @@ def test_stage_3_displaced_coping_probe_moves_conserved_stress_functioning(tmp_p
 
 
 def test_stage_3_displaced_coping_probe_f1_ledger_holds_at_the_floor_and_sheds_off_it():
-    """F1 as the probe puts it in (`docs/PROPOSAL — DISPLACED COPING (P2).md` §4.2): a week in which the floor held
+    """F1 as the probe puts it in (`docs/archive/PROPOSAL — DISPLACED COPING (P2).md` §4.2): a week in which the floor held
     functional level while the swing decayed puts the held amount on the ledger, and the bound stops it being shed;
     off the floor a calm week sheds ``response_relaxation_rate`` of it, moving functional level with it; "kept" never
     sheds. Mutation (run 2026-10-25): shedding without the floor's bound (``move = -step``) takes the first week's

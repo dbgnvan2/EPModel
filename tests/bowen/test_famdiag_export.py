@@ -2,7 +2,7 @@
 
 Purpose: check that every pattern line traces back to the run's own acts, that nothing is drawn from a single
          act, that the file has what fam-diag's import needs, and that it says it is not a real family.
-Spec:    docs/PROPOSAL — RUN VISUALIZATION MAPPING.md §8; docs/bowen_agent_model_spec_v2.md#M5.A.1a, #M11.F.9
+Spec:    docs/archive/PROPOSAL — RUN VISUALIZATION MAPPING.md §8; docs/bowen_agent_model_spec_v2.md#M5.A.1a, #M11.F.9
 Tests:   this file
 
 fam-diag is a separate repository, so its line styles are copied here as the contract

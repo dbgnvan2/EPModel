@@ -247,6 +247,7 @@ def test_w3_a_pass_whose_named_mutant_survived_is_not_labelled_unmutated():
         assert not unmutated[key].final and {"W1", "W3"} <= unmutated[key].blocks
 
 
+@pytest.mark.xfail(strict=True, reason="spec revision 59 (the engine batch, T-001 step 3, 2026-11-12): the batch moved the engine hash from d3779684dd53 to 95368d6ddf18, and every record is regenerated once on it at step 4 (docs/todo/2026-08-22_blocking_the_next_phase.md, T-001), not here, so this record is stale by decision until then")
 def test_s2_11_status_page_is_current():
     """The committed page is what the tool renders from the committed records (P6)."""
     assert tool.PAGE.read_text(encoding="utf-8") == tool.render(tool.statuses())
@@ -262,7 +263,7 @@ def test_s2_11_records_read_shows_every_hash_a_record_keys_by():
     assert all(f"{kind} `{value[:12]}`" in line for kind, value in hashes.items())
 
 
-# Version 2's dispositions (docs/version_2_definition_plan.md §3).
+# Version 2's dispositions (docs/archive/version_2_definition_plan.md §3).
 
 def _v2(key, kind, verdict, decided="owner 2026-10-29"):
     return {key: {"kind": kind, "verdict": verdict, "owner": decided.startswith("owner "), "decided": decided,

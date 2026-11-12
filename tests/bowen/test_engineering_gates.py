@@ -118,12 +118,17 @@ def test_m11d2_check_catches_a_literal_in_the_policy(tmp_path):
 
 # --- M11.D.8 / M11.D.9 --------------------------------------------------------------------------
 
-EXPECTED_SPEC_REFERENCES = 1097  # M11.D.9: an exact count, not a floor; update it when references change (1097 at
-# spec revision 57, negative_runs' sides functions, the FirstCutoff guard and left_out_mean_run's Spec line
-# (T-185, the review passes' P2/P9 fix), 2026-11-10; 1094 at
-# spec revision 55, the social cues' signals, cues, criteria and readout Spec lines, T-202, 2026-11-08; 1042 at
-# spec revision 47, negative_runs.no_contact's Spec line, 2026-11-02; 1041 at
-# spec revision 43, negative_runs.unmatched's Spec line, 2026-10-30; 1040 at spec revision 41, the stage 3 triage batch's M1.A.5f, M5.D.4a, M6.I.4a, M7.E.1f and M11.C.21 Spec lines, 2026-10-28; 1035 at spec revision 39's step 9, group A's M4.C.1d, M4.D.3a and the tables' M4.C.1d, 2026-10-26; 1032 at spec revision 39's step 8, group F's M5.F.4, M5.F.2c and M11.C.49, 2026-10-26; 1027 at spec revision 39's step 7, group C's M1.A.5f, M1.A.5e and M6.I.4a text, 2026-10-26; 1016 at spec revision 39's step 6, M8.5's M5.C reference gone with the avoidance gate, 2026-10-25; 969 once spec_references read a block's continuation lines, review 2026-10-22; 938 on the first line only after model ergonomics Part D replaced the fifteen section anchors with numbered IDs, 2026-10-22; 808 at version 2 stage 1, with load_act_classes)
+# M11.D.9 (spec revision 59, T-242): the scan must cover every `.py` file under `src/bowen/`, checked against a listing
+# made apart from the scan, and every reference must resolve. The exact count it replaced (1097 at revision 57) had to
+# be edited by hand at every new Spec line.
+SCAN_ROOT = REPO / "src" / "bowen"
+
+
+def python_files(root: Path) -> set[Path]:
+    """Every `.py` file under ``root``, listed with os.walk, not the scan's own rglob."""
+    import os
+
+    return {Path(d) / f for d, _, files in os.walk(root) for f in files if f.endswith(".py")}
 
 
 def spec_anchors() -> set[str]:
@@ -133,11 +138,14 @@ def spec_anchors() -> set[str]:
     return ids | headings
 
 
-def spec_references(root: Path) -> list[str]:
+def spec_references(root: Path, scanned: set | None = None) -> list[str]:
     """Every `#M…` citation in a `Spec:` block: the `Spec:` line and its continuation lines, up to the next `Key:`
-    line or a blank line (review 2026-10-22: the line-only read missed 31 citations on wrapped lines)."""
+    line or a blank line (review 2026-10-22: the line-only read missed 31 citations on wrapped lines). Each file read
+    is added to ``scanned`` when one is given."""
     refs = []
     for path in sorted(root.rglob("*.py")):
+        if scanned is not None:
+            scanned.add(path)
         lines = path.read_text().splitlines()
         number = 0
         while number < len(lines):
@@ -154,14 +162,21 @@ def spec_references(root: Path) -> list[str]:
 
 
 def test_m11d8_spec_references_resolve():
-    refs = spec_references(REPO / "src" / "bowen")
+    scanned: set[Path] = set()
+    refs = spec_references(SCAN_ROOT, scanned)
     anchors = spec_anchors()
-    assert sorted({r for r in refs if r not in anchors}) == []
-    assert len(refs) == EXPECTED_SPEC_REFERENCES
+    assert refs and sorted({r for r in refs if r not in anchors}) == []
+    assert scanned == python_files(SCAN_ROOT)  # M11.D.9: the scan read every file
 
 
-def test_m11d9_a_narrowed_scan_is_caught():
-    assert len(spec_references(REPO / "src" / "bowen" / "engine")) != EXPECTED_SPEC_REFERENCES
+def test_m11d9_a_narrowed_scan_is_caught(tmp_path):
+    """M11.D.9: the scan's root is the whole engine package and its listing reaches every subpackage, so narrowing
+    either fails here; and a wrapped `Spec:` block is read to its end (the line-only read once missed 31)."""
+    assert SCAN_ROOT == REPO / "src" / "bowen"
+    packages = {p.parent for p in SCAN_ROOT.rglob("*.py") if "__pycache__" not in p.parts}
+    assert {p.parent for p in python_files(SCAN_ROOT)} == packages and len(packages) > 1
+    (tmp_path / "m.py").write_text('"""Purpose: x.\nSpec:    docs/s.md#M1.A.1,\n         #M2.B.2.\nTests:   t.py\n"""\n')
+    assert spec_references(tmp_path) == ["M1.A.1", "M2.B.2"]
     assert "M99.Z.1" not in spec_anchors()
 
 

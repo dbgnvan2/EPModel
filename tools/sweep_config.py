@@ -5,7 +5,7 @@ Purpose: one strict parser for the sweep's own config, so no range or rule is a 
          to a measurement input). The engine never reads this file; it lives outside ``config/bowen/`` because the
          engine hash covers that directory (docs/implementation_plan_version_2.md §2.1 item 4, D12).
 Spec:    docs/bowen_agent_model_spec_v2.md#M17.E.1; docs/implementation_plan_version_2.md#2.2 (D8, D10, D12);
-         docs/implementation_plan_version_2_stage_3.md#3.4 (the named ratios, D24, D25)
+         docs/archive/implementation_plan_version_2_stage_3.md#3.4 (the named ratios, D24, D25)
 Tests:   tests/test_version_2_sweep.py::test_s2_6_sweep_config_is_loaded_strictly_with_grades,
          tests/test_version_2_sweep.py::test_s3_19_ratio_row_parsed_strictly
 """

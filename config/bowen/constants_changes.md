@@ -14,6 +14,13 @@
 > moved out of the code into `act_classes.md` (`M8.3`, `M5.B.4`, `M5.B.5`) are lists of act names, not constants, and
 > their contents did not change.
 >
+> **Spec revision 59 (2026-11-12, the engine batch, T-001 step 3) changed no constant's value.** Its one row retires
+> `fast_tick_weeks` (1), removed from `constants.md`: no code read it, and `M3.A.1` makes the fast tick one week by
+> definition, so it is a retired key that fails at load if written (T-219 (10)); the frozen snapshots keep it as they
+> were taken. The register now rejects a non-finite or negative value. `act_classes.md` gains four classes moved out of
+> the code with the members the code held (`reactive`, `iposition_abort`, `position_outside`, `position_inside`, T-219
+> (11), (12)); they are lists of act names, not constants.
+>
 > **Spec revision 47 (2026-11-02; T-179, the owner's option (a), with T-177) changed no constant**, so it has no row
 > here. `M11.C.48`'s readout (a first cutoff on a tie with no contact by its week left out of both arms and counted) is
 > code. T-177 added a sentence to `constants.md`'s note on `hold_gain` (since revision 41 aborts are not the usual
@@ -127,9 +134,9 @@
 | `equivalence_margin` | — | 0.5 | 2026-10-07 | — (ensemble rule; Phase C step 12) | no |
 | `contact_excess_exponent` | — | 2.0 | 2026-10-07 | — (promoted from a literal by M11.D.2; Phase C step 13) | no |
 | `ensemble_precision` | 0.25 | 0.25 (unit changed: pooled seed-to-seed sd of the two arms, was the baseline arm's) | 2026-10-08 | — (owner request; `docs/phase_c_completion_report.md` §10, decided before rerunning) | yes |
-| `pattern_window` | 8 | 4 | 2026-10-10 | — (owner decision D1, 2026-10-10, `docs/PROPOSAL — RUN VISUALIZATION MAPPING.md`: the owner's pattern definitions; no criterion reads the pattern readouts) | no |
-| `pattern_min_acts` | 2 | 3 (unit changed: acts on the tie, was acts per member) | 2026-10-10 | — (owner decision D1, 2026-10-10, `docs/PROPOSAL — RUN VISUALIZATION MAPPING.md`: the owner's pattern definitions; no criterion reads the pattern readouts) | no |
-| `pattern_pole` | 0.5 | retired | 2026-10-10 | — (owner decision D1, 2026-10-10, `docs/PROPOSAL — RUN VISUALIZATION MAPPING.md`: the owner's pattern definitions; no criterion reads the pattern readouts) | no |
+| `pattern_window` | 8 | 4 | 2026-10-10 | — (owner decision D1, 2026-10-10, `docs/archive/PROPOSAL — RUN VISUALIZATION MAPPING.md`: the owner's pattern definitions; no criterion reads the pattern readouts) | no |
+| `pattern_min_acts` | 2 | 3 (unit changed: acts on the tie, was acts per member) | 2026-10-10 | — (owner decision D1, 2026-10-10, `docs/archive/PROPOSAL — RUN VISUALIZATION MAPPING.md`: the owner's pattern definitions; no criterion reads the pattern readouts) | no |
+| `pattern_pole` | 0.5 | retired | 2026-10-10 | — (owner decision D1, 2026-10-10, `docs/archive/PROPOSAL — RUN VISUALIZATION MAPPING.md`: the owner's pattern definitions; no criterion reads the pattern readouts) | no |
 | `pattern_projection_hold` | — | 12 | 2026-10-10 | — (owner, 2026-10-10: projection holds until 12 turns without evidence; no criterion reads the pattern readouts) | no |
 | `rejection_cutoff_gain` | — | 0.5 | 2026-10-11 | — (new mechanism; Phase D B4, owner decisions P1 and P2: cutoff as rejection) | no |
 | `rejection_refusal_gain` | — | 0.1 | 2026-10-11 | — (new mechanism; Phase D B4, owner decisions P1 and P2: cutoff as rejection) | no |
@@ -251,3 +258,4 @@
 | `attention_load_scale` | — | 0.5 | 2026-11-08 | — (new mechanism; spec revision 55, T-202, `M4.C.15`: the social cues, behind `social_cues_enabled`, off by default; `[I]`, the owner's approval of the draft 2026-11-08) | no |
 | `belief_cue_rate` | — | 0.1 | 2026-11-08 | — (new mechanism; spec revision 55, T-202, `M9.9`: the social cues, behind `social_cues_enabled`, off by default; `[I]`, the owner's approval of the draft 2026-11-08) | no |
 | `belief_leak_gain` | — | 0.5 | 2026-11-08 | — (new mechanism; spec revision 55, T-202, `M9.9`: the social cues, behind `social_cues_enabled`, off by default; `[I]`, the owner's approval of the draft 2026-11-08) | no |
+| `fast_tick_weeks` | 1 | retired | 2026-11-12 | — (spec revision 59, T-219 (10), `M3.A.1`: no code read it; the fast tick is one week by definition) | no |

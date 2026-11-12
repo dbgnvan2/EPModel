@@ -1,4 +1,4 @@
-"""V7's mechanical part: every output kind still carries the framing `docs/REVIEW_version_1_outputs.md` lists.
+"""V7's mechanical part: every output kind still carries the framing `docs/archive/REVIEW_version_1_outputs.md` lists.
 
 Purpose: fail when a regenerated trace, export or record loses the line that says it is not about a real family
          (`M11.F.9`), or when "virtual family" appears in a document other than the two that frame it (`M11.F.10`).

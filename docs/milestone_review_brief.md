@@ -114,7 +114,7 @@ On the machine that runs it:
    one-line index and the records it names under `docs/todo/`.
 
    ```bash
-   git diff --stat --diff-filter=d BASELINE..HEAD -- src/ config/ tools/ tests/ docs/ requirements.txt pytest.ini .github/ README.md CLAUDE.md ':!docs/records_cache' ':!docs/review' ':!docs/*_record.md' ':!docs/spec_coverage.md' ':!docs/version_1_status.md' ':!docs/version_2_stage_1_changes.md' ':!docs/phase_c_level_occupancy.md'
+   git diff --stat --diff-filter=d BASELINE..HEAD -- src/ config/ tools/ tests/ docs/ requirements.txt pytest.ini .github/ README.md CLAUDE.md ':!docs/records_cache' ':!docs/review' ':!docs/*_record.md' ':!docs/spec_coverage.md' ':!docs/version_1_status.md' ':!docs/archive/version_2_stage_1_changes.md' ':!docs/phase_c_level_occupancy.md'
    ```
 
    Also leave out any other page whose header says a tool generated it.
@@ -179,7 +179,7 @@ checked goes under "Unverified" in the report, never under findings.
     A `KB` claim cites the interview, not the man. The rule is `docs/theory/_SOURCE_QUALITY.md`, "What the Hijack set
     supports", and the explainer's citation legend.
   - Known item to settle on the first review: `M10.C.2`, `_LEDGER.md`'s withdrawn eight-to-ten-generations entry and
-    `docs/DECISIONS FOR APPROVAL.md` A1 quote `KB11` verbatim, in the first person. Is that an exception the owner
+    `docs/archive/DECISIONS FOR APPROVAL.md` A1 quote `KB11` verbatim, in the first person. Is that an exception the owner
     accepted, or a defect?
 - **A rule that writes an outcome.** Conflict, over- and underfunctioning, distance, cutoff, projection and fixed
   triangles must emerge from the two drives and felt relief. A rule in `src/bowen/` must not set them directly. See

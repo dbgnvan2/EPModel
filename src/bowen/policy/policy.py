@@ -142,7 +142,7 @@ def value_key(obs: Observation, kind: str, target: PersonId, params: EngineParam
 def legal_outcomes(obs: Observation, kinds: EventKinds, params: EngineParams,
                    excluded: frozenset[str] = frozenset()) -> list[Outcome]:
     """Purpose: the legal set, formed before selection from structure and the removing gates.
-    Spec:    docs/bowen_agent_model_spec_v2.md#M4.D.1e, #M5.C.1, #M17.D.3
+    Spec:    docs/bowen_agent_model_spec_v2.md#M4.D.1e, #M5.C.1, #M5.D.9, #M17.D.3
     Tests:   tests/bowen/test_policy.py::test_m4d1e_legal_set_excludes_impossible_and_gated_acts,
              tests/bowen/test_policy.py::test_m17d3_excluded_outcome_is_not_legal
 
@@ -172,6 +172,8 @@ def legal_outcomes(obs: Observation, kinds: EventKinds, params: EngineParams,
                 continue  # M1.B.3c: a sequence cannot run across a cut-off tie (iposition._live)
             if kind == I_POSITION and obs.financially_dependent:
                 continue  # M5.C.1: fails outright, so it is removed, not degraded
+            if kind == I_POSITION and obs.sequence_target not in (None, view.other):
+                continue  # M5.D.9 (T-234): one sequence per person at a time
             if f"{kind}>{view.other}" in excluded:
                 continue
             key = value_key(obs, kind, view.other, params, position) if channel == AUTOMATIC else ""

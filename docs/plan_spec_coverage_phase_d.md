@@ -122,7 +122,7 @@ tool reads the Phase C record only), `test_m141_accepted_finding_shows_its_dispo
 - `tests/bowen/test_ensemble_record.py::test_d0_diagnostics_never_count_as_proof` read the old `MUTATION_RECORD` name;
   it now checks that no diagnostic record is among `MUTATION_RECORDS`. Three generated texts that described the old
   reading were re-rendered from their records and cache, which ran nothing: `docs/phase_c_completion_report.md` §11
-  (`tools/c16_report.py`), `docs/phase_c_diagnostic_record.md` and `docs/version_2_stage_1_changes.md`.
+  (`tools/c16_report.py`), `docs/phase_c_diagnostic_record.md` and `docs/archive/version_2_stage_1_changes.md`.
 - The unmet-clause check reads only a row's annotation, not which mutant the clause names. `M11.C.1` and `M11.C.38`
   name a single mutant that survives and are proved only by the joint one, as `docs/phase_c_completion_report.md`
   records; they stay *done*, and the page's header now says what the check reads.
@@ -228,8 +228,8 @@ That judgment is the owner's review in B2 (P6).
 - `docs/TODO_archive.md` ("Coverage page, Part B" ticked); `CHANGELOG.md`; `CLAUDE.md`'s test count;
 - `tools/spec_coverage.py`'s docstring.
 
-Three places name the old file in dated history: `docs/cycles/2026-10-08_phase-c-qa-gate-17.md` line 84,
-`docs/implementation_plan_phase_c.md` line 345, and a ticked item in `docs/TODO_archive.md`. Decision 4.
+Three places name the old file in dated history: `docs/archive/cycles/2026-10-08_phase-c-qa-gate-17.md` line 84,
+`docs/archive/implementation_plan_phase_c.md` line 345, and a ticked item in `docs/TODO_archive.md`. Decision 4.
 
 ### 6.5 Decisions for the owner
 
@@ -330,8 +330,8 @@ ensemble test of a *partial* criterion; a default-suite test of a *partial* crit
 `test_m11c14_one_sided_bound_fails_when_interval_reaches_below`; an ensemble test named for no criterion,
 `test_m3b1_forty_year_run_completes`); B3.1 (the old name in the tool's docstring; in `pytest.ini`).
 
-**B3.2.** `grep -rn spec_coverage_phase_b` finds the old name only in dated history: `docs/cycles/2026-10-08_phase-c-qa-gate-17.md`,
-`docs/implementation_plan_phase_c.md`, a ticked item in `docs/TODO_archive.md` (decision 4), `CHANGELOG.md` (this entry records
+**B3.2.** `grep -rn spec_coverage_phase_b` finds the old name only in dated history: `docs/archive/cycles/2026-10-08_phase-c-qa-gate-17.md`,
+`docs/archive/implementation_plan_phase_c.md`, a ticked item in `docs/TODO_archive.md` (decision 4), `CHANGELOG.md` (this entry records
 the rename), and this plan's opening paragraph, §5, §6 and §7, which name the file before the rename.
 
 **Adjacent issues found, not fixed** (recorded in `TODO.md`): `M6.3a` is *done* by

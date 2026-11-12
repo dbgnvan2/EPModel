@@ -257,7 +257,7 @@ def test_m1a5e_soothing_also_scales_with_the_load_above_usual_and_week_0_is_calm
 
 
 # --- Version 2 stage 3, group C (spec revision 39, approved 2026-10-25): written first, built at step 7 -------------
-# Plan docs/implementation_plan_version_2_stage_3.md §3.7, S3.1a, S3.1b, S3.1d. Written first and red at plan step 5;
+# Plan docs/archive/implementation_plan_version_2_stage_3.md §3.7, S3.1a, S3.1b, S3.1d. Written first and red at plan step 5;
 # green from plan step 7, which built `M1.A.5f` and `floor_held`. Premises (`M11.5`): a pass confirms the code and is
 # never a finding.
 

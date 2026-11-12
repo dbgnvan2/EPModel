@@ -213,10 +213,18 @@ def render(verdicts, not_built, rules, hash_: str) -> str:
                          f"{'within' if r['within_bound'] else 'outside'}")
             else:
                 text += f", p {r['p']:.3g}, {'holds' if r.get('holds') else 'does not hold'}"
+            if "nonzero_share" in r:  # T-239 (c): the share of seeds whose pair differs (absent in older caches)
+                text += f", pairs differing {r['nonzero_share']:.2f}"
             parts.append(text)
         flags = list(v.flagged) + [f"move never occurred: {m}" for m in v.missing_moves]
         lines.append(f"| `{v.criterion}` | {v.cls} | **{v.outcome}** | {v.seeds} | {'; '.join(parts)} | "
                      f"{scripted_cell(v.scripted)} | {v.fallback_rate:.2f} | {'; '.join(flags) or '—'} |")
+    counted = [(v.criterion, v.counts) for v, _ in verdicts if getattr(v, "counts", None)]
+    if counted:  # T-217: every count an arm records, summed over the seeds (`M11.1f`)
+        lines += ["", "## Counts the arms record (`M11.1f`)", ""]
+        for cid, counts in counted:
+            lines.append(f"- `{cid}`: " + "; ".join(
+                f"{arm} " + ", ".join(f"{k} {n:g}" for k, n in c.items()) for arm, c in counts.items()))
     lines += ["", "## Not built in Phase C", ""]
     lines += [f"- `{cid}` — {why}." for cid, why in not_built.items()]
     lines += ["", "## Fallback rate by person (`M11.D.18`)", ""]
@@ -226,7 +234,9 @@ def render(verdicts, not_built, rules, hash_: str) -> str:
     lines += ["", "## Machine-readable", "", "```json",
               json.dumps([{"criterion": v.criterion, "class": v.cls, "outcome": v.outcome, "seeds": v.seeds,
                            "readouts": v.readouts, "fallback_rate": v.fallback_rate, "flags": v.flagged,
-                           "missing_moves": v.missing_moves, "scripted": v.scripted} for v, _ in verdicts], indent=1, default=float),
+                           "missing_moves": v.missing_moves, "scripted": v.scripted,
+                           **({"counts": v.counts} if getattr(v, "counts", None) else {})} for v, _ in verdicts],
+                          indent=1, default=float),
               "```", ""]
     return "\n".join(lines)
 

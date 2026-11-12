@@ -22,7 +22,7 @@ What each check means:
   takes from acute anxiety and tie-bound anxiety sums to zero, apart from a source it logs by
   name (the outsider's positional anxiety). An unnamed or unlogged change raises.
 * M6.I.7 — no person and no tie has left the field.
-* M6.I.8 — the standing load ran before delivery this tick, on every tie.
+* M6.I.8 — the standing load ran before delivery this tick, on every tie with a living member.
 * M1.B.3c — a tie whose member holds rejection is cut off (one direction: a cut-off tie may hold none, since it
   leaves ``CUT_OFF`` only on a positive contact with no rejection held), rejection is in [0, 1], and a cut-off tie's
   stock is at most its peak (M1.D.2b).
@@ -54,6 +54,7 @@ LEDGER = {
     "cutoff_threat_renewed": SOURCE,  # M1.D.2b: a negative contact returns the stock to its peak
     "tie_repair_reversed": SOURCE,  # M1.D.2c: a negative contact adds a third of the reference level back
     "acute_decay": SINK,            # M1.A.8, toward the chronic floor
+    "acute_floor": SOURCE,          # M1.A.8: acute below a chronic floor that rose is lifted to it (T-219 (1))
     "cutoff_cap_dissipation": SINK,  # M1.D.2b: the stock above the cap at the week of the cut
     "cutoff_decay": SINK,           # M1.D.2b: the stock's fall toward its floor
     "cutoff_bridge_dissipation": SINK,  # M1.D.2b: what a positive contact across a cut-off tie lets go
@@ -86,6 +87,7 @@ class Snapshot:
     tie_bound: tuple[tuple[TieId, float], ...] = ()
     budget: float = 0.0
     symptom_bound: tuple[tuple[PersonId, float], ...] = ()
+    living_ties: frozenset[TieId] = frozenset()  # ties with a living member at the tick's start (M6.I.8)
 
 
 def snapshot(state: RunState) -> Snapshot:
@@ -98,6 +100,7 @@ def snapshot(state: RunState) -> Snapshot:
         tie_bound=tuple((t, state.ties[t].distance_bound_anxiety) for t in sorted(state.ties)),
         budget=state.family.undifferentiation_budget,
         symptom_bound=tuple((p, state.people[p].symptom_bound) for p in sorted(state.people)),
+        living_ties=frozenset(t for t in state.ties if any(state.people[m].alive for m in t.members())),
     )
 
 
@@ -232,12 +235,12 @@ def assert_invariants(
             "its peak (M1.D.2b)",
         ),
         require(
-            loaded_ties == frozenset(state.ties)
+            loaded_ties == before.living_ties
             and "standing_load" in steps
             and "deliver" in steps
             and steps.index("standing_load") < steps.index("deliver"),
             "M6.I.8",
-            f"standing load covered {len(loaded_ties)} of {len(state.ties)} ties; steps {steps}",
+            f"standing load covered {len(loaded_ties)} of {len(before.living_ties)} ties with a living member; steps {steps}",
         ),
     ]
     return InvariantRecord(tick=state.tick, results=tuple(results))

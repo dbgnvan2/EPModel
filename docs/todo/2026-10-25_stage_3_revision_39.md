@@ -1,13 +1,13 @@
 # Version 2 stage 3 — open from revision 39's draft, 2026-10-25
 
-Raised while drafting part 1 of spec revision 39 (`docs/spec_revision_39_draft.md`, group C) at plan step 4
-(`docs/implementation_plan_version_2_stage_3.md` §3.8). Items the draft records and does not change.
+Raised while drafting part 1 of spec revision 39 (`docs/archive/spec_revision_39_draft.md`, group C) at plan step 4
+(`docs/archive/implementation_plan_version_2_stage_3.md` §3.8). Items the draft records and does not change.
 
 - [x] T-131 ⟨now⟩ **`KS00.9` against `M7.E.1f`'s parents' term (the stage 4 check, revision 39 part 1).** `KS00.9`
   `[K]`: "the basic levels of the parents establish the emotional climate". `M7.E.1f`'s parents' term reads the
   parents' functioning above basic (the estimator's reading), which `M1.A.5f` (P2) raises in a parent who displaces
   onto the child; in the joint probe the parents' term carries +0.026 ± 0.019 of `M11.C.6`'s +0.018 ± 0.025
-  (`docs/PROPOSAL — DISPLACED COPING (P2).md` §6.1). The owner decided 2026-10-25 (the draft's §9 Q5, the recommended
+  (`docs/archive/PROPOSAL — DISPLACED COPING (P2).md` §6.1). The owner decided 2026-10-25 (the draft's §9 Q5, the recommended
   option): leave `M7.E.1f` as it is in revision 39 and record the finding for the stage 3 milestone review
   (`docs/milestone_review_brief.md`), which reads it under its theory-fidelity lens. A rule in which the parents' term
   leaves out what `M1.A.5f` gave the parent would be a new rule outside D18, with its own probe. *2026-10-28, the
@@ -24,14 +24,14 @@ Raised while drafting part 1 of spec revision 39 (`docs/spec_revision_39_draft.m
 - [x] T-132 ⟨later⟩ **`FE04.13`'s second kind of so-called I-position (the stage 4 check, revision 39 part 2).**
   `FE04.13` `[K]`: many so-called I-positions are attempts to get others to change or to pry oneself loose from
   intense situations. `M5.F.4`'s mixture (revision 39, D20) models the first as the demand share; the second,
-  distance in disguise, has no share in the act and is `M11.C.29`'s other arm (`docs/spec_revision_39_draft.md` §17).
+  distance in disguise, has no share in the act and is `M11.C.29`'s other arm (`docs/archive/spec_revision_39_draft.md` §17).
   Found, not fixed: no rule drafted. Recorded for the stage 3 milestone review (`docs/milestone_review_brief.md`). *Closed
   2026-10-28: the owner chose to record the second kind as not modelled; `M5.F.4` states `FE04.13` in full and
   `M11.C.29`'s row says its baseline is plain `DISTANCE` (spec revision 40).*
 - [x] T-133 ⟨now⟩ **`M5.D.4a`'s anger check at `DEFINE` (the correctness pass on revision 39's draft).** `M5.D.4a`
   says an `I-POSITION` emitted while the mover's anger is above threshold executes as the assertion form; the code
   checks anger only when the act is selected (`src/bowen/engine/act.py`), not again when a sequence reaches `DEFINE`.
-  Revision 39's `M5.F.4` describes the code as it is (`docs/spec_revision_39_draft.md` §13.1). Whether anger at
+  Revision 39's `M5.F.4` describes the code as it is (`docs/archive/spec_revision_39_draft.md` §13.1). Whether anger at
   `DEFINE` should also turn a said position into the assertion form is not drafted; recorded for the stage 3
   milestone review. *The milestone review's triage (its record, `2026-10-28_stage_3_milestone_review.md`): the owner chose option (b): at `DEFINE`, an angry mover's position is all
   demand (share 1) and the sequence ends; `M5.D.4a` restated to match. In the triage batch (moves the engine hash);
@@ -107,7 +107,7 @@ Raised while drafting part 1 of spec revision 39 (`docs/spec_revision_39_draft.m
   `M11.C.41`'s four cells. The settings and `reciprocal_contact_share` (0.5, `[I]`) are not to be tuned to these rows
   (`M10.B.4`); read with step 10's regeneration and the sweep; left for the owner.
 - [ ] T-143 ⟨later⟩ **Mutants that revision 39's regeneration no longer turns red (step 10, 2026-10-26).** From
-  `docs/version_2_revision_39_changes.md`, against revision 38's records (`9ebf327`): in the Phase C mutation record
+  `docs/archive/version_2_revision_39_changes.md`, against revision 38's records (`9ebf327`): in the Phase C mutation record
   `steepness-level-independent` now survives on `M11.C.41[heavy: lower level]`, `availability-level-inverted` survives
   and `availability-and-learner-removed` is reversed on `M11.C.16` (`steepness-inverted` turns it red where it
   survived), and `steepness-inverted` survives on `M11.C.38[-5 vs -10]`; the four `M11.C.44` mutants did not run,

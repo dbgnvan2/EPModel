@@ -19,7 +19,7 @@ Tests:   tests/bowen/test_negative_runs.py::test_m11c48_run_before_the_first_cut
          tests/bowen/test_negative_runs.py::test_m11c48_t185_a_cutoff_with_no_uncut_tie_of_its_sides_is_left_out_and_counted
 
 The definitions, `[I]` (`docs/readouts_phase_c.md`, "Negative runs"; the proposal
-`docs/PROPOSAL — CUTOFF ANXIETY, BRIDGING AND REPAIR.md` §4, the owner's D12):
+`docs/archive/PROPOSAL — CUTOFF ANXIETY, BRIDGING AND REPAIR.md` §4, the owner's D12):
 
 * a **negative contact** on a tie is an act in `config/bowen/contact_classes.md`'s `negative` or `rebuff` set emitted
   by one member toward the other, or any move across the tie that was refused (a ``refusal`` record), each counted
@@ -47,7 +47,7 @@ The definitions, `[I]` (`docs/readouts_phase_c.md`, "Negative runs"; the proposa
   only the uncut ties with as many sides as the cut tie, since a cut tie is more often one both members act on and such
   ties hold longer runs, so unmatched arms carry part of the difference (learnings P7; T-185's measurement,
   `tools/c48_carrier_probe.py`; the owner's Q3 (a) of 2026-11-09,
-  `docs/implementation_plan_version_2_definition.md`). A first cutoff with an uncut tie in its week but none of its
+  `docs/archive/implementation_plan_version_2_definition.md`). A first cutoff with an uncut tie in its week but none of its
   sides is left out of both arms and counted (``unsided``). Each first cutoff is matched, no-contact, unmatched or
   unsided, and only one of them.
 """

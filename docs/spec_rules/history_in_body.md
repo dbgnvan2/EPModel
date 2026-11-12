@@ -1,6 +1,6 @@
 # History written into requirement bodies
 
-*Generated from the spec at revision 58 by `tools/spec_rules_view.py`. Not normative: where this and the spec differ, the spec wins. Do not edit.*
+*Generated from the spec at revision 59 by `tools/spec_rules_view.py`. Not normative: where this and the spec differ, the spec wins. Do not edit.*
 
 Every ID whose body holds a sentence matching a history phrase (`tools/spec_index_rules.json`, `history_phrases`), with the sentence and the phrase it matched: **30 IDs**. The view keeps every one of these sentences (C3). This list was the input to Part E: revision 35 (2026-10-22) moved or rewrote the narratives, with one row per sentence in `docs/spec_revision_35_dispositions.md`, approved by the owner 2026-10-22, so what is listed now is what that pass left in place — rule text, recorded results and cross-references that match a phrase — each a row marked "stays" that gives the reason. Line numbers are the spec's.
 
@@ -85,7 +85,7 @@ Every ID whose body holds a sentence matching a history phrase (`tools/spec_inde
 
 ## M11.C.12 (line 1376)
 
-- *Revision 24, measured:* **fails** — on the dyad the released anxiety raises the other spouse's excess, but marital `CONFLICT` does not rise (see `docs/implementation_plan_phase_d.md`, step 7) | ⟨Revision \d+⟩
+- *Revision 24, measured:* **fails** — on the dyad the released anxiety raises the other spouse's excess, but marital `CONFLICT` does not rise (see `docs/archive/implementation_plan_phase_d.md`, step 7) | ⟨Revision \d+⟩
 
 ## M11.C.14 (line 1378)
 
@@ -111,7 +111,7 @@ Every ID whose body holds a sentence matching a history phrase (`tools/spec_inde
 
 ## M11.C.29 (line 1393)
 
-- *Post hoc*, like `M11.C.32`'s level: chosen after the diagnosis that at level 40, with the spell every 4 weeks from week 4, 58 of 100 seeds failed `PREPARE` (excess 20.7 ± 0.85 against `defence_threshold` 15) and 37 ran as the assertion form because the mover was angry (`docs/version_1_dispositions.md`; `docs/implementation_plan_phase_d.md`, the `M11.C.29` diagnosis). | `test_m11c29_relief_and_differentiation_differ_in_time_course` | C | M6.I.1's budget reduction — making the differentiating move merely reallocate **MUST** turn this red *Regenerated at revision 32:* fails on the time-course limb, −1.24 ± 2.9 (100 seeds); the budget, reported, is +0 ± 0. | ⟨\b(?:at|in|since|by|from|until|before|after) revision \d+⟩
+- *Post hoc*, like `M11.C.32`'s level: chosen after the diagnosis that at level 40, with the spell every 4 weeks from week 4, 58 of 100 seeds failed `PREPARE` (excess 20.7 ± 0.85 against `defence_threshold` 15) and 37 ran as the assertion form because the mover was angry (`docs/version_1_dispositions.md`; `docs/archive/implementation_plan_phase_d.md`, the `M11.C.29` diagnosis). | `test_m11c29_relief_and_differentiation_differ_in_time_course` | C | M6.I.1's budget reduction — making the differentiating move merely reallocate **MUST** turn this red *Regenerated at revision 32:* fails on the time-course limb, −1.24 ± 2.9 (100 seeds); the budget, reported, is +0 ± 0. | ⟨\b(?:at|in|since|by|from|until|before|after) revision \d+⟩
 
 ## M11.C.32 (line 1396)
 
@@ -125,6 +125,6 @@ Every ID whose body holds a sentence matching a history phrase (`tools/spec_inde
 
 - Chosen after seeing that, for the owner. | `test_m11c46_triangle_relief_scales_with_third_help` | D | `third_help` ignored (mutant `triangle-help-ignored`) **MUST** turn this red *Regenerated at revision 32* (`docs/phase_d_ensemble_record.md`): **passes**, `seeker_relief` +1.45 ± 0.11 (100 seeds). ⟨\b(?:at|in|since|by|from|until|before|after) revision \d+⟩
 
-## M16.A.7 (line 1995)
+## M16.A.7 (line 1999)
 
 - **M16.A.7** The header **MUST** record, for each `[I]` constant, whether its value was changed after the acceptance suite first ran against it (`M10.B.4`). ⟨was changed⟩

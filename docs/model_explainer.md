@@ -260,7 +260,7 @@ last three years of weeks:
     seeds): in 136 of the 150 seeds the two arms' coached rise is the same, so the pull-up was what carried the pass.
 
   Flattening the load weighting leaves C.18 and C.20 passing, so at revision 20 their mutation clauses were restated
-  to the mechanisms above (owner decision, 2026-10-11; `docs/implementation_plan_phase_d.md`, step 6).
+  to the mechanisms above (owner decision, 2026-10-11; `docs/archive/implementation_plan_phase_d.md`, step 6).
 - **What counts as a nodal event (revision 17).** Any major event on a person: the owner lists deaths, births,
   marriages, serious illnesses, big moves, big job changes, a child moving out or back in, and divorces. The engine's
   kinds are listed in `config/bowen/nodal_events.md`. An event counts for whom it happens to and for everyone it
@@ -344,7 +344,7 @@ of differentiation goes up"; `M7.B.1`).
 
 **For:** the fast state. What moves on the weekly clock.
 
-**Does:** raised by each incoming event by `intensity × conductance / `functional_level``; decays toward the chronic floor; also takes a **standing load** from every tie each tick whether or not anything happened (§7.2). *Revision 11 (§19):* the event term is now the change in the tie's deviation from the person's felt contact optimum, on either side (spec `M4.C.1`–`M4.C.1b`), and the standing load is the "too little" side of the same function (`M4.C.1c`). The form above is revision 10's and is what Phase B built.
+**Does:** raised by each incoming event by `intensity × conductance / `functional_level``; decays toward the chronic floor; also takes a **standing load** from every tie each tick whether or not anything happened (§7.2). *Revision 11 (§19):* the event term is now the change in the tie's deviation from the person's felt contact optimum, on either side (spec `M4.C.1`–`M4.C.1b`), and the standing load is the "too little" side of the same function (`M4.C.1c`). The form above is revision 10's and is what Phase B built. When the chronic floor has risen above the acute level, consolidation lifts the acute level to it; since spec revision 59 that lift is logged as its own source, `acute_floor`, not as decay (`M6.4`, T-219 (1)).
 
 **Source:** `[T]` Ch18 · L18.2 — all patterns intensify with anxiety and **vanish when calm**. `[M]` Ch01 · L01.1 — transfer is "almost quantitative": the source's anxiety measurably falls as the recipient's symptom rises.
 
@@ -486,7 +486,7 @@ That is the fixture test 15 needs: two counterfeits at **equal magnitude of the 
 - **What the criteria show** (ad hoc, not yet a record): `M11.C.30`, `M11.C.22` (both limbs, against removing the
   same member with no symptom), `M11.C.31` and `M11.C.11` pass; about half of C.11's direction is the removed member's symptom hold, released on their return. `M11.C.12` fails: released anxiety raises the other
   spouse's excess, but in this engine more anxiety does not select conflict in particular
-  (`docs/implementation_plan_phase_d.md`, step 7).
+  (`docs/archive/implementation_plan_phase_d.md`, step 7).
 
 ### 3.10 `structural_importance`
 
@@ -771,7 +771,7 @@ At low level a person is nearly all automatic; as level rises a real self-direct
 4. **Hold course.** ⚠ **Corrected 2026-08-27 — this step was stated backwards here and in the spec.** The gate is the mover's **freedom from** anger: "when he is finally able to maintain his course **without getting angry** at the opposition… the opposition does a final intense emotional attack." An angry mover **does not reach the peak at all** — the sequence stalls quietly rather than aborting loudly, which is a different failure from step 3's. Ch13 mentions anger exactly once and it is the mover's; Kerr 1988 (`FE04.4`) and Bowen 1988 (`FE11.19`) say the same about the same person's anger. **Anger is negative evidence for a differentiated move, never a gate admitting one.** → spec `M5.D.4`, `M5.D.4a`
 5. **The peak** — a final intense emotional attack.
 6. **If the mover stays calm:** "the opposition becomes calm and **pulls up to his level** of individuality," and then "another, and another will do the same." In the model the pull-up does not apply when the mover is the coach (`M5.D.5`, revision 44, T-165). That is a modelling choice, the owner's D5 (`[I]`): the reason that both parties rise does not hold for a mover outside the family. Two sources are context, not its ground: a family member can go beyond the coach's level, so the coach's level is no ceiling (`[K]` `FE06.10`), which the pull-up never was, since it only raises those below the mover; and the family changes when its leader emerges from within it (`[B]` `FE11.6`).
-7. **Mandatory follow-up the next day** — "this is the point where the feeling system dictates withdrawal, which will result in the system 'tightening up' again." **Skipping it reverts the gain.**
+7. **Mandatory follow-up the next day** — "this is the point where the feeling system dictates withdrawal, which will result in the system 'tightening up' again." **Skipping it reverts the gain.** A mover who dies in `RESOLVE` cannot follow up, so the target's pull-up is reverted the same way, and logged (spec revision 59, `M5.D.6`, T-215).
 
 **Source:** `[M]` Ch13 · L13.3 for the sequence; `[T]` Ch21 · L21.4 for the follow-up and the timings; `[T]` `FE11.9` for the `PREPARE` phase that now precedes step 1 — Bowen's own February 1967 trip ran **months of planning** and **one private letter per important triangle**, timed "**to cause the triangles to come to me**". **Success usually follows several failures.**
 
@@ -913,7 +913,7 @@ At a lower level an I-position comes out more as a demand (`M5.F.4`, revision 39
 
 ## 7. Invariants
 
-These are asserted every tick. They are what makes the engine a model of *this* theory rather than a plausible-looking simulation.
+These are asserted every tick. They are what makes the engine a model of *this* theory rather than a plausible-looking simulation. A tick whose invariants fail emits its records and a record of the failure before it raises, so the log holds the failing tick (spec revision 59, `M16.A.4`). `M6.I.8`, the standing load on every tie before delivery, counts a tie as loaded only when a living member took its term and compares against the ties with a living member at the tick's start; I2 below is asserted as a structural check that cannot fail while there are three sinks (revision 59, T-219 (9)).
 
 ### I1 — The family undifferentiation budget has **three** sinks
 
@@ -1200,7 +1200,8 @@ Three separate findings that all constrain how an event resolves:
 - **What the family focuses on moves the symptom channel** `[I]`: anxious caretaking focuses the body, worry the mind,
   blame conduct. `M1.A.11c`
 - **Marital distance blocks improvement** `[I]`: while both spouses' felt contact on their tie is below a quarter of
-  what they want, nothing addressed to a symptomatic child of theirs lowers the child's anxiety. `M5.C.1`.
+  what they want, nothing addressed to a symptomatic child of theirs lowers the child's anxiety. `M5.C.1`. Every
+  couple gates its own children, including the families partnering makes (spec revision 59, T-219 (2)).
   `M11.C.14`'s null failed: firmness keeps impinging, and talking it out calms once the symptom ends. The owner
   restated it at revision 31 (2026-10-16): no technique may *lower* the child's load against a no-technique arm; the
   difference between techniques is reported. The gate blocks help, not harm. Built in revision 31 part B, with a
@@ -1351,7 +1352,7 @@ peaks mid-scale (§3.1).
 ### 11.3 What revision 32 changed, to finish version 1  *(2026-10-17; Claude's recommendations, decided by the owner the same day)*
 
 Every item below was first decided under the owner's instruction "proceed using your own recommendations" and then
-reviewed by the owner one at a time on 2026-10-17 (`docs/implementation_plan_phase_d.md` §4.12). Where each criterion stands is generated in
+reviewed by the owner one at a time on 2026-10-17 (`docs/archive/implementation_plan_phase_d.md` §4.12). Where each criterion stands is generated in
 `docs/version_1_status.md`.
 
 - **Test 7, the coach's position, is built.** A coach takes a member's side when that member consults him without
@@ -1398,7 +1399,7 @@ reviewed by the owner one at a time on 2026-10-17 (`docs/implementation_plan_pha
 Version 1 is frozen at spec revision 32 and the tag `version-1`; version 2 begins at revision 33. Stage 1 is one
 engineering batch (`docs/implementation_plan_version_2.md` §1). It adds no rule. Its decisions, D1–D7, are the
 owner's, taken as recommended on 2026-10-19. Which verdicts it moved is measured, not predicted, in
-`docs/version_2_stage_1_changes.md`.
+`docs/archive/version_2_stage_1_changes.md`.
 
 - **The grid engine is retired** (`M13.2`, D1). `src/engine.py`, `src/main.py`, `monte_carlo.py`, their 37 tests and
   `docs/model_config.md` are removed from the tree and kept at the tag `version-1`. A test fails if any of them comes
@@ -1419,7 +1420,9 @@ owner's, taken as recommended on 2026-10-19. Which verdicts it moved is measured
   `M8.3`), which acts a family member makes only toward an external agent (`M5.B.4`) and which acts an external agent
   makes (`M5.B.5`) are read from `config/bowen/act_classes.md`. A misspelt act fails at load, as do a class with no
   acts and a side-taking act that is not a move toward an external agent. Kinds built without the classes carry none,
-  so the code that reads one fails instead of finding every act in no class.
+  so the code that reads one fails instead of finding every act in no class. Since spec revision 59 (T-219 (11),
+  (12)) the file also holds the reactive acts two readouts count, `M5.D.3`'s three abort branches (read in the order
+  written, since the abort draw indexes them) and the outside and inside position acts; all four are `[I]`.
 - **Two runs are compared on all of their state** (`M16.T.3`). `canonical_state`, the string by which two runs'
   final states are compared, now includes the stressors still weighing on the family, the deliveries still to land,
   the self-directed acts and witnessed cutoffs awaiting judgement, who last adjusted to whom, the last held stances and
@@ -1431,8 +1434,8 @@ owner's, taken as recommended on 2026-10-19. Which verdicts it moved is measured
 
 ### 11.5 What revision 36 changed: version 2's group G and the event sizes  *(2026-10-22; built overnight under the owner's instruction of 2026-10-22, each choice decided as recommended and approved by the owner 2026-10-24 in T-125)*
 
-Three decided proposals built as one batch: `docs/PROPOSAL — CUTOFF ANXIETY, BRIDGING AND REPAIR.md` (G1, the
-owner's Q1–Q11 of 2026-10-19), `docs/PROPOSAL — RELEASE BY TIE (G2).md`, and `docs/PROPOSAL — EVENT SIZES FROM THE
+Three decided proposals built as one batch: `docs/archive/PROPOSAL — CUTOFF ANXIETY, BRIDGING AND REPAIR.md` (G1, the
+owner's Q1–Q11 of 2026-10-19), `docs/archive/PROPOSAL — RELEASE BY TIE (G2).md`, and `docs/PROPOSAL — EVENT SIZES FROM THE
 HOLMES–RAHE SCALE.md` (the owner's Q1–Q8 of 2026-10-19). The corpus gives the directions; every size below is `[I]`
 or the owner's. Each rule changes what an act does or what a tie holds; none writes a pattern outcome (§19): a cutoff
 is still learned from felt relief, and what it then costs is the physics below.
@@ -1701,7 +1704,7 @@ The model was built against Bowen's 22 papers and then checked against five furt
 
 It also **settled §13.3** (see above), retired the three-versus-four-sinks question for good (§7 I2), and supplied the magnitudes in 15.3.
 
-✅ **It raised four items the approved spec did not match. All four are now decided and applied** — `docs/DECISIONS — FAMILY EVALUATION.md`, decided 2026-08-27, spec revision 4.
+✅ **It raised four items the approved spec did not match. All four are now decided and applied** — `docs/archive/DECISIONS — FAMILY EVALUATION.md`, decided 2026-08-27, spec revision 4.
 
 | Item | Decided | Where it landed |
 |---|---|---|
@@ -2044,6 +2047,10 @@ to be at rest). Each week they move toward what the person was delivered about t
 intensity, weighted by fidelity. They never move toward the truth on their own, so a tense marriage seen
 only in its calm moments stays believed calm. The sender's hidden state is not visible to the observer. The
 smoothing rule and its rate (`belief_rate`) are `[I]`. A static test fails if the update reads any true state.
+**The learner's exemption** (spec revision 59, T-237): the rule binds the policy, not the learner. The learner reads
+other people's true acute anxiety (the cross-person relief, `M4.D.6e`) and their true functional level (the change
+after a witnessed cutoff, `M4.D.6f`). That is an invented choice, `[I]`, now stated in `M4.B.2`; the mutant
+`learner-reads-own-state-only`, run at the next regeneration on `M11.C.10[family of origin]`, removes it.
 
 **Belief against truth, as a readout** (`M16.A.5a`, `M17.B.3` · C41) — *so arms in which beliefs and outcomes
 move in opposite directions are seen rather than averaged away.* **Source:** `[SHOWN]` Kalluri 2026 §6.3 —
@@ -2182,13 +2189,13 @@ Version 2's stage 2 builds the constant sweep (`M17.E.1`) and the detection-limi
 
 ## 19. Set, random, emergent — what the model is told and what it is left to produce  *(spec revision 11, approved 2026-10-06)*
 
-**The problem this section answers.** A model told how families behave will behave that way, and running it shows nothing beyond what was written in. Read against spec `M11.1d` at revision 10, 2 of the 41 acceptance criteria could produce a result that no single rule states; the rest confirm that the code renders the spec. Revision 11 moves Bowen's patterns out of the rules and into what the rules produce. The working record is `docs/proposal_rev11_emergence.md`.
+**The problem this section answers.** A model told how families behave will behave that way, and running it shows nothing beyond what was written in. Read against spec `M11.1d` at revision 10, 2 of the 41 acceptance criteria could produce a result that no single rule states; the rest confirm that the code renders the spec. Revision 11 moves Bowen's patterns out of the rules and into what the rules produce. The working record is `docs/archive/proposal_rev11_emergence.md`.
 
 ### 19.1 Three layers
 
 | Layer | What is in it | Status |
 |---|---|---|
-| **Set** | Two given drives on every tie: toward connection — feeling connected, appreciated, loved — and away from too much of it — being smothered, controlled, threatened, losing autonomy. What each act does to the state of the system. The capacity limits (gates). Differentiation's role: how steeply anxiety rises with deviation, how wide the tolerated band is, and how much a person runs on the automatic channel | the same in every run; graded below |
+| **Set** | Two given drives on every tie: toward connection — feeling connected, appreciated, loved — and away from too much of it — being smothered, controlled, threatened, losing autonomy. What each act does to the state of the system, including step 9's settling of the functioning balance toward a pole (`settle_functioning`, spec `M1.B.5`, `M1.B.6`; listed at spec revision 59, T-239 (a)). The capacity limits (gates). Differentiation's role: how steeply anxiety rises with deviation, how wide the tolerated band is, and how much a person runs on the automatic channel | the same in every run; graded below |
 | **Random** | Exogenous spells, noise in move selection (how a first triangle happens by chance), initial conditions, who witnesses an exchange | varies by seed |
 | **Emergent** | Conflict, over- and underfunctioning, distance, cutoff, projection onto a child, fixed triangles, a family's characteristic style | produced by learning from felt relief; never written as rules |
 
@@ -2316,8 +2323,9 @@ written; it is not a rule against reopening.
 The spec requires that aborting is the usual outcome at the first opposition (`M5.D.3`), and the rate at which movers
 hold (`hold_gain`, `[I]`) was first set against that. Since revision 41 (T-133) the model does not meet it. A mover
 angry at `DEFINE` says the position as a demand and the sequence ends before any opposition, so the movers who reach
-the first opposition are calmer: on the triad with F the mover, over 192 seeds, 62 sequences abort there and 66 hold, and 118
-sequences end said in anger (`test_m5d3_abort_is_the_usual_first_outcome`, a strict expected failure). The owner kept
+the first opposition are calmer: on the triad with F the mover, over 192 seeds, 55 sequences abort there and 64 hold, and 122
+sequences end said in anger (`test_m5d3_abort_is_the_usual_first_outcome`, a strict expected failure; 62, 66 and 118
+before spec revision 59, which stopped a second `I-POSITION` from overwriting a running sequence, `M5.D.9`, T-234). The owner kept
 the requirement and the divergence as a finding (T-158 (b), 2026-10-31). In the Phase C family, preparation fails in
 most attempts (1,907 of 1,941 in that test's fixture notes), so the test runs on the triad.
 
@@ -2329,7 +2337,7 @@ Contact with a less anxious person lowers anxiety on every tie, generalising the
 
 Spec `M11.5` classifies every criterion. At revision 11: 20 premises, 14 composites (4 of them new), 3 mixed, 7 checks, 1 deferred. A premise passing confirms the code; a composite passing or failing says something about whether Bowen's mechanisms, taken together, produce his patterns. **A failing composite is the most informative output the model has.** None of it says whether real families behave this way (§1.1, spec `M11.F.10`).
 
-**The emergence audit (spec `M11.1g`, revision 48).** A composite passing is informative only if it comes from what the agents learned or from time, not from a term written into the policy. `tools/emergence_audit.py` reruns every passing composite and mixed criterion with all learning off (L0: `learning_rate` and `witnessed_cutoff_gain` at 0, so no learned value leaves 0) and with each of the four learning paths off alone (L1–L4), and for each criterion that still passes under L0 it removes, one at a time and with learning off, each non-learning policy term and each of the criterion's own mutants, naming each removal that turns it red as a carrier. A mixed criterion is judged on its composite limbs only, and one each of whose gating readouts is a declared premise limb is not rerun: it has no composite limb (revision 49, T-192). Revision 49 also recorded the carriers of six survivors in `M11.5`'s notes, each kept in its class by the owner (T-186 to T-191). **How to read a survivor:** it is not a defect by itself. Some composites are carried by time and need no learning, as `M11.C.27` is by `M4.C.1`'s two-sided shape `[M]`. A survivor is a defect only when a rule that carries it names its readout or outcome as its own target, `M11.1d`'s test, and the owner decides that for each survivor. Two controls show the ablation removes learning and nothing else: `M11.C.39`, whose arms differ only in learning, must turn red, and `M11.C.3`, the physics of an act, must survive. The record is `docs/emergence_audit_record.md`; it holds L0 and the carriers (`docs/plan_v3_emergence_audit.md` §7 steps 4 and 6), rerun on `d3779684dd53` on 2026-11-11: 9 of the 13 rows survive with all learning off, each with at least one carrier. L1–L4 are not run.
+**The emergence audit (spec `M11.1g`, revision 48).** A composite passing is informative only if it comes from what the agents learned or from time, not from a term written into the policy. `tools/emergence_audit.py` reruns every passing composite and mixed criterion with all learning off (L0: `learning_rate` and `witnessed_cutoff_gain` at 0, so no learned value leaves 0) and with each of the four learning paths off alone (L1–L4), and for each criterion that still passes under L0 it removes, one at a time and with learning off, each non-learning policy term and each of the criterion's own mutants, naming each removal that turns it red as a carrier. A mixed criterion is judged on its composite limbs only, and one each of whose gating readouts is a declared premise limb is not rerun: it has no composite limb (revision 49, T-192). Revision 49 also recorded the carriers of six survivors in `M11.5`'s notes, each kept in its class by the owner (T-186 to T-191). **How to read a survivor:** it is not a defect by itself. Some composites are carried by time and need no learning, as `M11.C.27` is by `M4.C.1`'s two-sided shape `[M]`. A survivor is a defect only when a rule that carries it names its readout or outcome as its own target, `M11.1d`'s test, and the owner decides that for each survivor. Two controls show the ablation removes learning and nothing else: `M11.C.39`, whose arms differ only in learning, must turn red, and `M11.C.3`, the physics of an act, must survive. The record is `docs/emergence_audit_record.md`; it holds L0 and the carriers (`docs/archive/plan_v3_emergence_audit.md` §7 steps 4 and 6), rerun on `d3779684dd53` on 2026-11-11: 9 of the 13 rows survive with all learning off, each with at least one carrier. L1–L4 are not run.
 
 ---
 

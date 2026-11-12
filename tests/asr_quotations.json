@@ -1,5 +1,5 @@
 {
-  "_purpose": "Rules for tests/test_asr_quotations.py (SP-1; docs/PROPOSAL — ASR QUOTATIONS (SP-1).md §5). The 1979 tapes and the Kerr–Bowen interviews are ASR transcripts: cite them, never quote them. A quoted span of min_words or more words in a paragraph matching asr_citations fails, unless its file is exempt or it is on the allowlist with its written source. Editorial content, so it lives here and not in the test.",
+  "_purpose": "Rules for tests/test_asr_quotations.py (SP-1; docs/archive/PROPOSAL — ASR QUOTATIONS (SP-1).md §5). The 1979 tapes and the Kerr–Bowen interviews are ASR transcripts: cite them, never quote them. A quoted span of min_words or more words in a paragraph matching asr_citations fails, unless its file is exempt or it is on the allowlist with its written source. Editorial content, so it lives here and not in the test.",
   "min_words": 2,
   "frozen_record_note": "Quotations of the 1979 tapes and the Kerr–Bowen interviews in this record are ASR text. They were written after the no-quotation rule (2026-08-23) and break it. They are kept unedited as the record of what was approved; they are not the speakers' words and are not copied into other documents.",
   "asr_citations": [
@@ -26,12 +26,12 @@
     "docs/theory/_SOURCE_QUALITY.md": "The source-quality notes, which state the citation rules; quotes locate passages (D1; §3).",
     "docs/theory/family_evaluation/": "Extraction notes of Family Evaluation, a written source that may be quoted (§5). Two of their cross-references quote an ASR source (fe07.md, Tape 2; fe10.md, KB06); the owner decides whether these notes are held like the kb notes under D1 (TODO.md, SP-1 build review).",
     "docs/theory/kerr_book/": "Extraction notes of Kerr's book, a written source that may be quoted (§5). Two of their cross-references quote an ASR source (ks07.md, KB07; ks19.md, KB04); the owner decides whether these notes are held like the kb notes under D1 (TODO.md, SP-1 build review).",
-    "docs/DECISIONS FOR APPROVAL.md": "An approved record, kept unedited under the frozen-record note (D1; §3, Q2).",
-    "docs/proposal_rev11_emergence.md": "An approved record, kept unedited under the frozen-record note (§3, Q2).",
-    "docs/PROPOSAL — ASR QUOTATIONS (SP-1).md": "The SP-1 proposal itself: its tables set written quotations beside ASR citations (§5).",
+    "docs/archive/DECISIONS FOR APPROVAL.md": "An approved record, kept unedited under the frozen-record note (D1; §3, Q2).",
+    "docs/archive/proposal_rev11_emergence.md": "An approved record, kept unedited under the frozen-record note (§3, Q2).",
+    "docs/archive/PROPOSAL — ASR QUOTATIONS (SP-1).md": "The SP-1 proposal itself: its tables set written quotations beside ASR citations (§5).",
     "docs/spec_rules/": "Generated from the spec by tools/spec_rules_view.py, which is scanned; the view holds the spec's own text with its block quotes removed, and a test checks it current (docs/plan_model_ergonomics.md C5).",
     "docs/cycles/": "Dated review records; they quote the project's documents, not the transcripts (§3).",
-    "docs/REVIEW_spec_rev10_2026-09-23.md": "A dated review record; it quotes the spec (§3).",
+    "docs/archive/REVIEW_spec_rev10_2026-09-23.md": "A dated review record; it quotes the spec (§3).",
     "CHANGELOG.md": "A dated record (§3).",
     "LEARNINGS.md": "A dated record (§3).",
     "papers/": "The owner's files, out of scope (§3)."

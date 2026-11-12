@@ -1,14 +1,14 @@
 """Run named criteria, Phase C and Phase D, and the mutants that name each one that passes, on the current tree:
 stage 3's targeted runs between the batch's commits (D31). A measurement; it writes no committed record.
 
-Purpose: plan steps 7–9 (`docs/implementation_plan_version_2_stage_3.md` §3.8) run only the criteria their rules
+Purpose: plan steps 7–9 (`docs/archive/implementation_plan_version_2_stage_3.md` §3.8) run only the criteria their rules
          target, with their mutants, before step 10's one regeneration (D31). This tool runs them, in a temporary copy
          of the repository as the mutation records do — a Phase C criterion with ``tools/mutant_runner.py``'s child and
          the Phase C mutation record's mutants, a Phase D one with ``tools/phase_d_mutant_child.py`` and the Phase D
          record's, each with the same adaptive rules — and writes a page under ``docs/review/`` beside each criterion's
          row in the committed records (the revision 38 engine, which the open batch keeps). A mutant runs only on a
          criterion that passes here, as the records' rule is (`M11.1d`). Nothing is cached and no record moves.
-Spec:    docs/implementation_plan_version_2_stage_3.md#3.8 (steps 7–9), #3.7 (S3.2, S3.3, S3.5, S3.7, S3.9);
+Spec:    docs/archive/implementation_plan_version_2_stage_3.md#3.8 (steps 7–9), #3.7 (S3.2, S3.3, S3.5, S3.7, S3.9);
          docs/bowen_agent_model_spec_v2.md#M11.1d
 Tests:   tests/test_stage_3_probes.py::test_stage_3_targeted_run_renders_rows_and_mutants,
          tests/test_stage_3_probes.py::test_stage_3_targeted_run_sends_each_criterion_to_its_phase,

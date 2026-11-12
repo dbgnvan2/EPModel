@@ -1,7 +1,7 @@
 # Revision 36's regeneration — open after the records, 2026-10-23
 
 Raised when every record was regenerated once on the engine hash `66dcbb1e8ba5` (`CHANGELOG.md`, the entry of
-2026-10-23; `docs/version_2_revision_36_changes.md`). Each verdict below is a composite in `M11.5`, so none is a
+2026-10-23; `docs/archive/version_2_revision_36_changes.md`). Each verdict below is a composite in `M11.5`, so none is a
 premise passing, and a changed one is a new result under revision 36's rules, kept beside the earlier verdict.
 
 - [x] T-119 ⟨now⟩ **`M11.C.48`'s named mutant survives on both families:** `cutoff-blind-to-learned-value` (`CUTOFF`
@@ -55,18 +55,18 @@ premise passing, and a changed one is a new result under revision 36's rules, ke
   (`cut_off_tie_weeks` −31.8 ± 130, p 0.674, from +238 ± 150, p 0.00107) and `M11.C.2[twelve-person family]`
   (`symptom_load` +0.947 ± 1.6, p 0.118, from +3.42 ± 1.8, p 0.000236); and one FAIL → PASS, `M11.C.44`
   (`outside_inside_ratio` +0.103 ± 0.092, p 0.0298, from +0.00101 ± 0.096), whose mutant `deviation-inverted`
-  survives, as it did when the same verdict moved at revision 29 (`docs/implementation_plan_phase_d.md` §4.8).
+  survives, as it did when the same verdict moved at revision 29 (`docs/archive/implementation_plan_phase_d.md` §4.8).
   Whether any of the four is a defect of revision 36's rules or a finding is the owner's call; the mutation rows that
   left the Phase D record with those passes are listed in the changes page. While `M11.C.10[family of origin]`
   fails, its mutation clause (`M4.D.6f` removed **MUST** turn it red) cannot be proved: a mutant runs only against
   a passing criterion, and `test_m11c10_family_of_origin_variant_is_proved_red_by_removing_m4d6f` now pins the
   missing row to that one cause (the re-sweep of 2026-10-23).
-  - 2026-10-30, Claude's recommendation 2026-10-30 under the owner's instruction of that night to proceed without stopping, pending the owner's review (`docs/version_2_definition_plan.md` §8, D3): the four PASS → FAIL rows of revision 36 are back at the tag's verdict and no longer
+  - 2026-10-30, Claude's recommendation 2026-10-30 under the owner's instruction of that night to proceed without stopping, pending the owner's review (`docs/archive/version_2_definition_plan.md` §8, D3): the four PASS → FAIL rows of revision 36 are back at the tag's verdict and no longer
     held. Two changed verdicts remain, both from revision 41: `M11.C.34` PASS, recommended as reviewed (`verdict
     reviewed` in `docs/version_2_dispositions.md`; its declared mutant turns it red; the sweep holds it in 1 of 8), and
     `M11.C.21` PASS, not recommended (a `note` row): its pass rests on T-161's scripted lending; T-161 (b) first. Open
     until the owner writes `owner` and a date in those rows.
-  - 2026-10-31, owner 2026-10-31 (`docs/version_2_definition_plan.md` §8, D3, as recommended): `M11.C.34`'s pass
+  - 2026-10-31, owner 2026-10-31 (`docs/archive/version_2_definition_plan.md` §8, D3, as recommended): `M11.C.34`'s pass
     reviewed (`verdict reviewed`, owner 2026-10-31, in `docs/version_2_dispositions.md`); `M11.C.21`'s not, T-161 (b)
     first (its `note` row, owner 2026-10-31; a `note` reviews nothing, so the page keeps the row held). Open until
     `M11.C.21`'s verdict after spec revision 44 (T-161) is decided.

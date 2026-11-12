@@ -18,7 +18,7 @@ from dataclasses import dataclass
 from types import MappingProxyType
 from typing import Mapping
 
-from src.bowen.scenario.config_parse import ConfigError, parse_table_document
+from src.bowen.scenario.config_parse import ConfigError, finite, parse_table_document
 
 COLUMNS = ("key", "value", "grade", "unit", "spec")
 GRADES = frozenset({"[T]", "[M]", "[D]", "[#]", "[I]", "[X]"})
@@ -43,7 +43,6 @@ class KeySpec:
 # spouse tolerance is a project decision (user amendment to D3, 2026-08-24).
 SCHEMA: Mapping[str, KeySpec] = MappingProxyType(
     {
-        "fast_tick_weeks": KeySpec(int, "[I]", "M3.A.1"),
         "slow_tick_fast_ticks": KeySpec(int, "[I]", "M3.B.1"),
         "invariant_tolerance": KeySpec(float, "[I]", "M6.1"),
         "spouse_basic_level_tolerance": KeySpec(float, "[I]", "M2.A.0e"),
@@ -274,6 +273,7 @@ RETIRED: Mapping[str, KeySpec] = MappingProxyType(
         "tension_activation_threshold": KeySpec(float, "[I]", "M1.C.3"),
         "pattern_pole": KeySpec(float, "[I]", "M5.A.1a"),
         "assertion_perspective_threshold": KeySpec(float, "[I]", "M5.F.4"),  # Retired
+        "fast_tick_weeks": KeySpec(int, "[I]", "M3.A.1"),  # read by no code: the fast tick is a week by M3.A.1 (T-219 (10))
     }
 )
 
@@ -303,10 +303,16 @@ def _parse_value(raw: str, kind: type, where: str) -> int | float:
         if kind is int:
             if not raw.lstrip("-").isdigit():
                 raise ValueError
-            return int(raw)
-        return float(raw)
+            value = int(raw)
+        else:
+            value = finite(raw, where)
+    except ConfigError:
+        raise
     except ValueError:
         raise ConfigError(f"{where}: value {raw!r} is not a valid {kind.__name__}") from None
+    if value < 0:  # no constant in the register is negative (T-219 (6)): a sign typo is caught at load
+        raise ConfigError(f"{where}: value {raw!r} is negative")
+    return value
 
 
 def _parse_frozen_at(raw: str, source: str) -> dt.date | None:

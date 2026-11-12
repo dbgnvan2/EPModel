@@ -14,7 +14,7 @@ Purpose: run the row's own scenario (the twelve-person family, its nodal load, 4
          is no longer than the cutter's other ties' runs, the difference comes from who cuts (a person-level term), not
          from the tie's own history. The probe also reports, for the cut tie and the baseline ties, the share of each
          person's moves that are negative contacts, and each person's degree (ties in contact by the week).
-Spec:    docs/bowen_agent_model_spec_v2.md#M11.C.48, #M11.1d, #M11.1g; docs/plan_v3_emergence_audit.md#Q3
+Spec:    docs/bowen_agent_model_spec_v2.md#M11.C.48, #M11.1d, #M11.1g; docs/archive/plan_v3_emergence_audit.md#Q3
 Tests:   none; a diagnostic for T-185, reported in docs/todo/2026-11-03_version_3_emergence_audit.md (T-185). Outside the
          engine hash: it changes nothing a run computes.
 

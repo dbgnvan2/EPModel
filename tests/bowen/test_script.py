@@ -68,3 +68,20 @@ def test_m13_without_removes_one_kind_only():
 def test_m10b2_script_parses_strictly(old, new, message):
     with pytest.raises(ConfigError, match=message):
         build(edit(old, new))
+
+
+@pytest.mark.parametrize(
+    "binder, message",
+    [
+        ("tie_distance `ana`~`sofia`", "no tie"),
+        ("tie_distance `ana`", "tie_distance"),
+        ("symptom_channel `ravi`:emotional", "channel"),
+        ("symptom_channel `teodor`:physical", "not in phase_b_reduced"),
+        ("triangle_position `ana`/`bruno`", "triangle_position"),
+    ],
+)
+def test_m10b2_t219_a_bad_binder_target_fails_at_load(binder, message):
+    row = "| 10 | TRIGGER | — | `ana`~`bruno` | 1.0 | 1 | — |"
+    text = edit(row, row + f"\n| 12 | BINDER_UNAVAILABLE | — | — | 1.0 | 1 | {binder} |")
+    with pytest.raises(ConfigError, match=rf"<script>:\d+: .*{message}"):
+        build(text)

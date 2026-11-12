@@ -79,6 +79,7 @@ class Criterion:
     settings: dict = field(default_factory=dict)
     note: str = ""
     seeds: int | None = None            # a fixed seed count (M11.C.10: "200 instead"); else adaptive
+    requires_moves_baseline: tuple[str, ...] = ()  # T-216: moves the baseline arm must make; requires_moves is the treatment's
 
 
 @dataclass
@@ -93,6 +94,7 @@ class Verdict:
     flagged: list[str]
     missing_moves: list[str]
     scripted: dict = field(default_factory=dict)  # arm -> {status: count} over all seeds (SCRIPTED_STATUSES)
+    counts: dict = field(default_factory=dict)    # T-217: arm -> {"(count)": total} for every count an arm records
 
 
 def _run_seed(args):
@@ -180,7 +182,7 @@ def _verdict(criterion, results, converged, rules) -> Verdict:
             position = float((np.mean(base) - lo) / (hi - lo))
         row = {"readout": readout.name, "direction": readout.direction, "mean_difference": float(np.mean(diff)),
                "half_width": _half_width(diff), "baseline_sd": scale, "pooled_sd": _pooled_scale(base, treat, diff),
-               "baseline_position": position}
+               "baseline_position": position, "nonzero_share": float(np.mean(diff != 0)) if len(diff) else 0.0}
         if readout.report_only:
             row["report_only"] = True
         elif readout.direction == 0:
@@ -204,13 +206,16 @@ def _verdict(criterion, results, converged, rules) -> Verdict:
     rejected = holm(p_values, rules["ensemble_alpha"]) if p_values else []
     for row, rej in zip(directional, rejected):
         row["holds"] = rej
-    moves = Counter()
+    moves, base_moves = Counter(), Counter()
     fallbacks, selections = Counter(), Counter()
     for _, b, t in results:
         moves.update(t.moves)
+        base_moves.update(b.moves)
         fallbacks.update(b.fallbacks); fallbacks.update(t.fallbacks)
         selections.update(b.selections); selections.update(t.selections)
+    # M11.1f, T-216: each arm's required moves are read from that arm's own moves.
     missing = [m for m in criterion.requires_moves if moves[m] == 0]
+    missing += [f"{m} (baseline)" for m in criterion.requires_moves_baseline if base_moves[m] == 0]
     rate = count(fallbacks.values()) / max(1, count(selections.values()))
     by_person = {str(p): fallbacks[p] / selections[p] for p in sorted(selections, key=str) if selections[p]}
     if missing:
@@ -228,7 +233,19 @@ def _verdict(criterion, results, converged, rules) -> Verdict:
         if r["direction"] == 0 and r.get("assay_limit"):
             flagged.append(f"{r['readout']}: baseline at a bound — an assay limit, not evidence (M11.4d)")
     return Verdict(criterion.id, criterion.cls, outcome, len(results), rows, rate, by_person, flagged, missing,
-                   scripted_counts(criterion, results))
+                   scripted_counts(criterion, results), arm_counts(criterion, base_moves, moves))
+
+
+def arm_counts(criterion: Criterion, base_moves: Counter, treat_moves: Counter) -> dict:
+    """Purpose: every count an arm records (a parenthesised ``moves`` key other than the scripted-act bookkeeping),
+             summed over the seeds, under the same keys for both arms; empty when neither arm records one (T-217).
+    Spec:    docs/bowen_agent_model_spec_v2.md#M11.1f
+    Tests:   tests/bowen/test_ensemble.py::test_m111f_t217_an_arms_count_reaches_the_verdict
+    """
+    keys = sorted(k for k in set(base_moves) | set(treat_moves) if k.startswith("(") and not k.startswith("(scripted"))
+    if not keys:
+        return {}
+    return {name: {k: moves[k] for k in keys} for name, moves in zip(criterion.arms, (base_moves, treat_moves))}
 
 
 SCRIPTED_STATUSES = ("made", "not legal", "owed a step", "dead", "target dead", "rewritten", "not reached")

@@ -86,6 +86,7 @@ class Observation:
     beliefs: Mapping[TieId, tuple[float, float]]  # tie → (believed tension, believed contact)
     learned_values: Mapping[str, float]
     inbox: tuple[Delivered, ...]
+    sequence_target: PersonId | None = None       # the other of the person's own running I-POSITION (M5.D.9)
 
     def tie_to(self, other: PersonId) -> TieView | None:
         return next((t for t in self.ties if t.other == other), None)
@@ -142,4 +143,5 @@ def observe(state: RunState, person: PersonId, params: EngineParams) -> Observat
         triangle_for=MappingProxyType(triangle_for),
         beliefs=MappingProxyType({t: (b.tension, b.contact) for t, b in (me.tie_beliefs or {}).items()}),
         learned_values=MappingProxyType(dict(me.learned_values)), inbox=inbox,
+        sequence_target=me.iposition_state.target if me.iposition_state is not None else None,
     )

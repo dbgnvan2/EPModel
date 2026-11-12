@@ -9,7 +9,7 @@ version 2 disposition applies only while the verdict it names stands; a criterio
 the tag's page does not have is new since the tag. The **at revision 38** column is this page's verdict at
 commit `9ebf327`, before stage 3's regeneration: shown beside the verdict, never used for a status, since a
 verdict that differs from it is a new result under revision 39's rules (`M11.F`;
-`docs/version_2_revision_39_changes.md` lists every changed field). The **sweep** column is a measurement, *n of S* samples
+`docs/archive/version_2_revision_39_changes.md` lists every changed field). The **sweep** column is a measurement, *n of S* samples
 over the declared ranges in which the direction held (`docs/version_2_sweep_record.md`), never a verdict
 (`M11.5`); a premise or check is not swept. A criterion the sweep refused at the rerun (`M17.A.1`) is shown
 so, with the sample, and has no fraction, so W4 counts it as not swept.

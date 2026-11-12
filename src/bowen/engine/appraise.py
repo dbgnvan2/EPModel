@@ -100,7 +100,7 @@ from src.bowen.engine.contact import clamp_unit, deviation, deviation_at, excess
 from src.bowen.engine.events import Attention, Delivery, Event, Mechanism, Role
 from src.bowen.engine.identifiers import PersonId, TieId
 from src.bowen.engine.log_records import EffectRecord
-from src.bowen.engine.objects import Person, Relationship
+from src.bowen.engine.objects import Family, Person, Relationship
 from src.bowen.engine.outside_ness import axes, efficacy
 from src.bowen.engine.params import EngineParams
 from src.bowen.engine.state import RunState
@@ -329,15 +329,15 @@ def witness_delta(state: RunState, witness: Person, event: Event, params: Engine
     return params.witness_weight * _scale(event, reach, params) * steepness(witness, params) * belief
 
 
-def marital_distance_high(state: RunState, params: EngineParams) -> bool:
-    """Purpose: both spouses' felt contact on the family's marital tie is below ``marital_distance_fraction`` of their
-    optimum (M5.C.1's gate).
+def marital_distance_high(state: RunState, params: EngineParams, family: Family | None = None) -> bool:
+    """Purpose: both spouses' felt contact on a family's marital tie is below ``marital_distance_fraction`` of their
+    optimum (M5.C.1's gate). The reference family's when none is named.
     Spec:    docs/bowen_agent_model_spec_v2.md#M5.C.1, #M11.C.14
     Tests:   tests/bowen/test_attribution.py::test_m5c1_under_marital_distance_no_move_improves_the_symptom_bearer
     """
     from src.bowen.engine.contact import optimum
 
-    tie_id = state.family.marital_tie
+    tie_id = (family or state.family).marital_tie
     if tie_id is None or tie_id not in state.ties:
         return False
     tie = state.ties[tie_id]
@@ -345,16 +345,24 @@ def marital_distance_high(state: RunState, params: EngineParams) -> bool:
                for m in tie_id.members())
 
 
-def _gated(state: RunState, recipient: PersonId, distant: bool) -> bool:
-    """The recipient is one of the couple's children and carries an active symptom while marital distance is high:
-    nothing addressed to them improves them."""
+def distant_couples(state: RunState, params: EngineParams) -> tuple[Family, ...]:
+    """T-219 (2): every family whose marital tie is distant this tick, so each couple gates its own children."""
+    return tuple(f for f in state.families() if marital_distance_high(state, params, f))
+
+
+def _gated(state: RunState, recipient: PersonId, distant: tuple[Family, ...]) -> bool:
+    """The recipient is one of a distant couple's children and carries an active symptom: nothing addressed to them
+    improves them."""
     if not distant or not any(state.people[recipient].symptom_active.values()):
         return False
-    spouses = set(state.family.marital_tie.members())
-    if recipient in spouses:  # re-sweep 2026-10-12: a symptomatic spouse is not one of the couple's children
-        return False
-    return any(recipient in tie.members() and (set(tie.members()) - {recipient}) & spouses
-               for tie in state.family.parent_child_ties)
+    for family in distant:
+        spouses = set(family.marital_tie.members())
+        if recipient in spouses:  # re-sweep 2026-10-12: a symptomatic spouse is not one of the couple's children
+            continue
+        if any(recipient in tie.members() and (set(tie.members()) - {recipient}) & spouses
+               for tie in family.parent_child_ties):
+            return True
+    return False
 
 
 def speaker_echo(state: RunState, delivery: Delivery, event: Event, params: EngineParams) -> float:
@@ -461,7 +469,7 @@ def apply_appraisal(
             per_event.setdefault(event_id, {}).setdefault(person, 0.0)
             per_event[event_id][person] += value
 
-    distant = marital_distance_high(state, params)
+    distant = distant_couples(state, params)
     if cues.on(params):
         # M4.C.12: each delivery is read once, this week; M1.F.1c: a move without signals is refused.
         state.cue_readings = {}

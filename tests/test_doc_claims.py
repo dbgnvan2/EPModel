@@ -127,11 +127,11 @@ def test_d2_a_retired_path_passes_only_in_its_own_sentence():
 def test_d2_paths_with_spaces_and_module_commands_resolve():
     """D2.1: a span that is one path with spaces in it, and a `-m` module checked as its file."""
     files = tracked_files()
-    text = ("Read `docs/DECISIONS — FAMILY EVALUATION.md`.\n\n"
+    text = ("Read `docs/archive/DECISIONS — FAMILY EVALUATION.md`.\n\n"
             "```\npython3 -m src.bowen.run --seed 7\n```\n\n"
             "Then `python3 -m src.bowen.gone`.\n")
     scan = path_scan({"README.md": text}, files)
-    assert {"docs/DECISIONS — FAMILY EVALUATION.md", "src/bowen/run.py"} <= scan.checked["README.md"]
+    assert {"docs/archive/DECISIONS — FAMILY EVALUATION.md", "src/bowen/run.py"} <= scan.checked["README.md"]
     assert [path for path, _ in scan.missing["README.md"]] == ["src/bowen/gone.py"]
 
 

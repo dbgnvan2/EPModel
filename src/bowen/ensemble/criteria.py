@@ -139,9 +139,12 @@ def _value(text: str):
     if re.fullmatch(r"-?\d+", text):
         return int(text)
     try:
-        return float(text)
+        value = float(text)
     except ValueError:
         return text
+    if value != value or value in (float("inf"), float("-inf")):  # M10.B.2: a NaN setting compares false
+        raise ConfigError(f"criteria.md: {text!r} is not a finite number")
+    return value
 
 
 def load_settings(path=CONFIG_DIR / "criteria.md") -> dict[str, dict]:
@@ -169,7 +172,7 @@ SETTINGS = load_settings()
 SPELL = SETTINGS["spell"]
 PARENTS = {"phase_c": (ROLES["phase_c", "parent_1"], ROLES["phase_c", "parent_2"]), "dyad": (P("a"), P("b")), "triad": (P("f"), P("m")),
            "four": (P("f"), P("m")), "danger": (P("f"), P("m"))}
-AUTOMATIC = ("PURSUE", "DISTANCE", "CONFLICT", "OVERFUNCTION", "UNDERFUNCTION", "TRIANGLE", "CUTOFF")
+REACTIVE_ACTS = load_event_kinds().reactive  # config/bowen/act_classes.md (T-219 (11))
 
 
 def spell(family: str, weeks: int, every: int | None = None, parents: int | None = None) -> tuple[Event, ...]:
@@ -462,7 +465,7 @@ def arm_c3(arm, seed, settings):
     state, records = scenario("triad", seed, weeks, forced=forced, held_open=held(t0, "f-m", "f-c"))
     delivered = t0 + settings["latency"]  # the act's effect lands after the tie's latency
     change = _acute_at(records, delivered, (P("f"), P("m"), P("c")))
-    # Restated 2026-10-09 (owner decision, docs/PROPOSAL — TRIANGLE RELIEF AND CREDIT.md): a triangle relieves the
+    # Restated 2026-10-09 (owner decision, docs/archive/PROPOSAL — TRIANGLE RELIEF AND CREDIT.md): a triangle relieves the
     # seeker, not the pair, so the readout is the seeker's change; the partner's is reported.
     return result({"seeker_anxiety": change[P("f")], "third_anxiety": change[P("c")],
                    "partner_anxiety": change[P("m")]}, records)
@@ -513,13 +516,13 @@ def arm_c5(arm, seed, settings):
 
 def _automatic_entropy(records, since):
     kinds = Counter(r.event.kind for r in records if isinstance(r, EmittedRecord)
-                    and r.event.mechanism is Mechanism.MOVE and r.event.kind in AUTOMATIC
+                    and r.event.mechanism is Mechanism.MOVE and r.event.kind in REACTIVE_ACTS
                     and r.event.timestamp >= since)
     total = count(kinds.values())
     if total == 0:
         return 0.0, 0.0
     shares = [n / total for n in kinds.values()]
-    return -math.fsum(s * math.log(s) for s in shares) / math.log(len(AUTOMATIC)), max(shares)
+    return -math.fsum(s * math.log(s) for s in shares) / math.log(len(REACTIVE_ACTS)), max(shares)
 
 
 def arm_c16(arm, seed, settings):
@@ -568,8 +571,10 @@ def arm_c25(arm, seed, settings):
     # stays at zero. Corrected at step 15, after the sex-term mutant survived (post-hoc, logged in
     # docs/phase_c_completion_report.md).
     balance = state.ties[TieId.of(P("a"), P("b"))].functioning_balance["joint"]
-    if balance == 0:
-        return result({"first_dominant": settings["no_pole"]}, records)  # no pole: neither spouse holds it
+    if balance == 0:  # no pole: neither spouse holds it; counted, so a pass with no pole formed is seen (T-217)
+        out = result({"first_dominant": settings["no_pole"]}, records)
+        out.moves["(no pole formed)"] += 1
+        return out
     return result({"first_dominant": float(balance > 0)}, records)  # the tie's first member, a, over-functioning
 
 
@@ -627,7 +632,7 @@ def arm_c29(arm, seed, settings):
         forced = act("f", "I-POSITION", "m", t0)
     else:  # distance in disguise: withdrawals over the same weeks
         forced = {k: v for t in range(t0, t0 + span, every) for k, v in act("f", "DISTANCE", "m", t).items()}
-    # The readout, restated post hoc on 2026-10-09 (X1 of docs/DECISIONS — PHASE C FAILING.md): the weeks the third
+    # The readout, restated post hoc on 2026-10-09 (X1 of docs/archive/DECISIONS — PHASE C FAILING.md): the weeks the third
     # person's symptom is active, from onset (`M1.A.6`) until the load falls below the re-arm fraction of the
     # threshold. The declared readout counted weeks with any symptom accumulation, which is positive whenever acute
     # anxiety is above the chronic floor; the model rests a few points above it by design (D7), so that count sat at
@@ -781,9 +786,9 @@ def reactive_over_chance(records) -> float:
     excess, n = 0.0, 0
     for r in records:
         if isinstance(r, SelectionRecord) and r.decided_by is DecidedBy.POLICY and r.legal_set:
-            offered = count(1 for label in r.legal_set if label.split(">")[0] in AUTOMATIC)
+            offered = count(1 for label in r.legal_set if label.split(">")[0] in REACTIVE_ACTS)
             if offered:
-                excess += (kinds.get(r.event_id) in AUTOMATIC) - offered / len(r.legal_set)
+                excess += (kinds.get(r.event_id) in REACTIVE_ACTS) - offered / len(r.legal_set)
                 n += 1
     return excess / max(1, n)
 
@@ -809,7 +814,7 @@ def arm_c42(arm, seed, settings):
 
 # --- M11.C.44 and M11.C.45: position value and triangle quiet, calm against spell ---------------
 
-OUTSIDE_ACTS, INSIDE_ACTS = ("DISTANCE", "CUTOFF"), ("TRIANGLE", "PURSUE")  # [I], declared here
+OUTSIDE_ACTS, INSIDE_ACTS = load_event_kinds().position_outside, load_event_kinds().position_inside  # act_classes.md
 
 
 def moves_by(records, senders) -> list:

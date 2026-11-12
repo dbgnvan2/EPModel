@@ -5,7 +5,7 @@ temporary copy of the repository and run against a criterion that passes in `doc
 (part II) or `docs/phase_d_ensemble_record.md` (part I), with the same adaptive rules. A mutant is **red** when the criterion stops passing and **survived** when it still
 passes; a red mutant is **reversed** when every gating readout's interval lies wholly on the side opposite its
 direction (`M11.1d`). Phase D's other mutation runs are ad hoc and reported in
-`docs/implementation_plan_phase_d.md`.
+`docs/archive/implementation_plan_phase_d.md`.
 
 engine_hash: 2a61518d5824672b11ba4fd9923fdea455afc01703dac00c1d013b4070475743
 
@@ -54,7 +54,7 @@ Criteria a mutant targets that do not pass in their ensemble record.
 
 Part II criteria that pass but are not proved here; where their mutation is reported instead.
 
-- `M11.C.47`: a premise; run ad hoc, `docs/implementation_plan_phase_d.md` §4.10 (Results, Mutations)
+- `M11.C.47`: a premise; run ad hoc, `docs/archive/implementation_plan_phase_d.md` §4.10 (Results, Mutations)
 
 ## Machine-readable
 

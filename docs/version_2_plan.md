@@ -105,7 +105,7 @@ revisions, not here.
 
 ### Stage 1 — One engineering batch that moves the engine hash once
 
-*Implementation plan approved 2026-10-19 (`docs/implementation_plan_version_2.md` §1). Built and every record regenerated 2026-10-19 (that plan's §1.10); no verdict changed against the tag `version-1` (`docs/version_2_stage_1_changes.md`). Checking the items against the code found that 1.6 needs `M13.2` amended, that 1.1's drift comes from every
+*Implementation plan approved 2026-10-19 (`docs/implementation_plan_version_2.md` §1). Built and every record regenerated 2026-10-19 (that plan's §1.10); no verdict changed against the tag `version-1` (`docs/archive/version_2_stage_1_changes.md`). Checking the items against the code found that 1.6 needs `M13.2` amended, that 1.1's drift comes from every
 float `sum()` and not only means, and that 1.4 changes results in coached arms. The owner decided the plan's D1–D7
 the same day, all as recommended: revision 33 carries `M13.2` and `M8.5`; every float `sum()` moves to `math.fsum`;
 the code's triangle activity is kept and `M8.5` amended to match.*
@@ -178,7 +178,7 @@ Each proposal states which mechanism produces the owner's direction and checks t
 - **A multi-generation check** that chronic anxiety only ratchets up (`M7.B.1a`); a readout over a longer run, not a
   rule.
 - **Learning by level, and asking "what can I do differently?"** — raised by the owner 2026-10-18, not one of §1.1's
-  groups: `docs/PROPOSAL — LEARNING BY LEVEL, ASKING WHAT TO DO DIFFERENTLY.md` (draft). It touches groups E and F.
+  groups: `docs/archive/PROPOSAL — LEARNING BY LEVEL, ASKING WHAT TO DO DIFFERENTLY.md` (draft). It touches groups E and F.
 - **Group G, how bound stocks are released** — found in a trace, not from a criterion (the seed-7 Phase C run, the
   `M11.C.1` baseline arm, week 74; `docs/review/phase_c_trace_seed7.md`, `docs/review/phase_c_chart_seed7.html`;
   reported by the session that built the chart, 2026-10-18). In week 73 Ravi chose `REDUCE_CUTOFF` toward Pia; the tie
@@ -203,7 +203,7 @@ Each proposal states which mechanism produces the owner's direction and checks t
     - **Size, "around a divorce".** Divorce is not modelled (`config/bowen/nodal_events.md`), so the peak needs an
       anchor: a declared `[I]` cap in anxiety points, or the nearest modelled loss, a death (`M6.3a`). Death's grief is
       a stressor intensity (`grief_scale` 20 at bond energy 100, `M6.3g`), not an anxiety stock, so it is not the same
-      unit and cannot be copied across directly. `docs/PROPOSAL — EVENT SIZES FROM THE HOLMES–RAHE SCALE.md` (draft, 2026-10-18) gives an anchor:
+      unit and cannot be copied across directly. `docs/archive/PROPOSAL — EVENT SIZES FROM THE HOLMES–RAHE SCALE.md` (draft, 2026-10-18) gives an anchor:
       divorce is 73 life change units, about 504 intensity units at its recommended 6.9 per unit, roughly 13 anxiety
       points delivered at functional level 40. A spouse's death through grief delivers about 17 points at level 40 over
       two years, against the 226 points week 74 released onto one person. The peak should be stated in one unit (anxiety
@@ -347,7 +347,7 @@ Each proposal states which mechanism produces the owner's direction and checks t
     already weights by bond energy (`M4.D.6e`), and `M1.E.7e` requires the coach's tie to stay thin. Weight by bond
     energy or conductance? Should a family member's symptom release reach an external agent at all?
 
-- **Event sizes from the Holmes–Rahe scale** — `docs/PROPOSAL — EVENT SIZES FROM THE HOLMES–RAHE SCALE.md` (draft, the owner's request 2026-10-18): base
+- **Event sizes from the Holmes–Rahe scale** — `docs/archive/PROPOSAL — EVENT SIZES FROM THE HOLMES–RAHE SCALE.md` (draft, the owner's request 2026-10-18): base
   sizes for exogenous events from the scale's life change units, scaled by bond energy. The scale is an outside rating,
   graded `[I]`, not Bowen. Its other findings: marriage, birth, retirement and a child leaving home add no anxiety
   today; job loss and a family member's illness are light against the scale; lost income after an earner's death is

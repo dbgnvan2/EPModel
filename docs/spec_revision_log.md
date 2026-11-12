@@ -6,6 +6,45 @@ The spec holds the current rules; this file holds how they got there. Until revi
 
 The sections `### Revision 34` to `### Revision 5` and the undated section are the spec's text as it stood, moved whole; a statement inside one of them (revision 34's, that revisions 13 to 33 are "not here") was true when written, before the bodies' narratives were moved under their own revisions. Those narratives are the bullets `- \`ID\`: sentence`, each the sentence as it stood in the body, under the revision it names, in sections titled "inline narratives moved from the bodies at revision 35" where no section existed.
 
+### Revision 59 — the engine batch, 2026-11-12 ⟦rev59 · the engine batch of 2026-11-12, T-001 step 3; plan `docs/plan_engine_batch_2026-11-12.md`, approved by the owner 2026-11-12⟧
+
+Step 3 of the owner's order of 2026-11-11: the fixes from the whole-repo review of 2026-11-11 that move the engine
+hash, built as one batch so the records are regenerated once (step 4). Records are not regenerated here.
+
+- **`M5.D.3`, `M5.D.6` (T-215).** A mover who dies in `RESOLVE` reverts the target's pull-up, logged; an abort ended by
+  a second deferral restores the prior balance. `M5.D.3`'s measured numbers are updated to 55 aborts, 64 holds and
+  122 said in anger over 192 seeds (62, 66 and 118 before); T-158's strict expected failure still fails.
+- **`M5.D.9` (T-234).** While a sequence runs, `I-POSITION` toward anyone but its target is not legal (the person's
+  own state, `Observation.sequence_target`), and any `I-POSITION` that reaches the act while a sequence runs raises
+  (one toward its target is made `STAY-IN-CONTACT` by the tick before it).
+- **`M5.D.7` (T-219 (4)).** A completion logs the gain it made after the clamp.
+- **`M4.B.2` (T-237).** The learner's reads of others' true anxiety and level are stated as an `[I]` exemption, and two
+  mutants are defined for step 4: the felt relief net of the expected decay (`M11.C.16`, `M11.C.39`, `M11.C.34`) and
+  the learner reading its own state only (`M11.C.10[family of origin]`).
+- **`M5.C.1` (T-219 (2)).** Every couple gates its own children by its own marital tie.
+- **`M6.4`, `M6.I.2`, `M6.I.8` (T-219 (1), (9)).** A lift to the chronic floor is logged as `acute_floor`, not as
+  decay; `M6.I.8` compares the ties that loaded on a living member with the ties that had one at the tick's start;
+  `M6.I.2` is recorded as structural.
+- **`M3.A.1`, `M10.B.2` (T-219 (6)–(8), (10)).** `fast_tick_weeks` is retired; a non-finite or negative constant, and a
+  non-finite number in a family or script file, fails at load; a script's binder target and a family's `partners:` file are checked at load.
+- **`M11.1f` (T-216, T-217, T-239 (c)).** The required-move gate reads each arm's own moves; every count an arm records
+  and every readout's share of differing pairs reach the verdict and the records.
+- **`M11.5` (T-239 (a), (b), T-213 (b)).** `settle_functioning` is listed among the set mechanisms; `M11.C.55`'s row
+  says part of its reversal with learning off holds by definition; `M11.C.48`'s row records the two level carriers
+  the emergence audit found.
+- **`M11.D.8`, `M11.D.9` (T-242).** The exact reference count is replaced by a check that the scan reads every file.
+- **`M16.A.1`, `M16.A.4` (T-218, T-239 (d)).** The config hash covers every loaded config input; a failing tick's
+  records are emitted, with a failure record, before the raise.
+- Also in the batch, with no requirement text changed: each belief made at an entry is its own object (T-214, `M9.8`);
+  `_desc`'s tie-break prefers the shorter identifier (T-219 (3)); `act` requires an `I-POSITION`'s parameters (T-219
+  (5)); the act sets of `criteria.py` and `iposition.py` moved to `config/bowen/act_classes.md` (T-219 (11), (12)).
+  Outside the hash: 49 finished documents and the 17 Phase C QA-gate logs moved to `docs/archive/` (T-226).
+
+Engine hash `d3779684dd53` → `95368d6ddf18`. No record is regenerated here: the record-current tests that read the
+engine hash are strict expected failures until step 4 regenerates every record, as at revisions 55 and 57; the
+committed Phase C trace, chart and famdiag export were re-rendered and differ in their config hash and revision stamp
+alone.
+
 ### Revision 58 — the owner's decisions on revisions 51–55, 2026-11-10 ⟦rev58 · the owner 2026-11-10, `docs/review/2026-11-10_revisions_51_55_review_prep.md` §10⟧
 
 The owner decided, 2026-11-10, each part of revisions 51–55 that was Claude's recommendation pending review, from the

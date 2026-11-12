@@ -120,16 +120,23 @@ def act(state: RunState, selection: Selection, visibility: HouseholdConductanceV
         if params is None:
             raise ValueError("a withheld outcome needs the engine parameters")
         return withhold(state, selection, params)
+    if selection.kind == I_POSITION and params is None:  # T-219 (5): the sequence needs them; never skip it
+        raise ValueError("an I-POSITION needs the engine parameters")
     demand, said_in_anger = 0.0, False
-    if selection.kind == I_POSITION and selection.sequence_step is None and params is not None:
+    if selection.kind == I_POSITION and selection.sequence_step is None:
         # M5.D.1, M5.D.2a, M5.D.4a: a freshly selected I-POSITION either starts a sequence,
         # emitting nothing this week, or, if the mover is angry, executes at once as the assertion form.
         target = selection.targets[0]
+        running = state.people[selection.actor].iposition_state
+        if running is not None:  # M5.D.9 (T-234): a running sequence is never overwritten. The tick makes an act
+            # toward its target STAY-IN-CONTACT first (``redirect_to_sequence_tie``), so one that reaches here is illegal
+            raise ValueError(f"{selection.actor} chose I-POSITION toward {target} while a sequence toward "
+                             f"{running.target} runs")
         if not iposition.assertion_form(state, selection.actor, target, params):
             started = iposition.begin(state, selection.actor, target)
             return [_record(state, dataclasses.replace(selection, sequence_step=iposition.PREPARE), None), started]
         demand = 1.0  # the assertion form: all demand (M5.F.4's w = 0 end)
-    elif selection.kind == I_POSITION and selection.sequence_step == iposition.DEFINE and params is not None:
+    elif selection.kind == I_POSITION and selection.sequence_step == iposition.DEFINE:
         # M5.D.4a, revision 41 (T-133 (b), the owner 2026-10-28): the anger gate is read again when the position is
         # said. Angry, the mover says it as the assertion form, all demand, and the sequence ends (``step_done``).
         said_in_anger = iposition.angry(state, selection.actor, selection.targets[0], params)

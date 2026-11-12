@@ -223,14 +223,16 @@ def _introduce(state: RunState, person: Person, ties: list[Relationship], params
     added = {t.id: t for t in ties}
     initialise_contact(state.people, added, params)
     initialise_functioning({}, added)
-    resting = TieBelief(tension=0.0, contact=params.interactive_resting_contact)
-    person.tie_beliefs = {tid: resting for tid in sorted(state.ties) if person.id not in tid.members()}
+    def resting() -> TieBelief:  # one object per holder and tie: a belief is updated in place (T-214)
+        return TieBelief(tension=0.0, contact=params.interactive_resting_contact)
+
+    person.tie_beliefs = {tid: resting() for tid in sorted(state.ties) if person.id not in tid.members()}
     for pid in sorted(state.people):
         other = state.people[pid]
         if pid != person.id and other.tie_beliefs is not None:
             for tid in added:
                 if pid not in tid.members():
-                    other.tie_beliefs[tid] = resting
+                    other.tie_beliefs[tid] = resting()
 
 
 def _new_person(pid: PersonId, role: Role, sex: Sex, household: str, basic: float, chronic: float,

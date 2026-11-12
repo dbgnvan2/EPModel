@@ -13,8 +13,8 @@ owner has reviewed the list; a decision the owner reverses becomes its own item 
 
   **Batch 1 — group G and the Holmes–Rahe event sizes, spec revision 36** (branch `claude/recursing-bohr-2393a1`,
   commits `e52adbc`, `0b02fd3`, `da4e512`, `7b1b622`; engine hash `2842f0e8fea8` → `66dcbb1e8ba5`; every record
-  regenerated once, 2 h 36 min; `docs/version_2_revision_36_changes.md` holds the changed results beside version 1's):
-  1. G2 Q1: a released symptom hold is split by bond energy, not conductance (`docs/PROPOSAL — RELEASE BY TIE (G2).md` §8).
+  regenerated once, 2 h 36 min; `docs/archive/version_2_revision_36_changes.md` holds the changed results beside version 1's):
+  1. G2 Q1: a released symptom hold is split by bond energy, not conductance (`docs/archive/PROPOSAL — RELEASE BY TIE (G2).md` §8).
   2. G2 Q2: no release reaches an external agent such as the coach; family members only (same §8).
   3. G2, death: a dead member's tie takes no share; with no member on an interactive tie the hold stays with the bearer
      (spec `M7.D.2a`).

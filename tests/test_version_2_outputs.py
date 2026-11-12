@@ -2,7 +2,7 @@
 
 Purpose: W8 of `docs/version_2_plan.md` §4, as V7 for version 1: the review pages version 2 added that render a run of
          the reference family each say it is not a real family, so a regenerated page that loses the line fails here.
-         Whether the framing is enough is the owner's call (`docs/REVIEW_version_2_outputs.md`).
+         Whether the framing is enough is the owner's call (`docs/archive/REVIEW_version_2_outputs.md`).
 Spec:    docs/bowen_agent_model_spec_v2.md#M11.F.9
 Tests:   this file
 """

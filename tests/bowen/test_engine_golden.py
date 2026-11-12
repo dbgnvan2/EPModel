@@ -3,7 +3,7 @@
 Purpose: a refactor that is meant to change nothing (the store's windowed indexes) must leave a seeded run's
          whole log unchanged. Each fingerprint is the SHA-256 of the run's records in canonical JSON, with every float
          rounded to `FINGERPRINT_DIGITS` significant digits.
-Spec:    docs/implementation_plan_phase_d.md B1; docs/bowen_agent_model_spec_v2.md#M3.D.4a (seeded draws)
+Spec:    docs/archive/implementation_plan_phase_d.md B1; docs/bowen_agent_model_spec_v2.md#M3.D.4a (seeded draws)
 Tests:   this file
 
 **Updating a fingerprint is a decision, not a fix.** Change one only in the commit of an engine change meant to

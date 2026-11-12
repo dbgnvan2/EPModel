@@ -1,6 +1,6 @@
 """Trace each term of `M7.E.1f`'s development step for `M11.C.6`'s child, in both arms: a measurement, never a verdict.
 
-Purpose: stage 3 step 2a (`docs/implementation_plan_version_2_stage_3.md` §3.3.1, owner decision D18). For the
+Purpose: stage 3 step 2a (`docs/archive/implementation_plan_version_2_stage_3.md` §3.3.1, owner decision D18). For the
          declared child (Nadia) in both of `M11.C.6`'s arms, ages 5–20, at each yearly development step: the child's
          own term and the living parents' term of `d` (`src/bowen/engine/life_course.py::_childhood`), what each
          term's year-mean is made of (raw functional level, pseudo-self, the system's adjustment), each parent's

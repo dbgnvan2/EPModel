@@ -18,6 +18,7 @@ import dataclasses
 import datetime as dt
 import enum
 import json
+from collections.abc import Mapping
 from dataclasses import dataclass
 from typing import Any, Protocol
 
@@ -138,6 +139,15 @@ class InvariantRecord:
 
 
 @dataclass(frozen=True)
+class InvariantFailureRecord:
+    """M16.A.4, T-239 (d) — an invariant failed this tick; emitted with the tick's records before the raise."""
+
+    tick: int
+    detail: str
+    record_type = "invariant_failure"
+
+
+@dataclass(frozen=True)
 class BeliefWriteRecord:
     """M16.A.5, M16.A.5a — tagged apart from ground truth; discrepancy computable."""
 
@@ -159,6 +169,7 @@ Record = (
     | DeliveredRecord
     | SelectionRecord
     | EffectRecord
+    | InvariantFailureRecord
     | InvariantRecord
     | BeliefWriteRecord
 )
@@ -206,7 +217,7 @@ def plain(value: Any) -> Any:
                 if not (f.metadata.get(LOG_OMIT_NONE) and getattr(value, f.name) is None)}
     if isinstance(value, (tuple, list)):
         return [plain(v) for v in value]
-    if isinstance(value, dict):
+    if isinstance(value, Mapping):  # a read-only mapping too (T-218), so the hash reads values, not a repr
         items = [(json.dumps(plain(k), sort_keys=True) if not isinstance(plain(k), str) else plain(k), plain(v))
                  for k, v in value.items()]
         return dict(sorted(items))

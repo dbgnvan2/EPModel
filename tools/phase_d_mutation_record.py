@@ -248,15 +248,36 @@ MUTANTS = (
            "if obs.rank and o.kind in (\"STAY-IN-CONTACT\", \"OVERFUNCTION\") else 0.0)\n",
            "M1.A.14b broken: the first-born's supplying kinds carry a higher learned value and the later-born's a lower "
            "one, so who supplies follows birth order",
-           also=(("src/bowen/engine/observe.py", "    inbox: tuple[Delivered, ...]\n\n    def tie_to",
-                  "    inbox: tuple[Delivered, ...]\n    rank: int = 0\n\n    def tie_to"),
+           also=(("src/bowen/engine/observe.py", "    inbox: tuple[Delivered, ...]\n    sequence_target",
+                  "    inbox: tuple[Delivered, ...]\n    rank: int = 0\n    sequence_target"),  # T-234 added sequence_target
                  ("src/bowen/engine/observe.py", "learned_values=MappingProxyType(dict(me.learned_values)), inbox=inbox,\n",
                   "learned_values=MappingProxyType(dict(me.learned_values)), inbox=inbox,\n"
                   "        rank=me.sibling_position.rank if me.sibling_position else 0,\n"))),
+    # T-237 (a), spec revision 59: the felt relief less the decay toward the chronic floor the week would bring anyway,
+    # so a reinforced act is one followed by more relief than waiting gives. [I] Run at step 4.
+    Mutant("relief-less-expected-decay", NAMED, ("M11.C.39", "M11.C.34"), "src/bowen/engine/learner.py",
+           'relief = {pid: start_acute[pid] - p.acute_anxiety for pid, p in state.people.items() if pid in start_acute}',
+           'relief = {pid: start_acute[pid] - p.acute_anxiety - max(0.0, start_acute[pid] - p.chronic_anxiety) * params.acute_decay_rate for pid, p in state.people.items() if pid in start_acute}',
+           "M4.D.6's felt relief taken net of the expected decay toward the chronic floor (acute_decay_rate of the "
+           "week's excess), so decay alone teaches nothing"),
+    # T-237 (b), spec revision 59, the owner's choice 2026-11-12 ("own state"): the learner reads only its own state.
+    # M4.D.6e's cross-person relief becomes 0 and M4.D.6f's witnessed change is the witness's own level change, so the
+    # [I] exemption M4.B.2 states (reading others' true anxiety and level) is removed. Run at step 4.
+    Mutant("learner-reads-own-state-only", NAMED, ("M11.C.10[family of origin]",), "src/bowen/engine/learner.py",
+           'felt = relief.get(pid, 0.0) + params.cross_person_weight * cross_person_relief(state, pid, act.others, relief)',
+           'felt = relief.get(pid, 0.0) + params.cross_person_weight * 0.0',
+           "M4.B.2's exemption removed: no cross-person relief, and a witnessed cutoff teaches by the witness's own "
+           "level change, not the family's true levels",
+           also=(("src/bowen/engine/learner.py",
+                  'then = tuple((pid, state.people[pid].functional_level) for pid, _ in _family_ties(state, witness.id))',
+                  'then = tuple((pid, state.people[pid].functional_level) for pid, _ in _family_ties(state, witness.id)) + ((witness.id, witness.functional_level),)'),
+                 ("src/bowen/engine/learner.py",
+                  '        seen = math.fsum(weights[pid] / total * (state.people[pid].functional_level - level)\n                   for pid, level in record.then if pid in weights)\n',
+                  '        seen = person.functional_level - dict(record.then)[record.witness]\n'))),
 )
 # Passing part II criteria with no mutant in this record, and where their mutation is reported.
 AD_HOC = {
-    "M11.C.47": "a premise; run ad hoc, `docs/implementation_plan_phase_d.md` §4.10 (Results, Mutations)",
+    "M11.C.47": "a premise; run ad hoc, `docs/archive/implementation_plan_phase_d.md` §4.10 (Results, Mutations)",
 }
 
 
@@ -345,7 +366,7 @@ def render(rows, skipped, engine: str) -> str:
         "(part II) or `docs/phase_d_ensemble_record.md` (part I), with the same adaptive rules. A mutant is **red** when the criterion stops passing and **survived** when it still",
         "passes; a red mutant is **reversed** when every gating readout's interval lies wholly on the side opposite its",
         "direction (`M11.1d`). Phase D's other mutation runs are ad hoc and reported in",
-        "`docs/implementation_plan_phase_d.md`.",
+        "`docs/archive/implementation_plan_phase_d.md`.",
         "",
         f"engine_hash: {engine}",
         "",

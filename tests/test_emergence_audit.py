@@ -1,9 +1,9 @@
-"""The emergence audit (`M11.1g`; `docs/plan_v3_emergence_audit.md` §6, EA-1 to EA-16).
+"""The emergence audit (`M11.1g`; `docs/archive/plan_v3_emergence_audit.md` §6, EA-1 to EA-16).
 
 Purpose: the audit's scope, edits, verdicts, controls, carriers, cache key and record are what the plan says. EA-3 to
          EA-7 compare two arms, an ablation against the unmodified model, in a temporary copy, and assert a direction;
          the rest are tool checks on fixtures, like the other record tests. EA-16 is `tests/test_doc_checklist.py`.
-Spec:    docs/bowen_agent_model_spec_v2.md#M11.1g; docs/plan_v3_emergence_audit.md#6
+Spec:    docs/bowen_agent_model_spec_v2.md#M11.1g; docs/archive/plan_v3_emergence_audit.md#6
 Tests:   this file
 """
 
@@ -368,6 +368,7 @@ def test_m111g_ea13_key_is_engine_and_edits():
 
 
 # --- EA-14 -----------------------------------------------------------------------------------------------------------
+@pytest.mark.xfail(strict=True, reason="spec revision 59 (the engine batch, T-001 step 3, 2026-11-12): the batch moved the engine hash from d3779684dd53 to 95368d6ddf18, and every record is regenerated once on it at step 4 (docs/todo/2026-08-22_blocking_the_next_phase.md, T-001), not here, so this record is stale by decision until then")
 def test_m111g_ea14_emergence_audit_record_is_current():
     try:
         rendered = ea.build(Cache(ea.CACHE))
@@ -579,3 +580,13 @@ def test_t184_argument_refusals(tmp_path):
         with _Share(tmp_path) as s, pytest.raises(SystemExit):
             ea.main(argv)
         assert s.ran == []
+
+
+def test_m115_t239_a_reversed_row_prints_its_m115_note():
+    """T-239 (b): a reversed row's `M11.5` note is printed beside the verdicts; a row with no note, or not reversed,
+    prints nothing."""
+    rules = "| M11.C.55 | Composite | — | the note |\n| M11.C.9 | Composite | — |  |\n"
+    verdicts = [{"criterion": "M11.C.55", "verdict": "reversed"}, {"criterion": "M11.C.9", "verdict": "reversed"},
+                {"criterion": "M11.C.55", "verdict": "survived"}]
+    assert ea.reversed_notes(verdicts, rules) == ["`M11.5`'s note on each reversed row:", "", "- `M11.C.55`: the note", ""]
+    assert ea.reversed_notes(verdicts[1:], rules) == []

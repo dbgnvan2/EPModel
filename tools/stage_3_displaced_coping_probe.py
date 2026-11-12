@@ -1,8 +1,8 @@
 """Probe P2, displaced coping, on `M11.C.6`'s arms with no engine change: does the direction move? A measurement.
 
-Purpose: stage 3 step 3 (`docs/implementation_plan_version_2_stage_3.md` §3.3.1, owner decision D18 revisited). For
+Purpose: stage 3 step 3 (`docs/archive/implementation_plan_version_2_stage_3.md` §3.3.1, owner decision D18 revisited). For
          the declared child (Nadia) in both of `M11.C.6`'s arms, nine variants of the engine: as built, and P2 as
-         `docs/PROPOSAL — DISPLACED COPING (P2).md` words it with each of two kind lists, and the same two with the
+         `docs/archive/PROPOSAL — DISPLACED COPING (P2).md` words it with each of two kind lists, and the same two with the
          receiver's side only (the sender gains no functioning); and F1 (the proposal's §4.2, the floor-held
          functioning on a ledger the estimator leaves out), alone and with P2, shed or kept. P2 and F1 are put in by
          wrapping ``tick.respond`` and ``tick.record_week`` in this process for the call, restored after; nothing
@@ -350,7 +350,7 @@ def render(summary: dict, engine: str, when: str, seeds: int, keep: str) -> str:
         f"tool keeps. Engine hash `{engine}`, {when}, seeds 0–{seeds - 1} ({seeds}). Both arms of `M11.C.6`",
         "(`src/bowen/ensemble/criteria_d2.py::arm_c6`): treatment, the parents act as the policy chooses; baseline, their",
         "projection-type acts toward Nadia withheld. P2 and F1 are put in by wrapping `tick.respond` (and, for F1,",
-        "`tick.record_week`) in the tool's process, as `docs/PROPOSAL — DISPLACED COPING (P2).md` words them; nothing",
+        "`tick.record_week`) in the tool's process, as `docs/archive/PROPOSAL — DISPLACED COPING (P2).md` words them; nothing",
         "under `src/bowen/` is edited and no record moves. F1 \"shed\" sheds the `floor_held` ledger in a calm week;",
         "F1 \"kept\" never sheds it (the proposal's §9, Q2).",
         "Every difference is treatment − baseline on the same seed, mean ± 1.96 × sd ÷ √n. A probe's result, not a",

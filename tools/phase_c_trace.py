@@ -3,7 +3,7 @@
 Purpose: the trace plan §9 asks a person to read — whether learned behaviour reads as Bowen's account, which no
          criterion can test. The run is `M11.C.1`'s baseline arm: the Phase C family at its own levels, under the
          policy and the learner, with the declared spell (`M11.3`), for `M11.C.1`'s 104 weeks.
-Spec:    docs/implementation_plan_phase_c.md#9, docs/bowen_agent_model_spec_v2.md#M16.C.1
+Spec:    docs/archive/implementation_plan_phase_c.md#9, docs/bowen_agent_model_spec_v2.md#M16.C.1
 Tests:   tests/bowen/test_render.py::test_m16c1_phase_c_trace_renders,
          tests/bowen/test_render.py::test_m16c1_phase_c_chart_renders
 
@@ -48,6 +48,7 @@ def records(seed: int, after_tick=None, family=None) -> list:
     collector.emit(build_header(
         seed=seed, spec_revision=load_spec_revision(), constants=constants, frozen=load_frozen_constants(),
         kinds=kinds, family=family, script=script, activation=parts.activation, visibility=parts.visibility,
+        policy=source.rules,
     ))
     for _ in range(weeks):
         run_tick(parts.state, source, parts.params, parts.visibility, parts.activation, collector)

@@ -8,6 +8,7 @@ Tests:   this file
 
 from __future__ import annotations
 
+import copy
 import dataclasses
 import re
 from pathlib import Path
@@ -144,6 +145,35 @@ def test_m16a1_header_hash_ignores_comments_but_not_values():
         assert config_hash(resolved_config(constants, changed, family, script)) != base
 
 
+def test_m16a1_t218_every_config_input_moves_the_hash():
+    """T-218 (`M16.A.1`): every loaded input that can change a run is in `config_hash` — each event-kind field, the
+    life course, the policy rules. Built from the dataclasses' own fields, so a new field cannot be left out."""
+    from src.bowen.io.load import load_policy_rules
+    from src.bowen.policy.rules import PolicyRules
+
+    constants, kinds, family, script = load_constants(), load_event_kinds(), load_family(), load_script()
+    policy = load_policy_rules()
+    base = config_hash(resolved_config(constants, kinds, family, script, policy))
+    for field in dataclasses.fields(kinds):
+        value = getattr(kinds, field.name)
+        if hasattr(value, "items"):
+            changed = dict(list(value.items())[1:]) if value else {"X": "Y"}
+        else:
+            changed = frozenset(sorted(value, key=str)[1:]) if value else frozenset({"X"})
+        other = copy.copy(kinds)  # past the loader's validation: only the hash is under test
+        object.__setattr__(other, field.name, changed)
+        assert config_hash(resolved_config(constants, other, family, script, policy)) != base, field.name
+    for field in dataclasses.fields(family):
+        if field.name != "instance_id":
+            other = copy.copy(family)
+            object.__setattr__(other, field.name, "changed")
+            assert config_hash(resolved_config(constants, kinds, other, script, policy)) != base, field.name
+    other_policy = object.__new__(PolicyRules)  # one legal value per rule today, so set a second one directly
+    object.__setattr__(other_policy, "tie_break", "changed")
+    object.__setattr__(other_policy, "fallback", policy.fallback)
+    assert config_hash(resolved_config(constants, kinds, family, script, other_policy)) != base
+
+
 def test_m16a7_header_flags_constants_changed_after_freeze():
     constants, frozen = load_constants(), load_frozen_constants()
     since_freeze = {k for k in constants.values if k not in frozen.values or constants[k] != frozen[k]}
@@ -174,3 +204,10 @@ def test_m16b1_a_failed_run_leaves_no_complete_looking_log(tmp_path):
         pass
     assert not path.exists()
     assert (tmp_path / "run.jsonl.partial").exists()
+
+
+def test_m16a1_t218_equal_config_values_give_an_equal_hash():
+    """T-218: the hash reads values, so a read-only mapping in another key order hashes as the same values do."""
+    from src.bowen.engine.log_records import plain
+    value = plain(MappingProxyType({"b": 1, "a": 2}))
+    assert type(value) is dict and list(value) == ["a", "b"]  # sorted, as a dict is, not the repr of a proxy

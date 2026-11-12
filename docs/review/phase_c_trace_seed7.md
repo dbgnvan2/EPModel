@@ -12,8 +12,8 @@
 | Header | |
 |---|---|
 | seed | 7 |
-| config hash | `85ad4364fc303aff250ab7d06b96846500b629a2eee04abebbddf1e7c56b9a65` |
-| spec revision | 2.0, revision 58 |
+| config hash | `ce4434a181d25d1548777221d698436db3905c0f46139735b8d6b137b7384a3c` |
+| spec revision | 2.0, revision 59 |
 | family instance | phase_c |
 | activation | synchronous_activation v1 (synchronous) |
 | visibility | household_conductance_visibility v1 |

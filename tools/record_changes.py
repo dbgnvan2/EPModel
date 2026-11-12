@@ -3,30 +3,30 @@
 Purpose: a regeneration moves the records; this tool reads each generated record on two sides and writes a page of
          every row whose verdict changed, every effect that moved by more than the precision the earlier record
          stated (its half-width), every row on one side only, and the records it does not compare, with why. The
-         stage 1 page (`docs/version_2_stage_1_changes.md`) compares the tag `version-1` with stage 1's regeneration,
+         stage 1 page (`docs/archive/version_2_stage_1_changes.md`) compares the tag `version-1` with stage 1's regeneration,
          commit `7aa9fc5` — both sides read from git, so the page is frozen (T-028): stage 1 changed no rule, and a
          changed verdict there is a measured change for the owner, not a defect (plan §1.6). The revision 36 page
-         (`docs/version_2_revision_36_changes.md`) compares `7aa9fc5` with the records as committed at `9ebf327`, the
+         (`docs/archive/version_2_revision_36_changes.md`) compares `7aa9fc5` with the records as committed at `9ebf327`, the
          last commit before revision 39's regeneration moved them, so it too is frozen: revision 36 changed rules, so
          a changed verdict there is a new result under a new rule, reported beside version 1's verdict and never in
          its place (`M11.F`), and a premise passing is never a finding (`M11.5`). The revision 39 page
-         (`docs/version_2_revision_39_changes.md`, stage 3 plan step 10, S3.24) compares `9ebf327` with the records as
+         (`docs/archive/version_2_revision_39_changes.md`, stage 3 plan step 10, S3.24) compares `9ebf327` with the records as
          committed at `1ca9bb4` (revision 40, the last commit before revision 41's regeneration moved them), so it
-         too is frozen. The revision 41 page (`docs/version_2_revision_41_changes.md`, the stage 3 milestone review's
+         too is frozen. The revision 41 page (`docs/archive/version_2_revision_41_changes.md`, the stage 3 milestone review's
          triage batch) compares `1ca9bb4` with the records as committed at `c9b9b0c`, and the revision 43 page
-         (`docs/version_2_revision_43_changes.md`) compares `c9b9b0c` with the records at `64512b6`, so both are frozen.
-         The revision 44 page (`docs/version_2_revision_44_changes.md`, the owner's D4 and D5) compares `64512b6` with
+         (`docs/archive/version_2_revision_43_changes.md`) compares `c9b9b0c` with the records at `64512b6`, so both are frozen.
+         The revision 44 page (`docs/archive/version_2_revision_44_changes.md`, the owner's D4 and D5) compares `64512b6` with
          the records at `02ea189` (the last commit before revision 47's regeneration moved them), so it too is frozen,
-         the revision 47 page (`docs/version_2_revision_47_changes.md`, T-179) compares `02ea189` with the records at
-         `a694e78` and the revision 55 page (`docs/version_3_revision_55_changes.md`, T-202) compares `a694e78` with
+         the revision 47 page (`docs/archive/version_2_revision_47_changes.md`, T-179) compares `02ea189` with the records at
+         `a694e78` and the revision 55 page (`docs/archive/version_3_revision_55_changes.md`, T-202) compares `a694e78` with
          the records at `3d84065`, so both are frozen too, and the revision 57 page
-         (`docs/version_3_revision_57_changes.md`, the version 2 definition plan's step 4) compares `3d84065` with the
+         (`docs/archive/version_3_revision_57_changes.md`, the version 2 definition plan's step 4) compares `3d84065` with the
          records as committed now, in the same terms. A record whose hash
          line is still the earlier side's was not regenerated, and the tool refuses to write a page that would call it
          unchanged (P35).
          `python3 tools/record_changes.py [stage-1|revision-36|revision-39|revision-41|revision-43|revision-44|revision-47|revision-55|revision-57|all]`;
          default `all`.
-Spec:    docs/implementation_plan_version_2.md#S1.10b; docs/implementation_plan_version_2_stage_3.md (S3.24)
+Spec:    docs/implementation_plan_version_2.md#S1.10b; docs/archive/implementation_plan_version_2_stage_3.md (S3.24)
 Tests:   tests/test_record_changes.py::test_s1_10b_changes_page_is_current,
          tests/test_record_changes.py::test_s1_10b_both_pages_read_their_refs,
          tests/test_record_changes.py::test_s1_10b_a_changed_verdict_and_a_moved_effect_are_listed,
@@ -58,7 +58,7 @@ REVISION_43_END = "64512b6"  # 2026-10-31: the records as revision 43's regenera
 REVISION_46_END = "02ea189"  # 2026-11-02: the records as revision 44's regeneration, its sweep and revision 46 left them
 REVISION_54_END = "a694e78"  # 2026-11-08: the records as revision 47's regeneration, its sweep (T-181) and revision 54 left them
 REVISION_57_START = "3d84065"  # 2026-11-10: the records as revision 55's regeneration left them, which revisions 56 and 57 did not move
-OUT = REPO / "docs" / "version_2_stage_1_changes.md"
+OUT = REPO / "docs" / "archive" / "version_2_stage_1_changes.md"
 
 
 @dataclass(frozen=True)
@@ -81,7 +81,7 @@ STAGE_1 = Page(
      "(T-028). Stage 1 changed no rule; a changed verdict here is a **measured change**, reported to the owner, not a"),
     "the tag")
 REVISION_36 = Page(
-    STAGE_1_REGENERATION, REVISION_38, REPO / "docs" / "version_2_revision_36_changes.md",
+    STAGE_1_REGENERATION, REVISION_38, REPO / "docs" / "archive" / "version_2_revision_36_changes.md",
     "Spec revision 36: what changed in the records",
     ("Generated by `tools/record_changes.py`; do not edit. Each generated record as committed at stage 1's",
      f"regeneration, commit `{STAGE_1_REGENERATION}` (2026-10-19; stage 1 changed no verdict against the tag `{TAG}`,",
@@ -93,7 +93,7 @@ REVISION_36 = Page(
      "place (`M11.F`); a premise passing is never a finding (`M11.5`). It is not a"),
     "stage 1")
 REVISION_39 = Page(
-    REVISION_38, REVISION_40, REPO / "docs" / "version_2_revision_39_changes.md",
+    REVISION_38, REVISION_40, REPO / "docs" / "archive" / "version_2_revision_39_changes.md",
     "Spec revision 39: what changed in the records",
     ("Generated by `tools/record_changes.py`; do not edit. Each generated record as committed at",
      f"`{REVISION_38}` (2026-10-25: the records of revision 36's regeneration, which revisions 37 and 38 left as they",
@@ -106,7 +106,7 @@ REVISION_39 = Page(
      "is never a finding (`M11.5`). It is not a"),
     "revision 38")
 REVISION_41 = Page(
-    REVISION_40, REVISION_42, REPO / "docs" / "version_2_revision_41_changes.md",
+    REVISION_40, REVISION_42, REPO / "docs" / "archive" / "version_2_revision_41_changes.md",
     "Spec revision 41: what changed in the records",
     ("Generated by `tools/record_changes.py`; do not edit. Each generated record as committed at",
      f"`{REVISION_40}` (2026-10-28: the records of revision 39's regeneration, which revision 40 left as they were),",
@@ -118,7 +118,7 @@ REVISION_41 = Page(
      "verdicts and never in their place (`M11.F`); a premise passing is never a finding (`M11.5`). It is not a"),
     "revision 40")
 REVISION_43 = Page(
-    REVISION_42, REVISION_43_END, REPO / "docs" / "version_2_revision_43_changes.md",
+    REVISION_42, REVISION_43_END, REPO / "docs" / "archive" / "version_2_revision_43_changes.md",
     "Spec revision 43: what changed in the records",
     ("Generated by `tools/record_changes.py`; do not edit. Each generated record as committed at",
      f"`{REVISION_42}` (2026-10-29: the records of revision 41's regeneration, which revision 42 left as they were),",
@@ -131,7 +131,7 @@ REVISION_43 = Page(
      "verdicts and never in their place (`M11.F`); a premise passing is never a finding (`M11.5`). It is not a"),
     "revision 42")
 REVISION_44 = Page(
-    REVISION_43_END, REVISION_46_END, REPO / "docs" / "version_2_revision_44_changes.md",
+    REVISION_43_END, REVISION_46_END, REPO / "docs" / "archive" / "version_2_revision_44_changes.md",
     "Spec revision 44: what changed in the records",
     ("Generated by `tools/record_changes.py`; do not edit. Each generated record as committed at",
      f"`{REVISION_43_END}` (2026-10-31: the records of revision 43's regeneration and its stage-end sweep, T-167),",
@@ -145,7 +145,7 @@ REVISION_44 = Page(
      "verdicts and never in their place (`M11.F`); a premise passing is never a finding (`M11.5`). It is not a"),
     "revision 43")
 REVISION_47 = Page(
-    REVISION_46_END, REVISION_54_END, REPO / "docs" / "version_2_revision_47_changes.md",
+    REVISION_46_END, REVISION_54_END, REPO / "docs" / "archive" / "version_2_revision_47_changes.md",
     "Spec revision 47: what changed in the records",
     ("Generated by `tools/record_changes.py`; do not edit. Each generated record as committed at",
      f"`{REVISION_46_END}` (2026-11-02: the records of revision 44's regeneration and its stage-end sweep, with",
@@ -157,7 +157,7 @@ REVISION_47 = Page(
      "finding (`M11.5`). It is not a"),
     "revision 46")
 REVISION_55 = Page(
-    REVISION_54_END, REVISION_57_START, REPO / "docs" / "version_3_revision_55_changes.md",
+    REVISION_54_END, REVISION_57_START, REPO / "docs" / "archive" / "version_3_revision_55_changes.md",
     "Spec revision 55: what changed in the records",
     ("Generated by `tools/record_changes.py`; do not edit. Each generated record as committed at",
      f"`{REVISION_54_END}` (2026-11-08: the records of revision 47's regeneration, its sweep (T-181) and the emergence",
@@ -171,7 +171,7 @@ REVISION_55 = Page(
      "not a"),
     "revision 54")
 REVISION_57 = Page(
-    REVISION_57_START, None, REPO / "docs" / "version_3_revision_57_changes.md",
+    REVISION_57_START, None, REPO / "docs" / "archive" / "version_3_revision_57_changes.md",
     "Spec revision 57: what changed in the records",
     ("Generated by `tools/record_changes.py`; do not edit. Each generated record as committed at",
      f"`{REVISION_57_START}` (2026-11-10: the records of revision 55's regeneration, which revisions 56 and 57 left",
@@ -276,7 +276,7 @@ NOT_COMPARED = (
 BY_SIDE = {
     "docs/emergence_audit_record.md": {
         REVISION_54_END: "the emergence audit (`M11.1g`), rendered from its own cache (`tools/emergence_audit.py`) and not "
-                         "rerun on revision 55's engine (D4 of `docs/plan_t202_social_cues.md`): it is {side}'s, and its "
+                         "rerun on revision 55's engine (D4 of `docs/archive/plan_t202_social_cues.md`): it is {side}'s, and its "
                          "is-current test is a strict expected failure until the stage end or the owner's decision on "
                          "the switch's default",
         REVISION_57_START: "the emergence audit (`M11.1g`), rendered from its own cache (`tools/emergence_audit.py`) "
@@ -311,7 +311,7 @@ BY_SIDE = {
                          "reruns (T-181)",
         REVISION_54_END: "the status page is generated from the records compared here (`tools/version_2_status.py`); "
                          "the sweep record is rendered from its own cache (`tools/version_2_sweep.py`) and is not rerun "
-                         "on revision 55's engine (D4 of `docs/plan_t202_social_cues.md`): it is {side}'s, and its "
+                         "on revision 55's engine (D4 of `docs/archive/plan_t202_social_cues.md`): it is {side}'s, and its "
                          "is-current test is a strict expected failure until the stage end or the owner's decision on "
                          "the switch's default",
         REVISION_57_START: "the status page is generated from the records compared here "

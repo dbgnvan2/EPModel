@@ -1,7 +1,7 @@
 # Run visualization — how a run becomes a fam-diag diagram
 
 > Read by `tools/famdiag_export.py`. Approved by the owner on 2026-10-10:
-> `docs/PROPOSAL — RUN VISUALIZATION MAPPING.md` §0, plan V5.
+> `docs/archive/PROPOSAL — RUN VISUALIZATION MAPPING.md` §0, plan V5.
 >
 > **Editorial content.** It lives here, not in the tool's code. It sits outside `config/bowen/`, so it is
 > outside the engine hash: changing it re-exports a run without making any record stale. **Every value is

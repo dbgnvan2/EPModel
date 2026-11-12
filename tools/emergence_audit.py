@@ -5,7 +5,7 @@ Purpose: ask of the whole model at once whether a passing result needs learning 
          survives L0 is rerun under L0 joined with each non-learning policy term and the row's own mutants (the
          carrier candidates C1-C7), to name what carries it. A survivor is evidence for triage, not a defect by itself;
          the defect test is `M11.1d`'s, decided by the owner.
-Spec:    docs/bowen_agent_model_spec_v2.md#M11.1g, #M11.1d, #M11.5, #M11.1a; docs/plan_v3_emergence_audit.md
+Spec:    docs/bowen_agent_model_spec_v2.md#M11.1g, #M11.1d, #M11.5, #M11.1a; docs/archive/plan_v3_emergence_audit.md
 Tests:   tests/test_emergence_audit.py
 
     python3 tools/emergence_audit.py [--workers N]
@@ -205,7 +205,7 @@ def _id(cell: str) -> str:
 
 def read_config(text: str | None = None) -> Config:
     """Purpose: the exclusions, controls, stage and pilot rows, parsed strictly.
-    Spec:    docs/plan_v3_emergence_audit.md#3, #5
+    Spec:    docs/archive/plan_v3_emergence_audit.md#3, #5
     Tests:   tests/test_emergence_audit.py::test_m111g_ea12_no_row_dropped_silently,
              tests/test_emergence_audit.py::test_m111g_ea12_the_config_is_parsed_strictly
     """
@@ -241,7 +241,7 @@ def read_records() -> dict[str, list[dict]]:
 
 def in_scope(records: dict[str, list[dict]], config: Config, limbs: dict[str, frozenset[str]] | None = None):
     """Purpose: the passing composite and mixed rows of the records, less the exclusions; and what was left out.
-    Spec:    docs/bowen_agent_model_spec_v2.md#M11.1g, #M11.5; docs/plan_v3_emergence_audit.md#3
+    Spec:    docs/bowen_agent_model_spec_v2.md#M11.1g, #M11.5; docs/archive/plan_v3_emergence_audit.md#3
     Tests:   tests/test_emergence_audit.py::test_m111g_ea1_scope_is_passing_composite_and_mixed,
              tests/test_emergence_audit.py::test_t192_a_mixed_row_with_only_premise_limbs_leaves_scope
 
@@ -332,7 +332,7 @@ def carrier_candidates(row: Row) -> tuple[list[tuple[str, Mutant]], list[str]]:
 # --- verdicts (plan §3) --------------------------------------------------------------------------------------------
 def verdict(row: Row, mutant: Mutant, result: dict, limbs: dict[str, frozenset[str]], alpha: float) -> tuple[str, str]:
     """Purpose: the row's verdict under ``mutant`` and a note: ``judge``'s, on a mixed row's composite limbs only.
-    Spec:    docs/bowen_agent_model_spec_v2.md#M11.1g, #M11.5; docs/plan_v3_emergence_audit.md#3
+    Spec:    docs/bowen_agent_model_spec_v2.md#M11.1g, #M11.5; docs/archive/plan_v3_emergence_audit.md#3
     Tests:   tests/test_emergence_audit.py::test_m111g_ea9_verdicts_follow_judge,
              tests/test_emergence_audit.py::test_m111g_ea10_premise_limb_does_not_decide_a_mixed_row
 
@@ -419,7 +419,7 @@ def build(cache: Cache, workers: int | None = None, *, records: dict | None = No
           agreement: bool = True) -> str:
     """Purpose: the record, from the cache; with ``workers``, missing results are run first, and without, a missing
              one raises KeyError, so a test can check the committed record without running anything.
-    Spec:    docs/bowen_agent_model_spec_v2.md#M11.1g; docs/plan_v3_emergence_audit.md#3, #4, #7
+    Spec:    docs/bowen_agent_model_spec_v2.md#M11.1g; docs/archive/plan_v3_emergence_audit.md#3, #4, #7
     Tests:   tests/test_emergence_audit.py::test_m111g_ea14_emergence_audit_record_is_current,
              tests/test_emergence_audit.py::test_m111g_ea8_build_refuses_a_failed_control,
              tests/test_emergence_audit.py::test_m111g_ea11_carriers_named_only_for_survivors,
@@ -514,7 +514,7 @@ def share(cache: Cache, keys: list[str], workers: int, labels: list[str] | None 
              and full stages, the carriers of each that survives L0; with ``labels``, L0 and only those carriers, so
              one row's carriers can be split across machines. Every key and label is checked before anything runs.
              The caller flushes the cache, pruning nothing, and writes no record, so every other cached result is kept.
-    Spec:    docs/plan_v3_emergence_audit.md#7; docs/two_mac_sweep.md
+    Spec:    docs/archive/plan_v3_emergence_audit.md#7; docs/two_mac_sweep.md
     Tests:   tests/test_emergence_audit.py::test_t184_a_share_runs_only_its_rows_and_keeps_the_others,
              tests/test_emergence_audit.py::test_t184_a_share_refuses_an_unknown_row_or_label_before_running
 
@@ -574,7 +574,7 @@ def check_agreement(entries: list[dict], engine: str) -> list[str]:
     """Purpose: the audit's L0 rows must agree with the mutation records' rows for any mutant whose edits are L0's, on
              the same engine (plan §2: ``learning-off-in-both-arms`` on `M11.C.39`, ``learner-off-share-kept`` on
              `M11.C.34`). Returns one line per comparison made or not made; a disagreement raises.
-    Spec:    docs/plan_v3_emergence_audit.md#2
+    Spec:    docs/archive/plan_v3_emergence_audit.md#2
     Tests:   tests/test_emergence_audit.py::test_m111g_ea8_controls_hold_in_the_record,
              tests/test_emergence_audit.py::test_m111g_ea8_agreement_disagreement_raises
     """
@@ -628,9 +628,17 @@ def _line(e: dict) -> str:
             f"| **{e['verdict']}**{note} |")
 
 
+def reversed_notes(verdicts, text: str | None = None) -> list[str]:
+    """T-239 (b): a reversed row's `M11.5` note is printed beside it, so a part that holds by definition (`M11.C.55`'s
+    reversal with learning off) is not read as evidence of learning."""
+    notes = [(e["criterion"], m115(e["criterion"], text)[1]) for e in verdicts if e["verdict"] == "reversed"]
+    notes = [(k, n) for k, n in notes if n]
+    return ["`M11.5`'s note on each reversed row:", "", *(f"- `{k}`: {n}" for k, n in notes), ""] if notes else []
+
+
 def render(engine, config, audited, by_class, excluded, controls, verdicts, carriers, not_yet, agreed) -> str:
     """Purpose: the record's text, from the built entries; it ends in a JSON block (``tools/record_json.py``).
-    Spec:    docs/bowen_agent_model_spec_v2.md#M11.1g, #M11.5; docs/plan_v3_emergence_audit.md#3
+    Spec:    docs/bowen_agent_model_spec_v2.md#M11.1g, #M11.5; docs/archive/plan_v3_emergence_audit.md#3
     Tests:   tests/test_emergence_audit.py::test_m111g_ea15_class_shown_premise_never_audited
     """
     passing = len(audited) + len(by_class) + len(excluded)
@@ -640,7 +648,7 @@ def render(engine, config, audited, by_class, excluded, controls, verdicts, carr
         "",
         "Generated by `tools/emergence_audit.py`; do not edit. Every passing composite or mixed row of the three ensemble",
         "records is rerun with learning removed, in a temporary copy of the repository, under the records' adaptive rules",
-        "(`M11.1g`; `docs/plan_v3_emergence_audit.md`). A row **survived** when it still passes, **red** when it stops",
+        "(`M11.1g`; `docs/archive/plan_v3_emergence_audit.md`). A row **survived** when it still passes, **red** when it stops",
         "passing, and **reversed** when it is red and every gating readout's interval lies wholly on the side opposite its",
         "direction (`tools/mutation_record.py`'s `judge`). A mixed row is judged on its composite limbs only. A survivor",
         "is evidence for triage, not a defect by itself: the defect test is `M11.1d`'s, whether a rule that carries it",
@@ -690,6 +698,7 @@ def render(engine, config, audited, by_class, excluded, controls, verdicts, carr
         "|---|---|---|---|---|---|---|",
         *(_line(e) for e in verdicts),
         "",
+        *reversed_notes(verdicts),
         "Not run yet:",
         "",
         *([f"- `{k}`: not in the pilot; runs at the full stage" for k in not_yet]
@@ -738,7 +747,7 @@ PROBE_SEED = 0
 
 def probe(name: str) -> dict:
     """Purpose: one short measurement of a learning path, run in a copy with an ablation applied (or none).
-    Spec:    docs/plan_v3_emergence_audit.md#6 (EA-3 to EA-7)
+    Spec:    docs/archive/plan_v3_emergence_audit.md#6 (EA-3 to EA-7)
     Tests:   tests/test_emergence_audit.py::test_m111g_ea3_l0_leaves_fewer_learned_values
 
     ``learned``: nonzero learned values after a policy run of the Phase B family. ``own`` and ``cross``: one act's

@@ -1,9 +1,9 @@
 """Diagnostic probes for the failing Phase C criteria: measurements, never verdicts.
 
 Purpose: each probe runs a criterion's own arm and measures what the plan's diagnosis needs (D1-D6 of
-         docs/plan_phase_c_failing_criteria.md), printing one JSON row per arm and seed. Probes are reported in
+         docs/archive/plan_phase_c_failing_criteria.md), printing one JSON row per arm and seed. Probes are reported in
          docs/phase_c_diagnostic_record.md and never gate or prove anything.
-Spec:    docs/plan_phase_c_failing_criteria.md#D1 (and D2-D6 as they are added)
+Spec:    docs/archive/plan_phase_c_failing_criteria.md#D1 (and D2-D6 as they are added)
 Tests:   tests/bowen/test_ensemble_record.py::test_d0_diagnostic_record_is_current
 
     python3 tools/probes.py --probe NAME [--seeds N]
@@ -374,7 +374,7 @@ def _scan_arm(cid: str, arm: str, seed: int) -> dict | None:
 
 
 def scripted_weeks(seeds: int) -> list[dict]:
-    """Step S (docs/DECISIONS — PHASE C FAILING.md): for every criterion that scripts an act, the first week w at
+    """Step S (docs/archive/DECISIONS — PHASE C FAILING.md): for every criterion that scripts an act, the first week w at
     or before its declared t0 at which, scripted at w, the arm's acts would not all be made (illegal, `M4.D.1e`, or
     the actor inactive), per seed; t0 + 1 if none. The latest week made in every seed from week 0 on is the minimum
     over both arms' seeds, less one. The run is the policy's own, without step S's held-open ties: this is the

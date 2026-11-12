@@ -43,7 +43,7 @@ def consolidate(state: RunState, params: EngineParams) -> list[EffectRecord]:
     Spec:    docs/bowen_agent_model_spec_v2.md#M1.A.8, #M1.B.4, #M4.G.1, #M4.C.1c
     Tests:   tests/bowen/test_mechanisms.py::test_m4g1_three_withdrawals_register_as_distant_tie
     """
-    decay = []
+    decay, lifted = [], []
     for pid in sorted(state.people):
         person = state.people[pid]
         if not person.alive:
@@ -51,8 +51,10 @@ def consolidate(state: RunState, params: EngineParams) -> list[EffectRecord]:
         before = person.acute_anxiety
         excess = max(0.0, before - person.chronic_anxiety)
         person.acute_anxiety = person.chronic_anxiety + excess * (1.0 - params.acute_decay_rate)
-        if person.acute_anxiety != before:
+        if person.acute_anxiety < before:
             decay.append((pid, person.acute_anxiety - before))
+        elif person.acute_anxiety > before:  # below a chronic floor that rose: lifted to it, a source (T-219 (1))
+            lifted.append((pid, person.acute_anxiety - before))
 
     tie_changes = []
     for tie_id in sorted(state.ties):
@@ -82,6 +84,8 @@ def consolidate(state: RunState, params: EngineParams) -> list[EffectRecord]:
     records = []
     if decay:
         records.append(EffectRecord(state.tick, "acute_decay", None, acute_anxiety=tuple(decay)))
+    if lifted:
+        records.append(EffectRecord(state.tick, "acute_floor", None, acute_anxiety=tuple(lifted)))
     if tie_changes:
         records.append(EffectRecord(state.tick, "consolidation", None, ties=tuple(tie_changes)))
     if contact_changes:

@@ -25,7 +25,7 @@ Plan §4.10 holds the evidence.
   comparisons, finds act names in `src/bowen/ensemble/criteria.py`, `criteria_d.py` and `criteria_d2.py` (the acts
   each criterion reads), as well as `NEVER_REFUSED` (`rejection.py`) and `ABORT_ACTS` (`iposition.py`). Rule 9 asks
   whether each belongs in config; the criteria are definitions, not engine rules, and are for a later stage.
-- [x] T-028 ⟨later⟩ **Owner: freeze `docs/version_2_stage_1_changes.md` at stage 1** (`/csdp` sweep, step 8, 2026-10-20). The page
+- [x] T-028 ⟨later⟩ **Owner: freeze `docs/archive/version_2_stage_1_changes.md` at stage 1** (`/csdp` sweep, step 8, 2026-10-20). The page
   compares the tag `version-1` with the records as they are now, so a later regeneration fails
   `test_s1_10b_changes_page_is_current`, and rerunning `tools/record_changes.py` would rewrite the page under stage
   1's title with the later stage's changes. Freezing it needs a ref to read stage 1's records from, such as a tag at
@@ -34,7 +34,7 @@ Plan §4.10 holds the evidence.
   decided as recommended under the owner's instruction of 2026-10-22, pending the owner's review: the tool now reads
   both sides from git refs — the tag `version-1` and stage 1's regeneration commit `7aa9fc5` (a commit, since tags
   are the owner's) — so the page is frozen without a new tag, and a second page,
-  `docs/version_2_revision_36_changes.md`, compares `7aa9fc5` with revision 36's records.*
+  `docs/archive/version_2_revision_36_changes.md`, compares `7aa9fc5` with revision 36's records.*
 - [ ] T-029 ⟨later⟩ **Minor, from the `/csdp` sweep (step 8, 2026-10-20), not fixed:** (1) a stop signal while
   `tools/mutant_runner.py:run_in_copy` copies the repository, or while its temporary directory is removed, leaves a
   `bowen-mutant-*` directory in `$TMPDIR` (no process is left; the handlers are set only around the child), as does
@@ -89,7 +89,7 @@ Plan §4.10 holds the evidence.
   first); (3) the spec's `M11.C.10` row still opens with the revision 11 and revision 29 mutation clauses, superseded by
   the later amendments but not struck (item 3 is in revision 31's plan, approved in the review 2026-10-16).
 - [ ] T-038 ⟨later⟩ **Seven inconsistencies in the spec found while drafting the review form** (listed in
-  `docs/REVIEW_spec_revisions_24-30.md`, "Inconsistencies found while drafting"): `channel_focus` "from belief" (line
+  `docs/archive/REVIEW_spec_revisions_24-30.md`, "Inconsistencies found while drafting"): `channel_focus` "from belief" (line
   1630) against `M1.A.11c`; `tolerance` Family field (line 1679) against per person (`M7.D.4`); `TRIANGLE`'s channel in
   the B8 plan against `attribution.md`; `M7.E.1c` "open owner decision" (line 1084) against plan line 1355; `M11.C.2`
   settings "to be added" (line 1314) though present; criteria settings ungraded; revision 28 tags with no source. Fix

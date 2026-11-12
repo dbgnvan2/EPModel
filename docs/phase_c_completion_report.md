@@ -1,6 +1,6 @@
 # Phase C completion report
 
-Plan: `docs/implementation_plan_phase_c.md` (approved with spec revision 12, 2026-10-07). Steps 0–16 were built
+Plan: `docs/archive/implementation_plan_phase_c.md` (approved with spec revision 12, 2026-10-07). Steps 0–16 were built
 2026-10-07 and 2026-10-08 on branch `plan-phase-b`. Every number below comes from a committed, generated
 record, and each record carries a hash of the code and config it ran against. A default-suite test fails when
 a hash goes stale.
@@ -224,7 +224,7 @@ mutation record, not from the mere existence of its test.
 ## 7. Independent review
 
 The Hermes `learning-qa-sweep` gate reviewed `origin/plan-phase-b..HEAD` on 2026-10-08
-(`docs/cycles/2026-10-08_phase-c-qa-gate.md`). Verdict: **APPROVED** on the failure-pattern sweep, with 1 medium
+(`docs/archive/cycles/2026-10-08_phase-c-qa-gate.md`). Verdict: **APPROVED** on the failure-pattern sweep, with 1 medium
 and 3 low findings. The gate states separately that the acceptance gate does not pass, and that this is a domain
 result, not a code defect. Three findings were fixed in the same session, each with a test:
 
@@ -240,7 +240,7 @@ result, not a code defect. Three findings were fixed in the same session, each w
 The fourth (low, P4: the declared spell and horizons were literals in `criteria.py`, outside `M11.D.2`'s scan) was
 deferred at first and is fixed below.
 
-A second gate on the final state (`docs/cycles/2026-10-08_phase-c-qa-gate-2.md`) verified the three fixes and
+A second gate on the final state (`docs/archive/cycles/2026-10-08_phase-c-qa-gate-2.md`) verified the three fixes and
 **APPROVED**. It found one more medium guard gap of the same kind (A): `RULE_KEYS` in `tools/ensemble_record.py` is an
 input to all three records, and no record's hash covers it. It also found one low (B), a copied tuple in a test.
 Neither gave a wrong result in the tree.
@@ -258,7 +258,7 @@ Neither gave a wrong result in the tree.
 All three records were regenerated. Apart from the hash line they are byte-identical to the previous ones: every
 verdict, seed count, difference and mutant result is unchanged, so the move to config changed no behaviour.
 
-A third gate on those fixes (`docs/cycles/2026-10-08_phase-c-qa-gate-3.md`) verified all three, including the
+A third gate on those fixes (`docs/archive/cycles/2026-10-08_phase-c-qa-gate-3.md`) verified all three, including the
 claim that the regenerated records are identical, and **APPROVED**, with three low findings and no high or
 medium. All three were then fixed: a static test ties the criteria's required settings to what each arm reads,
 in both directions (`test_criteria_required_matches_what_the_arms_read`); the `criteria.py` docstring points at the
@@ -484,7 +484,7 @@ So C.16 stays partial in `docs/spec_coverage.md` (the tool reads the unmet claus
 
 ## 12. The failing-criteria decisions — 2026-10-09
 
-The owner approved every recommendation of `docs/DECISIONS — PHASE C FAILING.md`. What was done and what each
+The owner approved every recommendation of `docs/archive/DECISIONS — PHASE C FAILING.md`. What was done and what each
 step found is at the top of that memo; the measurements are in `docs/phase_c_diagnostic_record.md`. In brief:
 
 - **S.** A scripted act is made only if legal that week, and it was skipped in 25–60% of seeds, each adding a
@@ -503,7 +503,7 @@ step found is at the top of that memo; the measurements are in `docs/phase_c_dia
   but converged). `M11.C.4`'s nodal event moved to week 104, the longest horizon any criterion declares: no later
   cost shows. `M11.C.27` at 104 weeks showed nothing, so it is read week by week and gates on the week the act
   lands: 1 of 4 cells passes.
-- **Triangling (owner decision, approved and built 2026-10-09; `docs/PROPOSAL — TRIANGLE RELIEF AND CREDIT.md`).**
+- **Triangling (owner decision, approved and built 2026-10-09; `docs/archive/PROPOSAL — TRIANGLE RELIEF AND CREDIT.md`).**
   A `TRIANGLE` relieves only its seeker, scaled by the recruited third's help (less if the third is anxious or
   closer to the partner); the partner is not relieved, and eases only through their own act. A `TRIANGLE` is
   credited by the seeker's own relief; the third is out of `M4.D.6e`'s cross-person term. `M11.C.3` is restated to
@@ -562,4 +562,4 @@ the most criteria:
 - ~~Bruno's weekly fallback~~ *recorded as a Phase C finding, not fixed (owner, 2026-10-10): Bruno left the
   reference family at spec revision 13.*
 
-Phase B was closed on 2026-10-07 (owner's trace read, no findings; `docs/phase_b_completion_report.md`).
+Phase B was closed on 2026-10-07 (owner's trace read, no findings; `docs/archive/phase_b_completion_report.md`).

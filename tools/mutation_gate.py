@@ -4,7 +4,7 @@ Purpose: produce the mutation record a phase's completion report needs — for
          every gate test, a baseline pass and a red run under its mutation in
          which the intended assertion is the one that fired.
 Spec:    docs/bowen_agent_model_spec_v2.md#M11 (each criterion "proved failing by
-         mutation before it counts as coverage"); docs/implementation_plan_phase_b.md §2, step 14
+         mutation before it counts as coverage"); docs/archive/implementation_plan_phase_b.md §2, step 14
 Tests:   run it; it exits non-zero if any gate is not proved or the tree changed
 
     python3 tools/mutation_gate.py <gates.json> <record.md>

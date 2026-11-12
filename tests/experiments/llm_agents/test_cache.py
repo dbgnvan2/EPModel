@@ -172,6 +172,7 @@ def test_lx8_t207_replay_refuses_changed_choices_or_a_summary_off_its_hash(tmp_p
     assert rec["status"] == "not_replayable" and "not the hash of its content" in rec["status_detail"]
 
 
+@pytest.mark.xfail(strict=True, reason="spec revision 59 (the engine batch, T-001 step 3, 2026-11-12): the batch moved the engine hash from d3779684dd53 to 95368d6ddf18, and every record is regenerated once on it at step 4 (docs/todo/2026-08-22_blocking_the_next_phase.md, T-001), not here, so this record is stale by decision until then")
 def test_lx25_committed_pilot_replays_fixed(tmp_path):
     import shutil
 

@@ -197,3 +197,20 @@ def test_m6i4a_t145_a_fall_between_weeks_is_inside_the_next_week(monkeypatch):
     state, _ = scenario("four", 0, 3, before=drop)
     assert seen[2][FATHER] == pytest.approx(ended["level"])
     assert state.week_end_tick == 2 and state.week_end_level[FATHER] == state.people[FATHER].functional_level
+
+
+def test_m16a4_t239_a_failing_tick_is_logged_before_the_raise():
+    """T-239 (d) (`M16.A.4`, `M4.G.2`, the owner 2026-11-12): a tick whose invariants fail emits its records and a
+    record of the failure before the violation is raised, so the log holds the failing tick."""
+    from src.bowen.engine.invariants import InvariantViolation
+    from src.bowen.engine.log_records import InvariantFailureRecord
+
+    def break_m6i5(tick, state):
+        state.people[RAVI].basic_level += 1.0  # basic level may not move within a fast tick (M6.I.5)
+
+    emitter = CollectingEmitter()
+    with pytest.raises(InvariantViolation, match="M6.I.5"):
+        run_tick(fresh(), FixedSource(on_select=break_m6i5), PARAMS, VIS, ACT, emitter)
+    assert isinstance(emitter.records[0], TickRecord) and emitter.records[0].tick == 0
+    [failure] = [r for r in emitter.records if isinstance(r, InvariantFailureRecord)]
+    assert failure.tick == 0 and "M6.I.5" in failure.detail

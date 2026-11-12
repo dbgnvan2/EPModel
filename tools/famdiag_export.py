@@ -1,7 +1,7 @@
 """Export one run as a fam-diag diagram — the emotional patterns it produced, block by block.
 
 Purpose: draw a run in the owner's family-diagram app, so it can be reviewed as a picture
-         (``docs/PROPOSAL — RUN VISUALIZATION MAPPING.md``, plan V5).
+         (``docs/archive/PROPOSAL — RUN VISUALIZATION MAPPING.md``, plan V5).
 Spec:    docs/bowen_agent_model_spec_v2.md#M5.A.1a (the readouts drawn), #M11.F.9 (not a real family)
 Tests:   tests/bowen/test_famdiag_export.py
 
@@ -74,7 +74,7 @@ class Mapping:
 
 def load_mapping(path: Path = MAPPING) -> Mapping:
     """Purpose: read the drawing rules; a malformed or incomplete file raises.
-    Spec:    docs/PROPOSAL — RUN VISUALIZATION MAPPING.md §6
+    Spec:    docs/archive/PROPOSAL — RUN VISUALIZATION MAPPING.md §6
     Tests:   tests/bowen/test_famdiag_export.py::test_v5_mapping_covers_every_declared_pattern
     """
     from src.bowen.scenario.config_parse import parse_sectioned_document
@@ -176,7 +176,7 @@ def _date(mapping: Mapping, week: int) -> str:
 
 def episodes(held: list) -> list:
     """Purpose: each subject's runs of one held pattern, as (subject, first block, last block, readings).
-    Spec:    docs/PROPOSAL — RUN VISUALIZATION MAPPING.md §0 (D2: a pattern ends when a new one emerges)
+    Spec:    docs/archive/PROPOSAL — RUN VISUALIZATION MAPPING.md §0 (D2: a pattern ends when a new one emerges)
     Tests:   tests/bowen/test_famdiag_export.py::test_v5_episodes_split_where_the_pattern_changes
     """
     out, open_ = [], {}
@@ -200,7 +200,7 @@ def episodes(held: list) -> list:
 
 def build_diagram(run: Run, mapping: Mapping, seed: int) -> dict:
     """Purpose: the fam-diag diagram JSON for one run.
-    Spec:    docs/PROPOSAL — RUN VISUALIZATION MAPPING.md §4, #M11.F.9
+    Spec:    docs/archive/PROPOSAL — RUN VISUALIZATION MAPPING.md §4, #M11.F.9
     Tests:   tests/bowen/test_famdiag_export.py::test_v5_diagram_has_what_famdiag_imports
     """
     import src.bowen.ensemble.criteria as criteria

@@ -1601,7 +1601,7 @@
   "evidence": [
    "tests/bowen/test_render.py::test_m16t1_trace_renders_scripted_run"
   ],
-  "note": "`src/bowen/render/trace.py::render` was built in Phase B and gated it there (G2, `test_m16t1_trace_renders_scripted_run`); the owner read the seed-7 traces end to end on 2026-10-07 with no findings (`docs/phase_b_completion_report.md` §7)"
+  "note": "`src/bowen/render/trace.py::render` was built in Phase B and gated it there (G2, `test_m16t1_trace_renders_scripted_run`); the owner read the seed-7 traces end to end on 2026-10-07 with no findings (`docs/archive/phase_b_completion_report.md` §7)"
  },
  "M16.D.1": {
   "status": "done",

@@ -1,9 +1,9 @@
 # Social cues and signal channels — 2026-11-07
 
-Items from `docs/proposal_social_cues.md`, decided by the owner on 2026-11-07 (Q1–Q11, each as recommended).
+Items from `docs/archive/proposal_social_cues.md`, decided by the owner on 2026-11-07 (Q1–Q11, each as recommended).
 
 - [x] T-202 ⟨later⟩ **Build the social cues proposal, after T-183's cross-check (2026-11-07).** The owner decided
-  Q1–Q11 of `docs/proposal_social_cues.md` on 2026-11-07, each as recommended: the four cues are readings that move
+  Q1–Q11 of `docs/archive/proposal_social_cues.md` on 2026-11-07, each as recommended: the four cues are readings that move
   `M4.C.1`'s two drives, not new drives (Q1); disapproval acts on both sides, impingement larger (Q2); another's
   distress on impingement, graded `[X]` (Q3); `SC-5` kept at `[I]` (Q4); sensitivity and meaning accuracy as two
   terms, the imagined part of a cue meaning only (Q5); cues engine-only for the LLM agents (Q8); a private hop drops
@@ -11,12 +11,12 @@ Items from `docs/proposal_social_cues.md`, decided by the owner on 2026-11-07 (Q
   Steps: (1) a ledger search for age and dependency before `SC-12` (Q7); (2) a spec revision with `SC-1` to `SC-12`;
   (3) `SC-2` and `SC-3` behind a switch off by default, the golden fingerprints holding; (4) the rest, in one
   engine-hash batch with one regeneration of the records (Q11). Switching it on by default is a later owner decision. *2026-11-07:* step 1 (the ledger search) done and the plan
-  written, `docs/plan_t202_social_cues.md`; the owner approved it the same day with D1–D6 each as recommended
+  written, `docs/archive/plan_t202_social_cues.md`; the owner approved it the same day with D1–D6 each as recommended
   (`SC-12` not built, T-204; `SC-9` on a stressor-load proxy; the emergence audit and sweep records xfail until the
-  stage end). Step 2: `docs/spec_revision_55_draft.md`, approved by the owner 2026-11-08 (R55-Q1, R55-Q2 as recommended);
+  stage end). Step 2: `docs/archive/spec_revision_55_draft.md`, approved by the owner 2026-11-08 (R55-Q1, R55-Q2 as recommended);
   the build started. *Done 2026-11-09:* steps 3 and 4 built as spec revision 55, the switch off by default; the engine
   hash moved from `0b363cb3186c` to `927550dfcb8a` and the records were regenerated once on it, with no existing row
-  changed (`docs/version_3_revision_55_changes.md`). Recorded as found (the owner, 2026-11-08): `M11.C.50`, `M11.C.51`,
+  changed (`docs/archive/version_3_revision_55_changes.md`). Recorded as found (the owner, 2026-11-08): `M11.C.50`, `M11.C.51`,
   `M11.C.53` and `M11.C.54` fail; `M11.C.52` passes at p 0.046 and its named mutant turns it red (T-208);
   `M11.C.55` passes and its named mutant reverses it (T-206). The departures from the draft and the choices taken as
   recommended under the owner's overnight instruction of 2026-11-08, pending the owner's review, are in
@@ -24,10 +24,10 @@ Items from `docs/proposal_social_cues.md`, decided by the owner on 2026-11-07 (Q
   later decision.
 - [ ] T-203 ⟨later⟩ **`KS10.1`'s uncertainty term as its own proposal (2026-11-07).** Uncertainty about whether and
   when a cue will come intensifies the reaction (`KS10.1`; `KS09.8`'s intermittent withdrawal). Left out of
-  `docs/proposal_social_cues.md` by the owner's Q6 (2026-11-07): a separate mechanism, variance in the other's
+  `docs/archive/proposal_social_cues.md` by the owner's Q6 (2026-11-07): a separate mechanism, variance in the other's
   response rather than its value, with its own criterion.
 - [ ] T-204 ⟨later⟩ **`KS09.6`'s parent-side separation as its own proposal (2026-11-07).** T-202's ledger search
-  (`docs/plan_t202_social_cues.md` §2) found that a young child's dependency falling as it matures is supported
+  (`docs/archive/plan_t202_social_cues.md` §2) found that a young child's dependency falling as it matures is supported
   (`KS09.6`, `K14.5`) with the cause on the parents' side: the parents tone down their togetherness urges as the child
   matures, and failure to do so prolongs dependency; `KS09.6` rejects developmental stages. The owner decided
   2026-11-07 (plan D5) not to build `SC-12`'s age term on the child, and to take this mechanism up as a separate
@@ -64,7 +64,7 @@ Items from `docs/proposal_social_cues.md`, decided by the owner on 2026-11-07 (Q
   chance, with birth order and the supplied count report-only, and reads the relief `relief_lead_weeks` (52) before
   the window. The engine hash moved from `927550dfcb8a` to `d3779684dd53`. The verdict is read at the plan's step 4's
   regeneration, as found; this item closes then.
-  *Closed 2026-11-11 (the plan's step 4's regeneration, `docs/version_3_revision_57_changes.md`):* `M11.C.55`
+  *Closed 2026-11-11 (the plan's step 4's regeneration, `docs/archive/version_3_revision_57_changes.md`):* `M11.C.55`
   passes as found, with no tuning, on 150 seeds: `predicted_main_supplier` +0.38 ± 0.157 (p 6.38e-06) against the
   supply over the weeks before the window, and `predicted_over_chance` +0.38 ± 0.111 (p 6.62e-09) against the run's
   own chance; `birth_order_hits` is report-only at +0 ± 0. Its named mutant `supply-by-birth-order` turns it red,

@@ -466,6 +466,16 @@ def test_m4g2_a_violation_raises(invariant, mutate, steps):
         _checked(fresh(), mutate, steps)
 
 
+def test_m6i8_t219_a_tie_counts_as_loaded_only_when_a_living_member_took_its_term():
+    """T-219 (9): the loaded set is what the loop did, not every tie by construction; a tie with no one alive is out."""
+    state = fresh()
+    for member in ANA_BRUNO.members():
+        state.people[member].alive = False
+    _, loaded = apply_standing_load(state, PARAMS)
+    assert ANA_BRUNO not in loaded
+    assert loaded == {t for t in state.ties if any(state.people[m].alive for m in t.members())}
+
+
 def test_m4g2a_m6i6_is_asserted_once_restated():
     """M4.G.2a held M6.I.6 back until revision 12 restated it; from Phase C step 10 it is asserted."""
     record = _checked(fresh(), None, ("standing_load", "deliver"))
@@ -642,3 +652,21 @@ def test_m4c1c_the_spike_follows_the_cut_off_state_not_the_rejection():
         state.records = nodal_spike(state, event, PARAMS)
     assert ANA_BRUNO in {t for r in faded.records for t, _, _ in r.ties}
     assert distant.records == []
+
+
+def test_m64_t219_a_lift_to_the_chronic_floor_is_not_logged_as_decay():
+    """T-219 (1) (`M6.4`, `M1.A.8`): acute anxiety below a chronic floor that rose is lifted to it, a source logged as
+    ``acute_floor``; ``acute_decay`` carries only falls."""
+    state = fresh()
+    person = state.people[RAVI]
+    person.acute_anxiety = person.chronic_anxiety - 0.5
+    records = {r.mechanism: dict(r.acute_anxiety) for r in consolidate(state, PARAMS)}
+    assert all(v < 0 for v in records.get("acute_decay", {}).values())
+    assert records["acute_floor"][RAVI] == pytest.approx(0.5)
+
+
+def test_t219_an_iposition_without_parameters_raises():
+    """T-219 (5): an `I-POSITION` with no engine parameters raises, as a withheld outcome does, instead of skipping the
+    sequence and emitting a plain move."""
+    with pytest.raises(ValueError, match="parameters"):
+        act(fresh(), Selection(RAVI, "I-POSITION", (MARTA,), 5.0), VIS)

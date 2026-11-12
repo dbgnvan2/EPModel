@@ -69,7 +69,7 @@ SYSTEM_SHOWN = frozenset({"triangle_recompute", "consolidation", "rejection_fade
                           "tie_repair_reversed", "tie_repair_dissipation"})
 SYSTEM_SUMMARISED = frozenset({
     "cutoff_threat", "cutoff_decay",  # Weekly on every cut-off tie
-    "standing_load", "reactive_cutoff", "weakness_focus", "acute_decay", "contact_relaxation", "symptom_accumulation", "investment", "reactive_state",
+    "standing_load", "reactive_cutoff", "weakness_focus", "acute_decay", "acute_floor", "contact_relaxation", "symptom_accumulation", "investment", "reactive_state",
     "outside_ness", "belief", "functioning_settle", "competing_urges", "withhold", "learning", "sink_allocation",
     "self_practice", "stress_response", "soothing_review", "witnessed_cutoff", "attribution", "family_focus", "pseudo_self_relaxation",
     "pseudo_self_return",  # Lent functioning returns with lost capacity

@@ -19,7 +19,6 @@ from src.bowen.scenario.constants import GRADES, SCHEMA, parse_constants
 
 HEADER = "| key | value | grade | unit | spec |\n|---|---|---|---|---|\n"
 GOOD_ROWS = (
-    "| `fast_tick_weeks` | 1 | [I] | week | `M3.A.1` |\n"
     "| `slow_tick_fast_ticks` | 52 | [I] | fast tick | `M3.B.1` |\n"
     "| `invariant_tolerance` | 1e-9 | [I] | anxiety unit | `M6.1` |\n"
     "| `spouse_basic_level_tolerance` | 1.0 | [I] | point | `M2.A.0e` |\n"
@@ -245,7 +244,7 @@ def doc(rows: str = GOOD_ROWS, *, before: str = "frozen_at: unset\nactivation_re
 def test_m11d3_good_document_parses():
     constants = parse_constants(doc())
     assert constants["slow_tick_fast_ticks"] == 52
-    assert isinstance(constants["fast_tick_weeks"], int)
+    assert isinstance(constants["chronic_anxiety_fixation_age_years"], int)
     assert constants.frozen_at is None
 
 
@@ -269,19 +268,19 @@ def test_m11d3_config_rejects_malformed_line(stray):
 
 
 def test_m11d3_config_rejects_missing_required_key():
-    rows = "".join(GOOD_ROWS.splitlines(keepends=True)[:2])
+    rows = "".join(GOOD_ROWS.splitlines(keepends=True)[:1])
     with pytest.raises(ConfigError, match="missing keys \\[.*'invariant_tolerance'"):
         parse_constants(doc(rows))
 
 
 def test_m11d3_config_rejects_duplicate_key():
-    rows = GOOD_ROWS + "| `fast_tick_weeks` | 1 | [I] | week | `M3.A.1` |\n"
+    rows = GOOD_ROWS + "| `slow_tick_fast_ticks` | 52 | [I] | fast tick | `M3.B.1` |\n"
     with pytest.raises(ConfigError, match="duplicate key"):
         parse_constants(doc(rows))
 
 
 def test_m11d3_config_rejects_wrong_cell_count():
-    rows = GOOD_ROWS + "| `fast_tick_weeks` | 1 | [I] |\n"
+    rows = GOOD_ROWS + "| `slow_tick_fast_ticks` | 52 | [I] |\n"
     with pytest.raises(ConfigError, match="cells"):
         parse_constants(doc(rows))
 
@@ -316,13 +315,13 @@ def test_m11d3_config_rejects_missing_frozen_at():
 
 def test_m0_1_grade_must_match_the_spec():
     """An invented constant relabelled as textual in config must not load (M0.1, M0.2)."""
-    rows = GOOD_ROWS.replace("| 1 | [I] | week |", "| 1 | [T] | week |")
+    rows = GOOD_ROWS.replace("| 52 | [I] | fast tick |", "| 52 | [T] | fast tick |")
     with pytest.raises(ConfigError, match="does not match the spec's \\[I\\]"):
         parse_constants(doc(rows))
 
 
 def test_m0_1_unknown_grade_rejected():
-    rows = GOOD_ROWS.replace("| 1 | [I] | week |", "| 1 | invented | week |")
+    rows = GOOD_ROWS.replace("| 52 | [I] | fast tick |", "| 52 | invented | fast tick |")
     with pytest.raises(ConfigError, match="is not one of"):
         parse_constants(doc(rows))
 
@@ -340,10 +339,21 @@ def test_m101_repository_constants_load_and_are_graded():
     assert all(c.grade in GRADES for c in constants.values.values())
 
 
-def test_m3a1_fast_tick_is_one_week_and_graded_invented():
-    constants = load_constants()
-    assert constants["fast_tick_weeks"] == 1
-    assert constants.values["fast_tick_weeks"].grade == "[I]"
+def test_m3a1_t219_the_fast_tick_length_is_not_a_constant():
+    """T-219 (10): `fast_tick_weeks` was read by no code; `M3.A.1` fixes the fast tick at one week, so the key is
+    retired and the live register rejects it."""
+    from src.bowen.scenario.constants import RETIRED
+
+    assert "fast_tick_weeks" in RETIRED and "fast_tick_weeks" not in load_constants().values
+    with pytest.raises(ConfigError, match="unknown key"):
+        parse_constants(doc(GOOD_ROWS + "| `fast_tick_weeks` | 1 | [I] | week | `M3.A.1` |\n"))
+
+
+@pytest.mark.parametrize("raw", ["nan", "inf", "-1e-9"])
+def test_m61_t219_a_non_finite_or_negative_tolerance_is_rejected(raw):
+    """T-219 (6): a NaN `invariant_tolerance` made every `>` check false and switched the invariants off."""
+    with pytest.raises(ConfigError, match="finite|negative"):
+        parse_constants(doc(GOOD_ROWS.replace("| 1e-9 |", f"| {raw} |")))
 
 
 def test_m3b1_slow_tick_is_52_fast_ticks():
@@ -386,6 +396,26 @@ def test_s1_3a_act_classes_come_from_config():
     for requirement, name in (("M5.B.4", "family_to_external"), ("M5.B.5", "external_repertoire")):
         line = next(l for l in spec.splitlines() if l.startswith(f"**{requirement}**"))
         assert set(re.findall(r"`([A-Z][A-Z_-]+)`", line)) & kinds.moves() == classes[name], requirement
+
+
+def test_s1_3a_t219_the_readout_and_abort_sets_are_read_from_config():
+    """T-219 (11, 12): the reactive acts, the abort branches and the position acts come from act_classes.md, with the
+    same members as the literals they replace; the abort branches keep their order, which the abort draw indexes."""
+    from pathlib import Path
+
+    from act_literals import literal_act_sets
+    from src.bowen.engine import iposition
+    from src.bowen.ensemble import criteria
+    from src.bowen.io.load import load_event_kinds
+
+    kinds = load_event_kinds()
+    assert kinds.iposition_abort == ("PURSUE", "CONFLICT", "DISTANCE")
+    assert kinds.reactive == frozenset({"PURSUE", "DISTANCE", "CONFLICT", "OVERFUNCTION", "UNDERFUNCTION", "TRIANGLE",
+                                        "CUTOFF"})
+    assert (kinds.position_outside, kinds.position_inside) == (frozenset({"DISTANCE", "CUTOFF"}),
+                                                               frozenset({"TRIANGLE", "PURSUE"}))
+    assert criteria.REACTIVE_ACTS == kinds.reactive
+    assert literal_act_sets(Path(iposition.__file__)) == []
 
 
 def test_s1_3b_an_undeclared_act_fails_to_load(tmp_path):
@@ -503,3 +533,19 @@ def test_m0_1_criteria_settings_graded():
     assert rows[0] == "| criterion | setting | value | grade |"
     ungraded = [row for row in rows[1:] if not row.endswith("| [I] |")]
     assert rows[1:] and ungraded == []
+
+
+def test_m10b2_t219_event_sizes_and_criteria_settings_reject_non_finite(tmp_path):
+    """`M10.B.2`: a non-finite number fails at load in the event sizes and the criteria settings too."""
+    from src.bowen.ensemble.criteria import _value
+    from src.bowen.io.load import CONFIG_DIR, load_event_kinds, load_event_sizes
+    text = (CONFIG_DIR / "event_sizes.md").read_text(encoding="utf-8")
+    row = "| Death of close family member | 63 |"
+    assert row in text
+    bad = tmp_path / "event_sizes.md"
+    bad.write_text(text.replace(row, "| Death of close family member | nan |"), encoding="utf-8")
+    with pytest.raises(ConfigError, match="finite"):
+        load_event_sizes(load_event_kinds(), bad)
+    with pytest.raises(ConfigError, match="finite"):
+        _value("inf")
+    assert _value("0.5") == 0.5 and _value("CUTOFF") == "CUTOFF"

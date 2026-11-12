@@ -10,7 +10,7 @@ Spec:    docs/bowen_agent_model_spec_v2.md#M1.F.6a, #M6.3g, #M7.C.1l, #M7.D.1a
 Tests:   tests/bowen/test_event_sizes.py
 
 Every number here is ``[I]`` or the owner's; the scale orders events and the corpus supports no magnitude
-(`docs/PROPOSAL — EVENT SIZES FROM THE HOLMES–RAHE SCALE.md`). The sizing changes what an event weighs, never which
+(`docs/archive/PROPOSAL — EVENT SIZES FROM THE HOLMES–RAHE SCALE.md`). The sizing changes what an event weighs, never which
 act a person chooses: no pattern is written (`model_explainer.md` §19).
 """
 

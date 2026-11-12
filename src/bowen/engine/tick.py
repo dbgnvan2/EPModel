@@ -56,7 +56,7 @@ from src.bowen.engine.cutoff_stock import bridge_ties, cutoff_threat, decay_cuto
 from src.bowen.engine.event_effects import STRUCTURAL, apply_delivered_cutoffs, apply_structural_event, nodal_spike
 from src.bowen.engine.events import Event
 from src.bowen.engine.identifiers import PersonId
-from src.bowen.engine.invariants import assert_invariants, snapshot
+from src.bowen.engine.invariants import InvariantViolation, assert_invariants, snapshot
 from src.bowen.engine.external import apply_landed_contacts, record_stances, self_practice
 from src.bowen.engine.sinks import allocate_sinks
 from src.bowen.engine.slow_tick import record_week, run_slow_tick
@@ -65,7 +65,7 @@ from src.bowen.engine.learner import learn, learn_from_witnessed, note_witnessed
 from src.bowen.engine.life_course import due_events, find_work, note_origin_cutoff, note_parental_acts, yearly
 from src.bowen.engine.moves import (apply_move_effects, exchanged, relax_pseudo_self, return_lent_functioning,
                                    settle_functioning)
-from src.bowen.engine.log_records import EffectRecord, EmittedRecord, Emitter, TickRecord
+from src.bowen.engine.log_records import EffectRecord, EmittedRecord, Emitter, InvariantFailureRecord, TickRecord
 from src.bowen.engine.params import EngineParams
 from src.bowen.engine.outside_ness import update_outside_ness
 from src.bowen.engine.reactive import own_acts_attention, update_attention_state, weakness_focus
@@ -125,11 +125,32 @@ def run_tick(
     emitter: Emitter,
 ) -> tuple[str, ...]:
     """Purpose: run one fast tick in M3.D.1's order and return the steps run.
-    Spec:    docs/bowen_agent_model_spec_v2.md#M3.D.1, #M3.D.2, #M3.D.3, #M4.G.2
-    Tests:   tests/bowen/test_tick.py::test_m3d1_steps_run_in_spec_order
+    Spec:    docs/bowen_agent_model_spec_v2.md#M3.D.1, #M3.D.2, #M3.D.3, #M4.G.2, #M16.A.4
+    Tests:   tests/bowen/test_tick.py::test_m3d1_steps_run_in_spec_order,
+             tests/bowen/test_tick.py::test_m16a4_t239_a_failing_tick_is_logged_before_the_raise
+
+    A failed invariant raises after the tick's records and a record of the failure are emitted (T-239 (d)).
     """
     steps: list[str] = []
     records: list = [TickRecord(state.tick)]
+    try:
+        _run_steps(state, source, params, visibility, activation, records, steps)
+    except InvariantViolation as violation:
+        records.append(InvariantFailureRecord(state.tick, str(violation)))
+        for record in records:
+            emitter.emit(record)
+        raise
+    for record in records:
+        emitter.emit(record)
+    # The level each person ends the week at, the next week's start for M6.I.4a.
+    state.week_end_tick, state.week_end_level = state.tick, {pid: p.functional_level for pid, p in state.people.items()}
+    state.tick += 1
+    return tuple(steps)
+
+
+def _run_steps(state: RunState, source: Source, params: EngineParams, visibility: HouseholdConductanceVisibility,
+               activation: SynchronousActivation, records: list, steps: list[str]) -> None:
+    """The tick's steps, appending to ``records`` and ``steps`` in place."""
     before = snapshot(state)
     start_acute = {pid: p.acute_anxiety for pid, p in state.people.items()}  # the learner's baseline
     start_level = week_start_levels(state)  # M6.I.4a's capacity at the week's start: the end of last week
@@ -255,12 +276,6 @@ def run_tick(
         records += run_slow_tick(state, params)
         records += yearly(state, params)  # M7.C.1: the life course, after the slow tick's invariants
 
-    for record in records:
-        emitter.emit(record)
-    # The level each person ends the week at, the next week's start for M6.I.4a.
-    state.week_end_tick, state.week_end_level = state.tick, {pid: p.functional_level for pid, p in state.people.items()}
-    state.tick += 1
-    return tuple(steps)
 
 
 def run(

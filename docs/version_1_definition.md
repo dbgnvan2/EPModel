@@ -40,7 +40,7 @@ counted once per variant.
   three of four `M11.C.27` variants, two of four `M11.C.41` variants (Phase C); `M11.C.2`, `M11.C.12`, `M11.C.34`,
   `M11.C.43` (Phase D part I); `M11.C.6`, `M11.C.10`, `M11.C.2[twelve-person family]` (part II).
 - **Not built:** `M11.C.7`, `M11.C.9`, `M11.C.13`, `M11.C.28`.
-- **V4:** revisions 24–30 are pending owner review. *Updated 2026-10-16:* the owner reviewed all 85 entries (`docs/REVIEW_spec_revisions_24-30.md`) and the spec's status line says so; 4 entries were changed (the fourth, `M7.E.1f`'s band, decided the same day), to be applied by revision 31 (plan §4.11). V4 is met once revision 31 is built.
+- **V4:** revisions 24–30 are pending owner review. *Updated 2026-10-16:* the owner reviewed all 85 entries (`docs/archive/REVIEW_spec_revisions_24-30.md`) and the spec's status line says so; 4 entries were changed (the fourth, `M7.E.1f`'s band, decided the same day), to be applied by revision 31 (plan §4.11). V4 is met once revision 31 is built.
 - **V5, V6:** met at commit `2af33db` (854 tests locally; the last CI run measured was 38763412772, at 850).
 - **Not counted here:** `M11.C.44` passed at revision 29 and fails in the Phase C record now; `M11.C.2` on the twelve-
   person family passed at revision 29. A revision can turn a passing criterion red, so a count can go down.
@@ -93,7 +93,7 @@ tag and runs the tag's own status tests in a copy of the tagged tree, so version
 **Version 1 is complete (2026-10-18):** V1 to V7 hold (`docs/version_1_status.md` for V1–V3; V4 the spec's status line;
 V5 and V6 the suite and CI on the last commit; V7 the owner's sign-off). By §4 question 8 the spec is frozen at version
 1: later revisions start version 2.
-- **V7: met.** The owner signed off on 2026-10-17 (`docs/REVIEW_version_1_outputs.md`), and "the owner's family" now
+- **V7: met.** The owner signed off on 2026-10-17 (`docs/archive/REVIEW_version_1_outputs.md`), and "the owner's family" now
   reads "the reference family the owner specified"; the framing each output carries is checked by
   `tests/test_version_1_outputs.py`.
 
@@ -122,7 +122,7 @@ All eight decided 2026-10-15.
    mutation; a passing premise or check may rest on an ad hoc run reported in the plan,** since those passes confirm
    the code rather than report a finding.
 6. **Is your review of revisions 24–30 a condition (V4)?** **Decided 2026-10-15: yes;** otherwise version 1 freezes
-   rules the owner has not approved. The review form is `docs/REVIEW_spec_revisions_24-30.md`.
+   rules the owner has not approved. The review form is `docs/archive/REVIEW_spec_revisions_24-30.md`.
 7. **Do any of the items in §3 belong in version 1?** **Decided 2026-10-15: no.**
 8. **Is a spec revision that reopens a passed criterion allowed after version 1 is declared, or does version 1 freeze
    the spec?** **Decided 2026-10-15: freeze the spec at version 1,** as the grid spec v1.2 was frozen; later revisions start

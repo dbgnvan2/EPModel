@@ -2,7 +2,7 @@
 
 Purpose: keep `src/`, `tools/` and `tests/` free of unused imports, undefined names and the rest of ruff's `F` rules,
          and SP-B's allowlist of unresolved `Tests:` lines in `src/bowen/` empty, from the commit that fixes them on.
-Spec:    docs/implementation_plan_version_2_stage_3.md#3.7 (S3.22, T-129)
+Spec:    docs/archive/implementation_plan_version_2_stage_3.md#3.7 (S3.22, T-129)
 Tests:   this file
 
 Written red at plan step 5; plan step 6, the first commit of the batch to move the engine hash, turned it green.

@@ -1,7 +1,7 @@
 """Measure what group G changes, before and after it is built: the stock a cutoff binds, the negative runs before a
 cutoff, and the load on the reference families.
 
-Purpose: the readout G1's order of work puts first (`docs/PROPOSAL — CUTOFF ANXIETY, BRIDGING AND REPAIR.md` §6 step
+Purpose: the readout G1's order of work puts first (`docs/archive/PROPOSAL — CUTOFF ANXIETY, BRIDGING AND REPAIR.md` §6 step
          1, §3.7, §4) and the Holmes–Rahe proposal's §5: on the two reference families over many seeds, the largest
          `distance_bound_anxiety` a tie holds in the week it becomes cut off (this fixes `cutoff_stock_cap`), the run of
          negative contacts before each tie's first cutoff against the longest run on uncut ties over the same weeks

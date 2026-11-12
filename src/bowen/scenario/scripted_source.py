@@ -22,8 +22,9 @@ from src.bowen.engine.events import (
     BinderKind, BinderRef, Channel, Event, EventId, EventKinds, Mechanism, SourcePosition,
 )
 from src.bowen.engine.identifiers import PersonId, TieId
+from src.bowen.engine.objects import SymptomChannel
 from src.bowen.engine.state import RunState
-from src.bowen.scenario.config_parse import ConfigError, parse_sectioned_document
+from src.bowen.scenario.config_parse import ConfigError, finite, parse_sectioned_document
 from src.bowen.scenario.family import FamilyInstance
 
 EVENT_COLUMNS = ("tick", "kind", "targets", "tie", "intensity", "duration", "binder")
@@ -46,7 +47,9 @@ def _int(raw: str, where: str, name: str) -> int:
 
 def _float(raw: str, where: str, name: str) -> float:
     try:
-        return float(raw)
+        return finite(raw, f"{where}: {name}")
+    except ConfigError:
+        raise
     except ValueError:
         raise ConfigError(f"{where}: {name} {raw!r} is not a number") from None
 
@@ -98,6 +101,7 @@ def build_script(text: str, kinds: EventKinds, family: FamilyInstance, *, source
     ticks = _int(meta["ticks"], source, "ticks")
     positions = {p.value: p for p in SourcePosition}
     binders = {b.value: b for b in BinderKind}
+    channels = {c.value for c in SymptomChannel}
 
     def check_people(ids, where):
         for pid in ids:
@@ -107,6 +111,29 @@ def build_script(text: str, kinds: EventKinds, family: FamilyInstance, *, source
     def check_tick(tick, where):
         if tick >= ticks:
             raise ConfigError(f"{where}: tick {tick} is outside the script's {ticks} ticks")
+
+    def _binder_target(kind, target, where):
+        """T-219 (7): a binder's target is checked at load, so a bad one fails with its file and line, not mid-run."""
+        if kind is BinderKind.TIE_DISTANCE:
+            parts = target.split("~")
+            if len(parts) != 2:
+                raise ConfigError(f"{where}: tie_distance names a tie as 'a~b', not {target!r}")
+            a, b = (PersonId(part) for part in parts)
+            check_people((a, b), where)
+            if TieId.of(a, b) not in family.ties:
+                raise ConfigError(f"{where}: no tie {a}~{b} in {family.instance_id}")
+        elif kind is BinderKind.SYMPTOM_CHANNEL:
+            person, _, channel = target.partition(":")
+            check_people((PersonId(person),), where)
+            if channel not in channels:
+                raise ConfigError(f"{where}: symptom channel must be one of {sorted(channels)}, not {channel!r}")
+        elif kind is BinderKind.TRIANGLE_POSITION:
+            # A triangle forms during the run, so only its three members can be checked here.
+            parts = target.split("/")
+            if len(parts) != 3 or len(set(parts)) != 3:
+                raise ConfigError(f"{where}: triangle_position names three people as 'a/b/c', not {target!r}")
+            check_people(tuple(PersonId(part) for part in parts), where)
+        return target
 
     events: list[Event] = []
     table = document.sections["Events"]
@@ -134,7 +161,7 @@ def build_script(text: str, kinds: EventKinds, family: FamilyInstance, *, source
             kind_text, _, target = row["binder"].partition(" ")
             if kind_text not in binders or not target:
                 raise ConfigError(f"{where}: binder must be '<kind> <target>', kinds {sorted(binders)}")
-            binder = BinderRef(binders[kind_text], target.strip("`"))
+            binder = BinderRef(binders[kind_text], _binder_target(binders[kind_text], target.replace("`", ""), where))
         try:
             events.append(
                 Event(

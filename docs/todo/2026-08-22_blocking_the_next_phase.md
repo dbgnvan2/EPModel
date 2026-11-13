@@ -21,8 +21,8 @@
   decided as recommended under the owner's "continue with your recommendations"; the work they set is T-234 to T-242
   (`docs/todo/2026-11-11_whole_repo_review.md`). Step 3 done 2026-11-12: the engine batch built as spec revision 59
   (`docs/plan_engine_batch_2026-11-12.md`), the engine hash moved from `d3779684dd53` to `95368d6ddf18`, and
-  the record-current tests are strict expected failures until the records are regenerated. Next: step 4, the one
-  regeneration on the new hash, with T-237's two mutants and T-242's P5 text, then the stage-end sweep.*
+  the record-current tests are strict expected failures until the records are regenerated. Step 4 done 2026-11-12: every record regenerated once on
+  `95368d6ddf18` (`docs/version_3_revision_59_changes.md`); `M11.C.34` and `M11.C.10[family of origin]` moved PASS → FAIL, so W1 waits on the owner's call on `M11.C.10[family of origin]` (`M11.C.34`'s FAIL is final under version 1's accepted finding); T-237 run, T-242's P5 text drafted pending the owner's review; 5 of the LLM experiment's 31 runs are now `not_replayable` (accepted as recommended, pending the owner's review). Next: the stage-end sweep, then the owner's call on a tag.*
 - [ ] T-002 ⟨now⟩ **`/csdp` sweep of 2026-10-19, items not fixed** (each with its reason; the last three are the fix re-sweep's
   minor items, recorded under the owner's three-or-fewer rule).
   - The owner's Holmes–Rahe Q3 ("additions carry load", decided 2026-10-19) cited `KS07.1`, which §2 then misdescribed

@@ -6,7 +6,7 @@ which members' functional level lies in each band, over 20 seeds, unmodified and
 reads. In the first band that mutant equals the deletion on every layer; in the second, on layer 1; in the
 third it makes every layer above 0 unavailable.
 
-code_hash: 684e86bb591b20daf03485ce88b1073a0b58bf174c1967aa28a9299b9f56ec26
+code_hash: 7a275e4091048749196063d9c757fb41359c3e3f00356f90d0a910aea828b933
 
 | Variant | Arm | Span | Member-weeks | deletion_on_every_layer (≤ 20) | deletion_on_layer_1 (≤ 40) | layers_above_0_unavailable (≥ 60) |
 |---|---|---|---|---|---|---|
@@ -14,8 +14,8 @@ code_hash: 684e86bb591b20daf03485ce88b1073a0b58bf174c1967aa28a9299b9f56ec26
 | unmodified | baseline | window | 7280 | 0.0% | 56.7% | 1.9% |
 | unmodified | treatment | whole_run | 14560 | 42.7% | 95.9% | 0.2% |
 | unmodified | treatment | window | 7280 | 47.1% | 94.9% | 0.2% |
-| availability-level-inverted | baseline | whole_run | 14560 | 0.0% | 56.3% | 0.5% |
-| availability-level-inverted | baseline | window | 7280 | 0.0% | 57.0% | 0.8% |
+| availability-level-inverted | baseline | whole_run | 14560 | 0.0% | 56.2% | 0.5% |
+| availability-level-inverted | baseline | window | 7280 | 0.0% | 56.7% | 0.8% |
 | availability-level-inverted | treatment | whole_run | 14560 | 39.9% | 95.5% | 0.0% |
 | availability-level-inverted | treatment | window | 7280 | 44.7% | 93.7% | 0.0% |
 
@@ -68,12 +68,12 @@ code_hash: 684e86bb591b20daf03485ce88b1073a0b58bf174c1967aa28a9299b9f56ec26
   },
   "whole_run": {
    "deletion_on_every_layer": 0.0,
-   "deletion_on_layer_1": 0.5627747252747253,
+   "deletion_on_layer_1": 0.5616758241758242,
    "layers_above_0_unavailable": 0.005151098901098901
   },
   "window": {
    "deletion_on_every_layer": 0.0,
-   "deletion_on_layer_1": 0.5704670329670329,
+   "deletion_on_layer_1": 0.567032967032967,
    "layers_above_0_unavailable": 0.008241758241758242
   }
  },

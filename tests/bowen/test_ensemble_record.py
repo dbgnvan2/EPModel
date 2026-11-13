@@ -9,8 +9,6 @@ Tests:   this file
 
 from __future__ import annotations
 
-import pytest
-
 import importlib.util
 import re
 import sys
@@ -30,7 +28,6 @@ def record_text() -> str:
     return (REPO / "docs" / "phase_c_ensemble_record.md").read_text(encoding="utf-8")
 
 
-@pytest.mark.xfail(strict=True, reason="spec revision 59 (the engine batch, T-001 step 3, 2026-11-12): the batch moved the engine hash from d3779684dd53 to 95368d6ddf18, and every record is regenerated once on it at step 4 (docs/todo/2026-08-22_blocking_the_next_phase.md, T-001), not here, so this record is stale by decision until then")
 def test_m134_ensemble_record_is_current():
     """MR-23: the record is exactly what its cache renders for the current code, without running anything: a changed
     engine has no cached result (stale), and a hand edit or a renderer change does not match."""
@@ -168,7 +165,6 @@ def test_m111a_every_mutant_applies_exactly_once(tmp_path):
             assert new in (root / file).read_text(encoding="utf-8"), mutant.id
 
 
-@pytest.mark.xfail(strict=True, reason="spec revision 59 (the engine batch, T-001 step 3, 2026-11-12): the batch moved the engine hash from d3779684dd53 to 95368d6ddf18, and every record is regenerated once on it at step 4 (docs/todo/2026-08-22_blocking_the_next_phase.md, T-001), not here, so this record is stale by decision until then")
 def test_m111d_mutation_record_is_current():
     """The record is exactly what its cache renders for the current engine and every mutant's current edits: a changed
     engine or mutant has no cached result (KeyError: rerun the tool), and a hand edit does not match."""
@@ -194,7 +190,6 @@ def test_m111c_representation_mutants_ran_on_every_passing_criterion():
         assert _mutants.passing() <= ran, f"{mutant.id} did not run on {sorted(_mutants.passing() - ran)}"
 
 
-@pytest.mark.xfail(strict=True, reason="spec revision 59 (the engine batch, T-001 step 3, 2026-11-12): the batch moved the engine hash from d3779684dd53 to 95368d6ddf18, and every record is regenerated once on it at step 4 (docs/todo/2026-08-22_blocking_the_next_phase.md, T-001), not here, so this record is stale by decision until then")
 def test_d9_sweep_record_is_current():
     """Plan D9: every composite criterion was swept at low and high α, H and temperature on the current code."""
     text = (REPO / "docs" / "phase_c_sweep_record.md").read_text(encoding="utf-8")
@@ -480,7 +475,6 @@ def occupancy_rows() -> list[dict]:
     return record_json(text)
 
 
-@pytest.mark.xfail(strict=True, reason="spec revision 59 (the engine batch, T-001 step 3, 2026-11-12): the batch moved the engine hash from d3779684dd53 to 95368d6ddf18, and every record is regenerated once on it at step 4 (docs/todo/2026-08-22_blocking_the_next_phase.md, T-001), not here, so this record is stale by decision until then")
 def test_m111a_level_occupancy_record_is_current():
     text = (REPO / "docs" / "phase_c_level_occupancy.md").read_text(encoding="utf-8")
     match = re.search(r"^code_hash: ([0-9a-f]{64})$", text, re.M)
@@ -653,19 +647,19 @@ def test_t189_c16_row_l0_sentence_follows_the_audit_record():
     import tools.c16_report as report
 
     committed = report.RENDERED["spec_row"]
-    assert "inverting availability reverses it (+0.0117 ± 0.0018, 150 seeds)" in committed
-    assert "with availability removed as well it is red, not reversed (+0.00143 ± 0.0015, 100 seeds)" in committed
+    assert "inverting availability reverses it (+0.0122 ± 0.002, 100 seeds)" in committed
+    assert "with availability removed as well it is red, not reversed (+0.00142 ± 0.0015, 100 seeds)" in committed
     records = copy.deepcopy(report._records())
     same = report.render(*records, audit=_c16_audit(
         {"C7:availability-and-learner-removed": {"verdict": "reversed"},
          "C7:availability-level-inverted": {"verdict": "survived"}}))["spec_row"]
     assert "inverting availability leaves it passing" in same
-    assert "it is reversed (+0.00143" in same and "not reversed" not in same
+    assert "it is reversed (+0.00142" in same and "not reversed" not in same
     other = report.render(*records, audit=_c16_audit(
         {"C7:availability-and-learner-removed": {"verdict": "survived"},
          "C7:availability-level-inverted": {"verdict": "red"}}))["spec_row"]
     assert "inverting availability turns it red" in other
-    assert "it is still passing, not reversed (+0.00143" in other
+    assert "it is still passing, not reversed (+0.00142" in other
     mutants = copy.deepcopy(records[0])
     for row in mutants:
         if row["criterion"] == "M11.C.16" and row["mutant"] == "learner-disabled":
@@ -805,7 +799,6 @@ sys.modules[_dspec.name] = _diagnostic
 _dspec.loader.exec_module(_diagnostic)
 
 
-@pytest.mark.xfail(strict=True, reason="spec revision 59 (the engine batch, T-001 step 3, 2026-11-12): the batch moved the engine hash from d3779684dd53 to 95368d6ddf18, and every record is regenerated once on it at step 4 (docs/todo/2026-08-22_blocking_the_next_phase.md, T-001), not here, so this record is stale by decision until then")
 def test_d0_diagnostic_record_is_current():
     """The diagnostic record is what its cache renders for the current engine, variants and probes."""
     try:

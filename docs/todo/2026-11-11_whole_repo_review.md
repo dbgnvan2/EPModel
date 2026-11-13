@@ -147,12 +147,12 @@ they set. Each item's own line says whether it is done. Items marked *verified* 
   Built after step 4's regeneration, so it reads the regenerated audit. No engine change.
 - [ ] T-236 ⟨now⟩ **Sweep: `distance_binding_rate` against `triangle_transfer_rate` on `M11.C.42`, `C.44`, `C.45`
   (2026-11-12).** From T-230. After the engine batch, recorded as a sensitivity result; no constant is moved by it.
-- [ ] T-237 ⟨now⟩ **Mutants: the learning signal's decay baseline and its perception exemption (2026-11-12).** From
+- [x] T-237 ⟨now⟩ **Mutants: the learning signal's decay baseline and its perception exemption (2026-11-12).** From
   T-231. (a) Subtract the expected decay toward the chronic floor from the felt relief; run on `M11.C.39`, `C.16`,
   `C.34`. (b) Read the learner's perceived values in `cross_person_relief` and the level terms; run on
   `M11.C.10[family of origin]`. State the exemption in `M4.B.2` as `[I]`. The mutants live in
   `tools/mutant_runner.py`, which is in the engine hash, so they go in the engine batch.
-  *Partly done 2026-11-12: `M4.B.2` states the exemption as `[I]`; the two mutants (`relief-less-expected-decay`, `learner-reads-own-state-only`) are defined in the two record tools at spec revision 59, the engine batch (T-001 step 3; `docs/plan_engine_batch_2026-11-12.md`), criterion 12, each applying once. Not done: running them, at step 4.*
+  *Partly done 2026-11-12: `M4.B.2` states the exemption as `[I]`; the two mutants (`relief-less-expected-decay`, `learner-reads-own-state-only`) are defined in the two record tools at spec revision 59, the engine batch (T-001 step 3; `docs/plan_engine_batch_2026-11-12.md`), criterion 12, each applying once. Run 2026-11-12 at step 4 on `95368d6ddf18`: `relief-less-expected-decay` survives on `M11.C.16` (`docs/phase_c_mutation_record.md`) and on `M11.C.39` (`docs/phase_d_mutation_record.md`). Not run on `M11.C.34` or, for `learner-reads-own-state-only`, on `M11.C.10[family of origin]`: both criteria fail unmutated on this hash, so the record lists the two mutants under criteria that do not pass. Closed as run; what the two new FAILs mean is the owner's.*
 - [ ] T-238 ⟨later⟩ **Build: a trace command for the twelve-person family with the life course (2026-11-12).** From
   T-232. A tool in `tools/`, outside the hash, reusing `tools/phase_c_trace.py`'s renderer; README "Running" names it.
 - [x] T-239 ⟨now⟩ **Fix: the engine-batch parts of T-233 (2026-11-12).** List `settle_functioning` among the
@@ -163,7 +163,7 @@ they set. Each item's own line says whether it is done. Items marked *verified* 
 - [ ] T-240 ⟨later⟩ **Later parts of T-233 (2026-11-12).** Remove the LLM experiment's code, tests and the
   `anthropic` dependency once T-201 closes; split the engine hash per criterion after the tag (C6), as its own tools
   batch; a proposal with ledger sources before sibling ties or sibling position enter the reference family.
-- [ ] T-242 ⟨now⟩ **Fix: P5's disposition text and `M11.D.9`'s scan check (2026-11-12).** From T-241. The
+- [x] T-242 ⟨now⟩ **Fix: P5's disposition text and `M11.D.9`'s scan check (2026-11-12).** From T-241. The
   disposition is rewritten after step 4's regeneration; the scan-coverage check replaces `EXPECTED_SPEC_REFERENCES`,
   with `M11.D.8` and `M11.D.9` changed at the next spec revision.
-  *Partly done 2026-11-12: `M11.D.8` and `M11.D.9` amended and the scan check built (`EXPECTED_SPEC_REFERENCES` removed) at spec revision 59, the engine batch (T-001 step 3; `docs/plan_engine_batch_2026-11-12.md`), criterion 13. Not done: P5's disposition text, after step 4's regeneration.*
+  *Partly done 2026-11-12: `M11.D.8` and `M11.D.9` amended and the scan check built (`EXPECTED_SPEC_REFERENCES` removed) at spec revision 59, the engine batch (T-001 step 3; `docs/plan_engine_batch_2026-11-12.md`), criterion 13. P5's text rewritten 2026-11-12 after step 4's regeneration (`docs/version_2_dispositions.md`, `M11.C.48[phase_d]`), Claude's draft pending the owner's review.*

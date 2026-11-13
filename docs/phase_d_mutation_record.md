@@ -7,40 +7,41 @@ passes; a red mutant is **reversed** when every gating readout's interval lies w
 direction (`M11.1d`). Phase D's other mutation runs are ad hoc and reported in
 `docs/archive/implementation_plan_phase_d.md`.
 
-engine_hash: 2a61518d5824672b11ba4fd9923fdea455afc01703dac00c1d013b4070475743
+engine_hash: 75fd45e9778a89e925ccdb59541185e4f5f824d2045c64014c77ba72188f9b74
 
 | Mutant | Kind | What it changes | Criterion | Verdict under mutant | Seeds | Difference under mutant | Result |
 |---|---|---|---|---|---|---|---|
-| `witnessed-cutoff-learning-removed` | named | M4.D.6f removed: a witness's learned CUTOFF value takes no step toward what followed a witnessed cutoff | `M11.C.10[family of origin]` | FAIL | 200 | `cut_off_tie_weeks` +91 ± 1.2e+02, p 0.081; `child_cut_weeks` +45.6 ± 45 (reported) | **red** |
-| `witness-path-removed` | named | M1.F.5 removed: a witnessed exchange moves the witness's anxiety by nothing | `M11.C.2[twelve-person family]` | FAIL | 150 | `symptom_load` +0.216 ± 1.8, p 0.42 | **red** |
-| `weakness-focus-and-steering-removed` | named | M1.B.8a and M4.D.1g removed: no focus on a child's weakness, and focus steers no projection-type act | `M11.C.2[twelve-person family]` | PASS | 150 | `symptom_load` +1.26 ± 1.5, p 0.045 | **survived** |
+| `witness-path-removed` | named | M1.F.5 removed: a witnessed exchange moves the witness's anxiety by nothing | `M11.C.2[twelve-person family]` | FAIL | 150 | `symptom_load` -0.61 ± 1.7, p 0.75 | **red** |
+| `weakness-focus-and-steering-removed` | named | M1.B.8a and M4.D.1g removed: no focus on a child's weakness, and focus steers no projection-type act | `M11.C.2[twelve-person family]` | FAIL | 150 | `symptom_load` +1.27 ± 1.7, p 0.08 | **red** |
 | `marital-distance-gate-removed` | named | M5.C.1 removed: a move addressed to a symptomatic child under marital distance improves them as any other | `M11.C.14[firmness]` | PASS | 100 | `child_symptom_load` +10.5 ± 3.3 | **survived** |
 | `marital-distance-gate-removed` | named | M5.C.1 removed: a move addressed to a symptomatic child under marital distance improves them as any other | `M11.C.14[talking it out]` | PASS | 50 | `child_symptom_load` -1.41 ± 3.2; `talking_less_firmness` -9.5 ± 4.4 (reported) | **survived** |
-| `triangle-help-ignored` | named | M1.C.1's dependence on the third's help removed (owner decision 2026-10-09): every third helps fully | `M11.C.46` | FAIL | 100 | `seeker_relief` -0.347 ± 0.27, p 0.99; `third_excess` -0.113 ± 1.3 (reported); `seeker_change` +0.555 ± 0.69 (reported) | **reversed** |
+| `triangle-help-ignored` | named | M1.C.1's dependence on the third's help removed (owner decision 2026-10-09): every third helps fully | `M11.C.46` | FAIL | 100 | `seeker_relief` -0.341 ± 0.27, p 0.99; `third_excess` -0.136 ± 1.3 (reported); `seeker_change` +0.663 ± 0.66 (reported) | **reversed** |
 | `learning-off-in-both-arms` | named | M4.D.6 disabled in both arms: no learned value moves, as in the criterion's baseline (LEARNING_OFF) | `M11.C.39` | FAIL | 50 | `pattern_after_spell` +0 ± 0, p 1; `time_to_remission` +0 ± 0 (reported) | **red** |
-| `death-bound-anxiety-discarded` | named | M6.3c's release of the dead person's symptom-bound anxiety (M6.I.1) replaced by discarding it | `M11.C.15` | PASS | 100 | `death_rise` +1.22 ± 0.73, p 0.0009; `recovery_rise` +4.88 ± 0.53, p 8.7e-18 | **survived** |
+| `death-bound-anxiety-discarded` | named | M6.3c's release of the dead person's symptom-bound anxiety (M6.I.1) replaced by discarding it | `M11.C.15` | PASS | 100 | `death_rise` +1.11 ± 0.72, p 0.0018; `recovery_rise` +4.91 ± 0.54, p 8.7e-18 | **survived** |
 | `death-all-bound-anxiety-discarded` | named | M6.3c's release (M6.I.1) replaced by discarding: what the dead person's symptom, ties and triangles held | `M11.C.15` | FAIL | 50 | `death_rise` -1.32 ± 0.79, p 1; `recovery_rise` +5.27 ± 0.73, p 3.9e-10 | **red** |
-| `mixing-weight-blind-to-level` | named | M4.D.1a's mixing weight made independent of the responder's functional level (fixed at the scale's middle); M5.F.4's demand share reads the same weight, so it changes too | `M11.C.34` | FAIL | 150 | `automatic_reaction` -0.04 ± 0.12, p 0.26 | **red** |
-| `mixing-weight-blind-to-level-in-policy-only` | named | M4.D.1a's mixing weight fixed at the scale's middle in the policy only; M5.F.4's demand share still reads the mover's functional level | `M11.C.34` | FAIL | 150 | `automatic_reaction` -0.0267 ± 0.13, p 0.35 | **red** |
-| `learner-off-share-kept` | named | M4.D.6 and M4.D.6f disabled in both arms: no learned value moves from 0, so learning steers no automatic act and M5.F.4's abort draw is uniform; M4.D.1a's level-dependent share is unchanged | `M11.C.34` | FAIL | 150 | `automatic_reaction` +0.0267 ± 0.055, p 0.88 | **red** |
-| `landed-contact-changes-nothing` | named | M1.E.7's landed contact removed: a coach's contact that lands raises no systems perspective | `M11.C.7[joint over one spouse]` | FAIL | 100 | `deviation_fall` -0.00887 ± 0.054, p 0.79; `landed_contacts` -0.01 ± 0.94 (reported) | **red** |
-| `landed-contact-changes-nothing` | named | M1.E.7's landed contact removed: a coach's contact that lands raises no systems perspective | `M11.C.7[joint over sided]` | FAIL | 150 | `deviation_fall` +0.00764 ± 0.037, p 0.63; `landed_contacts` +9.14 ± 0.6, p 1.5e-26 | **red** |
-| `lock-in-removed` | named | M7.D.2a's stabilising term removed: an active symptom holds none of its partners' excess | `M11.C.22` | FAIL | 100 | `mild_removal_effect` -0.166 ± 0.56, p 0.56; `severe_removal_effect` -0.166 ± 0.56, p 0.44 | **red** |
-| `stress-response-removed` | named | M1.A.5e's stress response removed: under load, coping and soothing move functioning by nothing | `M11.C.18` | FAIL | 150 | `rise` -0.000334 ± 0.00022, p 1 | **reversed** |
-| `borrowed-pseudo-self-read-as-own` | named | M1.A.4k's exclusion of borrowed pseudo-self removed: the estimator reads a borrowed gain as own | `M11.C.20` | FAIL | 150 | `rise` -0.518 ± 0.18, p 1; `support_blocked` -0.0574 ± 0.014 (reported) | **reversed** |
+| `landed-contact-changes-nothing` | named | M1.E.7's landed contact removed: a coach's contact that lands raises no systems perspective | `M11.C.7[joint over one spouse]` | FAIL | 100 | `deviation_fall` -0.0122 ± 0.052, p 0.79; `landed_contacts` +0.04 ± 0.93 (reported) | **red** |
+| `landed-contact-changes-nothing` | named | M1.E.7's landed contact removed: a coach's contact that lands raises no systems perspective | `M11.C.7[joint over sided]` | FAIL | 150 | `deviation_fall` -0.000405 ± 0.036, p 0.72; `landed_contacts` +9.14 ± 0.61, p 1.5e-26 | **red** |
+| `lock-in-removed` | named | M7.D.2a's stabilising term removed: an active symptom holds none of its partners' excess | `M11.C.22` | FAIL | 50 | `mild_removal_effect` -0.091 ± 0.79, p 0.35; `severe_removal_effect` -0.091 ± 0.79, p 0.66 | **red** |
+| `stress-response-removed` | named | M1.A.5e's stress response removed: under load, coping and soothing move functioning by nothing | `M11.C.18` | FAIL | 150 | `rise` -0.000286 ± 0.00026, p 1 | **reversed** |
+| `borrowed-pseudo-self-read-as-own` | named | M1.A.4k's exclusion of borrowed pseudo-self removed: the estimator reads a borrowed gain as own | `M11.C.20` | FAIL | 150 | `rise` -0.464 ± 0.2, p 1; `support_blocked` -0.0574 ± 0.014 (reported) | **reversed** |
 | `dependence-gate-removed` | named | M7.A.1a's gate removed: a financially dependent person's basic level can rise | `M11.C.33` | FAIL | 50 | `rise` +0 ± 0, p 1 | **red** |
-| `coach-position-blind` | named | M8.3 made position-blind: a coach drawn onto one spouse's side still counts as a live position | `M11.C.7[joint over sided]` | FAIL | 100 | `deviation_fall` -0.0365 ± 0.056, p 0.92; `landed_contacts` -0.14 ± 0.8, p 0.59 | **red** |
-| `removed-member-hold-released-while-away` | named | M7.D.2a's hold released over every tie, worry edges and non-interactive ties included, at every release (a symptom's end, a death, past the turn, a binder lost): so a removed member's symptom gives back what it held while they are away, not on return | `M11.C.11` | PASS | 150 | `disturbance` +2.01 ± 1.1, p 0.00013 | **survived** |
-| `removed-member-holds-not-released-on-return` | named | M7.D.2a's hold released while the member is away, and M1.D.2a (c)'s tie stock not returned by the reunion: neither hold a removed member's absence froze is released on return | `M11.C.11` | FAIL | 150 | `disturbance` +0.426 ± 1.1, p 0.17 | **red** |
-| `cutoff-blind-to-learned-value` | named | M4.D.6's learned value of CUTOFF ignored: CUTOFF carries the top automatic weight whenever it is legal, so cutoffs no longer follow a run of negatives | `M11.C.48[phase_d]` | FAIL | 200 | `negative_run` -0.00758 ± 0.069, p 0.35; `run_before_cutoff` +1.52 ± 0.054 (reported); `first_cutoffs` +0 ± 0 (reported); `unmatched_cutoffs` +9.62 ± 0.26 (reported); `no_contact_cutoffs` +14 ± 0.4 (reported); `unsided_cutoffs` +2.4 ± 0.15 (reported); `unmatched_left_out_run` +1.25 ± 0.068 (reported); `unsided_left_out_run` +1.94 ± 0.2 (reported); `matched_seed` +1 ± 0 (reported) | **red** |
-| `supply-by-birth-order` | named | M1.A.14b broken: the first-born's supplying kinds carry a higher learned value and the later-born's a lower one, so who supplies follows birth order | `M11.C.55` | FAIL | 200 | `predicted_main_supplier` -0.62 ± 0.16, p 1; `predicted_over_chance` -0.005 ± 0.09, p 0.77; `parents_supplied` +0 ± 0 (reported); `birth_order_hits` +0 ± 0 (reported) | **red** |
+| `coach-position-blind` | named | M8.3 made position-blind: a coach drawn onto one spouse's side still counts as a live position | `M11.C.7[joint over sided]` | FAIL | 100 | `deviation_fall` -0.0355 ± 0.053, p 0.91; `landed_contacts` -0.18 ± 0.8, p 0.64 | **red** |
+| `removed-member-hold-released-while-away` | named | M7.D.2a's hold released over every tie, worry edges and non-interactive ties included, at every release (a symptom's end, a death, past the turn, a binder lost): so a removed member's symptom gives back what it held while they are away, not on return | `M11.C.11` | PASS | 150 | `disturbance` +1.93 ± 1.1, p 0.00015 | **survived** |
+| `removed-member-holds-not-released-on-return` | named | M7.D.2a's hold released while the member is away, and M1.D.2a (c)'s tie stock not returned by the reunion: neither hold a removed member's absence froze is released on return | `M11.C.11` | FAIL | 150 | `disturbance` +0.353 ± 1.1, p 0.17 | **red** |
+| `cutoff-blind-to-learned-value` | named | M4.D.6's learned value of CUTOFF ignored: CUTOFF carries the top automatic weight whenever it is legal, so cutoffs no longer follow a run of negatives | `M11.C.48[phase_d]` | FAIL | 200 | `negative_run` +0.0241 ± 0.073, p 0.097; `run_before_cutoff` +1.52 ± 0.058 (reported); `first_cutoffs` +0 ± 0 (reported); `unmatched_cutoffs` +9.66 ± 0.26 (reported); `no_contact_cutoffs` +14.1 ± 0.41 (reported); `unsided_cutoffs` +2.37 ± 0.17 (reported); `unmatched_left_out_run` +1.2 ± 0.058 (reported); `unsided_left_out_run` +1.92 ± 0.21 (reported); `matched_seed` +1 ± 0 (reported) | **red** |
+| `supply-by-birth-order` | named | M1.A.14b broken: the first-born's supplying kinds carry a higher learned value and the later-born's a lower one, so who supplies follows birth order | `M11.C.55` | FAIL | 200 | `predicted_main_supplier` -0.5 ± 0.18, p 1; `predicted_over_chance` +0.0717 ± 0.1, p 0.29; `parents_supplied` +0 ± 0 (reported); `birth_order_hits` +0 ± 0 (reported) | **red** |
+| `relief-less-expected-decay` | named | M4.D.6's felt relief taken net of the expected decay toward the chronic floor (acute_decay_rate of the week's excess), so decay alone teaches nothing | `M11.C.39` | PASS | 150 | `pattern_after_spell` +10 ± 0.92, p 2.4e-25; `time_to_remission` +4.87 ± 2.7 (reported) | **survived** |
 
 ## Not run
 
 Criteria a mutant targets that do not pass in their ensemble record.
 
+- `witnessed-cutoff-learning-removed` → `M11.C.10[family of origin]`
 - `witness-path-removed` → `M11.C.2`
 - `weakness-focus-and-steering-removed` → `M11.C.2`
+- `mixing-weight-blind-to-level` → `M11.C.34`
+- `mixing-weight-blind-to-level-in-policy-only` → `M11.C.34`
+- `learner-off-share-kept` → `M11.C.34`
 - `landed-contact-changes-nothing` → `M11.C.17`
 - `development-fixed-at-anchor` → `M11.C.6`
 - `displaced-coping-removed` → `M11.C.6`
@@ -49,6 +50,8 @@ Criteria a mutant targets that do not pass in their ensemble record.
 - `pseudo-self-return-removed` → `M11.C.21`
 - `coach-position-blind` → `M11.C.7[one spouse over sided]`
 - `cutoff-blind-to-learned-value` → `M11.C.48`
+- `relief-less-expected-decay` → `M11.C.34`
+- `learner-reads-own-state-only` → `M11.C.10[family of origin]`
 
 ## Passing with no mutant in this record
 
@@ -61,31 +64,6 @@ Part II criteria that pass but are not proved here; where their mutation is repo
 ```json
 [
  {
-  "mutant": "witnessed-cutoff-learning-removed",
-  "kind": "named",
-  "criterion": "M11.C.10[family of origin]",
-  "outcome": "FAIL",
-  "seeds": 200,
-  "result": "red",
-  "readouts": [
-   {
-    "direction": 1,
-    "half_width": 122.3882486290355,
-    "mean_difference": 90.965,
-    "p": 0.081489960067242,
-    "readout": "cut_off_tie_weeks",
-    "report_only": false
-   },
-   {
-    "direction": 1,
-    "half_width": 44.784152285318214,
-    "mean_difference": 45.625,
-    "readout": "child_cut_weeks",
-    "report_only": true
-   }
-  ]
- },
- {
   "mutant": "witness-path-removed",
   "kind": "named",
   "criterion": "M11.C.2[twelve-person family]",
@@ -95,9 +73,9 @@ Part II criteria that pass but are not proved here; where their mutation is repo
   "readouts": [
    {
     "direction": 1,
-    "half_width": 1.8372032922624757,
-    "mean_difference": 0.215526094134028,
-    "p": 0.42448406010442197,
+    "half_width": 1.6849018411203138,
+    "mean_difference": -0.6095404788730037,
+    "p": 0.7524250651184572,
     "readout": "symptom_load",
     "report_only": false
    }
@@ -107,15 +85,15 @@ Part II criteria that pass but are not proved here; where their mutation is repo
   "mutant": "weakness-focus-and-steering-removed",
   "kind": "named",
   "criterion": "M11.C.2[twelve-person family]",
-  "outcome": "PASS",
+  "outcome": "FAIL",
   "seeds": 150,
-  "result": "survived",
+  "result": "red",
   "readouts": [
    {
     "direction": 1,
-    "half_width": 1.538931192103234,
-    "mean_difference": 1.2642545280114101,
-    "p": 0.044569217732813804,
+    "half_width": 1.688314247737791,
+    "mean_difference": 1.2701616867350054,
+    "p": 0.08022228654567425,
     "readout": "symptom_load",
     "report_only": false
    }
@@ -178,23 +156,23 @@ Part II criteria that pass but are not proved here; where their mutation is repo
   "readouts": [
    {
     "direction": 1,
-    "half_width": 0.26690085207730035,
-    "mean_difference": -0.34651364620952835,
-    "p": 0.9890493449169171,
+    "half_width": 0.2675981982171479,
+    "mean_difference": -0.34055265259420175,
+    "p": 0.9885195295254606,
     "readout": "seeker_relief",
     "report_only": false
    },
    {
     "direction": 0,
-    "half_width": 1.2906256810982768,
-    "mean_difference": -0.11315806568195093,
+    "half_width": 1.290322594557415,
+    "mean_difference": -0.13593612229037533,
     "readout": "third_excess",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.6928634808578336,
-    "mean_difference": 0.5551537736711003,
+    "half_width": 0.6584394732027155,
+    "mean_difference": 0.6630250078156225,
     "readout": "seeker_change",
     "report_only": true
    }
@@ -235,16 +213,16 @@ Part II criteria that pass but are not proved here; where their mutation is repo
   "readouts": [
    {
     "direction": 1,
-    "half_width": 0.7322246108944446,
-    "mean_difference": 1.2215100825993854,
-    "p": 0.0008971169906392766,
+    "half_width": 0.7187522802440217,
+    "mean_difference": 1.1122760852070899,
+    "p": 0.0017736471716341448,
     "readout": "death_rise",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 0.5327989908214104,
-    "mean_difference": 4.875038125292329,
+    "half_width": 0.54411804852929,
+    "mean_difference": 4.907986721575691,
     "p": 8.709911960452411e-18,
     "readout": "recovery_rise",
     "report_only": false
@@ -261,72 +239,18 @@ Part II criteria that pass but are not proved here; where their mutation is repo
   "readouts": [
    {
     "direction": 1,
-    "half_width": 0.7875801156097182,
-    "mean_difference": -1.3245778861651905,
+    "half_width": 0.7875874965335669,
+    "mean_difference": -1.3246132566263038,
     "p": 0.9976409680385725,
     "readout": "death_rise",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 0.7284174937114685,
-    "mean_difference": 5.269995868669456,
+    "half_width": 0.7284167555471277,
+    "mean_difference": 5.269985302630804,
     "p": 3.895246103609213e-10,
     "readout": "recovery_rise",
-    "report_only": false
-   }
-  ]
- },
- {
-  "mutant": "mixing-weight-blind-to-level",
-  "kind": "named",
-  "criterion": "M11.C.34",
-  "outcome": "FAIL",
-  "seeds": 150,
-  "result": "red",
-  "readouts": [
-   {
-    "direction": -1,
-    "half_width": 0.1242106200000844,
-    "mean_difference": -0.04,
-    "p": 0.2612369151972753,
-    "readout": "automatic_reaction",
-    "report_only": false
-   }
-  ]
- },
- {
-  "mutant": "mixing-weight-blind-to-level-in-policy-only",
-  "kind": "named",
-  "criterion": "M11.C.34",
-  "outcome": "FAIL",
-  "seeds": 150,
-  "result": "red",
-  "readouts": [
-   {
-    "direction": -1,
-    "half_width": 0.12567801431091075,
-    "mean_difference": -0.02666666666666667,
-    "p": 0.3455571843366349,
-    "readout": "automatic_reaction",
-    "report_only": false
-   }
-  ]
- },
- {
-  "mutant": "learner-off-share-kept",
-  "kind": "named",
-  "criterion": "M11.C.34",
-  "outcome": "FAIL",
-  "seeds": 150,
-  "result": "red",
-  "readouts": [
-   {
-    "direction": -1,
-    "half_width": 0.05545783787934804,
-    "mean_difference": 0.02666666666666667,
-    "p": 0.879669189453125,
-    "readout": "automatic_reaction",
     "report_only": false
    }
   ]
@@ -341,16 +265,16 @@ Part II criteria that pass but are not proved here; where their mutation is repo
   "readouts": [
    {
     "direction": 1,
-    "half_width": 0.05406453638400455,
-    "mean_difference": -0.00887252057811383,
-    "p": 0.7896263881070453,
+    "half_width": 0.051956577950764415,
+    "mean_difference": -0.012166084800961534,
+    "p": 0.7933964476529473,
     "readout": "deviation_fall",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 0.9350139837986327,
-    "mean_difference": -0.01,
+    "half_width": 0.9314484725252905,
+    "mean_difference": 0.04,
     "readout": "landed_contacts",
     "report_only": true
    }
@@ -366,17 +290,17 @@ Part II criteria that pass but are not proved here; where their mutation is repo
   "readouts": [
    {
     "direction": 1,
-    "half_width": 0.037484156564183115,
-    "mean_difference": 0.007643994736664537,
-    "p": 0.6273110611877664,
+    "half_width": 0.036059574515460255,
+    "mean_difference": -0.0004047535496094719,
+    "p": 0.7193988044704447,
     "readout": "deviation_fall",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 0.6019477444673674,
+    "half_width": 0.6090445554428192,
     "mean_difference": 9.14,
-    "p": 1.5105371147136074e-26,
+    "p": 1.5164772129614628e-26,
     "readout": "landed_contacts",
     "report_only": false
    }
@@ -387,22 +311,22 @@ Part II criteria that pass but are not proved here; where their mutation is repo
   "kind": "named",
   "criterion": "M11.C.22",
   "outcome": "FAIL",
-  "seeds": 100,
+  "seeds": 50,
   "result": "red",
   "readouts": [
    {
     "direction": 1,
-    "half_width": 0.5607761941175518,
-    "mean_difference": -0.16645257033581237,
-    "p": 0.5598137407171373,
+    "half_width": 0.791716865790305,
+    "mean_difference": -0.09096174576412153,
+    "p": 0.35118149554568634,
     "readout": "mild_removal_effect",
     "report_only": false
    },
    {
     "direction": -1,
-    "half_width": 0.5607761941175518,
-    "mean_difference": -0.16645257033581237,
-    "p": 0.44368051275969245,
+    "half_width": 0.791716865790305,
+    "mean_difference": -0.09096174576412153,
+    "p": 0.6560583240296896,
     "readout": "severe_removal_effect",
     "report_only": false
    }
@@ -418,9 +342,9 @@ Part II criteria that pass but are not proved here; where their mutation is repo
   "readouts": [
    {
     "direction": 1,
-    "half_width": 0.00021790581150944177,
-    "mean_difference": -0.00033406651162877667,
-    "p": 0.9980566724332466,
+    "half_width": 0.0002648753478574189,
+    "mean_difference": -0.00028575403172292603,
+    "p": 0.9982190330745822,
     "readout": "rise",
     "report_only": false
    }
@@ -436,16 +360,16 @@ Part II criteria that pass but are not proved here; where their mutation is repo
   "readouts": [
    {
     "direction": 1,
-    "half_width": 0.17959468379785237,
-    "mean_difference": -0.5182505842852579,
-    "p": 0.9999999985767482,
+    "half_width": 0.19769274944601598,
+    "mean_difference": -0.4636412648243148,
+    "p": 0.9999999282831581,
     "readout": "rise",
     "report_only": false
    },
    {
     "direction": -1,
-    "half_width": 0.01375691077437494,
-    "mean_difference": -0.05740750461037793,
+    "half_width": 0.013675553335450083,
+    "mean_difference": -0.05738294320686915,
     "readout": "support_blocked",
     "report_only": true
    }
@@ -479,17 +403,17 @@ Part II criteria that pass but are not proved here; where their mutation is repo
   "readouts": [
    {
     "direction": 1,
-    "half_width": 0.05565775393805322,
-    "mean_difference": -0.036486886421151644,
-    "p": 0.9228325930707235,
+    "half_width": 0.05341279866879748,
+    "mean_difference": -0.035477855798100505,
+    "p": 0.9078807646728486,
     "readout": "deviation_fall",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 0.8006611449863849,
-    "mean_difference": -0.14,
-    "p": 0.5903751773336393,
+    "half_width": 0.7954877555895687,
+    "mean_difference": -0.18,
+    "p": 0.6396395312750636,
     "readout": "landed_contacts",
     "report_only": false
    }
@@ -505,9 +429,9 @@ Part II criteria that pass but are not proved here; where their mutation is repo
   "readouts": [
    {
     "direction": 1,
-    "half_width": 1.1054307103254948,
-    "mean_difference": 2.0128994022059676,
-    "p": 0.00013156602839224204,
+    "half_width": 1.1236290381279335,
+    "mean_difference": 1.9331896635675063,
+    "p": 0.00015383953084601207,
     "readout": "disturbance",
     "report_only": false
    }
@@ -523,9 +447,9 @@ Part II criteria that pass but are not proved here; where their mutation is repo
   "readouts": [
    {
     "direction": 1,
-    "half_width": 1.0638454044703587,
-    "mean_difference": 0.4264161882040895,
-    "p": 0.16567941877238526,
+    "half_width": 1.0836234898301598,
+    "mean_difference": 0.3534989507772232,
+    "p": 0.16928380007221552,
     "readout": "disturbance",
     "report_only": false
    }
@@ -541,16 +465,16 @@ Part II criteria that pass but are not proved here; where their mutation is repo
   "readouts": [
    {
     "direction": 1,
-    "half_width": 0.06946607418365926,
-    "mean_difference": -0.007581547677345996,
-    "p": 0.350080652387975,
+    "half_width": 0.07344723620973706,
+    "mean_difference": 0.024093423587383686,
+    "p": 0.09718317324932674,
     "readout": "negative_run",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 0.05361269866685491,
-    "mean_difference": 1.515040758669435,
+    "half_width": 0.05756399153830477,
+    "mean_difference": 1.5205753931525994,
     "readout": "run_before_cutoff",
     "report_only": true
    },
@@ -563,36 +487,36 @@ Part II criteria that pass but are not proved here; where their mutation is repo
    },
    {
     "direction": 1,
-    "half_width": 0.2556046629437596,
-    "mean_difference": 9.625,
+    "half_width": 0.26304967373914634,
+    "mean_difference": 9.66,
     "readout": "unmatched_cutoffs",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.39713719260319064,
-    "mean_difference": 14.0,
+    "half_width": 0.4090942993108596,
+    "mean_difference": 14.125,
     "readout": "no_contact_cutoffs",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.15289635139975308,
-    "mean_difference": 2.405,
+    "half_width": 0.168634196595194,
+    "mean_difference": 2.37,
     "readout": "unsided_cutoffs",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.06826950931884813,
-    "mean_difference": 1.2499737623487623,
+    "half_width": 0.05842479818805195,
+    "mean_difference": 1.1984730685980685,
     "readout": "unmatched_left_out_run",
     "report_only": true
    },
    {
     "direction": 1,
-    "half_width": 0.20079456504606386,
-    "mean_difference": 1.937916666666667,
+    "half_width": 0.21034796948548534,
+    "mean_difference": 1.9240000000000002,
     "readout": "unsided_left_out_run",
     "report_only": true
    },
@@ -615,17 +539,17 @@ Part II criteria that pass but are not proved here; where their mutation is repo
   "readouts": [
    {
     "direction": 1,
-    "half_width": 0.16236457766521,
-    "mean_difference": -0.62,
-    "p": 0.9999999999362319,
+    "half_width": 0.18168856229367247,
+    "mean_difference": -0.5,
+    "p": 0.9999998854294259,
     "readout": "predicted_main_supplier",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 0.08998162117697743,
-    "mean_difference": -0.004999999999999949,
-    "p": 0.7677651520205426,
+    "half_width": 0.10250664626897726,
+    "mean_difference": 0.07166666666666675,
+    "p": 0.2891200352250908,
     "readout": "predicted_over_chance",
     "report_only": false
    },
@@ -641,6 +565,31 @@ Part II criteria that pass but are not proved here; where their mutation is repo
     "half_width": 0.0,
     "mean_difference": 0.0,
     "readout": "birth_order_hits",
+    "report_only": true
+   }
+  ]
+ },
+ {
+  "mutant": "relief-less-expected-decay",
+  "kind": "named",
+  "criterion": "M11.C.39",
+  "outcome": "PASS",
+  "seeds": 150,
+  "result": "survived",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 0.9244463306353728,
+    "mean_difference": 10.013333333333334,
+    "p": 2.390701509131007e-25,
+    "readout": "pattern_after_spell",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 2.686667969112768,
+    "mean_difference": 4.873333333333333,
+    "readout": "time_to_remission",
     "report_only": true
    }
   ]

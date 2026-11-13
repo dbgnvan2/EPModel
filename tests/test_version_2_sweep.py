@@ -633,7 +633,7 @@ def test_s2_6_not_run_list_is_loaded_strictly():
 
 # --- S2.11 the committed record ---------------------------------------------------------------------------------
 
-@pytest.mark.xfail(strict=True, reason="spec revision 59 (the engine batch, T-001 step 3, 2026-11-12): the batch moved the engine hash from d3779684dd53 to 95368d6ddf18, and every record is regenerated once on it at step 4 (docs/todo/2026-08-22_blocking_the_next_phase.md, T-001), not here, so this record is stale by decision until then")
+@pytest.mark.xfail(strict=True, reason="spec revision 59 (the engine batch, T-001 step 3, 2026-11-12): the batch moved the engine hash from d3779684dd53 to 95368d6ddf18, and the sweep record is rerun on it only at the stage-end sweep, the step after step 4's regeneration (docs/todo/2026-08-22_blocking_the_next_phase.md, T-001), so this record is stale by decision until then")
 def test_s2_11_sweep_record_is_current():
     """The committed sweep record is what the tool renders from the committed cache for the current engine and
     config, without running anything (P6); a stale cache or a changed range would raise here."""

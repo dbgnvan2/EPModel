@@ -5,42 +5,48 @@ seeds (`M3.D.4a`), stopped adaptively (`M17.A.1`, `M13.4`): `UNDETERMINED` at th
 pass. Every verdict carries its class (`M11.5`). **A premise passing confirms that the code renders the
 spec; it is not a finding about families.** The constants are the Phase C freeze of 2026-10-07.
 
-code_hash: b751f1941dfe1b337eb21baa3abaf6b50e4edd10f274b6436279f7e25cd26f74
+code_hash: 0aa43ef6868a11c7b0b2e4ccbb645c3b2e822ad722f3837a07f97b4fa1618c94
 
 Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25, `ensemble_margin` = 0.1, `ensemble_alpha` = 0.05, `fallback_flag_rate` = 0.2, `equivalence_margin` = 0.5.
 
 | Criterion | Class | Verdict | Seeds | Readouts (difference treatment − baseline; ± half-width; p after Holm where tested) | Scripted acts not made, of all scripted (why) | Fallback rate | Flags |
 |---|---|---|---|---|---|---|---|
-| `M11.C.1` | premise | **PASS** | 150 | `time_to_threshold` -2.89 ± 0.21, p 7.13e-27, holds | — | 0.00 | — |
-| `M11.C.3` | premise | **PASS** | 50 | `seeker_anxiety` -1.33 ± 0.15, p 2.68e-09, holds; `third_anxiety` +1.13 ± 0.21, p 3.49e-08, holds; `partner_anxiety` +0.962 ± 0.19 (reported only) | baseline 0 of 50; treatment 0 of 50 | 0.00 | — |
-| `M11.C.4` | premise | **PASS** | 100 | `actor_relief_now` -2.55 ± 0.4, p 4.67e-16, holds; `family_anxiety_at_nodal` +9 ± 1.2, p 3.92e-17, holds | baseline 0 of 100; treatment 3 of 100 (3 rewritten) | 0.00 | — |
-| `M11.C.5` | composite | **FAIL** | 100 | `target_reaction` -6.12 ± 21, p 0.413, does not hold; `third_person_symptom_load` -3.9 ± 11, p 0.79, does not hold | treatment 0 of 100 | 0.00 | — |
-| `M11.C.16` | composite | **PASS** | 150 | `repertoire_entropy` -0.0392 ± 0.006, p 1.83e-20, holds; `top_move_share` +0.0515 ± 0.0091 (reported only) | — | 0.00 | — |
-| `M11.C.19` | check | **PASS** | 50 | `outward_failed` +1 ± 0, p 8e-13, holds; `inward_failed` -1 ± 0, p 8e-13, holds | — | 0.00 | — |
-| `M11.C.25` | premise | **PASS** | 50 | `first_dominant` +0 ± 0, equivalence bound 0.246, within | — | 0.00 | — |
-| `M11.C.29` | mixed | **FAIL** | 50 | `budget` +0 ± 0.11 (reported only); `third_symptom_weeks` +2.54 ± 4.4, p 0.87, does not hold; `completions` +0 ± 0 (reported only) | baseline 14 of 200 (7 owed a step, 7 rewritten); treatment 5 of 50 (2 owed a step, 3 rewritten) | 0.00 | move never occurred: (I-POSITION completed) |
-| `M11.C.32` | premise | **PASS** | 100 | `assertion_form` +0.66 ± 0.25, p 6.14e-07, holds; `reached_peak` -0.07 ± 0.064, p 0.0327, holds | baseline 0 of 100; treatment 0 of 100 | 0.00 | — |
-| `M11.C.35` | check | **PASS** | 100 | `witness_appraisal` +0.477 ± 0.023, p 2.04e-18, holds | baseline 2 of 100 (1 owed a step, 1 rewritten); treatment 0 of 100 | 0.00 | — |
-| `M11.C.42` | composite | **FAIL** | 50 | `triangle_reuse` -0.06 ± 0.39, p 0.613, does not hold | treatment 0 of 50 | 0.00 | — |
-| `M11.C.44` | composite | **FAIL** | 150 | `outside_inside_ratio` +0.0221 ± 0.096, p 0.344, does not hold | — | 0.00 | — |
-| `M11.C.45` | composite | **FAIL** | 150 | `triangle_rate` +0.00136 ± 0.0054, p 0.296, does not hold | — | 0.00 | — |
-| `M11.C.49` | mixed | **FAIL** | 150 | `family_excess` +3.27 ± 2.8, p 0.0158, holds; `conflict_share` +0.000857 ± 0.026, p 0.468, does not hold; `target_impingement` +0.079 ± 0.022 (reported only); `completions` -0.3 ± 0.074 (reported only) | — | 0.00 | — |
-| `M11.C.27[stable,add_third]` | composite | **FAIL** | 50 | `pair_deviation` +0.00581 ± 0.039, p 0.586, does not hold; `pair_deviation_week_1` +0.00581 ± 0.039 (reported only); `pair_deviation_week_2` +0.0348 ± 0.033 (reported only); `pair_deviation_week_3` +0.0634 ± 0.034 (reported only); `pair_deviation_week_4` +0.0722 ± 0.037 (reported only); `pair_deviation_week_5` +0.0551 ± 0.062 (reported only); `pair_deviation_week_6` +0.0585 ± 0.06 (reported only); `pair_deviation_week_7` +0.0525 ± 0.053 (reported only); `pair_deviation_week_8` +0.0595 ± 0.055 (reported only); `pair_deviation_week_9` +0.0139 ± 0.055 (reported only); `pair_deviation_week_10` +0.0372 ± 0.054 (reported only); `pair_deviation_week_11` +0.0406 ± 0.059 (reported only); `pair_deviation_week_12` +0.0262 ± 0.065 (reported only) | baseline 0 of 50; treatment 1 of 50 (1 rewritten) | 0.00 | — |
-| `M11.C.27[stable,remove_one]` | composite | **FAIL** | 100 | `pair_deviation` -0.0943 ± 0.049, p 1, does not hold; `pair_deviation_week_1` -0.0943 ± 0.049 (reported only); `pair_deviation_week_2` -0.082 ± 0.055 (reported only); `pair_deviation_week_3` -0.00542 ± 0.053 (reported only); `pair_deviation_week_4` +0.0245 ± 0.057 (reported only); `pair_deviation_week_5` +0.0991 ± 0.059 (reported only); `pair_deviation_week_6` +0.171 ± 0.053 (reported only); `pair_deviation_week_7` +0.187 ± 0.058 (reported only); `pair_deviation_week_8` +0.245 ± 0.056 (reported only); `pair_deviation_week_9` +0.248 ± 0.057 (reported only); `pair_deviation_week_10` +0.267 ± 0.062 (reported only); `pair_deviation_week_11` +0.266 ± 0.06 (reported only); `pair_deviation_week_12` +0.246 ± 0.061 (reported only) | baseline 0 of 100; treatment 0 of 100 | 0.00 | — |
-| `M11.C.27[unstable,add_third]` | composite | **FAIL** | 50 | `pair_deviation` -0.0085 ± 0.035, p 0.226, does not hold; `pair_deviation_week_1` -0.0085 ± 0.035 (reported only); `pair_deviation_week_2` +0.0565 ± 0.036 (reported only); `pair_deviation_week_3` +0.0882 ± 0.041 (reported only); `pair_deviation_week_4` +0.0701 ± 0.051 (reported only); `pair_deviation_week_5` +0.0426 ± 0.067 (reported only); `pair_deviation_week_6` +0.0402 ± 0.058 (reported only); `pair_deviation_week_7` +0.0633 ± 0.069 (reported only); `pair_deviation_week_8` +0.0426 ± 0.075 (reported only); `pair_deviation_week_9` +0.0619 ± 0.057 (reported only); `pair_deviation_week_10` +0.0655 ± 0.062 (reported only); `pair_deviation_week_11` +0.0472 ± 0.059 (reported only); `pair_deviation_week_12` +0.0019 ± 0.06 (reported only) | baseline 0 of 50; treatment 0 of 50 | 0.00 | — |
-| `M11.C.27[unstable,remove_one]` | composite | **PASS** | 100 | `pair_deviation` -0.0901 ± 0.049, p 0.000407, holds; `pair_deviation_week_1` -0.0901 ± 0.049 (reported only); `pair_deviation_week_2` -0.0492 ± 0.05 (reported only); `pair_deviation_week_3` +0.00172 ± 0.048 (reported only); `pair_deviation_week_4` +0.0606 ± 0.052 (reported only); `pair_deviation_week_5` +0.115 ± 0.053 (reported only); `pair_deviation_week_6` +0.157 ± 0.053 (reported only); `pair_deviation_week_7` +0.173 ± 0.063 (reported only); `pair_deviation_week_8` +0.219 ± 0.063 (reported only); `pair_deviation_week_9` +0.236 ± 0.064 (reported only); `pair_deviation_week_10` +0.252 ± 0.063 (reported only); `pair_deviation_week_11` +0.237 ± 0.059 (reported only); `pair_deviation_week_12` +0.237 ± 0.057 (reported only) | baseline 0 of 100; treatment 0 of 100 | 0.00 | — |
-| `M11.C.38[-0 vs -5]` | premise | **PASS** | 100 | `time_to_threshold` -1.55 ± 0.23, p 3.68e-16, holds | — | 0.00 | — |
-| `M11.C.38[-5 vs -10]` | premise | **PASS** | 100 | `time_to_threshold` -1.21 ± 0.19, p 4.7e-15, holds | — | 0.00 | — |
-| `M11.C.38[-10 vs -15]` | premise | **PASS** | 100 | `time_to_threshold` -0.99 ± 0.14, p 1.35e-15, holds | — | 0.00 | — |
-| `M11.C.41[light: lower level]` | mixed | **PASS** | 150 | `mean_acute` +96.4 ± 9.9, p 5.58e-26, holds; `reactive_over_chance` +0.0642 ± 0.0031, p 1.16e-26, holds | — | 0.00 | — |
-| `M11.C.41[heavy: lower level]` | mixed | **PASS** | 150 | `mean_acute` +107 ± 11, p 1.51e-25, holds; `reactive_over_chance` +0.0645 ± 0.003, p 1.16e-26, holds | — | 0.00 | — |
-| `M11.C.41[higher level: heavier stress]` | mixed | **FAIL** | 100 | `mean_acute` +11.9 ± 7.9, p 0.00419, holds; `reactive_over_chance` -0.000574 ± 0.0026, p 0.614, does not hold | — | 0.00 | — |
-| `M11.C.41[lower level: heavier stress]` | mixed | **FAIL** | 150 | `mean_acute` +19.5 ± 13, p 0.00752, holds; `reactive_over_chance` -0.00107 ± 0.0023, p 0.893, does not hold | — | 0.00 | — |
-| `M11.C.50` | composite | **FAIL** | 100 | `contact_toward_sender` +0.11 ± 0.4, p 0.314, does not hold | baseline 0 of 800; treatment 4 of 800 (4 owed a step) | 0.00 | — |
-| `M11.C.51` | composite | **FAIL** | 50 | `distance_conflict_share` -0.00338 ± 0.042, p 0.542, does not hold; `no_moves` +0 ± 0 (reported only) | — | 0.00 | — |
-| `M11.C.52` | composite | **PASS** | 100 | `escalation` -23.8 ± 24, p 0.0457, holds | — | 0.00 | — |
-| `M11.C.53` | composite | **FAIL** | 100 | `too_little_on_marital_tie` +0.0101 ± 0.0066, p 7.98e-05, holds; `pursue_conflict_toward_stressed` +0.01 ± 0.19, p 0.416, does not hold | — | 0.00 | — |
-| `M11.C.54` | composite | **FAIL** | 100 | `child_functional_level` -0.681 ± 2, p 0.238, does not hold; `child_supply_to_parent` -0.65 ± 0.84 (reported only) | — | 0.00 | — |
+| `M11.C.1` | premise | **PASS** | 150 | `time_to_threshold` -2.89 ± 0.21, p 7.3e-27, holds, pairs differing 0.99 | — | 0.00 | — |
+| `M11.C.3` | premise | **PASS** | 50 | `seeker_anxiety` -1.33 ± 0.15, p 2.68e-09, holds, pairs differing 1.00; `third_anxiety` +1.13 ± 0.21, p 3.49e-08, holds, pairs differing 1.00; `partner_anxiety` +0.962 ± 0.19 (reported only), pairs differing 1.00 | baseline 0 of 50; treatment 0 of 50 | 0.00 | — |
+| `M11.C.4` | premise | **PASS** | 100 | `actor_relief_now` -2.55 ± 0.4, p 4.67e-16, holds, pairs differing 1.00; `family_anxiety_at_nodal` +8.98 ± 1.2, p 4.04e-17, holds, pairs differing 1.00 | baseline 0 of 100; treatment 3 of 100 (3 rewritten) | 0.00 | — |
+| `M11.C.5` | composite | **FAIL** | 100 | `target_reaction` -5.89 ± 21, p 0.421, does not hold, pairs differing 1.00; `third_person_symptom_load` -1.15 ± 12, p 0.678, does not hold, pairs differing 1.00 | treatment 0 of 100 | 0.00 | — |
+| `M11.C.16` | composite | **PASS** | 150 | `repertoire_entropy` -0.0393 ± 0.006, p 1.9e-20, holds, pairs differing 1.00; `top_move_share` +0.052 ± 0.009 (reported only), pairs differing 1.00 | — | 0.00 | — |
+| `M11.C.19` | check | **PASS** | 50 | `outward_failed` +1 ± 0, p 8e-13, holds, pairs differing 1.00; `inward_failed` -1 ± 0, p 8e-13, holds, pairs differing 1.00 | — | 0.00 | — |
+| `M11.C.25` | premise | **PASS** | 50 | `first_dominant` +0 ± 0, equivalence bound 0.246, within, pairs differing 0.00 | — | 0.00 | — |
+| `M11.C.29` | mixed | **FAIL** | 50 | `budget` +0.04 ± 0.078 (reported only), pairs differing 0.02; `third_symptom_weeks` +4.96 ± 4.3, p 0.985, does not hold, pairs differing 0.96; `completions` +0 ± 0 (reported only), pairs differing 0.00 | baseline 15 of 200 (8 owed a step, 7 rewritten); treatment 12 of 50 (6 not legal, 3 owed a step, 3 rewritten) | 0.00 | move never occurred: (I-POSITION completed) |
+| `M11.C.32` | premise | **PASS** | 100 | `assertion_form` +0.74 ± 0.26, p 5.06e-07, holds, pairs differing 0.67; `reached_peak` -0.08 ± 0.077, p 0.0384, holds, pairs differing 0.16 | baseline 0 of 100; treatment 0 of 100 | 0.00 | — |
+| `M11.C.35` | check | **PASS** | 100 | `witness_appraisal` +0.477 ± 0.023, p 2.04e-18, holds, pairs differing 1.00 | baseline 2 of 100 (1 owed a step, 1 rewritten); treatment 0 of 100 | 0.00 | — |
+| `M11.C.42` | composite | **FAIL** | 50 | `triangle_reuse` -0.06 ± 0.39, p 0.613, does not hold, pairs differing 0.64 | treatment 0 of 50 | 0.00 | — |
+| `M11.C.44` | composite | **FAIL** | 150 | `outside_inside_ratio` +0.025 ± 0.095, p 0.338, does not hold, pairs differing 0.99 | — | 0.00 | — |
+| `M11.C.45` | composite | **FAIL** | 150 | `triangle_rate` +0.00178 ± 0.0055, p 0.257, does not hold, pairs differing 0.96 | — | 0.00 | — |
+| `M11.C.49` | mixed | **FAIL** | 150 | `family_excess` +3.32 ± 2.8, p 0.0141, holds, pairs differing 1.00; `conflict_share` +0.000857 ± 0.026, p 0.468, does not hold, pairs differing 0.43; `target_impingement` +0.079 ± 0.022 (reported only), pairs differing 1.00; `completions` -0.3 ± 0.074 (reported only), pairs differing 0.30 | — | 0.00 | — |
+| `M11.C.27[stable,add_third]` | composite | **FAIL** | 50 | `pair_deviation` +0.00581 ± 0.039, p 0.586, does not hold, pairs differing 1.00; `pair_deviation_week_1` +0.00581 ± 0.039 (reported only), pairs differing 1.00; `pair_deviation_week_2` +0.0348 ± 0.033 (reported only), pairs differing 1.00; `pair_deviation_week_3` +0.0634 ± 0.034 (reported only), pairs differing 1.00; `pair_deviation_week_4` +0.0722 ± 0.037 (reported only), pairs differing 1.00; `pair_deviation_week_5` +0.0551 ± 0.062 (reported only), pairs differing 1.00; `pair_deviation_week_6` +0.0585 ± 0.06 (reported only), pairs differing 1.00; `pair_deviation_week_7` +0.0525 ± 0.053 (reported only), pairs differing 0.98; `pair_deviation_week_8` +0.0595 ± 0.055 (reported only), pairs differing 0.98; `pair_deviation_week_9` +0.0139 ± 0.055 (reported only), pairs differing 0.98; `pair_deviation_week_10` +0.0372 ± 0.054 (reported only), pairs differing 1.00; `pair_deviation_week_11` +0.0406 ± 0.059 (reported only), pairs differing 1.00; `pair_deviation_week_12` +0.0262 ± 0.065 (reported only), pairs differing 1.00 | baseline 0 of 50; treatment 1 of 50 (1 rewritten) | 0.00 | — |
+| `M11.C.27[stable,remove_one]` | composite | **FAIL** | 100 | `pair_deviation` -0.0943 ± 0.049, p 1, does not hold, pairs differing 1.00; `pair_deviation_week_1` -0.0943 ± 0.049 (reported only), pairs differing 1.00; `pair_deviation_week_2` -0.082 ± 0.055 (reported only), pairs differing 1.00; `pair_deviation_week_3` -0.0054 ± 0.053 (reported only), pairs differing 1.00; `pair_deviation_week_4` +0.0245 ± 0.057 (reported only), pairs differing 1.00; `pair_deviation_week_5` +0.0991 ± 0.059 (reported only), pairs differing 1.00; `pair_deviation_week_6` +0.171 ± 0.053 (reported only), pairs differing 1.00; `pair_deviation_week_7` +0.187 ± 0.058 (reported only), pairs differing 1.00; `pair_deviation_week_8` +0.245 ± 0.056 (reported only), pairs differing 1.00; `pair_deviation_week_9` +0.248 ± 0.057 (reported only), pairs differing 1.00; `pair_deviation_week_10` +0.267 ± 0.062 (reported only), pairs differing 1.00; `pair_deviation_week_11` +0.266 ± 0.06 (reported only), pairs differing 1.00; `pair_deviation_week_12` +0.246 ± 0.061 (reported only), pairs differing 1.00 | baseline 0 of 100; treatment 0 of 100 | 0.00 | — |
+| `M11.C.27[unstable,add_third]` | composite | **FAIL** | 50 | `pair_deviation` -0.0085 ± 0.035, p 0.226, does not hold, pairs differing 1.00; `pair_deviation_week_1` -0.0085 ± 0.035 (reported only), pairs differing 1.00; `pair_deviation_week_2` +0.0565 ± 0.036 (reported only), pairs differing 1.00; `pair_deviation_week_3` +0.0882 ± 0.041 (reported only), pairs differing 1.00; `pair_deviation_week_4` +0.0701 ± 0.051 (reported only), pairs differing 1.00; `pair_deviation_week_5` +0.0426 ± 0.067 (reported only), pairs differing 1.00; `pair_deviation_week_6` +0.0402 ± 0.058 (reported only), pairs differing 1.00; `pair_deviation_week_7` +0.0633 ± 0.069 (reported only), pairs differing 0.98; `pair_deviation_week_8` +0.0426 ± 0.075 (reported only), pairs differing 1.00; `pair_deviation_week_9` +0.0619 ± 0.057 (reported only), pairs differing 1.00; `pair_deviation_week_10` +0.0655 ± 0.062 (reported only), pairs differing 1.00; `pair_deviation_week_11` +0.0472 ± 0.059 (reported only), pairs differing 1.00; `pair_deviation_week_12` +0.0019 ± 0.06 (reported only), pairs differing 1.00 | baseline 0 of 50; treatment 0 of 50 | 0.00 | — |
+| `M11.C.27[unstable,remove_one]` | composite | **PASS** | 100 | `pair_deviation` -0.0901 ± 0.049, p 0.000407, holds, pairs differing 1.00; `pair_deviation_week_1` -0.0901 ± 0.049 (reported only), pairs differing 1.00; `pair_deviation_week_2` -0.0492 ± 0.05 (reported only), pairs differing 1.00; `pair_deviation_week_3` +0.00175 ± 0.048 (reported only), pairs differing 1.00; `pair_deviation_week_4` +0.0606 ± 0.052 (reported only), pairs differing 1.00; `pair_deviation_week_5` +0.115 ± 0.053 (reported only), pairs differing 1.00; `pair_deviation_week_6` +0.157 ± 0.053 (reported only), pairs differing 1.00; `pair_deviation_week_7` +0.173 ± 0.063 (reported only), pairs differing 1.00; `pair_deviation_week_8` +0.219 ± 0.063 (reported only), pairs differing 1.00; `pair_deviation_week_9` +0.236 ± 0.064 (reported only), pairs differing 1.00; `pair_deviation_week_10` +0.252 ± 0.063 (reported only), pairs differing 1.00; `pair_deviation_week_11` +0.237 ± 0.059 (reported only), pairs differing 1.00; `pair_deviation_week_12` +0.237 ± 0.057 (reported only), pairs differing 1.00 | baseline 0 of 100; treatment 0 of 100 | 0.00 | — |
+| `M11.C.38[-0 vs -5]` | premise | **PASS** | 100 | `time_to_threshold` -1.54 ± 0.24, p 5.5e-16, holds, pairs differing 0.84 | — | 0.00 | — |
+| `M11.C.38[-5 vs -10]` | premise | **PASS** | 100 | `time_to_threshold` -1.21 ± 0.19, p 4.7e-15, holds, pairs differing 0.82 | — | 0.00 | — |
+| `M11.C.38[-10 vs -15]` | premise | **PASS** | 100 | `time_to_threshold` -0.99 ± 0.14, p 1.35e-15, holds, pairs differing 0.78 | — | 0.00 | — |
+| `M11.C.41[light: lower level]` | mixed | **PASS** | 150 | `mean_acute` +95.4 ± 10, p 6.05e-26, holds, pairs differing 1.00; `reactive_over_chance` +0.0639 ± 0.0031, p 1.16e-26, holds, pairs differing 1.00 | — | 0.00 | — |
+| `M11.C.41[heavy: lower level]` | mixed | **PASS** | 150 | `mean_acute` +109 ± 11, p 1.17e-25, holds, pairs differing 1.00; `reactive_over_chance` +0.0646 ± 0.0029, p 1.16e-26, holds, pairs differing 1.00 | — | 0.00 | — |
+| `M11.C.41[higher level: heavier stress]` | mixed | **FAIL** | 150 | `mean_acute` +7.31 ± 6.9, p 0.0133, holds, pairs differing 1.00; `reactive_over_chance` -0.00179 ± 0.0022, p 0.94, does not hold, pairs differing 1.00 | — | 0.00 | — |
+| `M11.C.41[lower level: heavier stress]` | mixed | **FAIL** | 150 | `mean_acute` +20.5 ± 13, p 0.00482, holds, pairs differing 1.00; `reactive_over_chance` -0.00104 ± 0.0023, p 0.886, does not hold, pairs differing 1.00 | — | 0.00 | — |
+| `M11.C.50` | composite | **FAIL** | 100 | `contact_toward_sender` +0.12 ± 0.41, p 0.305, does not hold, pairs differing 0.71 | baseline 0 of 800; treatment 4 of 800 (4 owed a step) | 0.00 | — |
+| `M11.C.51` | composite | **FAIL** | 50 | `distance_conflict_share` -0.00494 ± 0.043, p 0.553, does not hold, pairs differing 0.50; `no_moves` +0 ± 0 (reported only), pairs differing 0.00 | — | 0.00 | — |
+| `M11.C.52` | composite | **PASS** | 100 | `escalation` -23.8 ± 24, p 0.0461, holds, pairs differing 1.00 | — | 0.00 | — |
+| `M11.C.53` | composite | **FAIL** | 50 | `too_little_on_marital_tie` +0.0169 ± 0.0081, p 0.000138, holds, pairs differing 1.00; `pursue_conflict_toward_stressed` +0.06 ± 0.29, p 0.306, does not hold, pairs differing 0.54 | — | 0.00 | — |
+| `M11.C.54` | composite | **FAIL** | 100 | `child_functional_level` -0.479 ± 2, p 0.309, does not hold, pairs differing 1.00; `child_supply_to_parent` -0.71 ± 0.84 (reported only), pairs differing 0.88 | — | 0.00 | — |
+
+## Counts the arms record (`M11.1f`)
+
+- `M11.C.25`: baseline (no pole formed) 2; treatment (no pole formed) 2
+- `M11.C.29`: baseline (I-POSITION completed) 0; treatment (I-POSITION completed) 0
+- `M11.C.49`: baseline (I-POSITION said at t0) 150, (no move on the F-M tie in the window: act run) 0, (no move on the F-M tie in the window: control) 2; treatment (I-POSITION said at t0) 150, (no move on the F-M tie in the window: act run) 0, (no move on the F-M tie in the window: control) 1
 
 ## Not built in Phase C
 
@@ -91,14 +97,15 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "readouts": [
    {
     "baseline_position": null,
-    "baseline_sd": 1.2922934540438769,
+    "baseline_sd": 1.3022781621578048,
     "direction": -1,
-    "half_width": 0.2098872041095376,
+    "half_width": 0.21102245152701474,
     "holds": true,
-    "mean_difference": -2.8933333333333335,
+    "mean_difference": -2.8866666666666667,
     "n_nonzero": 149,
-    "p": 7.13357584037379e-27,
-    "pooled_sd": 1.0101719790674581,
+    "nonzero_share": 0.9933333333333333,
+    "p": 7.300038853337388e-27,
+    "pooled_sd": 1.0165630562967027,
     "readout": "time_to_threshold",
     "w_plus": 11175.0
    }
@@ -122,6 +129,7 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
     "holds": true,
     "mean_difference": -1.3340398972029304,
     "n_nonzero": 45,
+    "nonzero_share": 1.0,
     "p": 2.678834834383728e-09,
     "pooled_sd": 4.360237913420703,
     "readout": "seeker_anxiety",
@@ -135,6 +143,7 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
     "holds": true,
     "mean_difference": 1.1322671502437602,
     "n_nonzero": 43,
+    "nonzero_share": 1.0,
     "p": 3.494254104751293e-08,
     "pooled_sd": 4.8326067533655905,
     "readout": "third_anxiety",
@@ -146,6 +155,7 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
     "direction": 0,
     "half_width": 0.18645806458111364,
     "mean_difference": 0.961962969022117,
+    "nonzero_share": 1.0,
     "pooled_sd": 5.407634236686854,
     "readout": "partner_anxiety",
     "report_only": true
@@ -183,29 +193,31 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "readouts": [
    {
     "baseline_position": null,
-    "baseline_sd": 2.749371584839173,
+    "baseline_sd": 2.749303828536869,
     "direction": -1,
-    "half_width": 0.40194182078674245,
+    "half_width": 0.4019418305089298,
     "holds": true,
-    "mean_difference": -2.5497257044775883,
+    "mean_difference": -2.549725641175929,
     "n_nonzero": 89,
+    "nonzero_share": 1.0,
     "p": 4.665936823899957e-16,
-    "pooled_sd": 2.7572035678476814,
+    "pooled_sd": 2.7571813143534314,
     "readout": "actor_relief_now",
     "w_plus": 3967.0
    },
    {
     "baseline_position": null,
-    "baseline_sd": 4.823055390190672,
+    "baseline_sd": 4.853079932576491,
     "direction": 1,
-    "half_width": 1.176354553287665,
+    "half_width": 1.182811108585816,
     "holds": true,
-    "mean_difference": 9.004316848393755,
+    "mean_difference": 8.97653421847285,
     "n_nonzero": 96,
-    "p": 3.9191792700201896e-17,
-    "pooled_sd": 4.9252889358257,
+    "nonzero_share": 1.0,
+    "p": 4.042066772147304e-17,
+    "pooled_sd": 4.936945078231036,
     "readout": "family_anxiety_at_nodal",
-    "w_plus": 4609.0
+    "w_plus": 4608.0
    }
   ],
   "fallback_rate": 0.0,
@@ -240,29 +252,31 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "readouts": [
    {
     "baseline_position": null,
-    "baseline_sd": 130.30708628964604,
+    "baseline_sd": 129.8179408064235,
     "direction": 1,
-    "half_width": 21.334903751262555,
+    "half_width": 21.375763343393132,
     "holds": false,
-    "mean_difference": -6.1194855959071095,
+    "mean_difference": -5.893443617408675,
     "n_nonzero": 89,
-    "p": 0.4125730897621354,
-    "pooled_sd": 125.55811741936456,
+    "nonzero_share": 1.0,
+    "p": 0.4205547878112898,
+    "pooled_sd": 124.80241514832427,
     "readout": "target_reaction",
-    "w_plus": 2057.0
+    "w_plus": 2052.0
    },
    {
     "baseline_position": null,
-    "baseline_sd": 49.51685831021746,
+    "baseline_sd": 49.51092053010247,
     "direction": 1,
-    "half_width": 11.186993571955686,
+    "half_width": 11.556383260973762,
     "holds": false,
-    "mean_difference": -3.904975721313728,
+    "mean_difference": -1.1495792426554354,
     "n_nonzero": 91,
-    "p": 0.7897153186787945,
-    "pooled_sd": 49.46903400918308,
+    "nonzero_share": 1.0,
+    "p": 0.6776351483003121,
+    "pooled_sd": 50.21300192299901,
     "readout": "third_person_symptom_load",
-    "w_plus": 1890.0
+    "w_plus": 1977.0
    }
   ],
   "fallback_rate": 0.0,
@@ -288,24 +302,26 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "readouts": [
    {
     "baseline_position": null,
-    "baseline_sd": 0.019333319831202823,
+    "baseline_sd": 0.019420964625065974,
     "direction": -1,
-    "half_width": 0.006037611459080532,
+    "half_width": 0.006047407523913664,
     "holds": true,
-    "mean_difference": -0.03923547505361842,
+    "mean_difference": -0.03934406252334349,
     "n_nonzero": 146,
-    "p": 1.8306539177471367e-20,
-    "pooled_sd": 0.026127072889557797,
+    "nonzero_share": 1.0,
+    "p": 1.8984121729250634e-20,
+    "pooled_sd": 0.026159553578234237,
     "readout": "repertoire_entropy",
-    "w_plus": 10074.0
+    "w_plus": 10072.0
    },
    {
     "baseline_position": null,
-    "baseline_sd": 0.031859573674180325,
+    "baseline_sd": 0.031937337923221606,
     "direction": 1,
-    "half_width": 0.009066985077615698,
-    "mean_difference": 0.05149206939363502,
-    "pooled_sd": 0.039709122103266915,
+    "half_width": 0.009044814618602608,
+    "mean_difference": 0.05195151294281231,
+    "nonzero_share": 1.0,
+    "pooled_sd": 0.039740343955141144,
     "readout": "top_move_share",
     "report_only": true
    }
@@ -329,6 +345,7 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
     "holds": true,
     "mean_difference": 1.0,
     "n_nonzero": 50,
+    "nonzero_share": 1.0,
     "p": 8.000673717376881e-13,
     "pooled_sd": 0.0,
     "readout": "outward_failed",
@@ -342,6 +359,7 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
     "holds": true,
     "mean_difference": -1.0,
     "n_nonzero": 50,
+    "nonzero_share": 1.0,
     "p": 8.000673717376881e-13,
     "pooled_sd": 0.0,
     "readout": "inward_failed",
@@ -367,6 +385,7 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
     "equivalence_bound": 0.24557304910958694,
     "half_width": 0.0,
     "mean_difference": 0.0,
+    "nonzero_share": 0.0,
     "pooled_sd": 0.4911460982191739,
     "readout": "first_dominant",
     "within_bound": true
@@ -375,7 +394,15 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "fallback_rate": 0.0,
   "flags": [],
   "missing_moves": [],
-  "scripted": {}
+  "scripted": {},
+  "counts": {
+   "baseline": {
+    "(no pole formed)": 2
+   },
+   "treatment": {
+    "(no pole formed)": 2
+   }
+  }
  },
  {
   "criterion": "M11.C.29",
@@ -387,24 +414,26 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
     "baseline_position": null,
     "baseline_sd": 0.28284271247461895,
     "direction": -1,
-    "half_width": 0.11199999999999999,
-    "mean_difference": 0.0,
-    "pooled_sd": 0.282842712474619,
+    "half_width": 0.07839999999999998,
+    "mean_difference": 0.04,
+    "nonzero_share": 0.02,
+    "pooled_sd": 0.19999999999999996,
     "readout": "budget",
     "report_only": true
    },
    {
     "baseline_position": null,
-    "baseline_sd": 18.93564827277387,
+    "baseline_sd": 18.55283684782575,
     "direction": -1,
-    "half_width": 4.354413227979173,
+    "half_width": 4.342784655034141,
     "holds": false,
-    "mean_difference": 2.54,
-    "n_nonzero": 44,
-    "p": 0.8700270148694014,
-    "pooled_sd": 18.53042176023646,
+    "mean_difference": 4.96,
+    "n_nonzero": 45,
+    "nonzero_share": 0.96,
+    "p": 0.9853432191650155,
+    "pooled_sd": 17.743811798563947,
     "readout": "third_symptom_weeks",
-    "w_plus": 399.0
+    "w_plus": 325.0
    },
    {
     "baseline_position": null,
@@ -412,6 +441,7 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
     "direction": 0,
     "half_width": 0.0,
     "mean_difference": 0.0,
+    "nonzero_share": 0.0,
     "pooled_sd": 0.0,
     "readout": "completions",
     "report_only": true
@@ -425,21 +455,29 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "scripted": {
    "baseline": {
     "dead": 0,
-    "made": 186,
+    "made": 185,
     "not legal": 0,
     "not reached": 0,
-    "owed a step": 7,
+    "owed a step": 8,
     "rewritten": 7,
     "target dead": 0
    },
    "treatment": {
     "dead": 0,
-    "made": 45,
-    "not legal": 0,
+    "made": 38,
+    "not legal": 6,
     "not reached": 0,
-    "owed a step": 2,
+    "owed a step": 3,
     "rewritten": 3,
     "target dead": 0
+   }
+  },
+  "counts": {
+   "baseline": {
+    "(I-POSITION completed)": 0
+   },
+   "treatment": {
+    "(I-POSITION completed)": 0
    }
   }
  },
@@ -451,29 +489,31 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "readouts": [
    {
     "baseline_position": null,
-    "baseline_sd": 1.3139115785940987,
+    "baseline_sd": 1.2309149097933274,
     "direction": 1,
-    "half_width": 0.2526051544216864,
+    "half_width": 0.25777517100736985,
     "holds": true,
-    "mean_difference": 0.66,
+    "mean_difference": 0.74,
     "n_nonzero": 67,
-    "p": 6.139368097053564e-07,
-    "pooled_sd": 1.3749196487082584,
+    "nonzero_share": 0.67,
+    "p": 5.062734241292191e-07,
+    "pooled_sd": 1.310486069126161,
     "readout": "assertion_form",
-    "w_plus": 1886.0
+    "w_plus": 1900.0
    },
    {
     "baseline_position": null,
-    "baseline_sd": 0.41145221993924064,
+    "baseline_sd": 0.4191140246479062,
     "direction": -1,
-    "half_width": 0.06386160541721954,
+    "half_width": 0.07720298314223747,
     "holds": true,
-    "mean_difference": -0.07,
-    "n_nonzero": 11,
-    "p": 0.03271484375,
-    "pooled_sd": 0.36618425565677876,
+    "mean_difference": -0.08,
+    "n_nonzero": 16,
+    "nonzero_share": 0.16,
+    "p": 0.0384063720703125,
+    "pooled_sd": 0.370503343132997,
     "readout": "reached_peak",
-    "w_plus": 54.0
+    "w_plus": 102.0
    }
   ],
   "fallback_rate": 0.0,
@@ -508,14 +548,15 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "readouts": [
    {
     "baseline_position": null,
-    "baseline_sd": 0.11954238350156371,
+    "baseline_sd": 0.11954115716771417,
     "direction": 1,
-    "half_width": 0.02264791147299241,
+    "half_width": 0.022648462263196615,
     "holds": true,
-    "mean_difference": 0.47712105161079177,
+    "mean_difference": 0.4771219153860595,
     "n_nonzero": 100,
+    "nonzero_share": 1.0,
     "p": 2.038652654681078e-18,
-    "pooled_sd": 0.13805332918182814,
+    "pooled_sd": 0.13805293379572817,
     "readout": "witness_appraisal",
     "w_plus": 5049.0
    }
@@ -558,6 +599,7 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
     "holds": false,
     "mean_difference": -0.06,
     "n_nonzero": 32,
+    "nonzero_share": 0.64,
     "p": 0.6132160357366981,
     "pooled_sd": 1.6238653809691872,
     "readout": "triangle_reuse",
@@ -587,16 +629,17 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "readouts": [
    {
     "baseline_position": null,
-    "baseline_sd": 0.43813710508566267,
+    "baseline_sd": 0.43825555009627315,
     "direction": 1,
-    "half_width": 0.09622555027197134,
+    "half_width": 0.09504665217129617,
     "holds": false,
-    "mean_difference": 0.022144508445260027,
+    "mean_difference": 0.024970805171702654,
     "n_nonzero": 136,
-    "p": 0.34389637905009524,
-    "pooled_sd": 0.43521134157415464,
+    "nonzero_share": 0.9933333333333333,
+    "p": 0.3383181818735388,
+    "pooled_sd": 0.4336263349023231,
     "readout": "outside_inside_ratio",
-    "w_plus": 4843.5
+    "w_plus": 4850.5
    }
   ],
   "fallback_rate": 0.0,
@@ -612,16 +655,17 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "readouts": [
    {
     "baseline_position": null,
-    "baseline_sd": 0.023514133870352973,
+    "baseline_sd": 0.02341861810875672,
     "direction": 1,
-    "half_width": 0.005427333327348827,
+    "half_width": 0.005474332429825693,
     "holds": false,
-    "mean_difference": 0.0013611111111111115,
+    "mean_difference": 0.0017777777777777776,
     "n_nonzero": 144,
-    "p": 0.2960431094820507,
-    "pooled_sd": 0.02491541276626674,
+    "nonzero_share": 0.96,
+    "p": 0.25700948831203696,
+    "pooled_sd": 0.025115242090901962,
     "readout": "triangle_rate",
-    "w_plus": 5489.0
+    "w_plus": 5547.5
    }
   ],
   "fallback_rate": 0.0,
@@ -637,16 +681,17 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "readouts": [
    {
     "baseline_position": null,
-    "baseline_sd": 11.830592659784193,
+    "baseline_sd": 11.814366999709707,
     "direction": 1,
-    "half_width": 2.846945104641657,
+    "half_width": 2.8466995506363126,
     "holds": true,
-    "mean_difference": 3.2726314832015797,
+    "mean_difference": 3.3204340646864337,
     "n_nonzero": 137,
-    "p": 0.01575117731850236,
-    "pooled_sd": 14.332857544697832,
+    "nonzero_share": 1.0,
+    "p": 0.014130680623013571,
+    "pooled_sd": 14.334428312080307,
     "readout": "family_excess",
-    "w_plus": 5728.0
+    "w_plus": 5748.0
    },
    {
     "baseline_position": null,
@@ -656,6 +701,7 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
     "holds": false,
     "mean_difference": 0.0008571428571428571,
     "n_nonzero": 64,
+    "nonzero_share": 0.4266666666666667,
     "p": 0.4679651762458231,
     "pooled_sd": 0.12570653832121195,
     "readout": "conflict_share",
@@ -663,11 +709,12 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
    },
    {
     "baseline_position": null,
-    "baseline_sd": 0.10373581502279508,
+    "baseline_sd": 0.10373581504867309,
     "direction": 1,
-    "half_width": 0.022475985178161215,
-    "mean_difference": 0.0790217634451838,
-    "pooled_sd": 0.12051006560421051,
+    "half_width": 0.02247598907081836,
+    "mean_difference": 0.07902178569420541,
+    "nonzero_share": 1.0,
+    "pooled_sd": 0.12051007879183222,
     "readout": "target_impingement",
     "report_only": true
    },
@@ -677,6 +724,7 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
     "direction": 0,
     "half_width": 0.07358216883504996,
     "mean_difference": -0.3,
+    "nonzero_share": 0.3,
     "pooled_sd": 0.325122589166882,
     "readout": "completions",
     "report_only": true
@@ -685,7 +733,19 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "fallback_rate": 0.0,
   "flags": [],
   "missing_moves": [],
-  "scripted": {}
+  "scripted": {},
+  "counts": {
+   "baseline": {
+    "(I-POSITION said at t0)": 150,
+    "(no move on the F-M tie in the window: act run)": 0,
+    "(no move on the F-M tie in the window: control)": 2
+   },
+   "treatment": {
+    "(I-POSITION said at t0)": 150,
+    "(no move on the F-M tie in the window: act run)": 0,
+    "(no move on the F-M tie in the window: control)": 1
+   }
+  }
  },
  {
   "criterion": "M11.C.27[stable,add_third]",
@@ -701,6 +761,7 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
     "holds": false,
     "mean_difference": 0.005812028077903296,
     "n_nonzero": 46,
+    "nonzero_share": 1.0,
     "p": 0.5864831323812605,
     "pooled_sd": 0.27470443120016275,
     "readout": "pair_deviation",
@@ -712,6 +773,7 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
     "direction": 1,
     "half_width": 0.03944985033524379,
     "mean_difference": 0.005812028077903296,
+    "nonzero_share": 1.0,
     "pooled_sd": 0.27470443120016275,
     "readout": "pair_deviation_week_1",
     "report_only": true
@@ -722,6 +784,7 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
     "direction": 1,
     "half_width": 0.0332001946013411,
     "mean_difference": 0.03479408537444725,
+    "nonzero_share": 1.0,
     "pooled_sd": 0.28213187353446734,
     "readout": "pair_deviation_week_2",
     "report_only": true
@@ -732,6 +795,7 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
     "direction": 1,
     "half_width": 0.034036419382234194,
     "mean_difference": 0.06340149909272512,
+    "nonzero_share": 1.0,
     "pooled_sd": 0.30058149213478763,
     "readout": "pair_deviation_week_3",
     "report_only": true
@@ -742,6 +806,7 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
     "direction": 1,
     "half_width": 0.03650799010519887,
     "mean_difference": 0.07217720793200137,
+    "nonzero_share": 1.0,
     "pooled_sd": 0.2998580789480277,
     "readout": "pair_deviation_week_4",
     "report_only": true
@@ -752,6 +817,7 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
     "direction": 1,
     "half_width": 0.06180934940451516,
     "mean_difference": 0.05505654692639281,
+    "nonzero_share": 1.0,
     "pooled_sd": 0.29345163454412915,
     "readout": "pair_deviation_week_5",
     "report_only": true
@@ -762,6 +828,7 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
     "direction": 1,
     "half_width": 0.05952433831152687,
     "mean_difference": 0.058492484686236634,
+    "nonzero_share": 1.0,
     "pooled_sd": 0.27759720739322596,
     "readout": "pair_deviation_week_6",
     "report_only": true
@@ -772,6 +839,7 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
     "direction": 1,
     "half_width": 0.05322365225281916,
     "mean_difference": 0.05251137495454879,
+    "nonzero_share": 0.98,
     "pooled_sd": 0.2697601312251849,
     "readout": "pair_deviation_week_7",
     "report_only": true
@@ -782,6 +850,7 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
     "direction": 1,
     "half_width": 0.055199407417483214,
     "mean_difference": 0.05946328600639565,
+    "nonzero_share": 0.98,
     "pooled_sd": 0.30640267551015865,
     "readout": "pair_deviation_week_8",
     "report_only": true
@@ -792,6 +861,7 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
     "direction": 1,
     "half_width": 0.05518307989091907,
     "mean_difference": 0.013949780192578557,
+    "nonzero_share": 0.98,
     "pooled_sd": 0.2881026671926297,
     "readout": "pair_deviation_week_9",
     "report_only": true
@@ -802,6 +872,7 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
     "direction": 1,
     "half_width": 0.05402001745259249,
     "mean_difference": 0.0372378793647468,
+    "nonzero_share": 1.0,
     "pooled_sd": 0.30064450175392743,
     "readout": "pair_deviation_week_10",
     "report_only": true
@@ -812,6 +883,7 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
     "direction": 1,
     "half_width": 0.058755282246791204,
     "mean_difference": 0.040579120007434924,
+    "nonzero_share": 1.0,
     "pooled_sd": 0.2695143806220642,
     "readout": "pair_deviation_week_11",
     "report_only": true
@@ -822,6 +894,7 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
     "direction": 1,
     "half_width": 0.06471589695393383,
     "mean_difference": 0.026199256730444667,
+    "nonzero_share": 1.0,
     "pooled_sd": 0.28896960507319247,
     "readout": "pair_deviation_week_12",
     "report_only": true
@@ -859,134 +932,147 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "readouts": [
    {
     "baseline_position": null,
-    "baseline_sd": 0.28705962474856433,
+    "baseline_sd": 0.2870595966224051,
     "direction": 1,
-    "half_width": 0.048918451575469,
+    "half_width": 0.04891845299059119,
     "holds": false,
-    "mean_difference": -0.09428859171475622,
+    "mean_difference": -0.0942885873949109,
     "n_nonzero": 91,
+    "nonzero_share": 1.0,
     "p": 0.9997814435263199,
-    "pooled_sd": 0.26358682695112434,
+    "pooled_sd": 0.26358681814386614,
     "readout": "pair_deviation",
     "w_plus": 1205.0
    },
    {
     "baseline_position": null,
-    "baseline_sd": 0.28705962474856433,
+    "baseline_sd": 0.2870595966224051,
     "direction": 1,
-    "half_width": 0.048918451575469,
-    "mean_difference": -0.09428859171475622,
-    "pooled_sd": 0.26358682695112434,
+    "half_width": 0.04891845299059119,
+    "mean_difference": -0.0942885873949109,
+    "nonzero_share": 1.0,
+    "pooled_sd": 0.26358681814386614,
     "readout": "pair_deviation_week_1",
     "report_only": true
    },
    {
     "baseline_position": null,
-    "baseline_sd": 0.3023368364120847,
+    "baseline_sd": 0.30233683627122215,
     "direction": 1,
-    "half_width": 0.05524635258095776,
-    "mean_difference": -0.08199456078655461,
-    "pooled_sd": 0.2905343093820684,
+    "half_width": 0.05524556469826332,
+    "mean_difference": -0.08197085061426916,
+    "nonzero_share": 1.0,
+    "pooled_sd": 0.29053543071855387,
     "readout": "pair_deviation_week_2",
     "report_only": true
    },
    {
     "baseline_position": null,
-    "baseline_sd": 0.27187720149215405,
+    "baseline_sd": 0.2718771999577917,
     "direction": 1,
-    "half_width": 0.05347675110856641,
-    "mean_difference": -0.005417800057923944,
-    "pooled_sd": 0.2671179502921923,
+    "half_width": 0.053478574755174924,
+    "mean_difference": -0.005396486373879648,
+    "nonzero_share": 1.0,
+    "pooled_sd": 0.2671182649031887,
     "readout": "pair_deviation_week_3",
     "report_only": true
    },
    {
     "baseline_position": null,
-    "baseline_sd": 0.2597989644866039,
+    "baseline_sd": 0.25979896589512486,
     "direction": 1,
-    "half_width": 0.05656509546869302,
-    "mean_difference": 0.02447306846551778,
-    "pooled_sd": 0.27045922899968783,
+    "half_width": 0.056561804334575694,
+    "mean_difference": 0.02449230238690084,
+    "nonzero_share": 1.0,
+    "pooled_sd": 0.27045373863344907,
     "readout": "pair_deviation_week_4",
     "report_only": true
    },
    {
     "baseline_position": null,
-    "baseline_sd": 0.2827142022414123,
+    "baseline_sd": 0.282757672401484,
     "direction": 1,
-    "half_width": 0.05932938001889676,
-    "mean_difference": 0.09912987317314291,
-    "pooled_sd": 0.28605322972609776,
+    "half_width": 0.05932971014270185,
+    "mean_difference": 0.09912780624265277,
+    "nonzero_share": 1.0,
+    "pooled_sd": 0.28608619085988335,
     "readout": "pair_deviation_week_5",
     "report_only": true
    },
    {
     "baseline_position": null,
-    "baseline_sd": 0.27783986467175503,
+    "baseline_sd": 0.27786016035682576,
     "direction": 1,
-    "half_width": 0.053285622364984006,
-    "mean_difference": 0.17107723385196094,
-    "pooled_sd": 0.2855682608185228,
+    "half_width": 0.053286018095194364,
+    "mean_difference": 0.17107547363832012,
+    "nonzero_share": 1.0,
+    "pooled_sd": 0.2855799097308591,
     "readout": "pair_deviation_week_6",
     "report_only": true
    },
    {
     "baseline_position": null,
-    "baseline_sd": 0.2936818120509013,
+    "baseline_sd": 0.2936821052643053,
     "direction": 1,
-    "half_width": 0.057943258283859655,
-    "mean_difference": 0.1865982744246831,
-    "pooled_sd": 0.29119611808224966,
+    "half_width": 0.057943335586337866,
+    "mean_difference": 0.18659779728607237,
+    "nonzero_share": 1.0,
+    "pooled_sd": 0.2911961592478865,
     "readout": "pair_deviation_week_7",
     "report_only": true
    },
    {
     "baseline_position": null,
-    "baseline_sd": 0.28516991715709283,
+    "baseline_sd": 0.28516995584403815,
     "direction": 1,
-    "half_width": 0.05559886691780769,
-    "mean_difference": 0.24495522167633385,
-    "pooled_sd": 0.2928957969127991,
+    "half_width": 0.05559893248235993,
+    "mean_difference": 0.24495489173939394,
+    "nonzero_share": 1.0,
+    "pooled_sd": 0.2928958851880354,
     "readout": "pair_deviation_week_8",
     "report_only": true
    },
    {
     "baseline_position": null,
-    "baseline_sd": 0.25501860691605505,
+    "baseline_sd": 0.2550187363707815,
     "direction": 1,
-    "half_width": 0.05655645426305933,
-    "mean_difference": 0.248171556490237,
-    "pooled_sd": 0.26976812132936173,
+    "half_width": 0.05655659017350058,
+    "mean_difference": 0.24817125497682138,
+    "nonzero_share": 1.0,
+    "pooled_sd": 0.26976830635707544,
     "readout": "pair_deviation_week_9",
     "report_only": true
    },
    {
     "baseline_position": null,
-    "baseline_sd": 0.259817503113935,
+    "baseline_sd": 0.2598174988966991,
     "direction": 1,
-    "half_width": 0.06152587945712075,
-    "mean_difference": 0.2665142355621407,
-    "pooled_sd": 0.2918302033081904,
+    "half_width": 0.06152595172553484,
+    "mean_difference": 0.26651402656789236,
+    "nonzero_share": 1.0,
+    "pooled_sd": 0.29183033865040575,
     "readout": "pair_deviation_week_10",
     "report_only": true
    },
    {
     "baseline_position": null,
-    "baseline_sd": 0.28173095447769025,
+    "baseline_sd": 0.2817309672759906,
     "direction": 1,
-    "half_width": 0.059923244243960026,
-    "mean_difference": 0.2655060413623348,
-    "pooled_sd": 0.30365815081624087,
+    "half_width": 0.05992327115526832,
+    "mean_difference": 0.2655058964936654,
+    "nonzero_share": 1.0,
+    "pooled_sd": 0.3036581910780896,
     "readout": "pair_deviation_week_11",
     "report_only": true
    },
    {
     "baseline_position": null,
-    "baseline_sd": 0.29387793175570565,
+    "baseline_sd": 0.29387767156812367,
     "direction": 1,
-    "half_width": 0.060720767815079416,
-    "mean_difference": 0.24637106873951967,
-    "pooled_sd": 0.2779591785130092,
+    "half_width": 0.060720671424427344,
+    "mean_difference": 0.24637170136542566,
+    "nonzero_share": 1.0,
+    "pooled_sd": 0.27795477779941125,
     "readout": "pair_deviation_week_12",
     "report_only": true
    }
@@ -1029,6 +1115,7 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
     "holds": false,
     "mean_difference": -0.008496092085699769,
     "n_nonzero": 44,
+    "nonzero_share": 1.0,
     "p": 0.22580686437659267,
     "pooled_sd": 0.28592191895063573,
     "readout": "pair_deviation",
@@ -1040,6 +1127,7 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
     "direction": -1,
     "half_width": 0.035026874788434074,
     "mean_difference": -0.008496092085699769,
+    "nonzero_share": 1.0,
     "pooled_sd": 0.28592191895063573,
     "readout": "pair_deviation_week_1",
     "report_only": true
@@ -1050,6 +1138,7 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
     "direction": -1,
     "half_width": 0.03634007707023151,
     "mean_difference": 0.056510238371529395,
+    "nonzero_share": 1.0,
     "pooled_sd": 0.2545641042822158,
     "readout": "pair_deviation_week_2",
     "report_only": true
@@ -1060,6 +1149,7 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
     "direction": -1,
     "half_width": 0.04076016768161919,
     "mean_difference": 0.08818656386219713,
+    "nonzero_share": 1.0,
     "pooled_sd": 0.2782714211551876,
     "readout": "pair_deviation_week_3",
     "report_only": true
@@ -1070,6 +1160,7 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
     "direction": -1,
     "half_width": 0.05147932950944641,
     "mean_difference": 0.07009571841553247,
+    "nonzero_share": 1.0,
     "pooled_sd": 0.27945695428426376,
     "readout": "pair_deviation_week_4",
     "report_only": true
@@ -1080,6 +1171,7 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
     "direction": -1,
     "half_width": 0.06743650960743308,
     "mean_difference": 0.04261423845397187,
+    "nonzero_share": 1.0,
     "pooled_sd": 0.2555642469091138,
     "readout": "pair_deviation_week_5",
     "report_only": true
@@ -1090,6 +1182,7 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
     "direction": -1,
     "half_width": 0.05792836241713032,
     "mean_difference": 0.040195752218782764,
+    "nonzero_share": 1.0,
     "pooled_sd": 0.28534138868990855,
     "readout": "pair_deviation_week_6",
     "report_only": true
@@ -1100,6 +1193,7 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
     "direction": -1,
     "half_width": 0.06913213203537379,
     "mean_difference": 0.0632660795822433,
+    "nonzero_share": 0.98,
     "pooled_sd": 0.2695129274291885,
     "readout": "pair_deviation_week_7",
     "report_only": true
@@ -1110,6 +1204,7 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
     "direction": -1,
     "half_width": 0.07471122321967698,
     "mean_difference": 0.04261867791133121,
+    "nonzero_share": 1.0,
     "pooled_sd": 0.28189214645523686,
     "readout": "pair_deviation_week_8",
     "report_only": true
@@ -1120,6 +1215,7 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
     "direction": -1,
     "half_width": 0.05744174168134153,
     "mean_difference": 0.0619314420465597,
+    "nonzero_share": 1.0,
     "pooled_sd": 0.2855126256704436,
     "readout": "pair_deviation_week_9",
     "report_only": true
@@ -1130,6 +1226,7 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
     "direction": -1,
     "half_width": 0.06168756780131093,
     "mean_difference": 0.0654848042868175,
+    "nonzero_share": 1.0,
     "pooled_sd": 0.2701195708452862,
     "readout": "pair_deviation_week_10",
     "report_only": true
@@ -1140,6 +1237,7 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
     "direction": -1,
     "half_width": 0.05905165588940211,
     "mean_difference": 0.04717585616124828,
+    "nonzero_share": 1.0,
     "pooled_sd": 0.2424019009522269,
     "readout": "pair_deviation_week_11",
     "report_only": true
@@ -1150,6 +1248,7 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
     "direction": -1,
     "half_width": 0.06032686221552136,
     "mean_difference": 0.0019001292148766037,
+    "nonzero_share": 1.0,
     "pooled_sd": 0.28669325420991454,
     "readout": "pair_deviation_week_12",
     "report_only": true
@@ -1187,134 +1286,147 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "readouts": [
    {
     "baseline_position": null,
-    "baseline_sd": 0.29745246808897857,
+    "baseline_sd": 0.2974524363111128,
     "direction": -1,
-    "half_width": 0.04876920908602595,
+    "half_width": 0.04876921031980466,
     "holds": true,
-    "mean_difference": -0.0901153737408073,
+    "mean_difference": -0.09011536996140572,
     "n_nonzero": 90,
+    "nonzero_share": 1.0,
     "p": 0.0004074125069324631,
-    "pooled_sd": 0.2558264003603531,
+    "pooled_sd": 0.25582638915596756,
     "readout": "pair_deviation",
     "w_plus": 2880.0
    },
    {
     "baseline_position": null,
-    "baseline_sd": 0.29745246808897857,
+    "baseline_sd": 0.2974524363111128,
     "direction": -1,
-    "half_width": 0.04876920908602595,
-    "mean_difference": -0.0901153737408073,
-    "pooled_sd": 0.2558264003603531,
+    "half_width": 0.04876921031980466,
+    "mean_difference": -0.09011536996140572,
+    "nonzero_share": 1.0,
+    "pooled_sd": 0.25582638915596756,
     "readout": "pair_deviation_week_1",
     "report_only": true
    },
    {
     "baseline_position": null,
-    "baseline_sd": 0.286142982633561,
+    "baseline_sd": 0.2861429829913047,
     "direction": -1,
-    "half_width": 0.0496499490463034,
-    "mean_difference": -0.04923723269251358,
-    "pooled_sd": 0.25834839466052717,
+    "half_width": 0.04964822031222489,
+    "mean_difference": -0.049206265483900447,
+    "nonzero_share": 1.0,
+    "pooled_sd": 0.25835027957774,
     "readout": "pair_deviation_week_2",
     "report_only": true
    },
    {
     "baseline_position": null,
-    "baseline_sd": 0.2756574515152774,
+    "baseline_sd": 0.2756574495972179,
     "direction": -1,
-    "half_width": 0.04831197192758063,
-    "mean_difference": 0.0017213145462650493,
-    "pooled_sd": 0.25755734022264665,
+    "half_width": 0.048314562911931425,
+    "mean_difference": 0.0017491613156910258,
+    "nonzero_share": 1.0,
+    "pooled_sd": 0.2575575634994604,
     "readout": "pair_deviation_week_3",
     "report_only": true
    },
    {
     "baseline_position": null,
-    "baseline_sd": 0.2811687638086206,
+    "baseline_sd": 0.2811687657841664,
     "direction": -1,
-    "half_width": 0.051597423358662985,
-    "mean_difference": 0.06055904217877424,
-    "pooled_sd": 0.2664511938317741,
+    "half_width": 0.05159199388163915,
+    "mean_difference": 0.06058410893705021,
+    "nonzero_share": 1.0,
+    "pooled_sd": 0.26644308705649555,
     "readout": "pair_deviation_week_4",
     "report_only": true
    },
    {
     "baseline_position": null,
-    "baseline_sd": 0.2922332754128202,
+    "baseline_sd": 0.29227928323447966,
     "direction": -1,
-    "half_width": 0.05279674675306304,
-    "mean_difference": 0.1151480031085542,
-    "pooled_sd": 0.2690542965094005,
+    "half_width": 0.052797189317503365,
+    "mean_difference": 0.11514567666957483,
+    "nonzero_share": 1.0,
+    "pooled_sd": 0.2690923136841861,
     "readout": "pair_deviation_week_5",
     "report_only": true
    },
    {
     "baseline_position": null,
-    "baseline_sd": 0.3142306708230851,
+    "baseline_sd": 0.3142506768495074,
     "direction": -1,
-    "half_width": 0.053228696155505316,
-    "mean_difference": 0.1572247000769721,
-    "pooled_sd": 0.28416611647284956,
+    "half_width": 0.05322912845562755,
+    "mean_difference": 0.1572226818348704,
+    "nonzero_share": 1.0,
+    "pooled_sd": 0.2841798837134016,
     "readout": "pair_deviation_week_6",
     "report_only": true
    },
    {
     "baseline_position": null,
-    "baseline_sd": 0.3303140667183194,
+    "baseline_sd": 0.3303143299647074,
     "direction": -1,
-    "half_width": 0.06348293297223954,
-    "mean_difference": 0.17250525992539487,
-    "pooled_sd": 0.29834235650245383,
+    "half_width": 0.06348301817472499,
+    "mean_difference": 0.17250464618704517,
+    "nonzero_share": 1.0,
+    "pooled_sd": 0.29834236007452325,
     "readout": "pair_deviation_week_7",
     "report_only": true
    },
    {
     "baseline_position": null,
-    "baseline_sd": 0.2881197015616196,
+    "baseline_sd": 0.28811973281650344,
     "direction": -1,
-    "half_width": 0.06266844247546598,
-    "mean_difference": 0.2192749752545953,
-    "pooled_sd": 0.2848749474535921,
+    "half_width": 0.06266851058665687,
+    "mean_difference": 0.21927454979030173,
+    "nonzero_share": 1.0,
+    "pooled_sd": 0.28487506217531505,
     "readout": "pair_deviation_week_8",
     "report_only": true
    },
    {
     "baseline_position": null,
-    "baseline_sd": 0.26925377845882686,
+    "baseline_sd": 0.26925391618396116,
     "direction": -1,
-    "half_width": 0.06361355690952117,
-    "mean_difference": 0.23608815604715702,
-    "pooled_sd": 0.26326734879151104,
+    "half_width": 0.06361371343750584,
+    "mean_difference": 0.23608775790125147,
+    "nonzero_share": 1.0,
+    "pooled_sd": 0.26326759289019275,
     "readout": "pair_deviation_week_9",
     "report_only": true
    },
    {
     "baseline_position": null,
-    "baseline_sd": 0.26072962734615873,
+    "baseline_sd": 0.2607296197807284,
     "direction": -1,
-    "half_width": 0.06293019847749196,
-    "mean_difference": 0.25216117428705404,
-    "pooled_sd": 0.28082034061651806,
+    "half_width": 0.06293028931683241,
+    "mean_difference": 0.2521608982236772,
+    "nonzero_share": 1.0,
+    "pooled_sd": 0.2808205361049995,
     "readout": "pair_deviation_week_10",
     "report_only": true
    },
    {
     "baseline_position": null,
-    "baseline_sd": 0.26986916532673894,
+    "baseline_sd": 0.269869178511818,
     "direction": -1,
-    "half_width": 0.0588299458854641,
-    "mean_difference": 0.23707406966830605,
-    "pooled_sd": 0.2834687339093663,
+    "half_width": 0.05882997852972557,
+    "mean_difference": 0.2370738779949065,
+    "nonzero_share": 1.0,
+    "pooled_sd": 0.2834687875042685,
     "readout": "pair_deviation_week_11",
     "report_only": true
    },
    {
     "baseline_position": null,
-    "baseline_sd": 0.2713887403853591,
+    "baseline_sd": 0.27138877738240236,
     "direction": -1,
-    "half_width": 0.05693857189635389,
-    "mean_difference": 0.23686270696437361,
-    "pooled_sd": 0.2684948738499727,
+    "half_width": 0.056938416775684994,
+    "mean_difference": 0.23686369422652112,
+    "nonzero_share": 1.0,
+    "pooled_sd": 0.2684904137721434,
     "readout": "pair_deviation_week_12",
     "report_only": true
    }
@@ -1351,16 +1463,17 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "readouts": [
    {
     "baseline_position": null,
-    "baseline_sd": 1.319779595924328,
+    "baseline_sd": 1.3337499349161703,
     "direction": -1,
-    "half_width": 0.23370213278591803,
+    "half_width": 0.23543086312786454,
     "holds": true,
-    "mean_difference": -1.55,
-    "n_nonzero": 85,
-    "p": 3.681141926644515e-16,
-    "pooled_sd": 1.1525772613731124,
+    "mean_difference": -1.54,
+    "n_nonzero": 84,
+    "nonzero_share": 0.84,
+    "p": 5.495856046084815e-16,
+    "pooled_sd": 1.1605902364614726,
     "readout": "time_to_threshold",
-    "w_plus": 3635.5
+    "w_plus": 3551.0
    }
   ],
   "fallback_rate": 0.0,
@@ -1382,6 +1495,7 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
     "holds": true,
     "mean_difference": -1.21,
     "n_nonzero": 82,
+    "nonzero_share": 0.82,
     "p": 4.7034663260529106e-15,
     "pooled_sd": 0.8132426675744678,
     "readout": "time_to_threshold",
@@ -1407,6 +1521,7 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
     "holds": true,
     "mean_difference": -0.99,
     "n_nonzero": 78,
+    "nonzero_share": 0.78,
     "p": 1.3478497529941439e-15,
     "pooled_sd": 0.6053215190410312,
     "readout": "time_to_threshold",
@@ -1426,27 +1541,29 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "readouts": [
    {
     "baseline_position": null,
-    "baseline_sd": 31.346674297511118,
+    "baseline_sd": 32.33214627259745,
     "direction": 1,
-    "half_width": 9.905559857060405,
+    "half_width": 9.989378741579896,
     "holds": true,
-    "mean_difference": 96.36329770346066,
+    "mean_difference": 95.39689703910452,
     "n_nonzero": 148,
-    "p": 5.576693177500595e-26,
-    "pooled_sd": 45.17206376082663,
+    "nonzero_share": 1.0,
+    "p": 6.046620596724178e-26,
+    "pooled_sd": 45.45686459189929,
     "readout": "mean_acute",
-    "w_plus": 10986.0
+    "w_plus": 10982.0
    },
    {
     "baseline_position": null,
-    "baseline_sd": 0.01900008303400972,
+    "baseline_sd": 0.019156573282316274,
     "direction": 1,
-    "half_width": 0.0030920105321475097,
+    "half_width": 0.003099922771741081,
     "holds": true,
-    "mean_difference": 0.0641529737863021,
+    "mean_difference": 0.06388269598276212,
     "n_nonzero": 150,
+    "nonzero_share": 1.0,
     "p": 1.1614203074307053e-26,
-    "pooled_sd": 0.017704819134795338,
+    "pooled_sd": 0.017780299345345054,
     "readout": "reactive_over_chance",
     "w_plus": 11325.0
    }
@@ -1464,27 +1581,29 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "readouts": [
    {
     "baseline_position": null,
-    "baseline_sd": 31.646523527424367,
+    "baseline_sd": 31.448695193294,
     "direction": 1,
-    "half_width": 11.110585826510558,
+    "half_width": 11.078994660795633,
     "holds": true,
-    "mean_difference": 107.14548002583535,
+    "mean_difference": 108.54416979093214,
     "n_nonzero": 150,
-    "p": 1.5092554378064862e-25,
-    "pooled_sd": 50.61258704836108,
+    "nonzero_share": 1.0,
+    "p": 1.1685970539305415e-25,
+    "pooled_sd": 50.80816585768305,
     "readout": "mean_acute",
-    "w_plus": 11196.0
+    "w_plus": 11209.0
    },
    {
     "baseline_position": null,
-    "baseline_sd": 0.019357223751694172,
+    "baseline_sd": 0.019195745931974414,
     "direction": 1,
-    "half_width": 0.0029577799395596118,
+    "half_width": 0.0029328803520755967,
     "holds": true,
-    "mean_difference": 0.06446419283460403,
+    "mean_difference": 0.06463745237465923,
     "n_nonzero": 150,
+    "nonzero_share": 1.0,
     "p": 1.1614203074307053e-26,
-    "pooled_sd": 0.01754464924860045,
+    "pooled_sd": 0.017454626973255977,
     "readout": "reactive_over_chance",
     "w_plus": 11325.0
    }
@@ -1498,33 +1617,35 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "criterion": "M11.C.41[higher level: heavier stress]",
   "class": "mixed",
   "outcome": "FAIL",
-  "seeds": 100,
+  "seeds": 150,
   "readouts": [
    {
     "baseline_position": null,
-    "baseline_sd": 29.21084333869326,
+    "baseline_sd": 32.33214627259745,
     "direction": 1,
-    "half_width": 7.859094982808708,
+    "half_width": 6.883179415999553,
     "holds": true,
-    "mean_difference": 11.902252079152676,
-    "n_nonzero": 98,
-    "p": 0.0041892819259992135,
-    "pooled_sd": 32.025812894671006,
+    "mean_difference": 7.306695298379981,
+    "n_nonzero": 145,
+    "nonzero_share": 1.0,
+    "p": 0.01325940991425299,
+    "pooled_sd": 31.89347983486084,
     "readout": "mean_acute",
-    "w_plus": 3170.0
+    "w_plus": 6417.0
    },
    {
     "baseline_position": null,
-    "baseline_sd": 0.019143317040065617,
+    "baseline_sd": 0.019156573282316274,
     "direction": 1,
-    "half_width": 0.002593415922455137,
+    "half_width": 0.002245766452917047,
     "holds": false,
-    "mean_difference": -0.0005744337408165149,
-    "n_nonzero": 86,
-    "p": 0.6135186717751306,
-    "pooled_sd": 0.019349533990898247,
+    "mean_difference": -0.0017944163740909022,
+    "n_nonzero": 128,
+    "nonzero_share": 1.0,
+    "p": 0.9404872804580902,
+    "pooled_sd": 0.01917616960977434,
     "readout": "reactive_over_chance",
-    "w_plus": 1804.0
+    "w_plus": 3473.0
    }
   ],
   "fallback_rate": 0.0,
@@ -1540,29 +1661,31 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "readouts": [
    {
     "baseline_position": null,
-    "baseline_sd": 55.66342335241454,
+    "baseline_sd": 55.56334578172824,
     "direction": 1,
-    "half_width": 13.403888849714347,
+    "half_width": 13.377468865604474,
     "holds": true,
-    "mean_difference": 19.533537568530793,
+    "mean_difference": 20.453968050207617,
     "n_nonzero": 142,
-    "p": 0.007518101830565898,
-    "pooled_sd": 60.0840335837823,
+    "nonzero_share": 1.0,
+    "p": 0.004822385207608082,
+    "pooled_sd": 60.2544786747958,
     "readout": "mean_acute",
-    "w_plus": 6271.0
+    "w_plus": 6348.0
    },
    {
     "baseline_position": null,
-    "baseline_sd": 0.01630699499884532,
+    "baseline_sd": 0.01628814874991636,
     "direction": 1,
-    "half_width": 0.0023328786766779034,
+    "half_width": 0.002332398469401957,
     "holds": false,
-    "mean_difference": -0.0010738840095359343,
-    "n_nonzero": 143,
-    "p": 0.8931344549598637,
-    "pooled_sd": 0.01591925577770591,
+    "mean_difference": -0.0010396599821937869,
+    "n_nonzero": 142,
+    "nonzero_share": 1.0,
+    "p": 0.8860086615682479,
+    "pooled_sd": 0.015908411821510027,
     "readout": "reactive_over_chance",
-    "w_plus": 4531.5
+    "w_plus": 4485.0
    }
   ],
   "fallback_rate": 0.0,
@@ -1578,16 +1701,17 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "readouts": [
    {
     "baseline_position": null,
-    "baseline_sd": 2.050769749546878,
+    "baseline_sd": 2.0752509888364505,
     "direction": 1,
-    "half_width": 0.4036031233924252,
+    "half_width": 0.4087476927930435,
     "holds": false,
-    "mean_difference": 0.11,
-    "n_nonzero": 72,
-    "p": 0.31407119866016847,
-    "pooled_sd": 2.1364442280092266,
+    "mean_difference": 0.12,
+    "n_nonzero": 71,
+    "nonzero_share": 0.71,
+    "p": 0.3046459340560622,
+    "pooled_sd": 2.1454203044690994,
     "readout": "contact_toward_sender",
-    "w_plus": 1399.0
+    "w_plus": 1366.0
    }
   ],
   "fallback_rate": 0.0,
@@ -1622,16 +1746,17 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "readouts": [
    {
     "baseline_position": null,
-    "baseline_sd": 0.16730726160992793,
+    "baseline_sd": 0.16804801643758716,
     "direction": 1,
-    "half_width": 0.04230937482937962,
+    "half_width": 0.04304365225942396,
     "holds": false,
-    "mean_difference": -0.0033839836633954234,
+    "mean_difference": -0.004939539218950978,
     "n_nonzero": 24,
-    "p": 0.54195237159729,
-    "pooled_sd": 0.17917141381269971,
+    "nonzero_share": 0.5,
+    "p": 0.5530624389648438,
+    "pooled_sd": 0.18086794399121525,
     "readout": "distance_conflict_share",
-    "w_plus": 146.5
+    "w_plus": 145.5
    },
    {
     "baseline_position": null,
@@ -1639,6 +1764,7 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
     "direction": 1,
     "half_width": 0.0,
     "mean_difference": 0.0,
+    "nonzero_share": 0.0,
     "pooled_sd": 0.0,
     "readout": "no_moves",
     "report_only": true
@@ -1659,14 +1785,15 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
     "baseline_position": null,
     "baseline_sd": 119.39967653377349,
     "direction": -1,
-    "half_width": 24.441988779055414,
+    "half_width": 24.445938726192388,
     "holds": true,
-    "mean_difference": -23.78443244916922,
+    "mean_difference": -23.751077278931458,
     "n_nonzero": 92,
-    "p": 0.045705230887766,
-    "pooled_sd": 106.31062131224893,
+    "nonzero_share": 1.0,
+    "p": 0.04608019636885237,
+    "pooled_sd": 106.30536153668871,
     "readout": "escalation",
-    "w_plus": 2573.0
+    "w_plus": 2572.0
    }
   ],
   "fallback_rate": 0.0,
@@ -1678,33 +1805,35 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "criterion": "M11.C.53",
   "class": "composite",
   "outcome": "FAIL",
-  "seeds": 100,
+  "seeds": 50,
   "readouts": [
    {
     "baseline_position": null,
-    "baseline_sd": 0.10502829780640878,
+    "baseline_sd": 0.1121304548184115,
     "direction": 1,
-    "half_width": 0.006608145975040369,
+    "half_width": 0.008135334894373694,
     "holds": true,
-    "mean_difference": 0.010069391109949831,
-    "n_nonzero": 63,
-    "p": 7.980302769169464e-05,
-    "pooled_sd": 0.10458715303512621,
+    "mean_difference": 0.016908071143461597,
+    "n_nonzero": 32,
+    "nonzero_share": 1.0,
+    "p": 0.00013794605303277732,
+    "pooled_sd": 0.10856483954386534,
     "readout": "too_little_on_marital_tie",
-    "w_plus": 1560.0
+    "w_plus": 459.0
    },
    {
     "baseline_position": null,
-    "baseline_sd": 1.0647710428713648,
+    "baseline_sd": 1.1856282240712246,
     "direction": 1,
-    "half_width": 0.18995756676615222,
+    "half_width": 0.28778769952866295,
     "holds": false,
-    "mean_difference": 0.01,
-    "n_nonzero": 52,
-    "p": 0.415777800840863,
-    "pooled_sd": 1.0612314173695203,
+    "mean_difference": 0.06,
+    "n_nonzero": 27,
+    "nonzero_share": 0.54,
+    "p": 0.3064052821702181,
+    "pooled_sd": 1.1546710813571321,
     "readout": "pursue_conflict_toward_stressed",
-    "w_plus": 711.5
+    "w_plus": 209.5
    }
   ],
   "fallback_rate": 0.0,
@@ -1720,24 +1849,26 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "readouts": [
    {
     "baseline_position": null,
-    "baseline_sd": 8.787488752859904,
+    "baseline_sd": 8.920927548322807,
     "direction": -1,
-    "half_width": 2.0193661932824414,
+    "half_width": 2.019475329446418,
     "holds": false,
-    "mean_difference": -0.6812977894215473,
+    "mean_difference": -0.47928769531229876,
     "n_nonzero": 87,
-    "p": 0.23787410751987892,
-    "pooled_sd": 8.536556236207051,
+    "nonzero_share": 1.0,
+    "p": 0.3094867206939911,
+    "pooled_sd": 8.598620141902618,
     "readout": "child_functional_level",
-    "w_plus": 2083.0
+    "w_plus": 2032.0
    },
    {
     "baseline_position": null,
-    "baseline_sd": 4.0787574855907565,
+    "baseline_sd": 4.032694665186823,
     "direction": 0,
-    "half_width": 0.8391640621668227,
-    "mean_difference": -0.65,
-    "pooled_sd": 3.663931486722144,
+    "half_width": 0.8446580411412932,
+    "mean_difference": -0.71,
+    "nonzero_share": 0.88,
+    "pooled_sd": 3.6449702441594884,
     "readout": "child_supply_to_parent",
     "report_only": true
    }

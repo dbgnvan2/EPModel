@@ -108,11 +108,13 @@ def test_m111g_ea1_the_real_scope_is_the_plans():
     """On the committed records the scope is plan §3's thirteen rows less `M11.C.41`'s two level cells (T-192), with
     `M11.C.39` excluded as the control, and the two cue rows that pass since spec revision 55, `M11.C.52` and
     `M11.C.55` (Claude's recommendation 2026-11-11, approved by the owner 2026-11-11: `M11.1g` audits every passing composite
-    row, so they enter by its rule)."""
+    row, so they enter by its rule). Since spec revision 59's regeneration (T-001 step 4, 2026-11-12) `M11.C.34` and
+    `M11.C.10[family of origin]` fail, so they leave the scope by the same rule: eleven rows."""
     audited, rows, by_class, excluded = ea.in_scope(ea.read_records(), ea.read_config())
     ea.check_registries(rows)
     keys = {r.key for r in audited}
-    assert len(audited) == 13 and {"M11.C.48[phase_d]", "M11.C.52", "M11.C.55"} <= keys
+    assert len(audited) == 11 and {"M11.C.48[phase_d]", "M11.C.52", "M11.C.55"} <= keys
+    assert not keys & {"M11.C.34", "M11.C.10[family of origin]"}
     assert [k for k, _ in excluded] == ["M11.C.39"]
     # T-192 (owner 2026-11-05): M11.C.41's two level cells have only premise limbs, so they leave the scope.
     level_cells = ["M11.C.41[light: lower level]", "M11.C.41[heavy: lower level]"]
@@ -368,7 +370,6 @@ def test_m111g_ea13_key_is_engine_and_edits():
 
 
 # --- EA-14 -----------------------------------------------------------------------------------------------------------
-@pytest.mark.xfail(strict=True, reason="spec revision 59 (the engine batch, T-001 step 3, 2026-11-12): the batch moved the engine hash from d3779684dd53 to 95368d6ddf18, and every record is regenerated once on it at step 4 (docs/todo/2026-08-22_blocking_the_next_phase.md, T-001), not here, so this record is stale by decision until then")
 def test_m111g_ea14_emergence_audit_record_is_current():
     try:
         rendered = ea.build(Cache(ea.CACHE))

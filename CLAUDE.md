@@ -93,11 +93,11 @@ full table.
   the ASR no-quotation rule. It must never judge a wording: D5a and D5b were retired on 2026-11-10 for it
   (`docs/plan_doc_claim_tests.md`), so do not rebuild them.
 - Run tests before declaring done: `python3 -m pytest tests/`
-- **A red suite is never normal — 1456 tests: 1440 pass and 16 are strict expected failures** (each marked
+- **A red suite is never normal — 1456 tests: 1453 pass and 3 are strict expected failures** (each marked
   `xfail(strict=True)` with a reason naming why, so it turns the suite red if it starts passing: `M5.B.3`'s third-party
   cost (G1's A6); `test_m5d3_abort_is_the_usual_first_outcome`, which no longer holds after spec revision 41's T-133
-  (T-158, kept as a finding by the owner 2026-10-31); and 14 record-current tests, stale by decision on the engine hash
-  spec revision 59 moved until T-001 step 4 regenerates the records). Measured 2026-11-12 on this Mac with `python3 -m pytest tests/`;
+  (T-158, kept as a finding by the owner 2026-10-31); and the sweep record's record-current test, stale by decision
+  until the stage-end sweep on `95368d6ddf18`). Measured 2026-11-12 on this Mac with `python3 -m pytest tests/`;
   the 58 `ensemble`-marked criterion tests are deselected by `pytest.ini` and run with `python3 -m pytest -m ensemble`.
   No test checks this count since T-222 (2026-11-11); the dated history of counts is in `CHANGELOG.md`.
 

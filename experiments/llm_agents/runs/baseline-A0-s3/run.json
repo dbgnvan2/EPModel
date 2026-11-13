@@ -22,8 +22,8 @@
   "label_hash": "8d9c86c3af55",
   "config_hash": "8213c19fff2a",
   "permutations": null,
-  "status": "complete",
-  "status_detail": null,
+  "status": "not_replayable",
+  "status_detail": "the replay's summary 6b2d5f2a3a86 differs from the committed b93b5d2103dc in behavior (90887f8a454f against 09032c335a18); changed since the run: engine_hash, code_hash, config_hash",
   "counts": {
     "calls": 0,
     "cached": 0,

@@ -72,8 +72,8 @@
     }
   },
   "option_order": "shuffled",
-  "status": "complete",
-  "status_detail": null,
+  "status": "not_replayable",
+  "status_detail": "main-A1-s2: no cached response for P5 week 1 attempt 0; the rendered prompt has changed",
   "counts": {
     "calls": 1455,
     "cached": 0,

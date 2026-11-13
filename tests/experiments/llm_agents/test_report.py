@@ -11,8 +11,6 @@ import copy
 import json
 import re
 
-import pytest
-
 from conftest import stub_run
 
 from experiments.llm_agents import files
@@ -25,7 +23,6 @@ from experiments.llm_agents.source import family_terms
 from src.bowen.render.trace import FRAMING
 
 
-@pytest.mark.xfail(strict=True, reason="spec revision 59 (the engine batch, T-001 step 3, 2026-11-12): the batch moved the engine hash from d3779684dd53 to 95368d6ddf18, and every record is regenerated once on it at step 4 (docs/todo/2026-08-22_blocking_the_next_phase.md, T-001), not here, so this record is stale by decision until then")
 def test_lx16_report_is_current(tmp_path):
     summaries = load_summaries()
     assert summaries, "the A0 baseline is committed"
@@ -59,9 +56,11 @@ def test_lx16_framing_and_counts():
     # No absolute threshold: no comparison against a fixed number anywhere.
     assert not re.search(r"[<>≤≥]=?\s*\d", text.replace("<!--", "").replace("-->", ""))
     # A run that is not complete is not counted.
+    # Each run is read by its own directory, not by its seed's baseline run.
     summaries = load_summaries()
-    assert all(json.loads((files.RUNS / f"baseline-A0-s{s['seed']}" / "run.json").read_text())["status"] == "complete"
-               for s in summaries)
+    statuses = {p.parent.name: json.loads((p.parent / "run.json").read_text())["status"]
+                for p in files.RUNS.glob("*/summary.json")}
+    assert {s["run_id"] for s in summaries} == {r for r, status in statuses.items() if status == "complete"}
 
 
 def test_lx27_cross_check_against_main():

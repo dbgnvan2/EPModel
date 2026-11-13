@@ -341,9 +341,9 @@ BY_SIDE = {
                            "record-current test is a strict expected failure until then",
         REVISION_59_START: "the status page is generated from the records compared here "
                            "(`tools/version_2_status.py`); the sweep record is rendered from its own cache "
-                           "(`tools/version_2_sweep.py`) and is not rerun on revision 59's engine, which is the "
-                           "stage-end sweep (T-001's step after this regeneration): it is {side}'s, and its "
-                           "record-current test is a strict expected failure until then",
+                           "(`tools/version_2_sweep.py`) and was rerun on revision 59's engine by the stage-end "
+                           "sweep, split across both Macs, so its results are not {side}'s; `git diff {ref}` on it "
+                           "shows each criterion's held fraction then and now",
     },
     "docs/review/group_g_readout.md": {
         REVISION_38: "revision 36's before-and-after measurement on 20 seeds (`tools/group_g_readout.py`): its "

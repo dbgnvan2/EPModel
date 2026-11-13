@@ -26,7 +26,7 @@ Records read:
 
 ## Conditions
 
-- W1 (every criterion has a final status): **not met**, 1 rows: `M11.C.10[family of origin]`.
+- W1 (every criterion has a final status): **met**.
 - W2 (every premise and check passes): **met**.
 - W3 (every passing composite has a recorded mutation): **met**.
 - W4 (every passing directional criterion has a sweep result): **met**.
@@ -35,8 +35,7 @@ W4's **narrow** mark is not read: D14 (`docs/implementation_plan_version_2.md`) 
 
 Rows by status:
 - fail accepted as a finding: 25
-- fail accepted as a finding; changed since the tag `version-1`, reviewed by the owner: 1
-- fail, no disposition; changed since the tag `version-1`, pending the owner's review (T-122): 1
+- fail accepted as a finding; changed since the tag `version-1`, reviewed by the owner: 2
 - out of scope: 4
 - pass: 37
 - pass, proved by a test: 1
@@ -60,7 +59,7 @@ Verdicts not the one this page gave at revision 38: 11 of 69 rows: `M11.C.2[twel
 | `M11.C.8` |  | — | not built | not built | not built | no record lists it | — | out of scope | yes | — | A Phase E criterion (`→E`): endogenous incidence against published rates needs the editorial call on which sources are exogenous, accepted as not code-testable in Phases B–D on 2026-10-06 (`M11.E`). Version 1 excludes Phase E (§3). *(owner 2026-10-17)* |
 | `M11.C.9` | premise | — | not built | not built | not built | no rule reads sibling position, so building it means a new mechanism, not a gate (`M1.A.14c`); out of version 1, Claude's recommendation 2026-10-17, decided by the owner 2026-10-17 (`docs/version_1_dispositions.md`) | — | out of scope | yes | — | No rule reads sibling position (`objects.py` documents it as never read by the propensity vector; `functional_sibling_position` is never written; no fixture has ranked siblings joined by a tie). The decision of 2026-10-15 to include it rested on "one gate that is partly built"; building it is a new mechanism whose profiles the spec leaves open (`M1.A.14c` gives one example) and which could write a pattern (§19). Recommended for version 2. *(owner 2026-10-17)* |
 | `M11.C.10` | composite | Phase D part II | FAIL | FAIL | FAIL | `cut_off_tie_weeks` +80.3 ± 1.3e+02 | 3 of 8 held | fail accepted as a finding | yes | — | The arms' input barely differs: the parents already hold some rejection on some tie most weeks, and the held cutoff adds 0.08 to 0.12 to the first grandchild's origin cutoff (3 seeds, 12 years, ad hoc 2026-10-15). The family-of-origin variant passes and is proved red by removing `M4.D.6f`. *(owner 2026-10-17)* |
-| `M11.C.10[family of origin]` | composite | Phase D part II | FAIL | PASS | FAIL | `cut_off_tie_weeks` +95.9 ± 1.3e+02 | 7 of 8 held | fail, no disposition; changed since the tag `version-1`, pending the owner's review (T-122) | no | W1 | — |
+| `M11.C.10[family of origin]` | composite | Phase D part II | FAIL | PASS | FAIL | `cut_off_tie_weeks` +95.9 ± 1.3e+02 | 7 of 8 held | fail accepted as a finding; changed since the tag `version-1`, reviewed by the owner | yes | — | Moved PASS → FAIL at spec revision 59's regeneration (T-001 step 4) on its fixed 200 seeds, the direction unchanged. A probe of 2026-11-13 (ad hoc, 200 seeds each, Mac Mini1) found the FAIL a detection-limit outcome of seeds 0–199, not one rule's effect: the same engine on seeds 200–399 gives `cut_off_tie_weeks` +274, p < 0.001; reverting any one of revision 59's T-219 (2), T-214 or T-234 on seeds 0–199 gives a PASS (+131 to +168), and the recoveries do not add; revision 59 lowered the effect by about 50–65 on both seed blocks, less than the 160–180 between seed blocks on one engine. The seed count is not changed after the result. *(owner 2026-11-13)* |
 | `M11.C.11` | mixed | Phase D part I | PASS | PASS | PASS | `disturbance` +5.31 ± 1.4; proved by `removed-member-holds-not-released-on-return` red (Phase D mutation record) | 7 of 8 held | pass | yes | — | — |
 | `M11.C.12` | composite | Phase D part I | FAIL | FAIL | FAIL | `marital_conflict` -0.26 ± 0.38 | 0 of 8 held | fail accepted as a finding | yes | — | Released anxiety raises the other spouse's excess, but more anxiety does not select `CONFLICT` in particular (`TODO.md`, B7). *(owner 2026-10-17)* |
 | `M11.C.13` | premise | — | not built | not built | not built | needs incidents located in a community; the model has none | — | out of scope | yes | — | It needs incidents located in a community, and the model has no community (version 1 definition §4 question 4). *(owner 2026-10-15)* |

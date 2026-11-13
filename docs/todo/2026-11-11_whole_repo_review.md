@@ -166,4 +166,4 @@ they set. Each item's own line says whether it is done. Items marked *verified* 
 - [x] T-242 ⟨now⟩ **Fix: P5's disposition text and `M11.D.9`'s scan check (2026-11-12).** From T-241. The
   disposition is rewritten after step 4's regeneration; the scan-coverage check replaces `EXPECTED_SPEC_REFERENCES`,
   with `M11.D.8` and `M11.D.9` changed at the next spec revision.
-  *Partly done 2026-11-12: `M11.D.8` and `M11.D.9` amended and the scan check built (`EXPECTED_SPEC_REFERENCES` removed) at spec revision 59, the engine batch (T-001 step 3; `docs/plan_engine_batch_2026-11-12.md`), criterion 13. P5's text rewritten 2026-11-12 after step 4's regeneration (`docs/version_2_dispositions.md`, `M11.C.48[phase_d]`), Claude's draft pending the owner's review.*
+  *Partly done 2026-11-12: `M11.D.8` and `M11.D.9` amended and the scan check built (`EXPECTED_SPEC_REFERENCES` removed) at spec revision 59, the engine batch (T-001 step 3; `docs/plan_engine_batch_2026-11-12.md`), criterion 13. P5's text rewritten 2026-11-12 after step 4's regeneration (`docs/version_2_dispositions.md`, `M11.C.48[phase_d]`), approved by the owner 2026-11-13.*

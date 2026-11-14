@@ -60,6 +60,14 @@
     than by a rate constant". `M1.C.4`: the learner keys values by triad and never reads `activation_memory`.
     `M1.A.18c` and `M1.A.18d`: the perspective term applies to every act, and per-tie attenuation is not read by the
     `M4.D.3b` gate or `M5.F.4`.
+    *Checked and decided 2026-11-14 (spec revision 59, engine `95368d6ddf18`; owner's answers):*
+    - `M1.A.7`: not a contradiction — the parents' mean is `M1.A.7a`'s field term under `M7.B.1a`; spec follows code (revision 60).
+    - `M1.A.5c` against `M6.I.4`: not a contradiction, an unbuilt clause; the code's `M6.I.4` check would trip if built; build it (T-243).
+    - `M7.E.1e` against `M7.E.1f`: still holds; spec follows code (revision 60).
+    - `M1.A.4`: still holds; spec follows code, `estimator_rate` named in the rule (revision 60).
+    - `M1.C.4`: partly mis-recorded (no policy term is what the spec requires); `activation_memory` is never read; spec follows code, a readout only (revision 60).
+    - `M1.A.18c`: mis-recorded — `M4.D.1a` puts perspective in every selection's weight and nothing writes it into `functional_level`.
+    - `M1.A.18d`: still holds; code follows spec (T-243).
   - *Text that names a built phase as work to come.* The error in `src/bowen/engine/event_effects.py::_release_binder`
     ("is built in Phase C"); `config/bowen/act_classes.md` (`M1.E.3`'s and `M1.E.4`'s acts "are Phase D and not yet
     moves"); `src/bowen/engine/beliefs.py`'s docstring (the family-level store as Phase D work, `M9.1`);
@@ -87,3 +95,11 @@
   - *Outside Part B's scope.* `M12.1`–`M12.5` and `M12.2a` still read "no test named for it (a prohibition, checked by
     review in every phase)", and `M14.2` "no test named for it (every phase)"; the plan's §3 covered only the notes
     that named Phase C or D.
+
+- [ ] T-243 ⟨later⟩ **Engine batch: two clauses from T-004 the owner kept (2026-11-14).** Both move the engine hash; build in
+  the next batch that does. (1) `M1.A.5c`: a self-directed functional rise lowers pseudo-self, converting toward solid;
+  today it goes to `stress_swing` (`stress_response.py`), and `invariants.py`'s `M6.I.4` check (total pseudo-self unchanged
+  every tick) must be narrowed to exchange records or the fall logged as its own record. (2) `M1.A.18d`: the `M4.D.3b`
+  gate (`policy.py`, `obs.systems_perspective`) and `M5.F.4`'s weight (`iposition.py`) read
+  `appraise.py::effective_perspective` on the target tie, not the held value. Optional in the same batch: remove the
+  unwritten `Person.programmed_reactivity` field (`M1.A.7`, revision 60).

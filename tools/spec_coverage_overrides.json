@@ -69,14 +69,14 @@
   "note": "not built: no decision scope separates the pre-marriage and married relationship (`TODO.md` open question BV1; searched `src/bowen` for `M1.A.3a`, `ceremony`, `decision`); `PARTNERING` is a nodal life event of intensity 0 (`config/bowen/nodal_events.md`), which adds estimator breadth but no licence change"
  },
  "M1.A.4": {
-  "status": "partial",
+  "status": "done",
   "evidence": [
    "tests/bowen/test_slow_tick.py::test_m7b1_chronic_anxiety_falls_only_with_a_rise",
    "tests/bowen/test_mechanisms.py::test_m4g2_invariants_asserted_every_tick",
    "tests/bowen/test_mechanisms.py::test_m4g2_a_violation_raises",
    "tests/bowen/test_slow_tick.py::test_m1a4k_a_loaded_stable_broad_window_raises_basic_level"
   ],
-  "note": "built, one clause unmet: a married adult's `basic_level` rises on the slow tick (`test_m7b1_chronic_anxiety_falls_only_with_a_rise`, Ravi); a write to `basic_level` inside a fast tick raises under `M6.I.5`, asserted every tick (`test_m4g2_a_violation_raises`, `test_m4g2_invariants_asserted_every_tick`); the rise comes from the estimator's window (`test_m1a4k_a_loaded_stable_broad_window_raises_basic_level`); but the rise is scaled by `estimator_rate`, a constant, against the text's 'rather than by a rate constant' — which stands is the owner's decision (`TODO.md`)"
+  "note": "a married adult's `basic_level` rises on the slow tick (`test_m7b1_chronic_anxiety_falls_only_with_a_rise`, Ravi); a write to `basic_level` inside a fast tick raises under `M6.I.5`, asserted every tick (`test_m4g2_a_violation_raises`, `test_m4g2_invariants_asserted_every_tick`); the rise comes from the estimator's window (`test_m1a4k_a_loaded_stable_broad_window_raises_basic_level`); the rise is scaled by `estimator_rate`, as revision 60 states"
  },
  "M1.A.4a": {
   "status": "done",
@@ -148,7 +148,7 @@
    "tests/bowen/test_moves.py::test_m6i4_pseudo_self_moves_with_functional_level_and_is_conserved",
    "tests/bowen/test_slow_tick.py::test_m1a4k_an_exchange_run_through_the_engine_leaves_both_readings_unchanged"
   ],
-  "note": "a rise from the automatic channel's exchange is borrowed pseudo-self (`test_m6i4_pseudo_self_moves_with_functional_level_and_is_conserved`) and the estimator leaves it out (`test_m1a4k_an_exchange_run_through_the_engine_leaves_both_readings_unchanged`); not built: a self-directed rise never lowers pseudo-self, since it goes to `stress_swing`"
+  "note": "a rise from the automatic channel's exchange is borrowed pseudo-self (`test_m6i4_pseudo_self_moves_with_functional_level_and_is_conserved`) and the estimator leaves it out (`test_m1a4k_an_exchange_run_through_the_engine_leaves_both_readings_unchanged`); not built: a self-directed rise never lowers pseudo-self, since it goes to `stress_swing` (build: T-243)"
  },
  "M1.A.5d": {
   "status": "partial",
@@ -159,13 +159,13 @@
   "note": "borrowed self does not survive withdrawal of the source (`test_m6i4_pseudo_self_settles_back_when_the_exchange_stops`) and survives while the exchange runs (`test_m6i4_a_borrower_still_exchanging_with_its_source_keeps_what_it_borrowed`); no test asserts that borrowing carries no cost of its own"
  },
  "M1.A.7": {
-  "status": "partial",
+  "status": "done",
   "evidence": [
    "tests/bowen/test_life_course.py::test_m7b1a_child_chronic_reads_parents_and_witnessed_history",
    "tests/bowen/test_life_course.py::test_m7b1a_chronic_is_fixed_at_the_fixation_age",
    "tests/bowen/test_life_course.py::test_m7b1a_chronic_integrates_every_childhood_year"
   ],
-  "note": "`Person.programmed_reactivity` is declared and never written; the childhood disposition is carried as `chronic_anxiety`, fixed at the fixation age from the child's own yearly load (`life_course.py::yearly`, `test_m7b1a_child_chronic_reads_parents_and_witnessed_history`); that value starts from the parents' mean"
+  "note": "the childhood disposition is `chronic_anxiety`, fixed at the fixation age from the parents' mean (`M1.A.7a`'s field term) and the child's own yearly load (`life_course.py::yearly`, `test_m7b1a_child_chronic_reads_parents_and_witnessed_history`), as revision 60 states; `Person.programmed_reactivity` is declared and not written (T-243)"
  },
  "M1.A.7a": {
   "status": "partial",
@@ -259,7 +259,7 @@
   "evidence": [
    "tests/bowen/test_appraise.py::test_m4c4_perspective_falls_with_anxiety_and_on_a_loaded_tie"
   ],
-  "note": "one per-person value, `Person.systems_perspective`; `appraise.py::effective_perspective` attenuates it on a loaded tie and with anxiety (`test_m4c4_perspective_falls_with_anxiety_and_on_a_loaded_tie`), but only `M4.C.6` reattribution reads it: the `M4.D.3b` gate and the `M5.F.4` form read the held value"
+  "note": "one per-person value, `Person.systems_perspective`; `appraise.py::effective_perspective` attenuates it on a loaded tie and with anxiety (`test_m4c4_perspective_falls_with_anxiety_and_on_a_loaded_tie`), but only `M4.C.6` reattribution reads it: the `M4.D.3b` gate and the `M5.F.4` form read the held value (build: T-243)"
  },
  "M1.A.18b": {
   "status": "partial",
@@ -360,7 +360,7 @@
   "evidence": [
    "tests/bowen/test_learner.py::test_m4d6e_triangle_reinforced_when_it_relieves_the_seeker_whatever_it_costs_the_third"
   ],
-  "note": "`activation_memory` counts a triangle's active weeks (`recompute.py::recompute_triangles`), with no test; the learner reinforces a `TRIANGLE` that relieved its seeker (`test_m4d6e_triangle_reinforced_when_it_relieves_the_seeker_whatever_it_costs_the_third`); no policy term reads `activation_memory`; reuse is `M11.C.42`'s outcome, whose row is partial (ensemble FAIL; accepted finding: a `TRIANGLE` relieves less than a `DISTANCE`, so it is not learned or reused)"
+  "note": "`activation_memory` counts a triangle's active weeks (`recompute.py::recompute_triangles`), a readout only (revision 60), with no test; the learner reinforces a `TRIANGLE` that relieved its seeker (`test_m4d6e_triangle_reinforced_when_it_relieves_the_seeker_whatever_it_costs_the_third`); no policy term reroutes; reuse is `M11.C.42`'s outcome, whose row is partial (ensemble FAIL; accepted finding: a `TRIANGLE` relieves less than a `DISTANCE`, so it is not learned or reused)"
  },
  "M1.C.6": {
   "status": "not done",
@@ -1131,9 +1131,9 @@
   "note": "focus can start before any act by the child: birth situations add focus (`test_m7e1c_birth_situations_add_focus_not_a_target`) and a declared weakness adds focus while a parent is anxious (`test_m1b8a_a_declared_weakness_adds_focus_while_a_parent_is_anxious`); the focus then raises the child's load (`test_m1b8a_focus_raises_the_focused_childs_load`)"
  },
  "M7.E.1e": {
-  "status": "not done",
+  "status": "partial",
   "evidence": [],
-  "note": "not built: `life_course._childhood`'s parental term is the parents' mean `functional_level` over the year, a global average, as `M7.E.1f` specifies; nothing reads the parents' functioning on the marital tie"
+  "note": "as revision 60 states: `life_course._childhood`'s parental term is the parents' yearly `functional_level` reading (`M7.E.1f`), and the marital tie reaches the child through the child's own term; no test shows the marital tie's effect on the output"
  },
  "M7.E.2": {
   "status": "not done",

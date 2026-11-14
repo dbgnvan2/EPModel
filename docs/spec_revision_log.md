@@ -6,6 +6,18 @@ The spec holds the current rules; this file holds how they got there. Until revi
 
 The sections `### Revision 34` to `### Revision 5` and the undated section are the spec's text as it stood, moved whole; a statement inside one of them (revision 34's, that revisions 13 to 33 are "not here") was true when written, before the bodies' narratives were moved under their own revisions. Those narratives are the bullets `- \`ID\`: sentence`, each the sentence as it stood in the body, under the revision it names, in sections titled "inline narratives moved from the bodies at revision 35" where no section existed.
 
+### Revision 60 — T-004's spec–code disagreements, 2026-11-14 ⟦rev60 · T-004, owner 2026-11-14⟧
+
+Wording only; the engine hash does not move. Each disagreement T-004 recorded on 2026-10-20 was checked against the
+code and the owner chose which side stands. Two kept clauses are code, recorded as T-243.
+
+- **`M1.A.7`.** The childhood disposition is `chronic_anxiety` fixed at the fixation age under `M7.B.1a`; the parents'
+  mean there is `M1.A.7a`'s field term. `Person.programmed_reactivity` is declared and not written.
+- **`M1.A.4`.** "rather than by a rate constant" is struck; the supported rise and `estimator_rate` (`[I]`) are stated.
+- **`M1.C.4`.** Reuse reads `M4.D.6`'s learned value, keyed by triad; `activation_memory` is a readout only.
+- **`M7.E.1e`.** The parental term in `M7.E.1f`'s `d` is the parents' yearly functional reading; the marital tie reaches
+  the child through the child's own term.
+
 ### Revision 59 — the engine batch, 2026-11-12 ⟦rev59 · the engine batch of 2026-11-12, T-001 step 3; plan `docs/plan_engine_batch_2026-11-12.md`, approved by the owner 2026-11-12⟧
 
 Step 3 of the owner's order of 2026-11-11: the fixes from the whole-repo review of 2026-11-11 that move the engine

@@ -324,7 +324,7 @@ The **same** rise in `functional_level` means opposite things depending on what 
 
 ⚠ Corrected. What was one field is now a **disposition** and a **state**.
 
-**`programmed_reactivity`** — the disposition. Fixed in childhood from the child's own **witnessed event history**, never from a family average. `M1.A.7`
+**`programmed_reactivity`** — the disposition. Fixed in childhood from the child's own **witnessed event history**, never from a family average. `M1.A.7`. Built as `chronic_anxiety` fixed at the fixation age (`M7.B.1a`), whose parents' mean is the field term; the field of this name is not written (spec revision 60).
 
 **`chronic_anxiety`** — the state, **derived** each slow tick from three terms: that reactivity, **the field** (the system's differentiation and current load), and **the person's functioning position**, which changes. It acts as the floor acute anxiety decays toward but never below. `M1.A.7a`
 
@@ -846,7 +846,7 @@ At a lower level an I-position comes out more as a demand (`M5.F.4`, revision 39
 | `bound_anxiety` | how much the structure is currently holding | `[M]` Ch17 · L17.1 — anxiety dilutes across three edges |
 | `active` | whether it is operative at all | `[T]` Ch17 · L17.1 — "the system is calm and the triangles inoperative". **Persistent topology is stored separately from the active set.** From revision 11, `active` is a readout of recent `TRIANGLE` acts, not a threshold on tension (§19). From revision 33 it is decided by presence: a triangle that holds a sided coach stays active (§11.4). |
 | `routing_capacity` | how much anxiety it can carry | `[T]` 1979 Tape 5 — Bowen says how intense the symptoms and relationship patterns become depends on differentiation and, most of all, on anxiety. **A function of the members' `functional_level`, not of the triangle.** Well differentiated: patterns are mild, appear under anxiety, and go away. Poorly differentiated: more intense and fixed. |
-| `activation_memory` | which circuits it has used before | `[T]` Ch09 · L09.3 — tension reroutes onto "old preestablished circuits" |
+| `activation_memory` | which circuits it has used before; a readout only — reuse reads the learner's triad value (spec revision 60) | `[T]` Ch09 · L09.3 — tension reroutes onto "old preestablished circuits" |
 | `intensity_floor` | a permanent decrement | `[T]` Ch09 · L09.3 — an "I" position held "for even a few days" produces a **permanent** decrease in that triangle's intensity. **The state does not fully revert.** This is the counterweight to the change-back reaction. |
 
 > **The coach never works the triangles.** Triangle activity is a *consequence* of anxiety and differentiation, so the levers are those two — get the anxiety down, then work toward differentiation — and the triangle activity follows. This is how to read the late remark in the KB04 interview (`KB04` · K04.15): triangles now get little attention in the work, their number makes no real difference, this is described as a recent change, and the method, in an outline the interview admits is too simple to be the whole story, comes down to two steps — lower the anxiety, then pursue differentiation of self. It is a claim about **coaching technique**, not about whether triangles operate. The object stays, because it is the structure anxiety routes *through*; what differentiation changes is how much it carries.

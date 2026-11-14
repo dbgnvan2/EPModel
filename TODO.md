@@ -11,7 +11,7 @@ moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's te
 
 - T-004 · 2026-10-20 · Coverage page, from Part B's drafting (2026-10-20), not … · [record](docs/todo/2026-08-22_blocking_the_next_phase.md)
 
-## Later (143)
+## Later (144)
 
 - T-003 · 2026-10-20 · Coverage page, minor, from the Part A review … · [record](docs/todo/2026-08-22_blocking_the_next_phase.md)
 - T-006 · 2026-10-22 · D4, long `Spec:` lines (Part D, 2026-10-22; the … · [record](docs/todo/2026-10-22_model_ergonomics.md)
@@ -156,3 +156,4 @@ moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's te
 - T-227 · 2026-11-11 · Fix: comments and README (2026-11-11) · [record](docs/todo/2026-11-11_whole_repo_review.md)
 - T-238 · 2026-11-12 · Build: a trace command for the twelve-person family … · [record](docs/todo/2026-11-11_whole_repo_review.md)
 - T-240 · 2026-11-12 · Later parts of T-233 (2026-11-12) · [record](docs/todo/2026-11-11_whole_repo_review.md)
+- T-243 · 2026-11-14 · Engine batch: two clauses from T-004 the owner … · [record](docs/todo/2026-08-22_blocking_the_next_phase.md)

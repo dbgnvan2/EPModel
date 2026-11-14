@@ -50,8 +50,9 @@
   whose clause is later met stays *partial* until the row is reworded (the safe side). (3)
   `test_m141_header_names_each_record_read` finds records by the `*_ensemble_record.md` and `*_mutation_record.md`
   names and the `"criterion"` field; a record named or shaped otherwise would pass it unread.
-- [ ] T-004 ⟨now⟩ **Coverage page, from Part B's drafting (2026-10-20), not fixed** (owner 2026-10-20: record them here). Each ID's
-  note in `docs/spec_coverage.md` gives the detail.
+- [x] T-004 ⟨now⟩ **Coverage page, from Part B's drafting (2026-10-20), not fixed** (owner 2026-10-20: record them here). Each ID's
+  note in `docs/spec_coverage.md` gives the detail. *Closed 2026-11-14 at spec revision 61: every sub-item below was
+  fixed or decided; what was left open is T-244 to T-246.*
   - *Spec and code disagree; the owner decides which stands.* `M1.A.7`: the parents'-mean term against "MUST NOT be
     computed from a family average". ~~`M1.A.18`: the 0.3 threshold makes a genuine I-POSITION impossible below it,
     against "graded, not a hard gate".~~ *resolved at revision 39 (Q8: the threshold retired); taken off 2026-10-28, stage 3 review MR-9.* `M1.A.5c` against `M6.I.4`: a one-sided fall of pseudo-self against its
@@ -96,10 +97,21 @@
     review in every phase)", and `M14.2` "no test named for it (every phase)"; the plan's §3 covered only the notes
     that named Phase C or D.
 
-- [ ] T-243 ⟨later⟩ **Engine batch: two clauses from T-004 the owner kept (2026-11-14).** Both move the engine hash; build in
+- [x] T-243 ⟨later⟩ **Engine batch: two clauses from T-004 the owner kept (2026-11-14).** *Built 2026-11-14 at spec revision 61,
+  with `Person.programmed_reactivity` removed.* Both move the engine hash; build in
   the next batch that does. (1) `M1.A.5c`: a self-directed functional rise lowers pseudo-self, converting toward solid;
   today it goes to `stress_swing` (`stress_response.py`), and `invariants.py`'s `M6.I.4` check (total pseudo-self unchanged
   every tick) must be narrowed to exchange records or the fall logged as its own record. (2) `M1.A.18d`: the `M4.D.3b`
   gate (`policy.py`, `obs.systems_perspective`) and `M5.F.4`'s weight (`iposition.py`) read
   `appraise.py::effective_perspective` on the target tie, not the held value. Optional in the same batch: remove the
   unwritten `Person.programmed_reactivity` field (`M1.A.7`, revision 60).
+- [ ] T-244 ⟨later⟩ **`M11.D.12`: the checks module (2026-11-14).** `M10.C.4b`'s checks module for `M10.C.4`'s twelve
+  corpus magnitudes, and `test_m11d12_corpus_magnitudes_are_not_config_keys` with it. A guard by value alone would flag
+  ordinary 5s and 40s; it needs the magnitudes named. From T-004, owner 2026-11-14.
+- [ ] T-245 ⟨later⟩ **`M1.A.4c`: the estimator's sensitivity sweep (2026-11-14).** `estimator_window` and
+  `estimator_breadth` are read by `M11.C.18` and other criteria, and the stage-end sweep leaves both out
+  (`config/sweep/sweep.md`); no sweep over them exists. From T-004's `constants.md` note.
+- [ ] T-246 ⟨later⟩ **An event in flight is still delivered to a person who has died (2026-11-14).** Found writing
+  `M6.3a`'s test: a move emitted before a death is logged as a `DeliveredRecord` to the dead person a tick later. It
+  moves none of their state (appraisal, beliefs and attribution skip the dead), but the log shows a delivery `M6.3a`
+  says the dead no longer perceive. Decide: drop it at delivery, or log it as undeliverable.

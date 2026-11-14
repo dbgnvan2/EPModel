@@ -72,6 +72,7 @@ from __future__ import annotations
 import math
 from dataclasses import dataclass, field
 
+from src.bowen.engine.appraise import effective_perspective
 from src.bowen.engine.contact import excess, too_much
 from src.bowen.engine.events import Mechanism, Role
 from src.bowen.engine.identifiers import PersonId, TieId
@@ -132,9 +133,10 @@ def assertion_form(state: RunState, mover: PersonId, target: PersonId, params: E
     return angry(state, mover, target, params)
 
 
-def demand_share(state: RunState, mover: PersonId, params: EngineParams) -> float:
+def demand_share(state: RunState, mover: PersonId, target: PersonId, params: EngineParams) -> float:
     """Purpose: the demand share of a genuine I-POSITION, ``1 − w``, with ``w`` the mover's self-channel weight that
-             week (M5.F.4: the lower the level, the more the act comes out as a demand).
+             week (M5.F.4: the lower the level, the more the act comes out as a demand), its perspective read on the tie
+             to the target (M1.A.18d, revision 61).
     Spec:    docs/bowen_agent_model_spec_v2.md#M5.F.4, #M4.D.1a
     Tests:   tests/bowen/test_iposition.py::test_m5f4_s3_6_demand_share_falls_with_level
 
@@ -142,7 +144,8 @@ def demand_share(state: RunState, mover: PersonId, params: EngineParams) -> floa
     engine never imports the policy, revision 41, T-147).
     """
     person = state.people[mover]
-    w = self_channel_weight(person.functional_level, params, person.systems_perspective or 0.0)
+    on_tie = effective_perspective(person, state.tie_between(mover, target), params)  # M1.A.18d, revision 61
+    w = self_channel_weight(person.functional_level, params, on_tie)
     return max(0.0, 1.0 - w)  # w may pass 1 by rounding
 
 

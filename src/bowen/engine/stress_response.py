@@ -3,7 +3,7 @@
 Purpose: keep an exogenous stressor loading its target for its declared duration; move each person's functioning by
          what they do under load — up when they cope (the self-directed channel, or holding back), down when they
          avoid or soothe — scaled by their basic level; and let that movement settle back slowly when they are calm.
-Spec:    docs/bowen_agent_model_spec_v2.md#M1.A.5e, #M1.A.5f, #M1.F.6, #M7.A.1
+Spec:    docs/bowen_agent_model_spec_v2.md#M1.A.5e, #M1.A.5f, #M1.A.5c, #M1.F.6, #M7.A.1
 Tests:   tests/bowen/test_stress_response.py
 
 * **A lasting stressor** (``register_stressors``, ``stressor_load``). An exogenous stressor of duration *d* arrives
@@ -17,6 +17,8 @@ Tests:   tests/bowen/test_stress_response.py
   - avoiding or soothing — a kind in ``config/bowen/stress_response.md`` — lowers it by
     ``response_down_gain × load / 100 × (1 − basic_level / 100)``;
   - any other act leaves it, except a displacing act (``displace``, below).
+  A self-directed rise also converts borrowed pseudo-self: it falls by the rise, at most what is borrowed, logged as
+  ``pseudo_self_conversion`` (`M1.A.5c`, revision 61). ``WITHHOLD`` and lent pseudo-self convert nothing.
   Nothing writes "a higher level copes": which channel a person chooses already rises with level (`M4.D.1a`), and the
   sizes scale with it.
 * **Displaced coping** (``displace``, revision 39, `M1.A.5f`). A loaded person's act of a kind listed as *displacing*
@@ -186,6 +188,7 @@ def respond(state: RunState, selections, load: dict, params: EngineParams) -> li
     # A fallback hold (nothing legal, or no finite score) is not a choice, so it is not coping (review 2026-10-11).
     chose = {s.actor: s.kind for s in selections if s.decided_by is not DecidedBy.FALLBACK}
     rows = displace(state, selections, load, params)  # M1.A.5f, revision 39
+    conversions = []
     for pid in sorted(state.people):
         person = state.people[pid]
         if not person.alive:
@@ -226,6 +229,16 @@ def respond(state: RunState, selections, load: dict, params: EngineParams) -> li
                 moved = person.functional_level - before
         else:
             person.stress_swing += moved
+            # M1.A.5c (revision 61, T-243 (1)): a self-directed rise lowers borrowed pseudo-self by the rise, at most
+            # what is borrowed — that part becomes the person's own. Holding back and lent pseudo-self convert nothing.
+            borrowed = person.pseudo_self or 0.0
+            if moved > 0 and borrowed > 0 and state.kinds.channels.get(kind) == SELF_CHANNEL:
+                converted = min(moved, borrowed)
+                person.pseudo_self = borrowed - converted
+                conversions.append((pid, "pseudo_self", -converted))
         if moved:
             rows.append((pid, "functional_level", moved))
-    return [EffectRecord(state.tick, "stress_response", None, people=tuple(rows))] if rows else []
+    records = [EffectRecord(state.tick, "stress_response", None, people=tuple(rows))] if rows else []
+    if conversions:
+        records.append(EffectRecord(state.tick, "pseudo_self_conversion", None, people=tuple(conversions)))
+    return records

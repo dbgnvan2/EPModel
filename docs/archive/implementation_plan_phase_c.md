@@ -537,6 +537,7 @@ step 14, with the cap and the sweep as the levers.
 - **The five rule groups revision 11 marked for review** (`M1.A.14c`/`.14d`, `M1.B.10`, `M4.D.5a`,
   `M7.D.2a`/`.2d`, `M9.6`) stand as written. `M1.B.10` (taboo set) and `M4.D.5a` (accommodation stock) are built
   in Phase C as written.
+  *(Correction, 2026-11-14, T-004: neither was built; both are not done in `docs/spec_coverage.md`.)*
 - **`requirements.txt`** lists `pandas`, `networkx`, `pygame-ce` and `matplotlib`, and `numpy` twice; nothing in
   `src/bowen/` uses the first four. Not a Phase C change.
 

@@ -151,3 +151,18 @@ def test_m5f3_concession_is_graded_continuously_by_the_receiver():
         values.append(appraisal_delta(state, received(state, concession), concession, PARAMS))
     assert len(set(round(v, 12) for v in values)) == len(values)
     assert values == sorted(values)  # monotone in how hollow the concession is
+
+
+def test_m1f2_same_kind_moves_receiver_on_opposite_sides():
+    """`M1.F.2` (written 2026-11-14, T-004): no kind carries a hard-coded flip in config, and one kind from senders in
+    different positions — calm and forceful — moves the receiver on opposite sides of its optimum."""
+    from src.bowen.io.load import load_event_kinds
+
+    assert set(load_event_kinds().signs.values()) == {1}                  # no flip is written in config
+    calm, forceful = fresh(), fresh()
+    set_axes(calm, RAVI, 0.0, 0.0)
+    set_axes(forceful, RAVI, 1.0, 0.0)
+    approach = move("PURSUE", 60.0)
+    relief = appraisal_delta(calm, received(calm, approach), approach, PARAMS)
+    load = appraisal_delta(forceful, received(forceful, approach), approach, PARAMS)
+    assert relief < 0 < load

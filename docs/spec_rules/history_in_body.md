@@ -1,8 +1,8 @@
 # History written into requirement bodies
 
-*Generated from the spec at revision 60 by `tools/spec_rules_view.py`. Not normative: where this and the spec differ, the spec wins. Do not edit.*
+*Generated from the spec at revision 61 by `tools/spec_rules_view.py`. Not normative: where this and the spec differ, the spec wins. Do not edit.*
 
-Every ID whose body holds a sentence matching a history phrase (`tools/spec_index_rules.json`, `history_phrases`), with the sentence and the phrase it matched: **30 IDs**. The view keeps every one of these sentences (C3). This list was the input to Part E: revision 35 (2026-10-22) moved or rewrote the narratives, with one row per sentence in `docs/spec_revision_35_dispositions.md`, approved by the owner 2026-10-22, so what is listed now is what that pass left in place — rule text, recorded results and cross-references that match a phrase — each a row marked "stays" that gives the reason. Line numbers are the spec's.
+Every ID whose body holds a sentence matching a history phrase (`tools/spec_index_rules.json`, `history_phrases`), with the sentence and the phrase it matched: **31 IDs**. The view keeps every one of these sentences (C3). This list was the input to Part E: revision 35 (2026-10-22) moved or rewrote the narratives, with one row per sentence in `docs/spec_revision_35_dispositions.md`, approved by the owner 2026-10-22, so what is listed now is what that pass left in place — rule text, recorded results and cross-references that match a phrase — each a row marked "stays" that gives the reason. Line numbers are the spec's.
 
 ## M1.A.3a (lines 98–101)
 
@@ -11,6 +11,10 @@ Every ID whose body holds a sentence matching a history phrase (`tools/spec_inde
 ## M1.A.4k (line 114)
 
 - *Revision 19 (amended at revision 23, below, which reads pseudo-self of both signs):* the history **MUST** read `functional_level` less any positive pseudo-self — the part over-functioning borrowed. ⟨Revision \d+, \b(?:at|in|since|by|from|until|before|after) revision \d+⟩
+
+## M1.A.7 (line 226)
+
+- The unwritten `Person.programmed_reactivity` field was removed at revision 61. ⟨\b(?:at|in|since|by|from|until|before|after) revision \d+⟩
 
 ## M1.A.11c (lines 248–275)
 
@@ -125,6 +129,6 @@ Every ID whose body holds a sentence matching a history phrase (`tools/spec_inde
 
 - Chosen after seeing that, for the owner. | `test_m11c46_triangle_relief_scales_with_third_help` | D | `third_help` ignored (mutant `triangle-help-ignored`) **MUST** turn this red *Regenerated at revision 32* (`docs/phase_d_ensemble_record.md`): **passes**, `seeker_relief` +1.45 ± 0.11 (100 seeds). ⟨\b(?:at|in|since|by|from|until|before|after) revision \d+⟩
 
-## M16.A.7 (line 1999)
+## M16.A.7 (line 2003)
 
 - **M16.A.7** The header **MUST** record, for each `[I]` constant, whether its value was changed after the acceptance suite first ran against it (`M10.B.4`). ⟨was changed⟩

@@ -105,7 +105,7 @@ def test_m16c4_single_agent_view():
 
 def test_m16c5_trace_carries_header_and_framing():
     for needle in ("seed | 7", "config hash", f"spec revision | {_front_matter_revision()}", "phase_b_reduced",
-                   "constants frozen | 2026-10-07", "M11.F.9", "M11.F.10", "invented", "virtual family"):
+                   "constants frozen | 2026-10-07", "M11.F.9", "M11.F.10", "invented constants", "virtual family"):
         assert needle in TEXT, needle
     assert TEXT.index("What this is") < TEXT.index(TABLE_HEAD)
 
@@ -145,9 +145,9 @@ def test_m16c2_policy_selections_and_belief_writes_are_not_silently_skipped():
     policy = SelectionRecord(tick=1, actor=PersonId("ravi"), decided_by=DecidedBy.POLICY, event_id=None)
     with pytest.raises(UnrenderableRecord, match="emitted nothing"):
         render(RECORDS[:3] + [policy], NAMES)
+    # Belief writes run every week for everyone and are stated once, not listed (revision 61, M16.A.5).
     belief = BeliefWriteRecord(tick=1, holder=PersonId("ravi"), subject="x", value=1.0, true_value=0.0)
-    with pytest.raises(UnrenderableRecord, match="Phase D"):
-        render(RECORDS[:3] + [belief], NAMES)
+    assert render(RECORDS[:3] + [belief], NAMES) == render(RECORDS[:3], NAMES)
 
 
 def test_m16c2_invariant_sentence_reconciles_with_the_records():

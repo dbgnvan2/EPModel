@@ -118,7 +118,7 @@ def test_m1a2_full_scale_is_accepted():
 
 def test_m1a1_reactivity_is_not_stored():
     fields = {f.name for f in dataclasses.fields(Person)}
-    assert not any("reactivity" in name and name != "programmed_reactivity" for name in fields)
+    assert not any("reactivity" in name for name in fields)
 
 
 def test_m1a5a_functional_level_decomposes_into_basic_plus_swing():

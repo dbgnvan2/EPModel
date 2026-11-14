@@ -581,7 +581,7 @@ def test_m5f4_s3_6_demand_share_falls_with_level():
     `(1 − w) × assertion_gain` to the impingement the event delivers, the debit of the target's felt contact is scaled
     by `w`, and the mover's outward axis rises by `(1 − w) × assertion_evidence_gain`. So a mover at level 40 delivers
     more impingement and debits less contact than one at 60, both with perspective 1."""
-    from src.bowen.engine.appraise import _scale, tie_change
+    from src.bowen.engine.appraise import _scale, effective_perspective, tie_change
     from src.bowen.engine.moves import _strength
     from src.bowen.policy.policy import self_channel_weight
 
@@ -595,8 +595,10 @@ def test_m5f4_s3_6_demand_share_falls_with_level():
             calm(state, RAVI)
             week(state)
         assert seq(state).due == ip.DEFINE, level
+        # The perspective `w` reads is the mover's on the tie to the target (M1.A.18d, revision 61).
+        on_tie = effective_perspective(mover, state.tie_between(RAVI, MARTA), PARAMS)
         [event] = [r.event for r in take_owed_step(state) if isinstance(r, EmittedRecord)]
-        w = self_channel_weight(mover.functional_level, PARAMS, perspective=1.0)
+        w = self_channel_weight(mover.functional_level, PARAMS, perspective=on_tie)
         assert 0 < w < 1, (level, w)
         tie = state.ties[TieId.of(RAVI, MARTA)]
         mover.outside_ness_outward = 0.0
@@ -644,3 +646,14 @@ def test_m5d4a_t133_an_angry_mover_at_define_says_it_all_as_demand_and_the_seque
     assert event.demand_share == 1.0 and seq(said_angry) is None
     assert any(name == "iposition:end:said_in_anger" for r in records if isinstance(r, EffectRecord)
                for _, name, _ in r.people)
+
+
+def test_m1a18d_the_demand_share_reads_perspective_on_the_target_tie():
+    """Spec revision 61 (T-243 (2)): `M5.F.4`'s ``w`` reads the mover's perspective on the tie to the target
+    (``appraise.effective_perspective``): with the same held perspective, a loaded tie makes the position more a
+    demand."""
+    def demand(load):
+        state = fresh(perspective=1.0)
+        state.ties[TieId.of(RAVI, MARTA)].felt_impingement[RAVI] = load
+        return ip.demand_share(state, RAVI, MARTA, PARAMS)
+    assert demand(1.0) > demand(0.0)

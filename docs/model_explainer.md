@@ -318,13 +318,14 @@ The **same** rise in `functional_level` means opposite things depending on what 
 
 - `[T]` `KS05.1` — "*Pseudo-self can be the basis of increasing a person's functional level of differentiation*": the aimless young man who finishes college after falling in love "*has borrowed pseudo-self from his romantic partner*"; cult members "*experience similar improvements*."
 - `[T]` `KS05.1` — and it is **not pathological**: "*Everyone borrows and lends self to some degree… This is not a bad thing.*" What distinguishes it is only that **it does not survive withdrawal of the source**.
+- `[I]` How the self-directed row is built (spec revision 61): in a loaded week a self-directed act's rise lowers the person's borrowed pseudo-self by the rise, at most what is borrowed, and that part becomes their own. Holding back (`WITHHOLD`) and lent pseudo-self convert nothing. The fall is logged as `pseudo_self_conversion`, the one change to total pseudo-self `M6.I.4`'s check admits. `M1.A.5c`
 - Because the two channels leave opposite signatures, the event record has to carry **which channel selected the move** (§2.6) — otherwise neither this nor "going toward a goal versus running away from a problem" is recoverable. `M1.F.1a`
 
 ### 3.3 Chronic anxiety — **two quantities, not one**
 
 ⚠ Corrected. What was one field is now a **disposition** and a **state**.
 
-**`programmed_reactivity`** — the disposition. Fixed in childhood from the child's own **witnessed event history**, never from a family average. `M1.A.7`. Built as `chronic_anxiety` fixed at the fixation age (`M7.B.1a`), whose parents' mean is the field term; the field of this name is not written (spec revision 60).
+**`programmed_reactivity`** — the disposition. Fixed in childhood from the child's own **witnessed event history**, never from a family average. `M1.A.7`. Built as `chronic_anxiety` fixed at the fixation age (`M7.B.1a`), whose parents' mean is the field term; the unwritten field of this name was removed at spec revision 61.
 
 **`chronic_anxiety`** — the state, **derived** each slow tick from three terms: that reactivity, **the field** (the system's differentiation and current load), and **the person's functioning position**, which changes. It acts as the floor acute anxiety decays toward but never below. `M1.A.7a`
 
@@ -409,7 +410,7 @@ That is the fixture test 15 needs: two counterfeits at **equal magnitude of the 
 - **Rises** only on a *landed* external contact, conditioned on the agent's binders failing. Never spontaneously, never as a reinforcement target. Four forms of landed contact — specifics, category, **non-participation**, and **delayed self-observation**. `M1.E.7`, `M1.E.7c`
 - **Falls** with acute anxiety. Polarity capture is a **loss** in someone who had it. `M4.C.4`
 - **Rate of change** coupled to `basic_level` — the KB07 interview loosely likens undifferentiation to a setting agent that keeps a person's thinking fixed; if that can be broken up, the thinking can change faster (`KB07` · K07.3). `M1.A.18b` (a rate since revision 9; this line said ceiling until revision 12)
-- **Per-person, attenuated per tie.** Not a per-tie variable: one capacity that **fails at the highest load**. Kerr taught the reciprocity idea for twenty-five years before seeing it in his own marriage. `M1.A.18d`
+- **Per-person, attenuated per tie.** Not a per-tie variable: one capacity that **fails at the highest load**. Kerr taught the reciprocity idea for twenty-five years before seeing it in his own marriage. `M1.A.18d`. `[M]` Since spec revision 61, the loaded-tie gate (`M4.D.3b`) and how much of an `I-POSITION` comes out as a demand (`M5.F.4`) read the perspective as it holds on the target's tie, not the held value.
 
 **Readout:** blame — and it is two-sided **twice over**: blame *or* praise, and blame of **others** *or* of **self**. "*Blaming others and blaming oneself are the enemies of gaining a systems perspective.*" `M1.A.18a`, `KS00.2`
 
@@ -1908,7 +1909,8 @@ changes what is convenient, not what is knowable.
 its full record (§9) plus the **reason it was chosen** — the propensity scores and the draw — and the
 **effect it had** beside it: each receiver's change in anxiety, the tie deltas, any triangle position
 change, any reallocation across the three sinks, and the invariant results for that tick. Belief writes
-(§9.5) are tagged apart from ground truth. Without the reason and the effect, an event log shows behaviour
+(§9.5) are tagged apart from ground truth: each is a `BeliefWriteRecord`, and a tie belief's carries the tie's true
+value, so belief − truth can be read per tick (spec revision 61). Without the reason and the effect, an event log shows behaviour
 and not causation, which is most of what the agent model was supposed to buy over the grid.
 
 **A deterministic renderer turns the log into readable text.** By template, no language model, same log in

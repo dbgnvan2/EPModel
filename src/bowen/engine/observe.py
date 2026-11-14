@@ -31,6 +31,7 @@ from dataclasses import dataclass
 from types import MappingProxyType
 from typing import Mapping
 
+from src.bowen.engine.appraise import effective_perspective
 from src.bowen.engine.contact import band_of as band_of, deviation, excess  # band_of re-exported for the policy
 from src.bowen.engine.events import Role as DeliveryRole
 from src.bowen.engine.identifiers import PersonId, TieId, TriangleId
@@ -58,6 +59,7 @@ class TieView:
     other_alive: bool
     other_external: bool
     investment_share: float = 0.0  # M1.B.8: the share of the person's attention this tie holds (M4.D.1g)
+    effective_perspective: float = 0.0  # M1.A.18d: the person's perspective as it holds on this tie (M4.D.3b)
 
 
 @dataclass(frozen=True)
@@ -123,6 +125,7 @@ def observe(state: RunState, person: PersonId, params: EngineParams) -> Observat
             deviation=deviation(me, tie, params),
             other_alive=state.people[other].alive, other_external=state.people[other].role is Role.EXTERNAL,
             investment_share=investment_share(state, person, tie.id),
+            effective_perspective=effective_perspective(me, tie, params),
         ))
     triangle_for = {}
     for view in ties:

@@ -32,7 +32,7 @@ import math
 from src.bowen.engine.contact import excess
 from src.bowen.engine.events import Delivery, Event, Mechanism, Role
 from src.bowen.engine.identifiers import PersonId
-from src.bowen.engine.log_records import EffectRecord
+from src.bowen.engine.log_records import BeliefWriteRecord, EffectRecord
 from src.bowen.engine.objects import SymptomChannel
 from src.bowen.engine.params import EngineParams
 from src.bowen.engine.state import RunState
@@ -63,7 +63,7 @@ def loci(event: Event, role: str, locus: str) -> dict[PersonId, float]:
 
 def update_attribution(state: RunState, perceived, batch: tuple[Delivery, ...], params: EngineParams) -> list:
     """Purpose: move each person's attribution toward what the moves they sent or were delivered this tick place.
-    Spec:    docs/bowen_agent_model_spec_v2.md#M9.6, #M9.1, #M4.B.2, #M1.F.8
+    Spec:    docs/bowen_agent_model_spec_v2.md#M9.6, #M9.1, #M4.B.2, #M1.F.8, #M16.A.5
     Tests:   tests/bowen/test_attribution.py::test_m96_attribution_is_written_only_from_moves_sent_or_delivered
     """
     seen: dict[PersonId, list[tuple[float, dict[PersonId, float]]]] = {}
@@ -103,9 +103,10 @@ def update_attribution(state: RunState, perceived, batch: tuple[Delivery, ...], 
         before = dict(person.attribution)
         for who in sorted(set(before) | set(observed)):
             person.attribution[who] = (1.0 - rate) * before.get(who, 0.0) + rate * observed.get(who, 0.0)
-        changes += [(pid, f"attribution[{who}]", person.attribution[who] - before.get(who, 0.0))
+        # A belief write, logged apart from ground truth (M16.A.5); attribution has no true-state counterpart.
+        changes += [BeliefWriteRecord(state.tick, pid, f"attribution[{who}]", person.attribution[who], None)
                     for who in sorted(person.attribution) if person.attribution[who] != before.get(who, 0.0)]
-    return [EffectRecord(state.tick, "attribution", None, people=tuple(changes))] if changes else []
+    return changes
 
 
 def update_focus(state: RunState, batch: tuple[Delivery, ...], params: EngineParams) -> list:

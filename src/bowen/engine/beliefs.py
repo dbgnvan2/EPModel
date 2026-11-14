@@ -36,13 +36,15 @@ rule is [I].
 
 from __future__ import annotations
 
+import dataclasses
+
 import math
 from dataclasses import dataclass
 
 from src.bowen.engine.contact import clamp_unit
 from src.bowen.engine.events import Delivery, Event, Mechanism
 from src.bowen.engine.identifiers import PersonId, TieId
-from src.bowen.engine.log_records import EffectRecord
+from src.bowen.engine.log_records import BeliefWriteRecord
 from src.bowen.engine.objects import Person, Relationship
 from src.bowen.engine.params import EngineParams
 from src.bowen.engine.state import RunState
@@ -83,10 +85,13 @@ def update_beliefs(
     state: RunState,
     perceived: dict[PersonId, tuple[tuple[Delivery, Event], ...]],
     params: EngineParams,
-) -> list[EffectRecord]:
+) -> list[BeliefWriteRecord]:
     """Purpose: move each person's beliefs toward what was delivered to them this tick, and nothing else.
-    Spec:    docs/bowen_agent_model_spec_v2.md#M9.8, #M4.B.2, #M1.F.4, #M1.F.8
-    Tests:   tests/bowen/test_beliefs.py::test_m98_belief_written_only_from_delivered_events
+    Spec:    docs/bowen_agent_model_spec_v2.md#M9.8, #M4.B.2, #M1.F.4, #M1.F.8, #M16.A.5, #M16.A.5a
+    Tests:   tests/bowen/test_beliefs.py::test_m98_belief_written_only_from_delivered_events,
+             tests/bowen/test_beliefs.py::test_m16a5_a_tie_belief_write_is_its_own_record_with_its_truth
+
+    Each write is logged as a ``BeliefWriteRecord`` (`M16.A.5`), apart from ground-truth effects.
     """
     seen: dict[tuple[PersonId, TieId], list[tuple[float, float, float]]] = {}
     for pid in sorted(perceived):
@@ -123,11 +128,31 @@ def update_beliefs(
         d_contact = step * (contact - belief.contact)
         belief.tension = clamp_unit(belief.tension + d_tension)
         belief.contact = clamp_unit(belief.contact + d_contact)
+        # The true counterpart is added to the record afterwards by ``with_truth`` (M16.A.5a); the update never reads it.
         if d_tension:
-            changes.append((pid, f"tie_beliefs[{tie}].tension", d_tension))
+            changes.append(BeliefWriteRecord(state.tick, pid, f"tie_beliefs[{tie}].tension", belief.tension, None))
         if d_contact:
-            changes.append((pid, f"tie_beliefs[{tie}].contact", d_contact))
-    return [EffectRecord(state.tick, "belief", None, people=tuple(changes))] if changes else []
+            changes.append(BeliefWriteRecord(state.tick, pid, f"tie_beliefs[{tie}].contact", belief.contact, None))
+    return changes
+
+
+def with_truth(state: RunState, records: list[BeliefWriteRecord]) -> list[BeliefWriteRecord]:
+    """Purpose: put each tie belief's true counterpart on its log record, so the signed discrepancy can be read per
+             tick (`M16.A.5a`). A pure observer of the log: it reads the tie's true state into the record only, after
+             the belief is written, and writes no state.
+    Spec:    docs/bowen_agent_model_spec_v2.md#M16.A.5, #M16.A.5a
+    Tests:   tests/bowen/test_beliefs.py::test_m16a5_a_tie_belief_write_is_its_own_record_with_its_truth
+    """
+    if not records:
+        return records
+    ties = {f"tie_beliefs[{tie_id}]": tie for tie_id, tie in state.ties.items()}
+    out = []
+    for record in records:
+        prefix, _, field_name = record.subject.rpartition(".")
+        tie = ties.get(prefix)
+        truth = getattr(true_counterpart(tie), field_name) if tie is not None else None
+        out.append(dataclasses.replace(record, true_value=truth))
+    return out
 
 
 def true_counterpart(tie: Relationship) -> TieBelief:

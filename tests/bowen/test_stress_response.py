@@ -477,3 +477,43 @@ def test_m1a5f_t131_displaced_coping_is_booked_on_its_own_ledger():
     coped = fresh()
     respond(coped, (Selection(RAVI, "WITHHOLD", (MARTA,), 100.0),), {RAVI: HEAVY}, PARAMS)
     assert coped.people[RAVI].stress_swing > 0.0 and coped.people[RAVI].displaced_swing == 0.0
+
+
+def _convert(kind, pseudo_self):
+    state = fresh()
+    ravi = state.people[RAVI]
+    ravi.basic_level = ravi.functional_level = 40.0
+    ravi.pseudo_self = pseudo_self
+    before = ravi.functional_level
+    records = respond(state, (Selection(RAVI, kind, (MARTA,), 100.0),), {RAVI: LOADED}, PARAMS)
+    return ravi.functional_level - before, ravi.pseudo_self, records
+
+
+def test_m1a5c_a_self_directed_rise_converts_borrowed_pseudo_self():
+    """Spec revision 61 (T-243 (1)): a self-directed rise lowers borrowed pseudo-self by the rise, at most what is
+    borrowed, logged as its own record; holding back, lent pseudo-self and the automatic channel convert nothing."""
+    rise, left, records = _convert("STAY-IN-CONTACT", 5.0)
+    assert 0 < rise < 5.0 and left == pytest.approx(5.0 - rise)
+    [conversion] = [r for r in records if r.mechanism == "pseudo_self_conversion"]
+    assert conversion.people == ((RAVI, "pseudo_self", pytest.approx(-rise)),)
+    rise, left, _ = _convert("STAY-IN-CONTACT", 0.001)
+    assert rise > 0.001 and left == 0.0                                 # at most what is borrowed
+    assert _convert("WITHHOLD", 5.0)[0] > 0 and _convert("WITHHOLD", 5.0)[1] == 5.0
+    assert _convert("STAY-IN-CONTACT", -5.0)[1] == -5.0               # lent pseudo-self is not converted
+    assert _convert("CONFLICT", 5.0)[1] == 5.0
+
+
+def test_m6i4_the_pseudo_self_check_admits_only_a_logged_conversion():
+    """T-243 (1): `M6.I.4`'s check allows total pseudo-self to fall by exactly what a ``pseudo_self_conversion``
+    record logs, and nothing else."""
+    from src.bowen.engine.invariants import pseudo_self_held, snapshot
+    from src.bowen.engine.log_records import EffectRecord
+
+    state = fresh()
+    state.people[RAVI].pseudo_self = 5.0
+    before = snapshot(state)
+    state.people[RAVI].pseudo_self = 3.0
+    logged = (EffectRecord(state.tick, "pseudo_self_conversion", None, people=((RAVI, "pseudo_self", -2.0),)),)
+    other = (EffectRecord(state.tick, "pseudo_self_relaxation", None, people=((RAVI, "pseudo_self", -2.0),)),)
+    assert pseudo_self_held(state, before, logged, 1e-9)
+    assert not pseudo_self_held(state, before, (), 1e-9) and not pseudo_self_held(state, before, other, 1e-9)

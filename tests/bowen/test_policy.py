@@ -85,6 +85,18 @@ def policy_run(ticks=6, seed=3):
     return parts.state, out.records
 
 
+
+def test_m16a3a_a_policy_selection_logs_the_beliefs_it_read():
+    """`M16.A.3a` (T-004): a policy selection's record carries the beliefs its triangle position read, through
+    ``policy.decide`` and ``act._record``; dropping ``beliefs_used=`` at either leaves every record empty."""
+    state, records = policy_run(ticks=6)
+    used = [r for r in records if isinstance(r, SelectionRecord) and r.decided_by is DecidedBy.POLICY and r.beliefs_used]
+    assert used
+    for record in used:
+        believed = state.people[record.actor]  # a person reads beliefs about ties it is not party to
+        assert all(name.endswith(".contact") and 0.0 <= value <= 1.0 for name, value in record.beliefs_used)
+        assert believed.tie_beliefs
+
 # --- one outcome, the legal set, the record ------------------------------------------------
 
 
@@ -171,8 +183,9 @@ def test_m4d3_no_term_raises_reactive_acts_with_anxiety():
 
 
 def test_m4d3a_lower_level_slides_selection_to_older_acts():
+    """`M4.D.3a`: what slides selection down is the fall in functional level; basic level is held fixed (T-004)."""
     def oldest_share(level):
-        probs, outcomes = probs_of(fresh(ravi={"functional_level": level, "basic_level": level}))
+        probs, outcomes = probs_of(fresh(ravi={"functional_level": level, "basic_level": 40.0}))
         auto = [o for o in outcomes if o.channel == AUTOMATIC]
         total = sum(probs[o.label] for o in auto)
         return sum(probs[o.label] for o in auto if KINDS.layers[o.kind] == 0) / total
@@ -187,6 +200,23 @@ def test_m4d3b_loaded_tie_engagement_gated_by_systems_perspective():
         return sum(probs[o.label] for o in outcomes if o.channel == SELF and o.target == MARTA)
     assert self_toward_marta(0.0) == 0.0 < self_toward_marta(1.0)
 
+
+
+def test_m1a18d_the_loaded_tie_gate_reads_perspective_on_that_tie():
+    """Spec revision 61 (T-243 (2)): `M4.D.3b`'s gate reads the perspective the person holds on the target tie
+    (``appraise.effective_perspective``), attenuated by that tie's load, not the held per-person value."""
+    from src.bowen.engine.appraise import effective_perspective
+    from src.bowen.policy.policy import _loaded_gate
+
+    state = fresh(ravi={"systems_perspective": 1.0})
+    tie = state.ties[TieId.of(RAVI, MARTA)]
+    tie.felt_impingement[RAVI] = 1.0  # loaded
+    obs = observe(state, RAVI, PARAMS)
+    on_tie = obs.tie_to(MARTA).effective_perspective
+    assert on_tie == effective_perspective(state.people[RAVI], tie, PARAMS) < obs.systems_perspective
+    _, outcomes = probs_of(state)
+    toward = next(o for o in outcomes if o.channel == SELF and o.target == MARTA)
+    assert _loaded_gate(toward, obs, PARAMS) == on_tie
 
 def test_m4d4_iposition_not_monotone_in_level():
     """Rising level opens the self-directed channel and closes the gap to the position."""
@@ -343,7 +373,9 @@ def test_m4d1f_zero_total_weight_falls_back():
     obs = observe(state, P("bruno"), PARAMS)
     assert [o.label for o in legal_outcomes(obs, KINDS, PARAMS)] == ["REDUCE_CUTOFF>ana"]
     assert decide(obs, KINDS, PARAMS, RULES, DrawService(0)).selection.decided_by is DecidedBy.FALLBACK
-    with_perspective = dataclasses.replace(obs, systems_perspective=1.0)
+    # The gate reads perspective on the tie (M1.A.18d, revision 61), so the tie's view carries it too.
+    ties = tuple(dataclasses.replace(v, effective_perspective=1.0) for v in obs.ties)
+    with_perspective = dataclasses.replace(obs, systems_perspective=1.0, ties=ties)
     assert decide(with_perspective, KINDS, PARAMS, RULES, DrawService(0)).selection.kind == "REDUCE_CUTOFF"
 
 

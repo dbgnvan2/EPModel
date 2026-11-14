@@ -175,3 +175,34 @@ def test_m11c14_bound_side_only_on_a_null():
         Readout("x", +1, bound_side=+1)
     with pytest.raises(ValueError):
         Readout("x", 0, bound_side=2)
+
+
+def test_m17a3_the_runner_uses_the_paired_test_and_holm(monkeypatch):
+    """`M17.A.3` (T-004): the runner's p is the paired signed-rank p on the per-seed differences, and a readout holds
+    only by Holm's correction. Seeds differ far more than the arms do, so an unpaired test would give another p."""
+    from collections import Counter
+
+    import numpy as np
+
+    from src.bowen.ensemble import runner
+    from src.bowen.ensemble.runner import ArmResult
+
+    rng = np.random.default_rng(5)
+    shared, own = rng.normal(0.0, 10.0, 40), rng.normal(0.0, 0.5, 40)
+
+    def arm(value):
+        return ArmResult({"x": float(value), "y": float(value)}, Counter({"CUTOFF": 1}), Counter(), Counter({"ravi": 1}))
+    results = [(i, arm(shared[i]), arm(shared[i] + 3.0 + own[i])) for i in range(40)]
+    criterion = crit((Readout("x", +1), Readout("y", +1)))
+    calls = []
+
+    def fake_holm(p_values, alpha):
+        calls.append((list(p_values), alpha))
+        return [False] * len(p_values)
+    monkeypatch.setattr(runner, "holm", fake_holm)
+    verdict = runner._verdict(criterion, results, True, RULES)
+    diff = (shared + 3.0 + own) - shared
+    expected = signed_rank(diff, margin=RULES["ensemble_margin"] * runner._scale(shared, diff))[2]
+    assert [row["p"] for row in verdict.readouts] == [expected, expected] and expected < RULES["ensemble_alpha"]
+    assert calls == [([expected, expected], RULES["ensemble_alpha"])]
+    assert [row["holds"] for row in verdict.readouts] == [False, False]   # holds is Holm's answer, not p < alpha

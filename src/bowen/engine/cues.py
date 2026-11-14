@@ -50,7 +50,7 @@ from src.bowen.engine.contact import clamp_unit, excess
 from src.bowen.engine.draws import DrawKey
 from src.bowen.engine.events import Delivery, Event, Mechanism, Role
 from src.bowen.engine.identifiers import PersonId
-from src.bowen.engine.log_records import EffectRecord
+from src.bowen.engine.log_records import BeliefWriteRecord
 from src.bowen.engine.objects import SCALE_MAX, Person
 from src.bowen.engine.params import EngineParams
 from src.bowen.engine.signals import CUES, NEUTRAL, NONVERBAL, Cue, SignalChannel, Signals
@@ -293,7 +293,7 @@ def own_leak_share(state: RunState, person: PersonId, other: PersonId, window: i
     return own / total if total > 0 else 0.0
 
 
-def update_cue_beliefs(state: RunState, deliveries, params: EngineParams) -> list[EffectRecord]:
+def update_cue_beliefs(state: RunState, deliveries, params: EngineParams) -> list[BeliefWriteRecord]:
     """Purpose: each target's belief about the cues its sender sends moves toward what it perceived (`M9.9`).
     Spec:    docs/bowen_agent_model_spec_v2.md#M9.9
     Tests:   tests/bowen/test_social_cues.py::test_m99_sc10_belief_moves_toward_the_perceived_cues
@@ -315,6 +315,7 @@ def update_cue_beliefs(state: RunState, deliveries, params: EngineParams) -> lis
         if person.cue_beliefs is None:
             person.cue_beliefs = {}
         person.cue_beliefs[event.sender.value] = moved
-        changes += [(person.id, f"cue_beliefs[{event.sender.value}].{cue.value}", m - b)
+        # Logged apart from ground truth (M16.A.5); a belief about cues has no true-state counterpart.
+        changes += [BeliefWriteRecord(state.tick, person.id, f"cue_beliefs[{event.sender.value}].{cue.value}", m, None)
                     for cue, b, m in zip(CUES, held, moved) if m != b]
-    return [EffectRecord(state.tick, "belief", None, people=tuple(changes))] if changes else []
+    return changes

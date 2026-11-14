@@ -136,7 +136,6 @@ class Person:
     symptom_active: dict[SymptomChannel, bool] = field(
         default_factory=lambda: {channel: False for channel in SymptomChannel}
     )
-    programmed_reactivity: float | None = None
     outside_ness_outward: float | None = None
     outside_ness_inward: float | None = None
     life_energy_ratio: float | None = None
@@ -146,8 +145,7 @@ class Person:
     involvement_weight: float = 0.0
     structural_importance: StructuralTier | None = None
     functional_sibling_position: SiblingPosition | None = None
-    beliefs: dict[str, object] = field(default_factory=dict)
-    # M9.8: belief about each tie the person is not party to.
+    # M9.8 (M1.A.16's beliefs): belief about each tie the person is not party to.
     # Written by ``beliefs.initialise_beliefs`` and step 3's ``beliefs.update_beliefs``.
     tie_beliefs: dict | None = None
     # M9.9: the believed cue vector each partner sends this person, keyed by the partner's id,

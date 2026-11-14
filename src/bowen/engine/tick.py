@@ -50,7 +50,7 @@ from typing import Protocol
 from src.bowen.engine.act import Selection, act, inject, record_deliveries
 from src.bowen.engine.activation import SynchronousActivation
 from src.bowen.engine.appraise import apply_appraisal, perceive
-from src.bowen.engine.beliefs import update_beliefs
+from src.bowen.engine.beliefs import update_beliefs, with_truth
 from src.bowen.engine.consolidate import consolidate
 from src.bowen.engine.cutoff_stock import bridge_ties, cutoff_threat, decay_cutoff_stock
 from src.bowen.engine.event_effects import STRUCTURAL, apply_delivered_cutoffs, apply_structural_event, nodal_spike
@@ -187,7 +187,7 @@ def _run_steps(state: RunState, source: Source, params: EngineParams, visibility
 
     # 3 — perceive.
     perceived = perceive(state, batch)
-    records += update_beliefs(state, perceived, params)
+    records += with_truth(state, update_beliefs(state, perceived, params))  # M16.A.5a: truth on the record only
     records += update_attribution(state, perceived, batch, params)  # M9.6
     records += update_focus(state, batch, params)  # M1.A.11c: what the family's anxious attention focuses
     steps.append("perceive")

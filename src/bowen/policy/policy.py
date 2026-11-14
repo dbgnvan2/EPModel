@@ -208,11 +208,11 @@ def self_score(outcome: Outcome, obs: Observation) -> float:
 
 
 def _loaded_gate(outcome: Outcome, obs: Observation, params: EngineParams) -> float:
-    """M4.D.3b: engagement with a loaded tie is gated by systems perspective."""
+    """M4.D.3b: engagement with a loaded tie is gated by systems perspective as it holds on that tie (M1.A.18d)."""
     if outcome.target is None:
         return 1.0
     view = obs.tie_to(outcome.target)
-    return obs.systems_perspective if view.deviation > params.loaded_tie_threshold else 1.0
+    return view.effective_perspective if view.deviation > params.loaded_tie_threshold else 1.0
 
 
 def channel_weights(outcomes: list[Outcome], obs: Observation, kinds: EventKinds, params: EngineParams,

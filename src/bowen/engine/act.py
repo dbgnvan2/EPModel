@@ -140,7 +140,7 @@ def act(state: RunState, selection: Selection, visibility: HouseholdConductanceV
         # M5.D.4a, revision 41 (T-133 (b), the owner 2026-10-28): the anger gate is read again when the position is
         # said. Angry, the mover says it as the assertion form, all demand, and the sequence ends (``step_done``).
         said_in_anger = iposition.angry(state, selection.actor, selection.targets[0], params)
-        demand = 1.0 if said_in_anger else iposition.demand_share(state, selection.actor, params)  # M5.F.4
+        demand = 1.0 if said_in_anger else iposition.demand_share(state, selection.actor, selection.targets[0], params)  # M5.F.4
     if state.kinds.mechanism_of(selection.kind) is not Mechanism.MOVE:
         raise ValueError(f"{selection.kind} is not a move")
     event = Event(

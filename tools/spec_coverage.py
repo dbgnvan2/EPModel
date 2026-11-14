@@ -182,9 +182,9 @@ MODULE_PHASES = [
     (r"^M8\.[678]", "C", ""), (r"^M2\.", "D", "the twelve-person reference family"),
     (r"^M10\.", "C or D", ""), (r"^M11\.G", "D", ""), (r"^M11\.E", "C, D or E", "M11.E"),
     (r"^M11\.D", "C", ""), (r"^M11\.", "C", "acceptance-test rules"),
-    (r"^M12\.", "", "a prohibition, checked by review in every phase"),
+    (r"^M12\.", "", "a prohibition, checked by review"),
     (r"^M15\.", "E", ""), (r"^M16\.D", "C", ""), (r"^M16\.E", "F", ""), (r"^M16\.", "C", ""),
-    (r"^M17\.A\.[134]$", "C", "M13.4"), (r"^M17\.", "E", ""), (r"^M14\.", "", "every phase"),
+    (r"^M17\.A\.[134]$", "C", "M13.4"), (r"^M17\.", "E", ""), (r"^M14\.", "", "a cross-cutting rule, checked by review"),
     (r"^M13\.", "C", ""), (r"^M3\.", "C", ""), (r"^M0\.", "C", ""),
 ]
 

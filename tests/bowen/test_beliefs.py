@@ -15,6 +15,8 @@ import ast
 import inspect
 import textwrap
 
+import pytest
+
 from src.bowen.engine.beliefs import TieBelief, true_counterpart, update_beliefs
 from src.bowen.engine.events import Channel, Delivery, Event, EventId, Mechanism, Role, SourcePosition
 from src.bowen.engine.identifiers import PersonId, TieId
@@ -160,3 +162,18 @@ def test_m98_check_catches_an_update_calling_true_counterpart():
         "clamp_unit(max(0.0, impingement) * strength)", "true_counterpart(tie).tension")
     assert mutant != inspect.getsource(update_beliefs)
     assert true_counterpart.__name__ in names_used(mutant)
+
+
+def test_m16a5_a_tie_belief_write_is_its_own_record_with_its_truth():
+    """Spec revision 61 (T-004): a belief write is a ``BeliefWriteRecord``, not a ground-truth effect, and after
+    ``with_truth`` it carries the tie's true counterpart, so belief − truth is computable per tick (`M16.A.5a`)."""
+    from src.bowen.engine.beliefs import true_counterpart, with_truth
+    from src.bowen.engine.log_records import BeliefWriteRecord, EffectRecord
+
+    state = fresh()
+    records = with_truth(state, update_beliefs(state, delivered(state, [move("CONFLICT", 150.0)]), PARAMS))
+    assert records and all(isinstance(r, BeliefWriteRecord) and not isinstance(r, EffectRecord) for r in records)
+    [tension] = [r for r in records if r.holder == NADIA and r.subject == f"tie_beliefs[{MARITAL}].tension"]
+    truth = true_counterpart(state.ties[MARITAL]).tension
+    assert tension.value == state.people[NADIA].tie_beliefs[MARITAL].tension
+    assert tension.discrepancy() == pytest.approx(tension.value - truth)

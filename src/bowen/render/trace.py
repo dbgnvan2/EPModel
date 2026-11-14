@@ -73,6 +73,7 @@ SYSTEM_SUMMARISED = frozenset({
     "outside_ness", "belief", "functioning_settle", "competing_urges", "withhold", "learning", "sink_allocation",
     "self_practice", "stress_response", "soothing_review", "witnessed_cutoff", "attribution", "family_focus", "pseudo_self_relaxation",
     "pseudo_self_return",  # Lent functioning returns with lost capacity
+    "pseudo_self_conversion",  # M1.A.5c: a self-directed rise converts borrowed pseudo-self
     "danger_contact", "felt_danger",  # weekly, read from received intrusion (M1.B.3e)
 })  # every week, everyone; stated once
 
@@ -375,7 +376,7 @@ def render(
         "The standing load, the decay toward each person's floor, the relaxation of felt contact, "
         "symptom accumulation, a symptom's weekly hold on the family's anxiety (lock-in; what it gives back is shown), "
         "investment, the reactive "
-        "detectors, outside-ness, attribution, the family's focus and borrowed pseudo-self settling back run every "
+        "detectors, outside-ness, belief writes (logged apart from ground truth), attribution, the family's focus and borrowed pseudo-self settling back run every "
         "week for everyone "
         "and are not listed line by line. Effects are shown beside the event that caused them.",
         "",
@@ -407,7 +408,7 @@ def render(
             if record.event_id is None and (view is None or view == record.actor):
                 lines.append(_held_row(record, label))
         elif isinstance(record, BeliefWriteRecord):
-            raise UnrenderableRecord("rendering belief writes is Phase D (M16.A.5)")
+            pass  # belief writes run every week for everyone and are stated once (M16.A.5)
         elif not isinstance(record, DeliveredRecord):
             raise UnrenderableRecord(f"no template for record {type(record).__name__}")
     if asserted == weeks:

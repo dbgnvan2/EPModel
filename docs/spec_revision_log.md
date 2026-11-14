@@ -6,6 +6,19 @@ The spec holds the current rules; this file holds how they got there. Until revi
 
 The sections `### Revision 34` to `### Revision 5` and the undated section are the spec's text as it stood, moved whole; a statement inside one of them (revision 34's, that revisions 13 to 33 are "not here") was true when written, before the bodies' narratives were moved under their own revisions. Those narratives are the bullets `- \`ID\`: sentence`, each the sentence as it stood in the body, under the revision it names, in sections titled "inline narratives moved from the bodies at revision 35" where no section existed.
 
+### Revision 61 — T-243 and the rest of T-004, 2026-11-14 ⟦rev61 · T-243 and T-004, owner 2026-11-14⟧
+
+The engine hash moves. One batch, so the records are regenerated once. The owner's answers of 2026-11-14 decided the
+form of `M1.A.5c`, the unwritten fields, the belief log and the two missing named tests.
+
+- **`M1.A.5c`, `M6.I.4` (T-243 (1)).** A self-directed rise lowers borrowed pseudo-self by the rise, at most what is
+  borrowed, logged as `pseudo_self_conversion`; `M6.I.4`'s check admits only that logged fall.
+- **`M1.A.18d`, `M5.F.4` (T-243 (2)).** The `M4.D.3b` gate and `M5.F.4`'s `w` read perspective on the target's tie.
+- **`M16.A.5`, `M16.A.5a`.** Belief writes are `BeliefWriteRecord`s; a tie belief's carries its true counterpart.
+- **`M1.A.7`, `M1.A.16`, the register.** `Person.programmed_reactivity` and `Person.beliefs` removed; the rows for
+  `taboo_set` and the two togetherness fields name no writer; six built mechanisms get rows (`M14.A.2`, `M14.A.3`).
+- **`M11.D.12`.** Marked not built (T-244). `M1.F.2`'s named test is written.
+
 ### Revision 60 — T-004's spec–code disagreements, 2026-11-14 ⟦rev60 · T-004, owner 2026-11-14⟧
 
 Wording only; the engine hash does not move. Each disagreement T-004 recorded on 2026-10-20 was checked against the

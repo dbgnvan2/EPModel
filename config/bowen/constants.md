@@ -74,8 +74,8 @@
 >   evidence a year into a rise, scaled by the falloff and the self-directed share.
 > - **Tie wear.** At mean chronic anxiety 40, a tie loses 2% of its conductance a year; ten `STAY-IN-CONTACT` acts on it
 >   offset that year's wear entirely.
-> - **The sweep.** `M1.A.4c`'s sensitivity sweep over window and breadth is added when `M11.C.18` first reads the
->   estimator.
+> - **The sweep.** `M1.A.4c`'s sensitivity sweep over window and breadth is not built: `M11.C.18` reads the estimator,
+>   and the stage-end sweep leaves both out (`config/sweep/sweep.md`). Open as T-245.
 
 frozen_at: 2026-10-07
 activation_regime: synchronous

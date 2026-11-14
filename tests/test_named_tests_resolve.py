@@ -31,12 +31,10 @@ NOT_BUILT = "names the test of a requirement not built yet; written when it is b
 # here is a name to fix, and `tests/test_lint.py::test_s3_22_ruff_f_clean` fails while one is listed.
 SOURCE_ALLOWED: dict[str, str] = {}
 
-# Names in the spec that do not resolve: tests T-004 lists as named by the spec and not written (M1.F.2's needs a
-# test of its own clause; M11.D.12 is not built), and tests the spec names for requirements that are not built
+# Names in the spec that do not resolve: tests the spec names for requirements that are not built
 # (spec_coverage.md: not done), which are written when the requirement is.
 SPEC_ALLOWED = {
-    "test_m1f2_same_kind_moves_receiver_on_opposite_sides": NOT_WRITTEN,  # M1.F.2, T-004
-    "test_m11d12_corpus_magnitudes_are_not_config_keys": NOT_WRITTEN,  # M11.D.12, T-004
+    "test_m11d12_corpus_magnitudes_are_not_config_keys": NOT_BUILT,  # M11.D.12: M10.C.4b's checks module (T-244)
     "test_m11c9_position_effect_peaks_midscale": NOT_BUILT,  # M11.C.9, out of version 1
     "test_m11c28_sink_mobility_is_protective": NOT_BUILT,  # M11.C.28
     "test_m17b4_time_to_event_report_does_not_collapse_a_bimodal_fixture": NOT_BUILT,  # Phase E

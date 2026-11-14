@@ -158,7 +158,7 @@ def _release_binder(state: RunState, event: Event) -> EffectRecord:
         triangles = ()
     else:
         raise NotImplementedError(
-            "external-agent responsibility (M1.E.3) is built in Phase C; Phase B cannot release it"
+            "external-agent responsibility (M1.E.3) is not built; nothing holds it, so nothing can release it"
         )
     state.family.undifferentiation_budget += held
     return EffectRecord(

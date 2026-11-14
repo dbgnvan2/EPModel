@@ -13,7 +13,7 @@ What each check means:
   completed differentiating exchange (its one sink) and ``binder_unavailable``'s return.
 * M6.I.2 — the sinks are exactly the three, so distance is not one of them.
 * M6.I.3 — ``life_energy_ratio`` is unset or within [0, 1] (life energy is not built).
-* M6.I.4 — total pseudo-self is unchanged by the tick.
+* M6.I.4 — total pseudo-self is unchanged by the tick, except by logged ``pseudo_self_conversion`` (M1.A.5c).
 * M6.I.5 — ``basic_level`` is unchanged by a fast tick.
 * **M6.I.6 — the ledger of `M6.4`.** Every person's change in acute
   anxiety over the tick equals the sum of the changes the tick's records log for them, every
@@ -180,6 +180,15 @@ def budget_problems(state: RunState, before: Snapshot, records, tolerance: float
     return problems
 
 
+def pseudo_self_held(state: RunState, before: Snapshot, records, tolerance: float) -> bool:
+    """M6.I.4: total pseudo-self is unchanged by the tick except by what the week's self-directed rises converted,
+    logged by name as ``pseudo_self_conversion`` (M1.A.5c, revision 61)."""
+    converted = math.fsum(v for r in records if getattr(r, "mechanism", None) == "pseudo_self_conversion"
+                          for _, name, v in r.people if name == "pseudo_self")
+    total = math.fsum(p.pseudo_self or 0.0 for p in state.people.values())
+    return abs(total - before.pseudo_self_total - converted) <= tolerance
+
+
 def assert_invariants(
     state: RunState,
     before: Snapshot,
@@ -209,11 +218,8 @@ def assert_invariants(
             "M6.I.3",
             "life_energy_ratio outside [0, 1]",
         ),
-        require(
-            abs(math.fsum(p.pseudo_self or 0.0 for p in state.people.values()) - before.pseudo_self_total) <= tolerance,
-            "M6.I.4",
-            "total pseudo-self changed",
-        ),
+        require(pseudo_self_held(state, before, records, tolerance), "M6.I.4",
+                "total pseudo-self changed by other than the logged conversions"),
         require(
             tuple((p, state.people[p].basic_level) for p in sorted(state.people)) == before.basic_levels,
             "M6.I.5",

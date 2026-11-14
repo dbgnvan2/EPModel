@@ -8,7 +8,7 @@
 > (`M10.B.2`).
 >
 > The two policy classes are the spec's own lists: `M5.B.4` names the family→external moves and `M5.B.5` the external
-> agent's repertoire (`M1.E.3`'s and `M1.E.4`'s acts are Phase D and not yet moves). `side_taking` is revision 32's
+> agent's repertoire (`M1.E.3`'s and `M1.E.4`'s acts are not built and are not moves; both are not done in `docs/spec_coverage.md`). `side_taking` is revision 32's
 > choice for `M8.3`, approved by the owner 2026-10-17: `SPLIT`, consulting the professional without telling the
 > others (Ch19 · L19.3), is the move that draws an external agent onto its sender's side.
 >

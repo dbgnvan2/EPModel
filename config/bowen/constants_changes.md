@@ -14,6 +14,10 @@
 > moved out of the code into `act_classes.md` (`M8.3`, `M5.B.4`, `M5.B.5`) are lists of act names, not constants, and
 > their contents did not change.
 >
+> **Spec revision 61 (2026-11-14, T-243 and T-004) changed no constant**, so it has no row here. `M1.A.5c`'s conversion
+> adds none (the fall is the rise, at most what is borrowed). `constants.md`'s note on `M1.A.4c`'s sweep and
+> `act_classes.md`'s note on `M1.E.3`/`M1.E.4` were reworded; no value changed.
+>
 > **Spec revision 59 (2026-11-12, the engine batch, T-001 step 3) changed no constant's value.** Its one row retires
 > `fast_tick_weeks` (1), removed from `constants.md`: no code read it, and `M3.A.1` makes the fast tick one week by
 > definition, so it is a retired key that fails at load if written (T-219 (10)); the frozen snapshots keep it as they

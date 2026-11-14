@@ -93,7 +93,7 @@ full table.
   the ASR no-quotation rule. It must never judge a wording: D5a and D5b were retired on 2026-11-10 for it
   (`docs/plan_doc_claim_tests.md`), so do not rebuild them.
 - Run tests before declaring done: `python3 -m pytest tests/`
-- **A red suite is never normal — 1456 tests: 1454 pass and 2 are strict expected failures** (each marked
+- **A red suite is never normal — 1457 tests: 1455 pass and 2 are strict expected failures** (each marked
   `xfail(strict=True)` with a reason naming why, so it turns the suite red if it starts passing: `M5.B.3`'s third-party
   cost (G1's A6); and `test_m5d3_abort_is_the_usual_first_outcome`, which no longer holds after spec revision 41's
   T-133 (T-158, kept as a finding by the owner 2026-10-31)). Measured 2026-11-13 on this Mac with `python3 -m pytest tests/`;

@@ -21,6 +21,7 @@ Records read:
 - Phase C mutation record (`docs/phase_c_mutation_record.md`): engine_hash `95368d6ddf18`
 - Phase D mutation record (`docs/phase_d_mutation_record.md`): engine_hash `75fd45e9778a`
 - Sweep record (`docs/version_2_sweep_record.md`): engine_hash `95368d6ddf18`, phase_d_engine_hash `75fd45e9778a`
+- Emergence audit record (`docs/emergence_audit_record.md`): engine_hash `6b9771549f9c`
 - the tag's page (`docs/version_1_status.md`): the verdicts at `version-1`
 - this page as committed at `9ebf327`: the verdicts at spec revision 38
 
@@ -39,6 +40,8 @@ Rows by status:
 - out of scope: 4
 - pass: 37
 - pass, proved by a test: 1
+
+Learning (`docs/emergence_audit_record.md`): of 37 passing rows, 11 are audited with all learning removed; 9 still pass and 2 need learning (`M11.C.2[twelve-person family]`, `M11.C.55`); 1 of those 2 held their sweep direction in every sample (`M11.C.55`). Not audited: `M11.C.39` (the audit's Scope says why).
 
 Verdicts not the one this page gave at revision 38: 11 of 69 rows: `M11.C.2[twelve-person family]` (FAIL → PASS), `M11.C.7[joint over one spouse]` (FAIL → PASS), `M11.C.44` (PASS → FAIL), `M11.C.48` (PASS → FAIL), `M11.C.49` (new since revision 38 → FAIL), `M11.C.50` (new since revision 38 → FAIL), `M11.C.51` (new since revision 38 → FAIL), `M11.C.52` (new since revision 38 → PASS), `M11.C.53` (new since revision 38 → FAIL), `M11.C.54` (new since revision 38 → FAIL), `M11.C.55` (new since revision 38 → PASS).
 

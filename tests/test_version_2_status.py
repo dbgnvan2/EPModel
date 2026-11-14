@@ -262,6 +262,34 @@ def test_s2_11_records_read_shows_every_hash_a_record_keys_by():
     assert all(f"{kind} `{value[:12]}`" in line for kind, value in hashes.items())
 
 
+def test_t235_summary_shows_the_learning_dependent_tally(tmp_path):
+    """T-235 (T-229, owner 2026-11-12): the summary shows, beside the pass count, the emergence audit's tally. A row
+    needs learning when it is red or reversed with learning removed; it is robust when its sweep direction held in
+    every counted sample with none errored. An audit of an earlier engine is marked stale, and a stale sweep is not
+    read for robustness (P6)."""
+    audit = tmp_path / "audit.md"
+    block = {"engine_hash": "abc", "scope": {"audited": 4, "passing": 6, "excluded": ["M11.C.39"]},
+             "verdicts": [{"criterion": "M11.C.16", "verdict": "survived"}, {"criterion": "M11.C.2", "verdict": "red"},
+                          {"criterion": "M11.C.55", "verdict": "reversed"}, {"criterion": "M11.C.7", "verdict": "red"}]}
+    audit.write_text("# a\n\nengine_hash: abc\n\n```json\n" + json.dumps(block) + "\n```\n", encoding="utf-8")
+    fractions = {"M11.C.16": "8 of 8 held", "M11.C.2": "3 of 8 held", "M11.C.55": "8 of 8 held",
+                 "M11.C.7": "7 of 7 held (1 errored, not counted)"}
+    with mock.patch.object(tool, "audit_engine_hash", return_value="abc"):
+        t = tool.learning_tally(audit, fractions)
+    assert (t["audited"], t["passing"], t["survived"]) == (4, 6, 1)
+    assert t["need"] == ["M11.C.2", "M11.C.55", "M11.C.7"] and t["robust"] == ["M11.C.55"]
+    assert t["excluded"] == ["M11.C.39"] and t["stale"] is False
+    with mock.patch.object(tool, "audit_engine_hash", return_value="other"):
+        assert tool.learning_tally(audit, fractions)["stale"] is True
+    assert tool.learning_tally(audit, None)["robust"] is None  # sweep of an earlier engine: robustness not read
+    assert tool.learning_tally(tmp_path / "missing.md", fractions) is None
+    # the committed page carries the tally line right after the status counts
+    current = tool.learning_tally(tool.AUDIT_RECORD, tool.sweep_fractions(tool.SWEEP_RECORD))
+    lines = tool.render(tool.statuses()).splitlines()
+    at = lines.index(tool.tally_line(current))
+    assert lines[at - 1] == "" and lines[at - 2].startswith("- ")
+
+
 # Version 2's dispositions (docs/archive/version_2_definition_plan.md §3).
 
 def _v2(key, kind, verdict, decided="owner 2026-10-29"):

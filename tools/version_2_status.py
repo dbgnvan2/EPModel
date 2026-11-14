@@ -44,6 +44,10 @@ The rules, version 1's (``docs/version_1_definition.md`` §1, approved 2026-10-1
   fraction from a sweep record made on an engine that is not the current one (its ``engine_hash`` or
   ``phase_d_engine_hash`` line differs) is shown with the hash it was measured on and does not count for W4: it
   measured rules the engine no longer has (P6; the review of 2026-10-26, stage 3 step 10).
+* The **learning tally** under the status counts (T-235; T-229, owner 2026-11-12) is read from the emergence audit
+  record: of the audited passing rows, how many need learning (red or reversed with all learning removed) and how many
+  of those are robust (the sweep direction held in every counted sample, none errored). An audit of an earlier engine
+  is marked stale; a stale sweep is not read for robustness.
 """
 
 from __future__ import annotations
@@ -64,6 +68,7 @@ from tools.record_json import record_json  # noqa: E402
 PAGE = REPO / "docs" / "version_2_status.md"
 TAG_PAGE = v1.PAGE                       # docs/version_1_status.md, frozen at the tag `version-1`
 SWEEP_RECORD = REPO / "docs" / "version_2_sweep_record.md"
+AUDIT_RECORD = REPO / "docs" / "emergence_audit_record.md"
 CHANGED = "changed since the tag `version-1`, pending the owner's review (T-122)"
 REVIEWED = "changed since the tag `version-1`, reviewed by the owner"
 V2_DISPOSITIONS = REPO / "docs" / "version_2_dispositions.md"
@@ -173,6 +178,51 @@ def sweep_stale(path: Path = SWEEP_RECORD) -> str | None:
     if not moved:
         return None
     return (f"measured on {', '.join(moved)}, not the current engine; not counted for W4 until the sweep is rerun")
+
+
+def audit_engine_hash() -> str:
+    """The hash the emergence audit's results are keyed by now (``tools/emergence_audit.py``'s ``engine_hash``)."""
+    from tools.emergence_audit import engine_hash
+
+    return engine_hash()
+
+
+def learning_tally(path: Path, fractions: dict[str, str] | None) -> dict | None:
+    """The emergence audit's tally (T-235), or None when there is no audit record. ``need`` lists the audited passing
+    rows that are red or reversed with learning removed; ``robust`` those of them whose sweep cell is *S of S held*
+    with none errored, or None when ``fractions`` is None (a sweep of an earlier engine is not read)."""
+    if not path.exists():
+        return None
+    block = record_json(path)
+    need = [v["criterion"] for v in block["verdicts"] if v["verdict"] in ("red", "reversed")]
+    robust = None
+    if fractions is not None:
+        robust = [k for k in need
+                  if (m := re.fullmatch(r"(\d+) of (\d+) held", fractions.get(k, ""))) and m[1] == m[2]]
+    return {"audited": block["scope"]["audited"], "passing": block["scope"]["passing"],
+            "survived": sum(v["verdict"] == "survived" for v in block["verdicts"]), "need": need, "robust": robust,
+            "excluded": block["scope"]["excluded"], "stale": block["engine_hash"] != audit_engine_hash()}
+
+
+def tally_line(t: dict | None) -> str:
+    """The summary's learning line, rendered from ``learning_tally``."""
+    if t is None:
+        return f"Learning (`{AUDIT_RECORD.relative_to(REPO)}`): not yet generated."
+
+    def keys(ks):
+        return " (" + ", ".join(f"`{k}`" for k in ks) + ")" if ks else ""
+
+    robust = ("robustness not read: the sweep record is of an earlier engine" if t["robust"] is None else
+              f"{len(t['robust'])} of those {len(t['need'])} held their sweep direction in every sample"
+              + keys(t["robust"]))
+    line = (f"Learning (`{AUDIT_RECORD.relative_to(REPO)}`): of {t['passing']} passing rows, {t['audited']} are audited "
+            f"with all learning removed; {t['survived']} still pass and {len(t['need'])} need learning"
+            f"{keys(t['need'])}; {robust}.")
+    if t["excluded"]:
+        line += f" Not audited: {', '.join(f'`{k}`' for k in t['excluded'])} (the audit's Scope says why)."
+    if t["stale"]:
+        line += " The audit is of an earlier engine, so this tally is not current."
+    return line
 
 
 def sweep_fractions(path: Path = SWEEP_RECORD) -> dict[str, str]:
@@ -462,7 +512,8 @@ def render(rows: list[Status]) -> str:
         return [f"`{s.key}`" for s in rows if condition in s.blocks]
 
     hashes = []
-    for name, path in (*v1.ENSEMBLE_RECORDS, *v1.MUTATION_RECORDS, ("Sweep record", SWEEP_RECORD)):
+    for name, path in (*v1.ENSEMBLE_RECORDS, *v1.MUTATION_RECORDS, ("Sweep record", SWEEP_RECORD),
+                       ("Emergence audit record", AUDIT_RECORD)):
         if not path.exists():
             hashes.append(f"- {name} (`{path.relative_to(REPO)}`): not yet generated")
             continue
@@ -508,7 +559,8 @@ def render(rows: list[Status]) -> str:
     for s in rows:
         counts[s.status] = counts.get(s.status, 0) + 1
     moved = [s for s in rows if s.at_revision_38 != s.verdict]
-    lines += ["", "Rows by status:", *[f"- {k}: {v}" for k, v in sorted(counts.items())], "",
+    tally = learning_tally(AUDIT_RECORD, None if sweep_old else sweep_fractions(SWEEP_RECORD))
+    lines += ["", "Rows by status:", *[f"- {k}: {v}" for k, v in sorted(counts.items())], "", tally_line(tally), "",
               f"Verdicts not the one this page gave at revision 38: {len(moved)} of {len(rows)} rows"
               + (": " + ", ".join(f"`{s.key}` ({s.at_revision_38} → {s.verdict})" for s in moved) if moved else "")
               + ".", "",

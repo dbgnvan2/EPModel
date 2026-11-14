@@ -14,6 +14,7 @@ was moved whole). Those items have no records. Open items are indexed in `TODO.m
 - T-241 · closed 2026-11-12 · Decide: `M11.C.48[phase_d]`'s status-page row, and `M11.D.9`'s exact count … · [record](todo/2026-11-11_whole_repo_review.md)
 - T-239 · closed 2026-11-12 · Fix: the engine-batch parts of T-233 (2026-11-12) · [record](todo/2026-11-11_whole_repo_review.md)
 - T-237 · closed 2026-11-12 · Mutants: the learning signal's decay baseline and its … · [record](todo/2026-11-11_whole_repo_review.md)
+- T-235 · closed 2026-11-12 · Fix: the status page's summary shows the learning-dependent … · [record](todo/2026-11-11_whole_repo_review.md)
 - T-234 · closed 2026-11-12 · Fix: I-POSITION is illegal while a sequence runs … · [record](todo/2026-11-11_whole_repo_review.md)
 - T-233 · closed 2026-11-12 · Decide: smaller questions from the review (2026-11-11) · [record](todo/2026-11-11_whole_repo_review.md)
 - T-232 · closed 2026-11-12 · Decide: a command that runs the learning family … · [record](todo/2026-11-11_whole_repo_review.md)

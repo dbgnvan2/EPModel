@@ -165,3 +165,74 @@ without `M11.F`'s framing) was entered in the spec text directly, marked ⟦prop
     (represented-vs-enacted identity probe), IR3 (log the scaffold state) — same treatment as the X-series.
   - **Owner questions.** None about theory. The only owner decisions are adoption ones: whether to fold these into
     Phase E (`M17`) reporting/mutant conventions, and whether IR1–IR3 join the existing X-series protocol items.
+- [ ] T-136 ⟨later⟩ **Method proposals from the 2026-10-26 batch.** Added 2026-10-26 by owner request; held for a later
+  revision on the same terms as the earlier batches. Six papers read in full from the 2026-10-26 method-literature
+  digest: Wu et al. 2026, *AgentMonopoly* (2610.29330; AM1–AM4), Bai et al. 2026, *Consistent but Biased: Chair
+  Personas* (2610.31325; CP1–CP3), Kang et al. 2026, *What Makes a Social Agent's Interactions Effective* / HICO-Bench
+  (2610.20195; HC1–HC4), Siahkamari et al. 2026, *To Manipulate or Not* (2610.28875; MN1–MN4), Kwok et al. 2026,
+  *Beyond Small Talk* / TraDE (2610.29413; DS1–DS4), and Yonezawa 2026, *Affective Viscosity* (2610.29674; AV1, AV2).
+  The five deep-review candidates flagged in `DIGEST.md` were AgentMonopoly, Chair Personas, HICO-Bench, To Manipulate
+  or Not, and TraDE; *Affective Viscosity* was surfaced by screening the wider digest because its accumulating-negative-
+  affect model bears on the chronic-anxiety mechanism. In `papers/SWEEP_READING_REPORTS_2026-10-26.md`; plain-language
+  version in `papers/SPEC_CANDIDATES_plain_language_2026-10-26.md`.
+  - **Scope note.** 17 of the 21 candidates are inference-validity items — tests (AM1–AM3, HC1–HC3, DS1, MN3, CP2) and
+    reporting rules (AM4, CP1, MN1, MN2, MN4, DS2–DS4), mostly Phase E (`M17`) / `M11` / `M16` readouts. Three are
+    *mechanism* changes needing an owner theory decision: CP3 (anxiety-driven avoidance resolves to deferral or
+    buck-passing, not inaction; buck-passing gated on accountability), AV1 (symptom/discharge gated by time-integrated
+    load, not instantaneous anxiety), AV2 (appraisal sensitizes to repeated same-source events). HC4 (inter-judge
+    agreement for the LLM line) is narrator-line only.
+  - **Narrator-line items (do not enter the v2 spec).** HC4 — same treatment as the X-series.
+  - **Owner questions.** CP3 (does Bowen rule out paralysis, or is avoidance always distance/triangle?), AV1 (is symptom
+    onset gated by accumulated load rather than acute spikes?), AV2 (does a repeated same-source provocation escalate
+    until discharge?). The other 18 are adoption decisions only: fold into Phase E (`M17`) reporting/mutant conventions,
+    and whether HC4 joins the X-series protocol items.
+- [ ] T-249 ⟨later⟩ **Method proposals from the 2026-11-02 batch.** Added 2026-11-02 by owner request; held for a later
+  revision on the same terms as the earlier batches. Three papers read in full from the 2026-11-02 method-literature
+  digest: Pan et al. 2026, *Your Agent Acts Differently When You're Around* / PRESENT (2610.36435; UP1, UP2, UP4, UP5),
+  Lin et al. 2026, *Exploring AI Peer in Collaborative Mathematics Learning* (2610.38990; AP1, AP2, AP3), and Marks &
+  Vollberg 2026, *The psychophysics of affect in large language models* (2610.40985; PA1, PA2, PA3, PA4). PRESENT was the
+  one deep-review candidate flagged in `DIGEST.md`; the other two were surfaced by screening because they map onto the
+  persona → behaviour gap and appraisal → state (affect) concerns respectively. In
+  `papers/SWEEP_READING_REPORTS_2026-11-02.md`; plain-language version in
+  `papers/SPEC_CANDIDATES_plain_language_2026-11-02.md`.
+  - **Scope note.** Three of the eleven candidates are *mechanism* / theory changes needing an owner theory decision: AP1
+    (a Person's role lives in appraisal/beliefs, not as a `Person` attribute), AP3 (appraisal is timing-dependent —
+    premature support appraisable as controlling, withheld support as abandonment), PA1 (appraisal's intensity → felt
+    anxiety mapping is reference-relative, not a fixed linear gain). The other eight are inference-validity, reporting,
+    or mutant-convention items for Phase E (`M17`) / `M11` / `M16`: UP1 (presence-without-content control arm), UP2
+    (behavioral counts per opportunity, exposure-controlled), UP4 (validate any readout instrument against an independent
+    annotation before tests cite it), UP5 (random-effects pooling preserving between-source disagreement), AP2
+    (differentiation readouts must not collapse "smooth/useful" into "mature"), PA2 (parenthesise unidentifiable
+    parameters under near-deterministic behavior), PA3 (mechanism must beat a per-unit flexible baseline, not only a
+    pooled one), PA4 ("does X drive behavior" only interpretable where X is present in the decision context).
+  - **Narrator-line items (do not enter the v2 spec).** None this week — no X/IR-labelled candidates.
+  - **Owner questions.** AP1 (does Bowen's relational account require roles to be held in appraisal rather than as
+    `Person` attributes?), AP3 (is appraisal genuinely timing-dependent — premature vs withheld support?), PA1 (is the
+    intensity → felt-anxiety mapping reference-relative with diminishing sensitivity, or a fixed linear gain?). The
+    other eight are adoption decisions only: fold into Phase E (`M17`) reporting/mutant conventions.
+- [ ] T-250 ⟨later⟩ **Method proposals from the 2026-11-09 batch.** Added 2026-11-09 by owner request; held for a later
+  revision on the same terms as the earlier batches. Four papers read in full from the 2026-11-09 method-literature
+  digest: Djurdjevac Conrad et al. 2026, *Measuring Model-Specific Alignment Drift* (2611.03980; MD1–MD4), Greiche et al.
+  2026, *A Framework for Context Enrichment and Selective Robustness* (2611.06914; SR1, SR2), Downes et al. 2026, *Same
+  Method, Different Task / Bitter Lesson* (2611.05717; BL1, BL2), and Boone et al. 2026, *Does Personality Persuade?*
+  (2611.06572; DP1–DP3). The two deep-review candidates flagged in `DIGEST.md` were Alignment Drift and Selective
+  Robustness; *Bitter Lesson* and *Does Personality Persuade?* were surfaced by screening because they map onto the
+  inference-validity stance and the persona → behaviour gap respectively. In
+  `papers/SWEEP_READING_REPORTS_2026-11-09.md`; plain-language version in
+  `papers/SPEC_CANDIDATES_plain_language_2026-11-09.md`.
+  - **Scope note.** None of the eleven candidates is a theory change — all are inference-validity, reporting, or
+    mutant-convention items for Phase E (`M17`) / `M11` / `M16` / `M1.A`: MD1 (opposite-coded indicators + internal-
+    consistency and straight-lining reporting for composite readouts), MD2 (no-interaction control preserves
+    self-expression and is subtracted per arm, refining C34), MD3 (sign retention + per-person displacement reported as
+    distributions, not means), MD4 (robustness claimed as ordering preservation, not parameter preservation), SR2
+    (readout imputation must be disclosed with a direction-preservation sensitivity check), BL1 (survivorship imputation
+    bounds on readouts computed over living persons), BL2 (non-binding-consequence mutant for bundled state-plus-
+    consequence mechanisms, complementing C17).
+  - **Narrator-line items (do not enter the v2 spec).** SR1 (declared function per context block in the LLM line), DP1
+    (an unconditioned/"neutral" LLM baseline is itself a persona and must be measured), DP2 (cross-trait spillover in Big
+    Five prompting must be measured and reported), DP3 (LLM-assisted annotation requires forced evidence, human oversight,
+    and condition-blindness) — same treatment as the X-series.
+  - **Owner questions.** None about theory. The only owner decisions are adoption ones: whether to fold MD1–MD4, SR2,
+    BL1 and BL2 into Phase E (`M17`) reporting/mutant conventions, and whether SR1 and DP1–DP3 join the existing X-series
+    protocol items. MD3 carries one minor dependency: "sign retention" needs a declared position axis (which position is
+    being held) before it can be written as a readout.

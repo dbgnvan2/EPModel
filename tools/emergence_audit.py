@@ -124,7 +124,7 @@ CARRIERS = (
     _mutant("C3", CARRIER, (_constant("focus_steer_gain", "1.0", "0.0"),), "focus steering off (`M4.D.1g`)"),
     _mutant("C4", CARRIER, (_constant("perspective_steer_gain", "0.5", "0.0"),), "perspective steering off (`M4.D.1a`)"),
     _mutant("C5", CARRIER, ((POLICY,
-             "    return obs.systems_perspective if view.deviation > params.loaded_tie_threshold else 1.0\n",
+             "    return view.effective_perspective if view.deviation > params.loaded_tie_threshold else 1.0\n",
              "    return 1.0\n"),),
             "loaded-tie gate off (`M4.D.3b`)"),
     _mutant("C6", CARRIER, (_constant("competing_urge_gain", "0.5", "0.0"),), "competing urges off (`M4.D.1d`)"),

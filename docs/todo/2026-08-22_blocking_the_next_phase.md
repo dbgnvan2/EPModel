@@ -23,7 +23,7 @@
   (`docs/plan_engine_batch_2026-11-12.md`), the engine hash moved from `d3779684dd53` to `95368d6ddf18`, and
   the record-current tests are strict expected failures until the records are regenerated. Step 4 done 2026-11-12: every record regenerated once on
   `95368d6ddf18` (`docs/version_3_revision_59_changes.md`); `M11.C.34` and `M11.C.10[family of origin]` moved PASS → FAIL, so W1 waits on the owner's call on `M11.C.10[family of origin]` (`M11.C.34`'s FAIL is final under version 1's accepted finding); T-237 run, T-242's P5 text drafted, approved by the owner 2026-11-13; 5 of the LLM experiment's 31 runs are now `not_replayable` (accepted as recommended, approved by the owner 2026-11-13). The stage-end sweep done 2026-11-13 on `95368d6ddf18`, split across both Macs (`docs/version_2_sweep_record.md`): W2–W4 met, W1 not met on `M11.C.10[family of origin]` alone. 2026-11-13: after a probe (a detection-limit outcome of its fixed seeds, no one rule's effect) the owner accepted its FAIL as a finding (`docs/version_2_dispositions.md`), so W1–W4 are met. The owner decided 2026-11-13, as recommended, no tag: Q1 (a) of 2026-11-09 stands (`docs/archive/implementation_plan_version_2_definition.md` §10). Done.*
-- [ ] T-002 ⟨now⟩ **`/csdp` sweep of 2026-10-19, items not fixed** (each with its reason; the last three are the fix re-sweep's
+- [x] T-002 ⟨now⟩ **`/csdp` sweep of 2026-10-19, items not fixed** (each with its reason; the last three are the fix re-sweep's
   minor items, recorded under the owner's three-or-fewer rule).
   - The owner's Holmes–Rahe Q3 ("additions carry load", decided 2026-10-19) cited `KS07.1`, which §2 then misdescribed
     as a visit that raised a symptom; the source says it improved the wife's functioning. The decision stands with a
@@ -42,7 +42,9 @@
     (`git show version-1:tools/version_1_status.py`) or puts the new tool under its own test first. Since 2026-10-20
     `tools/spec_coverage.py` imports its `dispositions()` parser (the dispositions file is frozen with it), so
     `tests/bowen/test_spec_coverage.py` runs that one function; its record readers no longer fit the part II record.
-- [ ] T-003 ⟨now⟩ **Coverage page, minor, from the Part A review (2026-10-20), not fixed.** (1) `tools/spec_coverage.py`'s
+  *Closed 2026-11-14 (owner): the Holmes–Rahe citation is under T-013; Linux CI has been green since; the two test gaps are
+  minor and dropped; `tools/version_1_status.py` is kept, as `tools/version_2_status.py` and `tools/spec_coverage.py` import it.*
+- [ ] T-003 ⟨later⟩ **Coverage page, minor, from the Part A review (2026-10-20), not fixed.** (1) `tools/spec_coverage.py`'s
   `BUILT_PHASES` (A–D) is a constant nothing checks: when Phase E is built, the notes keep saying "Phase E builds it
   and is not built yet" until it is edited. (2) A spec row amended by appending keeps its old "not met", so a criterion
   whose clause is later met stays *partial* until the row is reworded (the safe side). (3)

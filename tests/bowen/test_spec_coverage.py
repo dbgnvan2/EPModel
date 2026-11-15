@@ -106,7 +106,8 @@ def test_m141_accepted_finding_shows_its_disposition():
         row = rows[key.split("[")[0]]
         assert d["reason"] in row["note"], key
         if row["status"] == "done":
-            assert f"{key.split('[')[0]} PASS" in row["note"], key  # done only on a pass the records show
+            # done only on a pass the records show; a key with a variant is named in full (`M11.C.7[...]`)
+            assert f"{key} PASS" in row["note"] or f"{key.split('[')[0]} PASS" in row["note"], key
 
 
 def test_m141_version_2_disposition_replaces_version_1():

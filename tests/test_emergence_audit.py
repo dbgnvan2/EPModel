@@ -109,12 +109,14 @@ def test_m111g_ea1_the_real_scope_is_the_plans():
     `M11.C.39` excluded as the control, and the two cue rows that pass since spec revision 55, `M11.C.52` and
     `M11.C.55` (Claude's recommendation 2026-11-11, approved by the owner 2026-11-11: `M11.1g` audits every passing composite
     row, so they enter by its rule). Since spec revision 59's regeneration (T-001 step 4, 2026-11-12) `M11.C.34` and
-    `M11.C.10[family of origin]` fail, so they leave the scope by the same rule: eleven rows."""
+    `M11.C.10[family of origin]` fail, so they leave the scope by the same rule: eleven rows. Since spec revision 61's
+    regeneration (2026-11-14) `M11.C.10[family of origin]`, `M11.C.17`, `M11.C.49` and `M11.C.7[one spouse over sided]`
+    pass, so they enter by it: fifteen rows."""
     audited, rows, by_class, excluded = ea.in_scope(ea.read_records(), ea.read_config())
     ea.check_registries(rows)
     keys = {r.key for r in audited}
-    assert len(audited) == 11 and {"M11.C.48[phase_d]", "M11.C.52", "M11.C.55"} <= keys
-    assert not keys & {"M11.C.34", "M11.C.10[family of origin]"}
+    assert len(audited) == 15 and {"M11.C.48[phase_d]", "M11.C.52", "M11.C.55", "M11.C.10[family of origin]"} <= keys
+    assert "M11.C.34" not in keys
     assert [k for k, _ in excluded] == ["M11.C.39"]
     # T-192 (owner 2026-11-05): M11.C.41's two level cells have only premise limbs, so they leave the scope.
     level_cells = ["M11.C.41[light: lower level]", "M11.C.41[heavy: lower level]"]

@@ -647,25 +647,25 @@ def test_t189_c16_row_l0_sentence_follows_the_audit_record():
     import tools.c16_report as report
 
     committed = report.RENDERED["spec_row"]
-    assert "inverting availability reverses it (+0.0122 ± 0.002, 100 seeds)" in committed
-    assert "with availability removed as well it is red, not reversed (+0.00142 ± 0.0015, 100 seeds)" in committed
+    assert "inverting availability reverses it (+0.0111 ± 0.0017, 150 seeds)" in committed
+    assert "with availability removed as well it is red (-0.000328 ± 0.0013, 150 seeds)" in committed
     records = copy.deepcopy(report._records())
     same = report.render(*records, audit=_c16_audit(
         {"C7:availability-and-learner-removed": {"verdict": "reversed"},
          "C7:availability-level-inverted": {"verdict": "survived"}}))["spec_row"]
     assert "inverting availability leaves it passing" in same
-    assert "it is reversed (+0.00142" in same and "not reversed" not in same
+    assert "it is reversed, not red (-0.000328" in same
     other = report.render(*records, audit=_c16_audit(
         {"C7:availability-and-learner-removed": {"verdict": "survived"},
          "C7:availability-level-inverted": {"verdict": "red"}}))["spec_row"]
     assert "inverting availability turns it red" in other
-    assert "it is still passing, not reversed (+0.00142" in other
+    assert "it is still passing, not red (-0.000328" in other
     mutants = copy.deepcopy(records[0])
     for row in mutants:
         if row["criterion"] == "M11.C.16" and row["mutant"] == "learner-disabled":
-            row["seeds"] = 100
-    with pytest.raises(SystemExit, match="different seed counts"):
-        report.render(mutants, *records[1:])
+            row["seeds"] = 120
+    # The runner stops a run when it converges, so the two learner-disabled runs may differ: each count is stated.
+    assert "(120 seeds alone, 150 with availability removed)" in report.render(mutants, *records[1:])["spec_row"]
     gone = _c16_audit({})
     for entry in gone["carriers"]:
         if entry["criterion"] == "M11.C.16":

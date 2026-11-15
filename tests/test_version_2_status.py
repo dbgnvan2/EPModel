@@ -284,7 +284,8 @@ def test_t235_summary_shows_the_learning_dependent_tally(tmp_path):
     assert tool.learning_tally(audit, None)["robust"] is None  # sweep of an earlier engine: robustness not read
     assert tool.learning_tally(tmp_path / "missing.md", fractions) is None
     # the committed page carries the tally line right after the status counts
-    current = tool.learning_tally(tool.AUDIT_RECORD, tool.sweep_fractions(tool.SWEEP_RECORD))
+    fresh = None if tool.sweep_stale(tool.SWEEP_RECORD) else tool.sweep_fractions(tool.SWEEP_RECORD)
+    current = tool.learning_tally(tool.AUDIT_RECORD, fresh)  # read as the page reads it: a stale sweep is not read
     lines = tool.render(tool.statuses()).splitlines()
     at = lines.index(tool.tally_line(current))
     assert lines[at - 1] == "" and lines[at - 2].startswith("- ")

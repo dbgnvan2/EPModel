@@ -330,15 +330,17 @@ So C.16 stays partial in `docs/spec_coverage.md` (the tool reads the unmet claus
     L0_IS = {"reversed": "reversed", "red": "red", "survived": "still passing"}
     both = l0["availability-and-learner-removed"]["verdict"]
     runs = {m: c16[m]["seeds"] for m in ("learner-disabled", "availability-and-learner-removed")}
-    if len(set(runs.values())) != 1:  # the sentence gives one seed count for both learner-disabled runs
-        raise SystemExit(f"M11.C.16's learner-disabled runs have different seed counts: {runs}")
+    # The runner adds seeds until a run converges (src/bowen/ensemble/runner.py), so the two runs can differ.
+    seed_text = (f"{runs['learner-disabled']} seeds" if len(set(runs.values())) == 1 else
+                 f"{runs['learner-disabled']} seeds alone, {runs['availability-and-learner-removed']} with "
+                 "availability removed")
     L0_SENTENCE = (
         f" With all four learning paths removed (`M11.1g`'s L0, `docs/emergence_audit_record.md`), inverting "
         f"availability {L0_VERB[l0['availability-level-inverted']['verdict']]} ({la('availability-level-inverted')}), "
         f"and with availability removed as well it is {L0_IS[both]}"
         + (f", not {WORD[al]}" if both != al else "")
         + f" ({la('availability-and-learner-removed')}); the learner-disabled results above are the mutation "
-        f"record's runs, with `M4.D.6` disabled ({c16['availability-and-learner-removed']['seeds']} seeds)."
+        f"record's runs, with `M4.D.6` disabled ({seed_text})."
         + " ⟦rev49 · owner 2026-11-05, T-189⟧")
     SPEC_ROW = (
         "| M11.C.16 | Composite | — | *Checked 2026-10-08 from `M11.1d`'s mutants (`docs/phase_c_mutation_record.md`); "

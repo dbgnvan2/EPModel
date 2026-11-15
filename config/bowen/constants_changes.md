@@ -14,6 +14,9 @@
 > moved out of the code into `act_classes.md` (`M8.3`, `M5.B.4`, `M5.B.5`) are lists of act names, not constants, and
 > their contents did not change.
 >
+> **Spec revision 62 (2026-11-15, T-247 and T-248) changed no constant**, so it has no row here. The lenders' share of
+> a conversion (`M1.A.5c`) is the converted amount split as `M6.I.4a`'s return splits it; it adds none.
+>
 > **Spec revision 61 (2026-11-14, T-243 and T-004) changed no constant**, so it has no row here. `M1.A.5c`'s conversion
 > adds none (the fall is the rise, at most what is borrowed). `constants.md`'s note on `M1.A.4c`'s sweep and
 > `act_classes.md`'s note on `M1.E.3`/`M1.E.4` were reworded; no value changed.

@@ -6,6 +6,18 @@ The spec holds the current rules; this file holds how they got there. Until revi
 
 The sections `### Revision 34` to `### Revision 5` and the undated section are the spec's text as it stood, moved whole; a statement inside one of them (revision 34's, that revisions 13 to 33 are "not here") was true when written, before the bodies' narratives were moved under their own revisions. Those narratives are the bullets `- \`ID\`: sentence`, each the sentence as it stood in the body, under the revision it names, in sections titled "inline narratives moved from the bodies at revision 35" where no section existed.
 
+### Revision 62 — T-247 and T-248, 2026-11-15 ⟦rev62 · T-247 and T-248, owner 2026-11-14 and 2026-11-15⟧
+
+The engine hash moves. One batch, so the records are regenerated once. The owner decided T-247 on 2026-11-14 and, on
+2026-11-15, that a lender's functional level is unchanged by it and that `M16.A.5a` states the truth's timing.
+
+- **`M1.A.5c`, `M6.I.4` (T-247).** A conversion lowers the lenders' lent pseudo-self by the amount converted, split as
+  `M6.I.4a`'s return splits it, in the borrower's `pseudo_self_conversion` record (one per borrower); a lender's functional level is unchanged.
+- **`M6.I.4` (T-248).** The check admits a conversion record's rises only as far as its falls.
+- **`M16.A.5`, `M16.A.5a` (T-248).** An entry's resting tie beliefs are logged as `BeliefWriteRecord`s; the truth is
+  read at step 3, before step 4's appraisal; a tie belief naming no tie raises. The trace's dead `"belief"` and
+  `"attribution"` entries are removed.
+
 ### Revision 61 — T-243 and the rest of T-004, 2026-11-14 ⟦rev61 · T-243 and T-004, owner 2026-11-14⟧
 
 The engine hash moves. One batch, so the records are regenerated once. The owner's answers of 2026-11-14 decided the

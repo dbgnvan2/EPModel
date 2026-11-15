@@ -115,7 +115,8 @@
   `M6.3a`'s test: a move emitted before a death is logged as a `DeliveredRecord` to the dead person a tick later. It
   moves none of their state (appraisal, beliefs and attribution skip the dead), but the log shows a delivery `M6.3a`
   says the dead no longer perceive. Decide: drop it at delivery, or log it as undeliverable.
-- [ ] T-247 ⟨later⟩ **`M1.A.5c`: a lender's lent pseudo-self has no way back once the borrower converts (2026-11-14).**
+- [x] T-247 ⟨later⟩ **`M1.A.5c`: a lender's lent pseudo-self has no way back once the borrower converts (2026-11-14).**
+  *Built 2026-11-15 at spec revision 62; the lender's functional level is unchanged (owner 2026-11-15).*
   Both review passes of revision 61. `relax_pseudo_self` and `return_lent_functioning` (`src/bowen/engine/moves.py`)
   move lent pseudo-self back only while the borrower holds a positive amount, and the conversion leaves the lender
   unchanged (the owner's choice, 2026-11-14), so a borrower who converts all of a loan leaves the lender at the lent
@@ -123,9 +124,17 @@
   lender with it as own level. **Decided (owner, 2026-11-14):** lower the lenders' lent with the conversion, split as
   the return splits it, in the same `pseudo_self_conversion` record. Not built in revision 61; it goes in the next
   engine batch with T-248.
-- [ ] T-248 ⟨later⟩ **Revision 61's low review findings (2026-11-14).** Each a hash-moving change, kept for the next
+- [x] T-248 ⟨later⟩ **Revision 61's low review findings (2026-11-14).** *Built 2026-11-15 at spec revision 62; the
+  truth's timing is stated in `M16.A.5a`, the call left at step 3 (owner 2026-11-15).* Each a hash-moving change, kept for the next
   engine batch: `invariants.pseudo_self_held` admits a `pseudo_self_conversion` record of either sign (count only
   falls); `beliefs.with_truth` leaves `true_value` `None` silently when a `tie_beliefs[...]` subject matches no tie
   (raise); a newborn's resting tie beliefs (`life_course._introduce`) are written with no `BeliefWriteRecord`;
   `with_truth` reads the truth at step 3, before step 4's appraisal of the same deliveries (state the timing in
   `M16.A.5a`, or move the call); `"belief"` and `"attribution"` in `trace.SYSTEM_SUMMARISED` are dead entries.
+- [ ] T-251 ⟨later⟩ **Revision 62's low review findings (2026-11-15).** Kept for a later engine batch:
+  `beliefs.with_truth` raises `ValueError`, which `run_tick` does not catch, so a tick failing there is not logged
+  before the raise (T-239 (d)); unreachable today, since no tie is ever removed. `moves.lenders_of` reads any negative
+  pseudo-self as lent and any positive as borrowed, so a starting swing (`initialise_functioning`) converts and
+  returns as if it were a loan, and one scalar cannot say whose loan a lender's lent is. The founders' starting tie
+  beliefs (`initialise_beliefs`) are not logged, where an entrant's are. The trace test
+  (`test_t248_every_mechanism_the_trace_names_is_one_the_engine_emits`) reads literal mechanism names only.

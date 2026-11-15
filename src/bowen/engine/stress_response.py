@@ -18,7 +18,9 @@ Tests:   tests/bowen/test_stress_response.py
     ``response_down_gain × load / 100 × (1 − basic_level / 100)``;
   - any other act leaves it, except a displacing act (``displace``, below).
   A self-directed rise also converts borrowed pseudo-self: it falls by the rise, at most what is borrowed, logged as
-  ``pseudo_self_conversion`` (`M1.A.5c`, revision 61). ``WITHHOLD`` and lent pseudo-self convert nothing.
+  ``pseudo_self_conversion`` (`M1.A.5c`, revision 61). The lenders' lent falls by the same amount, split in
+  proportion to what each holds lent (``moves.lenders_of``), in the borrower's record (one per borrower); their functional level is unchanged
+  (T-247, revision 62). ``WITHHOLD`` and lent pseudo-self convert nothing.
   Nothing writes "a higher level copes": which channel a person chooses already rises with level (`M4.D.1a`), and the
   sizes scale with it.
 * **Displaced coping** (``displace``, revision 39, `M1.A.5f`). A loaded person's act of a kind listed as *displacing*
@@ -46,11 +48,13 @@ Every form and constant is [I].
 
 from __future__ import annotations
 
+import math
+
 from src.bowen.engine.act import SELF_CHANNEL, WITHHOLD
 from src.bowen.engine.contact import steepness
 from src.bowen.engine.events import Mechanism
 from src.bowen.engine.log_records import DecidedBy, EffectRecord
-from src.bowen.engine.moves import holds_position, stress_floor
+from src.bowen.engine.moves import holds_position, lenders_of, stress_floor
 from src.bowen.engine.objects import SCALE_MAX, Role
 from src.bowen.engine import rejection
 from src.bowen.engine.params import EngineParams
@@ -235,10 +239,18 @@ def respond(state: RunState, selections, load: dict, params: EngineParams) -> li
             if moved > 0 and borrowed > 0 and state.kinds.channels.get(kind) == SELF_CHANNEL:
                 converted = min(moved, borrowed)
                 person.pseudo_self = borrowed - converted
-                conversions.append((pid, "pseudo_self", -converted))
+                entries = [(pid, "pseudo_self", -converted)]
+                # T-247 (revision 62, owner 2026-11-14): the lenders' lent falls with it, split as `M6.I.4a`'s return
+                # splits it, none past what they lent; their functional level is unchanged (owner 2026-11-15).
+                lenders = lenders_of(state, pid)
+                lent = math.fsum(-o.pseudo_self for o in lenders)
+                for lender in lenders:
+                    share = min(converted * -lender.pseudo_self / lent, -lender.pseudo_self)
+                    lender.pseudo_self += share
+                    entries.append((lender.id, "pseudo_self", share))
+                conversions.append(tuple(entries))  # one record per borrower, so M6.I.4's check reads each (T-248)
         if moved:
             rows.append((pid, "functional_level", moved))
     records = [EffectRecord(state.tick, "stress_response", None, people=tuple(rows))] if rows else []
-    if conversions:
-        records.append(EffectRecord(state.tick, "pseudo_self_conversion", None, people=tuple(conversions)))
+    records += [EffectRecord(state.tick, "pseudo_self_conversion", None, people=entries) for entries in conversions]
     return records

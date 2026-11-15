@@ -318,7 +318,7 @@ The **same** rise in `functional_level` means opposite things depending on what 
 
 - `[T]` `KS05.1` — "*Pseudo-self can be the basis of increasing a person's functional level of differentiation*": the aimless young man who finishes college after falling in love "*has borrowed pseudo-self from his romantic partner*"; cult members "*experience similar improvements*."
 - `[T]` `KS05.1` — and it is **not pathological**: "*Everyone borrows and lends self to some degree… This is not a bad thing.*" What distinguishes it is only that **it does not survive withdrawal of the source**.
-- `[I]` How the self-directed row is built (spec revision 61): in a loaded week a self-directed act's rise lowers the person's borrowed pseudo-self by the rise, at most what is borrowed, and that part becomes their own. Holding back (`WITHHOLD`) and lent pseudo-self convert nothing. The fall is logged as `pseudo_self_conversion`, the one change to total pseudo-self `M6.I.4`'s check admits. `M1.A.5c`
+- `[I]` How the self-directed row is built (spec revision 61): in a loaded week a self-directed act's rise lowers the person's borrowed pseudo-self by the rise, at most what is borrowed, and that part becomes their own. Holding back (`WITHHOLD`) and lent pseudo-self convert nothing. The fall is logged as `pseudo_self_conversion`, the one change to total pseudo-self `M6.I.4`'s check admits. Since spec revision 62 (T-247) the people who lent it see their lent pseudo-self fall by the same amount, split in proportion to what each holds lent, in the borrower's record (one per borrower), and their functional level does not move: what they lent and did not get back becomes their own level, so the estimator no longer credits them with a loan that can never return. The check admits a conversion record's rises only as far as its falls. `M1.A.5c`
 - Because the two channels leave opposite signatures, the event record has to carry **which channel selected the move** (§2.6) — otherwise neither this nor "going toward a goal versus running away from a problem" is recoverable. `M1.F.1a`
 
 ### 3.3 Chronic anxiety — **two quantities, not one**
@@ -1910,7 +1910,8 @@ its full record (§9) plus the **reason it was chosen** — the propensity score
 **effect it had** beside it: each receiver's change in anxiety, the tie deltas, any triangle position
 change, any reallocation across the three sinks, and the invariant results for that tick. Belief writes
 (§9.5) are tagged apart from ground truth: each is a `BeliefWriteRecord`, and a tie belief's carries the tie's true
-value, so belief − truth can be read per tick (spec revision 61). Without the reason and the effect, an event log shows behaviour
+value, so belief − truth can be read per tick (spec revision 61). The truth is the tie's state when the belief is
+written, at step 3, before that week's appraisal; the resting beliefs an entry writes are logged too (spec revision 62). Without the reason and the effect, an event log shows behaviour
 and not causation, which is most of what the agent model was supposed to buy over the grid.
 
 **A deterministic renderer turns the log into readable text.** By template, no language model, same log in

@@ -454,3 +454,20 @@ def test_m16c2_a_remitted_symptom_renders_as_ending():
     zero = EffectRecord(first.timestamp, "binder_unavailable", first.id, sinks=(("undifferentiation_budget", 0.0),))
     text = render(RECORDS + [zero], NAMES)
     assert "the symptom ends" in text and "0.0 returned to the family budget" not in text
+
+
+def test_t248_every_mechanism_the_trace_names_is_one_the_engine_emits():
+    """T-248 (spec revision 62): each name in the trace's three mechanism sets is the mechanism of an ``EffectRecord``
+    the engine builds, or one passed to ``bind_into_tie``; a dead entry ("belief", "attribution") fails."""
+    emitted = set()
+    for path in Path("src/bowen").rglob("*.py"):
+        for node in ast.walk(ast.parse(path.read_text())):
+            if not isinstance(node, ast.Call):
+                continue
+            name = getattr(node.func, "id", getattr(node.func, "attr", None))
+            if name == "EffectRecord":
+                given = [*node.args[1:2], *(k.value for k in node.keywords if k.arg == "mechanism")]
+                emitted.update(g.value for g in given if isinstance(g, ast.Constant))
+            elif name == "bind_into_tie" and isinstance(node.args[-1], ast.Constant):
+                emitted.add(node.args[-1].value)
+    assert (trace.CAUSED | trace.SYSTEM_SHOWN | trace.SYSTEM_SUMMARISED) - emitted == set()

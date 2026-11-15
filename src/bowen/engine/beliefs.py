@@ -139,7 +139,9 @@ def update_beliefs(
 def with_truth(state: RunState, records: list[BeliefWriteRecord]) -> list[BeliefWriteRecord]:
     """Purpose: put each tie belief's true counterpart on its log record, so the signed discrepancy can be read per
              tick (`M16.A.5a`). A pure observer of the log: it reads the tie's true state into the record only, after
-             the belief is written, and writes no state.
+             the belief is written, and writes no state. In the week, the truth is read at step 3, when the belief is
+             written, before step 4 appraises the same deliveries (T-248, revision 62). A ``tie_beliefs[...]`` subject
+             that names no tie raises.
     Spec:    docs/bowen_agent_model_spec_v2.md#M16.A.5, #M16.A.5a
     Tests:   tests/bowen/test_beliefs.py::test_m16a5_a_tie_belief_write_is_its_own_record_with_its_truth
     """
@@ -149,8 +151,12 @@ def with_truth(state: RunState, records: list[BeliefWriteRecord]) -> list[Belief
     out = []
     for record in records:
         prefix, _, field_name = record.subject.rpartition(".")
-        tie = ties.get(prefix)
-        truth = getattr(true_counterpart(tie), field_name) if tie is not None else None
+        truth = None
+        if prefix.startswith("tie_beliefs["):
+            tie = ties.get(prefix)
+            if tie is None:  # T-248 (revision 62): a tie belief with no tie is a defect, not a record with no truth
+                raise ValueError(f"belief record {record.subject!r} names no tie in the field")
+            truth = getattr(true_counterpart(tie), field_name)
         out.append(dataclasses.replace(record, true_value=truth))
     return out
 

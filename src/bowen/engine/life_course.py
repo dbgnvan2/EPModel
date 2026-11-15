@@ -47,14 +47,14 @@ import math
 from dataclasses import dataclass, field
 
 from src.bowen.engine.act import SELF_CHANNEL
-from src.bowen.engine.beliefs import TieBelief
+from src.bowen.engine.beliefs import TieBelief, with_truth
 from src.bowen.engine.contact import excess, initialise_contact
 from src.bowen.engine.draws import DrawKey
 from src.bowen.engine.event_sizes import sized_intensity
 from src.bowen.engine.events import Channel, Event, EventId, Mechanism, SourcePosition
 from src.bowen.engine.identifiers import PersonId, TieId, child_id
 from src.bowen.engine.invariants import InvariantViolation
-from src.bowen.engine.log_records import EffectRecord
+from src.bowen.engine.log_records import BeliefWriteRecord, EffectRecord
 from src.bowen.engine.moves import initialise_functioning
 from src.bowen.engine.objects import (
     REACTIVE_DETECTORS, SCALE_MAX, Family, Person, Relationship, Role, Sex, SiblingPosition, Sink, SymptomChannel,
@@ -213,8 +213,11 @@ def total_anxiety(state: RunState) -> float:
             + math.fsum(t.bound_anxiety for t in state.triangles.values()))
 
 
-def _introduce(state: RunState, person: Person, ties: list[Relationship], params: EngineParams) -> None:
-    """A person and their ties enter the field with the starting state ``initialise_run`` gives founders."""
+def _introduce(state: RunState, person: Person, ties: list[Relationship],
+               params: EngineParams) -> list[BeliefWriteRecord]:
+    """A person and their ties enter the field with the starting state ``initialise_run`` gives founders. Each resting
+    tie belief it writes, the entrant's and everyone's about the added ties, is returned as its own record with its
+    truth (`M16.A.5`, T-248, revision 62)."""
     state.add_person(person)
     initialise_outside_ness({person.id: person}, params)
     initialise_functioning({person.id: person}, {})
@@ -227,12 +230,20 @@ def _introduce(state: RunState, person: Person, ties: list[Relationship], params
         return TieBelief(tension=0.0, contact=params.interactive_resting_contact)
 
     person.tie_beliefs = {tid: resting() for tid in sorted(state.ties) if person.id not in tid.members()}
+    written = [(person.id, tid) for tid in person.tie_beliefs]
     for pid in sorted(state.people):
         other = state.people[pid]
         if pid != person.id and other.tie_beliefs is not None:
-            for tid in added:
+            for tid in sorted(added):
                 if pid not in tid.members():
                     other.tie_beliefs[tid] = resting()
+                    written.append((pid, tid))
+    records = []
+    for pid, tid in written:
+        belief = state.people[pid].tie_beliefs[tid]
+        records += [BeliefWriteRecord(state.tick, pid, f"tie_beliefs[{tid}].tension", belief.tension, None),
+                    BeliefWriteRecord(state.tick, pid, f"tie_beliefs[{tid}].contact", belief.contact, None)]
+    return with_truth(state, records)
 
 
 def _new_person(pid: PersonId, role: Role, sex: Sex, household: str, basic: float, chronic: float,
@@ -326,7 +337,7 @@ def due_events(state: RunState) -> tuple[Event, ...]:
 # --- the slow tick ---------------------------------------------------------------------------------------------
 
 
-def yearly(state: RunState, params: EngineParams) -> list[EffectRecord]:
+def yearly(state: RunState, params: EngineParams) -> list[EffectRecord | BeliefWriteRecord]:
     """Purpose: the life course's part of the slow tick, in the module docstring's order.
     Spec:    docs/bowen_agent_model_spec_v2.md#M7.C.1, #M3.B.1
     Tests:   tests/bowen/test_life_course.py
@@ -335,7 +346,7 @@ def yearly(state: RunState, params: EngineParams) -> list[EffectRecord]:
     if life is None:
         return []
     life.slow_ticks += 1
-    records: list[EffectRecord] = []
+    records: list[EffectRecord | BeliefWriteRecord] = []
     rows: list[tuple] = []
     for pid in sorted(state.people):
         person = state.people[pid]
@@ -684,7 +695,7 @@ def find_work(state: RunState, load: dict, params: EngineParams) -> list[EffectR
 # --- the coach's career --------------------------------------------------------------------------------------------
 
 
-def _retire_coach(state: RunState, params: EngineParams) -> list[EffectRecord]:
+def _retire_coach(state: RunState, params: EngineParams) -> list[EffectRecord | BeliefWriteRecord]:
     """M2.A.0k: at the retirement age the coach's tie goes quiet and a successor starts over with the coachee."""
     life = state.life
     if life.coach is None:
@@ -706,14 +717,14 @@ def _retire_coach(state: RunState, params: EngineParams) -> list[EffectRecord]:
     successor = _new_person(PersonId(f"{coach.id.value}_successor"), Role.EXTERNAL, life.settings.successor_sex,
                             f"{coach.id.value}_successor", basic, chronic, channel, None,
                             params.coach_start_age_years, dependent=False, earner=True)
-    _introduce(state, successor, [_tie(successor.id, coachee, values)], params)
+    beliefs = _introduce(state, successor, [_tie(successor.id, coachee, values)], params)
     _redistribute_investment(state, coachee, TieId.of(successor.id, coachee), params)  # M7.C.1a
     life.coach = successor.id
     life.pending.append(_life_event(state, RETIREMENT, f"life:retire:{coach.id}", (coachee,)))
     life.pending.append(_addition_load(state, RETIREMENT_LOAD, f"life:retire:{coach.id}", (coachee,), params,
                                        who="tie", reach=coach_bond / SCALE_MAX))
     return [EffectRecord(state.tick, "coach_retirement", None,
-                         people=((coach.id, "inactive", 1.0), (successor.id, "entered", 1.0)))]
+                         people=((coach.id, "inactive", 1.0), (successor.id, "entered", 1.0))), *beliefs]
 
 
 # --- partners and births -------------------------------------------------------------------------------------------
@@ -730,7 +741,7 @@ def _origin_ties(state: RunState, person: PersonId) -> tuple[TieId, ...]:
     return tuple(sorted(t.id for t in state.ties_of(person) if t.id.other(person) in set(parents) | siblings))
 
 
-def _pair(state: RunState, params: EngineParams) -> list[EffectRecord]:
+def _pair(state: RunState, params: EngineParams) -> list[EffectRecord | BeliefWriteRecord]:
     """M7.C.1h: a member reaching a partner row's pairing age pairs with that partner, who enters from the settings."""
     life, settings, records = state.life, state.life.settings, []
     for row in settings.partners:
@@ -747,9 +758,9 @@ def _pair(state: RunState, params: EngineParams) -> list[EffectRecord]:
                              row.chronic_anxiety, row.channel_prior, None, None, dependent=False, earner=True,
                              inactive=True)
         member.household_id = household
-        _introduce(state, holder, [], params)
+        beliefs = _introduce(state, holder, [], params)
         spouse = _tie(row.partner_of, row.id, settings.spouse_tie)
-        _introduce(state, partner, [spouse, _tie(row.id, row.origin_id, settings.origin_tie)], params)
+        beliefs += _introduce(state, partner, [spouse, _tie(row.id, row.origin_id, settings.origin_tie)], params)
         _redistribute_investment(state, row.partner_of, spouse.id, params)
         state.other_families[household] = Family(
             undifferentiation_budget=_family_budget(state, row.partner_of, row.id, params),
@@ -762,10 +773,11 @@ def _pair(state: RunState, params: EngineParams) -> list[EffectRecord]:
         life.pending.append(_addition_load(state, PARTNERING_LOAD, f"life:pair:{row.id}", (row.partner_of, row.id), params))
         records.append(EffectRecord(state.tick, "partnering", None,
                                     people=((row.id, "entered", 1.0), (row.origin_id, "entered", 1.0))))
+        records += beliefs
     return records
 
 
-def _births(state: RunState, params: EngineParams) -> list[EffectRecord]:
+def _births(state: RunState, params: EngineParams) -> list[EffectRecord | BeliefWriteRecord]:
     """M7.C.1i: a couple's children are born at the years after pairing that their row declares."""
     life, records = state.life, []
     for row in life.settings.partners:
@@ -778,11 +790,12 @@ def _births(state: RunState, params: EngineParams) -> list[EffectRecord]:
         for order, at in enumerate(row.children_at_years, start=1):
             if at != years:
                 continue
-            records.append(_birth(state, row, order, params))
+            records += _birth(state, row, order, params)
     return records
 
 
-def _birth(state: RunState, row: PartnerRow, order: int, params: EngineParams) -> EffectRecord:
+def _birth(state: RunState, row: PartnerRow, order: int,
+           params: EngineParams) -> list[EffectRecord | BeliefWriteRecord]:
     life = state.life
     a, b = row.partner_of, row.id
     pid = child_id(a, b, order)
@@ -804,7 +817,7 @@ def _birth(state: RunState, row: PartnerRow, order: int, params: EngineParams) -
     siblings = sorted(c for c, ps in life.parents.items() if c != pid and set(ps) == {a, b} and state.people[c].alive)
     settings = life.settings
     ties = [_tie(p, pid, settings.parent_tie) for p in (a, b)] + [_tie(s, pid, settings.sibling_tie) for s in siblings]
-    _introduce(state, child, ties, params)
+    beliefs = _introduce(state, child, ties, params)
     family = state.other_families.get(household)
     # M7.E.1c: the firstborn; the firstborn of its sex; the last-born; a birth at a time of high stress (a parent above
     # their usual level). A reality defect is a declared weakness (M1.B.8a); no birth declares one, so it
@@ -824,4 +837,4 @@ def _birth(state: RunState, row: PartnerRow, order: int, params: EngineParams) -
     _draw_death(state, pid, life.slow_ticks, params)
     life.pending.append(_life_event(state, BIRTH, f"life:birth:{pid}", (a, b, *siblings)))
     life.pending.append(_addition_load(state, BIRTH_LOAD, f"life:birth:{pid}", (a, b, *siblings), params))
-    return EffectRecord(state.tick, "birth", None, people=((pid, "entered", 1.0),))
+    return [EffectRecord(state.tick, "birth", None, people=((pid, "entered", 1.0),)), *beliefs]

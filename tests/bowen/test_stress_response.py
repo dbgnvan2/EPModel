@@ -9,6 +9,8 @@ Tests:   this file
 
 from __future__ import annotations
 
+import math
+
 import pytest
 
 from src.bowen.engine.act import Selection
@@ -517,3 +519,70 @@ def test_m6i4_the_pseudo_self_check_admits_only_a_logged_conversion():
     other = (EffectRecord(state.tick, "pseudo_self_relaxation", None, people=((RAVI, "pseudo_self", -2.0),)),)
     assert pseudo_self_held(state, before, logged, 1e-9)
     assert not pseudo_self_held(state, before, (), 1e-9) and not pseudo_self_held(state, before, other, 1e-9)
+
+
+def _lent_by(lent):
+    """Ravi, at basic level 40, borrowed what each partner lent and took charge on each of their ties."""
+    from src.bowen.engine.identifiers import TieId
+    from src.bowen.engine.moves import DEFAULT_AREA, _pole_of
+
+    state = fresh()
+    ravi = state.people[RAVI]
+    ravi.basic_level = ravi.functional_level = 40.0
+    ravi.pseudo_self = -sum(lent.values())
+    for pid, held in lent.items():
+        state.people[pid].pseudo_self = held
+        tie = state.ties[TieId.of(RAVI, pid)]
+        tie.functioning_balance[DEFAULT_AREA] = 0.5 * _pole_of(tie, RAVI)
+    return state
+
+
+def test_m1a5c_t247_a_conversion_lowers_the_lenders_lent_as_the_return_splits_it():
+    """T-247 (spec revision 62, owner 2026-11-14): a conversion lowers the lenders' lent pseudo-self by the amount
+    converted, split in proportion to what each holds lent, logged in the same record; each lender's functional level
+    is unchanged (owner 2026-11-15), and total pseudo-self is conserved. A loan converted whole leaves the lender
+    nothing lent for the settling back to wait on."""
+    from src.bowen.engine.invariants import pseudo_self_held, snapshot
+    from src.bowen.engine.moves import relax_pseudo_self
+
+    state = _lent_by({MARTA: -4.0, NADIA: -2.0})
+    before, levels = snapshot(state), {p: state.people[p].functional_level for p in (MARTA, NADIA)}
+    records = respond(state, (Selection(RAVI, "STAY-IN-CONTACT", (MARTA,), 100.0),), {RAVI: LOADED}, PARAMS)
+    rise = 6.0 - state.people[RAVI].pseudo_self
+    assert 0 < rise < 6.0
+    assert state.people[MARTA].pseudo_self == pytest.approx(-4.0 + rise * 4 / 6)
+    assert state.people[NADIA].pseudo_self == pytest.approx(-2.0 + rise * 2 / 6)
+    assert {p: state.people[p].functional_level for p in (MARTA, NADIA)} == levels
+    [conversion] = [r for r in records if r.mechanism == "pseudo_self_conversion"]
+    assert dict((p, v) for p, _, v in conversion.people) == pytest.approx(
+        {RAVI: -rise, MARTA: rise * 4 / 6, NADIA: rise * 2 / 6})
+    assert pseudo_self_held(state, before, records, 1e-9)
+    assert math.fsum(p.pseudo_self or 0.0 for p in state.people.values()) == pytest.approx(before.pseudo_self_total)
+
+    whole = _lent_by({MARTA: -rise / 2})                               # the same rise converts all of it
+    respond(whole, (Selection(RAVI, "STAY-IN-CONTACT", (MARTA,), 100.0),), {RAVI: LOADED}, PARAMS)
+    assert whole.people[RAVI].pseudo_self == 0.0 and whole.people[MARTA].pseudo_self == pytest.approx(0.0, abs=1e-12)
+    whole.tick = PARAMS.exchange_window + 2
+    level = whole.people[MARTA].functional_level
+    relax_pseudo_self(whole, PARAMS)
+    assert whole.people[MARTA].pseudo_self == pytest.approx(0.0, abs=1e-12)
+    assert whole.people[MARTA].functional_level == level             # what the estimator reads as her own level
+
+
+def test_m6i4_t248_the_check_admits_a_conversions_rises_only_up_to_its_falls():
+    """T-248 (spec revision 62): `M6.I.4`'s check admits a ``pseudo_self_conversion`` record's falls, and its rises (the
+    lenders', T-247) only as far as its falls; a record that would raise total pseudo-self fails it."""
+    from src.bowen.engine.invariants import pseudo_self_held, snapshot
+    from src.bowen.engine.log_records import EffectRecord
+
+    def held(changes):
+        state = fresh()
+        before = snapshot(state)
+        for pid, change in changes:
+            state.people[pid].pseudo_self = (state.people[pid].pseudo_self or 0.0) + change
+        record = EffectRecord(state.tick, "pseudo_self_conversion", None,
+                              people=tuple((pid, "pseudo_self", c) for pid, c in changes))
+        return pseudo_self_held(state, before, (record,), 1e-9)
+
+    assert held(((RAVI, -2.0), (MARTA, 2.0))) and held(((RAVI, -2.0), (MARTA, 1.5)))
+    assert not held(((MARTA, 2.0),)) and not held(((RAVI, -2.0), (MARTA, 3.0)))

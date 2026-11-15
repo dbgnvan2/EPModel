@@ -177,3 +177,14 @@ def test_m16a5_a_tie_belief_write_is_its_own_record_with_its_truth():
     truth = true_counterpart(state.ties[MARITAL]).tension
     assert tension.value == state.people[NADIA].tie_beliefs[MARITAL].tension
     assert tension.discrepancy() == pytest.approx(tension.value - truth)
+
+
+def test_m16a5a_t248_a_tie_belief_naming_no_tie_raises():
+    """T-248 (spec revision 62): a ``tie_beliefs[...]`` record whose subject names no tie is a defect, not a record
+    with no truth."""
+    from src.bowen.engine.beliefs import with_truth
+    from src.bowen.engine.log_records import BeliefWriteRecord
+
+    state = fresh()
+    with pytest.raises(ValueError, match="names no tie"):
+        with_truth(state, [BeliefWriteRecord(state.tick, NADIA, "tie_beliefs[nobody|no_one].tension", 0.5, None)])

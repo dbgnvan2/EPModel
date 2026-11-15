@@ -798,7 +798,7 @@ def test_m64_entry_and_new_budget_are_logged_sources(paired):
     _, emitter = paired
     assert {"partnering", "life_course"} <= {getattr(r, "mechanism", None) for r in emitter.records}
     built = pair_now(1)
-    assert _birth(built.state, built.state.life.settings.partners[0], 1, built.params).mechanism == "birth"
+    assert _birth(built.state, built.state.life.settings.partners[0], 1, built.params)[0].mechanism == "birth"
 
 
 # --- L8: the coach's career --------------------------------------------------------------------------------------
@@ -811,7 +811,7 @@ def test_m2a0k_successor_enters_at_retirement_and_learning_is_kept():
     state.people[RAVI].systems_perspective = 0.4
     records = yearly(state, params)
     successor = P("halim_successor")
-    assert any(r.mechanism == "coach_retirement" for r in records)
+    assert any(getattr(r, "mechanism", None) == "coach_retirement" for r in records)
     assert state.people[HALIM].inactive and not state.tie_between(HALIM, RAVI).interactive
     new = state.people[successor]
     assert new.role is Role.EXTERNAL and new.age_years == params.coach_start_age_years and new.sex.value == "female"
@@ -976,3 +976,21 @@ def test_m7e1f_t131_the_parents_term_leaves_out_displaced_coping():
     lost.estimator_history[NADIA] = deque(Week(t, 36.5, 0.0, False, (), displaced=-3.0) for t in range(52))
     _childhood(lost, params)
     assert lost.people[NADIA].basic_level < plain.people[NADIA].basic_level
+
+
+def test_m16a5_t248_each_resting_belief_made_at_an_entry_is_logged():
+    """T-248 (spec revision 62): every resting tie belief an entry writes (the entrant's own, and everyone's about the
+    ties it adds) is a ``BeliefWriteRecord`` carrying its truth, with the value written."""
+    from src.bowen.engine.log_records import BeliefWriteRecord
+
+    built = pair_now(1)
+    before = {(pid, tid) for pid, p in built.state.people.items() for tid in (p.tie_beliefs or {})}
+    records = [r for _ in range(5) for r in yearly(built.state, built.params) if isinstance(r, BeliefWriteRecord)]
+    people = built.state.people
+    made = {(pid, tid) for pid, p in people.items() for tid in (p.tie_beliefs or {})} - before
+    assert made and {(r.holder, r.subject) for r in records} == {
+        (pid, f"tie_beliefs[{tid}].{name}") for pid, tid in made for name in ("tension", "contact")}
+    for r in records:
+        tid = next(t for t in people[r.holder].tie_beliefs if r.subject.startswith(f"tie_beliefs[{t}]."))
+        assert r.value == getattr(people[r.holder].tie_beliefs[tid], r.subject.rpartition(".")[2])
+        assert r.true_value is not None

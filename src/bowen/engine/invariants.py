@@ -13,7 +13,8 @@ What each check means:
   completed differentiating exchange (its one sink) and ``binder_unavailable``'s return.
 * M6.I.2 — the sinks are exactly the three, so distance is not one of them.
 * M6.I.3 — ``life_energy_ratio`` is unset or within [0, 1] (life energy is not built).
-* M6.I.4 — total pseudo-self is unchanged by the tick, except by logged ``pseudo_self_conversion`` (M1.A.5c).
+* M6.I.4 — total pseudo-self is unchanged by the tick, except by logged ``pseudo_self_conversion`` (M1.A.5c), whose
+  rises (the lenders') never exceed its falls (T-248).
 * M6.I.5 — ``basic_level`` is unchanged by a fast tick.
 * **M6.I.6 — the ledger of `M6.4`.** Every person's change in acute
   anxiety over the tick equals the sum of the changes the tick's records log for them, every
@@ -182,11 +183,21 @@ def budget_problems(state: RunState, before: Snapshot, records, tolerance: float
 
 def pseudo_self_held(state: RunState, before: Snapshot, records, tolerance: float) -> bool:
     """M6.I.4: total pseudo-self is unchanged by the tick except by what the week's self-directed rises converted,
-    logged by name as ``pseudo_self_conversion`` (M1.A.5c, revision 61)."""
-    converted = math.fsum(v for r in records if getattr(r, "mechanism", None) == "pseudo_self_conversion"
-                          for _, name, v in r.people if name == "pseudo_self")
+    logged by name as ``pseudo_self_conversion`` (M1.A.5c, revision 61). Each such record's falls (the borrower's) are
+    admitted, and its rises (the lenders', T-247) only as far as its falls: a record that would raise total
+    pseudo-self fails the check (T-248, revision 62)."""
+    converted = []
+    for r in records:
+        if getattr(r, "mechanism", None) != "pseudo_self_conversion":
+            continue
+        changes = [v for _, name, v in r.people if name == "pseudo_self"]
+        falls = math.fsum(v for v in changes if v < 0)
+        rises = math.fsum(v for v in changes if v > 0)
+        if rises > -falls + tolerance:
+            return False
+        converted += [falls, rises]
     total = math.fsum(p.pseudo_self or 0.0 for p in state.people.values())
-    return abs(total - before.pseudo_self_total - converted) <= tolerance
+    return abs(total - before.pseudo_self_total - math.fsum(converted)) <= tolerance
 
 
 def assert_invariants(

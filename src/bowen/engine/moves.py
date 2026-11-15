@@ -443,6 +443,18 @@ def exchanged(records) -> dict[PersonId, float]:
     return moved
 
 
+def lenders_of(state: RunState, pid: PersonId) -> list[Person]:
+    """The people who lent ``pid`` pseudo-self: the partners, alive or dead (`M6.3e`), on ties whose functioning balance
+    names ``pid`` the over-functioner and who hold lent (negative) pseudo-self, in tie order. `M6.I.4a`'s return and
+    `M1.A.5c`'s conversion (T-247) split over them in proportion to what each holds lent."""
+    lenders = []
+    for tie in sorted(state.ties_of(pid), key=lambda t: t.id):
+        other = state.people[next(m for m in tie.id.members() if m != pid)]
+        if tie.functioning_balance.get(DEFAULT_AREA, 0.0) * _pole_of(tie, pid) > 0 and (other.pseudo_self or 0.0) < 0:
+            lenders.append(other)
+    return lenders
+
+
 def return_lent_functioning(state: RunState, params: EngineParams, week_start: dict,
                             exchange: dict | None = None) -> list[EffectRecord]:
     """Purpose: step 9, before the settling back — a taker whose capacity fell by a cause other than the exchange gives
@@ -476,11 +488,7 @@ def return_lent_functioning(state: RunState, params: EngineParams, week_start: d
         if s_before <= 0 or s_after >= s_before:
             continue
         due = borrowed * (s_before - s_after) / s_before
-        lenders = []
-        for tie in sorted(state.ties_of(pid), key=lambda t: t.id):
-            other = state.people[next(m for m in tie.id.members() if m != pid)]
-            if tie.functioning_balance.get(DEFAULT_AREA, 0.0) * _pole_of(tie, pid) > 0 and (other.pseudo_self or 0.0) < 0:
-                lenders.append(other)
+        lenders = lenders_of(state, pid)
         lent = math.fsum(-o.pseudo_self for o in lenders)
         for lender in lenders:
             amount = min(due * -lender.pseudo_self / lent, -lender.pseudo_self,

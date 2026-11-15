@@ -10,7 +10,7 @@ moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's te
 ## Now (0)
 
 
-## Later (146)
+## Later (148)
 
 - T-003 · 2026-10-20 · Coverage page, minor, from the Part A review … · [record](docs/todo/2026-08-22_blocking_the_next_phase.md)
 - T-006 · 2026-10-22 · D4, long `Spec:` lines (Part D, 2026-10-22; the … · [record](docs/todo/2026-10-22_model_ergonomics.md)
@@ -158,3 +158,5 @@ moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's te
 - T-244 · 2026-11-14 · `M11.D.12`: the checks module (2026-11-14) · [record](docs/todo/2026-08-22_blocking_the_next_phase.md)
 - T-245 · 2026-11-14 · `M1.A.4c`: the estimator's sensitivity sweep (2026-11-14) · [record](docs/todo/2026-08-22_blocking_the_next_phase.md)
 - T-246 · 2026-11-14 · An event in flight is still delivered to … · [record](docs/todo/2026-08-22_blocking_the_next_phase.md)
+- T-247 · 2026-11-14 · `M1.A.5c`: a lender's lent pseudo-self has no way … · [record](docs/todo/2026-08-22_blocking_the_next_phase.md)
+- T-248 · 2026-11-14 · Revision 61's low review findings (2026-11-14) · [record](docs/todo/2026-08-22_blocking_the_next_phase.md)

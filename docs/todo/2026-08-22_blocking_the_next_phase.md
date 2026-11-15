@@ -52,7 +52,7 @@
   names and the `"criterion"` field; a record named or shaped otherwise would pass it unread.
 - [x] T-004 ⟨now⟩ **Coverage page, from Part B's drafting (2026-10-20), not fixed** (owner 2026-10-20: record them here). Each ID's
   note in `docs/spec_coverage.md` gives the detail. *Closed 2026-11-14 at spec revision 61: every sub-item below was
-  fixed or decided; what was left open is T-244 to T-246.*
+  fixed or decided; what was left open is T-244 to T-248.*
   - *Spec and code disagree; the owner decides which stands.* `M1.A.7`: the parents'-mean term against "MUST NOT be
     computed from a family average". ~~`M1.A.18`: the 0.3 threshold makes a genuine I-POSITION impossible below it,
     against "graded, not a hard gate".~~ *resolved at revision 39 (Q8: the threshold retired); taken off 2026-10-28, stage 3 review MR-9.* `M1.A.5c` against `M6.I.4`: a one-sided fall of pseudo-self against its
@@ -115,3 +115,17 @@
   `M6.3a`'s test: a move emitted before a death is logged as a `DeliveredRecord` to the dead person a tick later. It
   moves none of their state (appraisal, beliefs and attribution skip the dead), but the log shows a delivery `M6.3a`
   says the dead no longer perceive. Decide: drop it at delivery, or log it as undeliverable.
+- [ ] T-247 ⟨later⟩ **`M1.A.5c`: a lender's lent pseudo-self has no way back once the borrower converts (2026-11-14).**
+  Both review passes of revision 61. `relax_pseudo_self` and `return_lent_functioning` (`src/bowen/engine/moves.py`)
+  move lent pseudo-self back only while the borrower holds a positive amount, and the conversion leaves the lender
+  unchanged (the owner's choice, 2026-11-14), so a borrower who converts all of a loan leaves the lender at the lent
+  amount for the rest of the run, and the estimator (`slow_tick.py`, `functional_level − pseudo_self`) credits the
+  lender with it as own level. **Decided (owner, 2026-11-14):** lower the lenders' lent with the conversion, split as
+  the return splits it, in the same `pseudo_self_conversion` record. Not built in revision 61; it goes in the next
+  engine batch with T-248.
+- [ ] T-248 ⟨later⟩ **Revision 61's low review findings (2026-11-14).** Each a hash-moving change, kept for the next
+  engine batch: `invariants.pseudo_self_held` admits a `pseudo_self_conversion` record of either sign (count only
+  falls); `beliefs.with_truth` leaves `true_value` `None` silently when a `tie_beliefs[...]` subject matches no tie
+  (raise); a newborn's resting tie beliefs (`life_course._introduce`) are written with no `BeliefWriteRecord`;
+  `with_truth` reads the truth at step 3, before step 4's appraisal of the same deliveries (state the timing in
+  `M16.A.5a`, or move the call); `"belief"` and `"attribution"` in `trace.SYSTEM_SUMMARISED` are dead entries.

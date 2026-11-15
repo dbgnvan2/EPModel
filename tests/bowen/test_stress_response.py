@@ -491,7 +491,7 @@ def _convert(kind, pseudo_self):
 
 def test_m1a5c_a_self_directed_rise_converts_borrowed_pseudo_self():
     """Spec revision 61 (T-243 (1)): a self-directed rise lowers borrowed pseudo-self by the rise, at most what is
-    borrowed, logged as its own record; holding back, lent pseudo-self and the automatic channel convert nothing."""
+    borrowed, logged as its own record; holding back, lent pseudo-self and an act with no rise convert nothing."""
     rise, left, records = _convert("STAY-IN-CONTACT", 5.0)
     assert 0 < rise < 5.0 and left == pytest.approx(5.0 - rise)
     [conversion] = [r for r in records if r.mechanism == "pseudo_self_conversion"]
@@ -500,7 +500,7 @@ def test_m1a5c_a_self_directed_rise_converts_borrowed_pseudo_self():
     assert rise > 0.001 and left == 0.0                                 # at most what is borrowed
     assert _convert("WITHHOLD", 5.0)[0] > 0 and _convert("WITHHOLD", 5.0)[1] == 5.0
     assert _convert("STAY-IN-CONTACT", -5.0)[1] == -5.0               # lent pseudo-self is not converted
-    assert _convert("CONFLICT", 5.0)[1] == 5.0
+    assert _convert("CONFLICT", 5.0)[:2] == (0.0, 5.0)                 # no rise, so nothing to convert
 
 
 def test_m6i4_the_pseudo_self_check_admits_only_a_logged_conversion():

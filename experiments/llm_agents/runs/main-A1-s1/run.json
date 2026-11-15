@@ -72,8 +72,8 @@
     }
   },
   "option_order": "shuffled",
-  "status": "complete",
-  "status_detail": null,
+  "status": "not_replayable",
+  "status_detail": "the replay's summary b3f71a4d3a33 differs from the committed 778cdf30f296 in behavior (eaea55925481 against e0c2c9e3e9a5); changed since the run: engine_hash, code_hash",
   "counts": {
     "calls": 1456,
     "cached": 0,

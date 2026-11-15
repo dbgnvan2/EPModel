@@ -18,95 +18,62 @@ Every number below is read from the runs' summaries by the model's own readout f
 
 | Arm | Complete runs |
 |---|---|
-| A0 | 4 of 5 complete |
-| A1 | 5 of 7 complete |
-| A2 | 5 of 7 complete |
-| A3 | 5 of 5 complete |
+| A0 | 0 of 5 complete |
+| A1 | 2 of 7 complete |
+| A2 | 3 of 7 complete |
+| A3 | 2 of 5 complete |
 | A4 | 5 of 5 complete |
 
 ## Patterns (share of subject-weeks holding each; mean and range over seeds)
 
 | Pattern | A0 | A1 | A2 | A3 | A4 |
 |---|---|---|---|---|---|
-| conflict | 0.023 (0.004–0.040); in 4 of 4 seeds | 0.000 (0.000–0.000); in 0 of 3 seeds | 0.000 (0.000–0.000); in 0 of 4 seeds | 0.068 (0.000–0.338); in 1 of 5 seeds | 0.000 (0.000–0.000); in 0 of 5 seeds |
-| cutoff | 0.002 (0.001–0.005); in 4 of 4 seeds | 0.077 (0.077–0.077); in 3 of 3 seeds | 0.077 (0.077–0.077); in 4 of 4 seeds | 0.033 (0.003–0.077); in 5 of 5 seeds | 0.077 (0.077–0.077); in 5 of 5 seeds |
-| distance | 0.428 (0.399–0.445); in 4 of 4 seeds | 0.677 (0.672–0.680); in 3 of 3 seeds | 0.402 (0.366–0.499); in 4 of 4 seeds | 0.475 (0.334–0.755); in 5 of 5 seeds | 0.437 (0.371–0.521); in 5 of 5 seeds |
-| fixed_triangle | 0.125 (0.098–0.151); in 4 of 4 seeds | 0.008 (0.000–0.023); in 1 of 3 seeds | 0.014 (0.000–0.053); in 2 of 4 seeds | 0.012 (0.000–0.053); in 2 of 5 seeds | 0.016 (0.000–0.053); in 3 of 5 seeds |
-| fusion | 0.000 (0.000–0.000); in 3 of 4 seeds | 0.000 (0.000–0.000); in 0 of 3 seeds | 0.000 (0.000–0.000); in 0 of 4 seeds | 0.000 (0.000–0.000); in 0 of 5 seeds | 0.000 (0.000–0.000); in 0 of 5 seeds |
-| over_underfunctioning | 0.135 (0.084–0.182); in 4 of 4 seeds | 0.001 (0.000–0.003); in 1 of 3 seeds | 0.000 (0.000–0.000); in 0 of 4 seeds | 0.065 (0.000–0.253); in 2 of 5 seeds | 0.000 (0.000–0.000); in 0 of 5 seeds |
-| projection | 0.092 (0.048–0.118); in 4 of 4 seeds | 0.002 (0.000–0.006); in 1 of 3 seeds | 0.000 (0.000–0.000); in 0 of 4 seeds | 0.033 (0.000–0.165); in 1 of 5 seeds | 0.000 (0.000–0.000); in 0 of 5 seeds |
+| cutoff | — | — | 0.077 (0.077–0.077); in 3 of 3 seeds | 0.040 (0.003–0.077); in 2 of 2 seeds | 0.077 (0.077–0.077); in 5 of 5 seeds |
+| distance | — | — | 0.413 (0.366–0.499); in 3 of 3 seeds | 0.593 (0.432–0.755); in 2 of 2 seeds | 0.437 (0.371–0.521); in 5 of 5 seeds |
+| fixed_triangle | — | — | 0.018 (0.000–0.053); in 2 of 3 seeds | 0.026 (0.000–0.053); in 1 of 2 seeds | 0.016 (0.000–0.053); in 3 of 5 seeds |
+| over_underfunctioning | — | — | 0.000 (0.000–0.000); in 0 of 3 seeds | 0.036 (0.000–0.073); in 1 of 2 seeds | 0.000 (0.000–0.000); in 0 of 5 seeds |
 
 ### Direction against A0, by seed
 
 | Pattern or readout | A1 | A2 | A3 | A4 |
 |---|---|---|---|---|
-| conflict | higher in 0, lower in 3, equal in 0 of 3 | higher in 0, lower in 3, equal in 0 of 3 | higher in 1, lower in 3, equal in 0 of 4 | higher in 0, lower in 4, equal in 0 of 4 |
-| cutoff | higher in 3, lower in 0, equal in 0 of 3 | higher in 3, lower in 0, equal in 0 of 3 | higher in 3, lower in 1, equal in 0 of 4 | higher in 4, lower in 0, equal in 0 of 4 |
-| distance | higher in 3, lower in 0, equal in 0 of 3 | higher in 1, lower in 2, equal in 0 of 3 | higher in 3, lower in 1, equal in 0 of 4 | higher in 1, lower in 3, equal in 0 of 4 |
-| fixed_triangle | higher in 0, lower in 3, equal in 0 of 3 | higher in 0, lower in 3, equal in 0 of 3 | higher in 0, lower in 4, equal in 0 of 4 | higher in 0, lower in 4, equal in 0 of 4 |
-| fusion | higher in 0, lower in 2, equal in 1 of 3 | higher in 0, lower in 2, equal in 1 of 3 | higher in 0, lower in 3, equal in 1 of 4 | higher in 0, lower in 3, equal in 1 of 4 |
-| over_underfunctioning | higher in 0, lower in 3, equal in 0 of 3 | higher in 0, lower in 3, equal in 0 of 3 | higher in 0, lower in 4, equal in 0 of 4 | higher in 0, lower in 4, equal in 0 of 4 |
-| projection | higher in 0, lower in 3, equal in 0 of 3 | higher in 0, lower in 3, equal in 0 of 3 | higher in 0, lower in 4, equal in 0 of 4 | higher in 0, lower in 4, equal in 0 of 4 |
-| intensity.mean_excess | higher in 0, lower in 3, equal in 0 of 3 | higher in 0, lower in 3, equal in 0 of 3 | higher in 1, lower in 3, equal in 0 of 4 | higher in 0, lower in 4, equal in 0 of 4 |
-| intensity.budget_occupancy | higher in 0, lower in 3, equal in 0 of 3 | higher in 0, lower in 3, equal in 0 of 3 | higher in 0, lower in 3, equal in 1 of 4 | higher in 0, lower in 4, equal in 0 of 4 |
-| stress.exogenous_events | higher in 0, lower in 0, equal in 3 of 3 | higher in 0, lower in 0, equal in 3 of 3 | higher in 0, lower in 0, equal in 4 of 4 | higher in 0, lower in 0, equal in 4 of 4 |
-| adaptiveness.automatic_acts | higher in 0, lower in 3, equal in 0 of 3 | higher in 0, lower in 3, equal in 0 of 3 | higher in 3, lower in 1, equal in 0 of 4 | higher in 0, lower in 4, equal in 0 of 4 |
-| adaptiveness.reactivity_per_stress | higher in 0, lower in 3, equal in 0 of 3 | higher in 0, lower in 3, equal in 0 of 3 | higher in 3, lower in 1, equal in 0 of 4 | higher in 0, lower in 4, equal in 0 of 4 |
+| cutoff | — | — | — | — |
+| distance | — | — | — | — |
+| fixed_triangle | — | — | — | — |
+| over_underfunctioning | — | — | — | — |
+| intensity.mean_excess | — | — | — | — |
+| intensity.budget_occupancy | — | — | — | — |
+| stress.exogenous_events | — | — | — | — |
+| adaptiveness.automatic_acts | — | — | — | — |
+| adaptiveness.reactivity_per_stress | — | — | — | — |
 
 ### Evaluation readouts (mean and range over seeds)
 
 | Readout | A0 | A1 | A2 | A3 | A4 |
 |---|---|---|---|---|---|
-| intensity.mean_excess | 21.737 (18.610–25.172) | 4.446 (4.037–4.899) | 9.463 (9.325–9.690) | 22.264 (3.099–49.201) | 9.699 (9.452–9.861) |
-| intensity.budget_occupancy | 1.000 (1.000–1.000) | 0.930 (0.820–1.000) | 0.000 (0.000–0.000) | 0.628 (0.000–1.000) | 0.000 (0.000–0.000) |
-| stress.exogenous_events | 26.000 (26.000–26.000) | 26.000 (26.000–26.000) | 26.000 (26.000–26.000) | 26.000 (26.000–26.000) | 26.000 (26.000–26.000) |
-| adaptiveness.automatic_acts | 301.750 (291.000–308.000) | 21.667 (15.000–34.000) | 0.000 (0.000–0.000) | 288.400 (3.000–364.000) | 0.000 (0.000–0.000) |
-| adaptiveness.reactivity_per_stress | 0.097 (0.093–0.099) | 0.007 (0.005–0.011) | 0.000 (0.000–0.000) | 0.092 (0.001–0.117) | 0.000 (0.000–0.000) |
+| intensity.mean_excess | — | — | 9.470 (9.325–9.690) | 9.703 (3.099–16.307) | 9.699 (9.452–9.861) |
+| intensity.budget_occupancy | — | — | 0.000 (0.000–0.000) | 0.285 (0.000–0.570) | 0.000 (0.000–0.000) |
+| stress.exogenous_events | — | — | 26.000 (26.000–26.000) | 26.000 (26.000–26.000) | 26.000 (26.000–26.000) |
+| adaptiveness.automatic_acts | — | — | 0.000 (0.000–0.000) | 364.000 (364.000–364.000) | 0.000 (0.000–0.000) |
+| adaptiveness.reactivity_per_stress | — | — | 0.000 (0.000–0.000) | 0.117 (0.117–0.117) | 0.000 (0.000–0.000) |
 
 ## Contamination tests (§3.4)
 
 ### Label-following (A3 against A2)
 
-Seeds in which A3's act frequencies follow A2's more closely by the label shown than by the mechanics run: 4 of 4. Where this holds in most seeds, the agent follows the words rather than the consequences, and A2's patterns are counted as driven by what the words mean.
+Seeds in which A3's act frequencies follow A2's more closely by the label shown than by the mechanics run: 1 of 1. Where this holds in most seeds, the agent follows the words rather than the consequences, and A2's patterns are counted as driven by what the words mean.
 
 ### Feedback removed (A4 against A2)
 
-Seeds in which a pattern's direction against A0 is the same in A4 (no felt change shown) as in A2, per pattern. Where removing felt change changes nothing, the pattern did not come from felt relief.
-
-| Pattern | Same direction |
-|---|---|
-| conflict | 3 of 3 seeds |
-| cutoff | 3 of 3 seeds |
-| distance | 2 of 3 seeds |
-| fixed_triangle | 3 of 3 seeds |
-| fusion | 3 of 3 seeds |
-| over_underfunctioning | 3 of 3 seeds |
-| projection | 3 of 3 seeds |
+Not computed: it needs complete runs of both arms on the same seeds.
 
 ### Opaque against plain (A1 against A2)
 
-Patterns that appear in A2 and not in A1 (counted as needing the plain words): none.
+Not computed: it needs complete runs of both arms on the same seeds.
 
 ## Cross-check on the second model
 
-3 of 4 planned cross-check runs complete.
-
-The same arms on the second model, on the same seeds: each pattern's and readout's direction against A0, and the seeds in which that direction is the same as the main phase's on the same seed. A direction that holds on both models is not one model's habit; one that differs depends on the model.
-
-| Pattern or readout | A1 against A0 | A1 same as main | A2 against A0 | A2 same as main |
-|---|---|---|---|---|
-| conflict | higher in 0, lower in 2, equal in 0 of 2 | 1 of 1 seeds | higher in 0, lower in 1, equal in 0 of 1 | 1 of 1 seeds |
-| cutoff | higher in 2, lower in 0, equal in 0 of 2 | 1 of 1 seeds | higher in 1, lower in 0, equal in 0 of 1 | 1 of 1 seeds |
-| distance | higher in 2, lower in 0, equal in 0 of 2 | 1 of 1 seeds | higher in 1, lower in 0, equal in 0 of 1 | 1 of 1 seeds |
-| fixed_triangle | higher in 0, lower in 2, equal in 0 of 2 | 1 of 1 seeds | higher in 0, lower in 1, equal in 0 of 1 | 1 of 1 seeds |
-| fusion | higher in 0, lower in 2, equal in 0 of 2 | 1 of 1 seeds | higher in 0, lower in 1, equal in 0 of 1 | 1 of 1 seeds |
-| over_underfunctioning | higher in 0, lower in 2, equal in 0 of 2 | 1 of 1 seeds | higher in 0, lower in 1, equal in 0 of 1 | 1 of 1 seeds |
-| projection | higher in 0, lower in 2, equal in 0 of 2 | 1 of 1 seeds | higher in 0, lower in 1, equal in 0 of 1 | 1 of 1 seeds |
-| intensity.mean_excess | higher in 0, lower in 2, equal in 0 of 2 | 1 of 1 seeds | higher in 0, lower in 1, equal in 0 of 1 | 1 of 1 seeds |
-| intensity.budget_occupancy | higher in 0, lower in 2, equal in 0 of 2 | 1 of 1 seeds | higher in 0, lower in 1, equal in 0 of 1 | 1 of 1 seeds |
-| stress.exogenous_events | higher in 0, lower in 0, equal in 2 of 2 | 1 of 1 seeds | higher in 0, lower in 0, equal in 1 of 1 | 1 of 1 seeds |
-| adaptiveness.automatic_acts | higher in 0, lower in 2, equal in 0 of 2 | 1 of 1 seeds | higher in 0, lower in 1, equal in 0 of 1 | 1 of 1 seeds |
-| adaptiveness.reactivity_per_stress | higher in 0, lower in 2, equal in 0 of 2 | 1 of 1 seeds | higher in 0, lower in 1, equal in 0 of 1 | 1 of 1 seeds |
+2 of 4 planned cross-check runs complete.
 
 ## Option position (§13.4)
 
@@ -116,20 +83,12 @@ Whether the language model chooses by where an option is listed rather than by w
 |---|---|---|---|---|---|---|---|---|---|---|---|
 | cross_check-A1-s1 | 1456 | 0 | 0.032 | 0.039 | 0.036 | 52 | 52.1 | 1389 | 1449 | 0.446 | no |
 | cross_check-A1-s2 | 1456 | 0 | 0.044 | 0.035 | 0.037 | 48 | 53.5 | 1357 | 1449 | 0.635 | no |
-| main-A1-s1 | 1456 | 0 | 0.040 | 0.034 | 0.036 | 49 | 52.7 | 1080 | 1449 | 0.955 | no |
-| main-A1-s4 | 1456 | 0 | 0.037 | 0.024 | 0.036 | 48 | 52.6 | 1159 | 1449 | 0.949 | no |
-| main-A1-s5 | 1456 | 0 | 0.034 | 0.025 | 0.036 | 52 | 52.4 | 1094 | 1449 | 0.916 | no |
 | pilot-A1-s1 | 182 | 0 | 0.011 | 0.000 | 0.036 | 148 | 6.3 | 173 | 175 | 0.989 | no |
 | pilot2-A1-s1 | 182 | 0 | 0.066 | 0.022 | 0.036 | 7 | 6.4 | 108 | 175 | 0.951 | no |
-| cross_check-A2-s1 | 1455 | 0 | 0.032 | 0.038 | 0.036 | 60 | 52.5 | 1402 | 1447 | 0.001 | no |
 | main-A2-s1 | 1456 | 0 | 0.038 | 0.038 | 0.036 | 61 | 52.7 | 1346 | 1449 | 0.000 | no |
 | main-A2-s2 | 1456 | 0 | 0.035 | 0.027 | 0.036 | 58 | 52.8 | 1336 | 1449 | 0.000 | no |
 | main-A2-s3 | 1456 | 0 | 0.037 | 0.041 | 0.036 | 56 | 52.9 | 1320 | 1449 | 0.000 | no |
-| main-A2-s5 | 1455 | 0 | 0.042 | 0.034 | 0.036 | 56 | 52.6 | 1298 | 1447 | 0.000 | no |
 | main-A3-s1 | 1456 | 0 | 0.042 | 0.031 | 0.036 | 58 | 52.4 | 1233 | 1449 | 0.001 | no |
-| main-A3-s2 | 1456 | 0 | 0.032 | 0.037 | 0.036 | 52 | 52.6 | 1254 | 1449 | 0.000 | no |
-| main-A3-s3 | 1456 | 0 | 0.043 | 0.043 | 0.039 | 61 | 55.9 | 1033 | 1449 | 0.002 | no |
-| main-A3-s4 | 1456 | 0 | 0.048 | 0.034 | 0.036 | 42 | 52.8 | 1031 | 1449 | 0.001 | no |
 | main-A3-s5 | 1456 | 0 | 0.026 | 0.034 | 0.036 | 52 | 52.8 | 1287 | 1449 | 0.000 | no |
 | main-A4-s1 | 1456 | 0 | 0.039 | 0.039 | 0.036 | 60 | 52.7 | 1363 | 1449 | 0.000 | no |
 | main-A4-s2 | 1456 | 0 | 0.036 | 0.027 | 0.036 | 53 | 52.8 | 1320 | 1449 | 0.000 | no |
@@ -143,20 +102,12 @@ Chosen position as a share of the list, in tenths (share of choices):
 |---|---|---|---|---|---|---|---|---|---|---|
 | cross_check-A1-s1 | 0.084 | 0.100 | 0.090 | 0.125 | 0.098 | 0.109 | 0.090 | 0.112 | 0.085 | 0.108 |
 | cross_check-A1-s2 | 0.082 | 0.106 | 0.080 | 0.112 | 0.098 | 0.102 | 0.106 | 0.106 | 0.089 | 0.118 |
-| main-A1-s1 | 0.111 | 0.126 | 0.101 | 0.123 | 0.095 | 0.075 | 0.096 | 0.096 | 0.074 | 0.102 |
-| main-A1-s4 | 0.103 | 0.123 | 0.091 | 0.121 | 0.100 | 0.104 | 0.099 | 0.091 | 0.072 | 0.096 |
-| main-A1-s5 | 0.113 | 0.120 | 0.091 | 0.098 | 0.084 | 0.104 | 0.088 | 0.114 | 0.093 | 0.096 |
 | pilot-A1-s1 | 0.011 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.978 | 0.011 | 0.000 | 0.000 |
 | pilot2-A1-s1 | 0.214 | 0.143 | 0.099 | 0.088 | 0.110 | 0.044 | 0.055 | 0.088 | 0.066 | 0.093 |
-| cross_check-A2-s1 | 0.076 | 0.107 | 0.100 | 0.131 | 0.082 | 0.096 | 0.098 | 0.087 | 0.102 | 0.123 |
 | main-A2-s1 | 0.087 | 0.120 | 0.093 | 0.111 | 0.090 | 0.095 | 0.097 | 0.091 | 0.104 | 0.113 |
 | main-A2-s2 | 0.084 | 0.101 | 0.090 | 0.116 | 0.089 | 0.095 | 0.103 | 0.100 | 0.096 | 0.126 |
 | main-A2-s3 | 0.085 | 0.122 | 0.092 | 0.137 | 0.084 | 0.090 | 0.086 | 0.090 | 0.093 | 0.120 |
-| main-A2-s5 | 0.087 | 0.133 | 0.104 | 0.127 | 0.100 | 0.087 | 0.085 | 0.091 | 0.075 | 0.111 |
 | main-A3-s1 | 0.092 | 0.124 | 0.095 | 0.113 | 0.086 | 0.109 | 0.098 | 0.085 | 0.096 | 0.102 |
-| main-A3-s2 | 0.085 | 0.124 | 0.095 | 0.115 | 0.089 | 0.091 | 0.098 | 0.093 | 0.086 | 0.124 |
-| main-A3-s3 | 0.089 | 0.106 | 0.112 | 0.107 | 0.108 | 0.102 | 0.081 | 0.089 | 0.094 | 0.113 |
-| main-A3-s4 | 0.097 | 0.140 | 0.089 | 0.126 | 0.087 | 0.086 | 0.091 | 0.091 | 0.084 | 0.109 |
 | main-A3-s5 | 0.086 | 0.129 | 0.097 | 0.122 | 0.095 | 0.094 | 0.077 | 0.098 | 0.087 | 0.116 |
 | main-A4-s1 | 0.084 | 0.122 | 0.090 | 0.116 | 0.087 | 0.093 | 0.099 | 0.090 | 0.103 | 0.116 |
 | main-A4-s2 | 0.088 | 0.104 | 0.087 | 0.124 | 0.084 | 0.093 | 0.104 | 0.098 | 0.095 | 0.124 |
@@ -166,17 +117,14 @@ Chosen position as a share of the list, in tenths (share of choices):
 
 Share of choices by act token (opaque arm):
 
-| Run | K1 | K2 | K3 | K4 | K5 | K6 | K7 | K8 | K9 | K10 | K11 | K12 | K13 | K14 | K15 | K16 |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| cross_check-A1-s1 | 0.990 | 0.003 | 0.005 | 0.000 | 0.001 | 0.000 | 0.000 | 0.000 | 0.000 | 0.001 | 0.001 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 |
-| cross_check-A1-s2 | 0.855 | 0.000 | 0.000 | 0.000 | 0.000 | 0.001 | 0.000 | 0.000 | 0.000 | 0.007 | 0.000 | 0.137 | 0.000 | 0.000 | 0.000 | 0.000 |
-| main-A1-s1 | 0.274 | 0.001 | 0.014 | 0.122 | 0.004 | 0.005 | 0.000 | 0.000 | 0.001 | 0.321 | 0.044 | 0.000 | 0.000 | 0.023 | 0.001 | 0.190 |
-| main-A1-s4 | 0.157 | 0.277 | 0.001 | 0.124 | 0.006 | 0.000 | 0.041 | 0.007 | 0.005 | 0.000 | 0.000 | 0.008 | 0.001 | 0.000 | 0.155 | 0.218 |
-| main-A1-s5 | 0.172 | 0.266 | 0.000 | 0.061 | 0.003 | 0.135 | 0.016 | 0.021 | 0.149 | 0.001 | 0.166 | 0.000 | 0.003 | 0.000 | 0.005 | 0.001 |
-| pilot-A1-s1 | 1.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 |
-| pilot2-A1-s1 | 0.033 | 0.016 | 0.005 | 0.170 | 0.011 | 0.011 | 0.000 | 0.000 | 0.022 | 0.187 | 0.088 | 0.000 | 0.000 | 0.280 | 0.000 | 0.176 |
+| Run | K1 | K2 | K3 | K4 | K5 | K6 | K9 | K10 | K11 | K12 | K14 | K16 |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| cross_check-A1-s1 | 0.990 | 0.003 | 0.005 | 0.000 | 0.001 | 0.000 | 0.000 | 0.001 | 0.001 | 0.000 | 0.000 | 0.000 |
+| cross_check-A1-s2 | 0.855 | 0.000 | 0.000 | 0.000 | 0.000 | 0.001 | 0.000 | 0.007 | 0.000 | 0.137 | 0.000 | 0.000 |
+| pilot-A1-s1 | 1.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 |
+| pilot2-A1-s1 | 0.033 | 0.016 | 0.005 | 0.170 | 0.011 | 0.011 | 0.022 | 0.187 | 0.088 | 0.000 | 0.280 | 0.176 |
 
-A1: a position effect in 0 of 3 main-phase seeds.
-A2: a position effect in 0 of 4 main-phase seeds.
-A3: a position effect in 0 of 5 main-phase seeds.
+A1: a position effect in 0 of 0 main-phase seeds.
+A2: a position effect in 0 of 3 main-phase seeds.
+A3: a position effect in 0 of 2 main-phase seeds.
 A4: a position effect in 0 of 5 main-phase seeds.

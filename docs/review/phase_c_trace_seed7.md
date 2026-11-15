@@ -13,7 +13,7 @@
 |---|---|
 | seed | 7 |
 | config hash | `2b01fe434c051fe25a5f1b8e27fd475d759289ea9174adf5a754e8c8aa0e05ed` |
-| spec revision | 2.0, revision 61 |
+| spec revision | 2.0, revision 62 |
 | family instance | phase_c |
 | activation | synchronous_activation v1 (synchronous) |
 | visibility | household_conductance_visibility v1 |
@@ -583,7 +583,7 @@ The standing load, the decay toward each person's floor, the relaxation of felt 
 | 49 | Ana | CONFLICT | Bruno | — | refused by Bruno (rejection +0.10); the sender bears the refusal: anxiety Ana +4.0 |
 | 49 | Bruno | WITHHOLD | Ana | — | held back PURSUE: computed, not emitted; attention on the tie rises |
 | 49 | Marta | CUTOFF | Ravi | Nadia, Pia | arrives week 50; anxiety Marta +0.6, Nadia +1.7 (witness), Pia +1.5 (witness), Ravi +1.0; calmer sender takes some anxiety: Marta +1.3, Ravi -1.3; Marta rejects the other on Marta–Ravi (rejection +0.66; the tie stays open); impingement removed at once, anxiety Marta -2.1 |
-| 49 | Nadia | OVERFUNCTION | Marta | Pia, Ravi | refused by Marta (rejection +0.17); the sender bears the refusal: anxiety Nadia +3.7; anxiety Pia +1.2 (witness), Ravi +4.6 (witness) |
+| 49 | Nadia | OVERFUNCTION | Marta | Pia, Ravi | refused by Marta (rejection +0.17); the sender bears the refusal: anxiety Nadia +3.7; anxiety Pia +1.2 (witness), Ravi +4.5 (witness) |
 | 49 | Pia | WITHHOLD | Ravi | — | held back DISTANCE: computed, not emitted; attention on the tie rises |
 | 49 | Ravi | DISTANCE | Marta | Nadia, Pia | arrives week 50; anxiety Marta +3.3, Nadia +2.3 (witness), Pia +1.9 (witness), Ravi +1.3; 27.4 of the sender's anxiety bound into Marta–Ravi |
 | 49 | Sofia | CUTOFF | Ravi | Marta, Nadia, Pia | arrives week 51; anxiety Marta +0.7 (witness), Nadia +0.7 (witness), Pia +0.6 (witness), Sofia +0.3; calmer sender takes some anxiety: Ravi -0.8, Sofia +0.8; Sofia rejects the other on Ravi–Sofia (rejection +0.57; the tie stays open) |
@@ -621,7 +621,7 @@ The standing load, the decay toward each person's floor, the relaxation of felt 
 | 52 | Marta | WITHHOLD | Ravi | — | held back UNDERFUNCTION: computed, not emitted; attention on the tie rises |
 | 52 | Nadia | OVERFUNCTION | Marta | Pia, Ravi | refused by Marta (rejection +0.15); the sender bears the refusal: anxiety Nadia +3.4; anxiety Pia +1.1 (witness), Ravi +3.8 (witness) |
 | 52 | Pia | DISTANCE | Marta | Nadia, Ravi | refused by Marta (rejection +0.15); the sender bears the refusal: anxiety Pia +2.9; anxiety Nadia +1.0 (witness), Ravi +2.9 (witness) |
-| 52 | Ravi | DISTANCE | Marta | Nadia, Pia | refused by Marta (rejection +0.15); the sender bears the refusal: anxiety Ravi +5.1; anxiety Nadia +1.8 (witness), Pia +1.5 (witness) |
+| 52 | Ravi | DISTANCE | Marta | Nadia, Pia | refused by Marta (rejection +0.15); the sender bears the refusal: anxiety Ravi +5.0; anxiety Nadia +1.8 (witness), Pia +1.5 (witness) |
 | 52 | Sofia | UNDERFUNCTION | Ravi | Marta, Nadia, Pia | refused by Ravi (rejection +0.11); the sender bears the refusal: anxiety Sofia +1.5; anxiety Marta +0.7 (witness), Nadia +0.7 (witness), Pia +0.6 (witness) |
 | 53 | — | (system) | — | — | Ana–Marta: a negative contact renews the cutoff's held anxiety to its peak +0.2 |
 | 53 | — | (system) | — | — | Marta–Nadia: a negative contact renews the cutoff's held anxiety to its peak +0.4 |
@@ -639,7 +639,7 @@ The standing load, the decay toward each person's floor, the relaxation of felt 
 | 54 | — | (system) | — | — | Ravi–Sofia: a negative contact renews the cutoff's held anxiety to its peak +0.3 |
 | 54 | Ana | CUTOFF | Marta | Nadia, Pia, Ravi | arrives week 55; anxiety Ana +0.5, Marta +0.1, Nadia +0.8 (witness), Pia +0.7 (witness), Ravi +1.2 (witness); calmer sender takes some anxiety: Ana +0.5, Marta -0.5; Ana rejects the other on Ana–Marta (rejection +0.10; the tie stays open) |
 | 54 | Bruno | PURSUE | Ana | — | refused by Ana (rejection +0.05); the sender bears the refusal: anxiety Bruno +3.7 |
-| 54 | Marta | CONFLICT | Pia | Nadia, Ravi | refused by Pia (rejection +0.14); the sender bears the refusal: anxiety Marta +2.9; anxiety Nadia +1.0 (witness), Ravi +3.2 (witness) |
+| 54 | Marta | CONFLICT | Pia | Nadia, Ravi | refused by Pia (rejection +0.14); the sender bears the refusal: anxiety Marta +3.0; anxiety Nadia +1.0 (witness), Ravi +3.2 (witness) |
 | 54 | Nadia | OVERFUNCTION | Marta | Pia, Ravi | refused by Marta (rejection +0.15); the sender bears the refusal: anxiety Nadia +3.3; anxiety Pia +1.1 (witness), Ravi +4.2 (witness) |
 | 54 | Pia | DISTANCE | Marta | Nadia, Ravi | refused by Marta (rejection +0.15); the sender bears the refusal: anxiety Pia +2.9; anxiety Nadia +1.0 (witness), Ravi +3.3 (witness) |
 | 54 | Ravi | FRAME_AMBIGUITY | Dr Halim | Marta, Nadia, Pia | arrives week 55; anxiety Dr Halim +0.2, Marta +1.3 (witness), Nadia +1.1 (witness), Pia +0.9 (witness), Ravi +0.3 |
@@ -698,7 +698,7 @@ The standing load, the decay toward each person's floor, the relaxation of felt 
 | 59 | — | (system) | — | — | Ravi–Sofia: a negative contact renews the cutoff's held anxiety to its peak +0.2 |
 | 59 | Ana | CUTOFF | Bruno | — | arrives week 60; anxiety Ana +0.7, Bruno +0.5; calmer sender takes some anxiety: Ana +0.6, Bruno -0.6; Ana rejects the other on Ana–Bruno (rejection +0.02; the tie stays open); impingement removed at once, anxiety Ana -0.5 |
 | 59 | Bruno | CONFLICT | Ana | — | refused by Ana (rejection +0.13); the sender bears the refusal: anxiety Bruno +3.5 |
-| 59 | Marta | OVERFUNCTION | Pia | Nadia, Ravi | refused by Pia (rejection +0.05); the sender bears the refusal: anxiety Marta +3.1; anxiety Nadia +1.1 (witness), Ravi +3.4 (witness) |
+| 59 | Marta | OVERFUNCTION | Pia | Nadia, Ravi | refused by Pia (rejection +0.05); the sender bears the refusal: anxiety Marta +3.1; anxiety Nadia +1.1 (witness), Ravi +3.3 (witness) |
 | 59 | Nadia | CUTOFF | Marta | Pia, Ravi | arrives week 60; anxiety Marta +1.1, Nadia +0.7, Pia +0.9 (witness), Ravi +3.4 (witness); Nadia rejects the other on Marta–Nadia (rejection +0.09; the tie stays open) |
 | 59 | Pia | CUTOFF | Ravi | Marta, Nadia | arrives week 60; anxiety Marta +1.6 (witness), Nadia +0.9 (witness), Pia +0.6; calmer sender takes some anxiety: Pia +1.2, Ravi -1.2; Pia rejects the other on Pia–Ravi (rejection +0.00; the tie stays open) |
 | 59 | Ravi | UNDERFUNCTION | Pia | Marta, Nadia | refused by Pia (rejection +0.05); the sender bears the refusal: anxiety Ravi +5.6; anxiety Marta +1.8 (witness), Nadia +1.0 (witness) |
@@ -713,7 +713,7 @@ The standing load, the decay toward each person's floor, the relaxation of felt 
 | 60 | Bruno | OVERFUNCTION | Ana | — | refused by Ana (rejection +0.05); the sender bears the refusal: anxiety Bruno +3.6 |
 | 60 | Marta | UNDERFUNCTION | Ana | Nadia, Pia, Ravi | refused by Ana (rejection +0.16); the sender bears the refusal: anxiety Marta +1.9; anxiety Nadia +1.0 (witness), Pia +0.9 (witness), Ravi +1.5 (witness) |
 | 60 | Nadia | OVERFUNCTION | Marta | Pia, Ravi | refused by Marta (rejection +0.15); the sender bears the refusal: anxiety Nadia +3.4; anxiety Pia +1.0 (witness), Ravi +3.7 (witness) |
-| 60 | Pia | OVERFUNCTION | Ravi | Marta, Nadia | refused by Ravi (rejection +0.10); the sender bears the refusal: anxiety Pia +2.9; anxiety Marta +1.9 (witness), Nadia +1.1 (witness) |
+| 60 | Pia | OVERFUNCTION | Ravi | Marta, Nadia | refused by Ravi (rejection +0.10); the sender bears the refusal: anxiety Pia +2.8; anxiety Marta +1.9 (witness), Nadia +1.1 (witness) |
 | 60 | Ravi | UNDERFUNCTION | Marta | Nadia, Pia | refused by Marta (rejection +0.17); the sender bears the refusal: anxiety Ravi +5.8; anxiety Nadia +2.2 (witness), Pia +1.9 (witness) |
 | 60 | Sofia | CUTOFF | Ravi | Marta, Nadia, Pia | arrives week 62; anxiety Marta +0.6 (witness), Nadia +0.7 (witness), Pia +0.6 (witness), Sofia +0.3; calmer sender takes some anxiety: Ravi -1.5, Sofia +1.5; Sofia rejects the other on Ravi–Sofia (rejection +0.20; the tie stays open) |
 | 61 | — | (system) | — | — | Ana–Marta: a negative contact renews the cutoff's held anxiety to its peak +0.3 |
@@ -723,7 +723,7 @@ The standing load, the decay toward each person's floor, the relaxation of felt 
 | 61 | — | (system) | — | — | Ravi–Sofia: a negative contact renews the cutoff's held anxiety to its peak +0.3 |
 | 61 | Ana | OVERFUNCTION | Bruno | — | refused by Bruno (rejection +0.13); the sender bears the refusal: anxiety Ana +3.6 |
 | 61 | Bruno | PURSUE | Ana | — | refused by Ana (rejection +0.05); the sender bears the refusal: anxiety Bruno +3.6 |
-| 61 | Marta | TRIANGLE | Nadia | Pia, Ravi | refused by Nadia (rejection +0.10); the sender bears the refusal: anxiety Marta +3.1; anxiety Pia +1.0 (witness), Ravi +3.5 (witness) |
+| 61 | Marta | TRIANGLE | Nadia | Pia, Ravi | refused by Nadia (rejection +0.10); the sender bears the refusal: anxiety Marta +3.2; anxiety Pia +1.0 (witness), Ravi +3.5 (witness) |
 | 61 | Nadia | CUTOFF | Marta | Pia, Ravi | arrives week 62; anxiety Marta +1.3, Nadia +0.7, Pia +1.0 (witness), Ravi +3.5 (witness); Nadia rejects the other on Marta–Nadia (rejection +0.00; the tie stays open) |
 | 61 | Pia | DISTANCE | Marta | Nadia, Ravi | refused by Marta (rejection +0.15); the sender bears the refusal: anxiety Pia +2.9; anxiety Nadia +1.0 (witness), Ravi +3.1 (witness) |
 | 61 | Ravi | DISTANCE | Pia | Marta, Nadia | refused by Pia (rejection +0.10); the sender bears the refusal: anxiety Ravi +6.0; anxiety Marta +2.1 (witness), Nadia +1.2 (witness) |
@@ -741,7 +741,7 @@ The standing load, the decay toward each person's floor, the relaxation of felt 
 | 62 | Pia | DISTANCE | Ravi | Marta, Nadia | refused by Ravi (rejection +0.10); the sender bears the refusal: anxiety Pia +2.9; anxiety Marta +1.7 (witness), Nadia +1.0 (witness) |
 | 62 | Ravi | DISTANCE | Pia | Marta, Nadia | refused by Pia (rejection +0.05); the sender bears the refusal: anxiety Ravi +6.0; anxiety Marta +2.0 (witness), Nadia +1.1 (witness) |
 | 62 | Sofia | PURSUE | Ravi | Marta, Nadia, Pia | refused by Ravi (rejection +0.12); the sender bears the refusal: anxiety Sofia +1.6; anxiety Marta +0.7 (witness), Nadia +0.8 (witness), Pia +0.7 (witness) |
-| 62 | — | (system) | — | — | Ravi's symptom gives back 0.1 (Marta +0.0, Nadia +0.0, Pia +0.0, Sofia +0.0) |
+| 62 | — | (system) | — | — | Ravi's symptom gives back 0.0 (Marta +0.0, Nadia +0.0, Pia +0.0, Sofia +0.0) |
 | 62 | — | (system) | — | — | Ravi's symptom is past its turn and holds their anxiety no longer (Ravi -0.0, Marta +0.0, Nadia +0.0, Pia +0.0, Sofia +0.0) |
 | 63 | — | (system) | — | — | Ana–Marta: a negative contact renews the cutoff's held anxiety to its peak +0.2 |
 | 63 | — | (system) | — | — | Pia–Ravi: a negative contact renews the cutoff's held anxiety to its peak +0.6 |
@@ -752,7 +752,7 @@ The standing load, the decay toward each person's floor, the relaxation of felt 
 | 63 | Pia | CONFLICT | Marta | Nadia, Ravi | refused by Marta (rejection +0.15); the sender bears the refusal: anxiety Pia +2.9; anxiety Nadia +1.1 (witness), Ravi +3.4 (witness) |
 | 63 | Ravi | DISTANCE | Pia | Marta, Nadia | refused by Pia (rejection +0.05); the sender bears the refusal: anxiety Ravi +5.9; anxiety Marta +1.9 (witness), Nadia +1.1 (witness) |
 | 63 | Sofia | PURSUE | Ravi | Marta, Nadia, Pia | refused by Ravi (rejection +0.11); the sender bears the refusal: anxiety Sofia +1.5; anxiety Marta +0.7 (witness), Nadia +0.8 (witness), Pia +0.7 (witness) |
-| 63 | — | (system) | — | — | Ravi's symptom gives back 1.8 (Marta +0.5, Nadia +0.5, Pia +0.5, Sofia +0.4) |
+| 63 | — | (system) | — | — | Ravi's symptom gives back 1.8 (Marta +0.5, Nadia +0.4, Pia +0.4, Sofia +0.4) |
 | 63 | — | (system) | — | — | Ravi's symptom is past its turn and holds their anxiety no longer (Ravi -0.2, Marta +0.1, Nadia +0.1, Pia +0.1, Sofia +0.0) |
 | 64 | (from outside) | JOB_LOSS | Ravi | Marta, Nadia, Pia | a 1-week spell, one week; the nodal event re-opens the cut tie Ana–Marta: its standing load spikes next week (too-little side +1 × optimum); the nodal event re-opens the cut tie Dr Halim–Marta: its standing load spikes next week (too-little side +1 × optimum); the nodal event re-opens the cut tie Dr Halim–Ravi: its standing load spikes next week (too-little side +1 × optimum); the nodal event re-opens the cut tie Marta–Nadia: its standing load spikes next week (too-little side +1 × optimum); the nodal event re-opens the cut tie Marta–Pia: its standing load spikes next week (too-little side +1 × optimum); the nodal event re-opens the cut tie Marta–Ravi: its standing load spikes next week (too-little side +1 × optimum); the nodal event re-opens the cut tie Nadia–Ravi: its standing load spikes next week (too-little side +1 × optimum); the nodal event re-opens the cut tie Pia–Ravi: its standing load spikes next week (too-little side +1 × optimum); the nodal event re-opens the cut tie Ravi–Sofia: its standing load spikes next week (too-little side +1 × optimum); anxiety Marta +1.2 (witness), Nadia +1.4 (witness), Pia +1.2 (witness), Ravi +4.2 |
 | 64 | (from outside) | JOB_LOSS | Marta | Nadia, Pia, Ravi | a 1-week spell, one week; the nodal event re-opens the cut tie Ana–Marta: its standing load spikes next week (too-little side +1 × optimum); the nodal event re-opens the cut tie Dr Halim–Marta: its standing load spikes next week (too-little side +1 × optimum); the nodal event re-opens the cut tie Dr Halim–Ravi: its standing load spikes next week (too-little side +1 × optimum); the nodal event re-opens the cut tie Marta–Nadia: its standing load spikes next week (too-little side +1 × optimum); the nodal event re-opens the cut tie Marta–Pia: its standing load spikes next week (too-little side +1 × optimum); the nodal event re-opens the cut tie Marta–Ravi: its standing load spikes next week (too-little side +1 × optimum); the nodal event re-opens the cut tie Nadia–Ravi: its standing load spikes next week (too-little side +1 × optimum); the nodal event re-opens the cut tie Pia–Ravi: its standing load spikes next week (too-little side +1 × optimum); the nodal event re-opens the cut tie Ravi–Sofia: its standing load spikes next week (too-little side +1 × optimum); anxiety Marta +2.5, Nadia +1.4 (witness), Pia +1.2 (witness), Ravi +2.1 (witness) |
@@ -790,11 +790,11 @@ The standing load, the decay toward each person's floor, the relaxation of felt 
 | 66 | Ana | PURSUE | Marta | Nadia, Pia, Ravi | refused by Marta (rejection +0.14); the sender bears the refusal: anxiety Ana +2.8; anxiety Nadia +1.1 (witness), Pia +1.0 (witness), Ravi +1.7 (witness) |
 | 66 | Bruno | CUTOFF | Ana | — | arrives week 67; anxiety Ana +1.8, Bruno +0.7; Bruno rejects the other on Ana–Bruno (rejection +0.05; the tie stays open) |
 | 66 | Marta | CONFLICT | Ana | Nadia, Pia, Ravi | refused by Ana (rejection +0.16); the sender bears the refusal: anxiety Marta +1.9; anxiety Nadia +1.3 (witness), Pia +1.1 (witness), Ravi +1.9 (witness) |
-| 66 | Nadia | DISTANCE | Ravi | Marta, Pia | arrives week 67; anxiety Marta +1.3 (witness), Nadia +0.6, Pia +0.6 (witness), Ravi +1.1; calmer sender takes some anxiety: Nadia +0.9, Ravi -0.9; 8.8 of the sender's anxiety bound into Nadia–Ravi |
+| 66 | Nadia | DISTANCE | Ravi | Marta, Pia | arrives week 67; anxiety Marta +1.4 (witness), Nadia +0.6, Pia +0.6 (witness), Ravi +1.1; calmer sender takes some anxiety: Nadia +0.9, Ravi -0.9; 8.8 of the sender's anxiety bound into Nadia–Ravi |
 | 66 | Pia | CUTOFF | Marta | Nadia, Ravi | arrives week 67; anxiety Marta +0.4, Nadia +1.2 (witness), Pia +0.6, Ravi +3.4 (witness); calmer sender takes some anxiety: Marta -0.7, Pia +0.7; Pia rejects the other on Marta–Pia (rejection +0.20; the tie stays open) |
 | 66 | Ravi | CUTOFF | Marta | Nadia, Pia | arrives week 67; anxiety Nadia +2.1 (witness), Pia +1.8 (witness), Ravi +1.2; Ravi rejects the other on Marta–Ravi (rejection +0.85; the tie stays open) |
 | 66 | Sofia | CUTOFF | Ravi | Marta, Nadia, Pia | arrives week 68; anxiety Marta +0.7 (witness), Nadia +0.8 (witness), Pia +0.7 (witness), Sofia +0.3; calmer sender takes some anxiety: Ravi -1.2, Sofia +1.2; Sofia rejects the other on Ravi–Sofia (rejection +0.30; the tie stays open) |
-| 66 | — | (system) | — | — | Ravi's symptom gives back 4.8 (Marta +1.4, Nadia +1.2, Pia +1.2, Sofia +1.0) |
+| 66 | — | (system) | — | — | Ravi's symptom gives back 4.7 (Marta +1.4, Nadia +1.2, Pia +1.2, Sofia +0.9) |
 | 66 | — | (system) | — | — | Ravi's symptom is past its turn and holds their anxiety no longer (Ravi -0.6, Marta +0.2, Nadia +0.2, Pia +0.2, Sofia +0.1) |
 | 67 | — | (system) | — | — | Ana–Marta: a negative contact renews the cutoff's held anxiety to its peak +0.3 |
 | 67 | — | (system) | — | — | Marta–Pia: a negative contact renews the cutoff's held anxiety to its peak +0.1 |
@@ -802,13 +802,13 @@ The standing load, the decay toward each person's floor, the relaxation of felt 
 | 67 | Ana | OVERFUNCTION | Bruno | — | refused by Bruno (rejection +0.05); the sender bears the refusal: anxiety Ana +3.7 |
 | 67 | Bruno | DISTANCE | Ana | — | refused by Ana (rejection +0.12); the sender bears the refusal: anxiety Bruno +3.4 |
 | 67 | Marta | TRIANGLE | Ravi | Nadia, Pia | refused by Ravi (rejection +0.15); the sender bears the refusal: anxiety Marta +3.1; anxiety Nadia +1.9 (witness), Pia +1.6 (witness) |
-| 67 | Nadia | PURSUE | Ravi | Marta, Pia | arrives week 68; anxiety Marta +1.4 (witness), Nadia +0.6, Pia +0.7 (witness), Ravi +5.0; calmer sender takes some anxiety: Nadia +1.0, Ravi -1.0 |
+| 67 | Nadia | PURSUE | Ravi | Marta, Pia | arrives week 68; anxiety Marta +1.4 (witness), Nadia +0.6, Pia +0.7 (witness), Ravi +4.9; calmer sender takes some anxiety: Nadia +1.0, Ravi -1.0 |
 | 67 | Pia | DISTANCE | Marta | Nadia, Ravi | refused by Marta (rejection +0.15); the sender bears the refusal: anxiety Pia +2.9; anxiety Nadia +1.1 (witness), Ravi +3.2 (witness) |
 | 67 | Ravi | CUTOFF | Pia | Marta, Nadia | arrives week 68; anxiety Marta +1.8 (witness), Nadia +1.0 (witness), Ravi +1.1; Ravi rejects the other on Pia–Ravi (rejection +0.25; the tie stays open) |
 | 67 | Sofia | OVERFUNCTION | Ravi | Marta, Nadia, Pia | refused by Ravi (rejection +0.12); the sender bears the refusal: anxiety Sofia +1.6; anxiety Marta +0.8 (witness), Nadia +0.9 (witness), Pia +0.7 (witness) |
 | 67 | — | (system) | — | — | Bruno's symptom gives back 28.2 (Ana +28.2) |
-| 67 | — | (system) | — | — | Ravi's symptom gives back 3.2 (Marta +1.0, Nadia +0.8, Pia +0.8, Sofia +0.6) |
-| 67 | — | (system) | — | — | Ravi's symptom is past its turn and holds their anxiety no longer (Ravi -0.4, Marta +0.1, Nadia +0.1, Pia +0.1, Sofia +0.1) |
+| 67 | — | (system) | — | — | Ravi's symptom gives back 3.2 (Marta +0.9, Nadia +0.8, Pia +0.8, Sofia +0.6) |
+| 67 | — | (system) | — | — | Ravi's symptom is past its turn and holds their anxiety no longer (Ravi -0.3, Marta +0.1, Nadia +0.1, Pia +0.1, Sofia +0.1) |
 | 68 | (from outside) | JOB_LOSS | Ravi | Marta, Nadia, Pia | a 1-week spell, one week; the nodal event re-opens the cut tie Ana–Marta: its standing load spikes next week (too-little side +1 × optimum); the nodal event re-opens the cut tie Dr Halim–Marta: its standing load spikes next week (too-little side +1 × optimum); the nodal event re-opens the cut tie Marta–Nadia: its standing load spikes next week (too-little side +1 × optimum); the nodal event re-opens the cut tie Marta–Pia: its standing load spikes next week (too-little side +1 × optimum); the nodal event re-opens the cut tie Marta–Ravi: its standing load spikes next week (too-little side +1 × optimum); the nodal event re-opens the cut tie Nadia–Ravi: its standing load spikes next week (too-little side +1 × optimum); the nodal event re-opens the cut tie Pia–Ravi: its standing load spikes next week (too-little side +1 × optimum); the nodal event re-opens the cut tie Ravi–Sofia: its standing load spikes next week (too-little side +1 × optimum); anxiety Marta +1.2 (witness), Nadia +1.4 (witness), Pia +1.2 (witness), Ravi +4.1 |
 | 68 | (from outside) | JOB_LOSS | Marta | Nadia, Pia, Ravi | a 1-week spell, one week; the nodal event re-opens the cut tie Ana–Marta: its standing load spikes next week (too-little side +1 × optimum); the nodal event re-opens the cut tie Dr Halim–Marta: its standing load spikes next week (too-little side +1 × optimum); the nodal event re-opens the cut tie Marta–Nadia: its standing load spikes next week (too-little side +1 × optimum); the nodal event re-opens the cut tie Marta–Pia: its standing load spikes next week (too-little side +1 × optimum); the nodal event re-opens the cut tie Marta–Ravi: its standing load spikes next week (too-little side +1 × optimum); the nodal event re-opens the cut tie Nadia–Ravi: its standing load spikes next week (too-little side +1 × optimum); the nodal event re-opens the cut tie Pia–Ravi: its standing load spikes next week (too-little side +1 × optimum); the nodal event re-opens the cut tie Ravi–Sofia: its standing load spikes next week (too-little side +1 × optimum); anxiety Marta +2.5, Nadia +1.4 (witness), Pia +1.2 (witness), Ravi +2.1 (witness) |
 | 68 | — | (system) | — | — | Marta–Pia: a negative contact renews the cutoff's held anxiety to its peak +0.1 |
@@ -822,11 +822,11 @@ The standing load, the decay toward each person's floor, the relaxation of felt 
 | 68 | Ana | CONFLICT | Bruno | — | refused by Bruno (rejection +0.05); the sender bears the refusal: anxiety Ana +4.4 |
 | 68 | Bruno | CONFLICT | Ana | — | refused by Ana (rejection +0.05); the sender bears the refusal: anxiety Bruno +3.5 |
 | 68 | Marta | WITHHOLD | Ravi | — | held back CONFLICT: computed, not emitted; attention on the tie rises |
-| 68 | Nadia | DISTANCE | Ravi | Marta, Pia | arrives week 69; anxiety Marta +1.5 (witness), Nadia +0.6, Pia +0.7 (witness), Ravi +1.1; calmer sender takes some anxiety: Nadia +1.1, Ravi -1.1; 10.9 of the sender's anxiety bound into Nadia–Ravi |
+| 68 | Nadia | DISTANCE | Ravi | Marta, Pia | arrives week 69; anxiety Marta +1.5 (witness), Nadia +0.6, Pia +0.7 (witness), Ravi +1.1; calmer sender takes some anxiety: Nadia +1.2, Ravi -1.2; 10.9 of the sender's anxiety bound into Nadia–Ravi |
 | 68 | Pia | CONFLICT | Marta | Nadia, Ravi | refused by Marta (rejection +0.15); the sender bears the refusal: anxiety Pia +3.0; anxiety Nadia +1.3 (witness), Ravi +3.7 (witness) |
 | 68 | Ravi | CONFLICT | Marta | Nadia, Pia | refused by Marta (rejection +0.17); the sender bears the refusal: anxiety Ravi +5.6; anxiety Nadia +2.6 (witness), Pia +2.2 (witness) |
 | 68 | Sofia | PURSUE | Ravi | Marta, Nadia, Pia | refused by Ravi (rejection +0.08); the sender bears the refusal: anxiety Sofia +1.6; anxiety Marta +0.8 (witness), Nadia +0.9 (witness), Pia +0.8 (witness) |
-| 68 | — | (system) | — | — | Ravi's symptom gives back 3.2 (Marta +0.9, Nadia +0.8, Pia +0.8, Sofia +0.6) |
+| 68 | — | (system) | — | — | Ravi's symptom gives back 3.1 (Marta +0.9, Nadia +0.8, Pia +0.8, Sofia +0.6) |
 | 68 | — | (system) | — | — | Ravi's symptom is past its turn and holds their anxiety no longer (Ravi -0.5, Marta +0.1, Nadia +0.1, Pia +0.1, Sofia +0.1) |
 | 69 | — | (system) | — | — | Marta–Pia: a negative contact renews the cutoff's held anxiety to its peak +0.1 |
 | 69 | — | (system) | — | — | Marta–Ravi: a negative contact renews the cutoff's held anxiety to its peak +1.5 |
@@ -838,7 +838,7 @@ The standing load, the decay toward each person's floor, the relaxation of felt 
 | 69 | Pia | UNDERFUNCTION | Marta | Nadia, Ravi | refused by Marta (rejection +0.16); the sender bears the refusal: anxiety Pia +3.1; anxiety Nadia +1.2 (witness), Ravi +3.3 (witness) |
 | 69 | Ravi | WITHHOLD | Pia | — | held back OVERFUNCTION: computed, not emitted; attention on the tie rises |
 | 69 | Sofia | CONFLICT | Ravi | Marta, Nadia, Pia | refused by Ravi (rejection +0.05); the sender bears the refusal: anxiety Sofia +1.6; anxiety Marta +0.9 (witness), Nadia +1.0 (witness), Pia +0.9 (witness) |
-| 69 | — | (system) | — | — | Ravi's symptom gives back 2.3 (Marta +0.7, Nadia +0.6, Pia +0.6, Sofia +0.5) |
+| 69 | — | (system) | — | — | Ravi's symptom gives back 2.2 (Marta +0.7, Nadia +0.6, Pia +0.6, Sofia +0.4) |
 | 69 | — | (system) | — | — | Ravi's symptom is past its turn and holds their anxiety no longer (Ravi -0.4, Marta +0.1, Nadia +0.1, Pia +0.1, Sofia +0.1) |
 | 70 | — | (system) | — | — | Marta–Pia: a negative contact renews the cutoff's held anxiety to its peak +0.1 |
 | 70 | — | (system) | — | — | Marta–Ravi: a negative contact renews the cutoff's held anxiety to its peak +1.5 |
@@ -880,7 +880,7 @@ The standing load, the decay toward each person's floor, the relaxation of felt 
 | 72 | Ravi | UNDERFUNCTION | Pia | Marta, Nadia | refused by Pia (rejection +0.19); the sender bears the refusal: anxiety Ravi +6.0; anxiety Marta +2.1 (witness), Nadia +1.2 (witness) |
 | 72 | Sofia | WITHHOLD | Ravi | — | held back CUTOFF: computed, not emitted; attention on the tie rises |
 | 72 | — | (system) | — | — | Ravi's symptom gives back 6.8 (Marta +2.0, Nadia +1.7, Pia +1.7, Sofia +1.4) |
-| 72 | — | (system) | — | — | Ravi's symptom is past its turn and holds their anxiety no longer (Ravi -3.7, Marta +1.1, Nadia +0.9, Pia +0.9, Sofia +0.7) |
+| 72 | — | (system) | — | — | Ravi's symptom is past its turn and holds their anxiety no longer (Ravi -3.6, Marta +1.1, Nadia +0.9, Pia +0.9, Sofia +0.7) |
 | 73 | — | (system) | — | — | Pia–Ravi: a negative contact renews the cutoff's held anxiety to its peak +2.9 |
 | 73 | — | (system) | — | — | Ravi–Sofia: a negative contact renews the cutoff's held anxiety to its peak +0.2 |
 | 73 | — | (system) | — | — | Dr Halim–Marta–Ravi triangle active |
@@ -921,7 +921,7 @@ The standing load, the decay toward each person's floor, the relaxation of felt 
 | 75 | Marta | SPLIT | Dr Halim | Nadia, Pia, Ravi | arrives week 76; anxiety Dr Halim +0.3, Marta +0.2, Nadia +1.1 (witness), Pia +1.0 (witness), Ravi +1.9 (witness) |
 | 75 | Nadia | WITHHOLD | Marta | — | held back OVERFUNCTION: computed, not emitted; attention on the tie rises |
 | 75 | Pia | WITHHOLD | Marta | — | held back DISTANCE: computed, not emitted; attention on the tie rises |
-| 75 | Ravi | WITHHOLD | Pia | — | held back PURSUE: computed, not emitted; attention on the tie rises |
+| 75 | Ravi | WITHHOLD | Pia | — | held back OVERFUNCTION: computed, not emitted; attention on the tie rises |
 | 75 | Sofia | DISTANCE | Ravi | Marta, Nadia, Pia | refused by Ravi (rejection +0.05); the sender bears the refusal: anxiety Sofia +1.7; anxiety Marta +0.9 (witness), Nadia +1.0 (witness), Pia +0.8 (witness) |
 | 75 | — | (system) | — | — | Ravi's symptom gives back 6.4 (Marta +1.9, Nadia +1.6, Pia +1.6, Sofia +1.3) |
 | 75 | — | (system) | — | — | Ravi's symptom is past its turn and holds their anxiety no longer (Ravi -1.1, Marta +0.3, Nadia +0.3, Pia +0.3, Sofia +0.2) |
@@ -988,7 +988,7 @@ The standing load, the decay toward each person's floor, the relaxation of felt 
 | 80 | Dr Halim | TRIANGLE | Marta | Nadia, Pia, Ravi | arrives week 81; anxiety Dr Halim +0.1, Nadia +0.7 (witness), Pia +0.6 (witness), Ravi +1.1 (witness); calmer sender takes some anxiety: Dr Halim +0.9, Marta -0.9; Marta left outside: anxiety Dr Halim -0.0, Marta +0.0 (of which 0.0 the outsider's own); the contact lands with Marta: systems perspective +0.10 |
 | 80 | Marta | TRIANGLE | Pia | Nadia, Ravi | refused by Pia (rejection +0.17); the sender bears the refusal: anxiety Marta +3.5; anxiety Nadia +1.1 (witness), Ravi +2.5 (witness) |
 | 80 | Nadia | PURSUE | Marta | Pia, Ravi | arrives week 81; anxiety Marta +2.6, Nadia +0.7, Pia +0.8 (witness), Ravi +2.4 (witness); calmer sender takes some anxiety: Marta -0.6, Nadia +0.6 |
-| 80 | Pia | DISTANCE | Ravi | Marta, Nadia | refused by Ravi (rejection +0.15); the sender bears the refusal: anxiety Pia +3.1; anxiety Marta +1.6 (witness), Nadia +0.9 (witness) |
+| 80 | Pia | DISTANCE | Ravi | Marta, Nadia | refused by Ravi (rejection +0.15); the sender bears the refusal: anxiety Pia +3.0; anxiety Marta +1.6 (witness), Nadia +0.9 (witness) |
 | 80 | Ravi | UNDERFUNCTION | Pia | Marta, Nadia | refused by Pia (rejection +0.05); the sender bears the refusal: anxiety Ravi +4.7; anxiety Marta +1.8 (witness), Nadia +1.0 (witness) |
 | 80 | Sofia | WITHHOLD | Ravi | — | held back UNDERFUNCTION: computed, not emitted; attention on the tie rises |
 | 81 | — | (system) | — | — | Marta–Pia: a negative contact renews the cutoff's held anxiety to its peak +0.4 |
@@ -1019,7 +1019,7 @@ The standing load, the decay toward each person's floor, the relaxation of felt 
 | 83 | — | (system) | — | — | Pia–Ravi: a negative contact renews the cutoff's held anxiety to its peak +0.6 |
 | 83 | — | (system) | — | — | Ravi–Sofia: a negative contact renews the cutoff's held anxiety to its peak +0.3 |
 | 83 | — | (system) | — | — | Marta–Nadia–Ravi triangle inactive |
-| 83 | Ana | CONFLICT | Marta | Nadia, Pia, Ravi | arrives week 84; anxiety Ana +0.5, Marta +3.8, Nadia +1.0 (witness), Pia +0.9 (witness), Ravi +1.2 (witness); calmer sender takes some anxiety: Ana +0.9, Marta -0.9; 2.8 of the sender's anxiety bound into Ana–Marta |
+| 83 | Ana | CONFLICT | Marta | Nadia, Pia, Ravi | arrives week 84; anxiety Ana +0.5, Marta +3.8, Nadia +1.0 (witness), Pia +0.9 (witness), Ravi +1.2 (witness); calmer sender takes some anxiety: Ana +1.0, Marta -1.0; 2.8 of the sender's anxiety bound into Ana–Marta |
 | 83 | Bruno | PURSUE | Ana | — | refused by Ana (rejection +0.05); the sender bears the refusal: anxiety Bruno +3.5 |
 | 83 | Marta | STAY-IN-CONTACT | Pia | Nadia, Ravi | refused by Pia (rejection +0.10); the sender bears the refusal: anxiety Marta +2.2; anxiety Nadia +0.6 (witness), Ravi +1.4 (witness) |
 | 83 | Nadia | DISTANCE | Ravi | Marta, Pia | arrives week 84; anxiety Marta +1.4 (witness), Nadia +0.6, Pia +0.6 (witness), Ravi +0.4; calmer sender takes some anxiety: Nadia +1.1, Ravi -1.1; 9.2 of the sender's anxiety bound into Nadia–Ravi |
@@ -1070,7 +1070,7 @@ The standing load, the decay toward each person's floor, the relaxation of felt 
 | 87 | Pia | CUTOFF | Ravi | Marta, Nadia | arrives week 88; anxiety Marta +1.5 (witness), Nadia +1.0 (witness), Pia +0.6; calmer sender takes some anxiety: Pia +3.9, Ravi -3.9; Pia rejects the other on Pia–Ravi (rejection +0.05; the tie stays open) |
 | 87 | Ravi | OVERFUNCTION | Marta | Nadia, Pia | arrives week 88; anxiety Marta +5.0, Nadia +2.9 (witness), Pia +2.3 (witness), Ravi +0.9; Marta holds a position: no functioning changes hands |
 | 87 | Sofia | UNDERFUNCTION | Ravi | Marta, Nadia, Pia | refused by Ravi (rejection +0.05); the sender bears the refusal: anxiety Sofia +1.6; anxiety Marta +0.7 (witness), Nadia +0.9 (witness), Pia +0.7 (witness) |
-| 87 | — | (system) | — | — | Pia's symptom gives back 159.2 (Marta +79.6, Ravi +79.6) |
+| 87 | — | (system) | — | — | Pia's symptom gives back 159.1 (Marta +79.6, Ravi +79.6) |
 | 88 | (from outside) | JOB_LOSS | Ravi | Marta, Nadia, Pia | a 1-week spell, one week; the nodal event re-opens the cut tie Ana–Marta: its standing load spikes next week (too-little side +1 × optimum); the nodal event re-opens the cut tie Dr Halim–Marta: its standing load spikes next week (too-little side +1 × optimum); the nodal event re-opens the cut tie Marta–Nadia: its standing load spikes next week (too-little side +1 × optimum); the nodal event re-opens the cut tie Marta–Pia: its standing load spikes next week (too-little side +1 × optimum); the nodal event re-opens the cut tie Marta–Ravi: its standing load spikes next week (too-little side +1 × optimum); the nodal event re-opens the cut tie Nadia–Ravi: its standing load spikes next week (too-little side +1 × optimum); the nodal event re-opens the cut tie Pia–Ravi: its standing load spikes next week (too-little side +1 × optimum); the nodal event re-opens the cut tie Ravi–Sofia: its standing load spikes next week (too-little side +1 × optimum); anxiety Marta +1.3 (witness), Nadia +1.6 (witness), Pia +1.2 (witness), Ravi +3.4 |
 | 88 | (from outside) | JOB_LOSS | Marta | Nadia, Pia, Ravi | a 1-week spell, one week; the nodal event re-opens the cut tie Ana–Marta: its standing load spikes next week (too-little side +1 × optimum); the nodal event re-opens the cut tie Dr Halim–Marta: its standing load spikes next week (too-little side +1 × optimum); the nodal event re-opens the cut tie Marta–Nadia: its standing load spikes next week (too-little side +1 × optimum); the nodal event re-opens the cut tie Marta–Pia: its standing load spikes next week (too-little side +1 × optimum); the nodal event re-opens the cut tie Marta–Ravi: its standing load spikes next week (too-little side +1 × optimum); the nodal event re-opens the cut tie Nadia–Ravi: its standing load spikes next week (too-little side +1 × optimum); the nodal event re-opens the cut tie Pia–Ravi: its standing load spikes next week (too-little side +1 × optimum); the nodal event re-opens the cut tie Ravi–Sofia: its standing load spikes next week (too-little side +1 × optimum); anxiety Marta +2.5, Nadia +1.6 (witness), Pia +1.2 (witness), Ravi +1.7 (witness) |
 | 88 | — | (system) | — | — | Marta–Pia: a negative contact renews the cutoff's held anxiety to its peak +0.2 |
@@ -1122,7 +1122,7 @@ The standing load, the decay toward each person's floor, the relaxation of felt 
 | 91 | Pia | OVERFUNCTION | Ravi | Marta, Nadia | arrives week 92; anxiety Marta +2.0 (witness), Nadia +1.3 (witness), Pia +0.6, Ravi +5.9; calmer sender takes some anxiety: Pia +1.4, Ravi -1.4; Pia takes 3.0 of functioning from the other |
 | 91 | Ravi | CUTOFF | Nadia | Marta, Pia | arrives week 92; anxiety Marta +2.1 (witness), Nadia +0.6, Pia +1.0 (witness), Ravi +1.0; Ravi rejects the other on Nadia–Ravi (rejection +0.00; the tie stays open) |
 | 91 | Sofia | PURSUE | Ravi | Marta, Nadia, Pia | refused by Ravi (rejection +0.05); the sender bears the refusal: anxiety Sofia +1.6; anxiety Marta +0.8 (witness), Nadia +1.0 (witness), Pia +0.8 (witness) |
-| 91 | — | (system) | — | — | Ravi's symptom gives back 1.1 (Marta +0.3, Nadia +0.3, Pia +0.3, Sofia +0.2) |
+| 91 | — | (system) | — | — | Ravi's symptom gives back 1.0 (Marta +0.3, Nadia +0.3, Pia +0.3, Sofia +0.2) |
 | 91 | — | (system) | — | — | Ravi's symptom is past its turn and holds their anxiety no longer (Ravi -0.2, Marta +0.0, Nadia +0.0, Pia +0.0, Sofia +0.0) |
 | 92 | (from outside) | JOB_LOSS | Ravi | Marta, Nadia, Pia | a 1-week spell, one week; the nodal event re-opens the cut tie Ana–Marta: its standing load spikes next week (too-little side +1 × optimum); the nodal event re-opens the cut tie Dr Halim–Marta: its standing load spikes next week (too-little side +1 × optimum); the nodal event re-opens the cut tie Marta–Nadia: its standing load spikes next week (too-little side +1 × optimum); the nodal event re-opens the cut tie Marta–Pia: its standing load spikes next week (too-little side +1 × optimum); the nodal event re-opens the cut tie Marta–Ravi: its standing load spikes next week (too-little side +1 × optimum); the nodal event re-opens the cut tie Nadia–Ravi: its standing load spikes next week (too-little side +1 × optimum); the nodal event re-opens the cut tie Pia–Ravi: its standing load spikes next week (too-little side +1 × optimum); the nodal event re-opens the cut tie Ravi–Sofia: its standing load spikes next week (too-little side +1 × optimum); anxiety Marta +1.3 (witness), Nadia +1.6 (witness), Pia +1.2 (witness), Ravi +3.4 |
 | 92 | (from outside) | JOB_LOSS | Marta | Nadia, Pia, Ravi | a 1-week spell, one week; the nodal event re-opens the cut tie Ana–Marta: its standing load spikes next week (too-little side +1 × optimum); the nodal event re-opens the cut tie Dr Halim–Marta: its standing load spikes next week (too-little side +1 × optimum); the nodal event re-opens the cut tie Marta–Nadia: its standing load spikes next week (too-little side +1 × optimum); the nodal event re-opens the cut tie Marta–Pia: its standing load spikes next week (too-little side +1 × optimum); the nodal event re-opens the cut tie Marta–Ravi: its standing load spikes next week (too-little side +1 × optimum); the nodal event re-opens the cut tie Nadia–Ravi: its standing load spikes next week (too-little side +1 × optimum); the nodal event re-opens the cut tie Pia–Ravi: its standing load spikes next week (too-little side +1 × optimum); the nodal event re-opens the cut tie Ravi–Sofia: its standing load spikes next week (too-little side +1 × optimum); anxiety Marta +2.5, Nadia +1.6 (witness), Pia +1.2 (witness), Ravi +1.7 (witness) |
@@ -1136,7 +1136,7 @@ The standing load, the decay toward each person's floor, the relaxation of felt 
 | 92 | Ravi | CUTOFF | Nadia | Marta, Pia | arrives week 93; anxiety Marta +2.0 (witness), Nadia +1.1, Pia +0.9 (witness), Ravi +1.1; Ravi rejects the other on Nadia–Ravi (rejection +0.05; the tie stays open); impingement removed at once, anxiety Ravi -0.0 |
 | 92 | Sofia | PURSUE | Ravi | Marta, Nadia, Pia | refused by Ravi (rejection +0.05); the sender bears the refusal: anxiety Sofia +1.6; anxiety Marta +0.8 (witness), Nadia +1.0 (witness), Pia +0.8 (witness) |
 | 92 | — | (system) | — | — | Ana's symptom gives back 50.8 (Bruno +29.4, Marta +21.4) |
-| 92 | — | (system) | — | — | Ravi's symptom gives back 4.5 (Marta +1.3, Nadia +1.1, Pia +1.1, Sofia +0.9) |
+| 92 | — | (system) | — | — | Ravi's symptom gives back 4.5 (Marta +1.4, Nadia +1.1, Pia +1.1, Sofia +0.9) |
 | 92 | — | (system) | — | — | Ravi's symptom is past its turn and holds their anxiety no longer (Ravi -1.0, Marta +0.3, Nadia +0.2, Pia +0.2, Sofia +0.2) |
 | 93 | — | (system) | — | — | Marta–Pia: a negative contact renews the cutoff's held anxiety to its peak +0.5 |
 | 93 | — | (system) | — | — | Nadia–Ravi: a negative contact renews the cutoff's held anxiety to its peak +1.2 |
@@ -1148,7 +1148,7 @@ The standing load, the decay toward each person's floor, the relaxation of felt 
 | 93 | Pia | CUTOFF | Marta | Nadia, Ravi | arrives week 94; anxiety Marta +0.2, Nadia +1.1 (witness), Pia +0.6, Ravi +2.5 (witness); calmer sender takes some anxiety: Marta -2.3, Pia +2.3; Pia rejects the other on Marta–Pia (rejection +0.07; the tie stays open) |
 | 93 | Ravi | CUTOFF | Nadia | Marta, Pia | arrives week 94; anxiety Marta +1.9 (witness), Nadia +0.4, Pia +0.9 (witness), Ravi +1.1; Ravi rejects the other on Nadia–Ravi (rejection +0.05; the tie stays open) |
 | 93 | Sofia | PURSUE | Ravi | Marta, Nadia, Pia | refused by Ravi (rejection +0.05); the sender bears the refusal: anxiety Sofia +1.7; anxiety Marta +0.9 (witness), Nadia +1.0 (witness), Pia +0.8 (witness) |
-| 93 | — | (system) | — | — | Ravi's symptom gives back 2.5 (Marta +0.8, Nadia +0.6, Pia +0.6, Sofia +0.5) |
+| 93 | — | (system) | — | — | Ravi's symptom gives back 2.6 (Marta +0.8, Nadia +0.6, Pia +0.6, Sofia +0.5) |
 | 93 | — | (system) | — | — | Ravi's symptom is past its turn and holds their anxiety no longer (Ravi -0.5, Marta +0.1, Nadia +0.1, Pia +0.1, Sofia +0.1) |
 | 94 | — | (system) | — | — | Marta–Pia: a negative contact renews the cutoff's held anxiety to its peak +0.1 |
 | 94 | — | (system) | — | — | Nadia–Ravi: a negative contact renews the cutoff's held anxiety to its peak +1.2 |
@@ -1159,7 +1159,7 @@ The standing load, the decay toward each person's floor, the relaxation of felt 
 | 94 | Marta | WITHHOLD | Nadia | — | held back CONFLICT: computed, not emitted; attention on the tie rises |
 | 94 | Nadia | WITHHOLD | Ravi | — | held back CUTOFF: computed, not emitted; attention on the tie rises |
 | 94 | Pia | CUTOFF | Marta | Nadia, Ravi | arrives week 95; anxiety Marta +0.7, Nadia +1.0 (witness), Pia +0.6, Ravi +2.5 (witness); calmer sender takes some anxiety: Marta -1.7, Pia +1.7; Pia rejects the other on Marta–Pia (rejection +0.05; the tie stays open) |
-| 94 | Ravi | CUTOFF | Marta | Nadia, Pia | arrives week 95; anxiety Marta +0.7, Nadia +2.5 (witness), Pia +2.0 (witness), Ravi +1.0; calmer sender takes some anxiety: Marta -0.6, Ravi +0.6; Ravi rejects the other on Marta–Ravi (rejection +0.25; the tie stays open) |
+| 94 | Ravi | CUTOFF | Marta | Nadia, Pia | arrives week 95; anxiety Marta +0.7, Nadia +2.5 (witness), Pia +2.0 (witness), Ravi +1.1; calmer sender takes some anxiety: Marta -0.7, Ravi +0.7; Ravi rejects the other on Marta–Ravi (rejection +0.25; the tie stays open) |
 | 94 | Sofia | WITHHOLD | Ravi | — | held back PURSUE: computed, not emitted; attention on the tie rises |
 | 94 | Bruno | SYMPTOM_ONSET | Ana | — | arrives week 95; the nodal event re-opens the cut tie Ana–Bruno: its standing load spikes next week (too-little side +1 × optimum); the nodal event re-opens the cut tie Ana–Marta: its standing load spikes next week (too-little side +1 × optimum); symptom onset, social channel; anxiety Ana +2.6 |
 | 94 | — | (system) | — | — | Marta's symptom gives back 2.9 (Ana +0.6, Nadia +0.7, Pia +0.7, Ravi +0.9) |
@@ -1220,7 +1220,7 @@ The standing load, the decay toward each person's floor, the relaxation of felt 
 | 99 | Bruno | PURSUE | Ana | — | refused by Ana (rejection +0.05); the sender bears the refusal: anxiety Bruno +4.1 |
 | 99 | Marta | FRAME_AMBIGUITY | Dr Halim | Nadia, Pia, Ravi | arrives week 100; anxiety Dr Halim +0.6, Marta +0.2, Nadia +1.3 (witness), Pia +1.0 (witness), Ravi +2.0 (witness) |
 | 99 | Nadia | OVERFUNCTION | Marta | Pia, Ravi | arrives week 100; anxiety Marta +5.1, Nadia +0.8, Pia +0.9 (witness), Ravi +2.8 (witness); calmer sender takes some anxiety: Marta -0.1, Nadia +0.1; Nadia takes 2.5 of functioning from the other |
-| 99 | Pia | CUTOFF | Marta | Nadia, Ravi | arrives week 100; anxiety Marta +0.1, Nadia +0.9 (witness), Pia +0.5, Ravi +1.9 (witness); calmer sender takes some anxiety: Marta -1.3, Pia +1.3; Pia rejects the other on Marta–Pia (rejection +0.20; the tie stays open) |
+| 99 | Pia | CUTOFF | Marta | Nadia, Ravi | arrives week 100; anxiety Marta +0.1, Nadia +0.9 (witness), Pia +0.5, Ravi +2.0 (witness); calmer sender takes some anxiety: Marta -1.3, Pia +1.3; Pia rejects the other on Marta–Pia (rejection +0.20; the tie stays open) |
 | 99 | Ravi | CUTOFF | Marta | Nadia, Pia | arrives week 100; anxiety Marta +0.4, Nadia +2.2 (witness), Pia +1.6 (witness), Ravi +0.9; Ravi rejects the other on Marta–Ravi (rejection +0.10; the tie stays open) |
 | 99 | Sofia | PURSUE | Ravi | Marta, Nadia, Pia | refused by Ravi (rejection +0.05); the sender bears the refusal: anxiety Sofia +1.6; anxiety Marta +0.9 (witness), Nadia +1.0 (witness), Pia +0.8 (witness) |
 | 100 | (from outside) | JOB_LOSS | Ravi | Marta, Nadia, Pia | a 1-week spell, one week; the nodal event re-opens the cut tie Ana–Marta: its standing load spikes next week (too-little side +1 × optimum); the nodal event re-opens the cut tie Dr Halim–Marta: its standing load spikes next week (too-little side +1 × optimum); the nodal event re-opens the cut tie Marta–Nadia: its standing load spikes next week (too-little side +1 × optimum); the nodal event re-opens the cut tie Marta–Pia: its standing load spikes next week (too-little side +1 × optimum); the nodal event re-opens the cut tie Marta–Ravi: its standing load spikes next week (too-little side +1 × optimum); the nodal event re-opens the cut tie Nadia–Ravi: its standing load spikes next week (too-little side +1 × optimum); the nodal event re-opens the cut tie Pia–Ravi: its standing load spikes next week (too-little side +1 × optimum); the nodal event re-opens the cut tie Ravi–Sofia: its standing load spikes next week (too-little side +1 × optimum); anxiety Marta +1.2 (witness), Nadia +1.5 (witness), Pia +1.1 (witness), Ravi +3.5 |

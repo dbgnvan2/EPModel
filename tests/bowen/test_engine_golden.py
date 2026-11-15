@@ -80,6 +80,12 @@ FINGERPRINT_DIGITS = 8  # significant digits kept per float; see the module docs
 ZERO_BELOW = 1e-12  # a float this close to zero is written as 0, so 1e-17 and -1e-17 agree
 GOLDEN = {
     # (family, seed, weeks): fingerprint
+    # Both moved at spec revision 62 (T-247 and T-248, 2026-11-15; P23, a decision): a conversion lowers the lenders'
+    # lent pseudo-self (`M1.A.5c`), each borrower's conversion is its own record, and an entrant's resting tie beliefs
+    # are logged (`M16.A.5`). With the lenders' share switched off, the per-week records merged and the entry records
+    # dropped (in memory), revision 61's fingerprints return. Before revision 62:
+    # phase_c 6845d8f33018286a81d7f8564b1af4e2ec78f8e866115a6090fdb1f1ae9ef740,
+    # phase_d d5ea2655c98dfce584efdd004dbdc616b797b394c4381470edd9eb7482ba36ed.
     # Both moved at spec revision 61 (T-243 and T-004, 2026-11-14; P23, a decision): every tie, cue and attribution
     # belief write is now its own `BeliefWriteRecord` (`M16.A.5`), and with those left out both still move, from the
     # converted pseudo-self (`M1.A.5c`, logged as `pseudo_self_conversion`) and the per-tie perspective read by the
@@ -110,8 +116,8 @@ GOLDEN = {
     # the additions' loads and a symptom's own load) each change what a seeded run computes, so every run's log moved.
     # Before revision 36: phase_c c4fd16123fa37db3ccf7d2f6624b3463ef51ec084a44cad1dc0b1501f07ca85c,
     # phase_d 4e5ebdad859f648c37e8bb3222de6f802df94172ff0dd3a5b3e5c1df9b16f559.
-    ("phase_c", 7, 104): "6845d8f33018286a81d7f8564b1af4e2ec78f8e866115a6090fdb1f1ae9ef740",
-    ("phase_d", 11, 208): "d5ea2655c98dfce584efdd004dbdc616b797b394c4381470edd9eb7482ba36ed",
+    ("phase_c", 7, 104): "b8e716b013c6c95a022327320b8bf218030c5936e39cd6926a5aa8f4a87ac28f",
+    ("phase_d", 11, 208): "4878ea64be8cb9a94be388e4e500ef70ac9f38983deacfc0041c335f6e31559d",
 }
 
 

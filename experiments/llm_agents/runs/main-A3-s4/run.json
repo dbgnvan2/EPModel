@@ -72,8 +72,8 @@
     }
   },
   "option_order": "shuffled",
-  "status": "complete",
-  "status_detail": null,
+  "status": "not_replayable",
+  "status_detail": "the replay's summary ff118c65b520 differs from the committed 84755ef58bbe in behavior (ab38279ee251 against 472815b2ad5c); changed since the run: engine_hash, code_hash",
   "counts": {
     "calls": 1456,
     "cached": 0,

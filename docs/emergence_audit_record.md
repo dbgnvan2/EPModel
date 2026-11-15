@@ -8,7 +8,7 @@ direction (`tools/mutation_record.py`'s `judge`). A mixed row is judged on its c
 is evidence for triage, not a defect by itself: the defect test is `M11.1d`'s, whether a rule that carries it
 names its outcome, and the owner decides it for each survivor.
 
-engine_hash: 6b9771549f9c3806062d81289c9265fb67e9182efd9ee6e57f0a6794c76ba6e3
+engine_hash: d9a8a152d5ac31fc0aae903b229d330363b9acc98a1e0f88282a87c1e2321228
 
 Stage: **carriers**. The carriers stage (plan §7 steps 4 and 6, owner 2026-11-04): L0 on every in-scope row and the two controls, and the carriers of each L0 survivor; L1 to L4 are not run.
 
@@ -24,18 +24,22 @@ Stage: **carriers**. The carriers stage (plan §7 steps 4 and 6, owner 2026-11-0
 
 ## Scope
 
-11 of 37 passing rows audited; 1 excluded; 25 out by class (a premise or a check passing, or a mixed row with no composite limb, is never a finding, `M11.5`).
+15 of 40 passing rows audited; 1 excluded; 24 out by class (a premise or a check passing, or a mixed row with no composite limb, is never a finding, `M11.5`).
 
 | Criterion | Class | Seeds at pass |
 |---|---|---|
 | `M11.C.16` | composite | 150 |
+| `M11.C.49` | mixed | 150 |
 | `M11.C.27[unstable,remove_one]` | composite | 100 |
 | `M11.C.52` | composite | 100 |
+| `M11.C.17` | composite | 150 |
 | `M11.C.22` | mixed | 150 |
 | `M11.C.11` | mixed | 150 |
 | `M11.C.7[joint over one spouse]` | mixed | 100 |
+| `M11.C.7[one spouse over sided]` | mixed | 150 |
 | `M11.C.7[joint over sided]` | mixed | 150 |
 | `M11.C.15` | composite | 100 |
+| `M11.C.10[family of origin]` | composite | 200 |
 | `M11.C.2[twelve-person family]` | composite | 150 |
 | `M11.C.48[phase_d]` | composite | 200 |
 | `M11.C.55` | composite | 150 |
@@ -51,7 +55,6 @@ Out by class:
 - `M11.C.4` (premise)
 - `M11.C.19` (check)
 - `M11.C.25` (premise)
-- `M11.C.32` (premise)
 - `M11.C.35` (check)
 - `M11.C.38[-0 vs -5]` (premise)
 - `M11.C.38[-5 vs -10]` (premise)
@@ -88,17 +91,21 @@ Never findings. The build refuses to render the record if either does not hold.
 
 | Criterion | Class | Ablation | Outcome | Seeds | Difference under ablation | Verdict |
 |---|---|---|---|---|---|---|
-| `M11.C.16` | composite | L0 | PASS | 100 | `repertoire_entropy` -0.0151 ± 0.0019; `top_move_share` +0.0278 ± 0.0041 (reported) | **survived** |
-| `M11.C.27[unstable,remove_one]` | composite | L0 | PASS | 100 | `pair_deviation` -0.0696 ± 0.049; `pair_deviation_week_1` -0.0696 ± 0.049 (reported); `pair_deviation_week_2` -0.0542 ± 0.053 (reported); `pair_deviation_week_3` +0.0037 ± 0.044 (reported); `pair_deviation_week_4` +0.0707 ± 0.047 (reported); `pair_deviation_week_5` +0.0958 ± 0.051 (reported); `pair_deviation_week_6` +0.158 ± 0.049 (reported); `pair_deviation_week_7` +0.161 ± 0.048 (reported); `pair_deviation_week_8` +0.21 ± 0.057 (reported); `pair_deviation_week_9` +0.21 ± 0.05 (reported); `pair_deviation_week_10` +0.214 ± 0.052 (reported); `pair_deviation_week_11` +0.216 ± 0.055 (reported); `pair_deviation_week_12` +0.224 ± 0.054 (reported) | **survived** |
-| `M11.C.52` | composite | L0 | PASS | 100 | `escalation` -16 ± 19 | **survived** |
-| `M11.C.22` | mixed | L0 | PASS | 100 | `mild_removal_effect` +1.49 ± 0.73, p 4.7e-05; `severe_removal_effect` -1.64 ± 0.89, p 0.0003 (premise limb) | **survived** |
-| `M11.C.11` | mixed | L0 | PASS | 150 | `disturbance` +6.33 ± 1.6, p 2.9e-12 | **survived** (premise limbs not declared (docs/version_1_dispositions.md, docs/version_2_dispositions.md), so judged on every limb) |
-| `M11.C.7[joint over one spouse]` | mixed | L0 | PASS | 100 | `deviation_fall` +0.0498 ± 0.057, p 0.024; `landed_contacts` +0.33 ± 0.98 (reported) (premise limb) | **survived** |
-| `M11.C.7[joint over sided]` | mixed | L0 | PASS | 150 | `deviation_fall` +0.0817 ± 0.044, p 0.00012; `landed_contacts` +8.99 ± 0.58, p 1e-26 (premise limb) | **survived** |
-| `M11.C.15` | composite | L0 | PASS | 50 | `death_rise` +3.83 ± 0.65, p 6.1e-10; `recovery_rise` +7.45 ± 0.9, p 3.9e-10 | **survived** |
-| `M11.C.2[twelve-person family]` | composite | L0 | FAIL | 150 | `symptom_load` +0.86 ± 1.4, p 0.086 | **red** |
-| `M11.C.48[phase_d]` | composite | L0 | PASS | 200 | `negative_run` +0.0914 ± 0.073, p 0.0024; `run_before_cutoff` +1.62 ± 0.059 (reported); `first_cutoffs` +0 ± 0 (reported); `unmatched_cutoffs` +9.76 ± 0.26 (reported); `no_contact_cutoffs` +10.6 ± 0.38 (reported); `unsided_cutoffs` +2.83 ± 0.17 (reported); `unmatched_left_out_run` +1.69 ± 0.086 (reported); `unsided_left_out_run` +2.05 ± 0.2 (reported); `matched_seed` +1 ± 0 (reported) | **survived** |
-| `M11.C.55` | composite | L0 | FAIL | 150 | `predicted_main_supplier` -0.26 ± 0.088, p 1; `predicted_over_chance` -0.62 ± 0.019, p 1; `parents_supplied` +0 ± 0 (reported); `birth_order_hits` +0 ± 0 (reported) | **reversed** |
+| `M11.C.16` | composite | L0 | PASS | 100 | `repertoire_entropy` -0.0159 ± 0.0021; `top_move_share` +0.0298 ± 0.0039 (reported) | **survived** |
+| `M11.C.49` | mixed | L0 | PASS | 150 | `family_excess` +6.82 ± 2.8; `conflict_share` +0.0431 ± 0.03; `target_impingement` +0.106 ± 0.023 (reported); `completions` -0.293 ± 0.073 (reported) | **survived** (premise limbs not declared (docs/version_1_dispositions.md, docs/version_2_dispositions.md), so judged on every limb) |
+| `M11.C.27[unstable,remove_one]` | composite | L0 | PASS | 100 | `pair_deviation` -0.0696 ± 0.049; `pair_deviation_week_1` -0.0696 ± 0.049 (reported); `pair_deviation_week_2` -0.0542 ± 0.053 (reported); `pair_deviation_week_3` +0.0037 ± 0.044 (reported); `pair_deviation_week_4` +0.0707 ± 0.047 (reported); `pair_deviation_week_5` +0.0958 ± 0.051 (reported); `pair_deviation_week_6` +0.158 ± 0.049 (reported); `pair_deviation_week_7` +0.156 ± 0.05 (reported); `pair_deviation_week_8` +0.208 ± 0.057 (reported); `pair_deviation_week_9` +0.207 ± 0.05 (reported); `pair_deviation_week_10` +0.213 ± 0.052 (reported); `pair_deviation_week_11` +0.214 ± 0.054 (reported); `pair_deviation_week_12` +0.224 ± 0.054 (reported) | **survived** |
+| `M11.C.52` | composite | L0 | PASS | 100 | `escalation` -34.3 ± 20 | **survived** |
+| `M11.C.17` | composite | L0 | PASS | 150 | `coached_rise` +0.00556 ± 0.0019, p 1e-10; `family_rise` +0.0017 ± 0.00056 (reported) | **survived** |
+| `M11.C.22` | mixed | L0 | PASS | 100 | `mild_removal_effect` +1.59 ± 0.71, p 1.1e-05; `severe_removal_effect` -1.41 ± 0.78, p 0.0004 (premise limb) | **survived** |
+| `M11.C.11` | mixed | L0 | PASS | 150 | `disturbance` +6.54 ± 1.6, p 2e-12 | **survived** (premise limbs not declared (docs/version_1_dispositions.md, docs/version_2_dispositions.md), so judged on every limb) |
+| `M11.C.7[joint over one spouse]` | mixed | L0 | PASS | 100 | `deviation_fall` +0.0659 ± 0.064, p 0.022; `landed_contacts` -0.71 ± 0.98 (reported) (premise limb) | **survived** |
+| `M11.C.7[one spouse over sided]` | mixed | L0 | PASS | 150 | `deviation_fall` +0.0574 ± 0.051, p 0.021; `landed_contacts` +9.43 ± 0.63, p 1e-26 (premise limb) | **survived** |
+| `M11.C.7[joint over sided]` | mixed | L0 | PASS | 150 | `deviation_fall` +0.106 ± 0.036, p 1.2e-07; `landed_contacts` +8.76 ± 0.59, p 1e-26 (premise limb) | **survived** |
+| `M11.C.15` | composite | L0 | PASS | 100 | `death_rise` +3.88 ± 0.56, p 3.5e-16; `recovery_rise` +7 ± 0.52, p 2e-18 | **survived** |
+| `M11.C.10[family of origin]` | composite | L0 | PASS | 200 | `cut_off_tie_weeks` +157 ± 1.3e+02, p 0.005; `child_cut_weeks` +61.7 ± 46 (reported) | **survived** |
+| `M11.C.2[twelve-person family]` | composite | L0 | FAIL | 150 | `symptom_load` -0.521 ± 1.4, p 0.78 | **red** |
+| `M11.C.48[phase_d]` | composite | L0 | FAIL | 200 | `negative_run` +0.0408 ± 0.079, p 0.054; `run_before_cutoff` +1.62 ± 0.056 (reported); `first_cutoffs` +0 ± 0 (reported); `unmatched_cutoffs` +10 ± 0.25 (reported); `no_contact_cutoffs` +10.8 ± 0.37 (reported); `unsided_cutoffs` +2.73 ± 0.15 (reported); `unmatched_left_out_run` +1.63 ± 0.084 (reported); `unsided_left_out_run` +2.08 ± 0.18 (reported); `matched_seed` +1 ± 0 (reported) | **red** |
+| `M11.C.55` | composite | L0 | FAIL | 150 | `predicted_main_supplier` -0.213 ± 0.076, p 1; `predicted_over_chance` -0.631 ± 0.017, p 1; `parents_supplied` +0 ± 0 (reported); `birth_order_hits` +0 ± 0 (reported) | **reversed** |
 
 `M11.5`'s note on each reversed row:
 
@@ -118,37 +125,54 @@ Carriers: **C1, C7:level-blind, C7:availability-level-independent, C7:availabili
 
 | Criterion | Class | Ablation | Outcome | Seeds | Difference under ablation | Verdict |
 |---|---|---|---|---|---|---|
-| `M11.C.16` | composite | C1 | FAIL | 100 | `repertoire_entropy` +0.00142 ± 0.0015; `top_move_share` -0.00403 ± 0.0031 (reported) | **red** |
-| `M11.C.16` | composite | C2 | PASS | 100 | `repertoire_entropy` -0.0121 ± 0.0016; `top_move_share` +0.0223 ± 0.0034 (reported) | **survived** |
-| `M11.C.16` | composite | C3 | PASS | 100 | `repertoire_entropy` -0.0149 ± 0.002; `top_move_share` +0.031 ± 0.0037 (reported) | **survived** |
-| `M11.C.16` | composite | C4 | PASS | 100 | `repertoire_entropy` -0.0148 ± 0.002; `top_move_share` +0.0293 ± 0.004 (reported) | **survived** |
-| `M11.C.16` | composite | C5 | PASS | 100 | `repertoire_entropy` -0.015 ± 0.0015; `top_move_share` +0.0299 ± 0.0036 (reported) | **survived** |
-| `M11.C.16` | composite | C6 | PASS | 100 | `repertoire_entropy` -0.0143 ± 0.0021; `top_move_share` +0.0268 ± 0.004 (reported) | **survived** |
-| `M11.C.16` | composite | C7:steepness-level-independent | PASS | 100 | `repertoire_entropy` -0.0107 ± 0.0019; `top_move_share` +0.0242 ± 0.0036 (reported) | **survived** |
-| `M11.C.16` | composite | C7:mixing-weight-level-independent | PASS | 100 | `repertoire_entropy` -0.0122 ± 0.0016; `top_move_share` +0.0224 ± 0.0034 (reported) | **survived** |
-| `M11.C.16` | composite | C7:learner-disabled | PASS | 100 | `repertoire_entropy` -0.0151 ± 0.0019; `top_move_share` +0.0278 ± 0.0041 (reported) | **survived** |
-| `M11.C.16` | composite | C7:threshold-level-independent | PASS | 100 | `repertoire_entropy` -0.0166 ± 0.0024; `top_move_share` +0.0319 ± 0.0042 (reported) | **survived** |
-| `M11.C.16` | composite | C7:threshold-level-inverted | PASS | 100 | `repertoire_entropy` -0.0159 ± 0.0023; `top_move_share` +0.031 ± 0.0043 (reported) | **survived** |
-| `M11.C.16` | composite | C7:standing-load-level-independent | PASS | 100 | `repertoire_entropy` -0.0155 ± 0.0021; `top_move_share` +0.0299 ± 0.0042 (reported) | **survived** |
-| `M11.C.16` | composite | C7:standing-load-level-inverted | PASS | 100 | `repertoire_entropy` -0.0157 ± 0.0021; `top_move_share` +0.03 ± 0.0042 (reported) | **survived** |
-| `M11.C.16` | composite | C7:level-blind | FAIL | 50 | `repertoire_entropy` -0.000215 ± 0.00055; `top_move_share` +0.000935 ± 0.0012 (reported) | **red** |
-| `M11.C.16` | composite | C7:availability-level-independent | FAIL | 100 | `repertoire_entropy` +0.00142 ± 0.0015; `top_move_share` -0.00403 ± 0.0031 (reported) | **red** |
-| `M11.C.16` | composite | C7:availability-level-inverted | FAIL | 100 | `repertoire_entropy` +0.0122 ± 0.002; `top_move_share` -0.0277 ± 0.0036 (reported) | **reversed** |
-| `M11.C.16` | composite | C7:availability-and-learner-removed | FAIL | 100 | `repertoire_entropy` +0.00142 ± 0.0015; `top_move_share` -0.00403 ± 0.0031 (reported) | **red** |
-| `M11.C.16` | composite | C7:band-level-independent | PASS | 100 | `repertoire_entropy` -0.0152 ± 0.0021; `top_move_share` +0.0293 ± 0.0037 (reported) | **survived** |
-| `M11.C.16` | composite | C7:band-level-inverted | PASS | 100 | `repertoire_entropy` -0.0144 ± 0.0022; `top_move_share` +0.0317 ± 0.0042 (reported) | **survived** |
-| `M11.C.16` | composite | C7:outside-ness-level-independent | PASS | 100 | `repertoire_entropy` -0.0144 ± 0.0023; `top_move_share` +0.0265 ± 0.0044 (reported) | **survived** |
-| `M11.C.16` | composite | C7:outside-ness-level-inverted | PASS | 100 | `repertoire_entropy` -0.0145 ± 0.0024; `top_move_share` +0.0308 ± 0.0038 (reported) | **survived** |
-| `M11.C.16` | composite | C7:routing-level-independent | PASS | 100 | `repertoire_entropy` -0.0154 ± 0.0022; `top_move_share` +0.0279 ± 0.0043 (reported) | **survived** |
-| `M11.C.16` | composite | C7:routing-level-inverted | PASS | 100 | `repertoire_entropy` -0.0153 ± 0.0022; `top_move_share` +0.0281 ± 0.0042 (reported) | **survived** |
-| `M11.C.16` | composite | C7:hold-level-independent | PASS | 100 | `repertoire_entropy` -0.0151 ± 0.0019; `top_move_share` +0.0278 ± 0.0041 (reported) | **survived** |
-| `M11.C.16` | composite | C7:hold-level-inverted | PASS | 100 | `repertoire_entropy` -0.015 ± 0.0019; `top_move_share` +0.0278 ± 0.0041 (reported) | **survived** |
-| `M11.C.16` | composite | C7:c16-cited-grounds-removed | PASS | 100 | `repertoire_entropy` -0.0115 ± 0.002; `top_move_share` +0.0225 ± 0.0042 (reported) | **survived** |
-| `M11.C.16` | composite | C7:c16-grounds-removed | FAIL | 150 | `repertoire_entropy` -0.000521 ± 0.0014; `top_move_share` -0.00159 ± 0.0024 (reported) | **red** |
-| `M11.C.16` | composite | C7:steepness-inverted | PASS | 100 | `repertoire_entropy` -0.0103 ± 0.0016; `top_move_share` +0.0236 ± 0.0031 (reported) | **survived** |
-| `M11.C.16` | composite | C7:mixing-weight-inverted | PASS | 150 | `repertoire_entropy` -0.00764 ± 0.002; `top_move_share` +0.0156 ± 0.004 (reported) | **survived** |
-| `M11.C.16` | composite | C7:learner-inverted | PASS | 100 | `repertoire_entropy` -0.0151 ± 0.0019; `top_move_share` +0.0278 ± 0.0041 (reported) | **survived** |
-| `M11.C.16` | composite | C7:relief-less-expected-decay | PASS | 100 | `repertoire_entropy` -0.0151 ± 0.0019; `top_move_share` +0.0278 ± 0.0041 (reported) | **survived** |
+| `M11.C.16` | composite | C1 | FAIL | 150 | `repertoire_entropy` -0.000328 ± 0.0013; `top_move_share` +7.18e-05 ± 0.0023 (reported) | **red** |
+| `M11.C.16` | composite | C2 | PASS | 100 | `repertoire_entropy` -0.0134 ± 0.0018; `top_move_share` +0.0217 ± 0.0034 (reported) | **survived** |
+| `M11.C.16` | composite | C3 | PASS | 150 | `repertoire_entropy` -0.0133 ± 0.0018; `top_move_share` +0.0292 ± 0.0033 (reported) | **survived** |
+| `M11.C.16` | composite | C4 | PASS | 100 | `repertoire_entropy` -0.0155 ± 0.0021; `top_move_share` +0.0277 ± 0.004 (reported) | **survived** |
+| `M11.C.16` | composite | C5 | PASS | 100 | `repertoire_entropy` -0.0151 ± 0.0015; `top_move_share` +0.0298 ± 0.0035 (reported) | **survived** |
+| `M11.C.16` | composite | C6 | PASS | 100 | `repertoire_entropy` -0.0153 ± 0.0021; `top_move_share` +0.0285 ± 0.0042 (reported) | **survived** |
+| `M11.C.16` | composite | C7:steepness-level-independent | PASS | 100 | `repertoire_entropy` -0.0112 ± 0.002; `top_move_share` +0.0237 ± 0.0034 (reported) | **survived** |
+| `M11.C.16` | composite | C7:mixing-weight-level-independent | PASS | 100 | `repertoire_entropy` -0.0135 ± 0.0018; `top_move_share` +0.0213 ± 0.0034 (reported) | **survived** |
+| `M11.C.16` | composite | C7:learner-disabled | PASS | 100 | `repertoire_entropy` -0.0159 ± 0.0021; `top_move_share` +0.0298 ± 0.0039 (reported) | **survived** |
+| `M11.C.16` | composite | C7:threshold-level-independent | PASS | 100 | `repertoire_entropy` -0.0177 ± 0.0025; `top_move_share` +0.0325 ± 0.0042 (reported) | **survived** |
+| `M11.C.16` | composite | C7:threshold-level-inverted | PASS | 100 | `repertoire_entropy` -0.0169 ± 0.0023; `top_move_share` +0.0322 ± 0.0046 (reported) | **survived** |
+| `M11.C.16` | composite | C7:standing-load-level-independent | PASS | 100 | `repertoire_entropy` -0.0156 ± 0.0021; `top_move_share` +0.0303 ± 0.0039 (reported) | **survived** |
+| `M11.C.16` | composite | C7:standing-load-level-inverted | PASS | 100 | `repertoire_entropy` -0.016 ± 0.0021; `top_move_share` +0.0294 ± 0.0038 (reported) | **survived** |
+| `M11.C.16` | composite | C7:level-blind | FAIL | 50 | `repertoire_entropy` +0.000512 ± 0.00075; `top_move_share` -0.00161 ± 0.0015 (reported) | **red** |
+| `M11.C.16` | composite | C7:availability-level-independent | FAIL | 150 | `repertoire_entropy` -0.000328 ± 0.0013; `top_move_share` +7.18e-05 ± 0.0023 (reported) | **red** |
+| `M11.C.16` | composite | C7:availability-level-inverted | FAIL | 150 | `repertoire_entropy` +0.0111 ± 0.0017; `top_move_share` -0.0255 ± 0.0034 (reported) | **reversed** |
+| `M11.C.16` | composite | C7:availability-and-learner-removed | FAIL | 150 | `repertoire_entropy` -0.000328 ± 0.0013; `top_move_share` +7.18e-05 ± 0.0023 (reported) | **red** |
+| `M11.C.16` | composite | C7:band-level-independent | PASS | 100 | `repertoire_entropy` -0.0157 ± 0.002; `top_move_share` +0.0283 ± 0.0036 (reported) | **survived** |
+| `M11.C.16` | composite | C7:band-level-inverted | PASS | 100 | `repertoire_entropy` -0.0158 ± 0.002; `top_move_share` +0.032 ± 0.0042 (reported) | **survived** |
+| `M11.C.16` | composite | C7:outside-ness-level-independent | PASS | 150 | `repertoire_entropy` -0.0144 ± 0.0017; `top_move_share` +0.0283 ± 0.0033 (reported) | **survived** |
+| `M11.C.16` | composite | C7:outside-ness-level-inverted | PASS | 100 | `repertoire_entropy` -0.014 ± 0.002; `top_move_share` +0.0286 ± 0.0039 (reported) | **survived** |
+| `M11.C.16` | composite | C7:routing-level-independent | PASS | 100 | `repertoire_entropy` -0.016 ± 0.0021; `top_move_share` +0.0294 ± 0.0038 (reported) | **survived** |
+| `M11.C.16` | composite | C7:routing-level-inverted | PASS | 100 | `repertoire_entropy` -0.0167 ± 0.0022; `top_move_share` +0.0299 ± 0.004 (reported) | **survived** |
+| `M11.C.16` | composite | C7:hold-level-independent | PASS | 100 | `repertoire_entropy` -0.016 ± 0.0021; `top_move_share` +0.0296 ± 0.0039 (reported) | **survived** |
+| `M11.C.16` | composite | C7:hold-level-inverted | PASS | 100 | `repertoire_entropy` -0.0159 ± 0.0021; `top_move_share` +0.0295 ± 0.0039 (reported) | **survived** |
+| `M11.C.16` | composite | C7:c16-cited-grounds-removed | PASS | 100 | `repertoire_entropy` -0.0114 ± 0.002; `top_move_share` +0.0239 ± 0.0032 (reported) | **survived** |
+| `M11.C.16` | composite | C7:c16-grounds-removed | FAIL | 150 | `repertoire_entropy` -0.00052 ± 0.0014; `top_move_share` -0.0015 ± 0.0023 (reported) | **red** |
+| `M11.C.16` | composite | C7:steepness-inverted | PASS | 100 | `repertoire_entropy` -0.0111 ± 0.0017; `top_move_share` +0.0217 ± 0.0034 (reported) | **survived** |
+| `M11.C.16` | composite | C7:mixing-weight-inverted | PASS | 100 | `repertoire_entropy` -0.0103 ± 0.0025; `top_move_share` +0.0208 ± 0.0045 (reported) | **survived** |
+| `M11.C.16` | composite | C7:learner-inverted | PASS | 100 | `repertoire_entropy` -0.0159 ± 0.0021; `top_move_share` +0.0298 ± 0.0039 (reported) | **survived** |
+| `M11.C.16` | composite | C7:relief-less-expected-decay | PASS | 100 | `repertoire_entropy` -0.0159 ± 0.0021; `top_move_share` +0.0298 ± 0.0039 (reported) | **survived** |
+
+### `M11.C.49`
+
+Carriers: **C5**.
+
+`M11.5` says it rests on: `M5.F.4`'s demand share (the target's felt impingement limb, reported, never a finding). Note: the family-excess and `CONFLICT`-share limbs are composite: they need `M5.F.4`, appraisal, the target's learned response and contagion; level moves more than the mixture, and `demand-share-removed` isolates `M5.F.4`'s part
+
+| Criterion | Class | Ablation | Outcome | Seeds | Difference under ablation | Verdict |
+|---|---|---|---|---|---|---|
+| `M11.C.49` | mixed | C1 | PASS | 150 | `family_excess` +6.45 ± 2.7; `conflict_share` +0.0411 ± 0.031; `target_impingement` +0.105 ± 0.024 (reported); `completions` -0.287 ± 0.073 (reported) | **survived** (premise limbs not declared (docs/version_1_dispositions.md, docs/version_2_dispositions.md), so judged on every limb) |
+| `M11.C.49` | mixed | C2 | PASS | 100 | `family_excess` +7.5 ± 3.2; `conflict_share` +0.056 ± 0.037; `target_impingement` +0.113 ± 0.025 (reported); `completions` -0.36 ± 0.095 (reported) | **survived** (premise limbs not declared (docs/version_1_dispositions.md, docs/version_2_dispositions.md), so judged on every limb) |
+| `M11.C.49` | mixed | C3 | PASS | 100 | `family_excess` +3.34 ± 3; `conflict_share` +0.05 ± 0.036; `target_impingement` +0.11 ± 0.027 (reported); `completions` -0.31 ± 0.091 (reported) | **survived** (premise limbs not declared (docs/version_1_dispositions.md, docs/version_2_dispositions.md), so judged on every limb) |
+| `M11.C.49` | mixed | C4 | PASS | 150 | `family_excess` +5.42 ± 2.8; `conflict_share` +0.0463 ± 0.031; `target_impingement` +0.114 ± 0.022 (reported); `completions` -0.347 ± 0.076 (reported) | **survived** (premise limbs not declared (docs/version_1_dispositions.md, docs/version_2_dispositions.md), so judged on every limb) |
+| `M11.C.49` | mixed | C5 | FAIL | 150 | `family_excess` +2.46 ± 2.4; `conflict_share` +0.0156 ± 0.021; `target_impingement` +0.0851 ± 0.021 (reported); `completions` -0.273 ± 0.072 (reported) | **red** (premise limbs not declared (docs/version_1_dispositions.md, docs/version_2_dispositions.md), so judged on every limb) |
+| `M11.C.49` | mixed | C6 | PASS | 150 | `family_excess` +7.28 ± 2.8; `conflict_share` +0.0482 ± 0.032; `target_impingement` +0.121 ± 0.025 (reported); `completions` -0.42 ± 0.079 (reported) | **survived** (premise limbs not declared (docs/version_1_dispositions.md, docs/version_2_dispositions.md), so judged on every limb) |
+| `M11.C.49` | mixed | C7:demand-share-removed | PASS | 100 | `family_excess` +6.5 ± 3.3; `conflict_share` +0.0399 ± 0.037; `target_impingement` +0.104 ± 0.029 (reported); `completions` -0.31 ± 0.091 (reported) | **survived** (premise limbs not declared (docs/version_1_dispositions.md, docs/version_2_dispositions.md), so judged on every limb) |
+| `M11.C.49` | mixed | C7:demand-share-inverted | PASS | 150 | `family_excess` +2.32 ± 2.8; `conflict_share` +0.0394 ± 0.029; `target_impingement` +0.0552 ± 0.023 (reported); `completions` -0.3 ± 0.074 (reported) | **survived** (premise limbs not declared (docs/version_1_dispositions.md, docs/version_2_dispositions.md), so judged on every limb) |
 
 ### `M11.C.27[unstable,remove_one]`
 
@@ -158,30 +182,46 @@ Carriers: **C2, C7:one-sided-deviation, C7:deviation-inverted**.
 
 | Criterion | Class | Ablation | Outcome | Seeds | Difference under ablation | Verdict |
 |---|---|---|---|---|---|---|
-| `M11.C.27[unstable,remove_one]` | composite | C1 | PASS | 100 | `pair_deviation` -0.0643 ± 0.049; `pair_deviation_week_1` -0.0643 ± 0.049 (reported); `pair_deviation_week_2` -0.0602 ± 0.057 (reported); `pair_deviation_week_3` +0.0039 ± 0.046 (reported); `pair_deviation_week_4` +0.0731 ± 0.047 (reported); `pair_deviation_week_5` +0.0964 ± 0.052 (reported); `pair_deviation_week_6` +0.158 ± 0.049 (reported); `pair_deviation_week_7` +0.162 ± 0.047 (reported); `pair_deviation_week_8` +0.218 ± 0.057 (reported); `pair_deviation_week_9` +0.241 ± 0.051 (reported); `pair_deviation_week_10` +0.239 ± 0.056 (reported); `pair_deviation_week_11` +0.233 ± 0.059 (reported); `pair_deviation_week_12` +0.24 ± 0.06 (reported) | **survived** |
-| `M11.C.27[unstable,remove_one]` | composite | C2 | FAIL | 100 | `pair_deviation` +0.00691 ± 0.05; `pair_deviation_week_1` +0.00691 ± 0.05 (reported); `pair_deviation_week_2` -0.0104 ± 0.059 (reported); `pair_deviation_week_3` +0.0827 ± 0.053 (reported); `pair_deviation_week_4` +0.101 ± 0.054 (reported); `pair_deviation_week_5` +0.155 ± 0.052 (reported); `pair_deviation_week_6` +0.199 ± 0.063 (reported); `pair_deviation_week_7` +0.209 ± 0.057 (reported); `pair_deviation_week_8` +0.241 ± 0.061 (reported); `pair_deviation_week_9` +0.259 ± 0.055 (reported); `pair_deviation_week_10` +0.274 ± 0.057 (reported); `pair_deviation_week_11` +0.283 ± 0.065 (reported); `pair_deviation_week_12` +0.266 ± 0.061 (reported) | **red** |
-| `M11.C.27[unstable,remove_one]` | composite | C3 | PASS | 50 | `pair_deviation` -0.103 ± 0.061; `pair_deviation_week_1` -0.103 ± 0.061 (reported); `pair_deviation_week_2` -0.067 ± 0.074 (reported); `pair_deviation_week_3` +0.0205 ± 0.067 (reported); `pair_deviation_week_4` +0.0611 ± 0.075 (reported); `pair_deviation_week_5` +0.119 ± 0.072 (reported); `pair_deviation_week_6` +0.167 ± 0.077 (reported); `pair_deviation_week_7` +0.236 ± 0.064 (reported); `pair_deviation_week_8` +0.223 ± 0.07 (reported); `pair_deviation_week_9` +0.29 ± 0.066 (reported); `pair_deviation_week_10` +0.281 ± 0.064 (reported); `pair_deviation_week_11` +0.292 ± 0.061 (reported); `pair_deviation_week_12` +0.342 ± 0.079 (reported) | **survived** |
-| `M11.C.27[unstable,remove_one]` | composite | C4 | PASS | 100 | `pair_deviation` -0.0696 ± 0.049; `pair_deviation_week_1` -0.0696 ± 0.049 (reported); `pair_deviation_week_2` -0.0542 ± 0.053 (reported); `pair_deviation_week_3` +0.0037 ± 0.044 (reported); `pair_deviation_week_4` +0.0707 ± 0.047 (reported); `pair_deviation_week_5` +0.0958 ± 0.051 (reported); `pair_deviation_week_6` +0.158 ± 0.049 (reported); `pair_deviation_week_7` +0.161 ± 0.048 (reported); `pair_deviation_week_8` +0.21 ± 0.057 (reported); `pair_deviation_week_9` +0.21 ± 0.05 (reported); `pair_deviation_week_10` +0.214 ± 0.052 (reported); `pair_deviation_week_11` +0.216 ± 0.055 (reported); `pair_deviation_week_12` +0.224 ± 0.054 (reported) | **survived** |
+| `M11.C.27[unstable,remove_one]` | composite | C1 | PASS | 100 | `pair_deviation` -0.0643 ± 0.049; `pair_deviation_week_1` -0.0643 ± 0.049 (reported); `pair_deviation_week_2` -0.0602 ± 0.057 (reported); `pair_deviation_week_3` +0.0039 ± 0.046 (reported); `pair_deviation_week_4` +0.0731 ± 0.047 (reported); `pair_deviation_week_5` +0.0964 ± 0.052 (reported); `pair_deviation_week_6` +0.154 ± 0.05 (reported); `pair_deviation_week_7` +0.158 ± 0.048 (reported); `pair_deviation_week_8` +0.216 ± 0.057 (reported); `pair_deviation_week_9` +0.24 ± 0.051 (reported); `pair_deviation_week_10` +0.236 ± 0.056 (reported); `pair_deviation_week_11` +0.232 ± 0.059 (reported); `pair_deviation_week_12` +0.239 ± 0.06 (reported) | **survived** |
+| `M11.C.27[unstable,remove_one]` | composite | C2 | FAIL | 100 | `pair_deviation` +0.00691 ± 0.05; `pair_deviation_week_1` +0.00691 ± 0.05 (reported); `pair_deviation_week_2` -0.00847 ± 0.059 (reported); `pair_deviation_week_3` +0.0848 ± 0.053 (reported); `pair_deviation_week_4` +0.103 ± 0.055 (reported); `pair_deviation_week_5` +0.157 ± 0.053 (reported); `pair_deviation_week_6` +0.201 ± 0.063 (reported); `pair_deviation_week_7` +0.208 ± 0.057 (reported); `pair_deviation_week_8` +0.237 ± 0.062 (reported); `pair_deviation_week_9` +0.261 ± 0.054 (reported); `pair_deviation_week_10` +0.272 ± 0.058 (reported); `pair_deviation_week_11` +0.287 ± 0.065 (reported); `pair_deviation_week_12` +0.273 ± 0.061 (reported) | **red** |
+| `M11.C.27[unstable,remove_one]` | composite | C3 | PASS | 50 | `pair_deviation` -0.103 ± 0.061; `pair_deviation_week_1` -0.103 ± 0.061 (reported); `pair_deviation_week_2` -0.0669 ± 0.074 (reported); `pair_deviation_week_3` +0.0206 ± 0.067 (reported); `pair_deviation_week_4` +0.0611 ± 0.075 (reported); `pair_deviation_week_5` +0.119 ± 0.072 (reported); `pair_deviation_week_6` +0.167 ± 0.077 (reported); `pair_deviation_week_7` +0.236 ± 0.064 (reported); `pair_deviation_week_8` +0.223 ± 0.07 (reported); `pair_deviation_week_9` +0.29 ± 0.066 (reported); `pair_deviation_week_10` +0.281 ± 0.064 (reported); `pair_deviation_week_11` +0.292 ± 0.061 (reported); `pair_deviation_week_12` +0.34 ± 0.079 (reported) | **survived** |
+| `M11.C.27[unstable,remove_one]` | composite | C4 | PASS | 100 | `pair_deviation` -0.0696 ± 0.049; `pair_deviation_week_1` -0.0696 ± 0.049 (reported); `pair_deviation_week_2` -0.0542 ± 0.053 (reported); `pair_deviation_week_3` +0.0037 ± 0.044 (reported); `pair_deviation_week_4` +0.0707 ± 0.047 (reported); `pair_deviation_week_5` +0.0958 ± 0.051 (reported); `pair_deviation_week_6` +0.158 ± 0.049 (reported); `pair_deviation_week_7` +0.156 ± 0.05 (reported); `pair_deviation_week_8` +0.208 ± 0.057 (reported); `pair_deviation_week_9` +0.207 ± 0.05 (reported); `pair_deviation_week_10` +0.213 ± 0.052 (reported); `pair_deviation_week_11` +0.214 ± 0.054 (reported); `pair_deviation_week_12` +0.224 ± 0.054 (reported) | **survived** |
 | `M11.C.27[unstable,remove_one]` | composite | C5 | PASS | 100 | `pair_deviation` -0.0727 ± 0.048; `pair_deviation_week_1` -0.0727 ± 0.048 (reported); `pair_deviation_week_2` -0.0429 ± 0.058 (reported); `pair_deviation_week_3` -0.0163 ± 0.054 (reported); `pair_deviation_week_4` +0.0235 ± 0.049 (reported); `pair_deviation_week_5` +0.0803 ± 0.05 (reported); `pair_deviation_week_6` +0.136 ± 0.049 (reported); `pair_deviation_week_7` +0.191 ± 0.049 (reported); `pair_deviation_week_8` +0.224 ± 0.055 (reported); `pair_deviation_week_9` +0.253 ± 0.049 (reported); `pair_deviation_week_10` +0.273 ± 0.045 (reported); `pair_deviation_week_11` +0.267 ± 0.042 (reported); `pair_deviation_week_12` +0.258 ± 0.041 (reported) | **survived** |
-| `M11.C.27[unstable,remove_one]` | composite | C6 | PASS | 100 | `pair_deviation` -0.0677 ± 0.052; `pair_deviation_week_1` -0.0677 ± 0.052 (reported); `pair_deviation_week_2` -0.06 ± 0.054 (reported); `pair_deviation_week_3` +0.00271 ± 0.047 (reported); `pair_deviation_week_4` +0.053 ± 0.05 (reported); `pair_deviation_week_5` +0.0725 ± 0.053 (reported); `pair_deviation_week_6` +0.141 ± 0.051 (reported); `pair_deviation_week_7` +0.14 ± 0.054 (reported); `pair_deviation_week_8` +0.182 ± 0.051 (reported); `pair_deviation_week_9` +0.19 ± 0.049 (reported); `pair_deviation_week_10` +0.21 ± 0.062 (reported); `pair_deviation_week_11` +0.198 ± 0.064 (reported); `pair_deviation_week_12` +0.243 ± 0.059 (reported) | **survived** |
-| `M11.C.27[unstable,remove_one]` | composite | C7:one-sided-deviation | FAIL | 100 | `pair_deviation` +0.135 ± 0.036; `pair_deviation_week_1` +0.135 ± 0.036 (reported); `pair_deviation_week_2` +0.16 ± 0.039 (reported); `pair_deviation_week_3` +0.162 ± 0.044 (reported); `pair_deviation_week_4` +0.164 ± 0.047 (reported); `pair_deviation_week_5` +0.184 ± 0.048 (reported); `pair_deviation_week_6` +0.214 ± 0.049 (reported); `pair_deviation_week_7` +0.226 ± 0.051 (reported); `pair_deviation_week_8` +0.237 ± 0.05 (reported); `pair_deviation_week_9` +0.243 ± 0.052 (reported); `pair_deviation_week_10` +0.252 ± 0.053 (reported); `pair_deviation_week_11` +0.263 ± 0.055 (reported); `pair_deviation_week_12` +0.269 ± 0.059 (reported) | **reversed** |
+| `M11.C.27[unstable,remove_one]` | composite | C6 | PASS | 100 | `pair_deviation` -0.0677 ± 0.052; `pair_deviation_week_1` -0.0677 ± 0.052 (reported); `pair_deviation_week_2` -0.06 ± 0.054 (reported); `pair_deviation_week_3` +0.00271 ± 0.047 (reported); `pair_deviation_week_4` +0.053 ± 0.05 (reported); `pair_deviation_week_5` +0.0725 ± 0.053 (reported); `pair_deviation_week_6` +0.141 ± 0.051 (reported); `pair_deviation_week_7` +0.14 ± 0.054 (reported); `pair_deviation_week_8` +0.177 ± 0.051 (reported); `pair_deviation_week_9` +0.189 ± 0.049 (reported); `pair_deviation_week_10` +0.204 ± 0.063 (reported); `pair_deviation_week_11` +0.194 ± 0.064 (reported); `pair_deviation_week_12` +0.242 ± 0.058 (reported) | **survived** |
+| `M11.C.27[unstable,remove_one]` | composite | C7:one-sided-deviation | FAIL | 100 | `pair_deviation` +0.135 ± 0.036; `pair_deviation_week_1` +0.135 ± 0.036 (reported); `pair_deviation_week_2` +0.16 ± 0.039 (reported); `pair_deviation_week_3` +0.162 ± 0.044 (reported); `pair_deviation_week_4` +0.164 ± 0.047 (reported); `pair_deviation_week_5` +0.184 ± 0.048 (reported); `pair_deviation_week_6` +0.214 ± 0.049 (reported); `pair_deviation_week_7` +0.225 ± 0.051 (reported); `pair_deviation_week_8` +0.237 ± 0.05 (reported); `pair_deviation_week_9` +0.242 ± 0.052 (reported); `pair_deviation_week_10` +0.246 ± 0.052 (reported); `pair_deviation_week_11` +0.257 ± 0.054 (reported); `pair_deviation_week_12` +0.262 ± 0.057 (reported) | **reversed** |
 | `M11.C.27[unstable,remove_one]` | composite | C7:deviation-inverted | FAIL | 100 | `pair_deviation` +0.0774 ± 0.052; `pair_deviation_week_1` +0.0774 ± 0.052 (reported); `pair_deviation_week_2` +0.0569 ± 0.055 (reported); `pair_deviation_week_3` +0.0473 ± 0.057 (reported); `pair_deviation_week_4` +0.00896 ± 0.055 (reported); `pair_deviation_week_5` -0.0067 ± 0.058 (reported); `pair_deviation_week_6` -0.0498 ± 0.054 (reported); `pair_deviation_week_7` -0.0711 ± 0.051 (reported); `pair_deviation_week_8` -0.105 ± 0.055 (reported); `pair_deviation_week_9` -0.137 ± 0.048 (reported); `pair_deviation_week_10` -0.168 ± 0.051 (reported); `pair_deviation_week_11` -0.144 ± 0.054 (reported); `pair_deviation_week_12` -0.177 ± 0.055 (reported) | **reversed** |
 
 ### `M11.C.52`
 
-Carriers: **C1, C2, C3, C4, C6, C7:cue-attribution-discount-removed**.
+Carriers: **no carrier among 7 candidates**.
 
 `M11.5` says it rests on: —. Note: needs `M4.C.6` by channel, `M4.C.13` on both sides and the exchange over weeks; T-208's probe (`docs/review/2026-11-09_sc_pass_probes.md`): on 500 seeds the pass holds (−17.0 ± 10.1) and its named mutant survives (−12.5 ± 10.2), removing +4.5 ± 1.5 of the effect; with the nonverbal channels equal it is −9.3 ± 8.6 (p 0.053), and with the cues off −22.2 ± 8.3, no different from the recorded effect. A detected part of the pass is carried by paths other than the by-channel discount, so it is not a finding about self-attribution by channel alone (the owner, 2026-11-09)
 
 | Criterion | Class | Ablation | Outcome | Seeds | Difference under ablation | Verdict |
 |---|---|---|---|---|---|---|
-| `M11.C.52` | composite | C1 | FAIL | 100 | `escalation` -10.2 ± 18 | **red** |
-| `M11.C.52` | composite | C2 | FAIL | 100 | `escalation` +4.27 ± 15 | **red** |
-| `M11.C.52` | composite | C3 | FAIL | 100 | `escalation` -8.05 ± 17 | **red** |
-| `M11.C.52` | composite | C4 | FAIL | 100 | `escalation` -3.44 ± 19 | **red** |
+| `M11.C.52` | composite | C1 | PASS | 100 | `escalation` -25.6 ± 20 | **survived** |
+| `M11.C.52` | composite | C2 | PASS | 50 | `escalation` -20.4 ± 19 | **survived** |
+| `M11.C.52` | composite | C3 | PASS | 100 | `escalation` -28.3 ± 18 | **survived** |
+| `M11.C.52` | composite | C4 | PASS | 100 | `escalation` -25 ± 20 | **survived** |
 | `M11.C.52` | composite | C5 | PASS | 100 | `escalation` -26.9 ± 20 | **survived** |
-| `M11.C.52` | composite | C6 | FAIL | 100 | `escalation` -14.3 ± 17 | **red** |
-| `M11.C.52` | composite | C7:cue-attribution-discount-removed | FAIL | 100 | `escalation` -10.8 ± 19 | **red** |
+| `M11.C.52` | composite | C6 | PASS | 100 | `escalation` -29.1 ± 17 | **survived** |
+| `M11.C.52` | composite | C7:cue-attribution-discount-removed | PASS | 100 | `escalation` -31.7 ± 20 | **survived** |
+
+### `M11.C.17`
+
+Carriers: **C5, C7:landed-contact-changes-nothing**.
+
+`M11.5` says it rests on: the external agent's landed contact (`M1.E.7`) and the estimator (`M1.A.4k`). Note: No rule writes "coached rises more"; it follows from the coach raising `systems_perspective`, which opens the self-directed path the estimator reads; with `M5.D.5`'s pull-up not applying to the coach (T-165), what remains of the coach's effect gives no measurable rise
+
+| Criterion | Class | Ablation | Outcome | Seeds | Difference under ablation | Verdict |
+|---|---|---|---|---|---|---|
+| `M11.C.17` | composite | C1 | PASS | 150 | `coached_rise` +0.00574 ± 0.0025, p 4.3e-06; `family_rise` +0.00167 ± 0.00072 (reported) | **survived** |
+| `M11.C.17` | composite | C2 | PASS | 150 | `coached_rise` +0.00742 ± 0.0021, p 1.7e-14; `family_rise` +0.00203 ± 0.00072 (reported) | **survived** |
+| `M11.C.17` | composite | C3 | PASS | 150 | `coached_rise` +0.00336 ± 0.0022, p 0.00016; `family_rise` +0.000998 ± 0.00062 (reported) | **survived** |
+| `M11.C.17` | composite | C4 | PASS | 150 | `coached_rise` +0.00637 ± 0.0025, p 8.4e-09; `family_rise` +0.00185 ± 0.00071 (reported) | **survived** |
+| `M11.C.17` | composite | C5 | FAIL | 100 | `coached_rise` +0.00444 ± 0.014, p 0.12; `family_rise` +0.00236 ± 0.0042 (reported) | **red** |
+| `M11.C.17` | composite | C6 | PASS | 150 | `coached_rise` +0.00445 ± 0.0017, p 3.6e-08; `family_rise` +0.00135 ± 0.0005 (reported) | **survived** |
+| `M11.C.17` | composite | C7:landed-contact-changes-nothing | FAIL | 150 | `coached_rise` +0.00013 ± 0.00049, p 0.58; `family_rise` +5.68e-05 ± 0.00016 (reported) | **red** |
 
 ### `M11.C.22`
 
@@ -191,13 +231,13 @@ Carriers: **C7:lock-in-removed**.
 
 | Criterion | Class | Ablation | Outcome | Seeds | Difference under ablation | Verdict |
 |---|---|---|---|---|---|---|
-| `M11.C.22` | mixed | C1 | PASS | 150 | `mild_removal_effect` +1.12 ± 0.6, p 0.00025; `severe_removal_effect` -1.38 ± 0.76, p 0.00029 (premise limb) | **survived** |
-| `M11.C.22` | mixed | C2 | PASS | 100 | `mild_removal_effect` +1.18 ± 0.68, p 0.0009; `severe_removal_effect` -1.74 ± 0.63, p 1e-07 (premise limb) | **survived** |
-| `M11.C.22` | mixed | C3 | FAIL | 100 | `mild_removal_effect` +1.91 ± 0.83, p 3.6e-06; `severe_removal_effect` -0.449 ± 0.77, p 0.11 (premise limb) | **survived** (premise limb severe_removal_effect failed; the composite limbs hold) |
-| `M11.C.22` | mixed | C4 | PASS | 100 | `mild_removal_effect` +1.58 ± 0.74, p 3.2e-05; `severe_removal_effect` -1.64 ± 0.89, p 0.00029 (premise limb) | **survived** |
-| `M11.C.22` | mixed | C5 | PASS | 100 | `mild_removal_effect` +2.37 ± 0.75, p 4.1e-09; `severe_removal_effect` -0.854 ± 0.8, p 0.0018 (premise limb) | **survived** |
-| `M11.C.22` | mixed | C6 | PASS | 100 | `mild_removal_effect` +2.13 ± 0.74, p 2.1e-07; `severe_removal_effect` -0.935 ± 0.79, p 0.0054 (premise limb) | **survived** |
-| `M11.C.22` | mixed | C7:lock-in-removed | FAIL | 50 | `mild_removal_effect` -0.0142 ± 0.058, p 1; `severe_removal_effect` -0.0142 ± 0.058, p 0.12 (premise limb) | **red** |
+| `M11.C.22` | mixed | C1 | PASS | 150 | `mild_removal_effect` +1.04 ± 0.71, p 0.0058; `severe_removal_effect` -1.02 ± 0.72, p 0.0025 (premise limb) | **survived** |
+| `M11.C.22` | mixed | C2 | PASS | 150 | `mild_removal_effect` +1.42 ± 0.51, p 2.4e-07; `severe_removal_effect` -1.43 ± 0.62, p 9.3e-06 (premise limb) | **survived** |
+| `M11.C.22` | mixed | C3 | PASS | 100 | `mild_removal_effect` +1.86 ± 0.75, p 3.6e-06; `severe_removal_effect` -0.989 ± 0.77, p 0.0038 (premise limb) | **survived** |
+| `M11.C.22` | mixed | C4 | PASS | 100 | `mild_removal_effect` +1.58 ± 0.7, p 1.3e-05; `severe_removal_effect` -1.4 ± 0.78, p 0.00042 (premise limb) | **survived** |
+| `M11.C.22` | mixed | C5 | PASS | 100 | `mild_removal_effect` +2.38 ± 0.75, p 3.7e-09; `severe_removal_effect` -0.993 ± 0.78, p 0.00058 (premise limb) | **survived** |
+| `M11.C.22` | mixed | C6 | PASS | 100 | `mild_removal_effect` +1.86 ± 0.67, p 5.7e-07; `severe_removal_effect` -0.689 ± 0.76, p 0.031 (premise limb) | **survived** |
+| `M11.C.22` | mixed | C7:lock-in-removed | FAIL | 50 | `mild_removal_effect` +0.34 ± 0.62, p 0.38; `severe_removal_effect` +0.34 ± 0.62, p 0.75 (premise limb) | **red** |
 
 ### `M11.C.11`
 
@@ -207,30 +247,46 @@ Carriers: **C7:removed-member-holds-not-released-on-return**.
 
 | Criterion | Class | Ablation | Outcome | Seeds | Difference under ablation | Verdict |
 |---|---|---|---|---|---|---|
-| `M11.C.11` | mixed | C1 | PASS | 150 | `disturbance` +6.23 ± 1.4, p 7e-14 | **survived** (premise limbs not declared (docs/version_1_dispositions.md, docs/version_2_dispositions.md), so judged on every limb) |
-| `M11.C.11` | mixed | C2 | PASS | 150 | `disturbance` +4.85 ± 1.3, p 2.6e-11 | **survived** (premise limbs not declared (docs/version_1_dispositions.md, docs/version_2_dispositions.md), so judged on every limb) |
-| `M11.C.11` | mixed | C3 | PASS | 150 | `disturbance` +5.32 ± 1.5, p 3.4e-10 | **survived** (premise limbs not declared (docs/version_1_dispositions.md, docs/version_2_dispositions.md), so judged on every limb) |
-| `M11.C.11` | mixed | C4 | PASS | 150 | `disturbance` +6.35 ± 1.6, p 2.9e-12 | **survived** (premise limbs not declared (docs/version_1_dispositions.md, docs/version_2_dispositions.md), so judged on every limb) |
-| `M11.C.11` | mixed | C5 | PASS | 150 | `disturbance` +4 ± 1.5, p 1.5e-07 | **survived** (premise limbs not declared (docs/version_1_dispositions.md, docs/version_2_dispositions.md), so judged on every limb) |
-| `M11.C.11` | mixed | C6 | PASS | 150 | `disturbance` +6.03 ± 1.4, p 2.2e-13 | **survived** (premise limbs not declared (docs/version_1_dispositions.md, docs/version_2_dispositions.md), so judged on every limb) |
-| `M11.C.11` | mixed | C7:removed-member-hold-released-while-away | PASS | 150 | `disturbance` +1.61 ± 1.3, p 0.0032 | **survived** (premise limbs not declared (docs/version_1_dispositions.md, docs/version_2_dispositions.md), so judged on every limb) |
-| `M11.C.11` | mixed | C7:removed-member-holds-not-released-on-return | FAIL | 150 | `disturbance` +0.102 ± 1.3, p 0.32 | **red** (premise limbs not declared (docs/version_1_dispositions.md, docs/version_2_dispositions.md), so judged on every limb) |
+| `M11.C.11` | mixed | C1 | PASS | 150 | `disturbance` +6.27 ± 1.4, p 2.2e-14 | **survived** (premise limbs not declared (docs/version_1_dispositions.md, docs/version_2_dispositions.md), so judged on every limb) |
+| `M11.C.11` | mixed | C2 | PASS | 150 | `disturbance` +4.5 ± 1.4, p 9e-10 | **survived** (premise limbs not declared (docs/version_1_dispositions.md, docs/version_2_dispositions.md), so judged on every limb) |
+| `M11.C.11` | mixed | C3 | PASS | 150 | `disturbance` +4.72 ± 1.5, p 3.6e-09 | **survived** (premise limbs not declared (docs/version_1_dispositions.md, docs/version_2_dispositions.md), so judged on every limb) |
+| `M11.C.11` | mixed | C4 | PASS | 150 | `disturbance` +6.38 ± 1.6, p 2.6e-12 | **survived** (premise limbs not declared (docs/version_1_dispositions.md, docs/version_2_dispositions.md), so judged on every limb) |
+| `M11.C.11` | mixed | C5 | PASS | 150 | `disturbance` +3.95 ± 1.5, p 2.4e-07 | **survived** (premise limbs not declared (docs/version_1_dispositions.md, docs/version_2_dispositions.md), so judged on every limb) |
+| `M11.C.11` | mixed | C6 | PASS | 150 | `disturbance` +5.69 ± 1.4, p 1.4e-11 | **survived** (premise limbs not declared (docs/version_1_dispositions.md, docs/version_2_dispositions.md), so judged on every limb) |
+| `M11.C.11` | mixed | C7:removed-member-hold-released-while-away | PASS | 150 | `disturbance` +1.85 ± 1.3, p 0.0017 | **survived** (premise limbs not declared (docs/version_1_dispositions.md, docs/version_2_dispositions.md), so judged on every limb) |
+| `M11.C.11` | mixed | C7:removed-member-holds-not-released-on-return | FAIL | 150 | `disturbance` +0.202 ± 1.2, p 0.29 | **red** (premise limbs not declared (docs/version_1_dispositions.md, docs/version_2_dispositions.md), so judged on every limb) |
 
 ### `M11.C.7[joint over one spouse]`
 
-Carriers: **C4, C6, C7:landed-contact-changes-nothing**.
+Carriers: **C1, C2, C7:landed-contact-changes-nothing**.
 
 `M11.5` says it rests on: `M8` predicate (the landed-contacts limb). Note: the deviation ordering is composite: no rule writes it; the coach's going along with a `SPLIT` is a declared premise of the sided arm (D29). *Emergence audit (T-187): the `[joint over one spouse]` cell's deviation ordering passes thinly with learning removed and is carried by C2 (`M4.D.1a`'s mixing weight blind to level, in the policy only), C4 (`M4.D.1a`'s perspective steering), C6 (`M4.D.1d`'s competing urges) and `landed-contact-changes-nothing` (`M1.E.7`'s `perspective_gain` 0), each of which turns it red. None names the ordering; the class stays mixed.*
 
 | Criterion | Class | Ablation | Outcome | Seeds | Difference under ablation | Verdict |
 |---|---|---|---|---|---|---|
-| `M11.C.7[joint over one spouse]` | mixed | C1 | PASS | 100 | `deviation_fall` +0.0457 ± 0.062, p 0.037; `landed_contacts` -0.99 ± 1.1 (reported) (premise limb) | **survived** |
-| `M11.C.7[joint over one spouse]` | mixed | C2 | PASS | 100 | `deviation_fall` +0.0611 ± 0.068, p 0.046; `landed_contacts` -0.19 ± 1 (reported) (premise limb) | **survived** |
-| `M11.C.7[joint over one spouse]` | mixed | C3 | PASS | 100 | `deviation_fall` +0.0568 ± 0.06, p 0.0094; `landed_contacts` -0.67 ± 0.97 (reported) (premise limb) | **survived** |
-| `M11.C.7[joint over one spouse]` | mixed | C4 | FAIL | 100 | `deviation_fall` +0.00339 ± 0.072, p 0.43; `landed_contacts` +0.17 ± 0.87 (reported) (premise limb) | **red** |
-| `M11.C.7[joint over one spouse]` | mixed | C5 | PASS | 50 | `deviation_fall` +0.14 ± 0.08, p 0.00065; `landed_contacts` -0.94 ± 1.5 (reported) (premise limb) | **survived** |
-| `M11.C.7[joint over one spouse]` | mixed | C6 | FAIL | 100 | `deviation_fall` +0.0154 ± 0.061, p 0.46; `landed_contacts` -0.41 ± 1.1 (reported) (premise limb) | **red** |
-| `M11.C.7[joint over one spouse]` | mixed | C7:landed-contact-changes-nothing | FAIL | 100 | `deviation_fall` +0.0216 ± 0.055, p 0.2; `landed_contacts` -0.65 ± 1 (reported) (premise limb) | **red** |
+| `M11.C.7[joint over one spouse]` | mixed | C1 | FAIL | 100 | `deviation_fall` +0.0316 ± 0.064, p 0.18; `landed_contacts` -1.01 ± 0.88 (reported) (premise limb) | **red** |
+| `M11.C.7[joint over one spouse]` | mixed | C2 | FAIL | 100 | `deviation_fall` +0.0496 ± 0.064, p 0.055; `landed_contacts` -0.75 ± 0.92 (reported) (premise limb) | **red** |
+| `M11.C.7[joint over one spouse]` | mixed | C3 | PASS | 100 | `deviation_fall` +0.0639 ± 0.07, p 0.032; `landed_contacts` -0.52 ± 1 (reported) (premise limb) | **survived** |
+| `M11.C.7[joint over one spouse]` | mixed | C4 | PASS | 100 | `deviation_fall` +0.0974 ± 0.068, p 0.0021; `landed_contacts` -0.35 ± 1 (reported) (premise limb) | **survived** |
+| `M11.C.7[joint over one spouse]` | mixed | C5 | PASS | 50 | `deviation_fall` +0.111 ± 0.075, p 0.0049; `landed_contacts` -0.7 ± 1.3 (reported) (premise limb) | **survived** |
+| `M11.C.7[joint over one spouse]` | mixed | C6 | PASS | 100 | `deviation_fall` +0.0943 ± 0.065, p 0.0067; `landed_contacts` -0.16 ± 1.1 (reported) (premise limb) | **survived** |
+| `M11.C.7[joint over one spouse]` | mixed | C7:landed-contact-changes-nothing | FAIL | 100 | `deviation_fall` +0.0205 ± 0.055, p 0.26; `landed_contacts` -0.34 ± 0.98 (reported) (premise limb) | **red** |
+
+### `M11.C.7[one spouse over sided]`
+
+Carriers: **C5, C7:coach-position-blind**.
+
+`M11.5` says it rests on: `M8` predicate (the landed-contacts limb). Note: the deviation ordering is composite: no rule writes it; the coach's going along with a `SPLIT` is a declared premise of the sided arm (D29). *Emergence audit (T-187): the `[joint over one spouse]` cell's deviation ordering passes thinly with learning removed and is carried by C2 (`M4.D.1a`'s mixing weight blind to level, in the policy only), C4 (`M4.D.1a`'s perspective steering), C6 (`M4.D.1d`'s competing urges) and `landed-contact-changes-nothing` (`M1.E.7`'s `perspective_gain` 0), each of which turns it red. None names the ordering; the class stays mixed.*
+
+| Criterion | Class | Ablation | Outcome | Seeds | Difference under ablation | Verdict |
+|---|---|---|---|---|---|---|
+| `M11.C.7[one spouse over sided]` | mixed | C1 | PASS | 150 | `deviation_fall` +0.0764 ± 0.056, p 0.0018; `landed_contacts` +9.99 ± 0.67, p 1.1e-26 (premise limb) | **survived** |
+| `M11.C.7[one spouse over sided]` | mixed | C2 | PASS | 150 | `deviation_fall` +0.0758 ± 0.051, p 0.0036; `landed_contacts` +9.49 ± 0.68, p 1.1e-26 (premise limb) | **survived** |
+| `M11.C.7[one spouse over sided]` | mixed | C3 | PASS | 150 | `deviation_fall` +0.0618 ± 0.044, p 0.0043; `landed_contacts` +9.3 ± 0.64, p 1.1e-26 (premise limb) | **survived** |
+| `M11.C.7[one spouse over sided]` | mixed | C4 | PASS | 150 | `deviation_fall` +0.0711 ± 0.052, p 0.005; `landed_contacts` +9.5 ± 0.67, p 1e-26 (premise limb) | **survived** |
+| `M11.C.7[one spouse over sided]` | mixed | C5 | FAIL | 150 | `deviation_fall` +0.0278 ± 0.049, p 0.26; `landed_contacts` +10.3 ± 0.71, p 1.1e-26 (premise limb) | **red** |
+| `M11.C.7[one spouse over sided]` | mixed | C6 | PASS | 150 | `deviation_fall` +0.057 ± 0.051, p 0.018; `landed_contacts` +8.55 ± 0.66, p 1.5e-26 (premise limb) | **survived** |
+| `M11.C.7[one spouse over sided]` | mixed | C7:coach-position-blind | FAIL | 150 | `deviation_fall` -0.0638 ± 0.052, p 0.99; `landed_contacts` +1.1 ± 0.76, p 0.0043 (premise limb) | **reversed** |
 
 ### `M11.C.7[joint over sided]`
 
@@ -240,14 +296,14 @@ Carriers: **C7:landed-contact-changes-nothing, C7:coach-position-blind**.
 
 | Criterion | Class | Ablation | Outcome | Seeds | Difference under ablation | Verdict |
 |---|---|---|---|---|---|---|
-| `M11.C.7[joint over sided]` | mixed | C1 | PASS | 150 | `deviation_fall` +0.085 ± 0.048, p 0.00052; `landed_contacts` +8.87 ± 0.53, p 1e-26 (premise limb) | **survived** |
-| `M11.C.7[joint over sided]` | mixed | C2 | PASS | 150 | `deviation_fall` +0.101 ± 0.045, p 9.4e-06; `landed_contacts` +9.19 ± 0.56, p 1e-26 (premise limb) | **survived** |
-| `M11.C.7[joint over sided]` | mixed | C3 | PASS | 150 | `deviation_fall` +0.123 ± 0.047, p 5.4e-07; `landed_contacts` +9.21 ± 0.56, p 1e-26 (premise limb) | **survived** |
-| `M11.C.7[joint over sided]` | mixed | C4 | PASS | 150 | `deviation_fall` +0.0907 ± 0.05, p 6.8e-05; `landed_contacts` +9.23 ± 0.54, p 1e-26 (premise limb) | **survived** |
-| `M11.C.7[joint over sided]` | mixed | C5 | PASS | 150 | `deviation_fall` +0.114 ± 0.043, p 2e-06; `landed_contacts` +9.2 ± 0.6, p 1e-26 (premise limb) | **survived** |
-| `M11.C.7[joint over sided]` | mixed | C6 | PASS | 150 | `deviation_fall` +0.0759 ± 0.047, p 0.00048; `landed_contacts` +8.39 ± 0.58, p 1e-26 (premise limb) | **survived** |
-| `M11.C.7[joint over sided]` | mixed | C7:landed-contact-changes-nothing | FAIL | 150 | `deviation_fall` -0.00918 ± 0.037, p 0.5; `landed_contacts` +9.2 ± 0.59, p 1e-26 (premise limb) | **red** |
-| `M11.C.7[joint over sided]` | mixed | C7:coach-position-blind | FAIL | 50 | `deviation_fall` -0.0254 ± 0.069, p 0.73; `landed_contacts` +0.52 ± 0.84, p 0.088 (premise limb) | **red** |
+| `M11.C.7[joint over sided]` | mixed | C1 | PASS | 150 | `deviation_fall` +0.13 ± 0.045, p 1.5e-07; `landed_contacts` +8.59 ± 0.55, p 1e-26 (premise limb) | **survived** |
+| `M11.C.7[joint over sided]` | mixed | C2 | PASS | 150 | `deviation_fall` +0.0965 ± 0.042, p 9.1e-06; `landed_contacts` +8.67 ± 0.57, p 1e-26 (premise limb) | **survived** |
+| `M11.C.7[joint over sided]` | mixed | C3 | PASS | 150 | `deviation_fall` +0.145 ± 0.049, p 6.7e-08; `landed_contacts` +9.14 ± 0.57, p 1e-26 (premise limb) | **survived** |
+| `M11.C.7[joint over sided]` | mixed | C4 | PASS | 150 | `deviation_fall` +0.13 ± 0.044, p 1.3e-07; `landed_contacts` +8.9 ± 0.61, p 1e-26 (premise limb) | **survived** |
+| `M11.C.7[joint over sided]` | mixed | C5 | PASS | 150 | `deviation_fall` +0.123 ± 0.045, p 5.3e-07; `landed_contacts` +9.26 ± 0.58, p 1e-26 (premise limb) | **survived** |
+| `M11.C.7[joint over sided]` | mixed | C6 | PASS | 150 | `deviation_fall` +0.143 ± 0.044, p 3.7e-09; `landed_contacts` +8.15 ± 0.63, p 1.5e-26 (premise limb) | **survived** |
+| `M11.C.7[joint over sided]` | mixed | C7:landed-contact-changes-nothing | FAIL | 150 | `deviation_fall` +0.00621 ± 0.037, p 0.55; `landed_contacts` +8.91 ± 0.62, p 1e-26 (premise limb) | **red** |
+| `M11.C.7[joint over sided]` | mixed | C7:coach-position-blind | FAIL | 100 | `deviation_fall` +0.00602 ± 0.052, p 0.37; `landed_contacts` +0.15 ± 0.67, p 0.55 (premise limb) | **red** |
 
 ### `M11.C.15`
 
@@ -257,30 +313,32 @@ Carriers: **C7:death-all-bound-anxiety-discarded**.
 
 | Criterion | Class | Ablation | Outcome | Seeds | Difference under ablation | Verdict |
 |---|---|---|---|---|---|---|
-| `M11.C.15` | composite | C1 | PASS | 50 | `death_rise` +4.65 ± 0.6, p 4.1e-10; `recovery_rise` +7.17 ± 0.89, p 3.9e-10 | **survived** |
-| `M11.C.15` | composite | C2 | PASS | 100 | `death_rise` +2.93 ± 0.47, p 1.5e-15; `recovery_rise` +5.78 ± 0.5, p 2e-18 | **survived** |
-| `M11.C.15` | composite | C3 | PASS | 100 | `death_rise` +3.89 ± 0.49, p 1.6e-16; `recovery_rise` +6.85 ± 0.55, p 2.9e-18 | **survived** |
-| `M11.C.15` | composite | C4 | PASS | 50 | `death_rise` +3.95 ± 0.66, p 6.1e-10; `recovery_rise` +7.51 ± 0.9, p 3.9e-10 | **survived** |
-| `M11.C.15` | composite | C5 | PASS | 100 | `death_rise` +3.74 ± 0.66, p 8.5e-15; `recovery_rise` +7.85 ± 0.59, p 2e-18 | **survived** |
-| `M11.C.15` | composite | C6 | PASS | 50 | `death_rise` +2.63 ± 0.68, p 4.1e-08; `recovery_rise` +6.79 ± 0.69, p 3.9e-10 | **survived** |
-| `M11.C.15` | composite | C7:death-bound-anxiety-discarded | PASS | 50 | `death_rise` +1.4 ± 0.64, p 0.0001; `recovery_rise` +7.45 ± 0.9, p 3.9e-10 | **survived** |
-| `M11.C.15` | composite | C7:death-all-bound-anxiety-discarded | FAIL | 50 | `death_rise` -0.872 ± 0.65, p 1; `recovery_rise` +7.45 ± 0.9, p 3.9e-10 | **red** |
+| `M11.C.15` | composite | C1 | PASS | 100 | `death_rise` +4.07 ± 0.51, p 1.3e-17; `recovery_rise` +6.65 ± 0.59, p 2e-18 | **survived** |
+| `M11.C.15` | composite | C2 | PASS | 100 | `death_rise` +3.05 ± 0.47, p 5.5e-16; `recovery_rise` +6.24 ± 0.42, p 2e-18 | **survived** |
+| `M11.C.15` | composite | C3 | PASS | 100 | `death_rise` +3.84 ± 0.47, p 2.7e-17; `recovery_rise` +6.58 ± 0.57, p 2.9e-18 | **survived** |
+| `M11.C.15` | composite | C4 | PASS | 100 | `death_rise` +3.88 ± 0.56, p 2.6e-16; `recovery_rise` +7 ± 0.52, p 2e-18 | **survived** |
+| `M11.C.15` | composite | C5 | PASS | 100 | `death_rise` +3.67 ± 0.67, p 1.2e-14; `recovery_rise` +7.77 ± 0.59, p 2e-18 | **survived** |
+| `M11.C.15` | composite | C6 | PASS | 50 | `death_rise` +2.41 ± 0.69, p 1.5e-07; `recovery_rise` +6.21 ± 0.71, p 3.9e-10 | **survived** |
+| `M11.C.15` | composite | C7:death-bound-anxiety-discarded | PASS | 50 | `death_rise` +1.49 ± 0.66, p 3.1e-05; `recovery_rise` +7.19 ± 0.74, p 3.9e-10 | **survived** |
+| `M11.C.15` | composite | C7:death-all-bound-anxiety-discarded | FAIL | 50 | `death_rise` -0.637 ± 0.59, p 0.99; `recovery_rise` +7.19 ± 0.74, p 3.9e-10 | **red** |
 
-### `M11.C.48[phase_d]`
+### `M11.C.10[family of origin]`
 
-Carriers: **C1, C2**.
+Carriers: **C1, C2, C3, C4, C5**.
 
-`M11.5` says it rests on: on the twelve-person family, what the two arms are made of: the cutter's other ties run longer than the family's (T-185's probe, `tools/c48_carrier_probe.py`); a cut tie is more often one both members act on, and such ties hold longer runs, which the baseline matches out of the comparison; not `CUTOFF`'s learned value (`M4.D.6`), since the row passes with all learning removed and its named mutant there gives the same result (`docs/emergence_audit_record.md`); the cut-off tie's stock (`M1.D.2b`) holds only after a cutoff. Note: no rule states the run before a cutoff or names the cutoff (`M11.1d`), so a pass or a fail is informative; with learning removed the policy weighs `CUTOFF` the same on every live tie of a person before a first cutoff, so a pass is a comparison whose arms differ in a condition (learnings P7, as T-123 and T-179) and is not reported as a finding about learning; +0.104 ± 0.070 is left after matching on how many members act on the tie, which the baseline does, and it is not explained; matching also drops the cutoffs with no uncut tie of their own sides, and on the Phase B family those hold runs shorter than the matched ones, which raises the treatment arm, so the mean run each exit left out is reported beside the arms (`unmatched_left_out_run`, `unsided_left_out_run`) and a verdict is read with them (learnings P2, P9); on the Phase B family, where it fails, the arms are unmatched in the same way, and the baseline also mixes tie types the cut tie is not matched to (the spouse and parent ties at conductance 1.0 with the grandparent ties at 0.6, `config/bowen/family_phase_c.md`) and counts ties cut later in the run, so the fail is not a finding about the run before a cutoff; T-196 measures what carries it there; T-196's probe (`tools/c48_carrier_probe.py --family phase_c`) found that matched on the cut tie's class no difference is detected, that the cut and baseline ties are acted on by both members about equally often (0.77 against 0.78) there, and that at every matched cutoff all the uncut baseline ties are cut later in the run, so a baseline of ties never cut cannot be formed on this family; on the twelve-person family with all learning removed (the emergence audit at `d3779684dd53`), the pass (+0.104 ± 0.070) is carried by the policy's reading of level: every capacity layer available (`M4.D.3a`, C1) gives −0.0093 ± 0.077 and the mixing weight blind to level in the policy (`M4.D.1a`, C2) +0.017 ± 0.066, each interval wholly below the unmutated mean, while C3 to C6 and the named mutant survive; neither rule names the run before a cutoff, so the class is unchanged (T-213 (b), approved by the owner 2026-11-11)
+`M11.5` says it rests on: —. Note: witnessed, learned cutoff plus `M1.D.8`'s input (`M7.E.3` withdrawn). Both paths read outcomes: `M4.D.6f` learns from what followed a witnessed cutoff, and `M1.B.3d` raises the cutter's anxiety. Neither writes the direction. The mutations report each path alone
 
 | Criterion | Class | Ablation | Outcome | Seeds | Difference under ablation | Verdict |
 |---|---|---|---|---|---|---|
-| `M11.C.48[phase_d]` | composite | C1 | FAIL | 200 | `negative_run` +0.0334 ± 0.072, p 0.15; `run_before_cutoff` +1.69 ± 0.057 (reported); `first_cutoffs` +0 ± 0 (reported); `unmatched_cutoffs` +9.72 ± 0.26 (reported); `no_contact_cutoffs` +10.1 ± 0.36 (reported); `unsided_cutoffs` +2.73 ± 0.15 (reported); `unmatched_left_out_run` +1.81 ± 0.11 (reported); `unsided_left_out_run` +2.2 ± 0.2 (reported); `matched_seed` +1 ± 0 (reported) | **red** |
-| `M11.C.48[phase_d]` | composite | C2 | FAIL | 200 | `negative_run` -0.00257 ± 0.066, p 0.46; `run_before_cutoff` +1.3 ± 0.049 (reported); `first_cutoffs` +0 ± 0 (reported); `unmatched_cutoffs` +9.93 ± 0.23 (reported); `no_contact_cutoffs` +9.55 ± 0.35 (reported); `unsided_cutoffs` +2.69 ± 0.16 (reported); `unmatched_left_out_run` +1.21 ± 0.072 (reported); `unsided_left_out_run` +1.97 ± 0.2 (reported); `matched_seed` +1 ± 0 (reported) | **red** |
-| `M11.C.48[phase_d]` | composite | C3 | PASS | 200 | `negative_run` +0.0956 ± 0.071, p 0.0025; `run_before_cutoff` +1.68 ± 0.061 (reported); `first_cutoffs` +0 ± 0 (reported); `unmatched_cutoffs` +9.73 ± 0.28 (reported); `no_contact_cutoffs` +10.3 ± 0.4 (reported); `unsided_cutoffs` +2.67 ± 0.16 (reported); `unmatched_left_out_run` +1.67 ± 0.09 (reported); `unsided_left_out_run` +2.25 ± 0.22 (reported); `matched_seed` +1 ± 0 (reported) | **survived** |
-| `M11.C.48[phase_d]` | composite | C4 | PASS | 200 | `negative_run` +0.101 ± 0.067, p 0.0008; `run_before_cutoff` +1.65 ± 0.056 (reported); `first_cutoffs` +0 ± 0 (reported); `unmatched_cutoffs` +9.91 ± 0.28 (reported); `no_contact_cutoffs` +10.6 ± 0.38 (reported); `unsided_cutoffs` +2.75 ± 0.15 (reported); `unmatched_left_out_run` +1.66 ± 0.094 (reported); `unsided_left_out_run` +2.1 ± 0.19 (reported); `matched_seed` +1 ± 0 (reported) | **survived** |
-| `M11.C.48[phase_d]` | composite | C5 | PASS | 200 | `negative_run` +0.139 ± 0.067, p 6.3e-06; `run_before_cutoff` +1.68 ± 0.059 (reported); `first_cutoffs` +0 ± 0 (reported); `unmatched_cutoffs` +10.1 ± 0.29 (reported); `no_contact_cutoffs` +10.2 ± 0.37 (reported); `unsided_cutoffs` +2.79 ± 0.19 (reported); `unmatched_left_out_run` +1.78 ± 0.097 (reported); `unsided_left_out_run` +2.05 ± 0.19 (reported); `matched_seed` +1 ± 0 (reported) | **survived** |
-| `M11.C.48[phase_d]` | composite | C6 | PASS | 200 | `negative_run` +0.0819 ± 0.075, p 0.011; `run_before_cutoff` +1.62 ± 0.059 (reported); `first_cutoffs` +0 ± 0 (reported); `unmatched_cutoffs` +9.91 ± 0.25 (reported); `no_contact_cutoffs` +10.4 ± 0.37 (reported); `unsided_cutoffs` +2.75 ± 0.15 (reported); `unmatched_left_out_run` +1.7 ± 0.089 (reported); `unsided_left_out_run` +1.94 ± 0.18 (reported); `matched_seed` +1 ± 0 (reported) | **survived** |
-| `M11.C.48[phase_d]` | composite | C7:cutoff-blind-to-learned-value | PASS | 200 | `negative_run` +0.0914 ± 0.073, p 0.0024; `run_before_cutoff` +1.62 ± 0.059 (reported); `first_cutoffs` +0 ± 0 (reported); `unmatched_cutoffs` +9.76 ± 0.26 (reported); `no_contact_cutoffs` +10.6 ± 0.38 (reported); `unsided_cutoffs` +2.83 ± 0.17 (reported); `unmatched_left_out_run` +1.69 ± 0.086 (reported); `unsided_left_out_run` +2.05 ± 0.2 (reported); `matched_seed` +1 ± 0 (reported) | **survived** |
+| `M11.C.10[family of origin]` | composite | C1 | FAIL | 200 | `cut_off_tie_weeks` -20.2 ± 1.2e+02, p 0.72; `child_cut_weeks` +47.6 ± 42 (reported) | **red** |
+| `M11.C.10[family of origin]` | composite | C2 | FAIL | 200 | `cut_off_tie_weeks` -29.3 ± 51, p 0.88; `child_cut_weeks` -1.29 ± 21 (reported) | **red** |
+| `M11.C.10[family of origin]` | composite | C3 | FAIL | 200 | `cut_off_tie_weeks` -67.9 ± 1.5e+02, p 0.81; `child_cut_weeks` +45.4 ± 47 (reported) | **red** |
+| `M11.C.10[family of origin]` | composite | C4 | FAIL | 200 | `cut_off_tie_weeks` +58.9 ± 1.3e+02, p 0.11; `child_cut_weeks` +24.4 ± 49 (reported) | **red** |
+| `M11.C.10[family of origin]` | composite | C5 | FAIL | 200 | `cut_off_tie_weeks` -17.6 ± 1.2e+02, p 0.58; `child_cut_weeks` +48 ± 43 (reported) | **red** |
+| `M11.C.10[family of origin]` | composite | C6 | PASS | 200 | `cut_off_tie_weeks` +161 ± 1.3e+02, p 0.019; `child_cut_weeks` +79.4 ± 48 (reported) | **survived** |
+| `M11.C.10[family of origin]` | composite | C7:learner-reads-own-state-only | PASS | 200 | `cut_off_tie_weeks` +157 ± 1.3e+02, p 0.005; `child_cut_weeks` +61.7 ± 46 (reported) | **survived** |
+
+Not run: C7:witnessed-cutoff-learning-removed (the same edits as L0).
 
 Not tested: the legal set's structural preconditions (a tie to a living person; a closed triad for `TRIANGLE`): they define what an act is and are not mutated (plan §4).
 
@@ -292,11 +350,11 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
 
 ```json
 {
- "engine_hash": "6b9771549f9c3806062d81289c9265fb67e9182efd9ee6e57f0a6794c76ba6e3",
+ "engine_hash": "d9a8a152d5ac31fc0aae903b229d330363b9acc98a1e0f88282a87c1e2321228",
  "stage": "carriers",
  "scope": {
-  "audited": 11,
-  "passing": 37,
+  "audited": 15,
+  "passing": 40,
   "excluded": [
    "M11.C.39"
   ],
@@ -306,7 +364,6 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
    "M11.C.4",
    "M11.C.19",
    "M11.C.25",
-   "M11.C.32",
    "M11.C.35",
    "M11.C.38[-0 vs -5]",
    "M11.C.38[-5 vs -10]",
@@ -371,24 +428,24 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
    "readouts": [
     {
      "direction": -1,
-     "half_width": 0.168832484465094,
-     "mean_difference": -1.373588867216999,
+     "half_width": 0.16883243610495138,
+     "mean_difference": -1.3735907963178975,
      "nonzero_share": 1.0,
      "readout": "seeker_anxiety",
      "report_only": false
     },
     {
      "direction": 1,
-     "half_width": 0.2744865060835022,
-     "mean_difference": 1.1847146257803802,
+     "half_width": 0.2744871217669079,
+     "mean_difference": 1.1847160344008245,
      "nonzero_share": 1.0,
      "readout": "third_anxiety",
      "report_only": false
     },
     {
      "direction": 0,
-     "half_width": 0.17253602708892304,
-     "mean_difference": 0.9520208171895302,
+     "half_width": 0.17253871072625412,
+     "mean_difference": 0.9520261469954677,
      "nonzero_share": 1.0,
      "readout": "partner_anxiety",
      "report_only": true
@@ -413,18 +470,62 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
    "readouts": [
     {
      "direction": -1,
-     "half_width": 0.0019086810414337125,
-     "mean_difference": -0.01508411307056299,
+     "half_width": 0.002097181996645506,
+     "mean_difference": -0.015916366135611357,
      "nonzero_share": 1.0,
      "readout": "repertoire_entropy",
      "report_only": false
     },
     {
      "direction": 1,
-     "half_width": 0.0040931393619970165,
-     "mean_difference": 0.02782692495990351,
+     "half_width": 0.003855510781795214,
+     "mean_difference": 0.029773946447505358,
      "nonzero_share": 1.0,
      "readout": "top_move_share",
+     "report_only": true
+    }
+   ],
+   "premise_limbs": []
+  },
+  {
+   "criterion": "M11.C.49",
+   "class": "mixed",
+   "ablation": "L0",
+   "outcome": "PASS",
+   "seeds": 150,
+   "verdict": "survived",
+   "note": "premise limbs not declared (docs/version_1_dispositions.md, docs/version_2_dispositions.md), so judged on every limb",
+   "readouts": [
+    {
+     "direction": 1,
+     "half_width": 2.7638248061826856,
+     "mean_difference": 6.8150073320836535,
+     "nonzero_share": 1.0,
+     "readout": "family_excess",
+     "report_only": false
+    },
+    {
+     "direction": 1,
+     "half_width": 0.02997278219543152,
+     "mean_difference": 0.04308465608465608,
+     "nonzero_share": 0.44,
+     "readout": "conflict_share",
+     "report_only": false
+    },
+    {
+     "direction": 1,
+     "half_width": 0.023344820332961834,
+     "mean_difference": 0.10649436056713575,
+     "nonzero_share": 1.0,
+     "readout": "target_impingement",
+     "report_only": true
+    },
+    {
+     "direction": 0,
+     "half_width": 0.07310565102495328,
+     "mean_difference": -0.29333333333333333,
+     "nonzero_share": 0.29333333333333333,
+     "readout": "completions",
      "report_only": true
     }
    ],
@@ -441,104 +542,104 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
    "readouts": [
     {
      "direction": -1,
-     "half_width": 0.0491408507246479,
-     "mean_difference": -0.06962342985365085,
+     "half_width": 0.04914078182160982,
+     "mean_difference": -0.0696232378612915,
      "nonzero_share": 1.0,
      "readout": "pair_deviation",
      "report_only": false
     },
     {
      "direction": -1,
-     "half_width": 0.0491408507246479,
-     "mean_difference": -0.06962342985365085,
+     "half_width": 0.04914078182160982,
+     "mean_difference": -0.0696232378612915,
      "nonzero_share": 1.0,
      "readout": "pair_deviation_week_1",
      "report_only": true
     },
     {
      "direction": -1,
-     "half_width": 0.052501795213976896,
-     "mean_difference": -0.05424883701145616,
+     "half_width": 0.052501695801271286,
+     "mean_difference": -0.05424875887098651,
      "nonzero_share": 1.0,
      "readout": "pair_deviation_week_2",
      "report_only": true
     },
     {
      "direction": -1,
-     "half_width": 0.044313880024963496,
-     "mean_difference": 0.0036959556547998896,
+     "half_width": 0.04431386652531974,
+     "mean_difference": 0.003696376473794578,
      "nonzero_share": 1.0,
      "readout": "pair_deviation_week_3",
      "report_only": true
     },
     {
      "direction": -1,
-     "half_width": 0.04670159695191647,
-     "mean_difference": 0.07066021990734023,
+     "half_width": 0.04670140546001625,
+     "mean_difference": 0.0706606847087215,
      "nonzero_share": 1.0,
      "readout": "pair_deviation_week_4",
      "report_only": true
     },
     {
      "direction": -1,
-     "half_width": 0.051442182997675556,
-     "mean_difference": 0.09580931079013828,
+     "half_width": 0.051441090659164655,
+     "mean_difference": 0.09581162533473049,
      "nonzero_share": 1.0,
      "readout": "pair_deviation_week_5",
      "report_only": true
     },
     {
      "direction": -1,
-     "half_width": 0.04872746336898566,
-     "mean_difference": 0.15821041616804807,
+     "half_width": 0.04871740329053571,
+     "mean_difference": 0.15826451027937907,
      "nonzero_share": 1.0,
      "readout": "pair_deviation_week_6",
      "report_only": true
     },
     {
      "direction": -1,
-     "half_width": 0.04814060999224685,
-     "mean_difference": 0.16140227015226546,
+     "half_width": 0.05014661800960797,
+     "mean_difference": 0.15568319640235206,
      "nonzero_share": 1.0,
      "readout": "pair_deviation_week_7",
      "report_only": true
     },
     {
      "direction": -1,
-     "half_width": 0.05688750656019419,
-     "mean_difference": 0.20952106921477584,
+     "half_width": 0.057484162438893684,
+     "mean_difference": 0.208391778053182,
      "nonzero_share": 1.0,
      "readout": "pair_deviation_week_8",
      "report_only": true
     },
     {
      "direction": -1,
-     "half_width": 0.05004724053517221,
-     "mean_difference": 0.2095907553154463,
+     "half_width": 0.0500607560727326,
+     "mean_difference": 0.20678413459513387,
      "nonzero_share": 1.0,
      "readout": "pair_deviation_week_9",
      "report_only": true
     },
     {
      "direction": -1,
-     "half_width": 0.05193753064394059,
-     "mean_difference": 0.21434013388511292,
+     "half_width": 0.0517833832228561,
+     "mean_difference": 0.21283213564391065,
      "nonzero_share": 1.0,
      "readout": "pair_deviation_week_10",
      "report_only": true
     },
     {
      "direction": -1,
-     "half_width": 0.054565288674288434,
-     "mean_difference": 0.21588334664126574,
+     "half_width": 0.054085807269198885,
+     "mean_difference": 0.214276904030482,
      "nonzero_share": 1.0,
      "readout": "pair_deviation_week_11",
      "report_only": true
     },
     {
      "direction": -1,
-     "half_width": 0.054078692240598726,
-     "mean_difference": 0.22351382496246008,
+     "half_width": 0.05445648627994857,
+     "mean_difference": 0.2235291398347441,
      "nonzero_share": 1.0,
      "readout": "pair_deviation_week_12",
      "report_only": true
@@ -557,11 +658,38 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
    "readouts": [
     {
      "direction": -1,
-     "half_width": 18.795261053096763,
-     "mean_difference": -16.01296443173599,
+     "half_width": 19.533831295534835,
+     "mean_difference": -34.27322870935688,
      "nonzero_share": 1.0,
      "readout": "escalation",
      "report_only": false
+    }
+   ],
+   "premise_limbs": []
+  },
+  {
+   "criterion": "M11.C.17",
+   "class": "composite",
+   "ablation": "L0",
+   "outcome": "PASS",
+   "seeds": 150,
+   "verdict": "survived",
+   "note": "",
+   "readouts": [
+    {
+     "direction": 1,
+     "half_width": 0.0019147545054556984,
+     "mean_difference": 0.005560788331976383,
+     "p": 1.0409489835648027e-10,
+     "readout": "coached_rise",
+     "report_only": false
+    },
+    {
+     "direction": 1,
+     "half_width": 0.0005649932603772491,
+     "mean_difference": 0.0016954301327787998,
+     "readout": "family_rise",
+     "report_only": true
     }
    ],
    "premise_limbs": []
@@ -577,17 +705,17 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
    "readouts": [
     {
      "direction": 1,
-     "half_width": 0.7284623926332411,
-     "mean_difference": 1.485198212442594,
-     "p": 4.723095484665732e-05,
+     "half_width": 0.7059684705841985,
+     "mean_difference": 1.5928617604104003,
+     "p": 1.0745358888731983e-05,
      "readout": "mild_removal_effect",
      "report_only": false
     },
     {
      "direction": -1,
-     "half_width": 0.8889945226028548,
-     "mean_difference": -1.6362922316577095,
-     "p": 0.00029592579374606383,
+     "half_width": 0.780180090536148,
+     "mean_difference": -1.4072877400717028,
+     "p": 0.0003970003198389742,
      "readout": "severe_removal_effect",
      "report_only": false
     }
@@ -607,9 +735,9 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
    "readouts": [
     {
      "direction": 1,
-     "half_width": 1.5982931271611558,
-     "mean_difference": 6.329668807914857,
-     "p": 2.8994746207186943e-12,
+     "half_width": 1.5969929404717307,
+     "mean_difference": 6.538234682595543,
+     "p": 1.9718806247902946e-12,
      "readout": "disturbance",
      "report_only": false
     }
@@ -627,18 +755,48 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
    "readouts": [
     {
      "direction": 1,
-     "half_width": 0.05722385560855823,
-     "mean_difference": 0.049845971473885406,
-     "p": 0.024327214914181702,
+     "half_width": 0.06422783914150218,
+     "mean_difference": 0.06587812379488285,
+     "p": 0.021628451872301235,
      "readout": "deviation_fall",
      "report_only": false
     },
     {
      "direction": 1,
-     "half_width": 0.9825920871332974,
-     "mean_difference": 0.33,
+     "half_width": 0.9787301267510371,
+     "mean_difference": -0.71,
      "readout": "landed_contacts",
      "report_only": true
+    }
+   ],
+   "premise_limbs": [
+    "landed_contacts"
+   ]
+  },
+  {
+   "criterion": "M11.C.7[one spouse over sided]",
+   "class": "mixed",
+   "ablation": "L0",
+   "outcome": "PASS",
+   "seeds": 150,
+   "verdict": "survived",
+   "note": "",
+   "readouts": [
+    {
+     "direction": 1,
+     "half_width": 0.05083725752632144,
+     "mean_difference": 0.05743330758594373,
+     "p": 0.021160405477531147,
+     "readout": "deviation_fall",
+     "report_only": false
+    },
+    {
+     "direction": 1,
+     "half_width": 0.633226619998261,
+     "mean_difference": 9.433333333333334,
+     "p": 1.04693315984032e-26,
+     "readout": "landed_contacts",
+     "report_only": false
     }
    ],
    "premise_limbs": [
@@ -656,17 +814,17 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
    "readouts": [
     {
      "direction": 1,
-     "half_width": 0.04434052683508237,
-     "mean_difference": 0.08174123808391912,
-     "p": 0.00011667555276477222,
+     "half_width": 0.03581514573994471,
+     "mean_difference": 0.1060718797771719,
+     "p": 1.1770656173018077e-07,
      "readout": "deviation_fall",
      "report_only": false
     },
     {
      "direction": 1,
-     "half_width": 0.5793855879101598,
-     "mean_difference": 8.993333333333334,
-     "p": 1.0435435930852636e-26,
+     "half_width": 0.588855872263983,
+     "mean_difference": 8.76,
+     "p": 1.0098693574420297e-26,
      "readout": "landed_contacts",
      "report_only": false
     }
@@ -680,25 +838,52 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
    "class": "composite",
    "ablation": "L0",
    "outcome": "PASS",
-   "seeds": 50,
+   "seeds": 100,
    "verdict": "survived",
    "note": "",
    "readouts": [
     {
      "direction": 1,
-     "half_width": 0.6548383974006194,
-     "mean_difference": 3.829381059735516,
-     "p": 6.092242673422525e-10,
+     "half_width": 0.5587072235749201,
+     "mean_difference": 3.877481476423595,
+     "p": 3.490836604677009e-16,
      "readout": "death_rise",
      "report_only": false
     },
     {
      "direction": 1,
-     "half_width": 0.8975412788309606,
-     "mean_difference": 7.4491800254163545,
-     "p": 3.895246103609213e-10,
+     "half_width": 0.5218384917950043,
+     "mean_difference": 7.003028778176981,
+     "p": 1.9779558044497787e-18,
      "readout": "recovery_rise",
      "report_only": false
+    }
+   ],
+   "premise_limbs": []
+  },
+  {
+   "criterion": "M11.C.10[family of origin]",
+   "class": "composite",
+   "ablation": "L0",
+   "outcome": "PASS",
+   "seeds": 200,
+   "verdict": "survived",
+   "note": "",
+   "readouts": [
+    {
+     "direction": 1,
+     "half_width": 128.16365706433834,
+     "mean_difference": 156.63,
+     "p": 0.004979155385741753,
+     "readout": "cut_off_tie_weeks",
+     "report_only": false
+    },
+    {
+     "direction": 1,
+     "half_width": 46.40913600232623,
+     "mean_difference": 61.7,
+     "readout": "child_cut_weeks",
+     "report_only": true
     }
    ],
    "premise_limbs": []
@@ -714,9 +899,9 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
    "readouts": [
     {
      "direction": 1,
-     "half_width": 1.4346632921367652,
-     "mean_difference": 0.8597276746908398,
-     "p": 0.08609334005127962,
+     "half_width": 1.4062333503243158,
+     "mean_difference": -0.5209746103664049,
+     "p": 0.7750309308188545,
      "readout": "symptom_load",
      "report_only": false
     }
@@ -727,23 +912,23 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
    "criterion": "M11.C.48[phase_d]",
    "class": "composite",
    "ablation": "L0",
-   "outcome": "PASS",
+   "outcome": "FAIL",
    "seeds": 200,
-   "verdict": "survived",
+   "verdict": "red",
    "note": "",
    "readouts": [
     {
      "direction": 1,
-     "half_width": 0.07270648197256775,
-     "mean_difference": 0.09142466605173027,
-     "p": 0.002392145121406359,
+     "half_width": 0.07946549291544495,
+     "mean_difference": 0.040845319399732335,
+     "p": 0.054496473605313255,
      "readout": "negative_run",
      "report_only": false
     },
     {
      "direction": 1,
-     "half_width": 0.05917522851703037,
-     "mean_difference": 1.6219258613333694,
+     "half_width": 0.05562200340314506,
+     "mean_difference": 1.619374144001853,
      "readout": "run_before_cutoff",
      "report_only": true
     },
@@ -756,36 +941,36 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
     },
     {
      "direction": 1,
-     "half_width": 0.26150399787483675,
-     "mean_difference": 9.76,
+     "half_width": 0.2508639944643172,
+     "mean_difference": 10.0,
      "readout": "unmatched_cutoffs",
      "report_only": true
     },
     {
      "direction": 1,
-     "half_width": 0.3817957145361783,
-     "mean_difference": 10.595,
+     "half_width": 0.3656939709675428,
+     "mean_difference": 10.75,
      "readout": "no_contact_cutoffs",
      "report_only": true
     },
     {
      "direction": 1,
-     "half_width": 0.17098036855779908,
-     "mean_difference": 2.825,
+     "half_width": 0.14699999999999996,
+     "mean_difference": 2.725,
      "readout": "unsided_cutoffs",
      "report_only": true
     },
     {
      "direction": 1,
-     "half_width": 0.08582717267966285,
-     "mean_difference": 1.688785603285603,
+     "half_width": 0.08426720267264115,
+     "mean_difference": 1.6332081252081252,
      "readout": "unmatched_left_out_run",
      "report_only": true
     },
     {
      "direction": 1,
-     "half_width": 0.19880670938129014,
-     "mean_difference": 2.0529107142857144,
+     "half_width": 0.18119405859376772,
+     "mean_difference": 2.0798333333333336,
      "readout": "unsided_left_out_run",
      "report_only": true
     },
@@ -810,16 +995,16 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
    "readouts": [
     {
      "direction": 1,
-     "half_width": 0.087810599514094,
-     "mean_difference": -0.26,
-     "p": 0.9999998600908814,
+     "half_width": 0.07551128553469451,
+     "mean_difference": -0.21333333333333335,
+     "p": 0.9999997488829436,
      "readout": "predicted_main_supplier",
      "report_only": false
     },
     {
      "direction": 1,
-     "half_width": 0.018571839675531113,
-     "mean_difference": -0.6199999999999999,
+     "half_width": 0.016522007458734677,
+     "mean_difference": -0.6311111111111111,
      "p": 1.0,
      "readout": "predicted_over_chance",
      "report_only": false
@@ -851,22 +1036,22 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "class": "composite",
      "ablation": "C1",
      "outcome": "FAIL",
-     "seeds": 100,
+     "seeds": 150,
      "verdict": "red",
      "note": "",
      "readouts": [
       {
        "direction": -1,
-       "half_width": 0.0014662927096815972,
-       "mean_difference": 0.001420254563744454,
+       "half_width": 0.0013201027382200082,
+       "mean_difference": -0.00032765131479639255,
        "nonzero_share": 1.0,
        "readout": "repertoire_entropy",
        "report_only": false
       },
       {
        "direction": 1,
-       "half_width": 0.00314887486455583,
-       "mean_difference": -0.00402652779962238,
+       "half_width": 0.0022782078172450195,
+       "mean_difference": 7.176213710013812e-05,
        "nonzero_share": 1.0,
        "readout": "top_move_share",
        "report_only": true
@@ -885,17 +1070,17 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "readouts": [
       {
        "direction": -1,
-       "half_width": 0.0015637854122481916,
-       "mean_difference": -0.012141250383854673,
+       "half_width": 0.0017647310208724852,
+       "mean_difference": -0.013434836535306487,
        "nonzero_share": 1.0,
        "readout": "repertoire_entropy",
        "report_only": false
       },
       {
        "direction": 1,
-       "half_width": 0.0034018486265218082,
-       "mean_difference": 0.022337641223877883,
-       "nonzero_share": 0.99,
+       "half_width": 0.0034214589838631516,
+       "mean_difference": 0.021686176272525563,
+       "nonzero_share": 1.0,
        "readout": "top_move_share",
        "report_only": true
       }
@@ -907,22 +1092,22 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "class": "composite",
      "ablation": "C3",
      "outcome": "PASS",
-     "seeds": 100,
+     "seeds": 150,
      "verdict": "survived",
      "note": "",
      "readouts": [
       {
        "direction": -1,
-       "half_width": 0.0020163903307372313,
-       "mean_difference": -0.014869588162642706,
+       "half_width": 0.0017561341256843261,
+       "mean_difference": -0.013323920180688897,
        "nonzero_share": 1.0,
        "readout": "repertoire_entropy",
        "report_only": false
       },
       {
        "direction": 1,
-       "half_width": 0.003744323638592795,
-       "mean_difference": 0.03104559159611091,
+       "half_width": 0.0033037654478387597,
+       "mean_difference": 0.029227660981307385,
        "nonzero_share": 1.0,
        "readout": "top_move_share",
        "report_only": true
@@ -941,17 +1126,17 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "readouts": [
       {
        "direction": -1,
-       "half_width": 0.0019717894284367052,
-       "mean_difference": -0.014759890309610708,
+       "half_width": 0.0021006710971947697,
+       "mean_difference": -0.015549445852607162,
        "nonzero_share": 1.0,
        "readout": "repertoire_entropy",
        "report_only": false
       },
       {
        "direction": 1,
-       "half_width": 0.004047766052645919,
-       "mean_difference": 0.029301156969141994,
-       "nonzero_share": 1.0,
+       "half_width": 0.0039787571688176026,
+       "mean_difference": 0.027737545086261445,
+       "nonzero_share": 0.99,
        "readout": "top_move_share",
        "report_only": true
       }
@@ -969,16 +1154,16 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "readouts": [
       {
        "direction": -1,
-       "half_width": 0.0015463458483121362,
-       "mean_difference": -0.014990004833232628,
+       "half_width": 0.001536136080309083,
+       "mean_difference": -0.015125956781078007,
        "nonzero_share": 1.0,
        "readout": "repertoire_entropy",
        "report_only": false
       },
       {
        "direction": 1,
-       "half_width": 0.0035576247537324373,
-       "mean_difference": 0.029857257750134793,
+       "half_width": 0.003518829641535556,
+       "mean_difference": 0.02979754758466668,
        "nonzero_share": 1.0,
        "readout": "top_move_share",
        "report_only": true
@@ -997,16 +1182,16 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "readouts": [
       {
        "direction": -1,
-       "half_width": 0.0021198016861227503,
-       "mean_difference": -0.014284165881757484,
+       "half_width": 0.002141132165257403,
+       "mean_difference": -0.015307341830960976,
        "nonzero_share": 1.0,
        "readout": "repertoire_entropy",
        "report_only": false
       },
       {
        "direction": 1,
-       "half_width": 0.004005312621938912,
-       "mean_difference": 0.02677336602047412,
+       "half_width": 0.004172380890809985,
+       "mean_difference": 0.028546937480182638,
        "nonzero_share": 1.0,
        "readout": "top_move_share",
        "report_only": true
@@ -1025,17 +1210,17 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "readouts": [
       {
        "direction": -1,
-       "half_width": 0.0019171433635073658,
-       "mean_difference": -0.01065379428910591,
+       "half_width": 0.001996905106172186,
+       "mean_difference": -0.011192966254799179,
        "nonzero_share": 1.0,
        "readout": "repertoire_entropy",
        "report_only": false
       },
       {
        "direction": 1,
-       "half_width": 0.003561100622542511,
-       "mean_difference": 0.02421336539961353,
-       "nonzero_share": 0.99,
+       "half_width": 0.003368943404105533,
+       "mean_difference": 0.02367806213169522,
+       "nonzero_share": 1.0,
        "readout": "top_move_share",
        "report_only": true
       }
@@ -1053,17 +1238,17 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "readouts": [
       {
        "direction": -1,
-       "half_width": 0.0015771494994708992,
-       "mean_difference": -0.012169024638966693,
+       "half_width": 0.0017834822231801088,
+       "mean_difference": -0.0134574111636724,
        "nonzero_share": 1.0,
        "readout": "repertoire_entropy",
        "report_only": false
       },
       {
        "direction": 1,
-       "half_width": 0.0033637573167568137,
-       "mean_difference": 0.022395457103394568,
-       "nonzero_share": 0.99,
+       "half_width": 0.003436283946852111,
+       "mean_difference": 0.021300910261252942,
+       "nonzero_share": 1.0,
        "readout": "top_move_share",
        "report_only": true
       }
@@ -1081,16 +1266,16 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "readouts": [
       {
        "direction": -1,
-       "half_width": 0.0019086810414337125,
-       "mean_difference": -0.01508411307056299,
+       "half_width": 0.002097181996645506,
+       "mean_difference": -0.015916366135611357,
        "nonzero_share": 1.0,
        "readout": "repertoire_entropy",
        "report_only": false
       },
       {
        "direction": 1,
-       "half_width": 0.0040931393619970165,
-       "mean_difference": 0.02782692495990351,
+       "half_width": 0.003855510781795214,
+       "mean_difference": 0.029773946447505358,
        "nonzero_share": 1.0,
        "readout": "top_move_share",
        "report_only": true
@@ -1109,16 +1294,16 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "readouts": [
       {
        "direction": -1,
-       "half_width": 0.0024330929563011043,
-       "mean_difference": -0.016553335216881647,
+       "half_width": 0.0024964675595277037,
+       "mean_difference": -0.017728982480596307,
        "nonzero_share": 1.0,
        "readout": "repertoire_entropy",
        "report_only": false
       },
       {
        "direction": 1,
-       "half_width": 0.004202500533527174,
-       "mean_difference": 0.031868608794932675,
+       "half_width": 0.004229760778541255,
+       "mean_difference": 0.032483741124096105,
        "nonzero_share": 1.0,
        "readout": "top_move_share",
        "report_only": true
@@ -1137,16 +1322,16 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "readouts": [
       {
        "direction": -1,
-       "half_width": 0.0022806078352781613,
-       "mean_difference": -0.015911023639648744,
+       "half_width": 0.002250974888158776,
+       "mean_difference": -0.016857034940483476,
        "nonzero_share": 1.0,
        "readout": "repertoire_entropy",
        "report_only": false
       },
       {
        "direction": 1,
-       "half_width": 0.004256465348594398,
-       "mean_difference": 0.03095397465008987,
+       "half_width": 0.004562622031672019,
+       "mean_difference": 0.032189919180042124,
        "nonzero_share": 1.0,
        "readout": "top_move_share",
        "report_only": true
@@ -1165,16 +1350,16 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "readouts": [
       {
        "direction": -1,
-       "half_width": 0.0020980867531959525,
-       "mean_difference": -0.015529817275130697,
+       "half_width": 0.0021262050772059343,
+       "mean_difference": -0.015617736896689391,
        "nonzero_share": 1.0,
        "readout": "repertoire_entropy",
        "report_only": false
       },
       {
        "direction": 1,
-       "half_width": 0.004219502426753218,
-       "mean_difference": 0.029911504315210266,
+       "half_width": 0.00391295024120707,
+       "mean_difference": 0.03027200196998374,
        "nonzero_share": 1.0,
        "readout": "top_move_share",
        "report_only": true
@@ -1193,16 +1378,16 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "readouts": [
       {
        "direction": -1,
-       "half_width": 0.002066119057623171,
-       "mean_difference": -0.015743952597848606,
+       "half_width": 0.0021446848014344258,
+       "mean_difference": -0.016044252732667963,
        "nonzero_share": 1.0,
        "readout": "repertoire_entropy",
        "report_only": false
       },
       {
        "direction": 1,
-       "half_width": 0.004235057912022075,
-       "mean_difference": 0.02999104457279373,
+       "half_width": 0.0038289710971622865,
+       "mean_difference": 0.029409313627121368,
        "nonzero_share": 1.0,
        "readout": "top_move_share",
        "report_only": true
@@ -1221,17 +1406,17 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "readouts": [
       {
        "direction": -1,
-       "half_width": 0.0005514429036901858,
-       "mean_difference": -0.00021452409077594715,
-       "nonzero_share": 0.74,
+       "half_width": 0.000753088164753294,
+       "mean_difference": 0.0005122968334823774,
+       "nonzero_share": 0.78,
        "readout": "repertoire_entropy",
        "report_only": false
       },
       {
        "direction": 1,
-       "half_width": 0.0012436097223153869,
-       "mean_difference": 0.000934624982653705,
-       "nonzero_share": 0.66,
+       "half_width": 0.0014724344549323747,
+       "mean_difference": -0.0016132508909575682,
+       "nonzero_share": 0.7,
        "readout": "top_move_share",
        "report_only": true
       }
@@ -1243,22 +1428,22 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "class": "composite",
      "ablation": "C7:availability-level-independent",
      "outcome": "FAIL",
-     "seeds": 100,
+     "seeds": 150,
      "verdict": "red",
      "note": "",
      "readouts": [
       {
        "direction": -1,
-       "half_width": 0.0014662927096815972,
-       "mean_difference": 0.001420254563744454,
+       "half_width": 0.0013201027382200082,
+       "mean_difference": -0.00032765131479639255,
        "nonzero_share": 1.0,
        "readout": "repertoire_entropy",
        "report_only": false
       },
       {
        "direction": 1,
-       "half_width": 0.00314887486455583,
-       "mean_difference": -0.00402652779962238,
+       "half_width": 0.0022782078172450195,
+       "mean_difference": 7.176213710013812e-05,
        "nonzero_share": 1.0,
        "readout": "top_move_share",
        "report_only": true
@@ -1271,22 +1456,22 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "class": "composite",
      "ablation": "C7:availability-level-inverted",
      "outcome": "FAIL",
-     "seeds": 100,
+     "seeds": 150,
      "verdict": "reversed",
      "note": "",
      "readouts": [
       {
        "direction": -1,
-       "half_width": 0.0020197330531308813,
-       "mean_difference": 0.012164813645441815,
+       "half_width": 0.0017409443907480163,
+       "mean_difference": 0.011063583607947772,
        "nonzero_share": 1.0,
        "readout": "repertoire_entropy",
        "report_only": false
       },
       {
        "direction": 1,
-       "half_width": 0.00359602591988391,
-       "mean_difference": -0.027671186250862862,
+       "half_width": 0.0034366308023501186,
+       "mean_difference": -0.025491940651574327,
        "nonzero_share": 1.0,
        "readout": "top_move_share",
        "report_only": true
@@ -1299,22 +1484,22 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "class": "composite",
      "ablation": "C7:availability-and-learner-removed",
      "outcome": "FAIL",
-     "seeds": 100,
+     "seeds": 150,
      "verdict": "red",
      "note": "",
      "readouts": [
       {
        "direction": -1,
-       "half_width": 0.0014662927096815972,
-       "mean_difference": 0.001420254563744454,
+       "half_width": 0.0013201027382200082,
+       "mean_difference": -0.00032765131479639255,
        "nonzero_share": 1.0,
        "readout": "repertoire_entropy",
        "report_only": false
       },
       {
        "direction": 1,
-       "half_width": 0.00314887486455583,
-       "mean_difference": -0.00402652779962238,
+       "half_width": 0.0022782078172450195,
+       "mean_difference": 7.176213710013812e-05,
        "nonzero_share": 1.0,
        "readout": "top_move_share",
        "report_only": true
@@ -1333,16 +1518,16 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "readouts": [
       {
        "direction": -1,
-       "half_width": 0.0021438071594425856,
-       "mean_difference": -0.01519480895084305,
+       "half_width": 0.002000078953652053,
+       "mean_difference": -0.01565338372019425,
        "nonzero_share": 1.0,
        "readout": "repertoire_entropy",
        "report_only": false
       },
       {
        "direction": 1,
-       "half_width": 0.003681301647272177,
-       "mean_difference": 0.029277277956497098,
+       "half_width": 0.0036231075613144615,
+       "mean_difference": 0.028255735040534215,
        "nonzero_share": 1.0,
        "readout": "top_move_share",
        "report_only": true
@@ -1361,16 +1546,16 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "readouts": [
       {
        "direction": -1,
-       "half_width": 0.0022028604358531032,
-       "mean_difference": -0.014392599725862527,
+       "half_width": 0.002015199046859442,
+       "mean_difference": -0.015762462422102646,
        "nonzero_share": 1.0,
        "readout": "repertoire_entropy",
        "report_only": false
       },
       {
        "direction": 1,
-       "half_width": 0.004176475857982752,
-       "mean_difference": 0.03168596410630633,
+       "half_width": 0.004193802491412849,
+       "mean_difference": 0.03204586503227836,
        "nonzero_share": 1.0,
        "readout": "top_move_share",
        "report_only": true
@@ -1383,22 +1568,22 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "class": "composite",
      "ablation": "C7:outside-ness-level-independent",
      "outcome": "PASS",
-     "seeds": 100,
+     "seeds": 150,
      "verdict": "survived",
      "note": "",
      "readouts": [
       {
        "direction": -1,
-       "half_width": 0.002324379338302419,
-       "mean_difference": -0.014414383403320463,
+       "half_width": 0.0017265788608532722,
+       "mean_difference": -0.014405804752196686,
        "nonzero_share": 1.0,
        "readout": "repertoire_entropy",
        "report_only": false
       },
       {
        "direction": 1,
-       "half_width": 0.004409488757073083,
-       "mean_difference": 0.02647839531144894,
+       "half_width": 0.0032887289359928447,
+       "mean_difference": 0.0283159298478011,
        "nonzero_share": 1.0,
        "readout": "top_move_share",
        "report_only": true
@@ -1417,16 +1602,16 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "readouts": [
       {
        "direction": -1,
-       "half_width": 0.002394141719324742,
-       "mean_difference": -0.014465983652274368,
+       "half_width": 0.0020462257861924506,
+       "mean_difference": -0.014006875555433944,
        "nonzero_share": 1.0,
        "readout": "repertoire_entropy",
        "report_only": false
       },
       {
        "direction": 1,
-       "half_width": 0.0038067760482130156,
-       "mean_difference": 0.030817982910653952,
+       "half_width": 0.003919815186170338,
+       "mean_difference": 0.0285631419573139,
        "nonzero_share": 1.0,
        "readout": "top_move_share",
        "report_only": true
@@ -1445,16 +1630,16 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "readouts": [
       {
        "direction": -1,
-       "half_width": 0.002181628984248511,
-       "mean_difference": -0.015384756099535126,
+       "half_width": 0.002088164442095864,
+       "mean_difference": -0.01601701402017992,
        "nonzero_share": 1.0,
        "readout": "repertoire_entropy",
        "report_only": false
       },
       {
        "direction": 1,
-       "half_width": 0.0042640870192805665,
-       "mean_difference": 0.02785832360329965,
+       "half_width": 0.003769771252773968,
+       "mean_difference": 0.029439249105302233,
        "nonzero_share": 1.0,
        "readout": "top_move_share",
        "report_only": true
@@ -1473,16 +1658,16 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "readouts": [
       {
        "direction": -1,
-       "half_width": 0.0021853517251030465,
-       "mean_difference": -0.015329502535672935,
+       "half_width": 0.002227256841918287,
+       "mean_difference": -0.01665365231673312,
        "nonzero_share": 1.0,
        "readout": "repertoire_entropy",
        "report_only": false
       },
       {
        "direction": 1,
-       "half_width": 0.004206108186499667,
-       "mean_difference": 0.028107678069610387,
+       "half_width": 0.003980113940868851,
+       "mean_difference": 0.029906100135508904,
        "nonzero_share": 1.0,
        "readout": "top_move_share",
        "report_only": true
@@ -1501,16 +1686,16 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "readouts": [
       {
        "direction": -1,
-       "half_width": 0.0019099197171918384,
-       "mean_difference": -0.01506738571412835,
+       "half_width": 0.002097822693250564,
+       "mean_difference": -0.015953279492873125,
        "nonzero_share": 1.0,
        "readout": "repertoire_entropy",
        "report_only": false
       },
       {
        "direction": 1,
-       "half_width": 0.004100943466776435,
-       "mean_difference": 0.027782225605852785,
+       "half_width": 0.0038874468087859424,
+       "mean_difference": 0.029642259296084536,
        "nonzero_share": 1.0,
        "readout": "top_move_share",
        "report_only": true
@@ -1529,16 +1714,16 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "readouts": [
       {
        "direction": -1,
-       "half_width": 0.0019173215274600867,
-       "mean_difference": -0.015016920903665751,
+       "half_width": 0.002098100591610935,
+       "mean_difference": -0.015935967701593775,
        "nonzero_share": 1.0,
        "readout": "repertoire_entropy",
        "report_only": false
       },
       {
        "direction": 1,
-       "half_width": 0.004088492175254796,
-       "mean_difference": 0.02783438546480077,
+       "half_width": 0.0038892920369192436,
+       "mean_difference": 0.02952565735615846,
        "nonzero_share": 1.0,
        "readout": "top_move_share",
        "report_only": true
@@ -1557,16 +1742,16 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "readouts": [
       {
        "direction": -1,
-       "half_width": 0.0020158458395662863,
-       "mean_difference": -0.011510653860560667,
+       "half_width": 0.001990852146088632,
+       "mean_difference": -0.011441231252296902,
        "nonzero_share": 1.0,
        "readout": "repertoire_entropy",
        "report_only": false
       },
       {
        "direction": 1,
-       "half_width": 0.004151299983626782,
-       "mean_difference": 0.02251846040138664,
+       "half_width": 0.003235635590998155,
+       "mean_difference": 0.02388530240875715,
        "nonzero_share": 1.0,
        "readout": "top_move_share",
        "report_only": true
@@ -1585,17 +1770,17 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "readouts": [
       {
        "direction": -1,
-       "half_width": 0.001426354652813706,
-       "mean_difference": -0.0005205686743548902,
+       "half_width": 0.0014180155871615957,
+       "mean_difference": -0.000520191636925936,
        "nonzero_share": 1.0,
        "readout": "repertoire_entropy",
        "report_only": false
       },
       {
        "direction": 1,
-       "half_width": 0.0023540224428800975,
-       "mean_difference": -0.001587597853351756,
-       "nonzero_share": 0.9933333333333333,
+       "half_width": 0.0023108547326931147,
+       "mean_difference": -0.0015002264405642371,
+       "nonzero_share": 1.0,
        "readout": "top_move_share",
        "report_only": true
       }
@@ -1613,16 +1798,16 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "readouts": [
       {
        "direction": -1,
-       "half_width": 0.0016459846103180603,
-       "mean_difference": -0.010296968557607969,
+       "half_width": 0.001676579511456095,
+       "mean_difference": -0.011083587487828445,
        "nonzero_share": 1.0,
        "readout": "repertoire_entropy",
        "report_only": false
       },
       {
        "direction": 1,
-       "half_width": 0.0030565646385875187,
-       "mean_difference": 0.023553551572002448,
+       "half_width": 0.0033912666378703967,
+       "mean_difference": 0.021686589725069313,
        "nonzero_share": 1.0,
        "readout": "top_move_share",
        "report_only": true
@@ -1635,22 +1820,22 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "class": "composite",
      "ablation": "C7:mixing-weight-inverted",
      "outcome": "PASS",
-     "seeds": 150,
+     "seeds": 100,
      "verdict": "survived",
      "note": "",
      "readouts": [
       {
        "direction": -1,
-       "half_width": 0.0019601370476130713,
-       "mean_difference": -0.007638713397720667,
+       "half_width": 0.0025343036415639672,
+       "mean_difference": -0.010349076664493903,
        "nonzero_share": 1.0,
        "readout": "repertoire_entropy",
        "report_only": false
       },
       {
        "direction": 1,
-       "half_width": 0.003969380494378564,
-       "mean_difference": 0.015597900726243084,
+       "half_width": 0.004488241930109624,
+       "mean_difference": 0.020837789120684874,
        "nonzero_share": 1.0,
        "readout": "top_move_share",
        "report_only": true
@@ -1669,16 +1854,16 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "readouts": [
       {
        "direction": -1,
-       "half_width": 0.0019086810414337125,
-       "mean_difference": -0.01508411307056299,
+       "half_width": 0.002097181996645506,
+       "mean_difference": -0.015916366135611357,
        "nonzero_share": 1.0,
        "readout": "repertoire_entropy",
        "report_only": false
       },
       {
        "direction": 1,
-       "half_width": 0.0040931393619970165,
-       "mean_difference": 0.02782692495990351,
+       "half_width": 0.003855510781795214,
+       "mean_difference": 0.029773946447505358,
        "nonzero_share": 1.0,
        "readout": "top_move_share",
        "report_only": true
@@ -1697,16 +1882,16 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "readouts": [
       {
        "direction": -1,
-       "half_width": 0.0019086810414337125,
-       "mean_difference": -0.01508411307056299,
+       "half_width": 0.002097181996645506,
+       "mean_difference": -0.015916366135611357,
        "nonzero_share": 1.0,
        "readout": "repertoire_entropy",
        "report_only": false
       },
       {
        "direction": 1,
-       "half_width": 0.0040931393619970165,
-       "mean_difference": 0.02782692495990351,
+       "half_width": 0.003855510781795214,
+       "mean_difference": 0.029773946447505358,
        "nonzero_share": 1.0,
        "readout": "top_move_share",
        "report_only": true
@@ -1729,6 +1914,370 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
    "m115_note": "*Checked 2026-10-08 from `M11.1d`'s mutants (`docs/phase_c_mutation_record.md`); class kept by owner decision. All nine level-reading rules listed at `M11.C.1` were run as deletion and inversion mutants, with the learner; this row's mutant results are generated by `tools/c16_report.py` from that record. No inversion run in that record reverses it. Inverting `M4.D.3a`'s layer availability leaves it passing (-0.015 \u00b1 0.005), but that inversion equals the deletion at level 20 and below on both layers (39.9% of the lowered arm's member-weeks under it) and at 40 and below on layer 1 (95.5%; over the entropy's window, 44.7% and 93.7%; `docs/phase_c_level_occupancy.md`), so a stronger inversion might reverse it; none was tried. Removing availability alone leaves it passing and takes 32% of the entropy difference away. No other single rule's removal turns it red; the level-blind mutant, which removes all nine at once, turns it red (+0.005 \u00b1 0.004). `M5.D.3`'s hold mutants both survive, each within the unmutated difference's half-width. With the learner disabled it still passes; with availability removed as well it is reversed (+0.002 \u00b1 0.002). With all four learning paths removed (`M11.1g`'s L0, `docs/emergence_audit_record.md`), inverting availability reverses it (+0.0122 \u00b1 0.002, 100 seeds), and with availability removed as well it is red, not reversed (+0.00142 \u00b1 0.0015, 100 seeds); the learner-disabled results above are the mutation record's runs, with `M4.D.6` disabled (150 seeds). Composite rests on a reading: of the nine rules only availability names a narrower repertoire, so the premise definition's redundancy clause does not apply. The criterion row's own grounds (`M4.C.1a`'s KS03.2 text, `M1.C.3a`'s \"stays fixed\") could be read as stating it, which would make it a premise. Removing those two rules together (`c16-cited-grounds-removed`) leaves it passing; removing them with availability (`c16-grounds-removed`) turns it red, so the redundancy clause's proof holds only with availability in the set. The mutants fit both readings; the reading is the owner's. The row's rationale (learning produces the narrowing) and the mutation clause above are not met (see the criterion row). A same-day reclassification to premise, which read the availability inversion's cancellation as a flip, was withdrawn. Report \u00a711.*"
   },
   {
+   "criterion": "M11.C.49",
+   "candidates": [
+    {
+     "criterion": "M11.C.49",
+     "class": "mixed",
+     "ablation": "C1",
+     "outcome": "PASS",
+     "seeds": 150,
+     "verdict": "survived",
+     "note": "premise limbs not declared (docs/version_1_dispositions.md, docs/version_2_dispositions.md), so judged on every limb",
+     "readouts": [
+      {
+       "direction": 1,
+       "half_width": 2.684133984995652,
+       "mean_difference": 6.448598737910296,
+       "nonzero_share": 1.0,
+       "readout": "family_excess",
+       "report_only": false
+      },
+      {
+       "direction": 1,
+       "half_width": 0.030707235435863196,
+       "mean_difference": 0.04113227513227513,
+       "nonzero_share": 0.46,
+       "readout": "conflict_share",
+       "report_only": false
+      },
+      {
+       "direction": 1,
+       "half_width": 0.02356737545239042,
+       "mean_difference": 0.10494493160400215,
+       "nonzero_share": 1.0,
+       "readout": "target_impingement",
+       "report_only": true
+      },
+      {
+       "direction": 0,
+       "half_width": 0.07261022704029134,
+       "mean_difference": -0.2866666666666667,
+       "nonzero_share": 0.2866666666666667,
+       "readout": "completions",
+       "report_only": true
+      }
+     ],
+     "premise_limbs": []
+    },
+    {
+     "criterion": "M11.C.49",
+     "class": "mixed",
+     "ablation": "C2",
+     "outcome": "PASS",
+     "seeds": 100,
+     "verdict": "survived",
+     "note": "premise limbs not declared (docs/version_1_dispositions.md, docs/version_2_dispositions.md), so judged on every limb",
+     "readouts": [
+      {
+       "direction": 1,
+       "half_width": 3.2384347912333054,
+       "mean_difference": 7.49851575455659,
+       "nonzero_share": 1.0,
+       "readout": "family_excess",
+       "report_only": false
+      },
+      {
+       "direction": 1,
+       "half_width": 0.03733919448940812,
+       "mean_difference": 0.05600000000000001,
+       "nonzero_share": 0.39,
+       "readout": "conflict_share",
+       "report_only": false
+      },
+      {
+       "direction": 1,
+       "half_width": 0.025192684573322327,
+       "mean_difference": 0.11285798005397042,
+       "nonzero_share": 1.0,
+       "readout": "target_impingement",
+       "report_only": true
+      },
+      {
+       "direction": 0,
+       "half_width": 0.09455395765958666,
+       "mean_difference": -0.36,
+       "nonzero_share": 0.36,
+       "readout": "completions",
+       "report_only": true
+      }
+     ],
+     "premise_limbs": []
+    },
+    {
+     "criterion": "M11.C.49",
+     "class": "mixed",
+     "ablation": "C3",
+     "outcome": "PASS",
+     "seeds": 100,
+     "verdict": "survived",
+     "note": "premise limbs not declared (docs/version_1_dispositions.md, docs/version_2_dispositions.md), so judged on every limb",
+     "readouts": [
+      {
+       "direction": 1,
+       "half_width": 3.0008265000566476,
+       "mean_difference": 3.343877807629715,
+       "nonzero_share": 1.0,
+       "readout": "family_excess",
+       "report_only": false
+      },
+      {
+       "direction": 1,
+       "half_width": 0.03612496278080716,
+       "mean_difference": 0.05003571428571428,
+       "nonzero_share": 0.37,
+       "readout": "conflict_share",
+       "report_only": false
+      },
+      {
+       "direction": 1,
+       "half_width": 0.027480122052202,
+       "mean_difference": 0.10979789762562905,
+       "nonzero_share": 1.0,
+       "readout": "target_impingement",
+       "report_only": true
+      },
+      {
+       "direction": 0,
+       "half_width": 0.09110534694749942,
+       "mean_difference": -0.31,
+       "nonzero_share": 0.31,
+       "readout": "completions",
+       "report_only": true
+      }
+     ],
+     "premise_limbs": []
+    },
+    {
+     "criterion": "M11.C.49",
+     "class": "mixed",
+     "ablation": "C4",
+     "outcome": "PASS",
+     "seeds": 150,
+     "verdict": "survived",
+     "note": "premise limbs not declared (docs/version_1_dispositions.md, docs/version_2_dispositions.md), so judged on every limb",
+     "readouts": [
+      {
+       "direction": 1,
+       "half_width": 2.772246022342133,
+       "mean_difference": 5.423602658388846,
+       "nonzero_share": 1.0,
+       "readout": "family_excess",
+       "report_only": false
+      },
+      {
+       "direction": 1,
+       "half_width": 0.03127777700213117,
+       "mean_difference": 0.046277777777777786,
+       "nonzero_share": 0.4666666666666667,
+       "readout": "conflict_share",
+       "report_only": false
+      },
+      {
+       "direction": 1,
+       "half_width": 0.022265263541899217,
+       "mean_difference": 0.11362971209378486,
+       "nonzero_share": 1.0,
+       "readout": "target_impingement",
+       "report_only": true
+      },
+      {
+       "direction": 0,
+       "half_width": 0.07641636721426374,
+       "mean_difference": -0.3466666666666667,
+       "nonzero_share": 0.3466666666666667,
+       "readout": "completions",
+       "report_only": true
+      }
+     ],
+     "premise_limbs": []
+    },
+    {
+     "criterion": "M11.C.49",
+     "class": "mixed",
+     "ablation": "C5",
+     "outcome": "FAIL",
+     "seeds": 150,
+     "verdict": "red",
+     "note": "premise limbs not declared (docs/version_1_dispositions.md, docs/version_2_dispositions.md), so judged on every limb",
+     "readouts": [
+      {
+       "direction": 1,
+       "half_width": 2.3971123827025895,
+       "mean_difference": 2.462388776397665,
+       "nonzero_share": 1.0,
+       "readout": "family_excess",
+       "report_only": false
+      },
+      {
+       "direction": 1,
+       "half_width": 0.021241746405800656,
+       "mean_difference": 0.015613756613756611,
+       "nonzero_share": 0.36666666666666664,
+       "readout": "conflict_share",
+       "report_only": false
+      },
+      {
+       "direction": 1,
+       "half_width": 0.020649485692168467,
+       "mean_difference": 0.0850711274567121,
+       "nonzero_share": 1.0,
+       "readout": "target_impingement",
+       "report_only": true
+      },
+      {
+       "direction": 0,
+       "half_width": 0.07156107490952959,
+       "mean_difference": -0.2733333333333333,
+       "nonzero_share": 0.2733333333333333,
+       "readout": "completions",
+       "report_only": true
+      }
+     ],
+     "premise_limbs": []
+    },
+    {
+     "criterion": "M11.C.49",
+     "class": "mixed",
+     "ablation": "C6",
+     "outcome": "PASS",
+     "seeds": 150,
+     "verdict": "survived",
+     "note": "premise limbs not declared (docs/version_1_dispositions.md, docs/version_2_dispositions.md), so judged on every limb",
+     "readouts": [
+      {
+       "direction": 1,
+       "half_width": 2.7558923239129043,
+       "mean_difference": 7.282661550606201,
+       "nonzero_share": 1.0,
+       "readout": "family_excess",
+       "report_only": false
+      },
+      {
+       "direction": 1,
+       "half_width": 0.03231442399210399,
+       "mean_difference": 0.04824338624338624,
+       "nonzero_share": 0.47333333333333333,
+       "readout": "conflict_share",
+       "report_only": false
+      },
+      {
+       "direction": 1,
+       "half_width": 0.02461122669592121,
+       "mean_difference": 0.1208000228078217,
+       "nonzero_share": 1.0,
+       "readout": "target_impingement",
+       "report_only": true
+      },
+      {
+       "direction": 0,
+       "half_width": 0.07925042120862809,
+       "mean_difference": -0.42,
+       "nonzero_share": 0.42,
+       "readout": "completions",
+       "report_only": true
+      }
+     ],
+     "premise_limbs": []
+    },
+    {
+     "criterion": "M11.C.49",
+     "class": "mixed",
+     "ablation": "C7:demand-share-removed",
+     "outcome": "PASS",
+     "seeds": 100,
+     "verdict": "survived",
+     "note": "premise limbs not declared (docs/version_1_dispositions.md, docs/version_2_dispositions.md), so judged on every limb",
+     "readouts": [
+      {
+       "direction": 1,
+       "half_width": 3.2570810977196336,
+       "mean_difference": 6.502078910262451,
+       "nonzero_share": 1.0,
+       "readout": "family_excess",
+       "report_only": false
+      },
+      {
+       "direction": 1,
+       "half_width": 0.03733784770685733,
+       "mean_difference": 0.039857142857142855,
+       "nonzero_share": 0.42,
+       "readout": "conflict_share",
+       "report_only": false
+      },
+      {
+       "direction": 1,
+       "half_width": 0.028982848225254508,
+       "mean_difference": 0.10356147298738153,
+       "nonzero_share": 1.0,
+       "readout": "target_impingement",
+       "report_only": true
+      },
+      {
+       "direction": 0,
+       "half_width": 0.09110534694749942,
+       "mean_difference": -0.31,
+       "nonzero_share": 0.31,
+       "readout": "completions",
+       "report_only": true
+      }
+     ],
+     "premise_limbs": []
+    },
+    {
+     "criterion": "M11.C.49",
+     "class": "mixed",
+     "ablation": "C7:demand-share-inverted",
+     "outcome": "PASS",
+     "seeds": 150,
+     "verdict": "survived",
+     "note": "premise limbs not declared (docs/version_1_dispositions.md, docs/version_2_dispositions.md), so judged on every limb",
+     "readouts": [
+      {
+       "direction": 1,
+       "half_width": 2.7613800217755657,
+       "mean_difference": 2.3170536528392285,
+       "nonzero_share": 1.0,
+       "readout": "family_excess",
+       "report_only": false
+      },
+      {
+       "direction": 1,
+       "half_width": 0.02915222200032412,
+       "mean_difference": 0.03938624338624338,
+       "nonzero_share": 0.43333333333333335,
+       "readout": "conflict_share",
+       "report_only": false
+      },
+      {
+       "direction": 1,
+       "half_width": 0.02257735812916682,
+       "mean_difference": 0.05517438687049551,
+       "nonzero_share": 1.0,
+       "readout": "target_impingement",
+       "report_only": true
+      },
+      {
+       "direction": 0,
+       "half_width": 0.07358216883504996,
+       "mean_difference": -0.3,
+       "nonzero_share": 0.3,
+       "readout": "completions",
+       "report_only": true
+      }
+     ],
+     "premise_limbs": []
+    }
+   ],
+   "not_run": [],
+   "carriers": [
+    "C5"
+   ],
+   "red_without_fail": [],
+   "m115_rests_on": "`M5.F.4`'s demand share (the target's felt impingement limb, reported, never a finding)",
+   "m115_note": "the family-excess and `CONFLICT`-share limbs are composite: they need `M5.F.4`, appraisal, the target's learned response and contagion; level moves more than the mixture, and `demand-share-removed` isolates `M5.F.4`'s part"
+  },
+  {
    "criterion": "M11.C.27[unstable,remove_one]",
    "candidates": [
     {
@@ -1742,104 +2291,104 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "readouts": [
       {
        "direction": -1,
-       "half_width": 0.04854732799734008,
-       "mean_difference": -0.06428648186046264,
+       "half_width": 0.04854726674801348,
+       "mean_difference": -0.06428628272949406,
        "nonzero_share": 1.0,
        "readout": "pair_deviation",
        "report_only": false
       },
       {
        "direction": -1,
-       "half_width": 0.04854732799734008,
-       "mean_difference": -0.06428648186046264,
+       "half_width": 0.04854726674801348,
+       "mean_difference": -0.06428628272949406,
        "nonzero_share": 1.0,
        "readout": "pair_deviation_week_1",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.05720337461026777,
-       "mean_difference": -0.060204052226758266,
+       "half_width": 0.057203296138513035,
+       "mean_difference": -0.06020377080986364,
        "nonzero_share": 1.0,
        "readout": "pair_deviation_week_2",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.04639113055298023,
-       "mean_difference": 0.003903051797504444,
+       "half_width": 0.04639112691259389,
+       "mean_difference": 0.0039033132893107276,
        "nonzero_share": 1.0,
        "readout": "pair_deviation_week_3",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.0472194420046362,
-       "mean_difference": 0.0731330979593184,
+       "half_width": 0.04721930056129597,
+       "mean_difference": 0.0731337391153044,
        "nonzero_share": 1.0,
        "readout": "pair_deviation_week_4",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.05210117205907442,
-       "mean_difference": 0.0964274315678391,
+       "half_width": 0.05209959724452419,
+       "mean_difference": 0.09643100041460523,
        "nonzero_share": 1.0,
        "readout": "pair_deviation_week_5",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.048870354797244275,
-       "mean_difference": 0.15847123337438768,
+       "half_width": 0.04954653631391207,
+       "mean_difference": 0.1541926937227131,
        "nonzero_share": 1.0,
        "readout": "pair_deviation_week_6",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.04728157740216057,
-       "mean_difference": 0.16156738054272704,
+       "half_width": 0.047570775573051,
+       "mean_difference": 0.15840390026579765,
        "nonzero_share": 1.0,
        "readout": "pair_deviation_week_7",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.057218531948197614,
-       "mean_difference": 0.21837139233557096,
+       "half_width": 0.05733856152953578,
+       "mean_difference": 0.21648927681407973,
        "nonzero_share": 1.0,
        "readout": "pair_deviation_week_8",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.05110714088632694,
-       "mean_difference": 0.24106130200673312,
+       "half_width": 0.051137136113728374,
+       "mean_difference": 0.240068017316194,
        "nonzero_share": 1.0,
        "readout": "pair_deviation_week_9",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.05605920426595294,
-       "mean_difference": 0.2392494919700697,
+       "half_width": 0.05588401841343471,
+       "mean_difference": 0.23647310842872585,
        "nonzero_share": 1.0,
        "readout": "pair_deviation_week_10",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.0587820818012589,
-       "mean_difference": 0.2332362970988513,
+       "half_width": 0.05863245175542327,
+       "mean_difference": 0.2321412459466676,
        "nonzero_share": 1.0,
        "readout": "pair_deviation_week_11",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.06022316523585634,
-       "mean_difference": 0.24024233741709464,
+       "half_width": 0.06032727514321434,
+       "mean_difference": 0.23906942982149057,
        "nonzero_share": 1.0,
        "readout": "pair_deviation_week_12",
        "report_only": true
@@ -1858,104 +2407,104 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "readouts": [
       {
        "direction": -1,
-       "half_width": 0.050011995304586145,
-       "mean_difference": 0.0069136430326551136,
+       "half_width": 0.05001196424303822,
+       "mean_difference": 0.006913796024476232,
        "nonzero_share": 1.0,
        "readout": "pair_deviation",
        "report_only": false
       },
       {
        "direction": -1,
-       "half_width": 0.050011995304586145,
-       "mean_difference": 0.0069136430326551136,
+       "half_width": 0.05001196424303822,
+       "mean_difference": 0.006913796024476232,
        "nonzero_share": 1.0,
        "readout": "pair_deviation_week_1",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.05908890324735126,
-       "mean_difference": -0.010352750446909602,
+       "half_width": 0.05929420194758579,
+       "mean_difference": -0.008466870069079277,
        "nonzero_share": 1.0,
        "readout": "pair_deviation_week_2",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.05276474341646148,
-       "mean_difference": 0.082740676437755,
+       "half_width": 0.05293058886108411,
+       "mean_difference": 0.0848310036870786,
        "nonzero_share": 1.0,
        "readout": "pair_deviation_week_3",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.05449286834462269,
-       "mean_difference": 0.10118801819078456,
+       "half_width": 0.054673251122819747,
+       "mean_difference": 0.10338103150275767,
        "nonzero_share": 1.0,
        "readout": "pair_deviation_week_4",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.05246015815915741,
-       "mean_difference": 0.15461648737522235,
+       "half_width": 0.05262488427700117,
+       "mean_difference": 0.15729191958645944,
        "nonzero_share": 1.0,
        "readout": "pair_deviation_week_5",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.0629305671894362,
-       "mean_difference": 0.1989945966915843,
+       "half_width": 0.063051564557757,
+       "mean_difference": 0.20106264817068784,
        "nonzero_share": 1.0,
        "readout": "pair_deviation_week_6",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.05707325136682906,
-       "mean_difference": 0.2087726747319707,
+       "half_width": 0.05748025754121837,
+       "mean_difference": 0.2083536612073511,
        "nonzero_share": 1.0,
        "readout": "pair_deviation_week_7",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.06102922022622857,
-       "mean_difference": 0.24091646158955854,
+       "half_width": 0.06206228393847298,
+       "mean_difference": 0.23732893878984765,
        "nonzero_share": 1.0,
        "readout": "pair_deviation_week_8",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.05465119174373319,
-       "mean_difference": 0.25935133054771575,
+       "half_width": 0.05440653823686108,
+       "mean_difference": 0.2614398426713981,
        "nonzero_share": 1.0,
        "readout": "pair_deviation_week_9",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.056557508683234205,
-       "mean_difference": 0.2740325183099517,
+       "half_width": 0.05799344572728861,
+       "mean_difference": 0.2721819426692987,
        "nonzero_share": 1.0,
        "readout": "pair_deviation_week_10",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.06544793087969311,
-       "mean_difference": 0.2834844254992731,
+       "half_width": 0.06545308142703313,
+       "mean_difference": 0.2867812209108309,
        "nonzero_share": 1.0,
        "readout": "pair_deviation_week_11",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.061292438151815155,
-       "mean_difference": 0.26611928083313513,
+       "half_width": 0.0609577094967067,
+       "mean_difference": 0.2729689111578114,
        "nonzero_share": 1.0,
        "readout": "pair_deviation_week_12",
        "report_only": true
@@ -1974,104 +2523,104 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "readouts": [
       {
        "direction": -1,
-       "half_width": 0.06132197934458856,
-       "mean_difference": -0.10300916490655376,
+       "half_width": 0.061293599717745686,
+       "mean_difference": -0.10292064911491343,
        "nonzero_share": 1.0,
        "readout": "pair_deviation",
        "report_only": false
       },
       {
        "direction": -1,
-       "half_width": 0.06132197934458856,
-       "mean_difference": -0.10300916490655376,
+       "half_width": 0.061293599717745686,
+       "mean_difference": -0.10292064911491343,
        "nonzero_share": 1.0,
        "readout": "pair_deviation_week_1",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.07381440155685075,
-       "mean_difference": -0.06699081190023157,
+       "half_width": 0.07380616093980635,
+       "mean_difference": -0.06689476790010007,
        "nonzero_share": 1.0,
        "readout": "pair_deviation_week_2",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.06682638277032493,
-       "mean_difference": 0.020490287172469496,
+       "half_width": 0.06682297042383538,
+       "mean_difference": 0.020589477290140098,
        "nonzero_share": 1.0,
        "readout": "pair_deviation_week_3",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.07536306400200693,
-       "mean_difference": 0.06107149786127941,
+       "half_width": 0.07537338722224832,
+       "mean_difference": 0.061109867133373914,
        "nonzero_share": 1.0,
        "readout": "pair_deviation_week_4",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.07249229889126407,
-       "mean_difference": 0.11873542253602247,
+       "half_width": 0.07247338564957752,
+       "mean_difference": 0.11855895975116222,
        "nonzero_share": 1.0,
        "readout": "pair_deviation_week_5",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.07652669524498384,
-       "mean_difference": 0.167053336015441,
+       "half_width": 0.076515766400655,
+       "mean_difference": 0.16688007794145496,
        "nonzero_share": 1.0,
        "readout": "pair_deviation_week_6",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.0635335349760995,
-       "mean_difference": 0.235989316640945,
+       "half_width": 0.06358186802870146,
+       "mean_difference": 0.23615733469612635,
        "nonzero_share": 1.0,
        "readout": "pair_deviation_week_7",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.06967867287247033,
-       "mean_difference": 0.22259584238539531,
+       "half_width": 0.06967708075107373,
+       "mean_difference": 0.22256094374183666,
        "nonzero_share": 1.0,
        "readout": "pair_deviation_week_8",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.06624219688332339,
-       "mean_difference": 0.2902985674479783,
+       "half_width": 0.06624358606832106,
+       "mean_difference": 0.290314510851106,
        "nonzero_share": 1.0,
        "readout": "pair_deviation_week_9",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.06395476061502425,
-       "mean_difference": 0.28138203556174624,
+       "half_width": 0.06395323613905766,
+       "mean_difference": 0.2813937551244678,
        "nonzero_share": 1.0,
        "readout": "pair_deviation_week_10",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.06133427857561282,
-       "mean_difference": 0.29193356589328445,
+       "half_width": 0.061331052679970174,
+       "mean_difference": 0.29195898205660636,
        "nonzero_share": 1.0,
        "readout": "pair_deviation_week_11",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.07882634965164467,
-       "mean_difference": 0.3416116378166645,
+       "half_width": 0.07942193695043784,
+       "mean_difference": 0.3395681187338219,
        "nonzero_share": 1.0,
        "readout": "pair_deviation_week_12",
        "report_only": true
@@ -2090,104 +2639,104 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "readouts": [
       {
        "direction": -1,
-       "half_width": 0.0491408507246479,
-       "mean_difference": -0.06962342985365085,
+       "half_width": 0.04914078182160982,
+       "mean_difference": -0.0696232378612915,
        "nonzero_share": 1.0,
        "readout": "pair_deviation",
        "report_only": false
       },
       {
        "direction": -1,
-       "half_width": 0.0491408507246479,
-       "mean_difference": -0.06962342985365085,
+       "half_width": 0.04914078182160982,
+       "mean_difference": -0.0696232378612915,
        "nonzero_share": 1.0,
        "readout": "pair_deviation_week_1",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.052501795213976896,
-       "mean_difference": -0.05424883701145616,
+       "half_width": 0.052501695801271286,
+       "mean_difference": -0.05424875887098651,
        "nonzero_share": 1.0,
        "readout": "pair_deviation_week_2",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.044313880024963496,
-       "mean_difference": 0.0036959556547998896,
+       "half_width": 0.04431386652531974,
+       "mean_difference": 0.003696376473794578,
        "nonzero_share": 1.0,
        "readout": "pair_deviation_week_3",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.04670159695191647,
-       "mean_difference": 0.07066021990734023,
+       "half_width": 0.04670140546001625,
+       "mean_difference": 0.0706606847087215,
        "nonzero_share": 1.0,
        "readout": "pair_deviation_week_4",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.051442182997675556,
-       "mean_difference": 0.09580931079013828,
+       "half_width": 0.051441090659164655,
+       "mean_difference": 0.09581162533473049,
        "nonzero_share": 1.0,
        "readout": "pair_deviation_week_5",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.04872746336898566,
-       "mean_difference": 0.15821041616804807,
+       "half_width": 0.04871740329053571,
+       "mean_difference": 0.15826451027937907,
        "nonzero_share": 1.0,
        "readout": "pair_deviation_week_6",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.04814060999224685,
-       "mean_difference": 0.16140227015226546,
+       "half_width": 0.05014661800960797,
+       "mean_difference": 0.15568319640235206,
        "nonzero_share": 1.0,
        "readout": "pair_deviation_week_7",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.05688750656019419,
-       "mean_difference": 0.20952106921477584,
+       "half_width": 0.057484162438893684,
+       "mean_difference": 0.208391778053182,
        "nonzero_share": 1.0,
        "readout": "pair_deviation_week_8",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.05004724053517221,
-       "mean_difference": 0.2095907553154463,
+       "half_width": 0.0500607560727326,
+       "mean_difference": 0.20678413459513387,
        "nonzero_share": 1.0,
        "readout": "pair_deviation_week_9",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.05193753064394059,
-       "mean_difference": 0.21434013388511292,
+       "half_width": 0.0517833832228561,
+       "mean_difference": 0.21283213564391065,
        "nonzero_share": 1.0,
        "readout": "pair_deviation_week_10",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.054565288674288434,
-       "mean_difference": 0.21588334664126574,
+       "half_width": 0.054085807269198885,
+       "mean_difference": 0.214276904030482,
        "nonzero_share": 1.0,
        "readout": "pair_deviation_week_11",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.054078692240598726,
-       "mean_difference": 0.22351382496246008,
+       "half_width": 0.05445648627994857,
+       "mean_difference": 0.2235291398347441,
        "nonzero_share": 1.0,
        "readout": "pair_deviation_week_12",
        "report_only": true
@@ -2206,104 +2755,104 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "readouts": [
       {
        "direction": -1,
-       "half_width": 0.04839637476078826,
-       "mean_difference": -0.07270602187026971,
+       "half_width": 0.048396386700508616,
+       "mean_difference": -0.07270604041026861,
        "nonzero_share": 1.0,
        "readout": "pair_deviation",
        "report_only": false
       },
       {
        "direction": -1,
-       "half_width": 0.04839637476078826,
-       "mean_difference": -0.07270602187026971,
+       "half_width": 0.048396386700508616,
+       "mean_difference": -0.07270604041026861,
        "nonzero_share": 1.0,
        "readout": "pair_deviation_week_1",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.05760532118031816,
-       "mean_difference": -0.04286994873491774,
+       "half_width": 0.05760527008042833,
+       "mean_difference": -0.0428699237046982,
        "nonzero_share": 1.0,
        "readout": "pair_deviation_week_2",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.05391383823871528,
-       "mean_difference": -0.0162913576404985,
+       "half_width": 0.05391377725892408,
+       "mean_difference": -0.01629127134800577,
        "nonzero_share": 1.0,
        "readout": "pair_deviation_week_3",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.04936482840401804,
-       "mean_difference": 0.02354714205044703,
+       "half_width": 0.04936478109743042,
+       "mean_difference": 0.023547601212568433,
        "nonzero_share": 1.0,
        "readout": "pair_deviation_week_4",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.0499140043231322,
-       "mean_difference": 0.0803438714141168,
+       "half_width": 0.04991357237215705,
+       "mean_difference": 0.08034303715400042,
        "nonzero_share": 1.0,
        "readout": "pair_deviation_week_5",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.048883430797753584,
-       "mean_difference": 0.13553491109849108,
+       "half_width": 0.04888299529746265,
+       "mean_difference": 0.13553440845696363,
        "nonzero_share": 1.0,
        "readout": "pair_deviation_week_6",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.049202030151658346,
-       "mean_difference": 0.19143724032256915,
+       "half_width": 0.049202104201709576,
+       "mean_difference": 0.19143704352970187,
        "nonzero_share": 1.0,
        "readout": "pair_deviation_week_7",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.0550909866997372,
-       "mean_difference": 0.22408166369742308,
+       "half_width": 0.05509077267991097,
+       "mean_difference": 0.2240826036137959,
        "nonzero_share": 1.0,
        "readout": "pair_deviation_week_8",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.0491541069194676,
-       "mean_difference": 0.25309567168366714,
+       "half_width": 0.04915403425855886,
+       "mean_difference": 0.2530944078073805,
        "nonzero_share": 1.0,
        "readout": "pair_deviation_week_9",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.04508873292069741,
-       "mean_difference": 0.2727749750789953,
+       "half_width": 0.045088733218770216,
+       "mean_difference": 0.27277392930027194,
        "nonzero_share": 1.0,
        "readout": "pair_deviation_week_10",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.04207311578913142,
-       "mean_difference": 0.26664338238335483,
+       "half_width": 0.04207285006728138,
+       "mean_difference": 0.266642503351982,
        "nonzero_share": 1.0,
        "readout": "pair_deviation_week_11",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.04088086896568162,
-       "mean_difference": 0.2583571230787864,
+       "half_width": 0.04088045550546245,
+       "mean_difference": 0.2583562045213006,
        "nonzero_share": 1.0,
        "readout": "pair_deviation_week_12",
        "report_only": true
@@ -2322,104 +2871,104 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "readouts": [
       {
        "direction": -1,
-       "half_width": 0.05226532353923895,
-       "mean_difference": -0.06765059505541575,
+       "half_width": 0.05226526661163927,
+       "mean_difference": -0.06765038964761799,
        "nonzero_share": 0.99,
        "readout": "pair_deviation",
        "report_only": false
       },
       {
        "direction": -1,
-       "half_width": 0.05226532353923895,
-       "mean_difference": -0.06765059505541575,
+       "half_width": 0.05226526661163927,
+       "mean_difference": -0.06765038964761799,
        "nonzero_share": 0.99,
        "readout": "pair_deviation_week_1",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.05438598584650085,
-       "mean_difference": -0.059990590528159096,
+       "half_width": 0.05438591947648046,
+       "mean_difference": -0.05999040045740829,
        "nonzero_share": 1.0,
        "readout": "pair_deviation_week_2",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.04732976658862151,
-       "mean_difference": 0.002707658185900503,
+       "half_width": 0.04732970622321861,
+       "mean_difference": 0.0027078817713620603,
        "nonzero_share": 1.0,
        "readout": "pair_deviation_week_3",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.05041119360029757,
-       "mean_difference": 0.053011536218786966,
+       "half_width": 0.05041103153746298,
+       "mean_difference": 0.053011983176877706,
        "nonzero_share": 1.0,
        "readout": "pair_deviation_week_4",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.05281520942206767,
-       "mean_difference": 0.07251765865579608,
+       "half_width": 0.052813968521479085,
+       "mean_difference": 0.07252335159225659,
        "nonzero_share": 1.0,
        "readout": "pair_deviation_week_5",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.05145262545700467,
-       "mean_difference": 0.14116901747591717,
+       "half_width": 0.05144327862663371,
+       "mean_difference": 0.14120615118129534,
        "nonzero_share": 1.0,
        "readout": "pair_deviation_week_6",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.05440629917602572,
-       "mean_difference": 0.14002751869713204,
+       "half_width": 0.054403255302482634,
+       "mean_difference": 0.14000185215345762,
        "nonzero_share": 1.0,
        "readout": "pair_deviation_week_7",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.05148339977153177,
-       "mean_difference": 0.18162210140873966,
+       "half_width": 0.05133326011931709,
+       "mean_difference": 0.17740407029288618,
        "nonzero_share": 1.0,
        "readout": "pair_deviation_week_8",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.04859753134843534,
-       "mean_difference": 0.18995926014104697,
+       "half_width": 0.04859705035363295,
+       "mean_difference": 0.1889984879336729,
        "nonzero_share": 1.0,
        "readout": "pair_deviation_week_9",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.062483967987621944,
-       "mean_difference": 0.210196107669818,
+       "half_width": 0.06325324452674139,
+       "mean_difference": 0.20413171252421236,
        "nonzero_share": 1.0,
        "readout": "pair_deviation_week_10",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.06392865506977864,
-       "mean_difference": 0.1984134672974643,
+       "half_width": 0.06397576015081827,
+       "mean_difference": 0.1939339149245215,
        "nonzero_share": 1.0,
        "readout": "pair_deviation_week_11",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.05874519295122486,
-       "mean_difference": 0.24290128912991857,
+       "half_width": 0.058378078168326256,
+       "mean_difference": 0.24217217524974782,
        "nonzero_share": 1.0,
        "readout": "pair_deviation_week_12",
        "report_only": true
@@ -2438,104 +2987,104 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "readouts": [
       {
        "direction": -1,
-       "half_width": 0.035561695761683804,
-       "mean_difference": 0.13466595037513673,
+       "half_width": 0.035561692194973696,
+       "mean_difference": 0.13466596153208024,
        "nonzero_share": 0.68,
        "readout": "pair_deviation",
        "report_only": false
       },
       {
        "direction": -1,
-       "half_width": 0.035561695761683804,
-       "mean_difference": 0.13466595037513673,
+       "half_width": 0.035561692194973696,
+       "mean_difference": 0.13466596153208024,
        "nonzero_share": 0.68,
        "readout": "pair_deviation_week_1",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.03910274182773739,
-       "mean_difference": 0.16036722345670273,
+       "half_width": 0.03910273944086796,
+       "mean_difference": 0.16036727489422392,
        "nonzero_share": 0.68,
        "readout": "pair_deviation_week_2",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.0444231426651084,
-       "mean_difference": 0.1619978655613544,
+       "half_width": 0.04442313977158213,
+       "mean_difference": 0.16199793412814464,
        "nonzero_share": 0.77,
        "readout": "pair_deviation_week_3",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.04672261868241292,
-       "mean_difference": 0.16441351878852917,
+       "half_width": 0.04672242500040499,
+       "mean_difference": 0.1644154799096928,
        "nonzero_share": 0.83,
        "readout": "pair_deviation_week_4",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.04794151175635802,
-       "mean_difference": 0.18385742466582072,
+       "half_width": 0.04794291183814194,
+       "mean_difference": 0.18383610993958235,
        "nonzero_share": 0.88,
        "readout": "pair_deviation_week_5",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.04897800255311205,
-       "mean_difference": 0.21372275952214875,
+       "half_width": 0.048979627789204776,
+       "mean_difference": 0.2136816551997733,
        "nonzero_share": 0.89,
        "readout": "pair_deviation_week_6",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.05131220858285411,
-       "mean_difference": 0.22550940108212036,
+       "half_width": 0.051314317509332553,
+       "mean_difference": 0.22540605019175136,
        "nonzero_share": 0.89,
        "readout": "pair_deviation_week_7",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.049556249522274734,
-       "mean_difference": 0.23732301402649242,
+       "half_width": 0.04955677453500952,
+       "mean_difference": 0.2372280897391551,
        "nonzero_share": 0.92,
        "readout": "pair_deviation_week_8",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.052284452220403996,
-       "mean_difference": 0.24265618103687228,
+       "half_width": 0.052285505144383945,
+       "mean_difference": 0.24202305268183086,
        "nonzero_share": 0.91,
        "readout": "pair_deviation_week_9",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.052899362899183844,
-       "mean_difference": 0.25229040433443717,
+       "half_width": 0.05152176122693621,
+       "mean_difference": 0.2461546229793196,
        "nonzero_share": 0.92,
        "readout": "pair_deviation_week_10",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.05513108098260623,
-       "mean_difference": 0.26302366693666107,
+       "half_width": 0.0536793999800956,
+       "mean_difference": 0.25683051467541573,
        "nonzero_share": 0.88,
        "readout": "pair_deviation_week_11",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.05878617551465298,
-       "mean_difference": 0.26867508110667937,
+       "half_width": 0.05725165683226038,
+       "mean_difference": 0.2622830972849897,
        "nonzero_share": 0.86,
        "readout": "pair_deviation_week_12",
        "report_only": true
@@ -2554,104 +3103,104 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "readouts": [
       {
        "direction": -1,
-       "half_width": 0.05216081756131141,
-       "mean_difference": 0.07744002461301512,
+       "half_width": 0.05216079161717775,
+       "mean_difference": 0.07744004359217901,
        "nonzero_share": 0.95,
        "readout": "pair_deviation",
        "report_only": false
       },
       {
        "direction": -1,
-       "half_width": 0.05216081756131141,
-       "mean_difference": 0.07744002461301512,
+       "half_width": 0.05216079161717775,
+       "mean_difference": 0.07744004359217901,
        "nonzero_share": 0.95,
        "readout": "pair_deviation_week_1",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.055470887163362806,
-       "mean_difference": 0.05694418766093173,
+       "half_width": 0.055470890234378165,
+       "mean_difference": 0.05694401165419068,
        "nonzero_share": 0.97,
        "readout": "pair_deviation_week_2",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.05724167542719483,
-       "mean_difference": 0.047326429462785244,
+       "half_width": 0.05724173360210806,
+       "mean_difference": 0.04732598110379041,
        "nonzero_share": 0.99,
        "readout": "pair_deviation_week_3",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.05513564206040097,
-       "mean_difference": 0.008957626368775042,
+       "half_width": 0.05513564077365576,
+       "mean_difference": 0.00895761394000496,
        "nonzero_share": 0.99,
        "readout": "pair_deviation_week_4",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.057648148574415095,
-       "mean_difference": -0.0066993782718422525,
+       "half_width": 0.05764806998178519,
+       "mean_difference": -0.006699277044849083,
        "nonzero_share": 0.99,
        "readout": "pair_deviation_week_5",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.054129878087905405,
-       "mean_difference": -0.04977358064045223,
+       "half_width": 0.05412988278352558,
+       "mean_difference": -0.04977367468085319,
        "nonzero_share": 0.97,
        "readout": "pair_deviation_week_6",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.05076431126098189,
-       "mean_difference": -0.07105318215259858,
+       "half_width": 0.05076434088026438,
+       "mean_difference": -0.07105316976317344,
        "nonzero_share": 0.99,
        "readout": "pair_deviation_week_7",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.05528444139674937,
-       "mean_difference": -0.10549892203470496,
+       "half_width": 0.05528462039041447,
+       "mean_difference": -0.10549857110044686,
        "nonzero_share": 0.98,
        "readout": "pair_deviation_week_8",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.04838485479359702,
-       "mean_difference": -0.13721917602497521,
+       "half_width": 0.048384855532052115,
+       "mean_difference": -0.13721822096703454,
        "nonzero_share": 0.99,
        "readout": "pair_deviation_week_9",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.05137034204486305,
-       "mean_difference": -0.16770908668922946,
+       "half_width": 0.05137039784834602,
+       "mean_difference": -0.16770831675775294,
        "nonzero_share": 0.99,
        "readout": "pair_deviation_week_10",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.054035841067329074,
-       "mean_difference": -0.14393311921866644,
+       "half_width": 0.05403598221439824,
+       "mean_difference": -0.14393123035629893,
        "nonzero_share": 0.99,
        "readout": "pair_deviation_week_11",
        "report_only": true
       },
       {
        "direction": -1,
-       "half_width": 0.05487184711535449,
-       "mean_difference": -0.17683600577747266,
+       "half_width": 0.05487202900486908,
+       "mean_difference": -0.17683447197124916,
        "nonzero_share": 0.99,
        "readout": "pair_deviation_week_12",
        "report_only": true
@@ -2677,15 +3226,15 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "criterion": "M11.C.52",
      "class": "composite",
      "ablation": "C1",
-     "outcome": "FAIL",
+     "outcome": "PASS",
      "seeds": 100,
-     "verdict": "red",
+     "verdict": "survived",
      "note": "",
      "readouts": [
       {
        "direction": -1,
-       "half_width": 18.08777834998213,
-       "mean_difference": -10.168177964011333,
+       "half_width": 19.537712415762712,
+       "mean_difference": -25.574904908687373,
        "nonzero_share": 1.0,
        "readout": "escalation",
        "report_only": false
@@ -2697,15 +3246,15 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "criterion": "M11.C.52",
      "class": "composite",
      "ablation": "C2",
-     "outcome": "FAIL",
-     "seeds": 100,
-     "verdict": "red",
+     "outcome": "PASS",
+     "seeds": 50,
+     "verdict": "survived",
      "note": "",
      "readouts": [
       {
        "direction": -1,
-       "half_width": 14.86150776143306,
-       "mean_difference": 4.267625324979422,
+       "half_width": 18.826963145631474,
+       "mean_difference": -20.442800325366335,
        "nonzero_share": 1.0,
        "readout": "escalation",
        "report_only": false
@@ -2717,15 +3266,15 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "criterion": "M11.C.52",
      "class": "composite",
      "ablation": "C3",
-     "outcome": "FAIL",
+     "outcome": "PASS",
      "seeds": 100,
-     "verdict": "red",
+     "verdict": "survived",
      "note": "",
      "readouts": [
       {
        "direction": -1,
-       "half_width": 17.454518962923327,
-       "mean_difference": -8.048800940690594,
+       "half_width": 18.43807473593122,
+       "mean_difference": -28.27415025291634,
        "nonzero_share": 1.0,
        "readout": "escalation",
        "report_only": false
@@ -2737,15 +3286,15 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "criterion": "M11.C.52",
      "class": "composite",
      "ablation": "C4",
-     "outcome": "FAIL",
+     "outcome": "PASS",
      "seeds": 100,
-     "verdict": "red",
+     "verdict": "survived",
      "note": "",
      "readouts": [
       {
        "direction": -1,
-       "half_width": 18.97628020047754,
-       "mean_difference": -3.4436224780078555,
+       "half_width": 19.770227164149283,
+       "mean_difference": -24.95781975824949,
        "nonzero_share": 1.0,
        "readout": "escalation",
        "report_only": false
@@ -2764,8 +3313,8 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "readouts": [
       {
        "direction": -1,
-       "half_width": 19.531267447605874,
-       "mean_difference": -26.869325286448944,
+       "half_width": 19.53131240847822,
+       "mean_difference": -26.8691284164717,
        "nonzero_share": 1.0,
        "readout": "escalation",
        "report_only": false
@@ -2777,15 +3326,15 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "criterion": "M11.C.52",
      "class": "composite",
      "ablation": "C6",
-     "outcome": "FAIL",
+     "outcome": "PASS",
      "seeds": 100,
-     "verdict": "red",
+     "verdict": "survived",
      "note": "",
      "readouts": [
       {
        "direction": -1,
-       "half_width": 17.06950987262756,
-       "mean_difference": -14.27382911869874,
+       "half_width": 17.437707251117622,
+       "mean_difference": -29.059342241721332,
        "nonzero_share": 1.0,
        "readout": "escalation",
        "report_only": false
@@ -2797,15 +3346,15 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "criterion": "M11.C.52",
      "class": "composite",
      "ablation": "C7:cue-attribution-discount-removed",
-     "outcome": "FAIL",
+     "outcome": "PASS",
      "seeds": 100,
-     "verdict": "red",
+     "verdict": "survived",
      "note": "",
      "readouts": [
       {
        "direction": -1,
-       "half_width": 18.77140877394124,
-       "mean_difference": -10.772751373331225,
+       "half_width": 19.880992933997746,
+       "mean_difference": -31.712922860279154,
        "nonzero_share": 1.0,
        "readout": "escalation",
        "report_only": false
@@ -2815,17 +3364,212 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
     }
    ],
    "not_run": [],
-   "carriers": [
-    "C1",
-    "C2",
-    "C3",
-    "C4",
-    "C6",
-    "C7:cue-attribution-discount-removed"
-   ],
+   "carriers": [],
    "red_without_fail": [],
    "m115_rests_on": "\u2014",
    "m115_note": "needs `M4.C.6` by channel, `M4.C.13` on both sides and the exchange over weeks; T-208's probe (`docs/review/2026-11-09_sc_pass_probes.md`): on 500 seeds the pass holds (\u221217.0 \u00b1 10.1) and its named mutant survives (\u221212.5 \u00b1 10.2), removing +4.5 \u00b1 1.5 of the effect; with the nonverbal channels equal it is \u22129.3 \u00b1 8.6 (p 0.053), and with the cues off \u221222.2 \u00b1 8.3, no different from the recorded effect. A detected part of the pass is carried by paths other than the by-channel discount, so it is not a finding about self-attribution by channel alone (the owner, 2026-11-09)"
+  },
+  {
+   "criterion": "M11.C.17",
+   "candidates": [
+    {
+     "criterion": "M11.C.17",
+     "class": "composite",
+     "ablation": "C1",
+     "outcome": "PASS",
+     "seeds": 150,
+     "verdict": "survived",
+     "note": "",
+     "readouts": [
+      {
+       "direction": 1,
+       "half_width": 0.002506754606216747,
+       "mean_difference": 0.005744692974569361,
+       "p": 4.326902799958062e-06,
+       "readout": "coached_rise",
+       "report_only": false
+      },
+      {
+       "direction": 1,
+       "half_width": 0.0007215116386314568,
+       "mean_difference": 0.0016673223413557854,
+       "readout": "family_rise",
+       "report_only": true
+      }
+     ],
+     "premise_limbs": []
+    },
+    {
+     "criterion": "M11.C.17",
+     "class": "composite",
+     "ablation": "C2",
+     "outcome": "PASS",
+     "seeds": 150,
+     "verdict": "survived",
+     "note": "",
+     "readouts": [
+      {
+       "direction": 1,
+       "half_width": 0.002127224323388902,
+       "mean_difference": 0.007419618081189133,
+       "p": 1.742595760767873e-14,
+       "readout": "coached_rise",
+       "report_only": false
+      },
+      {
+       "direction": 1,
+       "half_width": 0.0007200366163078407,
+       "mean_difference": 0.0020347651715310697,
+       "readout": "family_rise",
+       "report_only": true
+      }
+     ],
+     "premise_limbs": []
+    },
+    {
+     "criterion": "M11.C.17",
+     "class": "composite",
+     "ablation": "C3",
+     "outcome": "PASS",
+     "seeds": 150,
+     "verdict": "survived",
+     "note": "",
+     "readouts": [
+      {
+       "direction": 1,
+       "half_width": 0.0021716746396386833,
+       "mean_difference": 0.0033613787801446667,
+       "p": 0.0001596779232948462,
+       "readout": "coached_rise",
+       "report_only": false
+      },
+      {
+       "direction": 1,
+       "half_width": 0.0006239214020038078,
+       "mean_difference": 0.0009975460037305035,
+       "readout": "family_rise",
+       "report_only": true
+      }
+     ],
+     "premise_limbs": []
+    },
+    {
+     "criterion": "M11.C.17",
+     "class": "composite",
+     "ablation": "C4",
+     "outcome": "PASS",
+     "seeds": 150,
+     "verdict": "survived",
+     "note": "",
+     "readouts": [
+      {
+       "direction": 1,
+       "half_width": 0.002459032385791516,
+       "mean_difference": 0.006370494488562859,
+       "p": 8.428553841854276e-09,
+       "readout": "coached_rise",
+       "report_only": false
+      },
+      {
+       "direction": 1,
+       "half_width": 0.0007108415261499365,
+       "mean_difference": 0.0018538362711010966,
+       "readout": "family_rise",
+       "report_only": true
+      }
+     ],
+     "premise_limbs": []
+    },
+    {
+     "criterion": "M11.C.17",
+     "class": "composite",
+     "ablation": "C5",
+     "outcome": "FAIL",
+     "seeds": 100,
+     "verdict": "red",
+     "note": "",
+     "readouts": [
+      {
+       "direction": 1,
+       "half_width": 0.014491871232203562,
+       "mean_difference": 0.004444959361724194,
+       "p": 0.12212562741127515,
+       "readout": "coached_rise",
+       "report_only": false
+      },
+      {
+       "direction": 1,
+       "half_width": 0.004152614070740404,
+       "mean_difference": 0.0023618864787886655,
+       "readout": "family_rise",
+       "report_only": true
+      }
+     ],
+     "premise_limbs": []
+    },
+    {
+     "criterion": "M11.C.17",
+     "class": "composite",
+     "ablation": "C6",
+     "outcome": "PASS",
+     "seeds": 150,
+     "verdict": "survived",
+     "note": "",
+     "readouts": [
+      {
+       "direction": 1,
+       "half_width": 0.0017094059297085619,
+       "mean_difference": 0.004453731685455272,
+       "p": 3.642262942339312e-08,
+       "readout": "coached_rise",
+       "report_only": false
+      },
+      {
+       "direction": 1,
+       "half_width": 0.000502849834694231,
+       "mean_difference": 0.0013481802992395824,
+       "readout": "family_rise",
+       "report_only": true
+      }
+     ],
+     "premise_limbs": []
+    },
+    {
+     "criterion": "M11.C.17",
+     "class": "composite",
+     "ablation": "C7:landed-contact-changes-nothing",
+     "outcome": "FAIL",
+     "seeds": 150,
+     "verdict": "red",
+     "note": "",
+     "readouts": [
+      {
+       "direction": 1,
+       "half_width": 0.0004883120146717865,
+       "mean_difference": 0.00013046315565008607,
+       "p": 0.5768841505050659,
+       "readout": "coached_rise",
+       "report_only": false
+      },
+      {
+       "direction": 1,
+       "half_width": 0.0001557040874264482,
+       "mean_difference": 5.6812195776387856e-05,
+       "readout": "family_rise",
+       "report_only": true
+      }
+     ],
+     "premise_limbs": []
+    }
+   ],
+   "not_run": [],
+   "carriers": [
+    "C5",
+    "C7:landed-contact-changes-nothing"
+   ],
+   "red_without_fail": [],
+   "m115_rests_on": "the external agent's landed contact (`M1.E.7`) and the estimator (`M1.A.4k`)",
+   "m115_note": "No rule writes \"coached rises more\"; it follows from the coach raising `systems_perspective`, which opens the self-directed path the estimator reads; with `M5.D.5`'s pull-up not applying to the coach (T-165), what remains of the coach's effect gives no measurable rise"
   },
   {
    "criterion": "M11.C.22",
@@ -2841,17 +3585,17 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "readouts": [
       {
        "direction": 1,
-       "half_width": 0.5986439732610821,
-       "mean_difference": 1.1202790342792988,
-       "p": 0.0002541861942779795,
+       "half_width": 0.7065606805354065,
+       "mean_difference": 1.0433444479689566,
+       "p": 0.005782413249136432,
        "readout": "mild_removal_effect",
        "report_only": false
       },
       {
        "direction": -1,
-       "half_width": 0.7566991008053835,
-       "mean_difference": -1.3779065132058224,
-       "p": 0.0002878488254686078,
+       "half_width": 0.7197868780713981,
+       "mean_difference": -1.0171217509311439,
+       "p": 0.0024696035611224253,
        "readout": "severe_removal_effect",
        "report_only": false
       }
@@ -2865,23 +3609,23 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "class": "mixed",
      "ablation": "C2",
      "outcome": "PASS",
-     "seeds": 100,
+     "seeds": 150,
      "verdict": "survived",
      "note": "",
      "readouts": [
       {
        "direction": 1,
-       "half_width": 0.6785360023347239,
-       "mean_difference": 1.176612919915897,
-       "p": 0.0008971169906392766,
+       "half_width": 0.5115919387926314,
+       "mean_difference": 1.4151071659747319,
+       "p": 2.427400363493004e-07,
        "readout": "mild_removal_effect",
        "report_only": false
       },
       {
        "direction": -1,
-       "half_width": 0.6279831904109489,
-       "mean_difference": -1.7416582065205433,
-       "p": 1.037016284052213e-07,
+       "half_width": 0.6242415469176633,
+       "mean_difference": -1.433899440610882,
+       "p": 9.323626055047488e-06,
        "readout": "severe_removal_effect",
        "report_only": false
       }
@@ -2894,24 +3638,24 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "criterion": "M11.C.22",
      "class": "mixed",
      "ablation": "C3",
-     "outcome": "FAIL",
+     "outcome": "PASS",
      "seeds": 100,
      "verdict": "survived",
-     "note": "premise limb severe_removal_effect failed; the composite limbs hold",
+     "note": "",
      "readouts": [
       {
        "direction": 1,
-       "half_width": 0.8255039317805621,
-       "mean_difference": 1.9075470970179509,
-       "p": 3.5506831083542015e-06,
+       "half_width": 0.7540829340295206,
+       "mean_difference": 1.8551708999604473,
+       "p": 3.5570772304413855e-06,
        "readout": "mild_removal_effect",
        "report_only": false
       },
       {
        "direction": -1,
-       "half_width": 0.7713083109249171,
-       "mean_difference": -0.448773611379722,
-       "p": 0.11447211193350314,
+       "half_width": 0.7702543198646977,
+       "mean_difference": -0.9894702570033642,
+       "p": 0.0037985071970676625,
        "readout": "severe_removal_effect",
        "report_only": false
       }
@@ -2931,17 +3675,17 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "readouts": [
       {
        "direction": 1,
-       "half_width": 0.7433480865755829,
-       "mean_difference": 1.5821423457291124,
-       "p": 3.16466917081357e-05,
+       "half_width": 0.7043903540827308,
+       "mean_difference": 1.5760158998564031,
+       "p": 1.3038242749046134e-05,
        "readout": "mild_removal_effect",
        "report_only": false
       },
       {
        "direction": -1,
-       "half_width": 0.8911051214066283,
-       "mean_difference": -1.6424055129399369,
-       "p": 0.00029183413393396465,
+       "half_width": 0.7794664139414016,
+       "mean_difference": -1.3992715013080181,
+       "p": 0.00041940252558348676,
        "readout": "severe_removal_effect",
        "report_only": false
       }
@@ -2961,17 +3705,17 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "readouts": [
       {
        "direction": 1,
-       "half_width": 0.7526088414306368,
-       "mean_difference": 2.3678838522380428,
-       "p": 4.064561220602472e-09,
+       "half_width": 0.7516364279191534,
+       "mean_difference": 2.376628408847296,
+       "p": 3.7080190170441945e-09,
        "readout": "mild_removal_effect",
        "report_only": false
       },
       {
        "direction": -1,
-       "half_width": 0.7976810898819182,
-       "mean_difference": -0.8544814219305706,
-       "p": 0.0018486256887667884,
+       "half_width": 0.7845970977073679,
+       "mean_difference": -0.9931904919208091,
+       "p": 0.0005829025791240529,
        "readout": "severe_removal_effect",
        "report_only": false
       }
@@ -2991,17 +3735,17 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "readouts": [
       {
        "direction": 1,
-       "half_width": 0.7358758454884669,
-       "mean_difference": 2.13090704072236,
-       "p": 2.0897605716413744e-07,
+       "half_width": 0.6655206906173261,
+       "mean_difference": 1.8614862245865313,
+       "p": 5.690417421441196e-07,
        "readout": "mild_removal_effect",
        "report_only": false
       },
       {
        "direction": -1,
-       "half_width": 0.7885641598217158,
-       "mean_difference": -0.9349532161329523,
-       "p": 0.0054197351375955966,
+       "half_width": 0.7586561797886693,
+       "mean_difference": -0.6886865978170595,
+       "p": 0.031336977241205204,
        "readout": "severe_removal_effect",
        "report_only": false
       }
@@ -3021,17 +3765,17 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "readouts": [
       {
        "direction": 1,
-       "half_width": 0.05814191740366039,
-       "mean_difference": -0.014187139120913272,
-       "p": 1.0,
+       "half_width": 0.6156350913462846,
+       "mean_difference": 0.3402586983834531,
+       "p": 0.375,
        "readout": "mild_removal_effect",
        "report_only": false
       },
       {
        "direction": -1,
-       "half_width": 0.05814191740366039,
-       "mean_difference": -0.014187139120913272,
-       "p": 0.125,
+       "half_width": 0.6156350913462846,
+       "mean_difference": 0.3402586983834531,
+       "p": 0.75,
        "readout": "severe_removal_effect",
        "report_only": false
       }
@@ -3063,9 +3807,9 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "readouts": [
       {
        "direction": 1,
-       "half_width": 1.4271876637294414,
-       "mean_difference": 6.232546724977383,
-       "p": 6.978168946749596e-14,
+       "half_width": 1.3719617659162362,
+       "mean_difference": 6.274268296136587,
+       "p": 2.2464130630542218e-14,
        "readout": "disturbance",
        "report_only": false
       }
@@ -3083,9 +3827,9 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "readouts": [
       {
        "direction": 1,
-       "half_width": 1.2536258298272869,
-       "mean_difference": 4.854979240347466,
-       "p": 2.6339094861817705e-11,
+       "half_width": 1.3824847268550382,
+       "mean_difference": 4.499958808262107,
+       "p": 8.986054480473934e-10,
        "readout": "disturbance",
        "report_only": false
       }
@@ -3103,9 +3847,9 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "readouts": [
       {
        "direction": 1,
-       "half_width": 1.5295583182186498,
-       "mean_difference": 5.319828828611547,
-       "p": 3.4499214096001846e-10,
+       "half_width": 1.5153488770163768,
+       "mean_difference": 4.721502826940809,
+       "p": 3.60996558433069e-09,
        "readout": "disturbance",
        "report_only": false
       }
@@ -3123,9 +3867,9 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "readouts": [
       {
        "direction": 1,
-       "half_width": 1.5996407659030663,
-       "mean_difference": 6.3494331903546035,
-       "p": 2.859953001966212e-12,
+       "half_width": 1.5746976006172417,
+       "mean_difference": 6.3841257577672375,
+       "p": 2.581727544315754e-12,
        "readout": "disturbance",
        "report_only": false
       }
@@ -3143,9 +3887,9 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "readouts": [
       {
        "direction": 1,
-       "half_width": 1.5261916880861406,
-       "mean_difference": 3.9995137095415743,
-       "p": 1.5463765103805527e-07,
+       "half_width": 1.5040226254713143,
+       "mean_difference": 3.948114312674092,
+       "p": 2.396851675197941e-07,
        "readout": "disturbance",
        "report_only": false
       }
@@ -3163,9 +3907,9 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "readouts": [
       {
        "direction": 1,
-       "half_width": 1.3608936945472003,
-       "mean_difference": 6.026664285862968,
-       "p": 2.21387430621449e-13,
+       "half_width": 1.4045757487978425,
+       "mean_difference": 5.687286416604676,
+       "p": 1.3701442338001507e-11,
        "readout": "disturbance",
        "report_only": false
       }
@@ -3183,9 +3927,9 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "readouts": [
       {
        "direction": 1,
-       "half_width": 1.278590318693413,
-       "mean_difference": 1.6138992982934648,
-       "p": 0.0031660274804521846,
+       "half_width": 1.2805126324986695,
+       "mean_difference": 1.845802353505259,
+       "p": 0.0017250083428681858,
        "readout": "disturbance",
        "report_only": false
       }
@@ -3203,9 +3947,9 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "readouts": [
       {
        "direction": 1,
-       "half_width": 1.2871438477183232,
-       "mean_difference": 0.10222843673819625,
-       "p": 0.32018543937635474,
+       "half_width": 1.2403993880637447,
+       "mean_difference": 0.20184183796062494,
+       "p": 0.28683316302159434,
        "readout": "disturbance",
        "report_only": false
       }
@@ -3228,23 +3972,23 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "criterion": "M11.C.7[joint over one spouse]",
      "class": "mixed",
      "ablation": "C1",
-     "outcome": "PASS",
+     "outcome": "FAIL",
      "seeds": 100,
-     "verdict": "survived",
+     "verdict": "red",
      "note": "",
      "readouts": [
       {
        "direction": 1,
-       "half_width": 0.0615082530058836,
-       "mean_difference": 0.04570483614909739,
-       "p": 0.036531299914082646,
+       "half_width": 0.06394510412050136,
+       "mean_difference": 0.03160742721395632,
+       "p": 0.17946626320582681,
        "readout": "deviation_fall",
        "report_only": false
       },
       {
        "direction": 1,
-       "half_width": 1.0997809140869372,
-       "mean_difference": -0.99,
+       "half_width": 0.877642479382215,
+       "mean_difference": -1.01,
        "readout": "landed_contacts",
        "report_only": true
       }
@@ -3257,23 +4001,23 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "criterion": "M11.C.7[joint over one spouse]",
      "class": "mixed",
      "ablation": "C2",
-     "outcome": "PASS",
+     "outcome": "FAIL",
      "seeds": 100,
-     "verdict": "survived",
+     "verdict": "red",
      "note": "",
      "readouts": [
       {
        "direction": 1,
-       "half_width": 0.06786051587545969,
-       "mean_difference": 0.06106033782120221,
-       "p": 0.04608223816854352,
+       "half_width": 0.06357892934108952,
+       "mean_difference": 0.04960757566172479,
+       "p": 0.05528765745939461,
        "readout": "deviation_fall",
        "report_only": false
       },
       {
        "direction": 1,
-       "half_width": 1.000841455269444,
-       "mean_difference": -0.19,
+       "half_width": 0.9228497585022586,
+       "mean_difference": -0.75,
        "readout": "landed_contacts",
        "report_only": true
       }
@@ -3293,16 +4037,16 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "readouts": [
       {
        "direction": 1,
-       "half_width": 0.05999704950121526,
-       "mean_difference": 0.056824720313848796,
-       "p": 0.009390886257556696,
+       "half_width": 0.07020112694895064,
+       "mean_difference": 0.06391231188652496,
+       "p": 0.03209219764905847,
        "readout": "deviation_fall",
        "report_only": false
       },
       {
        "direction": 1,
-       "half_width": 0.9718708905398843,
-       "mean_difference": -0.67,
+       "half_width": 0.9957046302529033,
+       "mean_difference": -0.52,
        "readout": "landed_contacts",
        "report_only": true
       }
@@ -3315,23 +4059,23 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "criterion": "M11.C.7[joint over one spouse]",
      "class": "mixed",
      "ablation": "C4",
-     "outcome": "FAIL",
+     "outcome": "PASS",
      "seeds": 100,
-     "verdict": "red",
+     "verdict": "survived",
      "note": "",
      "readouts": [
       {
        "direction": 1,
-       "half_width": 0.07229588346755353,
-       "mean_difference": 0.00339384044389583,
-       "p": 0.4342789287344956,
+       "half_width": 0.06824173059850952,
+       "mean_difference": 0.09744929903425215,
+       "p": 0.002118287383724892,
        "readout": "deviation_fall",
        "report_only": false
       },
       {
        "direction": 1,
-       "half_width": 0.8712345922582934,
-       "mean_difference": 0.17,
+       "half_width": 1.0057456553385271,
+       "mean_difference": -0.35,
        "readout": "landed_contacts",
        "report_only": true
       }
@@ -3351,16 +4095,16 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "readouts": [
       {
        "direction": 1,
-       "half_width": 0.0800390539093239,
-       "mean_difference": 0.13999738229391204,
-       "p": 0.000645495747555901,
+       "half_width": 0.07452280215950359,
+       "mean_difference": 0.11141123902384403,
+       "p": 0.004869689125138606,
        "readout": "deviation_fall",
        "report_only": false
       },
       {
        "direction": 1,
-       "half_width": 1.5237866517331091,
-       "mean_difference": -0.94,
+       "half_width": 1.3207573584879244,
+       "mean_difference": -0.7,
        "readout": "landed_contacts",
        "report_only": true
       }
@@ -3373,23 +4117,23 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "criterion": "M11.C.7[joint over one spouse]",
      "class": "mixed",
      "ablation": "C6",
-     "outcome": "FAIL",
+     "outcome": "PASS",
      "seeds": 100,
-     "verdict": "red",
+     "verdict": "survived",
      "note": "",
      "readouts": [
       {
        "direction": 1,
-       "half_width": 0.06081138470028578,
-       "mean_difference": 0.015443201619030716,
-       "p": 0.45602010985796265,
+       "half_width": 0.06471219977882466,
+       "mean_difference": 0.09430068166466533,
+       "p": 0.006669814671330256,
        "readout": "deviation_fall",
        "report_only": false
       },
       {
        "direction": 1,
-       "half_width": 1.071761784930011,
-       "mean_difference": -0.41,
+       "half_width": 1.086727972987135,
+       "mean_difference": -0.16,
        "readout": "landed_contacts",
        "report_only": true
       }
@@ -3409,16 +4153,16 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "readouts": [
       {
        "direction": 1,
-       "half_width": 0.055192748090094515,
-       "mean_difference": 0.02162412023316758,
-       "p": 0.20244955564801834,
+       "half_width": 0.05541678603389688,
+       "mean_difference": 0.020463953426222092,
+       "p": 0.2619686554055579,
        "readout": "deviation_fall",
        "report_only": false
       },
       {
        "direction": 1,
-       "half_width": 1.0119000030445775,
-       "mean_difference": -0.65,
+       "half_width": 0.9846297106378149,
+       "mean_difference": -0.34,
        "readout": "landed_contacts",
        "report_only": true
       }
@@ -3430,9 +4174,232 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
    ],
    "not_run": [],
    "carriers": [
-    "C4",
-    "C6",
+    "C1",
+    "C2",
     "C7:landed-contact-changes-nothing"
+   ],
+   "red_without_fail": [],
+   "m115_rests_on": "`M8` predicate (the landed-contacts limb)",
+   "m115_note": "the deviation ordering is composite: no rule writes it; the coach's going along with a `SPLIT` is a declared premise of the sided arm (D29). *Emergence audit (T-187): the `[joint over one spouse]` cell's deviation ordering passes thinly with learning removed and is carried by C2 (`M4.D.1a`'s mixing weight blind to level, in the policy only), C4 (`M4.D.1a`'s perspective steering), C6 (`M4.D.1d`'s competing urges) and `landed-contact-changes-nothing` (`M1.E.7`'s `perspective_gain` 0), each of which turns it red. None names the ordering; the class stays mixed.*"
+  },
+  {
+   "criterion": "M11.C.7[one spouse over sided]",
+   "candidates": [
+    {
+     "criterion": "M11.C.7[one spouse over sided]",
+     "class": "mixed",
+     "ablation": "C1",
+     "outcome": "PASS",
+     "seeds": 150,
+     "verdict": "survived",
+     "note": "",
+     "readouts": [
+      {
+       "direction": 1,
+       "half_width": 0.05581938352929872,
+       "mean_difference": 0.07644639913333648,
+       "p": 0.0018388498860468542,
+       "readout": "deviation_fall",
+       "report_only": false
+      },
+      {
+       "direction": 1,
+       "half_width": 0.6746431439603954,
+       "mean_difference": 9.986666666666666,
+       "p": 1.0785710354834505e-26,
+       "readout": "landed_contacts",
+       "report_only": false
+      }
+     ],
+     "premise_limbs": [
+      "landed_contacts"
+     ]
+    },
+    {
+     "criterion": "M11.C.7[one spouse over sided]",
+     "class": "mixed",
+     "ablation": "C2",
+     "outcome": "PASS",
+     "seeds": 150,
+     "verdict": "survived",
+     "note": "",
+     "readouts": [
+      {
+       "direction": 1,
+       "half_width": 0.05081387703087591,
+       "mean_difference": 0.07575708874858132,
+       "p": 0.0035731648846380327,
+       "readout": "deviation_fall",
+       "report_only": false
+      },
+      {
+       "direction": 1,
+       "half_width": 0.6788972489272909,
+       "mean_difference": 9.486666666666666,
+       "p": 1.0709863020635873e-26,
+       "readout": "landed_contacts",
+       "report_only": false
+      }
+     ],
+     "premise_limbs": [
+      "landed_contacts"
+     ]
+    },
+    {
+     "criterion": "M11.C.7[one spouse over sided]",
+     "class": "mixed",
+     "ablation": "C3",
+     "outcome": "PASS",
+     "seeds": 150,
+     "verdict": "survived",
+     "note": "",
+     "readouts": [
+      {
+       "direction": 1,
+       "half_width": 0.0443718565739561,
+       "mean_difference": 0.06180967725538141,
+       "p": 0.004333114415280759,
+       "readout": "deviation_fall",
+       "report_only": false
+      },
+      {
+       "direction": 1,
+       "half_width": 0.643013347877086,
+       "mean_difference": 9.3,
+       "p": 1.0571126038486384e-26,
+       "readout": "landed_contacts",
+       "report_only": false
+      }
+     ],
+     "premise_limbs": [
+      "landed_contacts"
+     ]
+    },
+    {
+     "criterion": "M11.C.7[one spouse over sided]",
+     "class": "mixed",
+     "ablation": "C4",
+     "outcome": "PASS",
+     "seeds": 150,
+     "verdict": "survived",
+     "note": "",
+     "readouts": [
+      {
+       "direction": 1,
+       "half_width": 0.05195472294576783,
+       "mean_difference": 0.0710810777312836,
+       "p": 0.0049890027399757874,
+       "readout": "deviation_fall",
+       "report_only": false
+      },
+      {
+       "direction": 1,
+       "half_width": 0.6697241476940146,
+       "mean_difference": 9.5,
+       "p": 1.045381576457301e-26,
+       "readout": "landed_contacts",
+       "report_only": false
+      }
+     ],
+     "premise_limbs": [
+      "landed_contacts"
+     ]
+    },
+    {
+     "criterion": "M11.C.7[one spouse over sided]",
+     "class": "mixed",
+     "ablation": "C5",
+     "outcome": "FAIL",
+     "seeds": 150,
+     "verdict": "red",
+     "note": "",
+     "readouts": [
+      {
+       "direction": 1,
+       "half_width": 0.04924697701943874,
+       "mean_difference": 0.02784476365313962,
+       "p": 0.263997114028321,
+       "readout": "deviation_fall",
+       "report_only": false
+      },
+      {
+       "direction": 1,
+       "half_width": 0.7148609585973842,
+       "mean_difference": 10.293333333333333,
+       "p": 1.0569532329410525e-26,
+       "readout": "landed_contacts",
+       "report_only": false
+      }
+     ],
+     "premise_limbs": [
+      "landed_contacts"
+     ]
+    },
+    {
+     "criterion": "M11.C.7[one spouse over sided]",
+     "class": "mixed",
+     "ablation": "C6",
+     "outcome": "PASS",
+     "seeds": 150,
+     "verdict": "survived",
+     "note": "",
+     "readouts": [
+      {
+       "direction": 1,
+       "half_width": 0.05137731816767216,
+       "mean_difference": 0.05701281419627513,
+       "p": 0.01796339157713691,
+       "readout": "deviation_fall",
+       "report_only": false
+      },
+      {
+       "direction": 1,
+       "half_width": 0.6645161775429222,
+       "mean_difference": 8.553333333333333,
+       "p": 1.540424544867996e-26,
+       "readout": "landed_contacts",
+       "report_only": false
+      }
+     ],
+     "premise_limbs": [
+      "landed_contacts"
+     ]
+    },
+    {
+     "criterion": "M11.C.7[one spouse over sided]",
+     "class": "mixed",
+     "ablation": "C7:coach-position-blind",
+     "outcome": "FAIL",
+     "seeds": 150,
+     "verdict": "reversed",
+     "note": "",
+     "readouts": [
+      {
+       "direction": 1,
+       "half_width": 0.052446101982613076,
+       "mean_difference": -0.06376452404922342,
+       "p": 0.9896785052985491,
+       "readout": "deviation_fall",
+       "report_only": false
+      },
+      {
+       "direction": 1,
+       "half_width": 0.7551318239806656,
+       "mean_difference": 1.1,
+       "p": 0.0043444175884367305,
+       "readout": "landed_contacts",
+       "report_only": false
+      }
+     ],
+     "premise_limbs": [
+      "landed_contacts"
+     ]
+    }
+   ],
+   "not_run": [],
+   "carriers": [
+    "C5",
+    "C7:coach-position-blind"
    ],
    "red_without_fail": [],
    "m115_rests_on": "`M8` predicate (the landed-contacts limb)",
@@ -3452,17 +4419,17 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "readouts": [
       {
        "direction": 1,
-       "half_width": 0.04842601489895085,
-       "mean_difference": 0.08495871002789464,
-       "p": 0.000517342203556346,
+       "half_width": 0.04468977008390099,
+       "mean_difference": 0.12952837111880244,
+       "p": 1.5361839761738257e-07,
        "readout": "deviation_fall",
        "report_only": false
       },
       {
        "direction": 1,
-       "half_width": 0.5316754047236608,
-       "mean_difference": 8.873333333333333,
-       "p": 1.0339062290781718e-26,
+       "half_width": 0.5547395219748319,
+       "mean_difference": 8.586666666666666,
+       "p": 1.0272189940826739e-26,
        "readout": "landed_contacts",
        "report_only": false
       }
@@ -3482,17 +4449,17 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "readouts": [
       {
        "direction": 1,
-       "half_width": 0.04549071468253108,
-       "mean_difference": 0.10128152909372157,
-       "p": 9.350869303601114e-06,
+       "half_width": 0.04239117260180407,
+       "mean_difference": 0.09654193477085904,
+       "p": 9.099725972038265e-06,
        "readout": "deviation_fall",
        "report_only": false
       },
       {
        "direction": 1,
-       "half_width": 0.5616708466841717,
-       "mean_difference": 9.193333333333333,
-       "p": 1.0296505804701449e-26,
+       "half_width": 0.5746193366682676,
+       "mean_difference": 8.673333333333334,
+       "p": 1.007787226359327e-26,
        "readout": "landed_contacts",
        "report_only": false
       }
@@ -3512,17 +4479,17 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "readouts": [
       {
        "direction": 1,
-       "half_width": 0.046753115996245896,
-       "mean_difference": 0.12271211666983786,
-       "p": 5.42820057019709e-07,
+       "half_width": 0.04934081622324879,
+       "mean_difference": 0.14529161287280506,
+       "p": 6.749137593395671e-08,
        "readout": "deviation_fall",
        "report_only": false
       },
       {
        "direction": 1,
-       "half_width": 0.5630767885189633,
-       "mean_difference": 9.206666666666667,
-       "p": 1.0372395004421223e-26,
+       "half_width": 0.5681618107735477,
+       "mean_difference": 9.14,
+       "p": 1.0317503385444676e-26,
        "readout": "landed_contacts",
        "report_only": false
       }
@@ -3542,17 +4509,17 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "readouts": [
       {
        "direction": 1,
-       "half_width": 0.049628839284124406,
-       "mean_difference": 0.09067718365784802,
-       "p": 6.841852446193258e-05,
+       "half_width": 0.04445662834264393,
+       "mean_difference": 0.13025376303817268,
+       "p": 1.3236686718080165e-07,
        "readout": "deviation_fall",
        "report_only": false
       },
       {
        "direction": 1,
-       "half_width": 0.5399677042846129,
-       "mean_difference": 9.226666666666667,
-       "p": 1.013612355136292e-26,
+       "half_width": 0.6086832085100982,
+       "mean_difference": 8.9,
+       "p": 1.0350248451690044e-26,
        "readout": "landed_contacts",
        "report_only": false
       }
@@ -3572,17 +4539,17 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "readouts": [
       {
        "direction": 1,
-       "half_width": 0.0431259308823146,
-       "mean_difference": 0.11369010926142557,
-       "p": 2.034018365712162e-06,
+       "half_width": 0.04507696090204064,
+       "mean_difference": 0.12303353067342354,
+       "p": 5.331211776442555e-07,
        "readout": "deviation_fall",
        "report_only": false
       },
       {
        "direction": 1,
-       "half_width": 0.5967771459838925,
-       "mean_difference": 9.2,
-       "p": 1.033048547646404e-26,
+       "half_width": 0.5840933307789113,
+       "mean_difference": 9.26,
+       "p": 1.0397724003092094e-26,
        "readout": "landed_contacts",
        "report_only": false
       }
@@ -3602,17 +4569,17 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "readouts": [
       {
        "direction": 1,
-       "half_width": 0.047151952881358684,
-       "mean_difference": 0.0759109329694477,
-       "p": 0.00048404689107041295,
+       "half_width": 0.04368074891826332,
+       "mean_difference": 0.1425117556149164,
+       "p": 3.6512308246954328e-09,
        "readout": "deviation_fall",
        "report_only": false
       },
       {
        "direction": 1,
-       "half_width": 0.5812811457805682,
-       "mean_difference": 8.393333333333333,
-       "p": 1.0459861668842388e-26,
+       "half_width": 0.6258465635708823,
+       "mean_difference": 8.146666666666667,
+       "p": 1.521858077250477e-26,
        "readout": "landed_contacts",
        "report_only": false
       }
@@ -3632,17 +4599,17 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "readouts": [
       {
        "direction": 1,
-       "half_width": 0.03678090276540654,
-       "mean_difference": -0.009180373926299954,
-       "p": 0.5041240125447815,
+       "half_width": 0.03673020045849035,
+       "mean_difference": 0.006208020658356851,
+       "p": 0.5470880016754933,
        "readout": "deviation_fall",
        "report_only": false
       },
       {
        "direction": 1,
-       "half_width": 0.5863167555235022,
-       "mean_difference": 9.2,
-       "p": 1.034920738605898e-26,
+       "half_width": 0.6153105001568566,
+       "mean_difference": 8.906666666666666,
+       "p": 1.0261601451411785e-26,
        "readout": "landed_contacts",
        "report_only": false
       }
@@ -3656,23 +4623,23 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "class": "mixed",
      "ablation": "C7:coach-position-blind",
      "outcome": "FAIL",
-     "seeds": 50,
+     "seeds": 100,
      "verdict": "red",
      "note": "",
      "readouts": [
       {
        "direction": 1,
-       "half_width": 0.06884409843115523,
-       "mean_difference": -0.02537782851813483,
-       "p": 0.7299577150328388,
+       "half_width": 0.052200737689681795,
+       "mean_difference": 0.006016332431083788,
+       "p": 0.37201274234778803,
        "readout": "deviation_fall",
        "report_only": false
       },
       {
        "direction": 1,
-       "half_width": 0.8441709779422649,
-       "mean_difference": 0.52,
-       "p": 0.08783567636750976,
+       "half_width": 0.6688150534770997,
+       "mean_difference": 0.15,
+       "p": 0.5462885607480981,
        "readout": "landed_contacts",
        "report_only": false
       }
@@ -3699,23 +4666,23 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "class": "composite",
      "ablation": "C1",
      "outcome": "PASS",
-     "seeds": 50,
+     "seeds": 100,
      "verdict": "survived",
      "note": "",
      "readouts": [
       {
        "direction": 1,
-       "half_width": 0.5958810587399662,
-       "mean_difference": 4.654325210442066,
-       "p": 4.139465867765845e-10,
+       "half_width": 0.512492180963088,
+       "mean_difference": 4.0747700811178245,
+       "p": 1.3134556825581058e-17,
        "readout": "death_rise",
        "report_only": false
       },
       {
        "direction": 1,
-       "half_width": 0.8934909160283735,
-       "mean_difference": 7.17320779834595,
-       "p": 3.895246103609213e-10,
+       "half_width": 0.5941974159648844,
+       "mean_difference": 6.647791372884947,
+       "p": 1.9779558044497787e-18,
        "readout": "recovery_rise",
        "report_only": false
       }
@@ -3733,16 +4700,16 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "readouts": [
       {
        "direction": 1,
-       "half_width": 0.4726485881839698,
-       "mean_difference": 2.925788145901538,
-       "p": 1.4801793944900476e-15,
+       "half_width": 0.4658972985104895,
+       "mean_difference": 3.0547402051691046,
+       "p": 5.47420495734577e-16,
        "readout": "death_rise",
        "report_only": false
       },
       {
        "direction": 1,
-       "half_width": 0.501944097102265,
-       "mean_difference": 5.7831183772516574,
+       "half_width": 0.42103706368610727,
+       "mean_difference": 6.239079184233244,
        "p": 1.9779558044497787e-18,
        "readout": "recovery_rise",
        "report_only": false
@@ -3761,16 +4728,16 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "readouts": [
       {
        "direction": 1,
-       "half_width": 0.48819255673512957,
-       "mean_difference": 3.892942394256618,
-       "p": 1.5697458323351137e-16,
+       "half_width": 0.4729183438285987,
+       "mean_difference": 3.8368944507040483,
+       "p": 2.7143235284418415e-17,
        "readout": "death_rise",
        "report_only": false
       },
       {
        "direction": 1,
-       "half_width": 0.5480552325741785,
-       "mean_difference": 6.8470554492902105,
+       "half_width": 0.5746385038010517,
+       "mean_difference": 6.58325928994403,
        "p": 2.8924449044347723e-18,
        "readout": "recovery_rise",
        "report_only": false
@@ -3783,23 +4750,23 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "class": "composite",
      "ablation": "C4",
      "outcome": "PASS",
-     "seeds": 50,
+     "seeds": 100,
      "verdict": "survived",
      "note": "",
      "readouts": [
       {
        "direction": 1,
-       "half_width": 0.6649586529512888,
-       "mean_difference": 3.9499301647301768,
-       "p": 6.092242673422525e-10,
+       "half_width": 0.5575040652126655,
+       "mean_difference": 3.88317412070169,
+       "p": 2.5980589001214e-16,
        "readout": "death_rise",
        "report_only": false
       },
       {
        "direction": 1,
-       "half_width": 0.8976953360881034,
-       "mean_difference": 7.513327849705374,
-       "p": 3.895246103609213e-10,
+       "half_width": 0.5164475639760198,
+       "mean_difference": 6.998522348506805,
+       "p": 1.9779558044497787e-18,
        "readout": "recovery_rise",
        "report_only": false
       }
@@ -3817,16 +4784,16 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "readouts": [
       {
        "direction": 1,
-       "half_width": 0.6640842976053887,
-       "mean_difference": 3.7371686077971544,
-       "p": 8.451868597369645e-15,
+       "half_width": 0.6678878502859009,
+       "mean_difference": 3.6666321816799066,
+       "p": 1.2459434645388392e-14,
        "readout": "death_rise",
        "report_only": false
       },
       {
        "direction": 1,
-       "half_width": 0.5866669791848294,
-       "mean_difference": 7.852053968560755,
+       "half_width": 0.5938227493849757,
+       "mean_difference": 7.772307580140082,
        "p": 1.9779558044497787e-18,
        "readout": "recovery_rise",
        "report_only": false
@@ -3845,16 +4812,16 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "readouts": [
       {
        "direction": 1,
-       "half_width": 0.6829950089945517,
-       "mean_difference": 2.63434756327573,
-       "p": 4.1245890479316876e-08,
+       "half_width": 0.6854901721396768,
+       "mean_difference": 2.414581323470188,
+       "p": 1.4715408237982543e-07,
        "readout": "death_rise",
        "report_only": false
       },
       {
        "direction": 1,
-       "half_width": 0.6898863012700283,
-       "mean_difference": 6.792265865243761,
+       "half_width": 0.7083690755701876,
+       "mean_difference": 6.208291480195561,
        "p": 3.895246103609213e-10,
        "readout": "recovery_rise",
        "report_only": false
@@ -3873,16 +4840,16 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "readouts": [
       {
        "direction": 1,
-       "half_width": 0.6439659890927584,
-       "mean_difference": 1.4042926997345604,
-       "p": 0.00010040408594756055,
+       "half_width": 0.6638489768913578,
+       "mean_difference": 1.4948837480893704,
+       "p": 3.073691229701938e-05,
        "readout": "death_rise",
        "report_only": false
       },
       {
        "direction": 1,
-       "half_width": 0.8975412788309606,
-       "mean_difference": 7.4491800254163545,
+       "half_width": 0.743743951822111,
+       "mean_difference": 7.189293418805828,
        "p": 3.895246103609213e-10,
        "readout": "recovery_rise",
        "report_only": false
@@ -3901,16 +4868,16 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "readouts": [
       {
        "direction": 1,
-       "half_width": 0.6515268200573556,
-       "mean_difference": -0.8718801027252786,
-       "p": 0.9958577383621352,
+       "half_width": 0.592024290528829,
+       "mean_difference": -0.6372979943379893,
+       "p": 0.9896435668680352,
        "readout": "death_rise",
        "report_only": false
       },
       {
        "direction": 1,
-       "half_width": 0.8975412788309606,
-       "mean_difference": 7.4491800254163545,
+       "half_width": 0.743743951822111,
+       "mean_difference": 7.189293418805828,
        "p": 3.895246103609213e-10,
        "readout": "recovery_rise",
        "report_only": false
@@ -3928,10 +4895,10 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
    "m115_note": "`M7.D.3` withdrawn. *Emergence audit (T-186): passes with learning removed; its one carrier is `death-all-bound-anxiety-discarded`, and discarding the symptom hold alone (`death-bound-anxiety-discarded`) leaves it passing. `M6.3c`'s third clause (\"as when a symptom ends\") states the equivalence with recovery for the symptom hold only, which does not carry the row, so it stays composite.*"
   },
   {
-   "criterion": "M11.C.48[phase_d]",
+   "criterion": "M11.C.10[family of origin]",
    "candidates": [
     {
-     "criterion": "M11.C.48[phase_d]",
+     "criterion": "M11.C.10[family of origin]",
      "class": "composite",
      "ablation": "C1",
      "outcome": "FAIL",
@@ -3941,73 +4908,24 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "readouts": [
       {
        "direction": 1,
-       "half_width": 0.0720245885124788,
-       "mean_difference": 0.03340585838690428,
-       "p": 0.14641825975904157,
-       "readout": "negative_run",
+       "half_width": 116.84932792910801,
+       "mean_difference": -20.23,
+       "p": 0.7158989090702336,
+       "readout": "cut_off_tie_weeks",
        "report_only": false
       },
       {
        "direction": 1,
-       "half_width": 0.056536908231149416,
-       "mean_difference": 1.6934361075800706,
-       "readout": "run_before_cutoff",
-       "report_only": true
-      },
-      {
-       "direction": 1,
-       "half_width": 0.0,
-       "mean_difference": 0.0,
-       "readout": "first_cutoffs",
-       "report_only": true
-      },
-      {
-       "direction": 1,
-       "half_width": 0.25916726908858334,
-       "mean_difference": 9.725,
-       "readout": "unmatched_cutoffs",
-       "report_only": true
-      },
-      {
-       "direction": 1,
-       "half_width": 0.3572992282281929,
-       "mean_difference": 10.13,
-       "readout": "no_contact_cutoffs",
-       "report_only": true
-      },
-      {
-       "direction": 1,
-       "half_width": 0.15201790690606323,
-       "mean_difference": 2.73,
-       "readout": "unsided_cutoffs",
-       "report_only": true
-      },
-      {
-       "direction": 1,
-       "half_width": 0.11077780627802429,
-       "mean_difference": 1.812965700965701,
-       "readout": "unmatched_left_out_run",
-       "report_only": true
-      },
-      {
-       "direction": 1,
-       "half_width": 0.2040712626341837,
-       "mean_difference": 2.197083333333333,
-       "readout": "unsided_left_out_run",
-       "report_only": true
-      },
-      {
-       "direction": 1,
-       "half_width": 0.0,
-       "mean_difference": 1.0,
-       "readout": "matched_seed",
+       "half_width": 41.842972521672586,
+       "mean_difference": 47.585,
+       "readout": "child_cut_weeks",
        "report_only": true
       }
      ],
      "premise_limbs": []
     },
     {
-     "criterion": "M11.C.48[phase_d]",
+     "criterion": "M11.C.10[family of origin]",
      "class": "composite",
      "ablation": "C2",
      "outcome": "FAIL",
@@ -4017,301 +4935,105 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "readouts": [
       {
        "direction": 1,
-       "half_width": 0.06608506939471248,
-       "mean_difference": -0.0025672911216352958,
-       "p": 0.4595378740587465,
-       "readout": "negative_run",
+       "half_width": 50.728272078224904,
+       "mean_difference": -29.335,
+       "p": 0.881369768926949,
+       "readout": "cut_off_tie_weeks",
        "report_only": false
       },
       {
        "direction": 1,
-       "half_width": 0.04941091686287289,
-       "mean_difference": 1.300703424580721,
-       "readout": "run_before_cutoff",
-       "report_only": true
-      },
-      {
-       "direction": 1,
-       "half_width": 0.0,
-       "mean_difference": 0.0,
-       "readout": "first_cutoffs",
-       "report_only": true
-      },
-      {
-       "direction": 1,
-       "half_width": 0.2259698934898609,
-       "mean_difference": 9.93,
-       "readout": "unmatched_cutoffs",
-       "report_only": true
-      },
-      {
-       "direction": 1,
-       "half_width": 0.35443501647625425,
-       "mean_difference": 9.55,
-       "readout": "no_contact_cutoffs",
-       "report_only": true
-      },
-      {
-       "direction": 1,
-       "half_width": 0.1635595451941604,
-       "mean_difference": 2.685,
-       "readout": "unsided_cutoffs",
-       "report_only": true
-      },
-      {
-       "direction": 1,
-       "half_width": 0.07206690456427449,
-       "mean_difference": 1.2056666527916529,
-       "readout": "unmatched_left_out_run",
-       "report_only": true
-      },
-      {
-       "direction": 1,
-       "half_width": 0.2044495398116649,
-       "mean_difference": 1.9689761904761907,
-       "readout": "unsided_left_out_run",
-       "report_only": true
-      },
-      {
-       "direction": 1,
-       "half_width": 0.0,
-       "mean_difference": 1.0,
-       "readout": "matched_seed",
+       "half_width": 21.16316415169902,
+       "mean_difference": -1.29,
+       "readout": "child_cut_weeks",
        "report_only": true
       }
      ],
      "premise_limbs": []
     },
     {
-     "criterion": "M11.C.48[phase_d]",
+     "criterion": "M11.C.10[family of origin]",
      "class": "composite",
      "ablation": "C3",
-     "outcome": "PASS",
+     "outcome": "FAIL",
      "seeds": 200,
-     "verdict": "survived",
+     "verdict": "red",
      "note": "",
      "readouts": [
       {
        "direction": 1,
-       "half_width": 0.0706142712118707,
-       "mean_difference": 0.0955731940687663,
-       "p": 0.0025347353474130616,
-       "readout": "negative_run",
+       "half_width": 148.88663252027678,
+       "mean_difference": -67.895,
+       "p": 0.8115285865199136,
+       "readout": "cut_off_tie_weeks",
        "report_only": false
       },
       {
        "direction": 1,
-       "half_width": 0.06076673952843739,
-       "mean_difference": 1.6790313343207321,
-       "readout": "run_before_cutoff",
-       "report_only": true
-      },
-      {
-       "direction": 1,
-       "half_width": 0.0,
-       "mean_difference": 0.0,
-       "readout": "first_cutoffs",
-       "report_only": true
-      },
-      {
-       "direction": 1,
-       "half_width": 0.27630606836818733,
-       "mean_difference": 9.735,
-       "readout": "unmatched_cutoffs",
-       "report_only": true
-      },
-      {
-       "direction": 1,
-       "half_width": 0.39907682413012774,
-       "mean_difference": 10.3,
-       "readout": "no_contact_cutoffs",
-       "report_only": true
-      },
-      {
-       "direction": 1,
-       "half_width": 0.16139715053558107,
-       "mean_difference": 2.675,
-       "readout": "unsided_cutoffs",
-       "report_only": true
-      },
-      {
-       "direction": 1,
-       "half_width": 0.09027994801983576,
-       "mean_difference": 1.6667741425241422,
-       "readout": "unmatched_left_out_run",
-       "report_only": true
-      },
-      {
-       "direction": 1,
-       "half_width": 0.22465751157491973,
-       "mean_difference": 2.249416666666667,
-       "readout": "unsided_left_out_run",
-       "report_only": true
-      },
-      {
-       "direction": 1,
-       "half_width": 0.0,
-       "mean_difference": 1.0,
-       "readout": "matched_seed",
+       "half_width": 47.27958965261647,
+       "mean_difference": 45.44,
+       "readout": "child_cut_weeks",
        "report_only": true
       }
      ],
      "premise_limbs": []
     },
     {
-     "criterion": "M11.C.48[phase_d]",
+     "criterion": "M11.C.10[family of origin]",
      "class": "composite",
      "ablation": "C4",
-     "outcome": "PASS",
+     "outcome": "FAIL",
      "seeds": 200,
-     "verdict": "survived",
+     "verdict": "red",
      "note": "",
      "readouts": [
       {
        "direction": 1,
-       "half_width": 0.06697129698914571,
-       "mean_difference": 0.10135419521092644,
-       "p": 0.0007985088026498184,
-       "readout": "negative_run",
+       "half_width": 133.288197201328,
+       "mean_difference": 58.885,
+       "p": 0.10546251666817182,
+       "readout": "cut_off_tie_weeks",
        "report_only": false
       },
       {
        "direction": 1,
-       "half_width": 0.05574309276706346,
-       "mean_difference": 1.651742089464991,
-       "readout": "run_before_cutoff",
-       "report_only": true
-      },
-      {
-       "direction": 1,
-       "half_width": 0.0,
-       "mean_difference": 0.0,
-       "readout": "first_cutoffs",
-       "report_only": true
-      },
-      {
-       "direction": 1,
-       "half_width": 0.28022572057604167,
-       "mean_difference": 9.915,
-       "readout": "unmatched_cutoffs",
-       "report_only": true
-      },
-      {
-       "direction": 1,
-       "half_width": 0.3839335764891876,
-       "mean_difference": 10.565,
-       "readout": "no_contact_cutoffs",
-       "report_only": true
-      },
-      {
-       "direction": 1,
-       "half_width": 0.15377762382069665,
-       "mean_difference": 2.755,
-       "readout": "unsided_cutoffs",
-       "report_only": true
-      },
-      {
-       "direction": 1,
-       "half_width": 0.09436659168945916,
-       "mean_difference": 1.6562869352869354,
-       "readout": "unmatched_left_out_run",
-       "report_only": true
-      },
-      {
-       "direction": 1,
-       "half_width": 0.19094886374145853,
-       "mean_difference": 2.1003333333333334,
-       "readout": "unsided_left_out_run",
-       "report_only": true
-      },
-      {
-       "direction": 1,
-       "half_width": 0.0,
-       "mean_difference": 1.0,
-       "readout": "matched_seed",
+       "half_width": 49.29541727245166,
+       "mean_difference": 24.38,
+       "readout": "child_cut_weeks",
        "report_only": true
       }
      ],
      "premise_limbs": []
     },
     {
-     "criterion": "M11.C.48[phase_d]",
+     "criterion": "M11.C.10[family of origin]",
      "class": "composite",
      "ablation": "C5",
-     "outcome": "PASS",
+     "outcome": "FAIL",
      "seeds": 200,
-     "verdict": "survived",
+     "verdict": "red",
      "note": "",
      "readouts": [
       {
        "direction": 1,
-       "half_width": 0.06734101332301155,
-       "mean_difference": 0.1386622497570778,
-       "p": 6.277643029687562e-06,
-       "readout": "negative_run",
+       "half_width": 124.72601203394849,
+       "mean_difference": -17.61,
+       "p": 0.5838808312209709,
+       "readout": "cut_off_tie_weeks",
        "report_only": false
       },
       {
        "direction": 1,
-       "half_width": 0.05887620812240237,
-       "mean_difference": 1.6789318885663702,
-       "readout": "run_before_cutoff",
-       "report_only": true
-      },
-      {
-       "direction": 1,
-       "half_width": 0.0,
-       "mean_difference": 0.0,
-       "readout": "first_cutoffs",
-       "report_only": true
-      },
-      {
-       "direction": 1,
-       "half_width": 0.28689155200713967,
-       "mean_difference": 10.08,
-       "readout": "unmatched_cutoffs",
-       "report_only": true
-      },
-      {
-       "direction": 1,
-       "half_width": 0.36832395070551216,
-       "mean_difference": 10.15,
-       "readout": "no_contact_cutoffs",
-       "report_only": true
-      },
-      {
-       "direction": 1,
-       "half_width": 0.19495194666260113,
-       "mean_difference": 2.785,
-       "readout": "unsided_cutoffs",
-       "report_only": true
-      },
-      {
-       "direction": 1,
-       "half_width": 0.09745057038660095,
-       "mean_difference": 1.7784086469086469,
-       "readout": "unmatched_left_out_run",
-       "report_only": true
-      },
-      {
-       "direction": 1,
-       "half_width": 0.19040720169403108,
-       "mean_difference": 2.0499761904761904,
-       "readout": "unsided_left_out_run",
-       "report_only": true
-      },
-      {
-       "direction": 1,
-       "half_width": 0.0,
-       "mean_difference": 1.0,
-       "readout": "matched_seed",
+       "half_width": 43.29037836005343,
+       "mean_difference": 47.955,
+       "readout": "child_cut_weeks",
        "report_only": true
       }
      ],
      "premise_limbs": []
     },
     {
-     "criterion": "M11.C.48[phase_d]",
+     "criterion": "M11.C.10[family of origin]",
      "class": "composite",
      "ablation": "C6",
      "outcome": "PASS",
@@ -4321,75 +5043,26 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "readouts": [
       {
        "direction": 1,
-       "half_width": 0.07465762856935852,
-       "mean_difference": 0.08185759654176561,
-       "p": 0.011100852569900208,
-       "readout": "negative_run",
+       "half_width": 129.16934746020306,
+       "mean_difference": 161.235,
+       "p": 0.01927456532899364,
+       "readout": "cut_off_tie_weeks",
        "report_only": false
       },
       {
        "direction": 1,
-       "half_width": 0.05856676748919338,
-       "mean_difference": 1.6227875473769438,
-       "readout": "run_before_cutoff",
-       "report_only": true
-      },
-      {
-       "direction": 1,
-       "half_width": 0.0,
-       "mean_difference": 0.0,
-       "readout": "first_cutoffs",
-       "report_only": true
-      },
-      {
-       "direction": 1,
-       "half_width": 0.25231324194401983,
-       "mean_difference": 9.915,
-       "readout": "unmatched_cutoffs",
-       "report_only": true
-      },
-      {
-       "direction": 1,
-       "half_width": 0.3667587532910127,
-       "mean_difference": 10.39,
-       "readout": "no_contact_cutoffs",
-       "report_only": true
-      },
-      {
-       "direction": 1,
-       "half_width": 0.1539360305696418,
-       "mean_difference": 2.75,
-       "readout": "unsided_cutoffs",
-       "report_only": true
-      },
-      {
-       "direction": 1,
-       "half_width": 0.0893968769088761,
-       "mean_difference": 1.6995293456543457,
-       "readout": "unmatched_left_out_run",
-       "report_only": true
-      },
-      {
-       "direction": 1,
-       "half_width": 0.17962502042070594,
-       "mean_difference": 1.942,
-       "readout": "unsided_left_out_run",
-       "report_only": true
-      },
-      {
-       "direction": 1,
-       "half_width": 0.0,
-       "mean_difference": 1.0,
-       "readout": "matched_seed",
+       "half_width": 48.04904285552272,
+       "mean_difference": 79.41,
+       "readout": "child_cut_weeks",
        "report_only": true
       }
      ],
      "premise_limbs": []
     },
     {
-     "criterion": "M11.C.48[phase_d]",
+     "criterion": "M11.C.10[family of origin]",
      "class": "composite",
-     "ablation": "C7:cutoff-blind-to-learned-value",
+     "ablation": "C7:learner-reads-own-state-only",
      "outcome": "PASS",
      "seeds": 200,
      "verdict": "survived",
@@ -4397,80 +5070,36 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
      "readouts": [
       {
        "direction": 1,
-       "half_width": 0.07270648197256775,
-       "mean_difference": 0.09142466605173027,
-       "p": 0.002392145121406359,
-       "readout": "negative_run",
+       "half_width": 128.16365706433834,
+       "mean_difference": 156.63,
+       "p": 0.004979155385741753,
+       "readout": "cut_off_tie_weeks",
        "report_only": false
       },
       {
        "direction": 1,
-       "half_width": 0.05917522851703037,
-       "mean_difference": 1.6219258613333694,
-       "readout": "run_before_cutoff",
-       "report_only": true
-      },
-      {
-       "direction": 1,
-       "half_width": 0.0,
-       "mean_difference": 0.0,
-       "readout": "first_cutoffs",
-       "report_only": true
-      },
-      {
-       "direction": 1,
-       "half_width": 0.26150399787483675,
-       "mean_difference": 9.76,
-       "readout": "unmatched_cutoffs",
-       "report_only": true
-      },
-      {
-       "direction": 1,
-       "half_width": 0.3817957145361783,
-       "mean_difference": 10.595,
-       "readout": "no_contact_cutoffs",
-       "report_only": true
-      },
-      {
-       "direction": 1,
-       "half_width": 0.17098036855779908,
-       "mean_difference": 2.825,
-       "readout": "unsided_cutoffs",
-       "report_only": true
-      },
-      {
-       "direction": 1,
-       "half_width": 0.08582717267966285,
-       "mean_difference": 1.688785603285603,
-       "readout": "unmatched_left_out_run",
-       "report_only": true
-      },
-      {
-       "direction": 1,
-       "half_width": 0.19880670938129014,
-       "mean_difference": 2.0529107142857144,
-       "readout": "unsided_left_out_run",
-       "report_only": true
-      },
-      {
-       "direction": 1,
-       "half_width": 0.0,
-       "mean_difference": 1.0,
-       "readout": "matched_seed",
+       "half_width": 46.40913600232623,
+       "mean_difference": 61.7,
+       "readout": "child_cut_weeks",
        "report_only": true
       }
      ],
      "premise_limbs": []
     }
    ],
-   "not_run": [],
+   "not_run": [
+    "C7:witnessed-cutoff-learning-removed (the same edits as L0)"
+   ],
    "carriers": [
     "C1",
-    "C2"
+    "C2",
+    "C3",
+    "C4",
+    "C5"
    ],
    "red_without_fail": [],
-   "m115_rests_on": "on the twelve-person family, what the two arms are made of: the cutter's other ties run longer than the family's (T-185's probe, `tools/c48_carrier_probe.py`); a cut tie is more often one both members act on, and such ties hold longer runs, which the baseline matches out of the comparison; not `CUTOFF`'s learned value (`M4.D.6`), since the row passes with all learning removed and its named mutant there gives the same result (`docs/emergence_audit_record.md`); the cut-off tie's stock (`M1.D.2b`) holds only after a cutoff",
-   "m115_note": "no rule states the run before a cutoff or names the cutoff (`M11.1d`), so a pass or a fail is informative; with learning removed the policy weighs `CUTOFF` the same on every live tie of a person before a first cutoff, so a pass is a comparison whose arms differ in a condition (learnings P7, as T-123 and T-179) and is not reported as a finding about learning; +0.104 \u00b1 0.070 is left after matching on how many members act on the tie, which the baseline does, and it is not explained; matching also drops the cutoffs with no uncut tie of their own sides, and on the Phase B family those hold runs shorter than the matched ones, which raises the treatment arm, so the mean run each exit left out is reported beside the arms (`unmatched_left_out_run`, `unsided_left_out_run`) and a verdict is read with them (learnings P2, P9); on the Phase B family, where it fails, the arms are unmatched in the same way, and the baseline also mixes tie types the cut tie is not matched to (the spouse and parent ties at conductance 1.0 with the grandparent ties at 0.6, `config/bowen/family_phase_c.md`) and counts ties cut later in the run, so the fail is not a finding about the run before a cutoff; T-196 measures what carries it there; T-196's probe (`tools/c48_carrier_probe.py --family phase_c`) found that matched on the cut tie's class no difference is detected, that the cut and baseline ties are acted on by both members about equally often (0.77 against 0.78) there, and that at every matched cutoff all the uncut baseline ties are cut later in the run, so a baseline of ties never cut cannot be formed on this family; on the twelve-person family with all learning removed (the emergence audit at `d3779684dd53`), the pass (+0.104 \u00b1 0.070) is carried by the policy's reading of level: every capacity layer available (`M4.D.3a`, C1) gives \u22120.0093 \u00b1 0.077 and the mixing weight blind to level in the policy (`M4.D.1a`, C2) +0.017 \u00b1 0.066, each interval wholly below the unmutated mean, while C3 to C6 and the named mutant survive; neither rule names the run before a cutoff, so the class is unchanged (T-213 (b), approved by the owner 2026-11-11)"
+   "m115_rests_on": "\u2014",
+   "m115_note": "witnessed, learned cutoff plus `M1.D.8`'s input (`M7.E.3` withdrawn). Both paths read outcomes: `M4.D.6f` learns from what followed a witnessed cutoff, and `M1.B.3d` raises the cutter's anxiety. Neither writes the direction. The mutations report each path alone"
   }
  ],
  "not_run_yet": []

@@ -49,6 +49,7 @@ In the level-occupancy record, which has no verdicts, "Verdicts changed" counts 
 - `docs/review/t176_negative_run_trace.md`: T-176's trace of `M11.C.48` (`tools/t176_negative_run_trace.py`, in no record's hash), rerun on revision 61's engine, so `git diff 66ba6f3` on it shows what the batch moved.
 - `docs/review/2026-11-09_sc_pass_probes.md, docs/review/sc_pass_probes/c52_recorded.jsonl, docs/review/sc_pass_probes/c52_recorded_mutant.jsonl, docs/review/sc_pass_probes/c52_equal.jsonl, docs/review/sc_pass_probes/c52_equal_mutant.jsonl, docs/review/sc_pass_probes/c52_off.jsonl, docs/review/sc_pass_probes/c55_recorded.jsonl, docs/review/sc_pass_probes/c55_off.jsonl`: T-206's and T-208's probes of `M11.C.52` and `M11.C.55`, after revision 55, and their per-seed rows (`tools/sc_pass_probe.py`, in no record's hash); nothing at revision 59 to compare.
 - `docs/review/2026-11-10_revisions_51_55_review_prep.md`: the review prep for spec revisions 51 to 55, written from the documents and the committed records and deciding nothing (2026-11-10); it runs nothing, so there is no result of its own to compare.
+- `docs/review/2026-11-15_t253_seed_blocks.md, docs/review/t253_seed_blocks.json`: T-253's seed blocks of `M11.C.7[joint over one spouse]` and `M11.C.10` on revisions 61 and 62 and their per-seed values (`tools/t253_seed_blocks.py`, in no record's hash); nothing at revision 59 to compare.
 
 ## `docs/phase_c_ensemble_record.md`
 

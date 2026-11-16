@@ -143,7 +143,29 @@
   variant (`cut_off_tie_weeks` +146 ± 128, p 0.014; red at revision 61, p 0.25). The variant stays covered:
   `witnessed-cutoff-learning-removed` still turns it red, and both mutants turn the base `M11.C.10` red. Find whether
   the revision-62 lender change moved this, and whether the mutant still tests what its description says.
-- [ ] T-253 ⟨now⟩ **`M11.C.7[joint over one spouse]` fell from PASS to FAIL at revision 62 (2026-11-15).** In
+- [x] T-253 ⟨now⟩ **`M11.C.7[joint over one spouse]` fell from PASS to FAIL at revision 62 (2026-11-15).** In
   `docs/phase_d_ensemble_record.md`, `deviation_fall` +0.050 ± 0.061, p 0.0525 (revision 61: +0.033 ± 0.052, p 0.031).
   Close to the threshold on both sides; `M11.C.10` rose across it the other way (p 0.147 → 0.032). Decide whether
   these are noise near p 0.05 or an effect of the batch.
+  *Answered 2026-11-16: both moves are noise at the threshold, not an effect of revision 62.* Each criterion ran on
+  revision 61 (`d7fba85`) and revision 62 (`065d3a6`) on the record's seeds and on fresh disjoint blocks of the
+  record's size (Mac Mini1, `tools/t253_seed_blocks.py`; numbers in `docs/review/2026-11-15_t253_seed_blocks.md`).
+  Block 0 reproduces both records' numbers exactly. `M11.C.7[joint over one spouse]`, 8 fresh blocks of 100: p below
+  0.05 in 0 of 8 on revision 61 and 1 of 8 on revision 62; pooled over 800 seeds +0.016 ± 0.022 (p 0.063) and
+  +0.018 ± 0.021 (p 0.067); the paired change, revision 62 less 61 on the same seeds, +0.003 ± 0.022, per block
+  between −0.037 and +0.063 with mixed signs. Revision 61's PASS was its block, not the criterion. `M11.C.10`, 3 fresh
+  blocks of 200: p below 0.05 in 2 of 3 on each engine; pooled over 600 seeds +79 ± 72 (p 0.021) and +129 ± 78
+  (p 0.0027); paired change +49 ± 94, per block +3, +210 and −65. Revision 61's FAIL was its block. The batch changes
+  every seed's trajectory (all 2,600 paired seeds differ), so on the same seeds it acts as a fresh draw; no effect
+  outside the blocks' spread, so T-247 was not isolated (step 2 not needed). The fragility is T-254.
+- [ ] T-254 ⟨now⟩ **Two criteria's verdicts are decided by which seed block they draw (2026-11-16).** From T-253:
+  `M11.C.7[joint over one spouse]`'s effect, about +0.016 on `deviation_fall`, is under a third of its 100-seed
+  half-width (0.06), so its verdict is FAIL on most blocks and PASS on about one in nine; `M17.A.1`'s stopping rule
+  stops at 100 seeds because the interval is narrow against the arms' spread, which says nothing about whether it is
+  narrow against the effect (precision, not power). Resolving +0.016 would take on the order of 10,000 seeds.
+  `M11.C.10` at its fixed 200 seeds passes on about two blocks in three on both engines; 600 seeds give p 0.021 and
+  0.0027. *Recommendation, pending owner decision:* raise `M11.C.10`'s fixed seed count from 200 to 600 (a spec
+  revision with its regeneration; the criterion alone takes about 105 min on Mini1); keep `M11.C.7[joint over one spouse]` at its
+  rule and its FAIL, recording beside it that its effect is below what the ensemble resolves, so a later flip is read
+  as noise; and before reading any verdict move with p between about 0.01 and 0.2 as a change, run fresh blocks as
+  T-253 did. T-252's mutant (p 0.25 → 0.014 on the `M11.C.10` variant) may be the same kind of move; not checked.

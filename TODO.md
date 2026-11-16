@@ -10,7 +10,7 @@ moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's te
 ## Now (2)
 
 - T-252 · 2026-11-15 · A named mutant survives `M11.C.10[family of origin]` at … · [record](docs/todo/2026-08-22_blocking_the_next_phase.md)
-- T-253 · 2026-11-15 · `M11.C.7[joint over one spouse]` fell from PASS to … · [record](docs/todo/2026-08-22_blocking_the_next_phase.md)
+- T-254 · 2026-11-16 · Two criteria's verdicts are decided by which seed … · [record](docs/todo/2026-08-22_blocking_the_next_phase.md)
 
 ## Later (150)
 

@@ -18,7 +18,7 @@ Every number below is read from the runs' summaries by the model's own readout f
 
 | Arm | Complete runs |
 |---|---|
-| A0 | 5 of 5 complete |
+| A0 | 0 of 5 complete |
 | A1 | 2 of 7 complete |
 | A2 | 3 of 7 complete |
 | A3 | 2 of 5 complete |
@@ -28,40 +28,34 @@ Every number below is read from the runs' summaries by the model's own readout f
 
 | Pattern | A0 | A1 | A2 | A3 | A4 |
 |---|---|---|---|---|---|
-| conflict | 0.032 (0.011–0.068); in 5 of 5 seeds | — | 0.000 (0.000–0.000); in 0 of 3 seeds | 0.000 (0.000–0.000); in 0 of 2 seeds | 0.000 (0.000–0.000); in 0 of 5 seeds |
-| cutoff | 0.015 (0.003–0.033); in 5 of 5 seeds | — | 0.077 (0.077–0.077); in 3 of 3 seeds | 0.040 (0.003–0.077); in 2 of 2 seeds | 0.077 (0.077–0.077); in 5 of 5 seeds |
-| distance | 0.476 (0.424–0.533); in 5 of 5 seeds | — | 0.413 (0.366–0.499); in 3 of 3 seeds | 0.593 (0.432–0.755); in 2 of 2 seeds | 0.437 (0.371–0.521); in 5 of 5 seeds |
-| fixed_triangle | 0.073 (0.043–0.137); in 5 of 5 seeds | — | 0.018 (0.000–0.053); in 2 of 3 seeds | 0.026 (0.000–0.053); in 1 of 2 seeds | 0.016 (0.000–0.053); in 3 of 5 seeds |
-| fusion | 0.001 (0.000–0.003); in 3 of 5 seeds | — | 0.000 (0.000–0.000); in 0 of 3 seeds | 0.000 (0.000–0.000); in 0 of 2 seeds | 0.000 (0.000–0.000); in 0 of 5 seeds |
-| over_underfunctioning | 0.128 (0.077–0.199); in 5 of 5 seeds | — | 0.000 (0.000–0.000); in 0 of 3 seeds | 0.036 (0.000–0.073); in 1 of 2 seeds | 0.000 (0.000–0.000); in 0 of 5 seeds |
-| projection | 0.046 (0.023–0.092); in 5 of 5 seeds | — | 0.000 (0.000–0.000); in 0 of 3 seeds | 0.000 (0.000–0.000); in 0 of 2 seeds | 0.000 (0.000–0.000); in 0 of 5 seeds |
+| cutoff | — | — | 0.077 (0.077–0.077); in 3 of 3 seeds | 0.040 (0.003–0.077); in 2 of 2 seeds | 0.077 (0.077–0.077); in 5 of 5 seeds |
+| distance | — | — | 0.413 (0.366–0.499); in 3 of 3 seeds | 0.593 (0.432–0.755); in 2 of 2 seeds | 0.437 (0.371–0.521); in 5 of 5 seeds |
+| fixed_triangle | — | — | 0.018 (0.000–0.053); in 2 of 3 seeds | 0.026 (0.000–0.053); in 1 of 2 seeds | 0.016 (0.000–0.053); in 3 of 5 seeds |
+| over_underfunctioning | — | — | 0.000 (0.000–0.000); in 0 of 3 seeds | 0.036 (0.000–0.073); in 1 of 2 seeds | 0.000 (0.000–0.000); in 0 of 5 seeds |
 
 ### Direction against A0, by seed
 
 | Pattern or readout | A1 | A2 | A3 | A4 |
 |---|---|---|---|---|
-| conflict | — | higher in 0, lower in 3, equal in 0 of 3 | higher in 0, lower in 2, equal in 0 of 2 | higher in 0, lower in 5, equal in 0 of 5 |
-| cutoff | — | higher in 3, lower in 0, equal in 0 of 3 | higher in 1, lower in 1, equal in 0 of 2 | higher in 5, lower in 0, equal in 0 of 5 |
-| distance | — | higher in 0, lower in 3, equal in 0 of 3 | higher in 1, lower in 1, equal in 0 of 2 | higher in 1, lower in 4, equal in 0 of 5 |
-| fixed_triangle | — | higher in 0, lower in 2, equal in 1 of 3 | higher in 0, lower in 1, equal in 1 of 2 | higher in 0, lower in 4, equal in 1 of 5 |
-| fusion | — | higher in 0, lower in 1, equal in 2 of 3 | higher in 0, lower in 1, equal in 1 of 2 | higher in 0, lower in 3, equal in 2 of 5 |
-| over_underfunctioning | — | higher in 0, lower in 3, equal in 0 of 3 | higher in 0, lower in 2, equal in 0 of 2 | higher in 0, lower in 5, equal in 0 of 5 |
-| projection | — | higher in 0, lower in 3, equal in 0 of 3 | higher in 0, lower in 2, equal in 0 of 2 | higher in 0, lower in 5, equal in 0 of 5 |
-| intensity.mean_excess | — | higher in 0, lower in 3, equal in 0 of 3 | higher in 0, lower in 2, equal in 0 of 2 | higher in 0, lower in 5, equal in 0 of 5 |
-| intensity.budget_occupancy | — | higher in 0, lower in 3, equal in 0 of 3 | higher in 0, lower in 2, equal in 0 of 2 | higher in 0, lower in 5, equal in 0 of 5 |
-| stress.exogenous_events | — | higher in 0, lower in 0, equal in 3 of 3 | higher in 0, lower in 0, equal in 2 of 2 | higher in 0, lower in 0, equal in 5 of 5 |
-| adaptiveness.automatic_acts | — | higher in 0, lower in 3, equal in 0 of 3 | higher in 2, lower in 0, equal in 0 of 2 | higher in 0, lower in 5, equal in 0 of 5 |
-| adaptiveness.reactivity_per_stress | — | higher in 0, lower in 3, equal in 0 of 3 | higher in 2, lower in 0, equal in 0 of 2 | higher in 0, lower in 5, equal in 0 of 5 |
+| cutoff | — | — | — | — |
+| distance | — | — | — | — |
+| fixed_triangle | — | — | — | — |
+| over_underfunctioning | — | — | — | — |
+| intensity.mean_excess | — | — | — | — |
+| intensity.budget_occupancy | — | — | — | — |
+| stress.exogenous_events | — | — | — | — |
+| adaptiveness.automatic_acts | — | — | — | — |
+| adaptiveness.reactivity_per_stress | — | — | — | — |
 
 ### Evaluation readouts (mean and range over seeds)
 
 | Readout | A0 | A1 | A2 | A3 | A4 |
 |---|---|---|---|---|---|
-| intensity.mean_excess | 23.434 (14.843–29.032) | — | 9.470 (9.325–9.690) | 9.703 (3.099–16.307) | 9.699 (9.452–9.861) |
-| intensity.budget_occupancy | 1.000 (1.000–1.000) | — | 0.000 (0.000–0.000) | 0.285 (0.000–0.570) | 0.000 (0.000–0.000) |
-| stress.exogenous_events | 26.000 (26.000–26.000) | — | 26.000 (26.000–26.000) | 26.000 (26.000–26.000) | 26.000 (26.000–26.000) |
-| adaptiveness.automatic_acts | 306.400 (300.000–313.000) | — | 0.000 (0.000–0.000) | 364.000 (364.000–364.000) | 0.000 (0.000–0.000) |
-| adaptiveness.reactivity_per_stress | 0.098 (0.096–0.100) | — | 0.000 (0.000–0.000) | 0.117 (0.117–0.117) | 0.000 (0.000–0.000) |
+| intensity.mean_excess | — | — | 9.470 (9.325–9.690) | 9.703 (3.099–16.307) | 9.699 (9.452–9.861) |
+| intensity.budget_occupancy | — | — | 0.000 (0.000–0.000) | 0.285 (0.000–0.570) | 0.000 (0.000–0.000) |
+| stress.exogenous_events | — | — | 26.000 (26.000–26.000) | 26.000 (26.000–26.000) | 26.000 (26.000–26.000) |
+| adaptiveness.automatic_acts | — | — | 0.000 (0.000–0.000) | 364.000 (364.000–364.000) | 0.000 (0.000–0.000) |
+| adaptiveness.reactivity_per_stress | — | — | 0.000 (0.000–0.000) | 0.117 (0.117–0.117) | 0.000 (0.000–0.000) |
 
 ## Contamination tests (§3.4)
 
@@ -71,17 +65,7 @@ Seeds in which A3's act frequencies follow A2's more closely by the label shown 
 
 ### Feedback removed (A4 against A2)
 
-Seeds in which a pattern's direction against A0 is the same in A4 (no felt change shown) as in A2, per pattern. Where removing felt change changes nothing, the pattern did not come from felt relief.
-
-| Pattern | Same direction |
-|---|---|
-| conflict | 3 of 3 seeds |
-| cutoff | 3 of 3 seeds |
-| distance | 3 of 3 seeds |
-| fixed_triangle | 3 of 3 seeds |
-| fusion | 3 of 3 seeds |
-| over_underfunctioning | 3 of 3 seeds |
-| projection | 3 of 3 seeds |
+Not computed: it needs complete runs of both arms on the same seeds.
 
 ### Opaque against plain (A1 against A2)
 
@@ -90,23 +74,6 @@ Not computed: it needs complete runs of both arms on the same seeds.
 ## Cross-check on the second model
 
 2 of 4 planned cross-check runs complete.
-
-The same arms on the second model, on the same seeds: each pattern's and readout's direction against A0, and the seeds in which that direction is the same as the main phase's on the same seed. A direction that holds on both models is not one model's habit; one that differs depends on the model.
-
-| Pattern or readout | A1 against A0 | A1 same as main |
-|---|---|---|
-| conflict | higher in 0, lower in 2, equal in 0 of 2 | — |
-| cutoff | higher in 2, lower in 0, equal in 0 of 2 | — |
-| distance | higher in 2, lower in 0, equal in 0 of 2 | — |
-| fixed_triangle | higher in 0, lower in 2, equal in 0 of 2 | — |
-| fusion | higher in 0, lower in 1, equal in 1 of 2 | — |
-| over_underfunctioning | higher in 1, lower in 1, equal in 0 of 2 | — |
-| projection | higher in 0, lower in 2, equal in 0 of 2 | — |
-| intensity.mean_excess | higher in 0, lower in 2, equal in 0 of 2 | — |
-| intensity.budget_occupancy | higher in 0, lower in 2, equal in 0 of 2 | — |
-| stress.exogenous_events | higher in 0, lower in 0, equal in 2 of 2 | — |
-| adaptiveness.automatic_acts | higher in 0, lower in 2, equal in 0 of 2 | — |
-| adaptiveness.reactivity_per_stress | higher in 0, lower in 2, equal in 0 of 2 | — |
 
 ## Option position (§13.4)
 

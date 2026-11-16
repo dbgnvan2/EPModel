@@ -23,8 +23,8 @@
   "config_hash": "00f96cc02d07",
   "permutations": null,
   "option_order": null,
-  "status": "complete",
-  "status_detail": null,
+  "status": "not_replayable",
+  "status_detail": "the replay's summary dbd5f6db851c differs from the committed 7fd0108116f8 in behavior (8b0d62f96825 against 89d7c15ecdcc); changed since the run: engine_hash",
   "counts": {
     "calls": 0,
     "cached": 0,

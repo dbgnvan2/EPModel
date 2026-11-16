@@ -11,8 +11,8 @@ The sections `### Revision 34` to `### Revision 5` and the undated section are t
 The engine hash moves (`config/bowen/criteria.md`); no rule changes. The owner, 2026-11-16: "Go with the T-254
 recommendations: C.10 to 600 seeds".
 
-- **`M11.C.10` (T-254).** Its fixed seed count rises from 200 to 600, for both variants (one setting; applying it to
-  `M11.C.10[family of origin]` is Claude's recommendation, pending owner review). At 200 seeds its verdict depended on
+- **`M11.C.10` (T-254).** Its fixed seed count rises from 200 to 600, for both variants (one setting; the owner confirmed
+  `M11.C.10[family of origin]` on 2026-11-16: "apply 600 to the family-of-origin variant too"). At 200 seeds its verdict depended on
   the seed block (T-253, `docs/review/2026-11-15_t253_seed_blocks.md`).
 - **`M11.C.7[joint over one spouse]` (T-254).** Unchanged rule and verdict; the Phase D record prints beside it that
   its effect is below what its seeds resolve (`tools/phase_d_record.py`'s `VERDICT_NOTES`), and `M11.5`'s `M11.C.7`

@@ -169,10 +169,11 @@ def test_m11c10_partner_of_reads_the_marital_tie():
     assert partner_of(state, p1) == p2 and partner_of(state, p2) == p1
 
 
-def test_m11c10_runs_200_seeds():
-    """The owner: "seeds are expensive - 200 instead": a fixed count, not the adaptive stop."""
+def test_m11c10_runs_600_seeds():
+    """A fixed count, not the adaptive stop: 200 at revision 30 (the owner: "200 instead"), 600 at revision 63 (the
+    owner: "C.10 to 600 seeds", T-254)."""
     for cid in ("M11.C.10", "M11.C.10[family of origin]"):
-        assert CRITERIA_D2[cid].seeds == 200
+        assert CRITERIA_D2[cid].seeds == 600
 
 
 def test_m11c10_reads_cut_off_tie_weeks():

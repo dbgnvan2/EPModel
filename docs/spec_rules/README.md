@@ -1,9 +1,9 @@
 # The spec's current rules, by module
 
-*Generated from the spec at revision 62 by `tools/spec_rules_view.py`. Not normative: where this and the spec differ, the spec wins. Do not edit.*
+*Generated from the spec at revision 63 by `tools/spec_rules_view.py`. Not normative: where this and the spec differ, the spec wins. Do not edit.*
 
 One file per `## M` module of `docs/bowen_agent_model_spec_v2.md`, with §0 as `M00.md`. The view removes,
-mechanically and nothing else: the front matter's `status:` line; every `⟦…⟧` revision tag (715 of them); every block-quote line, the source quotations (17 lines; the `→ file · ID` pointers stay); and the revision-history sections, of which the spec has none since revision 35 moved them to `docs/spec_revision_log.md`. No sentence of a requirement body is removed: `history_in_body.md` lists the 30 IDs whose bodies hold a sentence matching a history phrase (after revision 35 moved the narratives to `docs/spec_revision_log.md`, Part E of `docs/plan_model_ergonomics.md`, these are the sentences that pass left in place, each a "stays" row of `docs/spec_revision_35_dispositions.md`).
+mechanically and nothing else: the front matter's `status:` line; every `⟦…⟧` revision tag (716 of them); every block-quote line, the source quotations (17 lines; the `→ file · ID` pointers stay); and the revision-history sections, of which the spec has none since revision 35 moved them to `docs/spec_revision_log.md`. No sentence of a requirement body is removed: `history_in_body.md` lists the 30 IDs whose bodies hold a sentence matching a history phrase (after revision 35 moved the narratives to `docs/spec_revision_log.md`, Part E of `docs/plan_model_ergonomics.md`, these are the sentences that pass left in place, each a "stays" row of `docs/spec_revision_35_dispositions.md`).
 
 To find an ID's module, grep `docs/spec_index.jsonl` for it: the record's `module` field names the `##` heading, and `lines` the spec's lines.
 
@@ -20,7 +20,7 @@ To find an ID's module, grep `docs/spec_index.jsonl` for it: the record's `modul
 | `M08.md` | M8 — The live-position predicate | 5,462 | 850 |
 | `M09.md` | M9 — The belief layer | 5,762 | 910 |
 | `M10.md` | M10 — Parameters | 14,172 | 2,160 |
-| `M11.md` | M11 — Acceptance criteria | 133,014 | 20,534 |
+| `M11.md` | M11 — Acceptance criteria | 133,348 | 20,584 |
 | `M12.md` | M12 — Out of scope, and must never be built | 3,092 | 472 |
 | `M13.md` | M13 — Implementation order | 7,925 | 1,192 |
 | `M14.md` | M14 — Spec coverage | 30,577 | 4,793 |
@@ -28,4 +28,4 @@ To find an ID's module, grep `docs/spec_index.jsonl` for it: the record's `modul
 | `M16.md` | M16 — The run log and the readable trace | 13,101 | 2,061 |
 | `M17.md` | M17 — Phase E: ensemble runner, arms and readouts | 24,385 | 3,654 |
 
-**Size.** The view's 18 module files hold 515,360 bytes (79,646 words) against the spec's 554,004 bytes (85,082 words): 93% of the spec by bytes, 94% by words.
+**Size.** The view's 18 module files hold 515,694 bytes (79,696 words) against the spec's 554,475 bytes (85,150 words): 93% of the spec by bytes, 94% by words.

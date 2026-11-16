@@ -23,7 +23,8 @@
 > on the twelve-person family counts projection-type acts per year under `projection_until_age` and reads load over
 > ages `load_from_age` to `load_to_age`. *Revision 30 (2026-10-14):* `M11.C.10` runs exactly `seeds` seeds (the owner:
 > "200 instead"), reads generation 3's rejection toward their partner and own parents, and has a second variant,
-> `M11.C.10[family of origin]`, holding each parent's cutoff of their own parents.
+> `M11.C.10[family of origin]`, holding each parent's cutoff of their own parents. *Revision 63 (2026-11-16):* `seeds`
+> is 600 for both variants (the owner: "C.10 to 600 seeds"; T-253, T-254).
 >
 > **Phase D, 2026-10-11** (`src/bowen/ensemble/criteria_d.py`; the estimator's criteria, spec revision 17):
 > * `nodal` — the declared nodal load: one event every `every` weeks to each named person, cycling through the three
@@ -222,7 +223,7 @@
 | M11.C.6 | child | nadia | [I] |
 | M11.C.10 | years | 40 | [I] |
 | M11.C.10 | renew_every | 13 | [I] |
-| M11.C.10 | seeds | 200 | [I] |
+| M11.C.10 | seeds | 600 | [I] |
 | M11.C.47 | weeks | 260 | [I] |
 | M11.C.47 | level_low | 15 | [I] |
 | M11.C.47 | level_high | 50 | [I] |

@@ -6,6 +6,18 @@ The spec holds the current rules; this file holds how they got there. Until revi
 
 The sections `### Revision 34` to `### Revision 5` and the undated section are the spec's text as it stood, moved whole; a statement inside one of them (revision 34's, that revisions 13 to 33 are "not here") was true when written, before the bodies' narratives were moved under their own revisions. Those narratives are the bullets `- \`ID\`: sentence`, each the sentence as it stood in the body, under the revision it names, in sections titled "inline narratives moved from the bodies at revision 35" where no section existed.
 
+### Revision 63 — T-254, 2026-11-16 ⟦rev63 · T-254, owner 2026-11-16⟧
+
+The engine hash moves (`config/bowen/criteria.md`); no rule changes. The owner, 2026-11-16: "Go with the T-254
+recommendations: C.10 to 600 seeds".
+
+- **`M11.C.10` (T-254).** Its fixed seed count rises from 200 to 600, for both variants (one setting; applying it to
+  `M11.C.10[family of origin]` is Claude's recommendation, pending owner review). At 200 seeds its verdict depended on
+  the seed block (T-253, `docs/review/2026-11-15_t253_seed_blocks.md`).
+- **`M11.C.7[joint over one spouse]` (T-254).** Unchanged rule and verdict; the Phase D record prints beside it that
+  its effect is below what its seeds resolve (`tools/phase_d_record.py`'s `VERDICT_NOTES`), and CLAUDE.md asks for
+  fresh seed blocks before a verdict move with p between about 0.01 and 0.2 is read as a change.
+
 ### Revision 62 — T-247 and T-248, 2026-11-15 ⟦rev62 · T-247 and T-248, owner 2026-11-14 and 2026-11-15⟧
 
 The engine hash moves. One batch, so the records are regenerated once. The owner decided T-247 on 2026-11-14 and, on

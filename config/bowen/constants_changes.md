@@ -14,6 +14,10 @@
 > moved out of the code into `act_classes.md` (`M8.3`, `M5.B.4`, `M5.B.5`) are lists of act names, not constants, and
 > their contents did not change.
 >
+> **Spec revision 63 (2026-11-16, T-254) changed no constant in `constants.md`.** `criteria.md`'s `M11.C.10` `seeds`
+> rose from 200 to 600 (the owner: "C.10 to 600 seeds"): a criterion setting, the seed count of a fixed-count
+> criterion, not a model constant; no other value changed.
+>
 > **Spec revision 62 (2026-11-15, T-247 and T-248) changed no constant**, so it has no row here. The lenders' share of
 > a conversion (`M1.A.5c`) is the converted amount split as `M6.I.4a`'s return splits it; it adds none.
 >

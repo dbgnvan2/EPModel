@@ -135,7 +135,12 @@ REWORDED_2 = (
 # the records without a rerun. Remove a key's entry when the items it names close.
 # Empty since spec revision 43 (2026-10-29): `M11.C.48`'s note named T-123, fixed there, and T-119, whose mutant is not
 # run while the criterion fails.
-VERDICT_NOTES: dict[str, str] = {}
+# Since revision 63 a note may also name a measured fragility: a verdict that the seed block decides (T-254).
+VERDICT_NOTES: dict[str, str] = {
+    "M11.C.7[joint over one spouse]": "its effect is below what its seeds resolve: on 8 fresh blocks of 100 it passed "
+                                      "on 0 (revision 61) and 1 (revision 62); a flip of this verdict is read as noise "
+                                      "(T-253, T-254)",
+}
 
 
 def noted(key: str, verdict: str) -> str:

@@ -62,9 +62,11 @@ def test_s1_10b_both_pages_read_their_refs():
     assert rc.REVISION_57.then == rc.REVISION_57_START and rc.REVISION_57.now == rc.REVISION_59_START
     assert rc.REVISION_59.then == rc.REVISION_59_START and rc.REVISION_59.now == rc.REVISION_61_START
     assert rc.REVISION_61.then == rc.REVISION_61_START and rc.REVISION_61.now == rc.REVISION_62_START
-    assert rc.REVISION_62.then == rc.REVISION_62_START and rc.REVISION_62.now is None
-    assert [p for p in rc.PAGES.values() if p.now is None] == [rc.REVISION_62], "one page reads the working tree"
+    assert rc.REVISION_62.then == rc.REVISION_62_START and rc.REVISION_62.now == rc.REVISION_63_START
+    assert rc.REVISION_63.then == rc.REVISION_63_START and rc.REVISION_63.now is None
+    assert [p for p in rc.PAGES.values() if p.now is None] == [rc.REVISION_63], "one page reads the working tree"
     assert rc.ref_text(rc.REVISION_62_START, "docs/phase_c_ensemble_record.md").startswith("#")
+    assert rc.ref_text(rc.REVISION_63_START, "docs/phase_c_ensemble_record.md").startswith("#")
     assert rc.ref_text(rc.REVISION_61_START, "docs/phase_c_ensemble_record.md").startswith("#")
     assert rc.ref_text(rc.REVISION_59_START, "docs/phase_c_ensemble_record.md").startswith("#")
     assert rc.ref_text(rc.REVISION_57_START, "docs/phase_c_ensemble_record.md").startswith("#")

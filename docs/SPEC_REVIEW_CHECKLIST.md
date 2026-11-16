@@ -243,7 +243,9 @@ the owner decisions it needs (§1a records them), and the split into D-I and D-I
 
 **Generated, 2026-11-14 (T-243 and T-004, spec revision 61):** [version_3_revision_61_changes.md](archive/version_3_revision_61_changes.md) — the records at `66ba6f3` compared with the records after spec revision 61's one regeneration, read at `d7fba85` (`tools/record_changes.py revision-61`, run on Mac Mini1); frozen. The version 2 sweep record is not compared: it reruns at the stage-end sweep.
 
-**Generated, 2026-11-15 (T-247 and T-248, spec revision 62):** [version_3_revision_62_changes.md](version_3_revision_62_changes.md) — the records at `d7fba85` compared with the records after spec revision 62's one regeneration (`tools/record_changes.py revision-62`, run on Mac Mini1). The version 2 sweep record is not compared: it reruns at the stage-end sweep.
+**Generated, 2026-11-15 (T-247 and T-248, spec revision 62):** [version_3_revision_62_changes.md](archive/version_3_revision_62_changes.md) — the records at `d7fba85` compared with the records after spec revision 62's one regeneration, read at `57c80f9` (`tools/record_changes.py revision-62`, run on Mac Mini1); frozen. The version 2 sweep record is not compared: it reruns at the stage-end sweep.
+
+**Generated, 2026-11-16 (T-254, spec revision 63):** [version_3_revision_63_changes.md](version_3_revision_63_changes.md) — the records at `57c80f9` compared with the records after spec revision 63's one regeneration (`M11.C.10` at 600 seeds; `tools/record_changes.py revision-63`). The version 2 sweep record is not compared: it reruns at the stage-end sweep.
 
 **Generated, 2026-11-09 (T-202, spec revision 55):** [version_3_revision_55_changes.md](archive/version_3_revision_55_changes.md) — the records at `a694e78` (revision 47's regeneration, its sweep (T-181) and revision 54) compared with the records after spec revision 55's one regeneration (`tools/record_changes.py revision-55`): no existing row changed with the social cues off; the rows of `M11.C.50` to `M11.C.55` and their mutants are new. Since revision 55 the revision 47 page reads its later side at `a694e78` and is frozen.
 

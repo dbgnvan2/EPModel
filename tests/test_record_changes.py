@@ -49,7 +49,7 @@ def test_s1_10b_both_pages_read_their_refs():
     47's regeneration, so it is frozen too; the revision 47 page's earlier side is `02ea189` and its later side `a694e78`,
     the last commit before revision 55's regeneration, so it is frozen too; the revision 55 page's earlier side is
     `a694e78` and its later side `3d84065`, the last commit before revision 57's regeneration, so it is frozen too;
-    the revision 57 page's earlier side is `3d84065` and its later side the working tree; each names its earlier side
+    the revision 57 page's earlier side is `3d84065`; the revision 62 page's later side is the working tree; each names its earlier side
     in its prose; the default build is the tag against the tree (the fixture form below)."""
     assert rc.STAGE_1.then == rc.TAG and rc.STAGE_1.now == rc.STAGE_1_REGENERATION
     assert rc.REVISION_36.then == rc.STAGE_1_REGENERATION and rc.REVISION_36.now == rc.REVISION_38
@@ -61,8 +61,10 @@ def test_s1_10b_both_pages_read_their_refs():
     assert rc.REVISION_55.then == rc.REVISION_54_END and rc.REVISION_55.now == rc.REVISION_57_START
     assert rc.REVISION_57.then == rc.REVISION_57_START and rc.REVISION_57.now == rc.REVISION_59_START
     assert rc.REVISION_59.then == rc.REVISION_59_START and rc.REVISION_59.now == rc.REVISION_61_START
-    assert rc.REVISION_61.then == rc.REVISION_61_START and rc.REVISION_61.now is None
-    assert [p for p in rc.PAGES.values() if p.now is None] == [rc.REVISION_61], "one page reads the working tree"
+    assert rc.REVISION_61.then == rc.REVISION_61_START and rc.REVISION_61.now == rc.REVISION_62_START
+    assert rc.REVISION_62.then == rc.REVISION_62_START and rc.REVISION_62.now is None
+    assert [p for p in rc.PAGES.values() if p.now is None] == [rc.REVISION_62], "one page reads the working tree"
+    assert rc.ref_text(rc.REVISION_62_START, "docs/phase_c_ensemble_record.md").startswith("#")
     assert rc.ref_text(rc.REVISION_61_START, "docs/phase_c_ensemble_record.md").startswith("#")
     assert rc.ref_text(rc.REVISION_59_START, "docs/phase_c_ensemble_record.md").startswith("#")
     assert rc.ref_text(rc.REVISION_57_START, "docs/phase_c_ensemble_record.md").startswith("#")

@@ -138,3 +138,12 @@
   returns as if it were a loan, and one scalar cannot say whose loan a lender's lent is. The founders' starting tie
   beliefs (`initialise_beliefs`) are not logged, where an entrant's are. The trace test
   (`test_t248_every_mechanism_the_trace_names_is_one_the_engine_emits`) reads literal mechanism names only.
+- [ ] T-252 ⟨now⟩ **A named mutant survives `M11.C.10[family of origin]` at revision 62 (2026-11-15).** In
+  `docs/phase_d_mutation_record.md`, `learner-reads-own-state-only` (`M4.B.2`'s exemption removed) now passes the
+  variant (`cut_off_tie_weeks` +146 ± 128, p 0.014; red at revision 61, p 0.25). The variant stays covered:
+  `witnessed-cutoff-learning-removed` still turns it red, and both mutants turn the base `M11.C.10` red. Find whether
+  the revision-62 lender change moved this, and whether the mutant still tests what its description says.
+- [ ] T-253 ⟨now⟩ **`M11.C.7[joint over one spouse]` fell from PASS to FAIL at revision 62 (2026-11-15).** In
+  `docs/phase_d_ensemble_record.md`, `deviation_fall` +0.050 ± 0.061, p 0.0525 (revision 61: +0.033 ± 0.052, p 0.031).
+  Close to the threshold on both sides; `M11.C.10` rose across it the other way (p 0.147 → 0.032). Decide whether
+  these are noise near p 0.05 or an effect of the batch.

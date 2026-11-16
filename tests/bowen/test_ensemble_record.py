@@ -647,19 +647,19 @@ def test_t189_c16_row_l0_sentence_follows_the_audit_record():
     import tools.c16_report as report
 
     committed = report.RENDERED["spec_row"]
-    assert "inverting availability reverses it (+0.0111 ± 0.0017, 150 seeds)" in committed
-    assert "with availability removed as well it is red (-0.000328 ± 0.0013, 150 seeds)" in committed
+    assert "inverting availability reverses it (+0.011 ± 0.0017, 150 seeds)" in committed
+    assert "with availability removed as well it is red (-0.000368 ± 0.0013, 150 seeds)" in committed
     records = copy.deepcopy(report._records())
     same = report.render(*records, audit=_c16_audit(
         {"C7:availability-and-learner-removed": {"verdict": "reversed"},
          "C7:availability-level-inverted": {"verdict": "survived"}}))["spec_row"]
     assert "inverting availability leaves it passing" in same
-    assert "it is reversed, not red (-0.000328" in same
+    assert "it is reversed, not red (-0.000368" in same
     other = report.render(*records, audit=_c16_audit(
         {"C7:availability-and-learner-removed": {"verdict": "survived"},
          "C7:availability-level-inverted": {"verdict": "red"}}))["spec_row"]
     assert "inverting availability turns it red" in other
-    assert "it is still passing, not red (-0.000328" in other
+    assert "it is still passing, not red (-0.000368" in other
     mutants = copy.deepcopy(records[0])
     for row in mutants:
         if row["criterion"] == "M11.C.16" and row["mutant"] == "learner-disabled":

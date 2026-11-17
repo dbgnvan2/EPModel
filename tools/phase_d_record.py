@@ -37,6 +37,7 @@ from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO))
+from tools.atomic_write import write_text_atomic  # noqa: E402
 
 from tools.record_cache import Cache, result_key  # noqa: E402
 
@@ -179,7 +180,7 @@ def main() -> int:
         raise SystemExit(f"no result for {missing} on the current code: run without --only, or name it") from None
     cache.save()  # every criterion's entry was used; entries for older code go
     record = RECORDS[args.part]
-    record.write_text(text, encoding="utf-8")
+    write_text_atomic(record, text)
     print(f"wrote {record.relative_to(REPO)}")
     return 0
 

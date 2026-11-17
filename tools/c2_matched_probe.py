@@ -12,7 +12,7 @@ Purpose: run the row's own life run (``criteria_d2.life_run``, the family as dec
          window under 20); rank enters as a linear term, and as two indicators in the "which child" line. A file of
          some children only (e.g. ranks 2 and 3) still carries the whole family's row in ``row_treatment``.
 Spec:    docs/bowen_agent_model_spec_v2.md#M11.C.2, #M11.5; learnings P7
-Tests:   none; a diagnostic for T-197, reported in docs/todo/2026-11-03_version_3_emergence_audit.md (T-197). Outside the
+Tests:   tests/test_c2_matched_probe.py::test_m11c2_probe_reads_ranks_and_recovers_a_planted_slope; a diagnostic for T-197, reported in docs/todo/2026-11-03_version_3_emergence_audit.md (T-197). Outside the
          engine hash: it changes nothing a run computes. The added observer only reads state.
 
     python3 tools/c2_matched_probe.py --seeds N [--start S] [--workers W] > rows.jsonl

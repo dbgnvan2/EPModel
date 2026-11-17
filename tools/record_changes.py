@@ -250,7 +250,8 @@ PAGES = {"stage-1": STAGE_1, "revision-36": REVISION_36, "revision-39": REVISION
          "revision-43": REVISION_43, "revision-44": REVISION_44, "revision-47": REVISION_47,
          "revision-55": REVISION_55, "revision-57": REVISION_57, "revision-59": REVISION_59,
          "revision-61": REVISION_61, "revision-62": REVISION_62, "revision-63": REVISION_63}
-HASH_LINE = re.compile(r"^(?:code_hash|engine_hash): ([0-9a-f]{64})$", re.M)
+# the tag's Phase D mutation record spells its hash line engine_hash; the current one, phase_d_mutation_hash (T-124)
+HASH_LINE = re.compile(r"^(?:code_hash|engine_hash|phase_d_mutation_hash): ([0-9a-f]{64})$", re.M)
 
 
 @dataclass(frozen=True)

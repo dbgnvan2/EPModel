@@ -53,14 +53,16 @@ and the review's open checks are below.
   otherwise; then drop "pending the owner" from the spec's `M11.C.34` and `M11.5` rows, the disposition's row and the
   status lines, in one commit. **Approved by the owner 2026-11-02** through `AskUserQuestion`, as recommended; the
   markers dropped in one commit.
-- [ ] T-174 ⟨later⟩ **`tools/group_g_readout.py` keeps no per-run results (review MR-15, 2026-11-01).** Cache each
+- [x] T-174 ⟨now⟩ **`tools/group_g_readout.py` keeps no per-run results (review MR-15, 2026-11-01).** Cache each
   `one_run` in `docs/records_cache/` through `tools/record_cache`, keyed by the engine hash and `(family, seed)`, and add a
   render-only path, so a change of wording does not rerun 20 seeds per family.
+  *Closed 2026-11-17 (triage batch 2026-11-17, Claude's recommendation, pending owner review): each run is cached in `docs/records_cache/group_g_readout.json`; `--render-only` runs nothing. The cache is not filled yet.*
 - [ ] T-175 ⟨later⟩ **Hand-restated status goes stale (review systemic pattern 1, 2026-11-01; stage 3's pattern 1
   again).** Status lines and labels restate the spec's status line, the revision log or the dispositions, and each new
   revision makes some of them stale (MR-2, MR-4, MR-10, MR-11, MR-13). Make each point to one generated or test-checked
   source instead, extend `tests/doc_claims.json` to labels and revision ranges, and add the checklist to the documents
   a sweep rerun updates.
+  ⟦batch: owner decisions (a rule, a criterion's meaning or a design choice)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
 - [x] T-176 ⟨later⟩ **Why `M11.C.48`'s direction is reversed (review MR-6 and Unverified 3, 2026-11-01).** Trace whether
   comparing matched first cutoffs with the ties that stayed uncut in the same week produces the shorter run. Read only;
   the finding stands until the trace says otherwise.

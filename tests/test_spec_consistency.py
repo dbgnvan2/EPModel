@@ -45,6 +45,8 @@ CITING_DOCS = [
     # Stage 3 milestone review MR-13: the reading list said 581 requirements while every document listed here said 585.
     REPO / "docs" / "REVIEWER_READING_LIST.md",
     REPO / "docs" / "SPEC_REVIEW_CHECKLIST.md",
+    # T-092: the theory documents, extractions included, cite IDs too.
+    *sorted((REPO / "docs" / "theory").rglob("*.md")),
 ]
 
 # A requirement definition: a bolded bare ID starting a line, or heading a table
@@ -63,6 +65,20 @@ _DEF_ROW = re.compile(r"^\| \*\*(M\d+(?:\.[A-Za-z0-9]+)*)\*\* \|", re.M)
 # because renaming a two-level ID left every reference to it invisible to the
 # scan — the exact shape of defect this file exists to catch.
 _REF = re.compile(r"\b(M\d+(?:\.[A-Za-z0-9]+)*\.\d+[a-z]?)\b")
+
+# T-093: a compound reference names several IDs under one prefix — `M7.D.2c/2d`, `M1.A.5a/b`, `M1.D.7i–l`. `_REF` alone
+# reads only the first; `references` also reads the rest, so a renamed second ID does not slip through.
+_COMPOUND = re.compile(r"\b(M\d+(?:\.[A-Za-z0-9]+)*\.)(\d+)([a-z]?)(?:/(\d*)([a-z])|–([a-z]))")
+
+
+def references(text: str) -> list[str]:
+    found = _REF.findall(text)
+    for prefix, number, letter, other_number, other_letter, last in _COMPOUND.findall(text):
+        if last:
+            found += [f"{prefix}{number}{c}" for c in map(chr, range(ord(letter) + 1, ord(last) + 1))]
+        else:
+            found.append(f"{prefix}{other_number or number}{other_letter}")
+    return found
 
 
 def _spec_text() -> str:
@@ -104,7 +120,7 @@ def test_m11d10_spec_ids_match_the_single_pattern():
 def test_every_spec_reference_resolves_within_the_spec():
     text = _spec_text()
     known = set(defined_ids(text))
-    dangling = sorted({r for r in _REF.findall(text) if r not in known})
+    dangling = sorted({r for r in references(text) if r not in known})
     assert dangling == [], f"spec references IDs it never defines: {dangling}"
 
 
@@ -113,7 +129,7 @@ def test_every_citing_document_resolves_against_the_spec():
     failures = {}
     for doc in CITING_DOCS:
         dangling = sorted(
-            {r for r in _REF.findall(doc.read_text(encoding="utf-8")) if r not in known}
+            {r for r in references(doc.read_text(encoding="utf-8")) if r not in known}
         )
         if dangling:
             failures[doc.relative_to(REPO).as_posix()] = dangling
@@ -381,3 +397,9 @@ def test_m11d17_check_catches_an_agent_reading_true_state():
         "| Perceive (`M4.B.1`) | Person | synchronous batch, step 3 | every tick | another person's true acute_anxiety |",
     )
     assert any("unobservable" in p for p in register_orphans(text))
+
+
+def test_t093_compound_references_are_read_in_full():
+    """T-093: the second and later IDs of `a/b`, `a/2d` and `i–l` forms are scanned too."""
+    assert references("see M7.D.2c/2d and M1.A.5a/b and M1.D.7i–l.") == [
+        "M7.D.2c", "M1.A.5a", "M1.D.7i", "M7.D.2d", "M1.A.5b", "M1.D.7j", "M1.D.7k", "M1.D.7l"]

@@ -44,12 +44,13 @@
     `tests/bowen/test_spec_coverage.py` runs that one function; its record readers no longer fit the part II record.
   *Closed 2026-11-14 (owner): the Holmes–Rahe citation is under T-013; Linux CI has been green since; the two test gaps are
   minor and dropped; `tools/version_1_status.py` is kept, as `tools/version_2_status.py` and `tools/spec_coverage.py` import it.*
-- [ ] T-003 ⟨later⟩ **Coverage page, minor, from the Part A review (2026-10-20), not fixed.** (1) `tools/spec_coverage.py`'s
+- [x] T-003 ⟨now⟩ **Coverage page, minor, from the Part A review (2026-10-20), not fixed.** (1) `tools/spec_coverage.py`'s
   `BUILT_PHASES` (A–D) is a constant nothing checks: when Phase E is built, the notes keep saying "Phase E builds it
   and is not built yet" until it is edited. (2) A spec row amended by appending keeps its old "not met", so a criterion
   whose clause is later met stays *partial* until the row is reworded (the safe side). (3)
   `test_m141_header_names_each_record_read` finds records by the `*_ensemble_record.md` and `*_mutation_record.md`
   names and the `"criterion"` field; a record named or shaped otherwise would pass it unread.
+  *Closed 2026-11-17 (triage batch 2026-11-17, Claude's recommendation, pending owner review): `test_m141_built_phases_follow_the_mutation_records` ties `BUILT_PHASES` to the committed mutation records.*
 - [x] T-004 ⟨now⟩ **Coverage page, from Part B's drafting (2026-10-20), not fixed** (owner 2026-10-20: record them here). Each ID's
   note in `docs/spec_coverage.md` gives the detail. *Closed 2026-11-14 at spec revision 61: every sub-item below was
   fixed or decided; what was left open is T-244 to T-248.*
@@ -105,16 +106,19 @@
   gate (`policy.py`, `obs.systems_perspective`) and `M5.F.4`'s weight (`iposition.py`) read
   `appraise.py::effective_perspective` on the target tie, not the held value. Optional in the same batch: remove the
   unwritten `Person.programmed_reactivity` field (`M1.A.7`, revision 60).
-- [ ] T-244 ⟨later⟩ **`M11.D.12`: the checks module (2026-11-14).** `M10.C.4b`'s checks module for `M10.C.4`'s twelve
+- [x] T-244 ⟨now⟩ **`M11.D.12`: the checks module (2026-11-14).** `M10.C.4b`'s checks module for `M10.C.4`'s twelve
   corpus magnitudes, and `test_m11d12_corpus_magnitudes_are_not_config_keys` with it. A guard by value alone would flag
   ordinary 5s and 40s; it needs the magnitudes named. From T-004, owner 2026-11-14.
+  *Closed 2026-11-17 (triage batch 2026-11-17, Claude's recommendation, pending owner review): `tools/corpus_checks.py` and `tests/test_corpus_checks.py`; `M10.C.4b` set done in the overrides. The spec's "Not built … (T-244)" note on `M11.D.12` goes at the next spec revision (T-100's batch).*
 - [ ] T-245 ⟨later⟩ **`M1.A.4c`: the estimator's sensitivity sweep (2026-11-14).** `estimator_window` and
   `estimator_breadth` are read by `M11.C.18` and other criteria, and the stage-end sweep leaves both out
   (`config/sweep/sweep.md`); no sweep over them exists. From T-004's `constants.md` note.
+  ⟦batch: the next stage-end sweep⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
 - [ ] T-246 ⟨later⟩ **An event in flight is still delivered to a person who has died (2026-11-14).** Found writing
   `M6.3a`'s test: a move emitted before a death is logged as a `DeliveredRecord` to the dead person a tick later. It
   moves none of their state (appraisal, beliefs and attribution skip the dead), but the log shows a delivery `M6.3a`
   says the dead no longer perceive. Decide: drop it at delivery, or log it as undeliverable.
+  ⟦batch: engine batch E1 (engine and record-tool hygiene, one regeneration)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
 - [x] T-247 ⟨later⟩ **`M1.A.5c`: a lender's lent pseudo-self has no way back once the borrower converts (2026-11-14).**
   *Built 2026-11-15 at spec revision 62; the lender's functional level is unchanged (owner 2026-11-15).*
   Both review passes of revision 61. `relax_pseudo_self` and `return_lent_functioning` (`src/bowen/engine/moves.py`)
@@ -138,6 +142,7 @@
   returns as if it were a loan, and one scalar cannot say whose loan a lender's lent is. The founders' starting tie
   beliefs (`initialise_beliefs`) are not logged, where an entrant's are. The trace test
   (`test_t248_every_mechanism_the_trace_names_is_one_the_engine_emits`) reads literal mechanism names only.
+  ⟦batch: engine batch E1 (engine and record-tool hygiene, one regeneration)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
 - [x] T-252 ⟨now⟩ **A named mutant survives `M11.C.10[family of origin]` at revision 62 (2026-11-15).** In
   `docs/phase_d_mutation_record.md`, `learner-reads-own-state-only` (`M4.B.2`'s exemption removed) now passes the
   variant (`cut_off_tie_weeks` +146 ± 128, p 0.014; red at revision 61, p 0.25). The variant stays covered:

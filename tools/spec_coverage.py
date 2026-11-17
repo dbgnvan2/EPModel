@@ -87,7 +87,7 @@ NO_RECORDED_MUTANT_NEEDED = ("premise", "check")
 
 def record_hash(path: Path) -> str:
     """The code or engine hash a record states it was generated under (plan A3); a record that states none raises."""
-    found = re.search(r"^(?:code|engine)_hash: ([0-9a-f]{12,})$", path.read_text(encoding="utf-8"), re.M)
+    found = re.search(r"^(?:code|engine|phase_d_mutation)_hash: ([0-9a-f]{12,})$", path.read_text(encoding="utf-8"), re.M)
     if found is None:
         raise ValueError(f"{path.name} states no code_hash or engine_hash")
     return found.group(1)

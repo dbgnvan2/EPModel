@@ -23,8 +23,10 @@ REPO = Path(__file__).resolve().parents[1]
 PATH_DOCS = ("README.md", "CLAUDE.md")
 _ROOTS = ("src/", "tools/", "tests/", "docs/", "config/")
 _SKIP = set("*<>{}$")
+_OUTPUT_DIRS = {"runs/"}  # ignored by git (`.gitignore`) and written by the commands the README shows: never tracked
 _SPAN = re.compile(r"`([^`\n]+)`")
 _FENCE = re.compile(r"^```[^\n]*\n(.*?)^```", re.M | re.S)
+_NAMED_FILE = re.compile(r"(?<![\w./:-])([A-Za-z_.][\w.-]*)/[\w./-]*\.[A-Za-z]{1,5}\b")  # `dir/…/name.ext`, not a URL
 _LINK = re.compile(r"\]\(<([^>]+)>\)|\]\(([^)\s]+)\)")
 
 
@@ -46,8 +48,11 @@ def path_scan(texts: dict[str, str], files: list[str]) -> PathScan:
     tracked = set(files)
     dirs = {"/".join(p.split("/")[:i]) for p in files for i in range(1, p.count("/") + 1)}
     names = {p.rsplit("/", 1)[-1] for p in files}
-    # The five project folders, and every other top-level folder git tracks (`.github/`, `papers/`).
-    roots = _ROOTS + tuple(sorted({p.split("/")[0] + "/" for p in files if "/" in p} - set(_ROOTS)))
+    # The five project folders, every other top-level folder git tracks (`.github/`, `papers/`), and the top-level
+    # folder of every file path a document names, tracked or not, so a path under a folder that was deleted whole
+    # (`papers/x.pdf` after `papers/` is gone) is read and reported (T-034 (2)).
+    named = {m.group(1) + "/" for text in texts.values() for m in _NAMED_FILE.finditer(text)}
+    roots = _ROOTS + tuple(sorted(({p.split("/")[0] + "/" for p in files if "/" in p} | named) - set(_ROOTS) - _OUTPUT_DIRS))
     claims = claims_data()
     marker = phrase_pattern(claims["retired_markers"]["phrases"])
     listed = {doc: set(paths) for doc, paths in claims["retired_paths"].items() if not doc.startswith("_")}
@@ -173,3 +178,9 @@ def test_d2_the_scan_is_not_vacuous():
     assert "tools/record_cache.py" in scan.checked.get("README.md", set())
     assert ".github/workflows/tests.yml" in scan.checked.get("README.md", set())
     assert "src/main.py" in scan.retired.get("README.md", set())
+
+
+def test_t034_a_path_under_a_folder_that_was_deleted_whole_is_reported():
+    """T-034 (2): `papers/` is not tracked, so it was no root and `papers/x.pdf` was never read."""
+    missing = path_scan({"README.md": "See `papers/x.pdf`.\n"}, tracked_files()).missing
+    assert [path for path, _ in missing["README.md"]] == ["papers/x.pdf"]

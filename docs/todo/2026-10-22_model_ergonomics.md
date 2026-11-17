@@ -13,6 +13,7 @@
   `engine/iposition.py` 18, `ensemble/criteria.py` 19 (a registry, one per criterion), `policy/policy.py` 16,
   `engine/invariants.py` 15, `engine/log_records.py` 14, `engine/events.py` 12, `engine/symptoms.py` 12,
   `engine/slow_tick.py` 12, `scenario/family.py` 12. A line this long may mean the module does too much.
+  ⟦batch: owner decisions (a rule, a criterion's meaning or a design choice)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
 - [ ] T-007 ⟨later⟩ **Adjacent issues found by Part D's docstring pass, not fixed (2026-10-22):**
   - `engine/draws.py` declares the `per_hop_fidelity` draw class (`M3.D.4b`'s row) but nothing draws it;
     `visibility.fidelity_for` uses the constant. The spec's table row or the engine is out of step.
@@ -35,3 +36,4 @@
     line 430, and the `params.py` / `scenario/constants.py` field comments.
   - `engine/contact.py` said "revision-12 finding 6" where the spec (`M4.C.1c`) records revision 11; the phrase is
     gone from the docstring, but CHANGELOG may carry the same label.
+  ⟦batch: engine batch E1 (engine and record-tool hygiene, one regeneration)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*

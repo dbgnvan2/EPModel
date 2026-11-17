@@ -347,6 +347,24 @@ def test_m1a4k_the_estimator_adds_back_what_was_given_way():
     assert state.estimator_history[RAVI][-1].functional_level == pytest.approx(taker.basic_level)
 
 
+def test_m1e7_a_calm_partner_sheds_part_of_the_gain_in_the_week_it_arrives():
+    """T-062: ``self_practice`` runs before ``respond`` in one tick, so a calm partner given the system's adjustment in
+    a week sheds its relaxation share of it in that same week (the rule as written, now pinned)."""
+    from src.bowen.engine.external import Practice
+
+    parts = assemble(load_constants(), load_event_kinds(), load_family(), ScriptedSource("q", 3, (), ()), seed=0)
+    state, params = parts.state, parts.params
+    state.people[MARTA].acute_anxiety = state.people[MARTA].chronic_anxiety  # calm: nothing above the usual level
+    state.practice = [Practice(RAVI, MARTA, 0, 1e9)]  # a stance opened at week 0 whose deviation has since fallen
+    state.tick = params.practice_window
+    assert state.people[MARTA].adjust_swing == 0.0
+    run_tick(state, _Quiet(), params, parts.visibility, parts.activation, CollectingEmitter())
+    gain, rate = params.system_adjust_gain, params.response_relaxation_rate
+    assert state.practice == []
+    assert 0 < state.people[MARTA].adjust_swing < gain
+    assert state.people[MARTA].adjust_swing == pytest.approx(gain * (1.0 - rate))
+
+
 def test_m1a4k_an_exchange_run_through_the_engine_leaves_both_readings_unchanged():
     """Review 2026-10-12: a real OVERFUNCTION delivered through the move effects moves functioning and pseudo-self by
     the same amount in both people, so neither person's estimator reading changes (revision 23)."""

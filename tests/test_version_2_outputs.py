@@ -14,14 +14,15 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parents[1]
 FRAMING = "Not a real family (`M11.F.9`)."
 
-# The pages version 2 added that render runs of the reference family, each written by its tool in `tools/`.
-READOUT_PAGES = (
-    "docs/review/group_g_readout.md",
-    "docs/review/stage_3_displaced_coping_probe.md",
-    "docs/review/stage_3_iposition_probe.md",
-    "docs/review/stage_3_projection_trace.md",
-    "docs/review/t176_negative_run_trace.md",
-)
+# The pages version 2 added that render runs of the reference family, each written by its tool in `tools/`, found by
+# pattern so a new probe or trace page is checked without a list to update (T-172 (c)). The version 1 traces
+# (`phase_b_*`, `phase_c_*`) are not version 2's and do not match.
+READOUT_PATTERNS = ("group_g_readout.md", "stage_3_*_probe.md", "stage_3_*_trace.md", "t*_trace.md")
+
+
+def readout_pages() -> list[str]:
+    return sorted({p.relative_to(REPO).as_posix() for pattern in READOUT_PATTERNS
+                   for p in (REPO / "docs" / "review").glob(pattern)})
 
 
 def unframed(pages: dict[str, str]) -> list[str]:
@@ -30,7 +31,8 @@ def unframed(pages: dict[str, str]) -> list[str]:
 
 
 def test_w8_every_version_2_readout_page_carries_the_framing():
-    pages = {p: (REPO / p).read_text(encoding="utf-8") for p in READOUT_PAGES}
+    pages = {p: (REPO / p).read_text(encoding="utf-8") for p in readout_pages()}
+    assert len(pages) >= 5, sorted(pages)  # the five pages known when the list was replaced by a pattern
     assert unframed(pages) == []
 
 

@@ -26,12 +26,14 @@ Items from `docs/archive/proposal_social_cues.md`, decided by the owner on 2026-
   when a cue will come intensifies the reaction (`KS10.1`; `KS09.8`'s intermittent withdrawal). Left out of
   `docs/archive/proposal_social_cues.md` by the owner's Q6 (2026-11-07): a separate mechanism, variance in the other's
   response rather than its value, with its own criterion.
+  ⟦batch: mechanism proposals (theory work, then a spec revision)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
 - [ ] T-204 ⟨later⟩ **`KS09.6`'s parent-side separation as its own proposal (2026-11-07).** T-202's ledger search
   (`docs/archive/plan_t202_social_cues.md` §2) found that a young child's dependency falling as it matures is supported
   (`KS09.6`, `K14.5`) with the cause on the parents' side: the parents tone down their togetherness urges as the child
   matures, and failure to do so prolongs dependency; `KS09.6` rejects developmental stages. The owner decided
   2026-11-07 (plan D5) not to build `SC-12`'s age term on the child, and to take this mechanism up as a separate
   proposal. `KS09.8`'s inverted projection (a child overfunctioning toward a dysfunctional parent) bears on it.
+  ⟦batch: mechanism proposals (theory work, then a spec revision)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
 - [x] T-205 ⟨later⟩ **Wire `M11.G.5`'s perceived-cue half into a report (2026-11-08).** `ReadingTap` in
   `src/bowen/readouts/roles.py` (the mean perceived attention and approval cue per pair, when the social cues are on)
   is tested by `tests/bowen/test_roles_readout.py` and has no other caller: no record, criterion or report runs it, so
@@ -114,13 +116,16 @@ Items from `docs/archive/proposal_social_cues.md`, decided by the owner on 2026-
   `M11.G.5`'s perceived-cue half enters the reports when this exists (T-205). Also read here, at more seeds than
   100, the emergence audit's carriers for `M11.C.52` under L0: on 2026-11-11 only C2's interval lay clear of L0's
   mean (T-213 (c), the owner 2026-11-11).
+  ⟦batch: engine batch E2 (new mechanisms and mutants)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
 - [ ] T-210 ⟨later⟩ **`M11.C.55` under frozen learning (2026-11-09).** Learning on up to the relief's read week, off
   from then: does the window's supply follow the values held at that week without further learning? Left open by the
   owner, 2026-11-09; not run (`docs/review/2026-11-09_sc_pass_probes.md`, "What this record does not cover").
+  ⟦batch: research runs (Mac Mini1 probes and experiments)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
 - [ ] T-211 ⟨later⟩ **Why birth order predicts the main supplier below chance on the twelve-person family
   (2026-11-09).** The first-born is the main supplier in years 20–30 for 0.307 parents per seed against chance 0.633
   with learning on, and 0.080 with it off (T-206's probe). Candidates: age at the window, leaving the parents'
   household. Left open by the owner, 2026-11-09; not run.
+  ⟦batch: research runs (Mac Mini1 probes and experiments)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
 - [ ] T-212 ⟨later⟩ **Whether `M11.C.55`'s two predictors should be read to the same week (2026-11-10).** Spec
   revision 57 reads the relief `relief_lead_weeks` (52) before the window and counts the supply it is compared with
   over every week up to the window's start, so the prior-supply predictor sees 52 weeks the relief predictor does not:
@@ -129,3 +134,4 @@ Items from `docs/archive/proposal_social_cues.md`, decided by the owner on 2026-
   alone. `M11.5`'s row names it. The alternative is to count the supply over `[0, start − relief_lead_weeks)` as well,
   one line in `supplier_run`, which moves the engine hash and so waits for a batch that does. Raised by the
   learning-qa and correctness passes on revision 57's diff, 2026-11-10; the owner's call.
+  ⟦batch: owner decisions (a rule, a criterion's meaning or a design choice)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*

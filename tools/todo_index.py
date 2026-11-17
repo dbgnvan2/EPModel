@@ -13,7 +13,9 @@ A record is docs/todo/<YYYY-MM-DD>_<slug>.md. An item in it is one line `- [ ] T
 `- [x] T-nnn ⟨later⟩ text`, continued on indented lines; its ID is unique across the records and it carries exactly
 one of the two tags. The item's date is the first ISO date in its text, else the record's date; a ticked item's
 close date is the latest ISO date in its text, else the record's date. Its title is its leading bold span, else its
-first line, cut to ``TITLE_WORDS`` words. Everything else in a record (its heading, notes, sub-headings) is for a
+first line, cut to ``TITLE_WORDS`` words. An open ⟨later⟩ item may name the future batch it belongs to with
+``⟦batch: name⟧`` anywhere in its text; TODO.md then lists Later under one sub-heading per batch, by name, with
+unmarked items last. Everything else in a record (its heading, notes, sub-headings) is for a
 reader of the record and is not indexed.
 """
 
@@ -42,6 +44,8 @@ _ID_TAGS = re.compile(r"^(T-\d{3}) ((?:⟨[a-z]+⟩ )*)(.*)$")
 _ISO = re.compile(r"\b(20\d\d-\d\d-\d\d)\b")
 _ENTRY = re.compile(r"^### (.*)$")
 _SECTION = re.compile(r"^## (.*)$")
+_BATCH = re.compile(r"⟦batch: ([^⟧]+)⟧")
+NO_BATCH = "No batch yet"
 
 
 @dataclass(frozen=True)
@@ -53,6 +57,12 @@ class Item:
     record: str      # repo-relative path of its record
     line: int        # 1-based line of its box in the record
     record_date: str
+
+    @property
+    def batch(self) -> str:
+        """The future batch its text names with ``⟦batch: name⟧``, else ''."""
+        found = _BATCH.search(self.text)
+        return found.group(1).strip() if found else ""
 
 
 def parse_record(record: str, text: str) -> tuple[list[Item], list[str]]:
@@ -148,6 +158,12 @@ def render_todo(items: list[Item]) -> str:
     for tag, heading in (("now", "Now"), ("later", "Later")):
         chosen = sorted((i for i in open_items if i.tag == tag), key=lambda i: i.id)   # IDs follow the old document order
         out += [f"## {heading} ({len(chosen)})", ""]
+        if tag == "later" and any(i.batch for i in chosen):
+            names = sorted({i.batch for i in chosen if i.batch}) + ([NO_BATCH] if any(not i.batch for i in chosen) else [])
+            for name in names:
+                group = [i for i in chosen if (i.batch or NO_BATCH) == name]
+                out += [f"### {name} ({len(group)})", ""] + [_line(i, item_date(i), "") for i in group] + [""]
+            continue
         out += [_line(i, item_date(i), "") for i in chosen]
         out.append("")
     return "\n".join(out)

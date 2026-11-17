@@ -26,6 +26,7 @@ import numpy as np
 
 REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO))
+from tools.atomic_write import write_text_atomic  # noqa: E402
 
 from tools.record_cache import ERRORED, Cache, engine_hash, exit_status, result_key, run_cached  # noqa: E402
 from tools.sweep_config import central_values  # noqa: E402
@@ -127,7 +128,7 @@ def main(argv: list[str] | None = None) -> int:
     cache = Cache(CACHE_NAME)
     text = build(cache, None if args.render_only else args.workers)
     cache.save()
-    RECORD.write_text(text + "\n", encoding="utf-8")
+    write_text_atomic(RECORD, text + "\n")
     print(f"wrote {RECORD.relative_to(REPO)}")
     return exit_status()
 

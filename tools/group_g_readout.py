@@ -13,15 +13,21 @@ Spec:    docs/bowen_agent_model_spec_v2.md#M1.D.2b, #M11.C.48
 Tests:   tests/test_group_g_readout.py::test_g1_readout_section_is_rendered_from_measurements,
          tests/test_group_g_readout.py::test_g1_readout_page_keeps_the_other_labels_section,
          tests/test_group_g_readout.py::test_m11c48_t166_readout_leaves_unmatched_first_cutoffs_out_of_the_run_columns_and_counts_them,
-         tests/test_group_g_readout.py::test_m11c48_t185_readout_counts_unsided_first_cutoffs_apart_from_unmatched_ones
+         tests/test_group_g_readout.py::test_m11c48_t185_readout_counts_unsided_first_cutoffs_apart_from_unmatched_ones,
+         tests/test_group_g_readout.py::test_g1_readout_runs_are_cached_and_rendered_without_a_run
 
-    python3 tools/group_g_readout.py --label before|after [--seeds 20] [--workers 10]
+    python3 tools/group_g_readout.py --label before|after [--seeds 20] [--workers 10] [--render-only]
+
+Each run is cached in ``docs/records_cache/group_g_readout.json`` by the engine hash, the run length, this file's
+``one_run`` and (family, seed) (T-174), so a change of wording re-renders with ``--render-only`` and runs nothing.
 """
 
 from __future__ import annotations
 
 import argparse
 import datetime as dt
+import hashlib
+import inspect
 import re
 import statistics
 import sys
@@ -106,12 +112,46 @@ def one_run(args: tuple[str, int]) -> dict:
     }
 
 
-def measure(seeds: int, workers: int) -> list[dict]:
+# What a cached result was measured by besides the engine: the run length and this file's own measuring code, which is
+# outside the engine hash, so a change to ``one_run`` reruns its results (T-174).
+MEASURE = hashlib.sha256(inspect.getsource(one_run).encode()).hexdigest()[:16]
+CACHE_NAME = "group_g_readout"
+
+
+def run_key(engine: str, family: str, seed: int) -> str:
+    from tools.record_cache import result_key
+
+    return result_key(engine, {"weeks": RUNS[family], "measure": MEASURE}, f"{family}:{seed}")
+
+
+def measure(seeds: int, workers: int, engine: str, *, render_only: bool = False) -> list[dict]:
+    """Each (family, seed) run, from ``docs/records_cache/group_g_readout.json`` where the engine hash, the run length
+    and ``one_run`` are unchanged, else run and cached as it finishes. ``render_only`` runs nothing and refuses a
+    missing result, naming how many are missing, rather than rendering without it."""
+    from tools.record_cache import Cache
+
+    cache = Cache(CACHE_NAME)
     jobs = [(family, seed) for family in RUNS for seed in range(1, seeds + 1)]
+    found = {job: cache.get(run_key(engine, *job)) for job in jobs}
+    todo = [job for job in jobs if found[job] is None]
+    if todo and render_only:
+        raise SystemExit(f"--render-only: {len(todo)} of {len(jobs)} runs are not cached at engine {engine[:12]}")
+
+    def store(job, result):
+        cache.put(run_key(engine, *job), result)
+        cache.flush()  # after each run, so a later failure loses no finished one
+        found[job] = cache.get(run_key(engine, *job))  # as it reloads, so a fresh and a cached run render alike
+
     if workers <= 1:
-        return [one_run(j) for j in jobs]
-    with ProcessPoolExecutor(max_workers=workers) as pool:
-        return list(pool.map(one_run, jobs))
+        for job in todo:
+            store(job, one_run(job))
+    else:
+        with ProcessPoolExecutor(max_workers=workers) as pool:
+            for job, result in zip(todo, pool.map(one_run, todo)):
+                store(job, result)
+    if not render_only:
+        cache.save()
+    return [found[job] for job in jobs]
 
 
 def _contact(first: tuple) -> bool:
@@ -202,11 +242,12 @@ def main() -> int:
     parser.add_argument("--label", choices=LABELS, required=True)
     parser.add_argument("--seeds", type=int, default=20)
     parser.add_argument("--workers", type=int, default=10)
+    parser.add_argument("--render-only", action="store_true", help="render from the cache; run nothing")
     args = parser.parse_args()
     from tools.record_cache import engine_hash
 
     engine = engine_hash()
-    results = measure(args.seeds, args.workers)
+    results = measure(args.seeds, args.workers, engine, render_only=args.render_only)
     section = render_section(args.label, results, engine, args.seeds)
     existing = OUT.read_text(encoding="utf-8") if OUT.exists() else ""
     OUT.write_text(render_page(args.label, section, existing), encoding="utf-8")

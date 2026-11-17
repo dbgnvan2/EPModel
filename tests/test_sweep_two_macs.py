@@ -525,3 +525,11 @@ def test_m17e1_driver_facts_are_this_machines():
     f = driver.facts()
     assert f["engine"] == record_cache.engine_hash() and f["numpy"] == np.__version__ and f["pin"] == PIN
     assert re.fullmatch("[0-9a-f]{40}", f["head"]) and isinstance(f["clean"], bool) and f["python"] and f["machine"]
+
+
+def test_t164_the_remote_sweep_pattern_does_not_match_a_pytest_command_line():
+    """``state()`` greps for the sweep tool; a run of its test file on that Mac is not a sweep running."""
+    pattern = re.compile(driver.SWEEP_PROCESS)
+    assert pattern.search("python3 tools/version_2_sweep.py --workers 8")
+    assert pattern.search("/usr/bin/python3 /home/x/tools/version_2_sweep.py")
+    assert not pattern.search("python3 -m pytest tests/test_version_2_sweep.py -q")

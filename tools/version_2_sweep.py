@@ -55,6 +55,7 @@ import numpy as np
 
 REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO))
+from tools.atomic_write import write_text_atomic  # noqa: E402
 
 from tools.ensemble_record import code_hash  # noqa: E402  (a run length is keyed by the code it was measured on)
 from tools.mutant_runner import Mutant  # noqa: E402
@@ -637,7 +638,7 @@ def main(argv: list[str] | None = None) -> int:
     except KeyError as missing:
         raise SystemExit(f"{missing.args[0]}; the record is not written") from None
     cache.save()
-    RECORD.write_text(text, encoding="utf-8")
+    write_text_atomic(RECORD, text)
     print(f"wrote {_shown(RECORD)}")
     return exit_status()
 

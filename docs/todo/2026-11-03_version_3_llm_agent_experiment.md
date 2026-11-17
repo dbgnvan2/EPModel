@@ -88,3 +88,4 @@ utilities the owner decided version 3 has (2026-11-03).
   later half. No run shows holding back growing with experience. This fits a starting preference for the option's
   text more than a learned response to tension; a week-by-week response to tension is not ruled out. Open: the tension
   per week (an offline replay from the cache), and check (2).
+  ⟦batch: research runs (Mac Mini1 probes and experiments)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*

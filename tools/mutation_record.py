@@ -36,6 +36,7 @@ from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO))
+from tools.atomic_write import write_text_atomic  # noqa: E402
 
 from tools.mutant_runner import BROKEN_ERRORS, Mutant, apply  # noqa: E402,F401
 from tools.record_cache import FAILED, Cache, engine_hash, exit_status, result_key, run_cached  # noqa: E402
@@ -459,7 +460,7 @@ def main() -> int:
     cache = Cache("mutation")
     text = build(cache, args.workers)
     cache.save()
-    RECORD.write_text(text, encoding="utf-8")
+    write_text_atomic(RECORD, text)
     print(f"wrote {RECORD.relative_to(REPO)}")
     return exit_status()
 

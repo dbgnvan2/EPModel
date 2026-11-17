@@ -59,6 +59,7 @@ they set. Each item's own line says whether it is done. Items marked *verified* 
   five closed probe tools and their tests; replace report-fragment assertions with assertions on the numbers; pin
   CI's NumPy and add a manual `-m ensemble` job; `tools/c2_matched_probe.py` has no test.
   *Partly done 2026-11-11: added `tests/bowen/test_determinism.py::test_m11d5_policy_run_same_log_across_hash_salts`. Kept `bowen/test_log.py:31-43`: it checks that the sink writes every record, and the frozen Phase B mutation gate and two `Tests:` lines name it. Not done: the probe tools' archive (with T-226's move), the report-fragment assertions, the CI NumPy pin (1.26.4 has no wheel for Python 3.13; whether CI runs at all is T-233), the manual `-m ensemble` job, a test for `tools/c2_matched_probe.py`.*
+  *2026-11-17 (triage batch 2026-11-17, Claude's recommendation, pending owner review): the `c2_matched_probe` test and the manual `ensemble` CI job are built; left: there is no archive location for tools, and the record names no report-fragment assertion to replace.* ⟦batch: owner decisions (a rule, a criterion's meaning or a design choice)⟧
 
 ## Fix — documents
 
@@ -87,6 +88,7 @@ they set. Each item's own line says whether it is done. Items marked *verified* 
   carry history where the current rule belongs (comments are outside the hash); explainer §11.3-11.5 are "what
   revision N changed" sections; README "Running" lacks a policy run; 12 filenames have spaces and em dashes.
   *Partly done 2026-11-11: 374 of the 416 "revision N" provenance tags removed from comments in `src/bowen/` (the engine hash did not move; one mutant's site, `displaced-coping-removed` in `stress_response.py`, kept as it was); the 42 left are narrative. README "Running" gives the scripted and policy runs. Not done: the explainer's §11.3-11.5 (`config/sweep/sweep.md` and the explainer itself cite them by number) and the 12 filenames with spaces (with T-226's move).*
+  *2026-11-17 (triage batch 2026-11-17, Claude's recommendation, pending owner review): deferred: 15 archive names, not 12, and engine files and `config/bowen/*.md` cite them, so renaming moves the hash.* ⟦batch: engine batch E1 (engine and record-tool hygiene, one regeneration)⟧
 
 ## Decide
 
@@ -154,8 +156,9 @@ they set. Each item's own line says whether it is done. Items marked *verified* 
   `M11.C.10[family of origin]`. State the exemption in `M4.B.2` as `[I]`. The mutants live in
   `tools/mutant_runner.py`, which is in the engine hash, so they go in the engine batch.
   *Partly done 2026-11-12: `M4.B.2` states the exemption as `[I]`; the two mutants (`relief-less-expected-decay`, `learner-reads-own-state-only`) are defined in the two record tools at spec revision 59, the engine batch (T-001 step 3; `docs/plan_engine_batch_2026-11-12.md`), criterion 12, each applying once. Run 2026-11-12 at step 4 on `95368d6ddf18`: `relief-less-expected-decay` survives on `M11.C.16` (`docs/phase_c_mutation_record.md`) and on `M11.C.39` (`docs/phase_d_mutation_record.md`). Not run on `M11.C.34` or, for `learner-reads-own-state-only`, on `M11.C.10[family of origin]`: both criteria fail unmutated on this hash, so the record lists the two mutants under criteria that do not pass. Closed as run; what the two new FAILs mean is the owner's.*
-- [ ] T-238 ⟨later⟩ **Build: a trace command for the twelve-person family with the life course (2026-11-12).** From
+- [x] T-238 ⟨now⟩ **Build: a trace command for the twelve-person family with the life course (2026-11-12).** From
   T-232. A tool in `tools/`, outside the hash, reusing `tools/phase_c_trace.py`'s renderer; README "Running" names it.
+  *Closed 2026-11-17 (triage batch 2026-11-17, Claude's recommendation, pending owner review): `tools/life_course_trace.py`, named in README's Running section; the 40-year default run was not timed.*
 - [x] T-239 ⟨now⟩ **Fix: the engine-batch parts of T-233 (2026-11-12).** List `settle_functioning` among the
   acknowledged set mechanisms (`M11.5`, explainer §19); note in the audit that part of `M11.C.55`'s reversal with
   learning off holds by definition; report each within-run criterion's share of non-zero pairs (with T-217's counts);
@@ -164,6 +167,7 @@ they set. Each item's own line says whether it is done. Items marked *verified* 
 - [ ] T-240 ⟨later⟩ **Later parts of T-233 (2026-11-12).** Remove the LLM experiment's code, tests and the
   `anthropic` dependency once T-201 closes; split the engine hash per criterion after the tag (C6), as its own tools
   batch; a proposal with ledger sources before sibling ties or sibling position enter the reference family.
+  ⟦batch: research runs (Mac Mini1 probes and experiments)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
 - [x] T-242 ⟨now⟩ **Fix: P5's disposition text and `M11.D.9`'s scan check (2026-11-12).** From T-241. The
   disposition is rewritten after step 4's regeneration; the scan-coverage check replaces `EXPECTED_SPEC_REFERENCES`,
   with `M11.D.8` and `M11.D.9` changed at the next spec revision.

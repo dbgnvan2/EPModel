@@ -20,6 +20,7 @@ owner's ten decisions and what this batch fixed are in `CHANGELOG.md`. Open:
     longer than 800 characters; one in straight single quotes or guillemets; one beside a citation form not in the
     rules (`KB-04`, `T6.8`, "tape five"); an HTML entity in a Markdown file is not decoded; only tracked `.md` and
     `.html` files are read. The local test (SP1.3) is the check for most of those.
+  ⟦batch: theory re-reading (corpus passages, grades, attribution)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
 - [ ] T-009 ⟨later⟩ **SP-1 Q7: six requirements whose passage supports less than they say** (owner, 2026-10-22: each its own
   decision; the paraphrases keep to the passage and the requirement's MUST is unchanged at revision 34; the
   proposal's Q7 table):
@@ -36,6 +37,7 @@ owner's ten decisions and what this batch fixed are in `CHANGELOG.md`. Open:
     warning against the protocol.
   - `M1.B.10a` (SP1-S15): Tape 6 states a closed subject's reopening as a wish, and says couples usually cannot
     reopen it themselves by the time they seek help; it supports the MUST as a possibility, not a common outcome.
+  ⟦batch: theory re-reading (corpus passages, grades, attribution)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
 - [ ] T-010 ⟨later⟩ **Found while building SP-1 (2026-10-22), not fixed:**
   - `SP1-E06`, the explainer's §6.1 triangle table (`routing_capacity`): the proposal's check note says the text now
     says that applying Tape 5 to triangles is the project's inference (K04.15); the approved text does not say it.
@@ -44,6 +46,7 @@ owner's ten decisions and what this batch fixed are in `CHANGELOG.md`. Open:
   - `SP1-S35` (`M5.D.7a`) dropped the old note's explanation of why the attribution changed.
   - `FE03.21`: the block quotation in `M4.D` ends a quoted run in the chapter whose speaker is not known; it is cited
     as Kerr's chapter until it is checked against the printed book (`family_evaluation/fe03.md`).
+  ⟦batch: theory re-reading (corpus passages, grades, attribution)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
 - [ ] T-011 ⟨later⟩ **From the SP-1 build's review (2026-10-22), not fixed:**
   - Six exempt paths in `tests/asr_quotations.json` hide no finding today (`CHANGELOG.md`, `LEARNINGS.md`, `papers/`,
     `_KERR_INTERVIEWS.md`, `_PASS2_CORRECTIONS.md`, `_SOURCE_QUALITY.md`). Kept: each is exempt by the proposal's §3
@@ -67,6 +70,7 @@ owner's ten decisions and what this batch fixed are in `CHANGELOG.md`. Open:
     line. The tool writes in the app's format, so a key name cannot tell an owner's edit from a value an earlier
     version of the tool wrote; keeping every unknown key would keep stale run output. Owner edits to fields the tool
     draws (a name, a line's notes) are redrawn by design. The file is written in place, not atomically; it is in git.
+  ⟦batch: theory re-reading (corpus passages, grades, attribution)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
 - [x] T-012 ⟨later⟩ **With the next change that moves the engine hash.** Each of these edits moves a record hash, so it waits for a change that
   reruns the records anyway (owner, D6 and D7, 2026-10-21; until 2026-10-24 the trigger was group G's regeneration, which ran on
   2026-10-23 without it, stage 2 review MR-22):
@@ -98,13 +102,15 @@ owner's ten decisions and what this batch fixed are in `CHANGELOG.md`. Open:
   - *Closed 2026-10-25 at stage 3 step 6: built and written into the spec at revision 39 (draft §21) —
     `avoidance_available` removed, `M8`, `M8.5` and `M13.1` say three places (D27); `M8.1` *partial* (D28); `M11.C.7`'s
     premise declared (D29); `M7.D.1a`'s sizes on every channel (D30).*
-- [ ] T-015 ⟨later⟩ **SP-2: extend the document-claim tests** (2026-10-21) to the places where this review found stale prose: closing clauses
+- [x] T-015 ⟨later⟩ **SP-2: extend the document-claim tests** (2026-10-21) to the places where this review found stale prose: closing clauses
   of status lines, the checklist's `- [ ]` items, the reading list's body, lists of standing decisions, counts in
   prose, and the status notes in the reference-family table. Stage 2's review (SP-A, 2026-10-24) adds:
   `tests/test_doc_status.py` classifies a status line by its first word only, so a status that moves within the
   settled class goes unchecked — a later revision (MR-5, MR-16), a later part built (MR-6), a review that closed
   (MR-15, MR-17). Compare the dates and part lists as well. A front-matter `date:` older than the newest date in the
   body (MR-19) needs a rule first: the field means creation in some documents and last edit in others.
-- [ ] T-016 ⟨later⟩ **Adjacent, not fixed** (found by the batch's learning-qa pass): `docs/theory/_LECTURES_1979.md:46` still says
+  *Closed 2026-11-17 (triage 2026-11-17, Claude's recommendation, pending owner review): D5b (`tests/test_doc_status.py`) was retired 2026-11-10 under effort-budget rule 5; `docs/plan_doc_claim_tests.md` says not to rebuild it.*
+- [x] T-016 ⟨now⟩ **Adjacent, not fixed** (found by the batch's learning-qa pass): `docs/theory/_LECTURES_1979.md:46` still says
   twelve of twenty-three items were probed and the rest are outstanding. Its own "Revision 1" section and
   `_STATUS.md`'s file map say all 23 were probed.
+  *Closed 2026-11-17 (triage batch 2026-11-17, Claude's recommendation, pending owner review): `_LECTURES_1979.md`'s line now says all 23 items were probed.*

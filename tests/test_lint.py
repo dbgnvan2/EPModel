@@ -11,19 +11,44 @@ Written red at plan step 5; plan step 6, the first commit of the batch to move t
 from __future__ import annotations
 
 import importlib.util
+import os
+import re
 import shutil
 import subprocess
 import sys
 from pathlib import Path
 
+import pytest
+
 from test_named_tests_resolve import SOURCE_ALLOWED  # tests/ is on the path: pytest imports test modules by basename
+from test_requirements import requirement_specifiers
 
 REPO = Path(__file__).resolve().parents[1]
 
 
+def ruff_command() -> list:
+    return [sys.executable, "-m", "ruff"] if importlib.util.find_spec("ruff") else [shutil.which("ruff")]
+
+
+def test_t172_the_installed_ruff_is_the_pinned_version():
+    """T-172 (b): a ruff release that adds an F rule turns the test below red with no code change, so the version
+    that runs here must be the one `requirements.txt` pins (CI installs that file)."""
+    ruff = ruff_command()
+    if ruff[-1] is None:
+        pytest.skip("ruff is not installed (requirements.txt lists it)")
+    pin = requirement_specifiers((REPO / "requirements.txt").read_text(encoding="utf-8")).get("ruff", "")
+    said = subprocess.run([*ruff, "--version"], capture_output=True, text=True, timeout=60).stdout
+    installed = re.search(r"\d+(\.\d+)+", said)
+    assert installed is not None, said
+    message = f"installed ruff {installed.group(0)}, requirements.txt pins {pin}"
+    if pin != f"=={installed.group(0)}" and not os.environ.get("CI"):
+        pytest.skip(message + " (a failure on CI, which installs the pin; here, run pip install -r requirements.txt)")
+    assert pin == f"=={installed.group(0)}", message
+
+
 def test_s3_22_ruff_f_clean():
     """S3.22: `ruff check --select F src tools tests` reports nothing, and `SOURCE_ALLOWED` is empty."""
-    ruff = [sys.executable, "-m", "ruff"] if importlib.util.find_spec("ruff") else [shutil.which("ruff")]
+    ruff = ruff_command()
     assert ruff[-1] is not None, "ruff is not installed (requirements.txt lists it)"
     found = subprocess.run([*ruff, "check", "--select", "F", "--output-format", "concise", "src", "tools", "tests"],
                            cwd=REPO, capture_output=True, text=True, timeout=120)

@@ -189,7 +189,7 @@ def render(summary: dict, engine: str, when: str, seeds: int, keep: str) -> str:
         "",
         "**What the step reads.** `d` is the mean of the child's own term (the year-mean of the estimator's functional",
         "level less the child's basic level) and the living parents' term (their mean year-mean less their mean basic",
-        "level). The estimator's functional level is `functional_level − pseudo_self − max(0, adjust_swing)`",
+        "level). The estimator's functional level is `functional_level − pseudo_self − max(0, adjust_swing) − floor_held`",
         "(`src/bowen/engine/slow_tick.py::record_week`, revision 23): both terms already leave out pseudo-self, borrowed",
         "and lent, with its sign. The columns below split each year-mean into those three parts.",
         "",

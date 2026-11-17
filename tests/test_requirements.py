@@ -83,10 +83,16 @@ def imported_distributions(sources: dict[str, str], files: list[str]) -> dict[st
     return found
 
 
+def requirement_lines(text: str) -> list[str]:
+    """The requirement lines of ``text``: comments and blanks dropped, and option lines (`-r other.txt`,
+    `--index-url ...`), which name no distribution, skipped (T-172 (a))."""
+    lines = (line.split("#", 1)[0].strip() for line in text.splitlines())
+    return [line for line in lines if line and not line.startswith("-")]
+
+
 def requirement_names(text: str) -> list[str]:
     """D3.4: the distribution names `requirements.txt` lists, in order, duplicates kept."""
-    lines = (line.split("#", 1)[0].strip() for line in text.splitlines())
-    return [normalise(re.match(r"[A-Za-z0-9][A-Za-z0-9._-]*", line).group(0)) for line in lines if line]
+    return [normalise(re.match(r"[A-Za-z0-9][A-Za-z0-9._-]*", line).group(0)) for line in requirement_lines(text)]
 
 
 def requirement_findings(sources: dict[str, str], files: list[str], requirements: str,
@@ -175,10 +181,9 @@ def test_d3_requirement_lines_are_parsed_to_names():
 def requirement_specifiers(text: str) -> dict[str, str]:
     """T-151: each listed distribution's version specifier, spaces removed (empty when it has none)."""
     found = {}
-    for line in (line.split("#", 1)[0].strip() for line in text.splitlines()):
-        if line:
-            name = re.match(r"[A-Za-z0-9][A-Za-z0-9._-]*", line).group(0)
-            found[normalise(name)] = line[len(name):].split(";")[0].replace(" ", "")
+    for line in requirement_lines(text):
+        name = re.match(r"[A-Za-z0-9][A-Za-z0-9._-]*", line).group(0)
+        found[normalise(name)] = line[len(name):].split(";")[0].replace(" ", "")
     return found
 
 
@@ -190,7 +195,7 @@ def version_findings(text: str) -> list[str]:
     findings = []
     if not re.fullmatch(r"==\d+(\.\d+)*", spec.get("ruff", "")):
         findings.append("ruff is not pinned to one version")
-    if not re.search(r"(^|,)<\d+(,|$)", spec.get("numpy", "")):
+    if not re.search(r"(^|,)<=?\d+(\.0+)*(,|$)", spec.get("numpy", "")):
         findings.append("numpy has no upper bound on its major version")
     if "==" in spec.get("numpy", ""):
         findings.append("numpy is pinned to one version")
@@ -216,3 +221,11 @@ def test_t151_bounds_that_look_right_and_are_not():
     assert version_findings("numpy==1.26.4\nruff==0.17.3\n") == ["numpy has no upper bound on its major version",
                                                                "numpy is pinned to one version"]
     assert version_findings("numpy >= 1.26, < 3\nruff == 0.17.3\n") == []
+
+
+def test_t172_option_lines_are_skipped_and_a_whole_number_bound_is_accepted():
+    """T-172 (a): `-r` and `--index-url` lines raise in neither parser, and `<3.0` and `<=3` count as a major bound."""
+    text = "-r base.txt\n--index-url https://example.invalid/simple\nnumpy>=1.26,<3.0\nruff==0.17.3\n"
+    assert requirement_names(text) == ["numpy", "ruff"]
+    assert version_findings(text) == []
+    assert version_findings("numpy<=3\nruff==0.17.3\n") == []

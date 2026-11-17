@@ -43,7 +43,7 @@ These are **automatic speech recognition transcripts**, and the error rate is me
 
 ## What this pass covered
 
-A targeted adjudication against the items in `Extractions to be human validated.md` and the open contradictions — not a full extraction. **Twelve of twenty-three items were probed.** The rest are listed as outstanding at the end. Nothing below should be read as an exhaustive reading of the tapes.
+A targeted adjudication against the items in `Extractions to be human validated.md` and the open contradictions — not a full extraction. **Twelve of twenty-three items were probed in this first pass; Revision 1 below probed the remaining eleven, so all twenty-three have been.** Nothing below should be read as an exhaustive reading of the tapes.
 
 ---
 

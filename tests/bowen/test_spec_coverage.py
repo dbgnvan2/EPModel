@@ -372,3 +372,13 @@ def test_m141_overrides_file_has_one_name():
     naming = sorted(path.relative_to(REPO).as_posix() for path in files
                     if path.is_file() and path.suffix in text and old in path.read_text(encoding="utf-8"))
     assert naming == []
+
+
+def test_m141_built_phases_follow_the_mutation_records():
+    """T-003: `BUILT_PHASES` names the phases whose modules count as built. Each phase from B on ends with a mutation
+    record, so the set, Phase A aside (it has no record; the first is Phase B's), must equal the phases that have one.
+    When a Phase E record is committed this fails until the constant is updated, so its notes stop calling Phase E
+    unbuilt. Mutation: `BUILT_PHASES = frozenset("ABC")`."""
+    recorded = {letter for letter in "BCDEFG"
+                if (REPO / "docs" / f"phase_{letter.lower()}_mutation_record.md").exists()}
+    assert TOOL.BUILT_PHASES - {"A"} == recorded

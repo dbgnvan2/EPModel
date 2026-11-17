@@ -905,3 +905,72 @@ def test_criteria_modules_bind_no_top_level_name_twice():
                         bound.setdefault(n.id, []).append(node.lineno)
         twice = {k: v for k, v in bound.items() if len(v) > 1}
         assert twice == {}, f"{name}: {twice}"
+
+
+def test_t069_infrastructure_errors_match_by_class_not_by_name(monkeypatch):
+    """A subclass of OSError (here FileNotFoundError) is an error of the machine, so its row is FAILED and never
+    cached; the user's own stop (KeyboardInterrupt) and a model error are not."""
+    monkeypatch.setattr(_cache, "_uncached", [])
+    rows = {"A": {"criterion": "A", "outcome": "RAISED", "seeds": 0, "error": "FileNotFoundError: no such file"},
+            "B": {"criterion": "B", "outcome": "RAISED", "seeds": 0, "error": "KeyboardInterrupt: "},
+            "C": {"criterion": "C", "outcome": "RAISED", "seeds": 0, "error": "AssertionError: invariant"}}
+    monkeypatch.setattr(_cache, "run_in_copy", lambda m, tool, *args, **kw: list(rows.values()))
+    out = _cache.child_rows(None, "mutant_runner.py", ["A", "B", "C"], 1, "t")
+    assert [r["outcome"] for r in out] == [_cache.FAILED, "RAISED", "RAISED"]
+
+
+def test_t070_a_probe_with_no_rows_and_a_diagnostic_with_no_criterion_stop_the_record(tmp_path, monkeypatch):
+    import dataclasses
+
+    import pytest
+
+    probe = next(x for x in _diagnostic.DIAGNOSTICS if x.probe)
+    monkeypatch.setattr(_cache, "CACHE_DIR", tmp_path)
+    monkeypatch.setattr(_diagnostic, "run_in_copy", lambda *a, **k: [])
+    with pytest.raises(SystemExit, match="returned no rows"):
+        _diagnostic.results(Cache("probe"), probe, 1)
+    bare = dataclasses.replace(next(x for x in _diagnostic.DIAGNOSTICS if not x.probe), criteria=())
+    with pytest.raises(SystemExit, match="names no criterion"):
+        _diagnostic.results(Cache("probe"), bare, 1)
+
+
+def test_t026_a_probe_that_fails_is_reported_and_the_record_goes_on(tmp_path, monkeypatch):
+    from tools.child_process import ChildFailed
+
+    probe = next(x for x in _diagnostic.DIAGNOSTICS if x.probe)
+    monkeypatch.setattr(_cache, "CACHE_DIR", tmp_path)
+    monkeypatch.setattr(_cache, "_uncached", [])
+
+    def fail(*a, **k):
+        raise ChildFailed("probe timed out after 7200 s", [])
+
+    monkeypatch.setattr(_diagnostic, "run_in_copy", fail)
+    cache = Cache("probe")
+    assert _diagnostic.results(cache, probe, 1) == []
+    assert not cache.entries and _cache.exit_status() == 1
+    assert "failed" in _diagnostic.summarise([])[0]
+
+
+def test_t030_a_record_write_is_whole_or_absent(tmp_path, monkeypatch):
+    import pytest
+
+    from tools.atomic_write import write_text_atomic
+
+    target = tmp_path / "r.md"
+    write_text_atomic(target, "old\n")
+    monkeypatch.setattr("os.replace", lambda *a: (_ for _ in ()).throw(OSError("killed")))
+    with pytest.raises(OSError):
+        write_text_atomic(target, "new\n")
+    assert target.read_text() == "old\n" and [p.name for p in tmp_path.iterdir()] == ["r.md"]
+
+
+def test_t029_a_flush_keeps_a_result_another_run_wrote_meanwhile(tmp_path, monkeypatch):
+    monkeypatch.setattr(_cache, "CACHE_DIR", tmp_path)
+    first, second = Cache("two"), Cache("two")
+    first.put("a" * 64, {"outcome": "PASS"})
+    first.flush()
+    second.put("b" * 64, {"outcome": "PASS"})
+    second.flush()
+    assert set(Cache("two").entries) == {"a" * 64, "b" * 64}
+    second.save()  # the end-of-record prune keeps the other run's result too
+    assert set(Cache("two").entries) == {"a" * 64, "b" * 64}

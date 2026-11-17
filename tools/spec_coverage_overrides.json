@@ -1295,12 +1295,16 @@
  "M10.C.4": {
   "status": "not done",
   "evidence": [],
-  "note": "not built: no checks module holds the twelve bounds and no criterion or readout compares an output with them (searched `src/bowen`, `config/bowen`, `tools`, `tests` for `quantum`, `traversal`, `FE08`, `M10.C.4`); none is a key in `config/bowen/constants.md`, but nothing guards that (`M11.D.12` is not built)"
+  "note": "not built: the twelve bounds are held in `tools/corpus_checks.py` (T-244), and `M11.D.12`'s test keeps each out of the config keys, but no criterion or readout compares an output with them (searched `src/bowen`, `config/bowen`, `tools`, `tests` for `quantum`, `traversal`, `FE08`, `M10.C.4`)"
  },
  "M10.C.4b": {
-  "status": "not done",
-  "evidence": [],
-  "note": "not built: there is no checks module, so the config parser has nothing to refuse and no import guard exists (searched `src`, `tools`, `tests`, `config` for files and imports named `checks`, and for `M10.C.4`)"
+  "status": "done",
+  "evidence": [
+   "tests/test_corpus_checks.py::test_m10c4b_engine_does_not_import_the_checks_module",
+   "tests/test_corpus_checks.py::test_m11d12_corpus_magnitudes_are_not_config_keys",
+   "tests/bowen/test_config.py::test_m11d3_config_rejects_unknown_key"
+  ],
+  "note": "the checks module is `tools/corpus_checks.py`, outside the engine; no `src/bowen` module imports it, and the config parser reads only `config/bowen/` markdown and rejects a key it does not know, so the module cannot be a key source (T-244)"
  },
  "M10.C.4a": {
   "status": "not done",
@@ -1382,11 +1386,6 @@
   "status": "partial",
   "evidence": [],
   "note": "built, no test: criteria under load run a spell declared in `config/bowen/criteria.md` (`src/bowen/ensemble/criteria.py::spell`, `criteria_d.py::_spell_on`); no test asserts that each discriminating criterion runs both arms under a named stressor, and the spec's table does not mark which criteria are discriminating"
- },
- "M11.D.12": {
-  "status": "not done",
-  "evidence": [],
-  "note": "not built: it needs `M10.C.4b`'s checks module, and `test_m11d12_corpus_magnitudes_are_not_config_keys`, which the spec names, is written with it (T-244)"
  },
  "M11.F.1": {
   "status": "partial",

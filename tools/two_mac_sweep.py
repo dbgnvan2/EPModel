@@ -106,10 +106,15 @@ def check() -> dict:
     return there
 
 
+# The tool's name must start a word or follow a slash, so ``test_version_2_sweep.py`` in a pytest command line does not
+# count (the pattern of ``tools/merge_cache.RUNNING_TOOLS``, T-164). The bracket keeps pgrep from matching the remote
+# shell running this very command line.
+SWEEP_PROCESS = r"(^|[ /])[v]ersion_2_sweep\.py"
+
+
 def state() -> str:
-    """``running``, ``stopped`` or ``error`` (pgrep itself failed). ``[v]`` keeps pgrep from matching the remote shell
-    running this very command line."""
-    return ssh("pgrep -f '[v]ersion_2_sweep.py' > /dev/null; case $? in 0) echo running;; 1) echo stopped;; "
+    """``running``, ``stopped`` or ``error`` (pgrep itself failed)."""
+    return ssh(f"pgrep -f '{SWEEP_PROCESS}' > /dev/null; case $? in 0) echo running;; 1) echo stopped;; "
                "*) echo error;; esac").strip()
 
 

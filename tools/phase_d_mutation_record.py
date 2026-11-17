@@ -32,6 +32,7 @@ from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO))
+from tools.atomic_write import write_text_atomic  # noqa: E402
 
 from tools.mutant_runner import Mutant, apply, run_in_copy  # noqa: E402,F401
 from tools.mutation_record import NAMED, judge  # noqa: E402
@@ -355,6 +356,9 @@ def build(cache: Cache, workers: int | None = None) -> str:
             rows.append((mutant, result))
     recorded = {r["criterion"] for _, r in rows}
     unproved = sorted(part_2 - recorded - set(AD_HOC))
+    stale_ad_hoc = sorted(set(AD_HOC) & recorded) + sorted(c for c in AD_HOC if c not in part_2)
+    if stale_ad_hoc:  # T-037: an AD_HOC entry that now has a mutant, or no longer passes, is out of date
+        raise SystemExit(f"AD_HOC names a criterion that now has a mutant here or no longer passes: {stale_ad_hoc}")
     if unproved:
         raise SystemExit(f"passing in part II with no mutant here and none named in AD_HOC: {unproved}")
     return render(rows, skipped, engine)
@@ -371,7 +375,7 @@ def render(rows, skipped, engine: str) -> str:
         "direction (`M11.1d`). Phase D's other mutation runs are ad hoc and reported in",
         "`docs/archive/implementation_plan_phase_d.md`.",
         "",
-        f"engine_hash: {engine}",
+        f"phase_d_mutation_hash: {engine}",  # not record_cache.engine_hash (T-124)
         "",
         "| Mutant | Kind | What it changes | Criterion | Verdict under mutant | Seeds | Difference under mutant | Result |",
         "|---|---|---|---|---|---|---|---|",
@@ -405,7 +409,7 @@ def main() -> int:
     cache = Cache("phase_d_mutation")
     text = build(cache, args.workers)
     cache.save()
-    RECORD.write_text(text, encoding="utf-8")
+    write_text_atomic(RECORD, text)
     print(f"wrote {RECORD.relative_to(REPO)}")
     return exit_status()
 

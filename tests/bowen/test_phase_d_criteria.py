@@ -114,6 +114,19 @@ def test_m11c12_symptom_relief_raises_conflict():
     gate("M11.C.12")
 
 
+def test_m11c11_and_c12_arms_run_on_a_short_window_and_each_reports_its_readout():
+    """T-058: a cheap run of each arm on a few weeks, so a broken arm is caught without the ensemble."""
+    import math
+
+    from src.bowen.ensemble.criteria_d import arm_c11, arm_c12
+
+    short11 = {"removal_week": 4, "away": 4, "window": 2}
+    short12 = {"remission_week": 4, "after": 4, "severity": 1.5}
+    for arm in ("baseline", "treatment"):
+        assert math.isfinite(arm_c11(arm, 1, short11).readouts["disturbance"])
+        assert arm_c12(arm, 1, short12).readouts["marital_conflict"] >= 0.0
+
+
 @pytest.mark.ensemble
 def test_m11c22_symptom_lock_in_is_non_monotone():
     gate("M11.C.22")

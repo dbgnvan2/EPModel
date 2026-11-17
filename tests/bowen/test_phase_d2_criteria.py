@@ -127,7 +127,7 @@ def test_m11c10_family_of_origin_arm_holds_both_parents_cutoffs():
     assert len(pairs) == 4 and {a for a, _ in pairs} == parents
     settings = {"years": 2, "renew_every": CRITERIA_D2["M11.C.10"].settings["renew_every"]}
     treated, baseline = arm_c10_origin("treatment", 0, settings), arm_c10_origin("baseline", 0, settings)
-    assert 0 < treated.moves[HELD_WEEKS] <= 4 * 2 * 52 and baseline.moves[HELD_WEEKS] == 0
+    assert 0.9 * 4 * 2 * 52 <= treated.moves[HELD_WEEKS] <= 4 * 2 * 52 and baseline.moves[HELD_WEEKS] == 0
     assert treated.moves["(scripted act: made)"] == treated.moves["(scripted acts)"] > 0
     forced = _renewals(52, 13, pairs)
     assert len({w for w, a in forced if a == ROLES["phase_d", "parent_1"]}) == 8  # two ties, alternate weeks

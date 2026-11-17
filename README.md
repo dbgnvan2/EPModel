@@ -59,7 +59,14 @@ A policy run, the Phase C family under the policy and the learner for 104 weeks,
 python3 tools/phase_c_trace.py --seed 7
 ```
 
-No command yet runs the twelve-person family with the life course (T-232). Requires Python 3.11 or later and the packages in `requirements.txt`. The grid engine's entry point,
+The twelve-person family with the life course, under the policy with the declared nodal load on the parents, for
+40 years (`M11.C.2`'s run length), rendered as a trace in `docs/review/`:
+
+```bash
+python3 tools/life_course_trace.py --seed 7 [--years 40] [--view nadia]
+```
+
+Requires Python 3.11 or later and the packages in `requirements.txt`. The grid engine's entry point,
 `src/main.py`, was retired at version 2 stage 1 and is at the tag `version-1`.
 
 ## Status
@@ -101,6 +108,6 @@ python3 -m src.bowen.run --seed 7 --log runs/phase_b.jsonl --trace runs/phase_b_
 python3 -m pytest tests/
 ```
 
-The suite runs in CI on Python 3.11, 3.12 and 3.13 (`.github/workflows/tests.yml`), installing only `requirements.txt`.
+The suite runs in CI on Python 3.11, 3.12 and 3.13 (`.github/workflows/tests.yml`), installing only `requirements.txt`. The `ensemble`-marked criteria run there only when the workflow is started by hand (its `ensemble` job).
 
 Phase B runs a fixed script over an invented seven-person family. It tests one model claim, as a direction between two runs; nothing it produces is a finding about families. The family-diagram importer (`M15`) is not in version 1 or version 2 (`docs/version_2_plan.md` §2).

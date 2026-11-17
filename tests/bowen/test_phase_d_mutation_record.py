@@ -63,18 +63,14 @@ def test_m11c10_family_of_origin_variant_is_proved_red_by_removing_m4d6f():
     assert row["result"] in ("red", "reversed"), row
 
 
-def test_m11c14_gate_removed_is_run_on_both_variants_and_its_result_matches_the_spec():
+def test_m11c14_gate_removed_is_run_on_both_variants():
     """The spec's mutation clause for `M11.C.14` (revision 31, R31.B5): the marital-distance gate removed MUST turn at
     least one technique variant red. Measured 2026-10-16, it survives both (the gate blocks about a point of relief to
     the child per run in this fixture); the spec marks the clause not met, for the owner. This test pins that the
-    mutant was run on both passing variants, and that the spec's account agrees with the record: if a later change makes
-    the gate bite, the spec line must change with it."""
+    mutant was run on both passing variants. It does not read the spec's wording (T-048)."""
     rows = record_json(_tool.RECORD)
     run = {r["criterion"]: r["result"] for r in rows if r["mutant"] == "marital-distance-gate-removed"}
     assert set(run) == {"M11.C.14[firmness]", "M11.C.14[talking it out]"}, run
-    spec = (REPO / "docs" / "bowen_agent_model_spec_v2.md").read_text(encoding="utf-8")
-    bites = any(result in ("red", "reversed") for result in run.values())
-    assert ("gate-removed mutant survives both variants" in spec) is (not bites), run
 
 
 def test_m111d_every_passing_phase_d2_criterion_has_a_mutant_or_names_where_it_is_reported():

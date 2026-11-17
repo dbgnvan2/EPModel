@@ -49,6 +49,7 @@ records are regenerated once.
   other documents were not checked. `tests/test_asr_quotations.py` reads only quoted spans (of four words or more until 2026-11-01, two since, the pre-tag
   review's MR-9), so it cannot find unquoted reuse. To decide: sweep the explainer the same way, and either add a test built on the n-gram
   comparison (with an allowlist of theory vocabulary in `tests/asr_quotations.json`) or record why the test stays as it is.
+  ⟦batch: owner decisions (a rule, a criterion's meaning or a design choice)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
 - [x] T-151 ⟨later⟩ **CI installs whatever `ruff` and `numpy` are current (review MR-15, 2026-10-28).** Pin `ruff` to the
   version that passed CI run 40630271972 and bound numpy's major version in `requirements.txt`; bump each on purpose,
   in its own commit. numpy's draws feed the golden fingerprints.
@@ -57,23 +58,29 @@ records are regenerated once.
   3.11) and 2.5.4 (3.12, 3.13) all pass the suite. Tests: `tests/test_requirements.py::test_t151_*` (shown red first),
   and `test_m17e1_sweep_machines_pin_numpy_and_ci_does_not` restated to "not pinned". This Mac's own `ruff` is 0.15.1,
   outside the pin; `test_lint.py` passes under both, and only CI installs from the file.
-- [ ] T-152 ⟨later⟩ **A probe test's "as built" assertion cannot fail (review MR-16, 2026-10-28).**
+- [x] T-152 ⟨now⟩ **A probe test's "as built" assertion cannot fail (review MR-16, 2026-10-28).**
   `tests/test_stage_3_probes.py:80–81`: the `as_built` variant never installs the displacement wrapper, so its tallies
   are 0 by construction. Delete it, or check the engine's own displacement in the `as_built` treatment arm.
-- [ ] T-153 ⟨later⟩ **`test_d31_every_listed_record_is_marked_and_no_other` asserts nothing while the batch is closed
+  *Closed 2026-11-17 (triage batch 2026-11-17, Claude's recommendation, pending owner review): the as-built assertion is removed.*
+- [x] T-153 ⟨later⟩ **`test_d31_every_listed_record_is_marked_and_no_other` asserts nothing while the batch is closed
   (review MR-17, 2026-10-28).** Add `else: assert _marked() == []` (`tests/test_open_batch.py:61–63`).
-- [ ] T-154 ⟨later⟩ **The family-of-origin arm's held-weeks check was loosened to "more than none" (review MR-18,
+  *Closed 2026-11-17 (triage 2026-11-17, Claude's recommendation, pending owner review): stale: the test and `tests/test_open_batch.py` were removed in `bda211e` (T-220 to T-227).*
+- [x] T-154 ⟨now⟩ **The family-of-origin arm's held-weeks check was loosened to "more than none" (review MR-18,
   2026-10-28).** `tests/bowen/test_phase_d2_criteria.py:130`: until T-135 is decided, a floor that catches a collapse
   (for example `>= 0.9 * 416`), or `== 401` pinned with the golden fingerprints.
-- [ ] T-155 ⟨later⟩ **The projection-trace tool prints the estimator's formula from before revision 39 (review MR-19,
+  *Closed 2026-11-17 (triage batch 2026-11-17, Claude's recommendation, pending owner review): the floor is `0.9 × 416`.*
+- [x] T-155 ⟨now⟩ **The projection-trace tool prints the estimator's formula from before revision 39 (review MR-19,
   2026-10-28).** `tools/stage_3_projection_trace.py:191–193` leaves out `− floor_held` (`slow_tick.py:129`). Add the
   term, or have `main()` refuse unless the engine hash is the page's stamped one.
-- [ ] T-156 ⟨later⟩ **The i-position probe copies the criterion's mover setup (review MR-20, 2026-10-28).**
+  *Closed 2026-11-17 (triage batch 2026-11-17, Claude's recommendation, pending owner review): the tool prints `− floor_held`; the dated page `docs/review/stage_3_projection_trace.md` was not re-rendered.*
+- [x] T-156 ⟨now⟩ **The i-position probe copies the criterion's mover setup (review MR-20, 2026-10-28).**
   `tools/stage_3_iposition_probe.py:65–70` should call `criteria.mover_at(...)` and keep only its documented spell
   difference local.
-- [ ] T-157 ⟨later⟩ **Probe-page tests for frozen pages take 17% of the default suite (review MR-21, 2026-10-28).** Mark
+  *Closed 2026-11-17 (triage batch 2026-11-17, Claude's recommendation, pending owner review): the probe calls `criteria.mover_at`.*
+- [x] T-157 ⟨now⟩ **Probe-page tests for frozen pages take 17% of the default suite (review MR-21, 2026-10-28).** Mark
   the two slow tests in `tests/test_stage_3_probes.py` (the displaced-coping probe, 39 s, and the trace, 18 s)
   `ensemble` or `slow`, and update the suite count in CLAUDE.md in the same commit.
+  *Closed 2026-11-17 (triage batch 2026-11-17, Claude's recommendation, pending owner review): the two slow probe tests are marked `ensemble`, so the default run deselects them.*
 - [x] T-158 ⟨now⟩ **`M5.D.3`'s "abort is the usual first outcome" no longer holds after T-133 (the triage batch,
   2026-10-28).** Since spec revision 41 a mover angry when a sequence reaches `DEFINE` says the position as a demand and
   the sequence ends there (`M5.D.4a`), so the movers who reach the first opposition are calmer. Over
@@ -116,12 +123,13 @@ records are regenerated once.
   owner review):* the criterion's seeds are 200 (`config/bowen/criteria.md`);
   `tests/test_version_2_sweep.py::test_m11c48_t163_own_seeds_reach_the_detection_limit`. The stage-end sweep on
   `da5981f6ec0b` (2026-10-30, T-167) swept it 0 of 8, with no refusal.
-- [ ] T-164 ⟨later⟩ **The merge's running-sweep guard matches the sweep's test file (found in T-159's merge,
+- [x] T-164 ⟨now⟩ **The merge's running-sweep guard matches the sweep's test file (found in T-159's merge,
   2026-10-29; not fixed).** `tools/merge_cache.py` refuses while `pgrep -f '[v]ersion_2_sweep.py'` finds a process,
   and that pattern also matches `python3 -m pytest tests/test_version_2_sweep.py`, so a test run makes the merge
   refuse. It fails safe (nothing written, and a second try after the tests end merged). `tools/two_mac_sweep.py`'s
   `status` uses the same pattern on Mac Mini1. To fix: match `tools/version_2_sweep.py` and test that a test run is
   not taken for a sweep.
+  *Closed 2026-11-17 (triage batch 2026-11-17, Claude's recommendation, pending owner review): `two_mac_sweep` uses a word-boundary pattern (`test_t164_…`).*
 - [ ] T-160 ⟨later⟩ **`phase_c_completion_report.md`'s other rows quote the numbers of Phase C's close (found building
   T-148, 2026-10-28; not fixed).** The report opens by saying every number below comes from a committed, generated
   record. Since T-148, `M11.C.16`'s two rows and §11 are generated from the current records (`tools/c16_report.py`);
@@ -129,6 +137,7 @@ records are regenerated once.
   +1.10), which the records have moved away from since. To decide: generate those rows from the records as T-148 does,
   or restate the opening as the report's state at Phase C's close, pointing at `docs/version_2_status.md` for where each
   criterion stands now.
+  ⟦batch: owner decisions (a rule, a criterion's meaning or a design choice)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
 - [x] T-161 ⟨later⟩ **`M11.C.21`'s parents keep over-functioning toward the child after they collapse (found building
   T-145, 2026-10-28; not fixed).** `arm_c21` (`src/bowen/ensemble/criteria_d.py`) scripts both parents'
   `OVERFUNCTION` toward C1 every `act_every` weeks for the whole run, the weeks after the collapse included, so the

@@ -51,6 +51,7 @@ Raised while drafting part 1 of spec revision 39 (`docs/archive/spec_revision_39
   their swing while every balance starts at 0. A count of the unreturned amount in the effect record, or a readout of
   it for `M11.C.21`, is a log change that moves the golden fingerprints; left for the owner's choice at the stage 3
   milestone review.
+  ⟦batch: engine batch E1 (engine and record-tool hygiene, one regeneration)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
 - [ ] T-135 ⟨later⟩ **`M11.C.10`'s scripted renewal outlasts a cutoff (the step 7 suite run, 2026-10-26).** The
   treatment renews each cutoff every `renew_every` = 13 weeks (`config/bowen/criteria.md`), and a cutoff's rejection
   (0.5) fades by `rejection_fade` 0.05 a week, so a renewal alone holds it about 10 weeks. Between renewals the cutoff
@@ -60,7 +61,8 @@ Raised while drafting part 1 of spec revision 39 (`docs/archive/spec_revision_39
   `tests/bowen/test_phase_d2_criteria.py::test_m11c10_family_of_origin_arm_holds_both_parents_cutoffs` now asserts
   that bound, not the 416. Whether `renew_every` should be at most 10, so the scripted arm holds by itself, is a
   criterion-setting change that moves `M11.C.10`'s records; left for the owner.
-- [ ] T-137 ⟨later⟩ **`M11.C.49` fails at its first settings (the step 8 targeted run, 2026-10-26).** On Mac Mini1, 150
+  ⟦batch: owner decisions (a rule, a criterion's meaning or a design choice)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
+- [x] T-137 ⟨later⟩ **`M11.C.49` fails at its first settings (the step 8 targeted run, 2026-10-26).** On Mac Mini1, 150
   seeds (`docs/review/stage_3_step_8_criteria.md`): the act's effect on the family's summed excess over six weeks is
   +2.2 ± 3.0 higher at level 35 than at 60, and on the `CONFLICT` share of the F–M tie's moves +0.003 ± 0.028; neither
   resolves, so the composite limbs do not hold. The premise limb holds as reported (the target's felt impingement
@@ -68,6 +70,7 @@ Raised while drafting part 1 of spec revision 39 (`docs/archive/spec_revision_39
   weeks, `t0` 1, a six-week window) were set before the row first ran and are not to be tuned to it (`M10.B.4`); the
   row's mutants did not run, since it does not pass. Read with the other composite results at step 10's
   regeneration; left for the owner.
+  *Closed 2026-11-17 (triage 2026-11-17, Claude's recommendation, pending owner review): superseded: `M11.C.49` now passes (`family_excess` +6.8 ± 2.8) with `demand-share-inverted` red.*
 - [ ] T-138 ⟨later⟩ **`M11.C.29`'s genuine `I-POSITION` almost never completes after D21 (the step 8 targeted run,
   2026-10-26).** With the mover at level 60 and F's spell paused over the act's window (D21), the row fails:
   `third_symptom_weeks` +0.9 ± 3.7 and `budget` +0.04 ± 0.055 (100 seeds, `docs/review/stage_3_step_8_criteria.md`).
@@ -77,12 +80,14 @@ Raised while drafting part 1 of spec revision 39 (`docs/archive/spec_revision_39
   82), so `COMPLETED` is met and the budget limb reads one exchange. The pause takes
   F's own spell off `PREPARE`, but the excess that fails it is still there. Whether the arm needs another condition
   (M's spell over the same weeks, or a lower load) is a criterion-setting choice; left for the owner.
+  ⟦batch: owner decisions (a rule, a criterion's meaning or a design choice)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
 - [ ] T-139 ⟨later⟩ **Two arm settings read outside the run's parameters (the step 8 `learning-qa` pass, 2026-10-26;
   P4).** `act_window` in `src/bowen/ensemble/criteria.py` reads `prepare_ticks` from `load_constants()`, not from the
   run's parameters, so an arm that overrode `prepare_ticks` would pause the spell over the wrong weeks; none does, and
   the sweep edits a copy of `constants.md`, so the two agree today. `mover_at` sets the mover's systems perspective to
   1.0 in code (the owner's Q13 for `M11.C.49`, and `M11.C.29`'s and `M11.C.32`'s arms before it); a criteria setting
   in `config/bowen/criteria.md` would declare it. Neither changes a result now.
+  ⟦batch: engine batch E1 (engine and record-tool hygiene, one regeneration)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
 - [ ] T-140 ⟨later⟩ **`M5.C.1`'s gate and `M4.C.1d`'s returned contact (the step 9 `learning-qa` pass, 2026-10-26).**
   Under marital distance, `M5.C.1` stops a move addressed to a symptomatic child from improving them; the contact a
   relieved person returns to that child under `M4.C.1d` is not a move addressed to them, so it calms them. In a probe
@@ -91,13 +96,15 @@ Raised while drafting part 1 of spec revision 39 (`docs/archive/spec_revision_39
   too: a gated target, whose relief is set to 0, still counts as relieved by `M4.C.1`'s deviation and returns contact.
   The approved text is silent on how the two rules meet. The owner chose to keep the code as built (2026-10-26);
   whether to gate it (one line in `apply_appraisal`, a sentence in `M4.C.1d`, a test) is left for the owner's review.
+  ⟦batch: owner decisions (a rule, a criterion's meaning or a design choice)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
 - [ ] T-141 ⟨later⟩ **The sender's appraisal of returned contact reads the event's sign and attention (the step 9
   `learning-qa` pass, 2026-10-26; low).** `returned_contact` in `src/bowen/engine/appraise.py` signs the sender's
   appraisal with `sign(event.kind, event.source_position)`, the receiver's sign for the sender's position, and scales
   it by `attention_factor(sender, event, params)`, where `event.attention` describes the receiver's attention. Every
   sign in `config/bowen/` is +1 and nothing in `src/` sets an attention other than none, so neither changes a run now;
   a −1 sign in config would invert the sender's relief.
-- [ ] T-142 ⟨later⟩ **Group A does not turn `M11.C.42` or `M11.C.45` green, and `M11.C.44` stops passing (the step 9
+  ⟦batch: engine batch E1 (engine and record-tool hygiene, one regeneration)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
+- [x] T-142 ⟨later⟩ **Group A does not turn `M11.C.42` or `M11.C.45` green, and `M11.C.44` stops passing (the step 9
   targeted run, 2026-10-26).** On Mac Mini1 at engine hash `2a3b84e2d89a` (`docs/review/stage_3_step_9_criteria.md`):
   `M11.C.42`'s `triangle_reuse` −0.06 ± 0.36 over 50 seeds (revision 38's record −0.34 ± 0.35), so S3.12 is not met;
   `M11.C.45`'s `triangle_rate` +0.0013 ± 0.0055 over 150 (−0.0019 ± 0.0047), so S3.13 is not met; and `M11.C.44`'s
@@ -106,7 +113,8 @@ Raised while drafting part 1 of spec revision 39 (`docs/archive/spec_revision_39
   The `M11.C.27` cells keep their verdicts (three fail, `[unstable,remove_one]` passes), as do `M11.C.16` and
   `M11.C.41`'s four cells. The settings and `reciprocal_contact_share` (0.5, `[I]`) are not to be tuned to these rows
   (`M10.B.4`); read with step 10's regeneration and the sweep; left for the owner.
-- [ ] T-143 ⟨later⟩ **Mutants that revision 39's regeneration no longer turns red (step 10, 2026-10-26).** From
+  *Closed 2026-11-17 (triage 2026-11-17, Claude's recommendation, pending owner review): done: the owner gave `M11.C.42`, `.44` and `.45` "fail accepted as a finding" 2026-11-10.*
+- [x] T-143 ⟨later⟩ **Mutants that revision 39's regeneration no longer turns red (step 10, 2026-10-26).** From
   `docs/archive/version_2_revision_39_changes.md`, against revision 38's records (`9ebf327`): in the Phase C mutation record
   `steepness-level-independent` now survives on `M11.C.41[heavy: lower level]`, `availability-level-inverted` survives
   and `availability-and-learner-removed` is reversed on `M11.C.16` (`steepness-inverted` turns it red where it
@@ -121,6 +129,7 @@ Raised while drafting part 1 of spec revision 39 (`docs/archive/spec_revision_39
   milestone review.* *2026-10-28, the triage: the owner kept `M11.C.16` composite (the review's Q5); the documents'
   account of its mutants is T-148; each survivor still needs a mutant that turns it red, or a reason, after the triage
   batch regenerates the records.*
+  *Closed 2026-11-17 (triage 2026-11-17, Claude's recommendation, pending owner review): done: every survivor it lists is resolved in `docs/version_2_status.md` (2026-11-15).*
 - [ ] T-144 ⟨later⟩ **`M11.C.49` has no declared sweep ranges (step 11, 2026-10-27).** `M11.C.49` is a mixed
   directional criterion, new at revision 39, and `config/sweep/sweep.md` declares no constants for it, so the stage-end
   sweep ran 34 keys, not the 35 the plan's §3.6 counted ("`M11.C.49` adds one Phase C criterion"). W4 is met without
@@ -128,6 +137,7 @@ Raised while drafting part 1 of spec revision 39 (`docs/archive/spec_revision_39
   choosing which `[I]` constants its mechanism reads (the I-position's demand share, `M5.F.4`; appraisal; contagion)
   and their ranges, the same judgment as T-125's batch 5; for the owner, before the next sweep that should carry it.
   The owner kept `M17.E.1` *partial* until it is swept (2026-10-27); the sweep record lists it as not swept.
+  ⟦batch: owner decisions (a rule, a criterion's meaning or a design choice)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
 - [x] T-145 ⟨now⟩ **`M11.C.21`'s scripted collapse falls between weeks, so `M6.I.4a` never sees it (step 12's
   `learning-qa` pass, 2026-10-27; major).** `run_tick` reads each person's level at the week's start inside the tick
   (`src/bowen/engine/tick.py:118`), and `arm_c21` drops both parents' levels in a `before` hook

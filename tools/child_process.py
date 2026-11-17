@@ -30,6 +30,7 @@ from contextlib import contextmanager
 from pathlib import Path
 
 STOP_SIGNALS = (signal.SIGTERM, signal.SIGHUP)
+KILL_WAIT = 60  # seconds to read what a killed child left; past it the pipes are dropped (T-029)
 STDERR_TAIL = 2000  # characters of a failed child's error output kept in the failure
 
 
@@ -137,7 +138,10 @@ def run_child(argv: list[str], cwd: Path, label: str, timeout: int) -> list[dict
                 stdout, stderr = child.communicate(timeout=timeout)
             except subprocess.TimeoutExpired:
                 kill_group(child)
-                stdout, stderr = child.communicate()
+                try:
+                    stdout, stderr = child.communicate(timeout=KILL_WAIT)
+                except subprocess.TimeoutExpired as late:  # a worker outside the group holds a pipe: use what was read
+                    stdout, stderr = _text(late.stdout), _text(late.stderr)
                 rows, cut = decode(stdout)
                 raise ChildFailed(f"{label} timed out after {timeout} s{_cut(cut)}:\n{stderr[-STDERR_TAIL:]}",
                                   rows) from None
@@ -151,6 +155,11 @@ def run_child(argv: list[str], cwd: Path, label: str, timeout: int) -> list[dict
         raise ChildFailed(f"{label} exited 0 but printed {cut} line(s) that do not decode:\n{stderr[-STDERR_TAIL:]}",
                           rows)
     return rows
+
+
+def _text(part: str | bytes | None) -> str:
+    """Output a timed-out ``communicate`` carries, which may be bytes, as text."""
+    return part.decode("utf-8", "replace") if isinstance(part, bytes) else part or ""
 
 
 def _cut(cut: int) -> str:

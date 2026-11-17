@@ -118,3 +118,29 @@ def test_m11c48_t185_readout_counts_unsided_first_cutoffs_apart_from_unmatched_o
     data = ast.literal_eval(comment.removeprefix("<!-- after measurements: ").removesuffix(" -->"))
     assert data["unmatched"] == {"phase_c": 0, "phase_d": 1} and data["unsided"] == {"phase_c": 0, "phase_d": 1}
     assert data["no_contact"] == {"phase_c": 0, "phase_d": 0} and data["mean_run"]["phase_d"] == 4
+
+
+def test_g1_readout_runs_are_cached_and_rendered_without_a_run(tmp_path, monkeypatch):
+    """T-174: each (family, seed) run is cached by the engine hash; a second measurement at that hash runs nothing,
+    `--render-only` renders from the cache, and a new hash is a miss that `--render-only` refuses. A fake run stands
+    in for the engine. Mutation: the cache read skipped (the second measurement runs again)."""
+    import pytest
+
+    import tools.record_cache as record_cache
+
+    monkeypatch.setattr(record_cache, "CACHE_DIR", tmp_path)
+    fakes = {(r["family"], r["seed"]): r for r in _results()}
+    calls = []
+
+    def fake_run(job):
+        calls.append(job)
+        return fakes[job]
+
+    monkeypatch.setattr(tool, "one_run", fake_run)
+    first = tool.measure(2, 1, "e" * 64)
+    assert len(calls) == 4
+    again = tool.measure(2, 1, "e" * 64, render_only=True)
+    assert len(calls) == 4 and again == first
+    assert tool.render_section("after", again, "e" * 64, 2) == tool.render_section("after", first, "e" * 64, 2)
+    with pytest.raises(SystemExit, match="4 of 4"):
+        tool.measure(2, 1, "f" * 64, render_only=True)

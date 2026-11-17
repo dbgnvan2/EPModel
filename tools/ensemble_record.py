@@ -33,6 +33,7 @@ from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO))
+from tools.atomic_write import write_text_atomic  # noqa: E402
 
 RECORD = REPO / "docs" / "phase_c_ensemble_record.md"
 CACHE_NAME = "phase_c_ensemble"  # docs/records_cache/<name>.json (MR-23)
@@ -254,7 +255,7 @@ def main() -> int:
     except KeyError as missing:
         raise SystemExit(f"no result for {missing} on the current code: run without --only, or name it") from None
     cache.save()  # every criterion's entry was used; entries for older code go
-    RECORD.write_text(text, encoding="utf-8")
+    write_text_atomic(RECORD, text)
     print(f"wrote {RECORD.relative_to(REPO)}")
     return 0
 

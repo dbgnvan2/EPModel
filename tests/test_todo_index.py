@@ -112,6 +112,18 @@ def test_open_items_go_to_todo_by_tag_and_ticked_ones_to_the_archive():
     assert ti.render_closed(items[:1]) == "(none yet)"
 
 
+def test_later_items_are_grouped_by_their_batch_marker():
+    record = GOOD + ("- [ ] T-004 ⟨later⟩ **Engine thing.**\n  ⟦batch: engine batch E1⟧ *(triage)*\n"
+                     "- [ ] T-005 ⟨later⟩ **Another engine thing.** ⟦batch: engine batch E1⟧\n"
+                     "- [ ] T-006 ⟨later⟩ **A theory thing.**\n  ⟦batch: theory re-reading⟧\n")
+    items, _ = ti.parse_record(RECORD, record)
+    todo = ti.render_todo(items)
+    assert [i.batch for i in items] == ["", "", "", "engine batch E1", "engine batch E1", "theory re-reading"]
+    assert "## Later (4)\n\n### engine batch E1 (2)\n\n- T-004 ·" in todo
+    assert todo.index("### engine batch E1") < todo.index("### theory re-reading (1)") < todo.index("### No batch yet (1)")
+    assert todo.index("- T-003 ·") > todo.index("### No batch yet")
+
+
 def test_changelog_index_takes_each_entry_in_order_with_its_date():
     text = ("# Changelog\n\nintro\n\n## [Unreleased] — 2026-10-11\n\n### First (2026-10-22)\n\nbody\n\n"
             "### Undated, takes the section's\n\n## 2026-08-22 — old\n\n### Third (2026-08-22)\n")

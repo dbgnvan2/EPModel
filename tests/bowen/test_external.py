@@ -360,6 +360,24 @@ def _recruit(state, sender, tick, kind="SPLIT", target=HALIM, index=0):
     return event
 
 
+def test_m1e7_a_partial_swing_is_topped_up_by_the_shortfall_only():
+    """T-047: with 0 < adjust_swing < system_adjust_gain, a renewed stance adds only the shortfall."""
+    from src.bowen.engine.act import Selection
+    from src.bowen.engine.external import self_practice
+
+    ravi, marta = P("ravi"), P("marta")
+    state = fresh()
+    state.ties[TieId.of(ravi, marta)].felt_impingement[ravi] = 0.6
+    state.people[marta].adjust_swing = PARAMS.system_adjust_gain / 2
+    before = state.people[marta].functional_level
+    self_practice(state, (Selection(ravi, "STAY-IN-CONTACT", (marta,), 100.0),), {ravi: ABOVE_USUAL}, PARAMS)
+    state.ties[TieId.of(ravi, marta)].felt_impingement[ravi] = 0.0
+    state.tick = PARAMS.practice_window
+    self_practice(state, (), {}, PARAMS)
+    assert state.people[marta].functional_level - before == pytest.approx(PARAMS.system_adjust_gain / 2)
+    assert state.people[marta].adjust_swing == pytest.approx(PARAMS.system_adjust_gain)
+
+
 def test_m8_2_an_unrecruited_coach_is_live():
     """A control for the M8.3 tests below: with no side taken, the coach is live for both spouses. It passes with the
     gate removed too; the gate's tests are the ones that follow."""

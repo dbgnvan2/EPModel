@@ -9,12 +9,13 @@ on the owner's instruction of 2026-10-29 to proceed with Claude's recommendation
   its sender by a relieved receiver", as T-171's note on `M11.C.42` does; a spec wording revision, for the owner.
   *Closed 2026-11-06 (spec revision 54, Claude's recommendation under the owner's instruction to proceed, pending the
   owner's review): the note now says the contact is returned to its sender by a relieved receiver.*
-- [ ] T-172 ⟨later⟩ **Three minor items from the W5–W8 reviews (2026-11-01).** (a) `tests/test_requirements.py`'s
+- [x] T-172 ⟨now⟩ **Three minor items from the W5–W8 reviews (2026-11-01).** (a) `tests/test_requirements.py`'s
   `requirement_specifiers`, like `requirement_names`, raises on a `-r` or `--index-url` line, and the NumPy bound
   check rejects a valid `<3.0` or `<=3` (the safe direction, with a misleading message). (b) Nothing checks that the
   `ruff` `tests/test_lint.py` runs locally matches the pin (this Mac has 0.15.1; CI installs 0.17.3). (c)
   `tests/test_version_2_outputs.py` names its four readout pages instead of finding them, so a fifth would go
   unchecked.
+  *Closed 2026-11-17 (triage batch 2026-11-17, Claude's recommendation, pending owner review): (a) option lines skipped, whole-number bounds accepted; (b) the ruff pin check fails on CI and skips with both versions named elsewhere (this Mac has 0.15.1); (c) readout pages found by glob.*
 - [x] T-171 ⟨later⟩ **Five version 1 disposition texts describe causes from before stage 3 (found summarising W5,
   2026-11-01; not decided).** `docs/version_2_status.md` shows version 1's text for `M11.C.2[twelve-person family]`
   (it says the pass is proved by removing focus on weakness; it is now carried by witnessing, `witness-path-removed`),
@@ -105,3 +106,4 @@ on the owner's instruction of 2026-10-29 to proceed with Claude's recommendation
   and `tests/bowen/test_iposition.py::test_m5d5_opposition_pulls_up_to_the_movers_level`'s last assertion (the mover
   above the mean) always holds, since the mover is set to 60, so the exact-formula assertion above it carries the
   test. No engine file changed.
+  ⟦batch: owner decisions (a rule, a criterion's meaning or a design choice)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*

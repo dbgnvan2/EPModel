@@ -34,7 +34,6 @@ SOURCE_ALLOWED: dict[str, str] = {}
 # Names in the spec that do not resolve: tests the spec names for requirements that are not built
 # (spec_coverage.md: not done), which are written when the requirement is.
 SPEC_ALLOWED = {
-    "test_m11d12_corpus_magnitudes_are_not_config_keys": NOT_BUILT,  # M11.D.12: M10.C.4b's checks module (T-244)
     "test_m11c9_position_effect_peaks_midscale": NOT_BUILT,  # M11.C.9, out of version 1
     "test_m11c28_sink_mobility_is_protective": NOT_BUILT,  # M11.C.28
     "test_m17b4_time_to_event_report_does_not_collapse_a_bimodal_fixture": NOT_BUILT,  # Phase E

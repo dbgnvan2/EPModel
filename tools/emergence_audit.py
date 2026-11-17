@@ -41,6 +41,7 @@ from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO))
+from tools.atomic_write import write_text_atomic  # noqa: E402
 
 from tools.mutant_runner import Mutant, apply, run_in_copy  # noqa: E402,F401
 from tools.record_cache import Cache, exit_status, result_key, run_cached, timeout_for  # noqa: E402
@@ -595,7 +596,7 @@ def check_agreement(entries: list[dict], engine: str) -> list[str]:
         if not same:
             continue
         text = tool.RECORD.read_text(encoding="utf-8")
-        found = re.search(r"^engine_hash: (\S+)$", text, re.M)
+        found = re.search(r"^(?:engine_hash|phase_d_mutation_hash): (\S+)$", text, re.M)
         if found is None or found.group(1) != current:
             lines.append(f"not checked against `{tool.RECORD.name}`: it is not on the current engine")
             continue
@@ -837,7 +838,7 @@ def main(argv: list[str] | None = None) -> int:
         except KeyError as missing:
             raise SystemExit(f"{missing.args[0]}; the record is not written. Run the missing share (the controls run "
                              "only in a whole run), or merge the other machine's cache first.") from None
-        RECORD.write_text(text, encoding="utf-8")
+        write_text_atomic(RECORD, text)
         print(f"wrote {RECORD.relative_to(REPO) if RECORD.is_relative_to(REPO) else RECORD}")
         return 0
     check_numpy(cache)
@@ -851,7 +852,7 @@ def main(argv: list[str] | None = None) -> int:
         return exit_status()
     text = build(cache, args.workers)
     cache.save()
-    RECORD.write_text(text, encoding="utf-8")
+    write_text_atomic(RECORD, text)
     print(f"wrote {RECORD.relative_to(REPO) if RECORD.is_relative_to(REPO) else RECORD}")
     return exit_status()
 

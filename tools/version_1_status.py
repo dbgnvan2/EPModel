@@ -334,7 +334,7 @@ def render(rows: list[Status]) -> str:
 
     hashes = []
     for name, path in (*ENSEMBLE_RECORDS, *MUTATION_RECORDS):
-        found = re.search(r"^(code_hash|engine_hash): (\w+)", path.read_text(encoding="utf-8"), re.M)
+        found = re.search(r"^(code_hash|engine_hash|phase_d_mutation_hash): (\w+)", path.read_text(encoding="utf-8"), re.M)
         hashes.append(f"- {name} (`{path.relative_to(REPO)}`): {found.group(1)} `{found.group(2)[:12]}`")
     lines = [
         "# Version 1 status",

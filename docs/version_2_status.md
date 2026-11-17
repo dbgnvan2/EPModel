@@ -19,7 +19,7 @@ Records read:
 - Phase D part I (`docs/phase_d_ensemble_record.md`): code_hash `263d553a9ee0`
 - Phase D part II (`docs/phase_d2_ensemble_record.md`): code_hash `263d553a9ee0`
 - Phase C mutation record (`docs/phase_c_mutation_record.md`): engine_hash `05d3b2345754`
-- Phase D mutation record (`docs/phase_d_mutation_record.md`): engine_hash `d0640d74603c`
+- Phase D mutation record (`docs/phase_d_mutation_record.md`): phase_d_mutation_hash `d0640d74603c`
 - Sweep record (`docs/version_2_sweep_record.md`): engine_hash `95368d6ddf18`, phase_d_engine_hash `75fd45e9778a`
 - Emergence audit record (`docs/emergence_audit_record.md`): engine_hash `61fa9e618f84`
 - the tag's page (`docs/version_1_status.md`): the verdicts at `version-1`

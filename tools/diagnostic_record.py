@@ -8,6 +8,8 @@ Tests:   tests/bowen/test_ensemble_record.py::test_d0_diagnostic_record_is_curre
 
     python3 tools/diagnostic_record.py [--workers N]
 
+A probe that fails or times out is reported, not cached, and the run goes on (T-026).
+
 A diagnostic either runs criteria (failing ones included) under the unmodified model or a mutant from
 tools/mutation_record.py, or runs a probe from tools/probes.py. Results are cached like the mutation record's
 (tools/record_cache.py): a probe's key holds the whole of tools/probes.py, so any edit to it reruns the probes.
@@ -28,10 +30,13 @@ from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO))
-
+from tools.atomic_write import write_text_atomic  # noqa: E402
+from tools.child_process import ChildFailed  # noqa: E402
 from tools.mutant_runner import Mutant, run_in_copy  # noqa: E402
 from tools.mutation_record import MUTANTS  # noqa: E402
-from tools.record_cache import Cache, engine_hash, exit_status, result_key, run_cached  # noqa: E402
+from tools.record_cache import (DEFAULT_TIMEOUT, FAILED, Cache, engine_hash, exit_status,  # noqa: E402
+                                result_key, run_cached)
+import tools.record_cache as record_cache  # noqa: E402  (``_uncached`` is rebound by tests: read it through the module)
 import tools.probes as probes  # noqa: E402
 
 RECORD = REPO / "docs" / "phase_c_diagnostic_record.md"
@@ -133,7 +138,13 @@ def results(cache: Cache, d: Diagnostic, workers: int | None) -> list[dict]:
         if cache.get(key) is None:
             if workers is None:
                 raise KeyError(f"{d.id}: no cached result for the current engine, edits and probe")
-            rows = run_in_copy(mutant(d), "probes.py", "--probe", d.probe, "--seeds", str(d.seeds))
+            try:
+                rows = run_in_copy(mutant(d), "probes.py", "--probe", d.probe, "--seeds", str(d.seeds),
+                                   timeout=DEFAULT_TIMEOUT)
+            except ChildFailed as failed:  # the machine or the limit, not the probe: reported, not cached, go on (T-026)
+                print(f"{d.id}: probe {d.probe} failed ({str(failed.code).splitlines()[0]}); not cached, rerun next time", flush=True)
+                record_cache._uncached.append((FAILED, f"{d.id} → probe {d.probe}"))
+                return []
             if not rows:
                 raise SystemExit(f"{d.id}: probe {d.probe} returned no rows")
             cache.put(key, {"rows": rows})
@@ -155,6 +166,9 @@ def results(cache: Cache, d: Diagnostic, workers: int | None) -> list[dict]:
 def summarise(rows: list[dict]) -> list[str]:
     """A probe's rows grouped by every text field except the seed: per number, the mean, the median, the minimum,
     the maximum and the share of seeds above zero (a heavy tail moves the mean; the median and the share do not)."""
+    if not rows:
+        return ["The probe failed on this run (a child error or its time limit), so it has no rows; the record is not "
+                "current until a rerun gives them."]
     groups: dict[tuple, list[dict]] = {}
     for r in rows:
         groups.setdefault(tuple((k, v) for k, v in r.items() if isinstance(v, str)), []).append(r)
@@ -218,7 +232,7 @@ def main() -> int:
     cache = Cache("diagnostic")
     text = build(cache, args.workers)
     cache.save()
-    RECORD.write_text(text, encoding="utf-8")
+    write_text_atomic(RECORD, text)
     print(f"wrote {RECORD.relative_to(REPO)}")
     return exit_status()
 

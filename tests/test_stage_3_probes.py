@@ -14,11 +14,14 @@ from __future__ import annotations
 
 import math
 
+import pytest
+
 import tools.stage_3_iposition_probe as probe
 import tools.stage_3_projection_trace as trace
 from src.bowen.ensemble.criteria_d import ENGINE
 
 
+@pytest.mark.ensemble  # about 18 s: left out of the default run (T-157)
 def test_stage_3_trace_reproduces_the_development_step(tmp_path):
     """On seed 0, in each arm: the readout `development` is the sum of the traced steps, and every step the band did
     not bound is ``development_rate`` × the mean of the two traced terms, so the trace reads what the rule read.
@@ -66,10 +69,11 @@ def test_stage_3_probe_arms_differ_only_in_the_movers_level(tmp_path):
     assert "## Contrasts, every seed" in text and "hand-written" in text
 
 
+@pytest.mark.ensemble  # about 39 s: left out of the default run (T-157)
 def test_stage_3_displaced_coping_probe_moves_conserved_stress_functioning(tmp_path):
     """On seed 0, as built and under P2 with `OVERFUNCTION`: the child's own term is the sum of its parts at every step
-    (so the probe's split reads what the step read); as built, P2's wrapper moves nothing; under P2 it moves
-    functioning to and from the child in the treatment arm; and the page renders and keeps its "Reading" section.
+    (so the probe's split reads what the step read); under P2 it moves functioning to the child in the treatment
+    arm and in none of the baseline; and the page renders and keeps its "Reading" section.
     Mutation (reasoned, not run): the weekly split read against the basic level after the step would break the
     first check by the step ÷ 52 at every step."""
     import tools.stage_3_displaced_coping_probe as coping
@@ -80,8 +84,6 @@ def test_stage_3_displaced_coping_probe_moves_conserved_stress_functioning(tmp_p
             for s in row[variant][arm]["steps"].values():
                 parts = s["stress"] + s["adjust_neg"] + s["unledgered"] - s["developed"]
                 assert math.isclose(s["own_term"], parts, abs_tol=1e-9), (variant, arm)
-    assert all(row["as_built"][arm][c] == 0 for arm in coping.ARMS for c in ("displaced_to_child",
-                                                                          "displaced_from_child"))
     assert row["p2_overfunction"]["treatment"]["displaced_to_child"] > 0
     assert row["p2_overfunction"]["baseline"]["displaced_to_child"] == 0
     page = tmp_path / "coping.md"

@@ -22,6 +22,12 @@ re-renders it from its cache and compares.
 
 from __future__ import annotations
 
+import builtins
+import contextlib
+import concurrent.futures
+import concurrent.futures.process
+import concurrent.futures.thread
+import fcntl
 import hashlib
 import json
 import os
@@ -40,11 +46,20 @@ CACHE_DIR = REPO / "docs" / "records_cache"
 FAILED = "FAILED"
 ERRORED = ("RAISED", "BROKEN", FAILED)
 # Errors of the machine running the child, not of the mutated model: never a result (learning-qa, 2026-10-09).
-INFRASTRUCTURE_ERRORS = ("BrokenProcessPool", "MemoryError", "OSError", "TimeoutError", "KeyboardInterrupt")
+# A row names its error class as text ("FileNotFoundError: ..."); the class is looked up and tested with issubclass, so
+# a subclass of one of these counts too (T-069). KeyboardInterrupt is not one: it is the user's stop, not a fault.
+INFRASTRUCTURE_ERRORS = (OSError, MemoryError, TimeoutError, concurrent.futures.BrokenExecutor)
 ENGINE_TOOLS = (REPO / "tools" / "mutant_runner.py",)  # RULE_KEYS is in every hash (code_hash), not by file
 CHILD = "mutant_runner.py"
 META = "_meta"  # a cache file's own facts beside its results; a result key is a sha256 hex digest, so never this
 _uncached: list[tuple[str, str]] = []  # this process's errored rows, (outcome, "label → id"), for ``exit_status``
+
+
+def is_infrastructure_error(name: str) -> bool:
+    """Whether the error class called ``name`` (a builtin or a ``concurrent.futures`` class) is an error of the machine."""
+    cls = getattr(builtins, name, None) or getattr(concurrent.futures.process, name, None) \
+        or getattr(concurrent.futures.thread, name, None) or getattr(concurrent.futures, name, None)
+    return isinstance(cls, type) and issubclass(cls, INFRASTRUCTURE_ERRORS)
 
 
 def engine_hash() -> str:
@@ -58,6 +73,19 @@ def result_key(engine: str, definition: dict | None, item: str) -> str:
     return hashlib.sha256(payload.encode()).hexdigest()
 
 
+@contextlib.contextmanager
+def _locked(path: Path):
+    """An exclusive lock on the directory holding the cache file ``path``: it makes no file, so nothing is left in the
+    repository, and one directory is one lock for every cache in it (a flush is short)."""
+    path.parent.mkdir(parents=True, exist_ok=True)
+    fd = os.open(path.parent, os.O_RDONLY)
+    try:
+        fcntl.flock(fd, fcntl.LOCK_EX)
+        yield
+    finally:
+        os.close(fd)  # closing releases the lock
+
+
 class Cache:
     """A JSON file of results by key. ``save`` keeps only the keys used since loading, so stale entries go. ``meta`` is
     the file's own facts, kept under ``META`` beside the results and never a result key (the sweep's NumPy version)."""
@@ -66,6 +94,7 @@ class Cache:
         self.path = CACHE_DIR / f"{name}.json"
         self.entries, self.meta = read_cache_file(self.path) if self.path.exists() else ({}, {})
         self.used: set[str] = set()
+        self.loaded = set(self.entries)  # the keys this process read; a key it dropped later stays dropped
 
     def get(self, key: str) -> dict | None:
         self.used.add(key)
@@ -76,12 +105,30 @@ class Cache:
         self.entries[key] = json.loads(json.dumps(result, sort_keys=True, default=float))
 
     def flush(self) -> None:
-        """Write every entry, pruning nothing: called after each run, so a later failure loses no finished result."""
-        write_cache_file(self.path, self.entries, self.meta)
+        """Write every entry, pruning nothing: called after each run, so a later failure loses no finished result.
+        Under a lock, results another run wrote since this one loaded are kept (a key this run dropped stays dropped), so two runs of one
+        tool at once keep each other's results (T-029)."""
+        with _locked(self.path):
+            if self.path.exists():
+                try:
+                    on_disk = read_cache_file(self.path)[0]
+                    self.entries = {**{k: v for k, v in on_disk.items() if k not in self.loaded}, **self.entries}
+                except (OSError, ValueError):
+                    pass  # an unreadable file is overwritten whole, as before
+            write_cache_file(self.path, self.entries, self.meta)
 
     def save(self) -> None:
-        """Write the entries used since loading: called once a whole record has been built."""
-        write_cache_file(self.path, {k: self.entries[k] for k in self.used if k in self.entries}, self.meta)
+        """Write the entries used since loading: called once a whole record has been built. Under the flush's lock,
+        a result another run wrote since this one loaded is kept, so a concurrent run's results are not pruned (T-029)."""
+        with _locked(self.path):
+            kept = {k: self.entries[k] for k in self.used if k in self.entries}
+            if self.path.exists():
+                try:
+                    on_disk = read_cache_file(self.path)[0]
+                    kept = {**{k: v for k, v in on_disk.items() if k not in self.loaded}, **kept}
+                except (OSError, ValueError):
+                    pass
+            write_cache_file(self.path, kept, self.meta)
 
 
 def read_cache_file(path: Path) -> tuple[dict, dict]:
@@ -147,7 +194,7 @@ def child_rows(mutant: Mutant | None, tool: str, ids: list[str], workers: int, l
         if row is None:
             row = {"criterion": cid, "outcome": FAILED, "seeds": 0,
                    "error": f"ChildFailed: {(failure or 'the child printed no row').splitlines()[0]}"}
-        elif row.get("error", "").split(":")[0] in INFRASTRUCTURE_ERRORS:
+        elif is_infrastructure_error(row.get("error", "").split(":")[0]):
             row = {**row, "outcome": FAILED}
         if row["outcome"] in ERRORED:
             _uncached.append((row["outcome"], f"{label} → {cid}"))

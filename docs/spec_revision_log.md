@@ -14,9 +14,8 @@ recommendations: C.10 to 600 seeds".
 - **`M11.C.10` (T-254).** Its fixed seed count rises from 200 to 600, for both variants (one setting; the owner confirmed
   `M11.C.10[family of origin]` on 2026-11-16: "apply 600 to the family-of-origin variant too"). At 200 seeds its verdict depended on
   the seed block (T-253, `docs/review/2026-11-15_t253_seed_blocks.md`).
-- **`M11.C.7[joint over one spouse]` (T-254).** Unchanged rule and verdict; the Phase D record prints beside it that
-  its effect is below what its seeds resolve (`tools/phase_d_record.py`'s `VERDICT_NOTES`), and `M11.5`'s `M11.C.7`
-  row says the same. `M17.A.1` (and CLAUDE.md) ask for fresh seed blocks before a verdict move with p between about
+- **`M11.C.7[joint over one spouse]` (T-254).** Unchanged rule and verdict; `M11.5`'s `M11.C.7` row says that its
+  effect is below what its seeds resolve, so a later flip is read as noise. `M17.A.1` (and CLAUDE.md) ask for fresh seed blocks before a verdict move with p between about
   0.01 and 0.2 is read as a change.
 
 ### Revision 62 — T-247 and T-248, 2026-11-15 ⟦rev62 · T-247 and T-248, owner 2026-11-14 and 2026-11-15⟧

@@ -8,7 +8,7 @@ direction (`tools/mutation_record.py`'s `judge`). A mixed row is judged on its c
 is evidence for triage, not a defect by itself: the defect test is `M11.1d`'s, whether a rule that carries it
 names its outcome, and the owner decides it for each survivor.
 
-engine_hash: 77a60c027a203555a5de71ae07fe37fcd1aba58bd527aec9688f90f02d93de6f
+engine_hash: 61fa9e618f84b6900c8f731fa5c817d266dc38f6dc3f21be3fb2c89564669610
 
 Stage: **carriers**. The carriers stage (plan §7 steps 4 and 6, owner 2026-11-04): L0 on every in-scope row and the two controls, and the carriers of each L0 survivor; L1 to L4 are not run.
 
@@ -38,8 +38,8 @@ Stage: **carriers**. The carriers stage (plan §7 steps 4 and 6, owner 2026-11-0
 | `M11.C.7[one spouse over sided]` | mixed | 150 |
 | `M11.C.7[joint over sided]` | mixed | 150 |
 | `M11.C.15` | composite | 100 |
-| `M11.C.10` | composite | 200 |
-| `M11.C.10[family of origin]` | composite | 200 |
+| `M11.C.10` | composite | 600 |
+| `M11.C.10[family of origin]` | composite | 600 |
 | `M11.C.2[twelve-person family]` | composite | 150 |
 | `M11.C.48[phase_d]` | composite | 200 |
 | `M11.C.55` | composite | 150 |
@@ -101,8 +101,8 @@ Never findings. The build refuses to render the record if either does not hold.
 | `M11.C.7[one spouse over sided]` | mixed | L0 | PASS | 150 | `deviation_fall` +0.0876 ± 0.053, p 0.001; `landed_contacts` +9.53 ± 0.66, p 1.1e-26 (premise limb) | **survived** |
 | `M11.C.7[joint over sided]` | mixed | L0 | PASS | 150 | `deviation_fall` +0.119 ± 0.044, p 1e-06; `landed_contacts` +8.97 ± 0.61, p 1e-26 (premise limb) | **survived** |
 | `M11.C.15` | composite | L0 | PASS | 100 | `death_rise` +3.88 ± 0.55, p 2.8e-16; `recovery_rise` +7.05 ± 0.52, p 2e-18 | **survived** |
-| `M11.C.10` | composite | L0 | FAIL | 200 | `cut_off_tie_weeks` +47.1 ± 1.2e+02, p 0.22; `child_cut_weeks` +9.17 ± 43 (reported) | **red** |
-| `M11.C.10[family of origin]` | composite | L0 | FAIL | 200 | `cut_off_tie_weeks` +97.7 ± 1.3e+02, p 0.073; `child_cut_weeks` +56.6 ± 46 (reported) | **red** |
+| `M11.C.10` | composite | L0 | FAIL | 600 | `cut_off_tie_weeks` +64.9 ± 73, p 0.068; `child_cut_weeks` +14.7 ± 27 (reported) | **red** |
+| `M11.C.10[family of origin]` | composite | L0 | FAIL | 600 | `cut_off_tie_weeks` +53.1 ± 78, p 0.1; `child_cut_weeks` +43.3 ± 28 (reported) | **red** |
 | `M11.C.2[twelve-person family]` | composite | L0 | FAIL | 100 | `symptom_load` -0.395 ± 1.5, p 0.65 | **red** |
 | `M11.C.48[phase_d]` | composite | L0 | PASS | 200 | `negative_run` +0.09 ± 0.075, p 0.0014; `run_before_cutoff` +1.64 ± 0.052 (reported); `first_cutoffs` +0 ± 0 (reported); `unmatched_cutoffs` +9.68 ± 0.25 (reported); `no_contact_cutoffs` +11.1 ± 0.38 (reported); `unsided_cutoffs` +2.69 ± 0.15 (reported); `unmatched_left_out_run` +1.67 ± 0.091 (reported); `unsided_left_out_run` +2.05 ± 0.17 (reported); `matched_seed` +1 ± 0 (reported) | **survived** |
 | `M11.C.55` | composite | L0 | FAIL | 150 | `predicted_main_supplier` -0.247 ± 0.089, p 1; `predicted_over_chance` -0.64 ± 0.015, p 1; `parents_supplied` +0 ± 0 (reported); `birth_order_hits` +0 ± 0 (reported) | **reversed** |
@@ -260,7 +260,7 @@ Carriers: **C7:removed-member-holds-not-released-on-return**.
 
 Carriers: **C5, C7:coach-position-blind**.
 
-`M11.5` says it rests on: `M8` predicate (the landed-contacts limb). Note: the deviation ordering is composite: no rule writes it; the coach's going along with a `SPLIT` is a declared premise of the sided arm (D29). *Emergence audit (T-187): the `[joint over one spouse]` cell's deviation ordering passes thinly with learning removed and is carried by C2 (`M4.D.1a`'s mixing weight blind to level, in the policy only), C4 (`M4.D.1a`'s perspective steering), C6 (`M4.D.1d`'s competing urges) and `landed-contact-changes-nothing` (`M1.E.7`'s `perspective_gain` 0), each of which turns it red. None names the ordering; the class stays mixed.*
+`M11.5` says it rests on: `M8` predicate (the landed-contacts limb). Note: the deviation ordering is composite: no rule writes it; the coach's going along with a `SPLIT` is a declared premise of the sided arm (D29). *Emergence audit (T-187): the `[joint over one spouse]` cell's deviation ordering passes thinly with learning removed and is carried by C2 (`M4.D.1a`'s mixing weight blind to level, in the policy only), C4 (`M4.D.1a`'s perspective steering), C6 (`M4.D.1d`'s competing urges) and `landed-contact-changes-nothing` (`M1.E.7`'s `perspective_gain` 0), each of which turns it red. None names the ordering; the class stays mixed.* *Verdict note (T-254): the `[joint over one spouse]` effect, about +0.016 over T-253's fresh blocks against a 100-seed half-width of about 0.06, is below what the ensemble resolves; its FAIL stands and a later flip of it is read as noise, not as a change of the model (`docs/review/2026-11-15_t253_seed_blocks.md`).*
 
 | Criterion | Class | Ablation | Outcome | Seeds | Difference under ablation | Verdict |
 |---|---|---|---|---|---|---|
@@ -276,7 +276,7 @@ Carriers: **C5, C7:coach-position-blind**.
 
 Carriers: **C7:landed-contact-changes-nothing, C7:coach-position-blind**.
 
-`M11.5` says it rests on: `M8` predicate (the landed-contacts limb). Note: the deviation ordering is composite: no rule writes it; the coach's going along with a `SPLIT` is a declared premise of the sided arm (D29). *Emergence audit (T-187): the `[joint over one spouse]` cell's deviation ordering passes thinly with learning removed and is carried by C2 (`M4.D.1a`'s mixing weight blind to level, in the policy only), C4 (`M4.D.1a`'s perspective steering), C6 (`M4.D.1d`'s competing urges) and `landed-contact-changes-nothing` (`M1.E.7`'s `perspective_gain` 0), each of which turns it red. None names the ordering; the class stays mixed.*
+`M11.5` says it rests on: `M8` predicate (the landed-contacts limb). Note: the deviation ordering is composite: no rule writes it; the coach's going along with a `SPLIT` is a declared premise of the sided arm (D29). *Emergence audit (T-187): the `[joint over one spouse]` cell's deviation ordering passes thinly with learning removed and is carried by C2 (`M4.D.1a`'s mixing weight blind to level, in the policy only), C4 (`M4.D.1a`'s perspective steering), C6 (`M4.D.1d`'s competing urges) and `landed-contact-changes-nothing` (`M1.E.7`'s `perspective_gain` 0), each of which turns it red. None names the ordering; the class stays mixed.* *Verdict note (T-254): the `[joint over one spouse]` effect, about +0.016 over T-253's fresh blocks against a 100-seed half-width of about 0.06, is below what the ensemble resolves; its FAIL stands and a later flip of it is read as noise, not as a change of the model (`docs/review/2026-11-15_t253_seed_blocks.md`).*
 
 | Criterion | Class | Ablation | Outcome | Seeds | Difference under ablation | Verdict |
 |---|---|---|---|---|---|---|
@@ -332,7 +332,7 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
 
 ```json
 {
- "engine_hash": "77a60c027a203555a5de71ae07fe37fcd1aba58bd527aec9688f90f02d93de6f",
+ "engine_hash": "61fa9e618f84b6900c8f731fa5c817d266dc38f6dc3f21be3fb2c89564669610",
  "stage": "carriers",
  "scope": {
   "audited": 15,
@@ -819,22 +819,22 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
    "class": "composite",
    "ablation": "L0",
    "outcome": "FAIL",
-   "seeds": 200,
+   "seeds": 600,
    "verdict": "red",
    "note": "",
    "readouts": [
     {
      "direction": 1,
-     "half_width": 124.6750865618864,
-     "mean_difference": 47.095,
-     "p": 0.2173102073204675,
+     "half_width": 73.01830016402894,
+     "mean_difference": 64.855,
+     "p": 0.06810883795751406,
      "readout": "cut_off_tie_weeks",
      "report_only": false
     },
     {
      "direction": 1,
-     "half_width": 43.49053290857862,
-     "mean_difference": 9.17,
+     "half_width": 27.017835001674563,
+     "mean_difference": 14.738333333333333,
      "readout": "child_cut_weeks",
      "report_only": true
     }
@@ -846,22 +846,22 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
    "class": "composite",
    "ablation": "L0",
    "outcome": "FAIL",
-   "seeds": 200,
+   "seeds": 600,
    "verdict": "red",
    "note": "",
    "readouts": [
     {
      "direction": 1,
-     "half_width": 130.28091725616508,
-     "mean_difference": 97.665,
-     "p": 0.07290568303087024,
+     "half_width": 78.24403701458057,
+     "mean_difference": 53.08,
+     "p": 0.10220265862667714,
      "readout": "cut_off_tie_weeks",
      "report_only": false
     },
     {
      "direction": 1,
-     "half_width": 46.191576702397455,
-     "mean_difference": 56.585,
+     "half_width": 27.62295138493663,
+     "mean_difference": 43.276666666666664,
      "readout": "child_cut_weeks",
      "report_only": true
     }
@@ -4166,7 +4166,7 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
    ],
    "red_without_fail": [],
    "m115_rests_on": "`M8` predicate (the landed-contacts limb)",
-   "m115_note": "the deviation ordering is composite: no rule writes it; the coach's going along with a `SPLIT` is a declared premise of the sided arm (D29). *Emergence audit (T-187): the `[joint over one spouse]` cell's deviation ordering passes thinly with learning removed and is carried by C2 (`M4.D.1a`'s mixing weight blind to level, in the policy only), C4 (`M4.D.1a`'s perspective steering), C6 (`M4.D.1d`'s competing urges) and `landed-contact-changes-nothing` (`M1.E.7`'s `perspective_gain` 0), each of which turns it red. None names the ordering; the class stays mixed.*"
+   "m115_note": "the deviation ordering is composite: no rule writes it; the coach's going along with a `SPLIT` is a declared premise of the sided arm (D29). *Emergence audit (T-187): the `[joint over one spouse]` cell's deviation ordering passes thinly with learning removed and is carried by C2 (`M4.D.1a`'s mixing weight blind to level, in the policy only), C4 (`M4.D.1a`'s perspective steering), C6 (`M4.D.1d`'s competing urges) and `landed-contact-changes-nothing` (`M1.E.7`'s `perspective_gain` 0), each of which turns it red. None names the ordering; the class stays mixed.* *Verdict note (T-254): the `[joint over one spouse]` effect, about +0.016 over T-253's fresh blocks against a 100-seed half-width of about 0.06, is below what the ensemble resolves; its FAIL stands and a later flip of it is read as noise, not as a change of the model (`docs/review/2026-11-15_t253_seed_blocks.md`).*"
   },
   {
    "criterion": "M11.C.7[joint over sided]",
@@ -4419,7 +4419,7 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
    ],
    "red_without_fail": [],
    "m115_rests_on": "`M8` predicate (the landed-contacts limb)",
-   "m115_note": "the deviation ordering is composite: no rule writes it; the coach's going along with a `SPLIT` is a declared premise of the sided arm (D29). *Emergence audit (T-187): the `[joint over one spouse]` cell's deviation ordering passes thinly with learning removed and is carried by C2 (`M4.D.1a`'s mixing weight blind to level, in the policy only), C4 (`M4.D.1a`'s perspective steering), C6 (`M4.D.1d`'s competing urges) and `landed-contact-changes-nothing` (`M1.E.7`'s `perspective_gain` 0), each of which turns it red. None names the ordering; the class stays mixed.*"
+   "m115_note": "the deviation ordering is composite: no rule writes it; the coach's going along with a `SPLIT` is a declared premise of the sided arm (D29). *Emergence audit (T-187): the `[joint over one spouse]` cell's deviation ordering passes thinly with learning removed and is carried by C2 (`M4.D.1a`'s mixing weight blind to level, in the policy only), C4 (`M4.D.1a`'s perspective steering), C6 (`M4.D.1d`'s competing urges) and `landed-contact-changes-nothing` (`M1.E.7`'s `perspective_gain` 0), each of which turns it red. None names the ordering; the class stays mixed.* *Verdict note (T-254): the `[joint over one spouse]` effect, about +0.016 over T-253's fresh blocks against a 100-seed half-width of about 0.06, is below what the ensemble resolves; its FAIL stands and a later flip of it is read as noise, not as a change of the model (`docs/review/2026-11-15_t253_seed_blocks.md`).*"
   },
   {
    "criterion": "M11.C.15",

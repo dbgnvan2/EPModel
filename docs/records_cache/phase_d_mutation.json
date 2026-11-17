@@ -1,21 +1,99 @@
 {
- "098bb6d3582bf6acac2f33346782bc3b2015cf9f5f6f73a1c02a9d044c3e3885": {
-  "criterion": "M11.C.2[twelve-person family]",
+ "2060f0bbeef971fb03360964585d7dbe4e97f405e9d3aa8c5c6328b47184d791": {
+  "criterion": "M11.C.17",
   "missing_moves": [],
   "outcome": "FAIL",
   "readouts": [
    {
     "direction": 1,
-    "half_width": 1.690891198563629,
-    "mean_difference": 0.16305949410042359,
-    "p": 0.39135835086324705,
-    "readout": "symptom_load",
+    "half_width": 0.0011976545041276106,
+    "mean_difference": -0.0009015491293124948,
+    "p": 0.9396612644195557,
+    "readout": "coached_rise",
     "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 0.0003557160326134332,
+    "mean_difference": -0.00021652369086757925,
+    "readout": "family_rise",
+    "report_only": true
    }
   ],
   "seeds": 150
  },
- "16bd4f562dde66300a5ada00afb671e9728a5292c1010fd4764b855cac4f64ef": {
+ "20da9c8ce1ecc2eacdcc767894a3a87a7958b9d627c7dcd1703e0e402bb2e134": {
+  "criterion": "M11.C.14[talking it out]",
+  "missing_moves": [],
+  "outcome": "PASS",
+  "readouts": [
+   {
+    "bound_side": 1,
+    "direction": 0,
+    "equivalence_bound": 7.10488604544965,
+    "half_width": 3.060394330949346,
+    "mean_difference": -2.0929849580119413,
+    "readout": "child_symptom_load",
+    "report_only": false,
+    "within_bound": true
+   },
+   {
+    "direction": 0,
+    "half_width": 4.249073077055148,
+    "mean_difference": -9.882988758477932,
+    "readout": "talking_less_firmness",
+    "report_only": true
+   }
+  ],
+  "seeds": 50
+ },
+ "2a5d97be0cdb5ee7d55aff3d5d02293869cb76fdc1749705f774891f03322997": {
+  "criterion": "M11.C.10[family of origin]",
+  "missing_moves": [],
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 66.48296175421616,
+    "mean_difference": -34.92333333333333,
+    "p": 0.8324869714580219,
+    "readout": "cut_off_tie_weeks",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 27.013842100548366,
+    "mean_difference": 54.038333333333334,
+    "readout": "child_cut_weeks",
+    "report_only": true
+   }
+  ],
+  "seeds": 600
+ },
+ "31acba3d83affa1f56722cdb112d736a308ace136e83abd4d25dae02e7966c59": {
+  "criterion": "M11.C.20",
+  "missing_moves": [],
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 0.19145906758570302,
+    "mean_difference": -0.28477472200735704,
+    "p": 0.9988414548945519,
+    "readout": "rise",
+    "report_only": false
+   },
+   {
+    "direction": -1,
+    "half_width": 0.01675669576647784,
+    "mean_difference": -0.06768796454651164,
+    "readout": "support_blocked",
+    "report_only": true
+   }
+  ],
+  "seeds": 100
+ },
+ "3713c9dac373b04380bf33ef37000030785841b0eb72e0799aec3e046faca338": {
   "criterion": "M11.C.2[twelve-person family]",
   "missing_moves": [],
   "outcome": "FAIL",
@@ -31,170 +109,30 @@
   ],
   "seeds": 150
  },
- "1b7033affd70235cda28351aff2ad82437270d3573d87c04a22a715ff4091c64": {
-  "criterion": "M11.C.22",
-  "missing_moves": [],
-  "outcome": "FAIL",
-  "readouts": [
-   {
-    "direction": 1,
-    "half_width": 0.6389245451437404,
-    "mean_difference": -0.047717560240472884,
-    "p": 0.5837453007698059,
-    "readout": "mild_removal_effect",
-    "report_only": false
-   },
-   {
-    "direction": -1,
-    "half_width": 0.6389245451437404,
-    "mean_difference": -0.047717560240472884,
-    "p": 0.42659977078437805,
-    "readout": "severe_removal_effect",
-    "report_only": false
-   }
-  ],
-  "seeds": 50
- },
- "20f98919c1c1b4ad5d831b1b8398542782144ff85805918b46695d376ca968a7": {
-  "criterion": "M11.C.10[family of origin]",
-  "missing_moves": [],
-  "outcome": "PASS",
-  "readouts": [
-   {
-    "direction": 1,
-    "half_width": 128.25558857772356,
-    "mean_difference": 145.94,
-    "p": 0.013928832168739703,
-    "readout": "cut_off_tie_weeks",
-    "report_only": false
-   },
-   {
-    "direction": 1,
-    "half_width": 46.75292337835047,
-    "mean_difference": 71.255,
-    "readout": "child_cut_weeks",
-    "report_only": true
-   }
-  ],
-  "seeds": 200
- },
- "32785445c7822d970054f85d15eb6296f391e90639fff21b4d1958680871b70d": {
-  "criterion": "M11.C.39",
-  "missing_moves": [],
-  "outcome": "PASS",
-  "readouts": [
-   {
-    "direction": 1,
-    "half_width": 0.9109030398014176,
-    "mean_difference": 9.76,
-    "p": 2.715491519059015e-25,
-    "readout": "pattern_after_spell",
-    "report_only": false
-   },
-   {
-    "direction": 1,
-    "half_width": 2.7097690978456224,
-    "mean_difference": 4.753333333333333,
-    "readout": "time_to_remission",
-    "report_only": true
-   }
-  ],
-  "seeds": 150
- },
- "3c41c8a88b0898a5e1868b3ea24bc88c7a7aec70355aac5b3c05d53a0d285e1a": {
-  "criterion": "M11.C.39",
-  "missing_moves": [],
-  "outcome": "FAIL",
-  "readouts": [
-   {
-    "direction": 1,
-    "half_width": 0.0,
-    "mean_difference": 0.0,
-    "p": 1.0,
-    "readout": "pattern_after_spell",
-    "report_only": false
-   },
-   {
-    "direction": 1,
-    "half_width": 0.0,
-    "mean_difference": 0.0,
-    "readout": "time_to_remission",
-    "report_only": true
-   }
-  ],
-  "seeds": 50
- },
- "4fec54cec6c774fbef4ae7d536d0e49d4e03a529068579be0811be75d22d8416": {
-  "criterion": "M11.C.7[joint over sided]",
-  "missing_moves": [],
-  "outcome": "FAIL",
-  "readouts": [
-   {
-    "direction": 1,
-    "half_width": 0.03983075362224419,
-    "mean_difference": -0.008715201300088248,
-    "p": 0.4964561564340835,
-    "readout": "deviation_fall",
-    "report_only": false
-   },
-   {
-    "direction": 1,
-    "half_width": 0.5765255966385346,
-    "mean_difference": 9.04,
-    "p": 1.0464332549410199e-26,
-    "readout": "landed_contacts",
-    "report_only": false
-   }
-  ],
-  "seeds": 150
- },
- "54492b90dbe1eca74858540bbf7e2424e1ac867366d6ba592e75f32c79edbb5b": {
+ "3b2efba6ca594fc6f78799a1516bc47fa5672a5f3025979aae18a48f8b068e6c": {
   "criterion": "M11.C.10",
   "missing_moves": [],
   "outcome": "FAIL",
   "readouts": [
    {
     "direction": 1,
-    "half_width": 118.24013411677934,
-    "mean_difference": 86.885,
-    "p": 0.08358943956479868,
+    "half_width": 65.68931950344516,
+    "mean_difference": 30.756666666666668,
+    "p": 0.14748545571373523,
     "readout": "cut_off_tie_weeks",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 44.167652477926126,
-    "mean_difference": 28.045,
+    "half_width": 26.238943955091532,
+    "mean_difference": 15.203333333333333,
     "readout": "child_cut_weeks",
     "report_only": true
    }
   ],
-  "seeds": 200
+  "seeds": 600
  },
- "58e0a9f5b3bde49d40a704e76a7f98e7d1308571e0ece9b0fcc3df472707ba56": {
-  "criterion": "M11.C.10",
-  "missing_moves": [],
-  "outcome": "FAIL",
-  "readouts": [
-   {
-    "direction": 1,
-    "half_width": 110.81480264117249,
-    "mean_difference": 45.25,
-    "p": 0.21667101584889162,
-    "readout": "cut_off_tie_weeks",
-    "report_only": false
-   },
-   {
-    "direction": 1,
-    "half_width": 42.85596356327183,
-    "mean_difference": 13.395,
-    "readout": "child_cut_weeks",
-    "report_only": true
-   }
-  ],
-  "seeds": 200
- },
- "6c7a36118d5aacef1436badb9f50a2fc89d8bb191a1617abfba10f67590ccc28": {
+ "3e9caa17ed881b41e373c68c2793fc96875cb9fa49981c815a31cfc990cffb1f": {
   "criterion": "M11.C.15",
   "missing_moves": [],
   "outcome": "FAIL",
@@ -218,7 +156,30 @@
   ],
   "seeds": 50
  },
- "7b3ad94f5b8a31c2b05d8487d429ef947250cd0234e476b4259967a4b022b0f6": {
+ "400e307b7483a0c78d5e09c0493a8749875ca69797f1f6fd3fb7656b6e872def": {
+  "criterion": "M11.C.10",
+  "missing_moves": [],
+  "outcome": "PASS",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 68.51585544736152,
+    "mean_difference": 66.72,
+    "p": 0.031334672825222315,
+    "readout": "cut_off_tie_weeks",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 26.14332203595645,
+    "mean_difference": 42.355,
+    "readout": "child_cut_weeks",
+    "report_only": true
+   }
+  ],
+  "seeds": 600
+ },
+ "4302b6c8a68b72665ae946e65f7bfc71b720841ce7eff9330216cbebba71bcf4": {
   "criterion": "M11.C.7[one spouse over sided]",
   "missing_moves": [],
   "outcome": "FAIL",
@@ -242,37 +203,55 @@
   ],
   "seeds": 100
  },
- "925c44f8540ac28638001b88771913915fcd29a76ddadfbd50bb665f3a5ea7ac": {
-  "criterion": "M11.C.46",
+ "6fe2f9845863a2613248d1e608b16635e6f67c72d9f1a30c5b33137c48251f26": {
+  "criterion": "M11.C.33",
   "missing_moves": [],
   "outcome": "FAIL",
   "readouts": [
    {
     "direction": 1,
-    "half_width": 0.2680450363039831,
-    "mean_difference": -0.34139030620967853,
-    "p": 0.9885195295254606,
-    "readout": "seeker_relief",
+    "half_width": 0.0,
+    "mean_difference": 0.0,
+    "p": 1.0,
+    "readout": "rise",
     "report_only": false
-   },
-   {
-    "direction": 0,
-    "half_width": 1.2895444178662219,
-    "mean_difference": -0.12374571332002503,
-    "readout": "third_excess",
-    "report_only": true
-   },
-   {
-    "direction": -1,
-    "half_width": 0.6575057008209578,
-    "mean_difference": 0.6611386145002824,
-    "readout": "seeker_change",
-    "report_only": true
    }
   ],
-  "seeds": 100
+  "seeds": 50
  },
- "a120a25199e5727955ef6b640bd59b8ba952c6b93d8f0f494354ba35c2344112": {
+ "732b4447efe664cac0f3c8a9f8738e502c032da5354045b08f7956ef66eb123c": {
+  "criterion": "M11.C.11",
+  "missing_moves": [],
+  "outcome": "PASS",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 1.1547428975603014,
+    "mean_difference": 2.0851810498333303,
+    "p": 0.0002855691930306917,
+    "readout": "disturbance",
+    "report_only": false
+   }
+  ],
+  "seeds": 150
+ },
+ "7c29d87a4f4e1cd67146bc5fae56f6bb516542a440fd68ad7282c33813b13a5b": {
+  "criterion": "M11.C.11",
+  "missing_moves": [],
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 1.0673314914600154,
+    "mean_difference": 0.32366203789121445,
+    "p": 0.3089153747895116,
+    "readout": "disturbance",
+    "report_only": false
+   }
+  ],
+  "seeds": 150
+ },
+ "7cea6222761ce1c0a78c99438e07388144044adff37030de8780789f91144d96": {
   "criterion": "M11.C.55",
   "missing_moves": [],
   "outcome": "FAIL",
@@ -310,23 +289,252 @@
   ],
   "seeds": 200
  },
- "a2d05a4c104b3483e841d38cb46dfa902cfa1e6613dfb109dcf51bb7b6e0199d": {
-  "criterion": "M11.C.11",
+ "9b68cef20d2abe6a072789f7ec53a8db0e5594ad4a3c21469cbaa1a8027c0681": {
+  "criterion": "M11.C.39",
+  "missing_moves": [],
+  "outcome": "PASS",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 0.9109030398014176,
+    "mean_difference": 9.76,
+    "p": 2.715491519059015e-25,
+    "readout": "pattern_after_spell",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 2.7097690978456224,
+    "mean_difference": 4.753333333333333,
+    "readout": "time_to_remission",
+    "report_only": true
+   }
+  ],
+  "seeds": 150
+ },
+ "a4ed8b94df1f00bb0234d4683a46c8a5d5c562531fb7bf4dd2911546da1abeb7": {
+  "criterion": "M11.C.18",
   "missing_moves": [],
   "outcome": "FAIL",
   "readouts": [
    {
     "direction": 1,
-    "half_width": 1.0673314914600154,
-    "mean_difference": 0.32366203789121445,
-    "p": 0.3089153747895116,
-    "readout": "disturbance",
+    "half_width": 0.00020339357721399948,
+    "mean_difference": -0.0002191169660396497,
+    "p": 0.9985841891572208,
+    "readout": "rise",
     "report_only": false
    }
   ],
   "seeds": 150
  },
- "a763c9da14ccacdff3b310eeb20720a9dee798646bb74cbdd99929dd5ff47b12": {
+ "c041b61bf1d7bdff61bbcebf758f8889f72f752e07041946ddc874c1b09e8537": {
+  "criterion": "M11.C.7[joint over sided]",
+  "missing_moves": [],
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 0.06100921037149136,
+    "mean_difference": -0.011218869657599466,
+    "p": 0.5114238262228608,
+    "readout": "deviation_fall",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 0.6688991758663987,
+    "mean_difference": -0.36,
+    "p": 0.8469282889743635,
+    "readout": "landed_contacts",
+    "report_only": false
+   }
+  ],
+  "seeds": 100
+ },
+ "c414b6e7b3623ac4424eb6bc19a407e884fbdee57ecefe7d77bb1319c0eca5d4": {
+  "criterion": "M11.C.7[joint over sided]",
+  "missing_moves": [],
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 0.03983075362224419,
+    "mean_difference": -0.008715201300088248,
+    "p": 0.4964561564340835,
+    "readout": "deviation_fall",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 0.5765255966385346,
+    "mean_difference": 9.04,
+    "p": 1.0464332549410199e-26,
+    "readout": "landed_contacts",
+    "report_only": false
+   }
+  ],
+  "seeds": 150
+ },
+ "d7ee7819c7eb367d0f089f426b37a38f9de445bc816a8229621622fd567cbcde": {
+  "criterion": "M11.C.2[twelve-person family]",
+  "missing_moves": [],
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 1.690891198563629,
+    "mean_difference": 0.16305949410042359,
+    "p": 0.39135835086324705,
+    "readout": "symptom_load",
+    "report_only": false
+   }
+  ],
+  "seeds": 150
+ },
+ "d83c820f4f2d4dcfa77c29197ad76f7cf4409d56e9aae331185818fdb7624c4d": {
+  "criterion": "M11.C.22",
+  "missing_moves": [],
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 0.6389245451437404,
+    "mean_difference": -0.047717560240472884,
+    "p": 0.5837453007698059,
+    "readout": "mild_removal_effect",
+    "report_only": false
+   },
+   {
+    "direction": -1,
+    "half_width": 0.6389245451437404,
+    "mean_difference": -0.047717560240472884,
+    "p": 0.42659977078437805,
+    "readout": "severe_removal_effect",
+    "report_only": false
+   }
+  ],
+  "seeds": 50
+ },
+ "e482e6f45189d2de31f12e4cd3321d984c3c085eedf03d89c46a4ade9da9a572": {
+  "criterion": "M11.C.46",
+  "missing_moves": [],
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 0.2680450363039831,
+    "mean_difference": -0.34139030620967853,
+    "p": 0.9885195295254606,
+    "readout": "seeker_relief",
+    "report_only": false
+   },
+   {
+    "direction": 0,
+    "half_width": 1.2895444178662219,
+    "mean_difference": -0.12374571332002503,
+    "readout": "third_excess",
+    "report_only": true
+   },
+   {
+    "direction": -1,
+    "half_width": 0.6575057008209578,
+    "mean_difference": 0.6611386145002824,
+    "readout": "seeker_change",
+    "report_only": true
+   }
+  ],
+  "seeds": 100
+ },
+ "e57ee5e796710f1f3031898de118a7843965d26a2a31da0c6a16a4088123221b": {
+  "criterion": "M11.C.39",
+  "missing_moves": [],
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 0.0,
+    "mean_difference": 0.0,
+    "p": 1.0,
+    "readout": "pattern_after_spell",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 0.0,
+    "mean_difference": 0.0,
+    "readout": "time_to_remission",
+    "report_only": true
+   }
+  ],
+  "seeds": 50
+ },
+ "e83323a3558380e950dfea4def0001c3ca85425650b3c2351f4482ed6b62cd33": {
+  "criterion": "M11.C.10[family of origin]",
+  "missing_moves": [],
+  "outcome": "PASS",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 73.75178101228562,
+    "mean_difference": 152.50166666666667,
+    "p": 2.2850447610826625e-05,
+    "readout": "cut_off_tie_weeks",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 28.2962927719305,
+    "mean_difference": 28.563333333333333,
+    "readout": "child_cut_weeks",
+    "report_only": true
+   }
+  ],
+  "seeds": 600
+ },
+ "e8da005493ef7707f644c1bf9de6265e3bc1e5fb11ed45381d771a3352a14827": {
+  "criterion": "M11.C.15",
+  "missing_moves": [],
+  "outcome": "PASS",
+  "readouts": [
+   {
+    "direction": 1,
+    "half_width": 0.6652473826274097,
+    "mean_difference": 1.5245747643065297,
+    "p": 9.349292614747994e-06,
+    "readout": "death_rise",
+    "report_only": false
+   },
+   {
+    "direction": 1,
+    "half_width": 0.5505044974368073,
+    "mean_difference": 5.434047756736598,
+    "p": 2.8924449044347723e-18,
+    "readout": "recovery_rise",
+    "report_only": false
+   }
+  ],
+  "seeds": 100
+ },
+ "ecc801f87fbf48b9631ba395bffecb7c4a080b14833cabab4e6531cdf9e40d4f": {
+  "criterion": "M11.C.14[firmness]",
+  "missing_moves": [],
+  "outcome": "PASS",
+  "readouts": [
+   {
+    "bound_side": 1,
+    "direction": 0,
+    "equivalence_bound": 6.848779881745453,
+    "half_width": 3.2087146752810276,
+    "mean_difference": 10.455295454410525,
+    "readout": "child_symptom_load",
+    "report_only": false,
+    "within_bound": true
+   }
+  ],
+  "seeds": 100
+ },
+ "f4a6aae920018de5eacbcbc124afe4d39279b850840142472b18ea92bad132e0": {
   "criterion": "M11.C.48[phase_d]",
   "missing_moves": [],
   "outcome": "FAIL",
@@ -397,213 +605,5 @@
    }
   ],
   "seeds": 200
- },
- "b2b7e259c42ef774a3495b22930b37c3eb6d46d1a146cc69559f47655bfaa930": {
-  "criterion": "M11.C.14[talking it out]",
-  "missing_moves": [],
-  "outcome": "PASS",
-  "readouts": [
-   {
-    "bound_side": 1,
-    "direction": 0,
-    "equivalence_bound": 7.10488604544965,
-    "half_width": 3.060394330949346,
-    "mean_difference": -2.0929849580119413,
-    "readout": "child_symptom_load",
-    "report_only": false,
-    "within_bound": true
-   },
-   {
-    "direction": 0,
-    "half_width": 4.249073077055148,
-    "mean_difference": -9.882988758477932,
-    "readout": "talking_less_firmness",
-    "report_only": true
-   }
-  ],
-  "seeds": 50
- },
- "c67e6d1597d96c73973e22ee2bbf9d6f8084683ac5765696046327199770de61": {
-  "criterion": "M11.C.7[joint over sided]",
-  "missing_moves": [],
-  "outcome": "FAIL",
-  "readouts": [
-   {
-    "direction": 1,
-    "half_width": 0.06100921037149136,
-    "mean_difference": -0.011218869657599466,
-    "p": 0.5114238262228608,
-    "readout": "deviation_fall",
-    "report_only": false
-   },
-   {
-    "direction": 1,
-    "half_width": 0.6688991758663987,
-    "mean_difference": -0.36,
-    "p": 0.8469282889743635,
-    "readout": "landed_contacts",
-    "report_only": false
-   }
-  ],
-  "seeds": 100
- },
- "c85933f2a04828a5f7c08cac82c530a30b234a50748d68c060c42486f3d6b69a": {
-  "criterion": "M11.C.11",
-  "missing_moves": [],
-  "outcome": "PASS",
-  "readouts": [
-   {
-    "direction": 1,
-    "half_width": 1.1547428975603014,
-    "mean_difference": 2.0851810498333303,
-    "p": 0.0002855691930306917,
-    "readout": "disturbance",
-    "report_only": false
-   }
-  ],
-  "seeds": 150
- },
- "ce20b89dbc9ca07b5c5e99e02c005d24fc31e73e1a4096c420a8998a8d427b4f": {
-  "criterion": "M11.C.10[family of origin]",
-  "missing_moves": [],
-  "outcome": "FAIL",
-  "readouts": [
-   {
-    "direction": 1,
-    "half_width": 117.49831059023184,
-    "mean_difference": 17.57,
-    "p": 0.3149124921414955,
-    "readout": "cut_off_tie_weeks",
-    "report_only": false
-   },
-   {
-    "direction": 1,
-    "half_width": 44.493450890716744,
-    "mean_difference": 64.455,
-    "readout": "child_cut_weeks",
-    "report_only": true
-   }
-  ],
-  "seeds": 200
- },
- "cf6d0009d29a7665c5de2c683aa2bc49281fce3713299ebb8d4cfa8bfa73db0e": {
-  "criterion": "M11.C.18",
-  "missing_moves": [],
-  "outcome": "FAIL",
-  "readouts": [
-   {
-    "direction": 1,
-    "half_width": 0.00020339357721399948,
-    "mean_difference": -0.0002191169660396497,
-    "p": 0.9985841891572208,
-    "readout": "rise",
-    "report_only": false
-   }
-  ],
-  "seeds": 150
- },
- "db5ffe49cecb63568a14d58eb63bf47d9aa0685015da0e2fea359b0bc68a3a66": {
-  "criterion": "M11.C.17",
-  "missing_moves": [],
-  "outcome": "FAIL",
-  "readouts": [
-   {
-    "direction": 1,
-    "half_width": 0.0011976545041276106,
-    "mean_difference": -0.0009015491293124948,
-    "p": 0.9396612644195557,
-    "readout": "coached_rise",
-    "report_only": false
-   },
-   {
-    "direction": 1,
-    "half_width": 0.0003557160326134332,
-    "mean_difference": -0.00021652369086757925,
-    "readout": "family_rise",
-    "report_only": true
-   }
-  ],
-  "seeds": 150
- },
- "e31c231cfdab0d86720a71291809a4eabdcf3be285968dd9100c9b9d36e1bda5": {
-  "criterion": "M11.C.15",
-  "missing_moves": [],
-  "outcome": "PASS",
-  "readouts": [
-   {
-    "direction": 1,
-    "half_width": 0.6652473826274097,
-    "mean_difference": 1.5245747643065297,
-    "p": 9.349292614747994e-06,
-    "readout": "death_rise",
-    "report_only": false
-   },
-   {
-    "direction": 1,
-    "half_width": 0.5505044974368073,
-    "mean_difference": 5.434047756736598,
-    "p": 2.8924449044347723e-18,
-    "readout": "recovery_rise",
-    "report_only": false
-   }
-  ],
-  "seeds": 100
- },
- "e7de6bba8b9329006db8b6d942a54d8d29e77ee72b98b5407053699d47e62f03": {
-  "criterion": "M11.C.20",
-  "missing_moves": [],
-  "outcome": "FAIL",
-  "readouts": [
-   {
-    "direction": 1,
-    "half_width": 0.19145906758570302,
-    "mean_difference": -0.28477472200735704,
-    "p": 0.9988414548945519,
-    "readout": "rise",
-    "report_only": false
-   },
-   {
-    "direction": -1,
-    "half_width": 0.01675669576647784,
-    "mean_difference": -0.06768796454651164,
-    "readout": "support_blocked",
-    "report_only": true
-   }
-  ],
-  "seeds": 100
- },
- "ec3d63d58ef3de546f7451369eb01ebc5f15e89b3933ce38a86cf1f5efa6b28e": {
-  "criterion": "M11.C.14[firmness]",
-  "missing_moves": [],
-  "outcome": "PASS",
-  "readouts": [
-   {
-    "bound_side": 1,
-    "direction": 0,
-    "equivalence_bound": 6.848779881745453,
-    "half_width": 3.2087146752810276,
-    "mean_difference": 10.455295454410525,
-    "readout": "child_symptom_load",
-    "report_only": false,
-    "within_bound": true
-   }
-  ],
-  "seeds": 100
- },
- "ed3b22a3301cd56c39e5786e22e1d6828ac443faeaa18d1dd93c1d991d284f12": {
-  "criterion": "M11.C.33",
-  "missing_moves": [],
-  "outcome": "FAIL",
-  "readouts": [
-   {
-    "direction": 1,
-    "half_width": 0.0,
-    "mean_difference": 0.0,
-    "p": 1.0,
-    "readout": "rise",
-    "report_only": false
-   }
-  ],
-  "seeds": 50
  }
 }

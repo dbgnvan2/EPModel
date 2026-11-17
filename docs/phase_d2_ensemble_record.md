@@ -5,7 +5,7 @@ seeds (`M3.D.4a`), stopped adaptively (`M17.A.1`, `M13.4`): `UNDETERMINED` at th
 pass. Every verdict carries its class (`M11.5`). **A premise passing confirms that the code renders the
 spec; it is not a finding about families.** Spec revision 28 applies the owner's life-course decisions of 2026-10-13; its forms are Claude's recommendation, approved by the owner 2026-10-16.
 
-code_hash: 6e832d576271155dee77429bd923cf3732269eade2df2fe971e5eb9c439627da
+code_hash: 263d553a9ee096c5213bd05f5285cdb768becdf7b071ebcfa169110a907ed3d0
 
 Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25, `ensemble_margin` = 0.1, `ensemble_alpha` = 0.05, `fallback_flag_rate` = 0.2, `equivalence_margin` = 0.5.
 
@@ -13,8 +13,8 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
 |---|---|---|---|---|---|---|---|
 | `M11.C.15` | composite | **PASS** | 100 | `death_rise` +4.12 ± 0.73, p 1.86e-14, holds, pairs differing 1.00; `recovery_rise` +5.43 ± 0.55, p 2.89e-18, holds, pairs differing 1.00 | — | 0.00 | — |
 | `M11.C.6` | composite | **FAIL** | 150 | `development` +0.0945 ± 0.11, p 0.974, does not hold, pairs differing 1.00; `projection_acts` +53.3 ± 2.4 (reported only), pairs differing 1.00 | — | 0.00 | — |
-| `M11.C.10` | composite | **PASS** | 200 | `cut_off_tie_weeks` +120 ± 1.3e+02, p 0.032, holds, pairs differing 1.00; `child_cut_weeks` +16.6 ± 48 (reported only), pairs differing 1.00 | treatment 3671 of 32000 (2080 dead, 47 owed a step, 1544 target dead) | 0.00 | — |
-| `M11.C.10[family of origin]` | composite | **PASS** | 200 | `cut_off_tie_weeks` +177 ± 1.2e+02, p 0.00174, holds, pairs differing 1.00; `child_cut_weeks` +52.5 ± 48 (reported only), pairs differing 1.00 | treatment 43606 of 128000 (7816 dead, 203 owed a step, 1 rewritten, 35586 target dead) | 0.00 | — |
+| `M11.C.10` | composite | **PASS** | 600 | `cut_off_tie_weeks` +66.6 ± 72, p 0.0313, holds, pairs differing 1.00; `child_cut_weeks` +3.21 ± 28 (reported only), pairs differing 1.00 | treatment 11770 of 96000 (6396 dead, 131 owed a step, 5243 target dead) | 0.01 | — |
+| `M11.C.10[family of origin]` | composite | **PASS** | 600 | `cut_off_tie_weeks` +166 ± 74, p 1.68e-05, holds, pairs differing 1.00; `child_cut_weeks` +48.2 ± 28 (reported only), pairs differing 1.00 | treatment 136513 of 384000 (25432 dead, 627 owed a step, 1 rewritten, 110453 target dead) | 0.01 | — |
 | `M11.C.47` | premise | **PASS** | 150 | `felt_danger` +0.115 ± 0.031, p 2.43e-14, holds, pairs differing 0.61; `principled_cutoff` +0.0636 ± 0.021, p 7.89e-11, holds, pairs differing 0.45; `held_weeks` -12.1 ± 4.5 (reported only), pairs differing 0.95 | — | 0.00 | — |
 | `M11.C.2[twelve-person family]` | composite | **PASS** | 150 | `symptom_load` +1.99 ± 1.4, p 0.00347, holds, pairs differing 1.00 | — | 0.00 | — |
 | `M11.C.48` | composite | **FAIL** | 200 | `negative_run` +0.0449 ± 0.15, p 0.165, does not hold, pairs differing 0.91; `run_before_cutoff` +1.82 ± 0.13 (reported only), pairs differing 0.97; `first_cutoffs` +0 ± 0 (reported only), pairs differing 0.00; `unmatched_cutoffs` +1.14 ± 0.06 (reported only), pairs differing 1.00; `no_contact_cutoffs` +1.83 ± 0.16 (reported only), pairs differing 0.88; `unsided_cutoffs` +0.57 ± 0.099 (reported only), pairs differing 0.46; `unmatched_left_out_run` +4.81 ± 0.75 (reported only), pairs differing 0.89; `unsided_left_out_run` +0.601 ± 0.13 (reported only), pairs differing 0.38; `matched_seed` +0.995 ± 0.0098 (reported only), pairs differing 0.99 | — | 0.00 | — |
@@ -23,8 +23,8 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
 
 ## Counts the arms record (`M11.1f`)
 
-- `M11.C.10`: baseline (cutter-weeks holding rejection on the cutoffs the arm names) 0; treatment (cutter-weeks holding rejection on the cutoffs the arm names) 366397
-- `M11.C.10[family of origin]`: baseline (cutter-weeks holding rejection on the cutoffs the arm names) 0; treatment (cutter-weeks holding rejection on the cutoffs the arm names) 1.1003e+06
+- `M11.C.10`: baseline (cutter-weeks holding rejection on the cutoffs the arm names) 0; treatment (cutter-weeks holding rejection on the cutoffs the arm names) 1.08898e+06
+- `M11.C.10[family of origin]`: baseline (cutter-weeks holding rejection on the cutoffs the arm names) 0; treatment (cutter-weeks holding rejection on the cutoffs the arm names) 3.22811e+06
 - `M11.C.2[twelve-person family]`: baseline (children never seen at the ages read) 3; treatment (children never seen at the ages read) 3
 
 ## Not run as an ensemble in part II
@@ -35,8 +35,8 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
 
 - `M11.C.15`: c1 0.00, c2 0.00, f 0.00
 - `M11.C.6`: halim 0.00, ana 0.00, dario 0.00
-- `M11.C.10`: halim_successor 0.04, halim 0.04, dario 0.02
-- `M11.C.10[family of origin]`: halim_successor 0.04, halim 0.04, dario 0.02
+- `M11.C.10`: halim 0.04, halim_successor 0.04, iris 0.02
+- `M11.C.10[family of origin]`: halim 0.04, halim_successor 0.04, iris 0.02
 - `M11.C.47`: c 0.00, f 0.00, m 0.00
 - `M11.C.2[twelve-person family]`: halim_successor 0.05, halim 0.04, dario 0.02
 - `M11.C.48`: ana 0.00, bruno 0.00, halim 0.00
@@ -128,46 +128,46 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "criterion": "M11.C.10",
   "class": "composite",
   "outcome": "PASS",
-  "seeds": 200,
+  "seeds": 600,
   "readouts": [
    {
     "baseline_position": null,
-    "baseline_sd": 824.971388631328,
+    "baseline_sd": 862.2984144655909,
     "direction": 1,
-    "half_width": 129.15549031281915,
+    "half_width": 72.02812596078157,
     "holds": true,
-    "mean_difference": 119.875,
-    "n_nonzero": 187,
+    "mean_difference": 66.565,
+    "n_nonzero": 558,
     "nonzero_share": 1.0,
-    "p": 0.03202446404430464,
-    "pooled_sd": 803.9553329785325,
+    "p": 0.031292786144161214,
+    "pooled_sd": 864.8258471041562,
     "readout": "cut_off_tie_weeks",
-    "w_plus": 10162.0
+    "w_plus": 85076.0
    },
    {
     "baseline_position": null,
-    "baseline_sd": 281.4862631759922,
+    "baseline_sd": 306.5155523074546,
     "direction": 1,
-    "half_width": 47.721509199839346,
-    "mean_difference": 16.58,
-    "nonzero_share": 1.0,
-    "pooled_sd": 285.5441175903511,
+    "half_width": 27.98820532428069,
+    "mean_difference": 3.2133333333333334,
+    "nonzero_share": 0.9983333333333333,
+    "pooled_sd": 311.5827290991901,
     "readout": "child_cut_weeks",
     "report_only": true
    }
   ],
-  "fallback_rate": 0.004860136593638372,
+  "fallback_rate": 0.005214199013250245,
   "flags": [],
   "missing_moves": [],
   "scripted": {
    "treatment": {
-    "dead": 2080,
-    "made": 28329,
+    "dead": 6396,
+    "made": 84230,
     "not legal": 0,
     "not reached": 0,
-    "owed a step": 47,
+    "owed a step": 131,
     "rewritten": 0,
-    "target dead": 1544
+    "target dead": 5243
    }
   },
   "counts": {
@@ -175,7 +175,7 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
     "(cutter-weeks holding rejection on the cutoffs the arm names)": 0
    },
    "treatment": {
-    "(cutter-weeks holding rejection on the cutoffs the arm names)": 366397
+    "(cutter-weeks holding rejection on the cutoffs the arm names)": 1088976
    }
   }
  },
@@ -183,46 +183,46 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "criterion": "M11.C.10[family of origin]",
   "class": "composite",
   "outcome": "PASS",
-  "seeds": 200,
+  "seeds": 600,
   "readouts": [
    {
     "baseline_position": null,
-    "baseline_sd": 798.4528534584744,
+    "baseline_sd": 857.3112807610783,
     "direction": 1,
-    "half_width": 115.13073635403408,
+    "half_width": 73.84938961001409,
     "holds": true,
-    "mean_difference": 176.975,
-    "n_nonzero": 185,
+    "mean_difference": 166.00833333333333,
+    "n_nonzero": 555,
     "nonzero_share": 1.0,
-    "p": 0.0017358693677639013,
-    "pooled_sd": 757.24086108449,
+    "p": 1.676754603980049e-05,
+    "pooled_sd": 840.7723755637608,
     "readout": "cut_off_tie_weeks",
-    "w_plus": 10734.5
+    "w_plus": 92823.0
    },
    {
     "baseline_position": null,
-    "baseline_sd": 310.2511869356423,
+    "baseline_sd": 328.92444746850254,
     "direction": 1,
-    "half_width": 48.297029865010416,
-    "mean_difference": 52.53,
-    "nonzero_share": 1.0,
-    "pooled_sd": 305.6505206175328,
+    "half_width": 28.2859512976478,
+    "mean_difference": 48.20166666666667,
+    "nonzero_share": 0.9966666666666667,
+    "pooled_sd": 318.7715439160604,
     "readout": "child_cut_weeks",
     "report_only": true
    }
   ],
-  "fallback_rate": 0.004860136060097418,
+  "fallback_rate": 0.005214197288812902,
   "flags": [],
   "missing_moves": [],
   "scripted": {
    "treatment": {
-    "dead": 7816,
-    "made": 84394,
+    "dead": 25432,
+    "made": 247487,
     "not legal": 0,
     "not reached": 0,
-    "owed a step": 203,
+    "owed a step": 627,
     "rewritten": 1,
-    "target dead": 35586
+    "target dead": 110453
    }
   },
   "counts": {
@@ -230,7 +230,7 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
     "(cutter-weeks holding rejection on the cutoffs the arm names)": 0
    },
    "treatment": {
-    "(cutter-weeks holding rejection on the cutoffs the arm names)": 1100305
+    "(cutter-weeks holding rejection on the cutoffs the arm names)": 3228106
    }
   }
  },

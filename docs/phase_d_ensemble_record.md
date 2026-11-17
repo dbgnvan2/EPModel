@@ -5,7 +5,7 @@ seeds (`M3.D.4a`), stopped adaptively (`M17.A.1`, `M13.4`): `UNDETERMINED` at th
 pass. Every verdict carries its class (`M11.5`). **A premise passing confirms that the code renders the
 spec; it is not a finding about families.** Spec revisions 24–27 are Claude's recommendations, approved by the owner 2026-10-16 (revision 31).
 
-code_hash: 6e832d576271155dee77429bd923cf3732269eade2df2fe971e5eb9c439627da
+code_hash: 263d553a9ee096c5213bd05f5285cdb768becdf7b071ebcfa169110a907ed3d0
 
 Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25, `ensemble_margin` = 0.1, `ensemble_alpha` = 0.05, `fallback_flag_rate` = 0.2, `equivalence_margin` = 0.5.
 
@@ -33,7 +33,7 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
 | `M11.C.23` | composite | **FAIL** | 150 | `relapses` -0.7 ± 0.098, p 1, does not hold, pairs differing 0.72 | baseline 4 of 7800 (4 owed a step); treatment 8 of 7800 (5 owed a step, 3 rewritten) | 0.00 | — |
 | `M11.C.24` | premise | **PASS** | 150 | `under_change` +11.1 ± 0.53, p 1.23e-26, holds, pairs differing 1.00; `over_change` -12.1 ± 0.63, p 1.19e-26, holds, pairs differing 1.00 | baseline 34 of 15600 (8 owed a step, 26 rewritten); treatment 34 of 7800 (8 owed a step, 26 rewritten) | 0.00 | — |
 | `M11.C.46` | premise | **PASS** | 100 | `seeker_relief` +1.39 ± 0.11, p 1.98e-18, holds, pairs differing 1.00; `third_excess` -0.341 ± 0.89 (reported only), pairs differing 1.00; `seeker_change` -0.535 ± 0.5 (reported only), pairs differing 1.00 | baseline 0 of 100; treatment 0 of 100 | 0.00 | — |
-| `M11.C.7[joint over one spouse]` | mixed | **FAIL** | 100 | `deviation_fall` +0.0503 ± 0.061, p 0.0525, does not hold, pairs differing 1.00; `landed_contacts` -0.39 ± 0.96 (reported only), pairs differing 0.87 | — | 0.00 | — |
+| `M11.C.7[joint over one spouse]` | mixed | **FAIL** (its effect is below what its seeds resolve: on 8 fresh blocks of 100 it passed on 0 (revision 61) and 1 (revision 62); a flip of this verdict is read as noise (T-253, T-254)) | 100 | `deviation_fall` +0.0503 ± 0.061, p 0.0525, does not hold, pairs differing 1.00; `landed_contacts` -0.39 ± 0.96 (reported only), pairs differing 0.87 | — | 0.00 | — |
 | `M11.C.7[one spouse over sided]` | mixed | **PASS** | 150 | `deviation_fall` +0.0619 ± 0.044, p 0.00162, holds, pairs differing 1.00; `landed_contacts` +8.63 ± 0.63, p 1.04e-26, holds, pairs differing 1.00 | baseline 0 of 9600 | 0.00 | — |
 | `M11.C.7[joint over sided]` | mixed | **PASS** | 150 | `deviation_fall` +0.0836 ± 0.043, p 2.07e-05, holds, pairs differing 1.00; `landed_contacts` +8.29 ± 0.6, p 9.74e-27, holds, pairs differing 1.00 | baseline 0 of 9600 | 0.00 | — |
 

@@ -109,11 +109,31 @@ def _is_row(r: dict) -> bool:
             and isinstance(r.get("error", ""), str))
 
 
-def child_rows(mutant: Mutant | None, tool: str, ids: list[str], workers: int, label: str) -> list[dict]:
+# A child's limit in seconds (T-254, 2026-11-16), set from times measured on Mac Mini1 at 8 workers at spec revision 63.
+# A Phase C child keeps ``run_in_copy``'s 7200 s. A Phase D child running one or two criteria gets three times the
+# longest row, `M11.C.10[family of origin]`'s 7157 s; one running all of part II gets about twice that part's
+# measured 17,025 s (the record's part II step, 07:54-12:38 on 2026-11-16). A child that hits its limit fails with
+# "timed out after N s" and its rows are rerun next time. Outside every hash: a limit decides nothing a row says.
+DEFAULT_TIMEOUT = 7200
+PHASE_D_CHILD = "phase_d_mutant_child.py"
+PHASE_D_ROW_TIMEOUT = 21600
+PHASE_D_PART_TIMEOUT = 36000
+
+
+def timeout_for(child: str, whole_part: bool) -> int:
+    """The limit for ``child``: Phase C's default, or Phase D's for a few rows or for the whole of part II."""
+    if child != PHASE_D_CHILD:
+        return DEFAULT_TIMEOUT
+    return PHASE_D_PART_TIMEOUT if whole_part else PHASE_D_ROW_TIMEOUT
+
+
+def child_rows(mutant: Mutant | None, tool: str, ids: list[str], workers: int, label: str,
+               timeout: int = DEFAULT_TIMEOUT) -> list[dict]:
     """One child's row for each of ``ids``, in order. An id it printed no row for, because it failed or timed out
-    first, gets a ``FAILED`` row, as does a row reporting an error of the machine; the caller goes on (S1.5a)."""
+    first, gets a ``FAILED`` row, as does a row reporting an error of the machine; the caller goes on (S1.5a).
+    ``timeout`` is the child's limit in seconds, ``run_in_copy``'s default unless the record sets its own."""
     try:
-        printed, failure = run_in_copy(mutant, tool, "--child", *ids, "--workers", str(workers)), None
+        printed, failure = run_in_copy(mutant, tool, "--child", *ids, "--workers", str(workers), timeout=timeout), None
     except ChildFailed as failed:
         printed, failure = failed.rows, str(failed.code)
         print(f"{label}: {failure}", flush=True)  # in full, with the child's error output; each row keeps its first line
@@ -155,11 +175,11 @@ def exit_status() -> int:
 
 
 def run_cached(cache: Cache, mutant: Mutant | None, ids: list[str], workers: int, label: str | None = None,
-               child: str = CHILD, engine: str | None = None) -> list[dict]:
+               child: str = CHILD, engine: str | None = None, timeout: int = DEFAULT_TIMEOUT) -> list[dict]:
     """Each criterion's result under ``mutant`` (``None``: the unmodified model): from the cache where its key is
     present, otherwise run (all the missing ones in one child) and cached. Results come back in ``ids`` order.
     ``child`` is the tool that runs them and ``engine`` the hash their keys carry, which must cover that child;
-    by default Phase C's child and ``engine_hash``."""
+    by default Phase C's child and ``engine_hash``. ``timeout`` is the child's limit (``timeout_for``)."""
     if engine is None and child != CHILD:
         raise ValueError(f"{child}: pass the hash its results are keyed by; engine_hash does not cover that child")
     engine = engine or engine_hash()
@@ -168,7 +188,7 @@ def run_cached(cache: Cache, mutant: Mutant | None, ids: list[str], workers: int
     missing = [cid for cid in ids if cache.get(keys[cid]) is None]
     fresh = {}
     if missing:
-        for result in child_rows(mutant, child, missing, workers, label):
+        for result in child_rows(mutant, child, missing, workers, label, timeout=timeout):
             fresh[result["criterion"]] = result
             if result["outcome"] not in ERRORED:  # an errored row is reported but rerun next time, never cached
                 cache.put(keys[result["criterion"]], result)

@@ -56,7 +56,7 @@ CONFIG = """# test config
 PIN = "1.26.4"
 
 
-def _child(mutant, tool_name, ids, _workers, _label):
+def _child(mutant, tool_name, ids, _workers, _label, timeout=7200):
     return [{"criterion": cid, "outcome": "PASS", "seeds": 100, "readouts": [
         {"readout": "effect", "direction": 1, "mean_difference": 3.0, "half_width": 0.5}]} for cid in ids]
 
@@ -305,7 +305,7 @@ def test_m17e1_recompute_runs_the_named_criteria_again(tmp_path, capsys):
 
 
 def test_m17e1_recompute_keeps_a_result_whose_rerun_failed(tmp_path):
-    def failing(mutant, tool_name, ids, _workers, _label):
+    def failing(mutant, tool_name, ids, _workers, _label, timeout=7200):
         return [{"criterion": cid, "outcome": "FAILED", "seeds": 0, "error": "ChildFailed: test"} for cid in ids]
 
     with _Patched(tmp_path):
@@ -322,7 +322,7 @@ def test_m17e1_recompute_interrupted_keeps_the_dropped_results_on_disk(tmp_path)
     Mutation: the put-back only on a normal finish (the second sample's earlier result is lost)."""
     calls = []
 
-    def interrupted(mutant, tool_name, ids, workers, label):
+    def interrupted(mutant, tool_name, ids, workers, label, timeout=7200):
         calls.append(mutant.id)
         if len(calls) > 1:
             raise KeyboardInterrupt

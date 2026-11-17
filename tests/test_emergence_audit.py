@@ -423,7 +423,7 @@ class _Share:
     def __init__(self, tmp_path, stage="carriers", pin=None, given=None):
         self.tmp_path, self.stage, self.pin, self.ran, self.given = tmp_path, stage, pin, [], given or {}
 
-    def fake_run_cached(self, cache, mutant, ids, workers, label, child, engine):
+    def fake_run_cached(self, cache, mutant, ids, workers, label, child, engine, timeout):
         self.ran.append((mutant.id, tuple(ids)))
         out = [self.given.get((mutant.id, cid), result(cid)) for cid in ids]
         for r in out:

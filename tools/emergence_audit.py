@@ -43,7 +43,7 @@ REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO))
 
 from tools.mutant_runner import Mutant, apply, run_in_copy  # noqa: E402,F401
-from tools.record_cache import Cache, exit_status, result_key, run_cached  # noqa: E402
+from tools.record_cache import Cache, exit_status, result_key, run_cached, timeout_for  # noqa: E402
 from tools.record_json import record_json  # noqa: E402
 
 CONFIG = REPO / "config" / "audit" / "emergence_audit.md"
@@ -397,7 +397,8 @@ def _results(cache: Cache, mutant: Mutant, rows: list[Row], workers: int | None,
                     raise KeyError(f"{mutant.id} → {key}: no cached result for the current engine and edits")
                 out[key] = found
         else:
-            for result in run_cached(cache, mutant, ids, workers, f"{mutant.id} ({child})", child=child, engine=engine):
+            for result in run_cached(cache, mutant, ids, workers, f"{mutant.id} ({child})", child=child, engine=engine,
+                                     timeout=timeout_for(child, whole_part=True)):
                 out[result["criterion"]] = result
     return out
 

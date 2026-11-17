@@ -179,7 +179,7 @@ def test_stage_3_targeted_run_sends_each_criterion_to_its_phase(monkeypatch):
 
     calls = []
 
-    def child_rows(mutant, child, ids, workers, label):
+    def child_rows(mutant, child, ids, workers, label, timeout):
         calls.append((mutant.id if mutant else None, child, tuple(ids)))
         return [{"criterion": c, "outcome": "PASS" if c in ("M11.C.49", "M11.C.33") else "FAIL", "seeds": 1}
                 for c in ids]
@@ -204,7 +204,7 @@ def test_stage_3_targeted_run_names_cells_by_the_records_rule(monkeypatch):
 
     calls = []
 
-    def child_rows(mutant, child, ids, workers, label):
+    def child_rows(mutant, child, ids, workers, label, timeout):
         calls.append((mutant.id if mutant else None, tuple(ids)))
         passing = ("M11.C.27[unstable,remove_one]", "M11.C.41[light: lower level]")
         return [{"criterion": c, "outcome": "PASS" if c in passing else "FAIL", "seeds": 1} for c in ids]

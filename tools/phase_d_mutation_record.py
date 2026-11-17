@@ -35,7 +35,7 @@ sys.path.insert(0, str(REPO))
 
 from tools.mutant_runner import Mutant, apply, run_in_copy  # noqa: E402,F401
 from tools.mutation_record import NAMED, judge  # noqa: E402
-from tools.record_cache import ERRORED, Cache, child_rows, exit_status, result_key  # noqa: E402
+from tools.record_cache import PHASE_D_ROW_TIMEOUT, ERRORED, Cache, child_rows, exit_status, result_key  # noqa: E402
 from tools.record_json import record_json  # noqa: E402
 
 RECORD = REPO / "docs" / "phase_d_mutation_record.md"
@@ -340,7 +340,7 @@ def build(cache: Cache, workers: int | None = None) -> str:
             raise KeyError(f"{mutant.id}: no cached result for the current engine and edits")
         fresh = {}
         if missing:
-            for result in child_rows(mutant, CHILD.name, missing, workers, mutant.id):
+            for result in child_rows(mutant, CHILD.name, missing, workers, mutant.id, timeout=PHASE_D_ROW_TIMEOUT):
                 fresh[result["criterion"]] = result
                 if result["outcome"] not in ERRORED:  # an errored row is reported but rerun next time, never cached
                     cache.put(keys[result["criterion"]], result)

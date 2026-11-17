@@ -79,7 +79,7 @@ def committed_rows() -> dict[tuple[str, str], dict]:
 def run(criteria: list[str], workers: int) -> tuple[list[dict], list[tuple[str, dict]]]:
     """The unmutated rows, in ``criteria`` order, then each passing criterion's mutants' rows as ``(mutant id, row)``,
     each phase's criteria in one child."""
-    from tools.record_cache import child_rows
+    from tools.record_cache import child_rows, timeout_for
 
     rows: dict[str, dict] = {}
     mutated = []
@@ -87,12 +87,14 @@ def run(criteria: list[str], workers: int) -> tuple[list[dict], list[tuple[str, 
         mine = [c for c in criteria if phase_of(c) == phase]
         if not mine:
             continue
-        rows.update((r["criterion"], r) for r in child_rows(None, child, mine, workers, f"no mutant ({phase})"))
+        rows.update((r["criterion"], r) for r in child_rows(None, child, mine, workers, f"no mutant ({phase})",
+                                                             timeout=timeout_for(child, whole_part=True)))
         passed = {c for c in mine if rows[c]["outcome"] == "PASS"}
         for mutant in mutants(phase):
             targets = [c for c in mine if c in passed and names(phase, mutant, c)]
             if targets:
-                mutated += [(mutant.id, r) for r in child_rows(mutant, child, targets, workers, mutant.id)]
+                mutated += [(mutant.id, r) for r in child_rows(mutant, child, targets, workers, mutant.id,
+                                                                timeout=timeout_for(child, whole_part=True))]
     return [rows[c] for c in criteria], mutated
 
 

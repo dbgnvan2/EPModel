@@ -61,7 +61,7 @@ from tools.mutant_runner import Mutant  # noqa: E402
 from tools.phase_d_mutation_record import CHILD as PHASE_D_CHILD  # noqa: E402
 from tools.phase_d_mutation_record import engine_hash as phase_d_engine_hash  # noqa: E402
 from tools.phase_d_record import VERDICT_NOTES, noted  # noqa: E402  (a known defect beside a verdict, review MR-3)
-from tools.record_cache import CHILD, ERRORED, Cache, engine_hash, exit_status, result_key, run_cached  # noqa: E402
+from tools.record_cache import CHILD, ERRORED, Cache, engine_hash, exit_status, result_key, run_cached, timeout_for  # noqa: E402
 from tools.record_json import record_json  # noqa: E402
 from tools.sweep_config import SHARE_BOUND, Range, Ratio, central_values, load_config, not_run_keys  # noqa: E402
 
@@ -186,7 +186,8 @@ def summarise(rows: list[dict]) -> dict:
 
 def _result(cache: Cache, mutant: Mutant, key: str, workers: int | None, engine: str, child: str) -> dict:
     if workers is not None:
-        return run_cached(cache, mutant, [key], workers, child=child, engine=engine)[0]
+        return run_cached(cache, mutant, [key], workers, child=child, engine=engine,
+                          timeout=timeout_for(child, whole_part=False))[0]
     cached = cache.get(result_key(engine, mutant.definition(), key))
     if cached is None:
         raise KeyError(f"{mutant.id}: no cached result for the current engine and sample")

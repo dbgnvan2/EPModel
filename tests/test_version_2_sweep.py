@@ -83,7 +83,7 @@ def _row(cid: str, outcome: str, mean: float, half: float, seeds: int) -> dict:
     return row
 
 
-def _stub_child_rows(mutant, _tool, ids, _workers, _label):
+def _stub_child_rows(mutant, _tool, ids, _workers, _label, timeout=7200):
     i = _index(mutant)
     answer, seeds = (RERUN[i], RERUN_SEEDS) if _is_rerun(mutant) else (FIRST[i], FIRST_SEEDS)
     return [_row(cid, *answer, seeds) for cid in ids]
@@ -163,7 +163,7 @@ def test_m17a1_s2_1_a_clear_effect_is_not_rerun(tmp_path):
 
 def test_m17a1_s2_1_a_fixed_seed_criterion_is_not_rerun(tmp_path):
     """A first run that already used the fixed count or more is not run again, however close to the limit."""
-    def child(mutant, _tool, ids, _workers, _label):
+    def child(mutant, _tool, ids, _workers, _label, timeout=7200):
         assert not _is_rerun(mutant), "rerun a sample that had already run at the fixed count"
         return [_row(cid, "PASS", 0.1, 0.4, RERUN_SEEDS) for cid in ids]
 
@@ -178,7 +178,7 @@ def test_m17a1_s2_1_a_criterion_fixing_its_own_seeds_below_the_count_is_refused(
     refusal seen before the rerun is the criterion's result (the tests below); this one checks the backstop, which
     stops the run when a rerun has run and come back at a count of the criterion's own that ``own_seeds`` did not see
     (it is not patched here, so it finds none)."""
-    def child(mutant, _tool, ids, _workers, _label):
+    def child(mutant, _tool, ids, _workers, _label, timeout=7200):
         seeds = 100  # the criterion's own count, whatever the stopping rows say
         answer = RERUN[_index(mutant)] if _is_rerun(mutant) else FIRST[_index(mutant)]
         return [_row(cid, *answer, seeds) for cid in ids]
@@ -195,7 +195,7 @@ def _refused_build(tmp_path, config: str | None = None):
         tmp_path.joinpath("sweep.md").write_text(config, encoding="utf-8")
     calls = []
 
-    def child(mutant, _tool, ids, _workers, _label):
+    def child(mutant, _tool, ids, _workers, _label, timeout=7200):
         calls.append((_index(mutant), _is_rerun(mutant)))
         answer = RERUN[_index(mutant)] if _is_rerun(mutant) else FIRST[_index(mutant)]
         return [_row(cid, *answer, 100) for cid in ids]
@@ -251,7 +251,7 @@ def test_m17a1_a_share_that_hits_a_refusal_names_it_in_its_last_line(tmp_path, c
     """learning-qa, T-159 (P9): a ``--criteria`` share's last line counts and names the criteria refused at the rerun,
     since `tools/two_mac_sweep.py status` shows only the log's last lines; a refusal is not a failure, so the share
     exits 0. Mutation: the refused criteria left out of the line."""
-    def child(mutant, _tool, ids, _workers, _label):
+    def child(mutant, _tool, ids, _workers, _label, timeout=7200):
         answer = RERUN[_index(mutant)] if _is_rerun(mutant) else FIRST[_index(mutant)]
         return [_row(cid, *answer, 100) for cid in ids]
 
@@ -286,7 +286,7 @@ def test_m17a1_a_criterion_fixing_its_own_seeds_is_swept_while_no_sample_needs_a
     """Review MR-12 (owner 2026-10-24): a criterion that fixes fewer seeds than the rerun count is swept, not refused,
     when every sample clears the detection limit, as `M11.C.48`'s eight did. Mutation: the refusal moved before any
     run (the build raises)."""
-    def child(mutant, _tool, ids, _workers, _label):
+    def child(mutant, _tool, ids, _workers, _label, timeout=7200):
         return [_row(cid, "PASS", 3.0, 0.3, FIRST_SEEDS) for cid in ids]
 
     patches = _patched(tmp_path, child=child)
@@ -379,7 +379,7 @@ def test_s2_4_a_cached_result_on_a_stale_hash_is_not_reused(tmp_path):
 
 # --- S2.5 the renderer ------------------------------------------------------------------------------------------
 
-def _clean_child_rows(mutant, _tool, ids, _workers, _label):
+def _clean_child_rows(mutant, _tool, ids, _workers, _label, timeout=7200):
     """The stub with sample 6 giving a result, so every result is cached and a cache-only build can render."""
     if _index(mutant) == 6:
         return [_row(cid, "PASS", 2.0, 0.3, FIRST_SEEDS) for cid in ids]
@@ -552,7 +552,7 @@ def test_m17e1_phase_d_criterion_is_run_by_the_phase_d_child_under_its_hash(tmp_
     (tmp_path / "sweep.md").write_text(PHASE_D_CONFIG, encoding="utf-8")
     ran: list[tuple[str, str]] = []
 
-    def child(mutant, child_tool, ids, workers, label):
+    def child(mutant, child_tool, ids, workers, label, timeout=7200):
         ran.extend((child_tool, cid) for cid in ids)
         return _clean_child_rows(mutant, child_tool, ids, workers, label)
 

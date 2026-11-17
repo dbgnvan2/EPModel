@@ -95,3 +95,24 @@ def test_s1_9_engine_hash_ignores_comments(monkeypatch):
     for extra, moves in (("    # a comment added to the function\n", False), ("S1_9_EDIT = 1\n", True)):
         monkeypatch.setattr(_tool.inspect, "getsource", lambda f, extra=extra: real(f) + extra)
         assert (_tool.engine_hash() != before) is moves, extra
+
+
+def test_t254_a_phase_d_child_gets_its_measured_limit_and_run_cached_passes_it_on(monkeypatch, tmp_path):
+    """At 600 seeds `M11.C.10`'s rows outran the 7200 s child limit (T-254): a Phase D child gets its own limit, a
+    Phase C child keeps the default, and ``run_cached`` hands the limit to ``child_rows``."""
+    from tools import record_cache
+
+    assert record_cache.timeout_for("mutant_runner.py", whole_part=True) == record_cache.DEFAULT_TIMEOUT == 7200
+    assert record_cache.timeout_for("phase_d_mutant_child.py", whole_part=False) == 21600
+    assert record_cache.timeout_for("phase_d_mutant_child.py", whole_part=True) == 36000
+    seen = []
+
+    def child_rows(mutant, child, ids, workers, label, timeout):
+        seen.append(timeout)
+        return [{"criterion": c, "outcome": "PASS", "seeds": 1} for c in ids]
+
+    monkeypatch.setattr(record_cache, "child_rows", child_rows)
+    monkeypatch.setattr(record_cache, "CACHE_DIR", tmp_path)
+    record_cache.run_cached(record_cache.Cache("t254"), None, ["M11.C.10"], 1, child="phase_d_mutant_child.py",
+                            engine="e", timeout=36000)
+    assert seen == [36000]

@@ -7,12 +7,12 @@ passes; a red mutant is **reversed** when every gating readout's interval lies w
 direction (`M11.1d`). Phase D's other mutation runs are ad hoc and reported in
 `docs/archive/implementation_plan_phase_d.md`.
 
-engine_hash: df59310dcacaa9d2c0c8304e28dd8aa871a39f146a99e7cb508bd73af339c3b4
+engine_hash: d0640d74603c72906851dc52f55e37b478e68cb76ba162c345904e3ef0c8440a
 
 | Mutant | Kind | What it changes | Criterion | Verdict under mutant | Seeds | Difference under mutant | Result |
 |---|---|---|---|---|---|---|---|
-| `witnessed-cutoff-learning-removed` | named | M4.D.6f removed: a witness's learned CUTOFF value takes no step toward what followed a witnessed cutoff | `M11.C.10` | FAIL | 200 | `cut_off_tie_weeks` +86.9 ± 1.2e+02, p 0.084; `child_cut_weeks` +28 ± 44 (reported) | **red** |
-| `witnessed-cutoff-learning-removed` | named | M4.D.6f removed: a witness's learned CUTOFF value takes no step toward what followed a witnessed cutoff | `M11.C.10[family of origin]` | FAIL | 200 | `cut_off_tie_weeks` +17.6 ± 1.2e+02, p 0.31; `child_cut_weeks` +64.5 ± 44 (reported) | **red** |
+| `witnessed-cutoff-learning-removed` | named | M4.D.6f removed: a witness's learned CUTOFF value takes no step toward what followed a witnessed cutoff | `M11.C.10` | PASS | 600 | `cut_off_tie_weeks` +66.7 ± 69, p 0.031; `child_cut_weeks` +42.4 ± 26 (reported) | **survived** |
+| `witnessed-cutoff-learning-removed` | named | M4.D.6f removed: a witness's learned CUTOFF value takes no step toward what followed a witnessed cutoff | `M11.C.10[family of origin]` | FAIL | 600 | `cut_off_tie_weeks` -34.9 ± 66, p 0.83; `child_cut_weeks` +54 ± 27 (reported) | **red** |
 | `witness-path-removed` | named | M1.F.5 removed: a witnessed exchange moves the witness's anxiety by nothing | `M11.C.2[twelve-person family]` | FAIL | 150 | `symptom_load` +0.163 ± 1.7, p 0.39 | **red** |
 | `weakness-focus-and-steering-removed` | named | M1.B.8a and M4.D.1g removed: no focus on a child's weakness, and focus steers no projection-type act | `M11.C.2[twelve-person family]` | FAIL | 150 | `symptom_load` -1.01 ± 1.8, p 0.89 | **red** |
 | `marital-distance-gate-removed` | named | M5.C.1 removed: a move addressed to a symptomatic child under marital distance improves them as any other | `M11.C.14[firmness]` | PASS | 100 | `child_symptom_load` +10.5 ± 3.2 | **survived** |
@@ -34,8 +34,8 @@ engine_hash: df59310dcacaa9d2c0c8304e28dd8aa871a39f146a99e7cb508bd73af339c3b4
 | `cutoff-blind-to-learned-value` | named | M4.D.6's learned value of CUTOFF ignored: CUTOFF carries the top automatic weight whenever it is legal, so cutoffs no longer follow a run of negatives | `M11.C.48[phase_d]` | FAIL | 200 | `negative_run` +0.0219 ± 0.071, p 0.09; `run_before_cutoff` +1.5 ± 0.053 (reported); `first_cutoffs` +0 ± 0 (reported); `unmatched_cutoffs` +9.69 ± 0.24 (reported); `no_contact_cutoffs` +14 ± 0.43 (reported); `unsided_cutoffs` +2.35 ± 0.15 (reported); `unmatched_left_out_run` +1.26 ± 0.063 (reported); `unsided_left_out_run` +1.92 ± 0.21 (reported); `matched_seed` +1 ± 0 (reported) | **red** |
 | `supply-by-birth-order` | named | M1.A.14b broken: the first-born's supplying kinds carry a higher learned value and the later-born's a lower one, so who supplies follows birth order | `M11.C.55` | FAIL | 200 | `predicted_main_supplier` -0.62 ± 0.16, p 1; `predicted_over_chance` -0.0317 ± 0.09, p 0.94; `parents_supplied` +0 ± 0 (reported); `birth_order_hits` +0 ± 0 (reported) | **red** |
 | `relief-less-expected-decay` | named | M4.D.6's felt relief taken net of the expected decay toward the chronic floor (acute_decay_rate of the week's excess), so decay alone teaches nothing | `M11.C.39` | PASS | 150 | `pattern_after_spell` +9.76 ± 0.91, p 2.7e-25; `time_to_remission` +4.75 ± 2.7 (reported) | **survived** |
-| `learner-reads-own-state-only` | named | M4.B.2's exemption removed: no cross-person relief, and a witnessed cutoff teaches by the witness's own level change, not the family's true levels | `M11.C.10` | FAIL | 200 | `cut_off_tie_weeks` +45.2 ± 1.1e+02, p 0.22; `child_cut_weeks` +13.4 ± 43 (reported) | **red** |
-| `learner-reads-own-state-only` | named | M4.B.2's exemption removed: no cross-person relief, and a witnessed cutoff teaches by the witness's own level change, not the family's true levels | `M11.C.10[family of origin]` | PASS | 200 | `cut_off_tie_weeks` +146 ± 1.3e+02, p 0.014; `child_cut_weeks` +71.3 ± 47 (reported) | **survived** |
+| `learner-reads-own-state-only` | named | M4.B.2's exemption removed: no cross-person relief, and a witnessed cutoff teaches by the witness's own level change, not the family's true levels | `M11.C.10` | FAIL | 600 | `cut_off_tie_weeks` +30.8 ± 66, p 0.15; `child_cut_weeks` +15.2 ± 26 (reported) | **red** |
+| `learner-reads-own-state-only` | named | M4.B.2's exemption removed: no cross-person relief, and a witnessed cutoff teaches by the witness's own level change, not the family's true levels | `M11.C.10[family of origin]` | PASS | 600 | `cut_off_tie_weeks` +153 ± 74, p 2.3e-05; `child_cut_weeks` +28.6 ± 28 (reported) | **survived** |
 
 ## Not run
 
@@ -69,22 +69,22 @@ Part II criteria that pass but are not proved here; where their mutation is repo
   "mutant": "witnessed-cutoff-learning-removed",
   "kind": "named",
   "criterion": "M11.C.10",
-  "outcome": "FAIL",
-  "seeds": 200,
-  "result": "red",
+  "outcome": "PASS",
+  "seeds": 600,
+  "result": "survived",
   "readouts": [
    {
     "direction": 1,
-    "half_width": 118.24013411677934,
-    "mean_difference": 86.885,
-    "p": 0.08358943956479868,
+    "half_width": 68.51585544736152,
+    "mean_difference": 66.72,
+    "p": 0.031334672825222315,
     "readout": "cut_off_tie_weeks",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 44.167652477926126,
-    "mean_difference": 28.045,
+    "half_width": 26.14332203595645,
+    "mean_difference": 42.355,
     "readout": "child_cut_weeks",
     "report_only": true
    }
@@ -95,21 +95,21 @@ Part II criteria that pass but are not proved here; where their mutation is repo
   "kind": "named",
   "criterion": "M11.C.10[family of origin]",
   "outcome": "FAIL",
-  "seeds": 200,
+  "seeds": 600,
   "result": "red",
   "readouts": [
    {
     "direction": 1,
-    "half_width": 117.49831059023184,
-    "mean_difference": 17.57,
-    "p": 0.3149124921414955,
+    "half_width": 66.48296175421616,
+    "mean_difference": -34.92333333333333,
+    "p": 0.8324869714580219,
     "readout": "cut_off_tie_weeks",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 44.493450890716744,
-    "mean_difference": 64.455,
+    "half_width": 27.013842100548366,
+    "mean_difference": 54.038333333333334,
     "readout": "child_cut_weeks",
     "report_only": true
    }
@@ -677,21 +677,21 @@ Part II criteria that pass but are not proved here; where their mutation is repo
   "kind": "named",
   "criterion": "M11.C.10",
   "outcome": "FAIL",
-  "seeds": 200,
+  "seeds": 600,
   "result": "red",
   "readouts": [
    {
     "direction": 1,
-    "half_width": 110.81480264117249,
-    "mean_difference": 45.25,
-    "p": 0.21667101584889162,
+    "half_width": 65.68931950344516,
+    "mean_difference": 30.756666666666668,
+    "p": 0.14748545571373523,
     "readout": "cut_off_tie_weeks",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 42.85596356327183,
-    "mean_difference": 13.395,
+    "half_width": 26.238943955091532,
+    "mean_difference": 15.203333333333333,
     "readout": "child_cut_weeks",
     "report_only": true
    }
@@ -702,21 +702,21 @@ Part II criteria that pass but are not proved here; where their mutation is repo
   "kind": "named",
   "criterion": "M11.C.10[family of origin]",
   "outcome": "PASS",
-  "seeds": 200,
+  "seeds": 600,
   "result": "survived",
   "readouts": [
    {
     "direction": 1,
-    "half_width": 128.25558857772356,
-    "mean_difference": 145.94,
-    "p": 0.013928832168739703,
+    "half_width": 73.75178101228562,
+    "mean_difference": 152.50166666666667,
+    "p": 2.2850447610826625e-05,
     "readout": "cut_off_tie_weeks",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 46.75292337835047,
-    "mean_difference": 71.255,
+    "half_width": 28.2962927719305,
+    "mean_difference": 28.563333333333333,
     "readout": "child_cut_weeks",
     "report_only": true
    }

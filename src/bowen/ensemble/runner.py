@@ -120,7 +120,7 @@ def run_criterion(criterion: Criterion, rules: dict, workers: int = 1, first_see
     results = []
     seed = first_seed
     converged = False
-    pool = ProcessPoolExecutor(workers) if workers > 1 else None
+    pool = _pool(workers) if workers > 1 else None
     with _stop_raises():
         try:
             target = criterion.seeds or rules["ensemble_cap"]
@@ -166,6 +166,18 @@ def _stop_raises():
     finally:
         for signum, old in previous.items():
             signal.signal(signum, signal.SIG_DFL if old is None else old)  # None: a handler not set from Python
+
+
+def _worker_signals() -> None:
+    """A worker's initializer: the default stop handlers, so a worker forked inside ``_stop_raises`` dies on the
+    parent's terminate rather than turning it into a task result (T-032)."""
+    for signum in STOP_SIGNALS:
+        signal.signal(signum, signal.SIG_DFL)
+
+
+def _pool(workers: int) -> ProcessPoolExecutor:
+    """The worker pool, each worker started with the default stop handlers (``_worker_signals``)."""
+    return ProcessPoolExecutor(workers, initializer=_worker_signals)
 
 
 def _end_workers(pool: ProcessPoolExecutor, wait: float = 5.0) -> None:

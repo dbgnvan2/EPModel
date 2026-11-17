@@ -248,3 +248,20 @@ def test_t032_a_stop_signal_stops_the_run_and_the_handler_is_restored():
         assert seen == [signal.SIGTERM], "the handler before the run was not restored"
     finally:
         signal.signal(signal.SIGTERM, previous)
+
+
+def test_t032_workers_take_the_default_stop_handlers():
+    """T-032 (review 2026-11-17): a worker forked inside ``_stop_raises`` would inherit its handler, turn the parent's
+    terminate into a task result and live until the kill; the pool's initializer resets the stop signals first."""
+    import signal
+
+    from src.bowen.ensemble import runner
+
+    previous = {s: signal.signal(s, runner._stopped) for s in runner.STOP_SIGNALS}
+    try:
+        runner._worker_signals()
+        assert all(signal.getsignal(s) is signal.SIG_DFL for s in runner.STOP_SIGNALS)
+    finally:
+        for s, old in previous.items():
+            signal.signal(s, old)
+    assert runner._pool(2)._initializer is runner._worker_signals

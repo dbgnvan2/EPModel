@@ -460,7 +460,8 @@ def return_lent_functioning(state: RunState, params: EngineParams, week_start: d
     """Purpose: step 9, before the settling back — a taker whose capacity fell by a cause other than the exchange gives
     back the same share of their borrowed pseudo-self, with the same of functional level, to the people who lent it.
     Spec:    docs/bowen_agent_model_spec_v2.md#M6.I.4a, #M6.3e
-    Tests:   tests/bowen/test_moves.py::test_m6i4a_s3_4_lent_functioning_returns_with_lost_capacity
+    Tests:   tests/bowen/test_moves.py::test_m6i4a_s3_4_lent_functioning_returns_with_lost_capacity,
+             tests/bowen/test_moves.py::test_t134_a_return_with_no_lender_is_logged_as_unreturned
 
     ``week_start`` is each person's ``functional_level`` at the week's start; ``exchange`` what `M6.I.4`'s transfers
     moved this week (``exchanged``), left out of the level read now. For each living person holding borrowed
@@ -468,7 +469,8 @@ def return_lent_functioning(state: RunState, params: EngineParams, week_start: d
     ``s_after``, ``borrowed × (s_before − s_after) / s_before`` goes back to the partners on ties whose functioning
     balance names this person the over-functioner and who hold lent (negative) pseudo-self, alive or dead (`M6.3e`),
     in proportion to what each holds lent; none is given back more than they lent nor taken above 100, and the taker
-    is not taken below 0. What a cap stops stays with the taker. Total pseudo-self is conserved. A fall in level no
+    is not taken below 0. What a cap stops, or what has no lender to go to, stays with the taker and is logged as
+    ``pseudo_self_unreturned`` (T-134), a value on the record, not a change of state. Total pseudo-self is conserved. A fall in level no
     larger than ``invariant_tolerance`` is rounding and returns nothing.
     """
     exchange = exchange or {}
@@ -490,6 +492,7 @@ def return_lent_functioning(state: RunState, params: EngineParams, week_start: d
         due = borrowed * (s_before - s_after) / s_before
         lenders = lenders_of(state, pid)
         lent = math.fsum(-o.pseudo_self for o in lenders)
+        given = []
         for lender in lenders:
             amount = min(due * -lender.pseudo_self / lent, -lender.pseudo_self,
                          SCALE_MAX - lender.functional_level, taker.functional_level)
@@ -499,7 +502,11 @@ def return_lent_functioning(state: RunState, params: EngineParams, week_start: d
             taker.functional_level -= amount
             lender.pseudo_self += amount
             lender.functional_level += amount
+            given.append(amount)
             changes += [(taker.id, "pseudo_self", -amount), (lender.id, "pseudo_self", amount)]
+        unreturned = due - math.fsum(given)
+        if unreturned > params.invariant_tolerance:
+            changes.append((taker.id, "pseudo_self_unreturned", unreturned))
     return [EffectRecord(state.tick, "pseudo_self_return", None, people=tuple(changes))] if changes else []
 
 

@@ -78,15 +78,15 @@ REQUIRED = {
     "M11.C.19": ("weeks", "low_axis", "high_axis"),
     "M11.C.25": ("weeks", "no_pole"),
     "M11.C.27": ("t0", "latency", "report_weeks", "unstable_impingement"),
-    "M11.C.29": ("weeks", "t0", "disguise_span", "disguise_every", "mover_level"),  # mover_level: revision 39, D21
-    "M11.C.32": ("weeks", "t0", "angry_impingement", "mover_level"),
+    "M11.C.29": ("weeks", "t0", "disguise_span", "disguise_every", "mover_level", "mover_perspective"),  # mover_level: revision 39, D21
+    "M11.C.32": ("weeks", "t0", "angry_impingement", "mover_level", "mover_perspective"),
     "M11.C.35": ("t0", "run_after", "conductance_high", "conductance_low"),
     "M11.C.38": ("weeks", "level_1", "level_2", "level_3", "level_4"),
     "M11.C.41": ("weeks", "level_higher", "level_lower"),
     "M11.C.42": ("t0", "weeks"),
     "M11.C.44": ("weeks",),
     "M11.C.45": ("weeks",),
-    "M11.C.49": ("weeks", "t0", "window", "level_low", "level_high"),  # spec revision 39, D20
+    "M11.C.49": ("weeks", "t0", "window", "level_low", "level_high", "mover_perspective"),  # spec revision 39, D20
     # Phase D (src/bowen/ensemble/criteria_d.py), spec revision 17.
     "nodal": ("kind_1", "kind_2", "kind_3", "every", "intensity"),
     "M11.C.17": ("weeks",),
@@ -109,7 +109,7 @@ REQUIRED = {
     # Phase D part II, the life course.
     "M11.C.15": ("severity", "change_week", "after"),
     "M11.C.6": ("child",),  # the paired same-child arm
-    "M11.C.10": ("years", "renew_every", "seeds"),  # renew_every; seeds, fixed at 200
+    "M11.C.10": ("years", "renew_every", "seeds"),  # renew_every; seeds, a fixed count
     "M11.C.47": ("weeks", "level_low", "level_high", "stress_every", "stress_kind", "stress_intensity"),
     # Version 2 group G1: the Phase B family's weeks, the twelve-person family's years, fixed seeds.
     "M11.C.48": ("weeks", "years", "seeds"),
@@ -402,15 +402,16 @@ def act(actor, kind, target, tick):
     return {(tick, P(actor)): Selection(actor=P(actor), kind=kind, targets=(P(target),), intensity=intensity)}
 
 
-def mover_at(who: str, level: float):
-    """A setup: ``who`` at basic and functional level ``level`` with systems perspective 1.0, what initialisation
-    derives from level derived again, as ``lowered`` does (`M11.C.29`, `M11.C.32`, `M11.C.49`)."""
+def mover_at(who: str, level: float, perspective: float):
+    """A setup: ``who`` at basic and functional level ``level`` with systems perspective ``perspective``, the
+    criterion's declared ``mover_perspective`` (T-139), what initialisation derives from level derived again, as
+    ``lowered`` does (`M11.C.29`, `M11.C.32`, `M11.C.49`)."""
     def setup(state):
         mover = state.people[P(who)]
         mover.basic_level = mover.functional_level = level
         mover.pseudo_self = mover.swing
         _reinitialise(state)
-        mover.systems_perspective = 1.0
+        mover.systems_perspective = perspective
     return setup
 
 
@@ -465,7 +466,7 @@ def arm_c3(arm, seed, settings):
     state, records = scenario("triad", seed, weeks, forced=forced, held_open=held(t0, "f-m", "f-c"))
     delivered = t0 + settings["latency"]  # the act's effect lands after the tie's latency
     change = _acute_at(records, delivered, (P("f"), P("m"), P("c")))
-    # Restated 2026-10-09 (owner decision, docs/archive/PROPOSAL — TRIANGLE RELIEF AND CREDIT.md): a triangle relieves the
+    # Restated 2026-10-09 (owner decision, docs/archive/proposal_triangle_relief_and_credit.md): a triangle relieves the
     # seeker, not the pair, so the readout is the seeker's change; the partner's is reported.
     return result({"seeker_anxiety": change[P("f")], "third_anxiety": change[P("c")],
                    "partner_anxiety": change[P("m")]}, records)
@@ -625,14 +626,14 @@ def arm_c29(arm, seed, settings):
     # The mover F at level `mover_level` in both arms, as in M11.C.32, and
     # F's spell suspended over the act's window in both arms, M's kept, so the third still carries load (T-020). At
     # level 40, with the spell on F's PREPARE window, 58 of 100 seeds failed PREPARE and 37 ran as the assertion form.
-    setup = mover_at("f", settings["mover_level"])
+    setup = mover_at("f", settings["mover_level"], settings["mover_perspective"])
     spells = suspended(spell("triad", weeks), "f", act_window(t0))
     span, every = settings["disguise_span"], settings["disguise_every"]
     if arm == "treatment":  # a genuine I-POSITION
         forced = act("f", "I-POSITION", "m", t0)
     else:  # distance in disguise: withdrawals over the same weeks
         forced = {k: v for t in range(t0, t0 + span, every) for k, v in act("f", "DISTANCE", "m", t).items()}
-    # The readout, restated post hoc on 2026-10-09 (X1 of docs/archive/DECISIONS — PHASE C FAILING.md): the weeks the third
+    # The readout, restated post hoc on 2026-10-09 (X1 of docs/archive/decisions_phase_c_failing.md): the weeks the third
     # person's symptom is active, from onset (`M1.A.6`) until the load falls below the re-arm fraction of the
     # threshold. The declared readout counted weeks with any symptom accumulation, which is positive whenever acute
     # anxiety is above the chronic floor; the model rests a few points above it by design (D7), so that count sat at
@@ -660,7 +661,7 @@ def arm_c32(arm, seed, settings):
     # complete the sequence when calm, as tests/bowen/test_iposition.py's MOVER_LEVEL is. At the fixture's 40 the
     # calm arm reached the peak in 0 of 200 seeds after spec revision 16, so both arms read 0 and the gate went
     # untested. What initialisation derives from level is derived again, as lowered() does (review 2026-10-17).
-    setup = mover_at("a", settings["mover_level"])
+    setup = mover_at("a", settings["mover_level"], settings["mover_perspective"])
 
     def anger(state):
         setup(state)
@@ -679,7 +680,7 @@ def arm_c32(arm, seed, settings):
 # --- M11.C.49: the lower the mover's level, the more an I-position raises the family's anxiety -------------
 
 
-def _c49_run(seed, weeks, t0, length, level, said):
+def _c49_run(seed, weeks, t0, length, level, perspective, said):
     """One of `M11.C.49`'s four runs on the triad: F at ``level``, F's spell suspended over the act's window, F's own
     `I-POSITION` withheld in every week, so the control has none and the act run one; with ``said``, F's `I-POSITION`
     toward M is said at ``t0``: the sequence starts at `DEFINE`, unprepared (`M5.D.2a`; the owner's Q9, 2026-10-25),
@@ -707,7 +708,7 @@ def _c49_run(seed, weeks, t0, length, level, said):
 
     withheld = {t: {f: frozenset({"I-POSITION"})} for t in range(weeks)}
     state, records = scenario("triad", seed, weeks, spells=suspended(spell("triad", weeks), "f", act_window(t0)),
-                              setup=mover_at("f", level), held_open=held(t0 + 1, "f-m"), withheld=withheld,
+                              setup=mover_at("f", level, perspective), held_open=held(t0 + 1, "f-m"), withheld=withheld,
                               before=before, watch=watch)
     on_tie = [r.event.kind for r in records if isinstance(r, EmittedRecord) and r.event.mechanism is Mechanism.MOVE
               and r.event.timestamp in window and {r.event.sender, *r.event.targets} == {f, m}]
@@ -727,7 +728,7 @@ def arm_c49(arm, seed, settings):
     """The baseline is the mover at ``level_high``, the treatment at ``level_low``; each readout is the act run less
     its control on the same seed (`M11.C.49`). Completions are the act run's, reported."""
     level = settings["level_high"] if arm == "baseline" else settings["level_low"]
-    run = (seed, settings["weeks"], settings["t0"], settings["window"], level)
+    run = (seed, settings["weeks"], settings["t0"], settings["window"], level, settings["mover_perspective"])
     _, control = _c49_run(*run, said=False)
     records, acted = _c49_run(*run, said=True)
     if (acted["said"], control["said"]) != (1, 0):  # the row says the act is said in every seed, and only there

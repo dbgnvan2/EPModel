@@ -19,7 +19,7 @@ Tests:   tests/bowen/test_negative_runs.py::test_m11c48_run_before_the_first_cut
          tests/bowen/test_negative_runs.py::test_m11c48_t185_a_cutoff_with_no_uncut_tie_of_its_sides_is_left_out_and_counted
 
 The definitions, `[I]` (`docs/readouts_phase_c.md`, "Negative runs"; the proposal
-`docs/archive/PROPOSAL — CUTOFF ANXIETY, BRIDGING AND REPAIR.md` §4, the owner's D12):
+`docs/archive/proposal_cutoff_anxiety_bridging_and_repair.md` §4, the owner's D12):
 
 * a **negative contact** on a tie is an act in `config/bowen/contact_classes.md`'s `negative` or `rebuff` set emitted
   by one member toward the other, or any move across the tie that was refused (a ``refusal`` record), each counted

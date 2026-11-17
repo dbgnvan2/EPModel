@@ -92,14 +92,14 @@ Check the spec against these: that every claim marked as sourced is sourced, and
 
 Decision records. For each, confirm the decision appears in the spec as approved:
 
-- [ ] [<DECISIONS FOR APPROVAL.md>](<archive/DECISIONS FOR APPROVAL.md>) — revisions 1–2 (lectures, Kerr–Bowen interviews).
-- [ ] [<DECISIONS — FAMILY EVALUATION.md>](<archive/DECISIONS — FAMILY EVALUATION.md>) — revision 4 (*Family Evaluation*).
+- [ ] [<decisions_for_approval.md>](<archive/decisions_for_approval.md>) — revisions 1–2 (lectures, Kerr–Bowen interviews).
+- [ ] [<decisions_family_evaluation.md>](<archive/decisions_family_evaluation.md>) — revision 4 (*Family Evaluation*).
 - [ ] [proposal_rev11_emergence.md](archive/proposal_rev11_emergence.md) — revision 11 (set / random / emergent). Where it
       and the spec differ, the spec wins.
-- [ ] [<DECISIONS — PHASE C FAILING.md>](<archive/DECISIONS — PHASE C FAILING.md>) — the failing Phase C criteria.
-- [ ] [<DECISIONS — CUTOFF SEMANTICS.md>](<archive/DECISIONS — CUTOFF SEMANTICS.md>) — whether the engine's CUTOFF should
+- [ ] [<decisions_phase_c_failing.md>](<archive/decisions_phase_c_failing.md>) — the failing Phase C criteria.
+- [ ] [<decisions_cutoff_semantics.md>](<archive/decisions_cutoff_semantics.md>) — whether the engine's CUTOFF should
       become rejection (built 2026-10-11, option B, `M1.B.3c`).
-- [ ] [<PROPOSAL — TRIANGLE RELIEF AND CREDIT.md>](<archive/PROPOSAL — TRIANGLE RELIEF AND CREDIT.md>) — what a triangle
+- [ ] [<proposal_triangle_relief_and_credit.md>](<archive/proposal_triangle_relief_and_credit.md>) — what a triangle
       relieves (`M1.C.1`, `M4.D.6e`, `M11.C.3`). Built.
 
 Per-source extractions. The ledger summarizes these; open one when a ledger entry looks wrong.
@@ -186,14 +186,14 @@ the tag `version-1`, and its six documents — `spec.md`, `logic_rules.md`, `con
 [agent_raising_design_prompt.md](archive/agent_raising_design_prompt.md),
 [conversation_agents_maturity_emotion_2026-09.md](archive/conversation_agents_maturity_emotion_2026-09.md).
 
-**Approved 2026-10-11:** [<PROPOSAL — STRESS ON FUNCTIONING, COACHING AND SELF-WORK.md>](<archive/PROPOSAL — STRESS ON FUNCTIONING, COACHING AND SELF-WORK.md>)
+**Approved 2026-10-11:** [<proposal_stress_on_functioning_coaching_and_self_work.md>](<archive/proposal_stress_on_functioning_coaching_and_self_work.md>)
 — functioning drops under stress (a strain term); how coaching and a person's own practice reach behaviour.
 
-**Approved 2026-10-11:** [<PROPOSAL — NODAL EVENTS, CUTOFF FROM BEHAVIOUR, C.17.md>](<archive/PROPOSAL — NODAL EVENTS, CUTOFF FROM BEHAVIOUR, C.17.md>)
+**Approved 2026-10-11:** [<proposal_nodal_events_cutoff_from_behaviour_c_17.md>](<archive/proposal_nodal_events_cutoff_from_behaviour_c_17.md>)
 — what counts as a nodal event, the cutoff readout read from behaviour, and `M11.C.17` rewritten (a coach helps and is
 not required).
 
-**Approved 2026-10-11:** [<PROPOSAL — PHASE D DEFINITIONS.md>](<archive/PROPOSAL — PHASE D DEFINITIONS.md>) — the definitions of C.14's technique,
+**Approved 2026-10-11:** [<proposal_phase_d_definitions.md>](<archive/proposal_phase_d_definitions.md>) — the definitions of C.14's technique,
 C.23's expressed-emotion and suppression terms, C.28's mobility term, and a criterion proving the triangle change.
 
 **Approved 2026-10-10:** [implementation_plan_phase_d.md](archive/implementation_plan_phase_d.md) — the Phase D plan (2026-10-10):
@@ -276,19 +276,19 @@ without the build history on either Mac: what it checks, how it is set up, the r
 
 **Built 2026-10-20:** [plan_doc_claim_tests.md](plan_doc_claim_tests.md) — tests that fail when a document restates a fact that has since changed: the spec revision in four places, repo paths in README and CLAUDE.md, `requirements.txt` against the imports, the suite-size pattern widened, and status claims checked against each document's own status line, both ways. Each test with the files it reads and the mutation that proves it fails; the build record (§12) and each criterion's status (§13). Approved by the owner 2026-10-20.
 
-**Built 2026-10-22, revision 36 (A6 not shown):** [<PROPOSAL — CUTOFF ANXIETY, BRIDGING AND REPAIR.md>](<archive/PROPOSAL — CUTOFF ANXIETY, BRIDGING AND REPAIR.md>) — version 2's G1: the owner's decisions on a cut-off tie's anxiety (peak, decay to a 10% floor, negative and positive bridging, repair) turned into rules, tests and the new negative-run composite criterion, with eleven questions (Q1–Q11, all decided by the owner) and two stated conflicts with the spec (`M1.D.2a`, `M5.B.3`).
+**Built 2026-10-22, revision 36 (A6 not shown):** [<proposal_cutoff_anxiety_bridging_and_repair.md>](<archive/proposal_cutoff_anxiety_bridging_and_repair.md>) — version 2's G1: the owner's decisions on a cut-off tie's anxiety (peak, decay to a 10% floor, negative and positive bridging, repair) turned into rules, tests and the new negative-run composite criterion, with eleven questions (Q1–Q11, all decided by the owner) and two stated conflicts with the spec (`M1.D.2a`, `M5.B.3`).
 
-**Draft for review, 2026-10-18:** [<PROPOSAL — LEARNING BY LEVEL, ASKING WHAT TO DO DIFFERENTLY.md>](<archive/PROPOSAL — LEARNING BY LEVEL, ASKING WHAT TO DO DIFFERENTLY.md>) — version 2 rule question raised by the owner: every act teaches a felt lesson and a fact lesson, level sets how much the fact lesson guides choice and anxiety erodes it, a person under high anxiety may ask "what can I do differently?", and coaching raises the chance of asking and of pursuing the answer; what the corpus supports and does not; nine questions for the owner.
+**Draft for review, 2026-10-18:** [<proposal_learning_by_level_asking_what_to_do_differently.md>](<archive/proposal_learning_by_level_asking_what_to_do_differently.md>) — version 2 rule question raised by the owner: every act teaches a felt lesson and a fact lesson, level sets how much the fact lesson guides choice and anxiety erodes it, a person under high anxiety may ask "what can I do differently?", and coaching raises the chance of asking and of pursuing the answer; what the corpus supports and does not; nine questions for the owner.
 
-**Built 2026-10-22, revision 36:** [<PROPOSAL — EVENT SIZES FROM THE HOLMES–RAHE SCALE.md>](<archive/PROPOSAL — EVENT SIZES FROM THE HOLMES–RAHE SCALE.md>) — version 2, at the owner's request: the model's event sizes against the Holmes–Rahe life-event scale (an outside rating, not the corpus), what Kerr's case material says about event size (set by the tie, not the kind; the deciding case is `[K-ext]`), a proposal to take base sizes from the scale and scale them by the tie, and eight questions (Q1–Q8, all decided by the owner).
+**Built 2026-10-22, revision 36:** [<proposal_event_sizes_from_the_holmes_rahe_scale.md>](<archive/proposal_event_sizes_from_the_holmes_rahe_scale.md>) — version 2, at the owner's request: the model's event sizes against the Holmes–Rahe life-event scale (an outside rating, not the corpus), what Kerr's case material says about event size (set by the tie, not the kind; the deciding case is `[K-ext]`), a proposal to take base sizes from the scale and scale them by the tie, and eight questions (Q1–Q8, all decided by the owner).
 
-**Decided 2026-10-25 (Q1–Q4, each as recommended):** [<PROPOSAL — DISPLACED COPING (P2).md>](<archive/PROPOSAL — DISPLACED COPING (P2).md>) — stage 3 group C: P2, displaced coping (new `M1.A.5f`: a loaded sender's `OVERFUNCTION` moves the coping amount from the receiver's functioning to the sender's, conserved), and F1 (the functioning the stress floor holds put on a ledger the estimator leaves out), with the probe that shows P2 alone does not move `M11.C.6` at coping size. The owner chose P2 plus F1 on 2026-10-25; the two were probed together on Mac Mini1 the same day (+0.018 ± 0.025, unresolved), and the owner decided Q1–Q4 as recommended. Applied as spec revision 39 part 1 and built at stage 3 step 7 (2026-10-26).
+**Decided 2026-10-25 (Q1–Q4, each as recommended):** [<proposal_displaced_coping_p2.md>](<archive/proposal_displaced_coping_p2.md>) — stage 3 group C: P2, displaced coping (new `M1.A.5f`: a loaded sender's `OVERFUNCTION` moves the coping amount from the receiver's functioning to the sender's, conserved), and F1 (the functioning the stress floor holds put on a ledger the estimator leaves out), with the probe that shows P2 alone does not move `M11.C.6` at coping size. The owner chose P2 plus F1 on 2026-10-25; the two were probed together on Mac Mini1 the same day (+0.018 ± 0.025, unresolved), and the owner decided Q1–Q4 as recommended. Applied as spec revision 39 part 1 and built at stage 3 step 7 (2026-10-26).
 
 **Approved by the owner 2026-10-25, as a whole:** [spec_revision_39_draft.md](archive/spec_revision_39_draft.md) — spec revision 39 (version 2 stage 3, plan step 4). Part 1: group C's text (new `M1.A.5f` displaced coping, `M1.A.5e`'s `floor_held` ledger, `M1.A.4k`, `M7.E.1f`'s one sentence, new `M6.I.4a`, `M11.C.6`'s and `M11.C.21`'s rows and `M11.5` notes), the *displacing* table for `config/bowen/stress_response.md`, the explainer's text, T-130's wording for `M1.F.6a` and `event_sizes.md`, the stage 4 check against `_LEDGER.md`, and the owner's answers of 2026-10-25 (Q1–Q6). Part 2: group F (`M5.F.4`'s demand share, `M5.F.2c`, `M11.C.29`'s arm, new `M11.C.49`) and group A (new `M4.C.1d`, `M4.D.3a`, `reciprocal_contact_share`). Part 3: T-128 (`M17.E.1`'s named ratio, `config/sweep/sweep.md`) and T-014 (`M8`, `M8.1`, `M8.5`, `M13.1`, `M11.C.7`, `M7.D.1a`), and `M11.C.21`'s quoted effect. Q8–Q14 decided as recommended. Each group's approved text is applied to the spec with its code (Q6); applied in full at stage 3 steps 6–10 (2026-10-25–26).
 
-**Built 2026-10-22, revision 36:** [<PROPOSAL — RELEASE BY TIE (G2).md>](<archive/PROPOSAL — RELEASE BY TIE (G2).md>) — version 2's G2: a symptom's released hold and the lock-in spill split among the bearer's interactive family ties by bond energy, an external agent taking no share, in place of the equal split by count; one rule, no new criterion; its two questions decided as recommended under the owner's instruction of 2026-10-22, approved by the owner 2026-10-24 (T-125).
+**Built 2026-10-22, revision 36:** [<proposal_release_by_tie_g2.md>](<archive/proposal_release_by_tie_g2.md>) — version 2's G2: a symptom's released hold and the lock-in spill split among the bearer's interactive family ties by bond energy, an external agent taking no share, in place of the equal split by count; one rule, no new criterion; its two questions decided as recommended under the owner's instruction of 2026-10-22, approved by the owner 2026-10-24 (T-125).
 
-**Decided and built, 2026-10-22:** [<PROPOSAL — ASR QUOTATIONS (SP-1).md>](<archive/PROPOSAL — ASR QUOTATIONS (SP-1).md>) — the stage 1 milestone review's SP-1 (owner decision D1): each
+**Decided and built, 2026-10-22:** [<proposal_asr_quotations_sp_1.md>](<archive/proposal_asr_quotations_sp_1.md>) — the stage 1 milestone review's SP-1 (owner decision D1): each
 quotation of the 1979 tapes and the Kerr–Bowen interviews in the spec, the explainer, the ledger and the proposal
 html, with a paraphrase checked against its passage and its citation (65 entries); how the frozen records and the
 extraction notes are marked; the test against new quotations; and eight questions for the owner (Q1–Q8), answered
@@ -324,7 +324,7 @@ first (spec revisions 24–27 were then Claude's recommendations; the owner revi
 
 **For review, 2026-10-13:** [phase_d2_status_2026-10-13.md](archive/phase_d2_status_2026-10-13.md) — Phase D part II (the life course) after the build: each step and criterion with its evidence, and what the owner decides next.
 
-**Built 2026-10-10:** [<PROPOSAL — RUN VISUALIZATION MAPPING.md>](<archive/PROPOSAL — RUN VISUALIZATION MAPPING.md>) (drawing a
+**Built 2026-10-10:** [<proposal_run_visualization_mapping.md>](<archive/proposal_run_visualization_mapping.md>) (drawing a
 run as a fam-diag diagram; `tools/famdiag_export.py`, `config/viz/famdiag.md`).
 
 **Earlier phases and build process:**

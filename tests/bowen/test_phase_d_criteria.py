@@ -477,3 +477,20 @@ def test_m11c21_t161_the_scripted_overfunction_ends_at_t0_in_both_arms(monkeypat
         assert set(seen[arm]) == {(t, p) for t in (0, 2, 4) for p in (criteria_d.FATHER, criteria_d.MOTHER)}
         assert all(s.kind == "OVERFUNCTION" and s.targets == (criteria_d.CHILD,) for s in seen[arm].values())
     assert seen["baseline"] == seen["treatment"]
+
+
+def test_t021_m11c7_refuses_a_coach_tie_too_slow_for_the_scripted_split():
+    """T-021: the sided arm's `SPLIT` the week before a session holds the coach's side at the landing week only while
+    the coach tie's latency is at most ``coach_side_window − 2``; outside that the arm raises, not runs unsided."""
+    import dataclasses
+
+    from src.bowen.ensemble import criteria_d
+    from src.bowen.ensemble.criteria import FAMILIES, ROLES
+    from src.bowen.io.load import load_constants, load_family
+    from src.bowen.scenario.params import engine_params
+
+    family, params = load_family(FAMILIES["phase_c"]), engine_params(load_constants())
+    coach, spouses = ROLES["phase_c", "coach"], (ROLES["phase_c", "parent_1"], ROLES["phase_c", "parent_2"])
+    criteria_d.side_reaches_the_landing(family, coach, spouses, params)        # the fixture: latency 1, window 4
+    with pytest.raises(ValueError, match="outlasts coach_side_window"):
+        criteria_d.side_reaches_the_landing(family, coach, spouses, dataclasses.replace(params, coach_side_window=2))

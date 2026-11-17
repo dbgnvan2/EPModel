@@ -105,7 +105,7 @@ This would have caught `python3 src/main.py`. README at `423bbed` still had it i
 - **D2.1 Candidates.** Every backtick span in prose, every line of a fenced block, and every relative link target. A
   token counts as a repo path if it starts with `src/`, `tools/`, `tests/`, `docs/` or `config/`, or ends in `.py`. A
   `-m` module (`python3 -m src.bowen.run`) is checked as `src/bowen/run.py`. A whole span that is an existing path with
-  spaces in it (`docs/archive/DECISIONS — FAMILY EVALUATION.md`) counts as one path. Tokens with `*`, `<`, `>`, `{`, `}` or
+  spaces in it (`docs/archive/decisions_family_evaluation.md`) counts as one path. Tokens with `*`, `<`, `>`, `{`, `}` or
   `$` are patterns or placeholders and are skipped. A `::test_name` suffix is dropped.
 - **D2.2 Exists** means git tracks it, as a file or as a directory holding tracked files. A bare `name.py` exists if
   any tracked file has that name. **Git, not the disk:** a stray untracked copy of a removed file must not hide the
@@ -242,8 +242,8 @@ Measured after the merge: five disagreements, all in the checklist.
 | For review, 2026-10-15 | `REVIEW_spec_revisions_24-30.md` | REVIEWED BY THE OWNER 2026-10-16 | D5b.3 |
 | For review, 2026-10-17 | `version_1_dispositions.md` | complete, 2026-10-18 | D5b.3 |
 | For review, 2026-10-17 | `REVIEW_version_1_outputs.md` | signed off by the owner 2026-10-17 | D5b.3 |
-| Decided 2026-10-19, not built | `PROPOSAL — CUTOFF ANXIETY, BRIDGING AND REPAIR.md` | DRAFT 2026-10-19, for owner review | D5b.4 |
-| Decided 2026-10-19, not built | `PROPOSAL — EVENT SIZES FROM THE HOLMES–RAHE SCALE.md` | DRAFT 2026-10-18, for owner review | D5b.4 |
+| Decided 2026-10-19, not built | `proposal_cutoff_anxiety_bridging_and_repair.md` | DRAFT 2026-10-19, for owner review | D5b.4 |
+| Decided 2026-10-19, not built | `proposal_event_sizes_from_the_holmes_rahe_scale.md` | DRAFT 2026-10-18, for owner review | D5b.4 |
 
 In the last two rows the checklist is right and the proposal's own status line is stale. Each proposal's next sentence
 says the owner decided every question on 2026-10-19 (G1: "Q1–Q11 in §8, all decided by the owner on 2026-10-19";
@@ -355,7 +355,7 @@ Live mutations, one edit to a real file each, all reverted:
 | D3 | deleted the `numpy` line from `requirements.txt` | test_d3_requirements_match_the_imports | "{'imported, not in requirements.txt': ['numpy (src/bowen/engine/counting.py, src/bowen/engine/draws.py, …)']}" | reverted |
 | D5a | README: "Spec revisions 24–27 were Claude's recommendations; the owner reviewed them on 2026-10-16." → "Spec revisions 24–27 are Claude's recommendations, pending owner review." | test_d5a_current_state_documents_carry_no_stale_pending_review | "{'README.md': 1}" | reverted |
 | D5b.3 | checklist label for `version_2_plan.md`: "Approved 2026-10-19:" → "For review, 2026-10-18:" | test_d5b_status_claims_agree_with_each_documents_own_status; test_d5b_the_scan_is_not_vacuous | "docs/SPEC_REVIEW_CHECKLIST.md calls docs/version_2_plan.md open ('For review, 2026-10-18'); its own status is settled: 'APPROVED 2026-10-19.'"; the pair is no longer settled on both sides | reverted |
-| D5b.4 | checklist label for the learning-by-level proposal: "Draft for review, 2026-10-18:" → "Approved 2026-10-19:" | test_d5b_status_claims_agree_with_each_documents_own_status | "… calls docs/archive/PROPOSAL — LEARNING BY LEVEL, ASKING WHAT TO DO DIFFERENTLY.md settled ('Approved 2026-10-19'); its own status is open: 'DRAFT 2026-10-18, for owner review. …'" | reverted |
+| D5b.4 | checklist label for the learning-by-level proposal: "Draft for review, 2026-10-18:" → "Approved 2026-10-19:" | test_d5b_status_claims_agree_with_each_documents_own_status | "… calls docs/archive/proposal_learning_by_level_asking_what_to_do_differently.md settled ('Approved 2026-10-19'); its own status is open: 'DRAFT 2026-10-18, for owner review. …'" | reverted |
 
 The D4 edit was run with CLAUDE.md's count set to the suite collected at the time (942), so the only finding was the
 mutation's.

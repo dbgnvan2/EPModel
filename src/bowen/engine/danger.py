@@ -70,7 +70,7 @@ def update_danger(state: RunState, batch: tuple[Delivery, ...], params: EnginePa
                 tie.received_intrusion[member] = now
             other = state.people[tie_id.other(member)]
             felt = felt_from(now, other.danger if other.alive else 0.0, params)
-            if tie.rejection.get(member, 0.0) > 0.0:  # the owner, 2026-10-14: held while rejection is held
+            if tie.rejection.get(member, 0.0) > 0.0:  # held while rejection is held (M1.B.3e)
                 felt = max(felt, tie.felt_danger.get(member, 0.0))
             if felt != tie.felt_danger.get(member, 0.0):
                 rows.append((tie_id, f"felt_danger:{member}", felt - tie.felt_danger.get(member, 0.0)))

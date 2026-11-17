@@ -23,7 +23,7 @@ author: Claude (claude.ai chat session), for Dave
 - `docs/theory/_CONVERGENCES.md` C3;
 - the ledger's `KS-A` and `U8` entries;
 - candidate C9 in `papers/SPEC_CANDIDATES_from_preprints_2026-09-20.md`;
-- keyword searches of `DECISIONS FOR APPROVAL.md` and `_RESOLUTIONS.md`.
+- keyword searches of `decisions_for_approval.md` and `_RESOLUTIONS.md`.
 
 **The chapter extractions** (`docs/theory/ch01.md`–`ch22.md`, about 444,000 words) were **not read end to end**. They were searched, passage by passage, for every item section G relies on, and each quoted phrase in section G was located in the extraction named.
 

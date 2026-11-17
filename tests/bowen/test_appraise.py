@@ -189,6 +189,35 @@ def test_m4c1d_s3_10_relieved_receiver_returns_contact():
             assert expected > 0, kind
 
 
+def test_t141_the_sender_appraises_returned_contact_without_the_events_sign_or_attention():
+    """T-141 (`M4.C.1d`): the returned contact is the target's, so the sender's appraisal of it reads neither the
+    event's sign (`M1.F.2`, the receiver's sign for the sender's position) nor its attention (`M4.C.8`, the receiver's
+    attention): a −1 sign or a feeling-directed event leaves the sender's relief as it is."""
+    from types import MappingProxyType
+
+    from src.bowen.engine.appraise import returned_contact
+
+    def delta(kinds_signs=None, attention=Attention.NONE):
+        state = fresh()
+        tie = state.ties[RAVI_MARTA]
+        tie.felt_contact[MARTA], tie.felt_impingement[MARTA] = 0.0, 0.0  # the target is relieved
+        tie.felt_contact[RAVI] = 0.0                                       # the sender has too little contact
+        sender = state.people[RAVI]
+        sender.outside_ness_outward = sender.outside_ness_inward = 0.0
+        if kinds_signs:
+            state.kinds = dataclasses.replace(state.kinds, signs=MappingProxyType(kinds_signs))
+        event = dataclasses.replace(move("STAY-IN-CONTACT", 60.0, attention=attention),
+                                    source_position=SourcePosition.INSIDE)
+        found = returned_contact(state, as_target(state, event), event, PARAMS)
+        assert found is not None
+        return found[2]
+
+    plain = delta()
+    assert plain < 0                                                       # relief
+    assert delta({("STAY-IN-CONTACT", SourcePosition.INSIDE): -1}) == pytest.approx(plain, abs=1e-12)
+    assert delta(attention=Attention.FEELING) == pytest.approx(plain, abs=1e-12)
+
+
 def test_m4c1d_sender_appraises_the_returned_contact_by_their_own_deviation():
     """`M4.C.1d`: the sender appraises the returned contact by the change in their own two-sided deviation — relief on
     the "too little" side of their optimum, nothing within its band or past it (the band is not felt, and the "too

@@ -102,6 +102,7 @@ activation_regime: synchronous
 | `hardening_run_length` | 3 | [I] | consecutive moves | `M4.G.1` |
 | `bond_energy_decay_rate` | 0.0 | [I] | fraction per tick | `M1.B.4` |
 | `triangle_activity_window` | 4 | [I] | fast ticks | `M1.C.3` |
+| `coach_side_window` | 4 | [I] | fast ticks | `M8.3` |
 | `defence_threshold` | 15.0 | [I] | points of excess anxiety | `M4.C.2` |
 | `witness_weight` | 0.5 | [I] | share of an overheard exchange | `M4.C.9` |
 | `speaker_echo_gain` | 0.2 | [I] | share of what was addressed | `M4.C.7` |

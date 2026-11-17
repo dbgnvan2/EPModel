@@ -179,7 +179,7 @@ checked goes under "Unverified" in the report, never under findings.
     A `KB` claim cites the interview, not the man. The rule is `docs/theory/_SOURCE_QUALITY.md`, "What the Hijack set
     supports", and the explainer's citation legend.
   - Known item to settle on the first review: `M10.C.2`, `_LEDGER.md`'s withdrawn eight-to-ten-generations entry and
-    `docs/archive/DECISIONS FOR APPROVAL.md` A1 quote `KB11` verbatim, in the first person. Is that an exception the owner
+    `docs/archive/decisions_for_approval.md` A1 quote `KB11` verbatim, in the first person. Is that an exception the owner
     accepted, or a defect?
 - **A rule that writes an outcome.** Conflict, over- and underfunctioning, distance, cutoff, projection and fixed
   triangles must emerge from the two drives and felt relief. A rule in `src/bowen/` must not set them directly. See

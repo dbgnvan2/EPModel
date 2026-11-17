@@ -100,9 +100,65 @@ def _stub_verdict(criterion, rules, workers=1):
 
 
 def _in_tmp_cache(tmp_path):
+    """A scratch cache, and each criterion run in this process (``verdict_row``) rather than in a child, so a test's
+    patched ``run_criterion`` is the one used."""
+    import contextlib
+
     import tools.record_cache as record_cache
 
-    return mock.patch.object(record_cache, "CACHE_DIR", tmp_path / "cache")
+    stack = contextlib.ExitStack()
+    stack.enter_context(mock.patch.object(record_cache, "CACHE_DIR", tmp_path / "cache"))
+    stack.enter_context(mock.patch.object(_tool, "child_verdict", side_effect=_tool.verdict_row))
+    return stack
+
+
+def test_t026_a_result_whose_code_changed_under_it_is_not_cached(tmp_path, monkeypatch, capsys):
+    """T-026 (review 2026-11-17): a child imports the live tree, so code edited while it ran would be cached under the
+    hash taken at the start. The hash is taken again after each child, and a moved one stops the run uncached."""
+    from src.bowen.ensemble.criteria_d2 import CRITERIA_D2
+    from tools.record_cache import Cache
+
+    hashes = iter(["a" * 64] + ["b" * 64] * (len(CRITERIA_D2) + 1))
+    record = tmp_path / "phase_d2_ensemble_record.md"
+    monkeypatch.setattr(_tool, "RECORDS", {**_tool.RECORDS, 2: record})
+    monkeypatch.setattr(_tool, "result_hash", lambda: next(hashes))
+    monkeypatch.setattr(sys, "argv", ["phase_d_record.py", "--part", "2", "--workers", "1"])
+    with _in_tmp_cache(tmp_path), \
+            mock.patch("src.bowen.ensemble.runner.run_criterion", side_effect=_stub_verdict):
+        with pytest.raises(SystemExit) as stopped:
+            _tool.main()
+        assert stopped.value.code not in (0, None) and not record.exists()
+        assert Cache(_tool.CACHES[2]).entries == {}
+    assert "the code changed while it ran" in capsys.readouterr().out
+
+
+def test_t026_a_failed_criterion_child_does_not_stop_the_others(tmp_path, monkeypatch, capsys):
+    """T-026: a criterion whose child fails or times out is reported and the run goes on to the next; every finished
+    result is cached, and the tool exits nonzero without writing the record."""
+    from src.bowen.ensemble.criteria_d2 import CRITERIA_D2
+    from tools.child_process import ChildFailed
+    from tools.record_cache import Cache
+
+    first = next(iter(CRITERIA_D2))
+    ran = []
+
+    def child(part, cid, workers):
+        ran.append(cid)
+        if cid == first:
+            raise ChildFailed(f"{cid} timed out after 1 s", [])
+        return _tool.verdict_row(part, cid, workers)
+
+    record = tmp_path / "phase_d2_ensemble_record.md"
+    monkeypatch.setattr(_tool, "RECORDS", {**_tool.RECORDS, 2: record})
+    monkeypatch.setattr(sys, "argv", ["phase_d_record.py", "--part", "2", "--workers", "1"])
+    with _in_tmp_cache(tmp_path), mock.patch.object(_tool, "child_verdict", side_effect=child), \
+            mock.patch("src.bowen.ensemble.runner.run_criterion", side_effect=_stub_verdict):
+        with pytest.raises(SystemExit) as stopped:
+            _tool.main()
+        assert stopped.value.code not in (0, None)
+        assert ran == list(CRITERIA_D2) and not record.exists()
+        assert len(Cache(_tool.CACHES[2]).entries) == len(CRITERIA_D2) - 1
+    assert "timed out after 1 s" in capsys.readouterr().out
 
 
 def test_s1_8c_records_render_from_the_cache(tmp_path):

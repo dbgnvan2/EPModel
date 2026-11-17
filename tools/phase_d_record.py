@@ -8,7 +8,8 @@ Spec:    docs/bowen_agent_model_spec_v2.md#M17.A.1, #M11.D.18, #M11.5, #M13.4;
 Tests:   tests/bowen/test_phase_d_record.py::test_phase_d_record_is_current,
          tests/bowen/test_phase_d_record.py::test_s1_8c_records_render_from_the_cache,
          tests/bowen/test_phase_d_record.py::test_s1_8c_a_stale_entry_is_rerun,
-         tests/bowen/test_phase_d_record.py::test_s1_7b_variants_print_under_their_own_keys
+         tests/bowen/test_phase_d_record.py::test_s1_7b_variants_print_under_their_own_keys,
+         tests/bowen/test_phase_d_record.py::test_t026_a_failed_criterion_child_does_not_stop_the_others
 
     python3 tools/phase_d_record.py [--part 1|2] [--workers N] [--only ID ...]
 
@@ -22,6 +23,11 @@ to either re-renders the record from the cache in seconds; a change to the engin
 runs only the named criteria that have no result; the record is written when every criterion has one. Each row is
 printed under its ``CRITERIA_D`` or ``CRITERIA_D2`` key, so a criterion's variants are separate rows (S1.7b).
 
+Each criterion runs in its own child process (``child_verdict``, through ``tools/child_process.run_child``) with
+``--workers`` passed on and the Phase D row limit (``record_cache.timeout_for``), so a stop signal or a timeout kills
+the child's worker pool with it (T-026). A criterion whose child fails or times out is printed, not cached, and the run
+goes on to the next; at the end the tool exits nonzero without writing the record if any criterion has no result.
+
 Generated, never hand-edited; a default-suite test re-renders the record from its cache and fails when it differs.
 """
 
@@ -30,6 +36,7 @@ from __future__ import annotations
 import argparse
 import dataclasses
 import importlib.util
+import json
 import os
 import sys
 import time
@@ -39,7 +46,8 @@ REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO))
 from tools.atomic_write import write_text_atomic  # noqa: E402
 
-from tools.record_cache import Cache, result_key  # noqa: E402
+from tools.child_process import ChildFailed, run_child  # noqa: E402
+from tools.record_cache import PHASE_D_CHILD, Cache, result_key, timeout_for  # noqa: E402
 
 RECORD = REPO / "docs" / "phase_d_ensemble_record.md"
 RECORDS = {1: RECORD, 2: REPO / "docs" / "phase_d2_ensemble_record.md"}
@@ -79,36 +87,83 @@ def result_hash() -> str:
     return _record.code_hash()
 
 
-def build(part: int, cache: Cache, workers: int | None = None, only: list[str] | None = None) -> str:
-    """Purpose: the record for ``part``, from the cache. With ``workers``, a criterion with no result for the current
-             code is run first and cached (with ``only``, only those it names); a criterion still without a result
-             raises KeyError, so a test can check the committed record without running anything.
-    Spec:    docs/implementation_plan_version_2.md#S1.8c, #S1.7b
-    Tests:   tests/bowen/test_phase_d_record.py::test_s1_8c_records_render_from_the_cache,
-             tests/bowen/test_phase_d_record.py::test_s1_8c_a_stale_entry_is_rerun
-    """
-    from src.bowen.ensemble.runner import Verdict, run_criterion
+def rules() -> dict:
     from src.bowen.io.load import load_constants
 
     constants = load_constants()
-    rules = {k: constants[k] for k in _record.RULE_KEYS}
+    return {k: constants[k] for k in _record.RULE_KEYS}
+
+
+def verdict_row(part: int, cid: str, workers: int) -> dict:
+    """Purpose: run criterion ``cid`` of ``part`` in this process and return its verdict as a dict, under its
+             ``CRITERIA_D`` or ``CRITERIA_D2`` key (S1.7b: two variants that share an id are two rows). The child's
+             work, and the tests' stand-in for a child.
+    Spec:    docs/implementation_plan_version_2.md#S1.7b
+    Tests:   tests/bowen/test_phase_d_record.py::test_s1_7b_variants_print_under_their_own_keys
+    """
+    from src.bowen.ensemble.runner import run_criterion
+
+    verdict = run_criterion(criteria_for(part)[cid], rules(), workers=workers)
+    return dataclasses.asdict(dataclasses.replace(verdict, criterion=cid))
+
+
+def child_verdict(part: int, cid: str, workers: int) -> dict:
+    """Purpose: run criterion ``cid`` in a child process of this tool, in its own process group, and return the one
+             verdict it prints; a child that fails, times out or prints anything but one verdict raises ``ChildFailed``.
+    Spec:    docs/implementation_plan_version_2.md#S1.5a
+    Tests:   tests/bowen/test_phase_d_record.py::test_t026_a_failed_criterion_child_does_not_stop_the_others
+    """
+    argv = [sys.executable, str(Path(__file__).resolve()), "--child", cid, "--part", str(part), "--workers", str(workers)]
+    # One or two criteria a child: the Phase D row limit, three times the longest row measured (record_cache).
+    rows = run_child(argv, REPO, f"phase_d_record.py {cid}", timeout_for(PHASE_D_CHILD, whole_part=False))
+    verdicts = [r for r in rows if r.get("criterion") == cid]
+    if len(verdicts) != 1 or len(rows) != 1:
+        raise ChildFailed(f"{cid}: the child printed {len(rows)} line(s), {len(verdicts)} of them its verdict, not one",
+                          rows)
+    return verdicts[0]
+
+
+def build(part: int, cache: Cache, workers: int | None = None, only: list[str] | None = None) -> str:
+    """Purpose: the record for ``part``, from the cache. With ``workers``, a criterion with no result for the current
+             code is run first in a child (``child_verdict``) and cached (with ``only``, only those it names); a child
+             that fails is printed and the next criterion runs. If any criterion is then without a result, KeyError
+             names them all, so a test can check the committed record without running anything.
+             The hash is taken again after each child; if the code moved while it ran, the run stops uncached.
+    Spec:    docs/implementation_plan_version_2.md#S1.8c, #S1.7b, #S1.5a
+    Tests:   tests/bowen/test_phase_d_record.py::test_s1_8c_records_render_from_the_cache,
+             tests/bowen/test_phase_d_record.py::test_s1_8c_a_stale_entry_is_rerun,
+             tests/bowen/test_phase_d_record.py::test_t026_a_failed_criterion_child_does_not_stop_the_others,
+             tests/bowen/test_phase_d_record.py::test_t026_a_result_whose_code_changed_under_it_is_not_cached
+    """
+    from src.bowen.ensemble.runner import Verdict
+
     engine = result_hash()
-    verdicts = []
-    for cid, criterion in criteria_for(part).items():
+    verdicts, missing = [], []
+    for cid in criteria_for(part):
         key = result_key(engine, None, cid)
         entry = cache.get(key)
         if entry is None and workers is not None and (not only or any(cid.startswith(o) for o in only)):
             started = time.time()
-            # S1.7b: the row carries the criterion's key, so two variants that share an id are two rows.
-            verdict = dataclasses.replace(run_criterion(criterion, rules, workers=workers), criterion=cid)
-            cache.put(key, dataclasses.asdict(verdict))
-            cache.flush()  # keep every finished result, whatever happens to the next criterion
+            try:
+                result = child_verdict(part, cid, workers)
+            except ChildFailed as failed:
+                print(f"{cid}: the run failed, not the model; not cached, rerun next time: {failed.code}", flush=True)
+            else:
+                if result_hash() != engine:  # the child imports the live tree: an edit during it is not this hash's
+                    print(f"{cid}: the code changed while it ran; not cached, and the run stops", flush=True)
+                    raise SystemExit(1)
+                cache.put(key, result)
+                cache.flush()  # keep every finished result, whatever happens to the next criterion
+                print(f"{cid}: {result['outcome']} ({result['seeds']} seeds, {time.time() - started:.0f} s)",
+                      flush=True)
             entry = cache.get(key)
-            print(f"{cid}: {verdict.outcome} ({verdict.seeds} seeds, {time.time() - started:.0f} s)", flush=True)
         if entry is None:
-            raise KeyError(cid)
+            missing.append(cid)
+            continue
         verdicts.append((Verdict(**entry), None))
-    return render(verdicts, rules, engine, part)
+    if missing:
+        raise KeyError(", ".join(missing))
+    return render(verdicts, rules(), engine, part)
 
 
 REWORDED = (
@@ -172,12 +227,17 @@ def main() -> int:
     parser.add_argument("--workers", type=int, default=os.cpu_count() or 1)
     parser.add_argument("--only", nargs="*")
     parser.add_argument("--part", type=int, choices=(1, 2), default=1)
+    parser.add_argument("--child", metavar="ID", help="run one criterion and print its verdict as one JSON line")
     args = parser.parse_args()
+    if args.child:
+        print(json.dumps(verdict_row(args.part, args.child, args.workers), default=float), flush=True)
+        return 0
     cache = Cache(CACHES[args.part])
     try:
         text = build(args.part, cache, workers=args.workers, only=args.only)
     except KeyError as missing:
-        raise SystemExit(f"no result for {missing} on the current code: run without --only, or name it") from None
+        raise SystemExit(f"no result for {missing} on the current code; {RECORDS[args.part].name} was not written: "
+                         "rerun, without --only or naming them") from None
     cache.save()  # every criterion's entry was used; entries for older code go
     record = RECORDS[args.part]
     write_text_atomic(record, text)

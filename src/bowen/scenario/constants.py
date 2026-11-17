@@ -62,6 +62,7 @@ SCHEMA: Mapping[str, KeySpec] = MappingProxyType(
         "hardening_run_length": KeySpec(int, "[I]", "M4.G.1"),
         "bond_energy_decay_rate": KeySpec(float, "[I]", "M1.B.4"),
         "triangle_activity_window": KeySpec(int, "[I]", "M1.C.3"),
+        "coach_side_window": KeySpec(int, "[I]", "M8.3"),
         "defence_threshold": KeySpec(float, "[I]", "M4.C.2"),
         "witness_weight": KeySpec(float, "[I]", "M4.C.9"),
         "speaker_echo_gain": KeySpec(float, "[I]", "M4.C.7"),

@@ -63,7 +63,9 @@ def _cls(name: str, where: str, components: str, keying: Keying) -> DrawClass:
 
 # M3.D.4b's table, one entry per row and in its order. The test
 # `test_m3d4b_table_matches_the_spec` compares this with the spec's table, so
-# the two cannot drift apart silently.
+# the two cannot drift apart silently. A row declares a key for a draw where the
+# engine makes one: `per_hop_fidelity` is declared and not drawn, since the
+# constant of that name stands in for it (`visibility.fidelity_for`, M3.D.4b).
 DRAW_CLASSES: Mapping[str, DrawClass] = MappingProxyType(
     {
         c.name: c

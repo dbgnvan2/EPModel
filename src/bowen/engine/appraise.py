@@ -383,7 +383,8 @@ def returned_contact(state: RunState, delivery: Delivery, event: Event, params: 
     """Purpose: the contact a relieved target returns to the sender, as the sender takes it in, and the sender's
              appraisal of it, from the pre-batch state; None when nothing returns.
     Spec:    docs/bowen_agent_model_spec_v2.md#M4.C.1d
-    Tests:   tests/bowen/test_appraise.py::test_m4c1d_s3_10_relieved_receiver_returns_contact
+    Tests:   tests/bowen/test_appraise.py::test_m4c1d_s3_10_relieved_receiver_returns_contact,
+             tests/bowen/test_appraise.py::test_t141_the_sender_appraises_returned_contact_without_the_events_sign_or_attention
 
     Returns ``(tie, returned contact, Δ acute of the sender)``.
     """
@@ -409,11 +410,9 @@ def returned_contact(state: RunState, delivery: Delivery, event: Event, params: 
     reattributed = effective_perspective(sender, tie, params) * own_share(
         state, sender.id, target.id, params.reappraisal_window
     )
-    delta = (
-        params.appraisal_gain * steepness(sender, params) * change_in_deviation
-        * state.kinds.sign(event.kind, event.source_position)
-        * (1.0 - reattributed) * attention_factor(sender, event, params)
-    )
+    # The returned contact is the target's, not the event: it carries neither the event's sign, which is the
+    # receiver's for the sender's position (M1.F.2), nor its attention, which is the receiver's (M4.C.8; T-141).
+    delta = params.appraisal_gain * steepness(sender, params) * change_in_deviation * (1.0 - reattributed)
     return tie, returned, delta
 
 

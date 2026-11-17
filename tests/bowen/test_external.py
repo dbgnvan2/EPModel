@@ -409,15 +409,21 @@ def test_m8_3_a_coach_recruited_by_a_spouse_holds_no_live_position():
         assert coach_live(other, HALIM, RAVI, PARAMS), kind
 
 
-def test_m8_3_the_side_lapses_with_the_triangle_window():
+def test_m8_3_the_side_lapses_with_the_coach_side_window():
+    """`M8.3`: the side lasts ``coach_side_window`` weeks, its own constant (T-021): a different
+    ``triangle_activity_window`` (`M1.C.3`) leaves it where it was."""
+    import dataclasses
+
     from src.bowen.engine.external import coach_live
 
-    state = fresh()
-    _recruit(state, MARTA, 9)
-    state.tick = 9 + PARAMS.triangle_activity_window - 1
-    assert not coach_live(state, HALIM, RAVI, PARAMS)
-    state.tick = 9 + PARAMS.triangle_activity_window
-    assert coach_live(state, HALIM, RAVI, PARAMS)
+    for params in (PARAMS, dataclasses.replace(PARAMS, coach_side_window=PARAMS.coach_side_window + 3),
+                   dataclasses.replace(PARAMS, triangle_activity_window=PARAMS.triangle_activity_window + 5)):
+        state = fresh()
+        _recruit(state, MARTA, 9)
+        state.tick = 9 + params.coach_side_window - 1
+        assert not coach_live(state, HALIM, RAVI, params)
+        state.tick = 9 + params.coach_side_window
+        assert coach_live(state, HALIM, RAVI, params)
 
 
 def test_m11c7_a_sided_coachs_contact_never_lands():

@@ -604,7 +604,8 @@ accepted `M11.C.22`'s failure for now.
 
 - **Lent functioning returns when the taker's capacity falls (revision 39, `M6.I.4a`).** The share of borrowed
   pseudo-self equal to the share of room above the floor lost goes back to the lenders, conserved. `[I]`, the owner's
-  D19. The week's start is the person's level at the end of the previous week, so a fall made between two weeks, as
+  D19. What a cap stops, or what has no lender to go to, stays with the taker and is logged as
+  `pseudo_self_unreturned` (revision 64, T-134). The week's start is the person's level at the end of the previous week, so a fall made between two weeks, as
   `M11.C.21`'s scripted collapse is, counts in the next week (revision 41, T-145, `[I]`). `M11.C.21` reads the rise
   from the end of the week before the collapse, so the return counts; regenerated at revision 41 it passes (the
   child's rise +0.271 ± 0.32, p 0.0139, 100 seeds), where at revision 40 it failed (−0.04 ± 0.44): before T-145 no week
@@ -1010,7 +1011,7 @@ These are asserted every tick. They are what makes the engine a model of *this* 
 | Coaching dose that works | **15–30 min every month or two**; **1–2 a year fails** | `[#]` Ch22 · L22.4 |
 
 **Withdrawn as a target:** eight to ten generations to schizophrenia (Ch16 · L16.3). The `KB11` interview shows the
-figure was rhetorical, and `DECISIONS FOR APPROVAL.md` A1 (approved) withdrew it. The range survives only as a shape
+figure was rhetorical, and `decisions_for_approval.md` A1 (approved) withdrew it. The range survives only as a shape
 constraint on `M11.C.6` (`KS11.1`; `_LEDGER.md` KS-B.1), not as a duration.
 
 > **Reversion is part of the course, not failure.** `[T]` Ch03 · L03.3 — after reversion "it is easier for the father to pull up and less threatening for the mother to let go." **A model that treats relapse as a failed run is wrong.**
@@ -1357,7 +1358,7 @@ reviewed by the owner one at a time on 2026-10-17 (`docs/archive/implementation_
 `docs/version_1_status.md`.
 
 - **Test 7, the coach's position, is built.** A coach takes a member's side when that member consults him without
-  telling the others (`SPLIT`, Ch19 · L19.3), and stays on it for the weeks a triangle act stays active. While on a
+  telling the others (`SPLIT`, Ch19 · L19.3), and stays on it for `coach_side_window` weeks (4, `[I]`, its own constant since revision 64, T-021, so tuning how long a triangle act stays active leaves test 7 alone). While on a
   side he holds no live position (§13.1's `positions_live`), and his contact lands nothing. `[I]` in form; the rule
   that a sided coach "does not count" is §13.1's `[T]`. P9 described the sided coach as drawn in by a `TRIANGLE`, but
   a family member's moves toward a professional are `SPLIT`, `FRAME_AMBIGUITY` and `DISPLACE` (§5.7), so `SPLIT` is
@@ -1435,8 +1436,8 @@ owner's, taken as recommended on 2026-10-19. Which verdicts it moved is measured
 
 ### 11.5 What revision 36 changed: version 2's group G and the event sizes  *(2026-10-22; built overnight under the owner's instruction of 2026-10-22, each choice decided as recommended and approved by the owner 2026-10-24 in T-125)*
 
-Three decided proposals built as one batch: `docs/archive/PROPOSAL — CUTOFF ANXIETY, BRIDGING AND REPAIR.md` (G1, the
-owner's Q1–Q11 of 2026-10-19), `docs/archive/PROPOSAL — RELEASE BY TIE (G2).md`, and `docs/PROPOSAL — EVENT SIZES FROM THE
+Three decided proposals built as one batch: `docs/archive/proposal_cutoff_anxiety_bridging_and_repair.md` (G1, the
+owner's Q1–Q11 of 2026-10-19), `docs/archive/proposal_release_by_tie_g2.md`, and `docs/PROPOSAL — EVENT SIZES FROM THE
 HOLMES–RAHE SCALE.md` (the owner's Q1–Q8 of 2026-10-19). The corpus gives the directions; every size below is `[I]`
 or the owner's. Each rule changes what an act does or what a tie holds; none writes a pattern outcome (§19): a cutoff
 is still learned from felt relief, and what it then costs is the physics below.
@@ -1705,7 +1706,7 @@ The model was built against Bowen's 22 papers and then checked against five furt
 
 It also **settled §13.3** (see above), retired the three-versus-four-sinks question for good (§7 I2), and supplied the magnitudes in 15.3.
 
-✅ **It raised four items the approved spec did not match. All four are now decided and applied** — `docs/archive/DECISIONS — FAMILY EVALUATION.md`, decided 2026-08-27, spec revision 4.
+✅ **It raised four items the approved spec did not match. All four are now decided and applied** — `docs/archive/decisions_family_evaluation.md`, decided 2026-08-27, spec revision 4.
 
 | Item | Decided | Where it landed |
 |---|---|---|
@@ -2212,7 +2213,7 @@ Version 2's stage 2 builds the constant sweep (`M17.E.1`) and the detection-limi
 - **Level sets steepness and width** `[D]` — "well-differentiated people manage the closeness-distance dilemma more effectively" (`KS03.2`). The functional form is `[I]`; division by functional level, the revision-10 form, is one admissible version.
 - **Anxiety moves the optimum toward closeness** `[T]` `[D]` — the togetherness force intensifies by default as anxiety rises (`KS06.5`).
 - **One function for events and standing load** `[I]` — the standing load is the "too little" side of the same function, so cutoff produces anxiety of its own without a separate rule.
-- **Contact that relieves returns in part to its sender** `[I]` (`M4.C.1d`, revision 39) — the insiders of a triangle are calmed by their alliance (`KS03.1`, `[K]`); a receiver relieved by an approach returns `reciprocal_contact_share` of the contact to the sender, who feels it by their own deviation, so seeking out another relieves only when closeness is wanted. A sender within the band of their optimum or past it feels nothing from it: the band is not felt, and the "too much" side of the deviation is impingement, which the returned contact does not carry.
+- **Contact that relieves returns in part to its sender** `[I]` (`M4.C.1d`, revision 39) — the insiders of a triangle are calmed by their alliance (`KS03.1`, `[K]`); a receiver relieved by an approach returns `reciprocal_contact_share` of the contact to the sender, who feels it by their own deviation, so seeking out another relieves only when closeness is wanted. A sender within the band of their optimum or past it feels nothing from it: the band is not felt, and the "too much" side of the deviation is impingement, which the returned contact does not carry. The sender feels it as positive contact, without the delivered event's sign or the receiver's attention (revision 64, T-141).
 
 ### 19.3 Learning (spec `M4.D.6a`, reversed)
 

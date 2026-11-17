@@ -38,6 +38,7 @@ GOOD_ROWS = (
     "| `hardening_run_length` | 3 | [I] | u | `M4.G.1` |\n"
     "| `bond_energy_decay_rate` | 0.0 | [I] | u | `M1.B.4` |\n"
     "| `triangle_activity_window` | 4 | [I] | u | `M1.C.3` |\n"
+    "| `coach_side_window` | 4 | [I] | u | `M8.3` |\n"
     "| `defence_threshold` | 15.0 | [I] | u | `M4.C.2` |\n"
     "| `witness_weight` | 0.5 | [I] | u | `M4.C.9` |\n"
     "| `speaker_echo_gain` | 0.2 | [I] | u | `M4.C.7` |\n"

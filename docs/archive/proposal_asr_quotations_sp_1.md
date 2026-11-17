@@ -81,7 +81,7 @@ session's scratch folder; §7 SP1.2 turns its logic into a test).
 | `docs/theory/_LEDGER.md` | 10 | 1 | 14 | 4 |
 | `docs/theory/_CONVERGENCES.md` | 0 | 0 | 2 | 0 |
 | `docs/agent_model_proposal.html` | 2 | 0 | 1 | 0 |
-| `docs/DECISIONS FOR APPROVAL.md` | 19 | 1 | 8 | 5 |
+| `docs/decisions_for_approval.md` | 19 | 1 | 8 | 5 |
 | `docs/theory/_LECTURES_1979.md` | 33 | 8 | 4 | 2 |
 | `docs/theory/_KERR_INTERVIEWS.md` | 20 | 1 | 0 | 0 |
 | `docs/theory/kb/_KB_PASS2.md` | 25 | 2 | 0 | 1 |
@@ -119,7 +119,7 @@ proposed text in §4 was checked for runs of four or more transcript words; the 
 | The spec, the explainer, the ledger, `_CONVERGENCES.md`, `agent_model_proposal.html` | Each ASR quotation replaced by the paraphrase in §4 | D1. These are the documents the owner and reviewers read as the model's contract and explanation. |
 | `TODO.md` (lines 1046 and 1098, in the 2026-08-28 backlog) | Paraphrased in the same commit | A working list, not a frozen record. |
 | `docs/spec_coverage.md` | Regenerated from the spec | It is generated. |
-| `docs/DECISIONS FOR APPROVAL.md` | Left unedited, with the note below under its status line | D1: approved records stay frozen. |
+| `docs/decisions_for_approval.md` | Left unedited, with the note below under its status line | D1: approved records stay frozen. |
 | `docs/proposal_rev11_emergence.md` | Left unedited, with the same note | An approved working record (status APPROVED 2026-10-06), so it is treated as DECISIONS is (Q2). |
 | `kb/*.md`, `kb/_KB_PASS2.md`, `_LECTURES_1979.md`, `_KERR_INTERVIEWS.md`, `Extractions to be human validated.md`, `_PASS2_CORRECTIONS.md`, `_SOURCE_QUALITY.md` | Quotes kept; the header note below added or extended | D1: these are the extraction notes, and a quote there locates a passage for anyone checking a finding. |
 | Six `kb` headings that credit Bowen by name | Retitled (table below) | They sit in Hijack-set notes, where the rule is to cite the interview. |
@@ -458,7 +458,7 @@ spec revision. No change under `src/bowen/` or `config/bowen/`, so the engine ha
 | SP1.2 | A quoted span of four or more words (two or more since 2026-11-01, the owner's answer to the pre-tag milestone review's Q8, matching `_SOURCE_QUALITY.md`'s rule of 2026-10-24) beside an ASR citation, outside an exempt file and not allowlisted, fails the default suite. | `tests/test_asr_quotations.py::test_sp1_2_no_quotation_beside_asr_citation`, proved failing by `test_sp1_2_mutant_new_quotation_fails`, which feeds a made-up document with a new quoted span beside a `KB04` citation to the same checker. |
 | SP1.3 | The local test fails on a quoted four-word transcript run and on an unquoted seven-word run, and skips with its reason when the transcripts are absent. | `tests/test_asr_quotations_local.py::test_sp1_3_no_transcript_runs` (marker `transcripts`); `test_sp1_3_mutant_transcript_run_fails` builds its mutant from the transcript at run time, so no transcript words are committed; `test_sp1_3_skips_without_transcripts`. |
 | SP1.4 | Every exempt path and allowlisted span in `tests/asr_quotations.json` exists, and every entry has a reason. | `tests/test_asr_quotations.py::test_sp1_4_rules_entries_are_live` |
-| SP1.5 | `DECISIONS FOR APPROVAL.md` and `proposal_rev11_emergence.md` carry the frozen-record note. | `tests/test_asr_quotations.py::test_sp1_5_frozen_records_carry_note` |
+| SP1.5 | `decisions_for_approval.md` and `proposal_rev11_emergence.md` carry the frozen-record note. | `tests/test_asr_quotations.py::test_sp1_5_frozen_records_carry_note` |
 | SP1.6 | Every extraction note in §3 carries the header note, and no heading in `kb02.md`–`kb15.md` names Bowen as the speaker. | `test_sp1_6_extraction_notes_carry_header`, `test_sp1_6_hijack_headings_cite_the_interview` |
 | SP1.7 | Spec revision 34 carries the §4 spec entries with MR-10, MR-12, MR-13, MR-15 and D3, and a revision history entry; `docs/spec_coverage.md` is regenerated, with the `KB06` phrase in `tools/spec_coverage_overrides.json`'s `M5.F.2a` note reworded. | `tests/test_doc_claims.py`, the coverage page's currency test, and the full suite. |
 | SP1.8 | The documents that describe this are updated in the same commit: this proposal's status line, `CHANGELOG.md`, `TODO.md` (SP-1 closed, Q7 items added), `docs/theory/_STATUS.md`, `docs/REVIEWER_READING_LIST.md`, `docs/milestone_review_brief.md` (the local test's line), `docs/SPEC_REVIEW_CHECKLIST.md`. | `tests/test_doc_checklist.py`, `tests/test_doc_claims.py`; the status line is checked by hand at review. |

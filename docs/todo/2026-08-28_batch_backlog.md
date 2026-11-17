@@ -66,10 +66,11 @@ hedge-level remainder, held back because each fix is new unreviewed surface.
   `M1.D.7b` ("**I believe** a spectrum of problems"), `M1.A.18d` ("not observed it **fully**"),
   `M8.6a` ("**as many as** fifty or sixty" flattened to "fifty to sixty").
   ⟦batch: theory re-reading (corpus passages, grades, attribution)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
-- [ ] T-100 ⟨later⟩ **Third parties quoted by an author, unmarked.** `M7.C.1c` rests on **Sylvia Nasar's** thought, quoted
+- [x] T-100 ⟨later⟩ **Third parties quoted by an author, unmarked.** `M7.C.1c` rests on **Sylvia Nasar's** thought, quoted
   by Kerr. (`M4.D.5c`'s Andrew Solomon attribution is fixed; this one is the same shape.)
   Same revision: drop `M11.D.12`'s "Not built: it needs `M10.C.4b`'s checks module (T-244)", built 2026-11-17.
   ⟦batch: the next spec revision (wording only; ride with engine batch E1's revision)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
+  *Built 2026-11-17 in spec revision 64 (engine batch E1), Claude's recommendation, pending owner review; see CHANGELOG.md's revision 64 entry. `M7.C.1c` names the reading as Sylvia Nasar's, reported by Kerr; the quotation is unchanged.*
 - [ ] T-101 ⟨later⟩ **A scope narrower than the requirement.** `M5.B.3a`'s band is stated of "**the alcoholic person**";
   `M1.B.10` quotes a taboo-set claim made of **spouses** and applies it to every tie; `M15.D.4`'s "they could
   do no wrong" comes from the inpatient schizophrenia project, the most severe families studied.
@@ -88,10 +89,11 @@ hedge-level remainder, held back because each fix is new unreviewed surface.
   correctly sourced to *forcing conjoint contact*; the recorded consequence of the peace-agree/reactive
   mismatch itself is relational rupture. Careful drafting, suggestive juxtaposition.
   ⟦batch: theory re-reading (corpus passages, grades, attribution)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
-- [ ] T-106 ⟨later⟩ **`M1.A.4d`'s source sentence is gate-shaped.** Kerr 2019: "**People above 25** on the continuum can
+- [x] T-106 ⟨later⟩ **`M1.A.4d`'s source sentence is gate-shaped.** Kerr 2019: "**People above 25** on the continuum can
   make basic changes." Revision 7 replaced the gate with a continuous falloff on principle; the requirement
   should say plainly that the source's own wording is the gate it forbids.
   ⟦batch: the next spec revision (wording only; ride with engine batch E1's revision)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
+  *Built 2026-11-17 in spec revision 64 (engine batch E1), Claude's recommendation, pending owner review; see CHANGELOG.md's revision 64 entry.*
 
 - [x] T-107 ⟨later⟩ **Run a cold sweep over this batch.** The 2026-08-28 sweep was warm — the same session that wrote the documents commissioned it. It found fifteen defects, which says the sweep works, not that the set is clean. The project's own rule is that a falling finding count from self-review is not a stopping condition, and that a pass which does not know the change's history changes the *distribution* of findings. `/csdp --cold-sweep` over `4e79697..HEAD` from a fresh session.
   *Closed 2026-11-17 (triage 2026-11-17, Claude's recommendation, pending owner review): superseded: the cold reviews since (stage 1–3 and pre-tag milestone reviews in `docs/cycles/`, the whole-repo review `bda211e`) cover the range.*

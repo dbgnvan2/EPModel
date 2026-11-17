@@ -9,7 +9,7 @@ below is `[I]`. Each is declared here before any criterion reads it. The code is
 **W** is `pattern_window` (4 weeks); **N** is `pattern_min_acts` (3). The other parameters are in
 `config/bowen/constants.md`.
 
-**The owner's definitions, 2026-10-10** (`docs/archive/PROPOSAL — RUN VISUALIZATION MAPPING.md` §0 and §4; this is the
+**The owner's definitions, 2026-10-10** (`docs/archive/proposal_run_visualization_mapping.md` §0 and §4; this is the
 plan §9 review of this document):
 - An emotional pattern is a **repeating** pattern of activity: N or more acts in W. A single act is an event, not a pattern.
 - **A pattern ends only when a new pattern emerges** on the same subject (`current_patterns`).
@@ -52,7 +52,7 @@ Acts count when they pass between the two members of the tie, in either directio
 ## Negative runs — what `M11.C.48` reads (version 2 group G1, spec revision 36; T-123 at revision 43; T-179 at revision 47; T-185 at revision 57)
 
 `src/bowen/readouts/negative_runs.py`; `tests/bowen/test_negative_runs.py` checks each definition on hand-built records.
-Each definition is `[I]` (the owner's D12 of 2026-10-19, `docs/archive/PROPOSAL — CUTOFF ANXIETY, BRIDGING AND REPAIR.md` §4;
+Each definition is `[I]` (the owner's D12 of 2026-10-19, `docs/archive/proposal_cutoff_anxiety_bridging_and_repair.md` §4;
 the baseline as built, decided as recommended under the owner's instruction of 2026-10-22, approved by the owner 2026-10-24 in T-125).
 The classes of contact are `config/bowen/contact_classes.md`.
 

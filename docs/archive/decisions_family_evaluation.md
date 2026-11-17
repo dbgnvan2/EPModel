@@ -6,7 +6,7 @@ date: 2026-08-26 · decided and applied 2026-08-27
 
 # Decisions arising from *Family Evaluation* (Kerr & Bowen, 1988)
 
-**A separate file deliberately.** `DECISIONS FOR APPROVAL.md` is yours and you are editing it; this
+**A separate file deliberately.** `decisions_for_approval.md` is yours and you are editing it; this
 one carries only what the sixth corpus source raised, so the two do not collide.
 
 > ## ✅ Closed — decided 2026-08-27, applied at spec revision 4

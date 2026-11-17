@@ -206,3 +206,45 @@ def test_m17a3_the_runner_uses_the_paired_test_and_holm(monkeypatch):
     assert [row["p"] for row in verdict.readouts] == [expected, expected] and expected < RULES["ensemble_alpha"]
     assert calls == [([expected, expected], RULES["ensemble_alpha"])]
     assert [row["holds"] for row in verdict.readouts] == [False, False]   # holds is Holm's answer, not p < alpha
+
+
+def _slow_run(**settings):
+    from ensemble_toys import slow
+
+    criterion = Criterion("toy", "check", ("baseline", "treatment"), (Readout("x", +1),), slow, (), settings, seeds=4)
+    return run_criterion(criterion, {**RULES, "ensemble_block": 4}, workers=2)
+
+
+def test_t032_a_failed_run_stops_its_workers_at_once():
+    """T-032: an exception in a 2-worker run ends the workers' tasks rather than waiting for them, and leaves no
+    worker process alive."""
+    import multiprocessing
+    import time
+
+    start = time.monotonic()
+    with pytest.raises(ValueError, match="toy failure"):
+        _slow_run(fail=True, sleep=15.0)
+    assert time.monotonic() - start < 10.0, "waited for the workers' tasks"
+    assert multiprocessing.active_children() == []
+
+
+def test_t032_a_stop_signal_stops_the_run_and_the_handler_is_restored():
+    """T-032: a SIGTERM to the parent during a run raises, so its workers are stopped, and the handler in place before
+    the run is back after it."""
+    import multiprocessing
+    import os
+    import signal
+    import threading
+
+    seen = []
+    previous = signal.signal(signal.SIGTERM, lambda signum, frame: seen.append(signum))
+    try:
+        threading.Timer(2.0, os.kill, (os.getpid(), signal.SIGTERM)).start()
+        with pytest.raises(SystemExit, match="SIGTERM"):
+            _slow_run(sleep=15.0)
+        assert multiprocessing.active_children() == []
+        assert seen == [] and signal.getsignal(signal.SIGTERM) is not signal.SIG_DFL
+        os.kill(os.getpid(), signal.SIGTERM)
+        assert seen == [signal.SIGTERM], "the handler before the run was not restored"
+    finally:
+        signal.signal(signal.SIGTERM, previous)

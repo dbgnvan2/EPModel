@@ -102,7 +102,7 @@ with the source lines it read:
     model that is the anchor `a`, the parents' mean basic level (spec :1103). The parents' term `d` (half the parents'
     functioning above basic) is the owner's own `[I]` rule of 2026-10-13; the spec does not cite `KS00.9` for it.
   - The P2 proposal does: "The parents' levels set the family climate (why `M7.E.1f`'s parents' term stays as built)"
-    (`docs/PROPOSAL — DISPLACED COPING (P2).md:63`). That is a misreading; the revision 39 draft (:250) records it
+    (`docs/proposal_displaced_coping_p2.md:63`). That is a misreading; the revision 39 draft (:250) records it
     correctly.
   - The inconsistency inside the model: functioning a parent gains through the exchange (`M6.I.4`'s pseudo-self) is
     netted out of `d`, because "the exchange does not reach development"; functioning gained by displacing onto the
@@ -219,7 +219,7 @@ Not challenged (the brief challenges blocker and major findings only). The orche
 
 #### MR-3 — † Stage 3's built work is described as not built in its proposal, its plan and the checklist
 
-- **Found by:** L3 · **Where:** `docs/PROPOSAL — DISPLACED COPING (P2).md:3`; `docs/SPEC_REVIEW_CHECKLIST.md:205`,
+- **Found by:** L3 · **Where:** `docs/proposal_displaced_coping_p2.md:3`; `docs/SPEC_REVIEW_CHECKLIST.md:205`,
   `:231`, `:233`; `docs/implementation_plan_version_2_stage_3.md:4`
 - **Severity:** minor · **Confidence:** high
 - **What is wrong:** `M1.A.5f` is built (`src/bowen/engine/stress_response.py`, `moves.py`, `events.py`,

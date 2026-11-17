@@ -193,7 +193,7 @@ OWN_SEQUENCE = {"M11.C.29": {"owed a step", "rewritten", "not legal"},
 @pytest.mark.parametrize("cid", SCRIPTED)
 def test_s_every_scripted_act_is_made_with_the_hold(cid):
     """Made means emitted as scripted (or an I-POSITION sequence begun), not merely placed. Without the hold, acts
-    were skipped in 25-60% of seeds (docs/archive/DECISIONS — PHASE C FAILING.md, step S)."""
+    were skipped in 25-60% of seeds (docs/archive/decisions_phase_c_failing.md, step S)."""
     criterion = CRITERIA[cid]
     for arm in criterion.arms:
         for seed in range(8):
@@ -454,3 +454,12 @@ def test_m11c49_low_level_iposition_raises_family_anxiety():
                                        "ensemble_alpha", "fallback_flag_rate", "equivalence_margin")}
     verdict = run_criterion(c49, rules, workers=min(6, os.cpu_count() or 1))
     assert verdict.outcome == PASS, verdict.outcome
+
+
+def test_t139_the_movers_perspective_comes_from_the_criterions_settings():
+    """T-139 (P4): the mover's systems perspective in `M11.C.29`, `M11.C.32` and `M11.C.49` is the criterion's declared
+    ``mover_perspective`` (``config/bowen/criteria.md``), not a constant in code."""
+    for cid in ("M11.C.29", "M11.C.32", "M11.C.49"):
+        assert CRITERIA[cid].settings.get("mover_perspective") == 1.0, cid
+    state, _ = criteria.scenario("triad", 0, 1, setup=criteria.mover_at("f", 60.0, 0.25), until=0)
+    assert state.people[criteria.P("f")].systems_perspective == 0.25

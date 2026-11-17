@@ -186,7 +186,7 @@ stale, and each would cost the hour-long regeneration. They are therefore built 
 | V1 | done | `docs/readouts_phase_c.md`; `src/bowen/readouts/patterns.py`; `tests/bowen/test_patterns.py` (17 tests, e.g. `test_m5a1a_conflict_needs_three_acts_in_four_weeks`, `test_m5a1a_no_interaction_reads_distance_not_cutoff`, `test_m5a1a_projection_reads_parent_to_child_acts`) |
 | V2 | done | `current_patterns`; `test_m5a1a_pattern_holds_until_a_new_one_emerges`, `test_m5a1a_quiet_block_keeps_the_current_pattern`, `test_m5a1a_silence_does_not_replace_a_cutoff` |
 | V3 | done | spec revision 13 (`M2.A`, `M2.A.0i`, `M2.A.1`, `M2.B.2`, `M5.A.1a`); `config/bowen/family_phase_d.md`; `tests/bowen/test_family.py::test_m2a_phase_d_family_matches_spec_table`, `::test_m2a_ravi_sibling_starts_cut_off`, `::test_m2a0i_leo_declared_male` |
-| V4 | done | `docs/DECISIONS — CUTOFF SEMANTICS.md` (open) |
+| V4 | done | `docs/decisions_cutoff_semantics.md` (open) |
 | V5 | done | `tools/famdiag_export.py`; `config/viz/famdiag.md`; `docs/review/phase_c_famdiag_seed7.json`; `tests/bowen/test_famdiag_export.py` (17 tests, including trace-back on seeds 7, 1 and 3 and an adversarial threshold test that a mutant fails) |
 | V6 | done, as a separate app | **EPModel Fam-Diag** (`../epmodel-fam-diag`, port 5174, private repository `dbgnvan2/epmodel-fam-diag`); the owner's fam-diag is unchanged. Gate approved 2026-10-10. Originally fam-diag branch `timeline-hides-ended-lines`, commits `4ec320f` and `7694b93`. Tests: `isSpanVisibleAtCutoff`, `isTriangleVisible`, `normalizeTriangles`, `emotionalLineSlots` and a canvas test. 1,235 tests, `tsc --noEmit` and `tsc -b` all pass. Needs fam-diag's gate file and the owner's go-ahead to merge. |
 | V7 | done (by hand) | Opened in fam-diag on the branch. At 2001, 2013 and 2026 the lines drawn were exactly those the export lists: 2, 9 and 10 pattern lines; triangles only from 2017; ended lines hidden. The trace agrees at blocks 9 (Pia → Ravi going along, 3 acts) and 26 (Ravi–Sofia conflict, 3 acts, from both). |
@@ -199,5 +199,5 @@ stale, and each would cost the hour-long regeneration. They are therefore built 
 
 **Owner items arising:**
 - `docs/TODO_archive.md`: the readout questions (lopsided pursuit; a parent's acts when projection is not read), the `[I]` values, and the missing Phase D parent ties.
-- `docs/DECISIONS — CUTOFF SEMANTICS.md`.
+- `docs/decisions_cutoff_semantics.md`.
 

@@ -218,6 +218,21 @@ def test_m4d1h_an_anxious_act_has_more_force():
     assert force(auto, observe(state, RAVI, PARAMS), PARAMS) < PARAMS.policy_intensity * (1 + PARAMS.force_anxiety_gain)
 
 
+def test_t024_m11c47_stops_on_a_household_member_with_no_tie():
+    """T-024: `M11.C.47`'s readouts read everyone else in the person's household; one with no tie to them would drop
+    from both readouts silently, so reading the household raises instead."""
+    from src.bowen.ensemble import criteria_d2
+
+    state = assemble(load_constants(), load_event_kinds(), load_family(criteria_d2.FAMILIES["danger"]),
+                     ScriptedSource("t", 1, (), ()), seed=0).state
+    person = criteria_d2.PARENTS_DANGER[0]
+    others = criteria_d2.household_ties(state, person)
+    assert others and all(tie.id == TieId.of(person, o) for o, tie in others)
+    del state.ties[others[0][1].id]
+    with pytest.raises(ValueError, match="no tie"):
+        criteria_d2.household_ties(state, person)
+
+
 def test_m11c47_arms_differ_only_in_one_persons_level_and_stress():
     """Adversarial: each arm's setup and stressors, captured from the scenario call. Only the first spouse's level
     differs, and only the treatment has stressors, all on that spouse; both read the same two readouts."""

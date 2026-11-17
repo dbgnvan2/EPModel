@@ -7,7 +7,7 @@ Raised while drafting part 1 of spec revision 39 (`docs/archive/spec_revision_39
   `[K]`: "the basic levels of the parents establish the emotional climate". `M7.E.1f`'s parents' term reads the
   parents' functioning above basic (the estimator's reading), which `M1.A.5f` (P2) raises in a parent who displaces
   onto the child; in the joint probe the parents' term carries +0.026 ± 0.019 of `M11.C.6`'s +0.018 ± 0.025
-  (`docs/archive/PROPOSAL — DISPLACED COPING (P2).md` §6.1). The owner decided 2026-10-25 (the draft's §9 Q5, the recommended
+  (`docs/archive/proposal_displaced_coping_p2.md` §6.1). The owner decided 2026-10-25 (the draft's §9 Q5, the recommended
   option): leave `M7.E.1f` as it is in revision 39 and record the finding for the stage 3 milestone review
   (`docs/milestone_review_brief.md`), which reads it under its theory-fidelity lens. A rule in which the parents' term
   leaves out what `M1.A.5f` gave the parent would be a new rule outside D18, with its own probe. *2026-10-28, the
@@ -43,7 +43,7 @@ Raised while drafting part 1 of spec revision 39 (`docs/archive/spec_revision_39
   `family_excess` now holding (+3.27 ± 2.8, p 0.0158) and its `conflict_share` not (+0.00086 ± 0.026, p 0.468). What it
   does to `M5.D.3`'s first outcome is T-158. Test, shown red first:
   `tests/bowen/test_iposition.py::test_m5d4a_t133_an_angry_mover_at_define_says_it_all_as_demand_and_the_sequence_ends`.*
-- [ ] T-134 ⟨later⟩ **`M6.I.4a`'s return with no lender is not counted (the step 7 `learning-qa` pass, 2026-10-26).**
+- [x] T-134 ⟨later⟩ **`M6.I.4a`'s return with no lender is not counted (the step 7 `learning-qa` pass, 2026-10-26).**
   When a taker's capacity falls and no tie's balance names them the over-functioner, the amount due
   (`moves.return_lent_functioning`) has no one to go to and stays with the taker, as `M6.I.4a` allows ("what a cap
   stops stays with the taker"). Nothing records it, so a readout cannot tell "nothing returned, no lender" from
@@ -52,6 +52,7 @@ Raised while drafting part 1 of spec revision 39 (`docs/archive/spec_revision_39
   it for `M11.C.21`, is a log change that moves the golden fingerprints; left for the owner's choice at the stage 3
   milestone review.
   ⟦batch: engine batch E1 (engine and record-tool hygiene, one regeneration)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
+  *Built 2026-11-17 in spec revision 64 (engine batch E1), Claude's recommendation, pending owner review; see CHANGELOG.md's revision 64 entry. What stays with the taker is logged as `pseudo_self_unreturned` on the return's effect record.*
 - [ ] T-135 ⟨later⟩ **`M11.C.10`'s scripted renewal outlasts a cutoff (the step 7 suite run, 2026-10-26).** The
   treatment renews each cutoff every `renew_every` = 13 weeks (`config/bowen/criteria.md`), and a cutoff's rejection
   (0.5) fades by `rejection_fade` 0.05 a week, so a renewal alone holds it about 10 weeks. Between renewals the cutoff
@@ -81,13 +82,14 @@ Raised while drafting part 1 of spec revision 39 (`docs/archive/spec_revision_39
   F's own spell off `PREPARE`, but the excess that fails it is still there. Whether the arm needs another condition
   (M's spell over the same weeks, or a lower load) is a criterion-setting choice; left for the owner.
   ⟦batch: owner decisions (a rule, a criterion's meaning or a design choice)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
-- [ ] T-139 ⟨later⟩ **Two arm settings read outside the run's parameters (the step 8 `learning-qa` pass, 2026-10-26;
+- [x] T-139 ⟨later⟩ **Two arm settings read outside the run's parameters (the step 8 `learning-qa` pass, 2026-10-26;
   P4).** `act_window` in `src/bowen/ensemble/criteria.py` reads `prepare_ticks` from `load_constants()`, not from the
   run's parameters, so an arm that overrode `prepare_ticks` would pause the spell over the wrong weeks; none does, and
   the sweep edits a copy of `constants.md`, so the two agree today. `mover_at` sets the mover's systems perspective to
   1.0 in code (the owner's Q13 for `M11.C.49`, and `M11.C.29`'s and `M11.C.32`'s arms before it); a criteria setting
   in `config/bowen/criteria.md` would declare it. Neither changes a result now.
   ⟦batch: engine batch E1 (engine and record-tool hygiene, one regeneration)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
+  *Built 2026-11-17 in spec revision 64 (engine batch E1), Claude's recommendation, pending owner review; see CHANGELOG.md's revision 64 entry. The criteria settings gain `mover_perspective` for `M11.C.29`, `M11.C.32` and `M11.C.49`.*
 - [ ] T-140 ⟨later⟩ **`M5.C.1`'s gate and `M4.C.1d`'s returned contact (the step 9 `learning-qa` pass, 2026-10-26).**
   Under marital distance, `M5.C.1` stops a move addressed to a symptomatic child from improving them; the contact a
   relieved person returns to that child under `M4.C.1d` is not a move addressed to them, so it calms them. In a probe
@@ -97,13 +99,14 @@ Raised while drafting part 1 of spec revision 39 (`docs/archive/spec_revision_39
   The approved text is silent on how the two rules meet. The owner chose to keep the code as built (2026-10-26);
   whether to gate it (one line in `apply_appraisal`, a sentence in `M4.C.1d`, a test) is left for the owner's review.
   ⟦batch: owner decisions (a rule, a criterion's meaning or a design choice)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
-- [ ] T-141 ⟨later⟩ **The sender's appraisal of returned contact reads the event's sign and attention (the step 9
+- [x] T-141 ⟨later⟩ **The sender's appraisal of returned contact reads the event's sign and attention (the step 9
   `learning-qa` pass, 2026-10-26; low).** `returned_contact` in `src/bowen/engine/appraise.py` signs the sender's
   appraisal with `sign(event.kind, event.source_position)`, the receiver's sign for the sender's position, and scales
   it by `attention_factor(sender, event, params)`, where `event.attention` describes the receiver's attention. Every
   sign in `config/bowen/` is +1 and nothing in `src/` sets an attention other than none, so neither changes a run now;
   a −1 sign in config would invert the sender's relief.
   ⟦batch: engine batch E1 (engine and record-tool hygiene, one regeneration)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
+  *Built 2026-11-17 in spec revision 64 (engine batch E1), Claude's recommendation, pending owner review; see CHANGELOG.md's revision 64 entry.*
 - [x] T-142 ⟨later⟩ **Group A does not turn `M11.C.42` or `M11.C.45` green, and `M11.C.44` stops passing (the step 9
   targeted run, 2026-10-26).** On Mac Mini1 at engine hash `2a3b84e2d89a` (`docs/review/stage_3_step_9_criteria.md`):
   `M11.C.42`'s `triangle_reuse` −0.06 ± 0.36 over 50 seeds (revision 38's record −0.34 ± 0.35), so S3.12 is not met;

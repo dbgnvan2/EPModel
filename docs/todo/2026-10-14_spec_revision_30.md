@@ -10,22 +10,25 @@ Plan §4.10 holds the evidence.
   switching off any one of the four revision 29 gains leaves the coached rise at about 0; switching off all four
   reproduces revision 28's +0.000881 ± 0.000828.
   *Closed 2026-11-17 (triage 2026-11-17, Claude's recommendation, pending owner review): superseded: measured on revision 29; `M11.C.17` now passes with `landed-contact-changes-nothing` red (`docs/version_2_status.md`).*
-- [ ] T-024 ⟨later⟩ **Minor, from the fix re-sweep (2026-10-14):** `update_danger`'s docstring puts the dead-person sentence in the
+- [x] T-024 ⟨later⟩ **Minor, from the fix re-sweep (2026-10-14):** `update_danger`'s docstring puts the dead-person sentence in the
   middle of the paragraph on cost (move it to the end; left during the regeneration so the engine hash would not move);
   `arm_c47` reads only people with a tie to the person, so a removed tie would drop someone from both readouts
   silently (not possible on the fixture today).
   ⟦batch: engine batch E1 (engine and record-tool hygiene, one regeneration)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
-- [ ] T-025 ⟨later⟩ **Adjacent, not fixed (2026-10-19):** the ad hoc probes in `tools/probes.py` (lines 139, 141, 268, 458) still
+  *Built 2026-11-17 in spec revision 64 (engine batch E1), Claude's recommendation, pending owner review; see CHANGELOG.md's revision 64 entry. `criteria_d2.household_ties` raises on a household member with no tie, so `M11.C.47` stops instead of reading a missing tie.*
+- [x] T-025 ⟨later⟩ **Adjacent, not fixed (2026-10-19):** the ad hoc probes in `tools/probes.py` (lines 139, 141, 268, 458) still
   take float means with the builtin `sum`. No record reads them; move them to `math.fsum` when the file is next
   touched.
   ⟦batch: engine batch E1 (engine and record-tool hygiene, one regeneration)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
-- [ ] T-026 ⟨later⟩ **Adjacent, not fixed (stage 1 review, 2026-10-19):** the Phase D ensembles (`tools/phase_d_record.py`) run
+  *Built 2026-11-17 in spec revision 64 (engine batch E1), Claude's recommendation, pending owner review; see CHANGELOG.md's revision 64 entry. `tools/probes.py` uses `math.fsum` for float means and counts for totals; `test_t025_probes_take_no_builtin_sum`.*
+- [x] T-026 ⟨later⟩ **Adjacent, not fixed (stage 1 review, 2026-10-19):** the Phase D ensembles (`tools/phase_d_record.py`) run
   with no timeout, and `tools/diagnostic_record.py:136` and `tools/level_occupancy.py:145` stop when their child
   fails, where the Phase C records keep the rows and go on (S1.5a). Both run once per regeneration; give them the
   Phase C handling when either is next touched. *The cold sweep (2026-10-20) added to `tools/level_occupancy.py` a
   check that the child printed one row for each of C.16's arms, so a short record is no longer written; a failed
   child still stops it.*
   *2026-11-17 (triage batch 2026-11-17, Claude's recommendation, pending owner review): the diagnostic record's timeout and keep-going are built; the Phase D record runs in process, so it needs moving onto a child and re-keying its results, which reruns it.* ⟦batch: engine batch E1 (engine and record-tool hygiene, one regeneration)⟧
+  *Built 2026-11-17 in spec revision 64 (engine batch E1), Claude's recommendation, pending owner review: `tools/phase_d_record.py` runs each criterion in a child with a timeout (`--child`) and goes on past a failed one, raising once with every missing criterion; `tools/level_occupancy.py` keeps the other variants' rows when one child fails. The cache key is unchanged.*
 - [ ] T-027 ⟨later⟩ **Adjacent, not fixed (stage 1 review, 2026-10-19):** the act-literal scan, widened to lists, tuples and one-act
   comparisons, finds act names in `src/bowen/ensemble/criteria.py`, `criteria_d.py` and `criteria_d2.py` (the acts
   each criterion reads), as well as `NEVER_REFUSED` (`rejection.py`) and `ABORT_ACTS` (`iposition.py`). Rule 9 asks
@@ -55,18 +58,20 @@ Plan §4.10 holds the evidence.
   kill mid-write fails the next tool loudly and costs a rerun of minutes, so this is lower priority than the cache
   (now written whole and moved into place); give them the same write when any is next touched.
   *Closed 2026-11-17 (triage batch 2026-11-17, Claude's recommendation, pending owner review): `tools/atomic_write.py` (temp file and `os.replace`) writes every record tool's record but `level_occupancy` and the `stage_3_*` tools.*
-- [ ] T-031 ⟨later⟩ **Adjacent, not fixed (cold sweep, 2026-10-20, C3):** `code_hash` (`tools/ensemble_record.py:54-60`) hashes
+- [x] T-031 ⟨later⟩ **Adjacent, not fixed (cold sweep, 2026-10-20, C3):** `code_hash` (`tools/ensemble_record.py:54-60`) hashes
   each `config/bowen/*.md` file as raw bytes; only `constants_changes.md` is skipped. Rewording a config file's prose,
   such as the text under the table in `config/bowen/act_classes.md`, changes the engine hash, so every record reruns
   (P38). The Python files are hashed without comments and docstrings; the config files could be hashed by what the
   loader reads from them. Older than stage 1 (PLAUSIBLE: no such edit has been made yet).
   ⟦batch: engine batch E1 (engine and record-tool hygiene, one regeneration)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
-- [ ] T-032 ⟨later⟩ **Adjacent, not fixed (cold sweep, 2026-10-20, C4):** the worker pools that `tools/phase_d_record.py` and
+  *Built 2026-11-17 in spec revision 64 (engine batch E1), Claude's recommendation, pending owner review; see CHANGELOG.md's revision 64 entry. `code_hash` reads a config file's table and metadata lines only (`config_text`), so a note, a heading or a blank line no longer moves the hash.*
+- [x] T-032 ⟨later⟩ **Adjacent, not fixed (cold sweep, 2026-10-20, C4):** the worker pools that `tools/phase_d_record.py` and
   `tools/ensemble_record.py` start in their own process (`src/bowen/ensemble/runner.py:116`, a
   `ProcessPoolExecutor`) are not killed as a group when the parent gets a stop signal, as `tools/child_process.py`
   does for a mutant child (S1.5a), so after a SIGTERM to the parent, workers can run on until their current task
   ends. Older than stage 1 (PLAUSIBLE: not reproduced).
   ⟦batch: engine batch E1 (engine and record-tool hygiene, one regeneration)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
+  *Built 2026-11-17 in spec revision 64 (engine batch E1), Claude's recommendation, pending owner review; see CHANGELOG.md's revision 64 entry. `runner` turns SIGTERM and SIGHUP into `SystemExit` and ends its workers (terminate, then kill after 5 s) on any failure.*
 - [ ] T-033 ⟨later⟩ **Owner: a row that raises on every run is never cached** (cold sweep, 2026-10-20, after the C1 fix). A RAISED
   row is a red under `tools/mutation_record.py`'s `judge` (the criterion can no longer pass), and the sweep and
   diagnostic records print its error as its result, but `tools/record_cache.py` caches no errored row. So a mutant,

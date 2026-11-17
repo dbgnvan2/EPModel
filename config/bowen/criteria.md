@@ -80,7 +80,7 @@
 >   over the run, F's completions. `t0` 1: week 0 is every member's chronic floor, and the probe found F angry at
 >   week 4 in 14 of 40 seeds. `weeks` 25, so a sequence said at `t0` can finish its windows. All `[I]`.
 >
-> **Post-hoc restatement, 2026-10-09 (step S of `docs/archive/DECISIONS — PHASE C FAILING.md`, approved by the owner).**
+> **Post-hoc restatement, 2026-10-09 (step S of `docs/archive/decisions_phase_c_failing.md`, approved by the owner).**
 > The declared weeks stand, but in both arms of every criterion that scripts an act after week 0, the ties its
 > scripted acts cross are held open from week 0 until the act (`M11.C.29`: until its last withdrawal): neither
 > member may cut them, so `CUTOFF` across them is not in their legal set. Without the hold the act was illegal in
@@ -98,7 +98,7 @@
 > `M11.C.27` read 3 weeks after its act). The owner allowed a longer horizon. The rule, fixed before running: one
 > value, the longest horizon any Phase C criterion already declares (104 weeks, `M11.C.1`, `.16`, `.38`), run once
 > and reported whatever it shows. So `M11.C.4`'s nodal event moves to week 104, and `M11.C.27` is read 104 weeks
-> after its act. The earlier verdicts stay in `docs/archive/DECISIONS — PHASE C FAILING.md`.
+> after its act. The earlier verdicts stay in `docs/archive/decisions_phase_c_failing.md`.
 >
 > **`M11.C.27` read week by week, 2026-10-09 (owner decision, after the 104-week run).** The owner: "the effect
 > is almost immediate and a long time horizon is distorted by other effects. Measure week by week." So the
@@ -150,10 +150,12 @@
 | M11.C.29 | disguise_span | 8 | [I] |
 | M11.C.29 | disguise_every | 2 | [I] |
 | M11.C.29 | mover_level | 60.0 | [I] |
+| M11.C.29 | mover_perspective | 1.0 | [I] |
 | M11.C.32 | weeks | 30 | [I] |
 | M11.C.32 | t0 | 0 | [I] |
 | M11.C.32 | angry_impingement | 1.0 | [I] |
 | M11.C.32 | mover_level | 60.0 | [I] |
+| M11.C.32 | mover_perspective | 1.0 | [I] |
 | M11.C.35 | t0 | 6 | [I] |
 | M11.C.35 | run_after | 2 | [I] |
 | M11.C.35 | conductance_high | 1.0 | [I] |
@@ -175,6 +177,7 @@
 | M11.C.49 | window | 6 | [I] |
 | M11.C.49 | level_low | 35.0 | [I] |
 | M11.C.49 | level_high | 60.0 | [I] |
+| M11.C.49 | mover_perspective | 1.0 | [I] |
 | nodal | kind_1 | JOB_CHANGE | [I] |
 | nodal | kind_2 | MOVE | [I] |
 | nodal | kind_3 | SERIOUS_ILLNESS | [I] |

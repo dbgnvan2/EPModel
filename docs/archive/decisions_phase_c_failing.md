@@ -100,7 +100,7 @@ tuning. Owner decision (TODO).
 1. **Q3:** the owner described how triangling works (either of a pair may seek their own third; the seeker's
    anxiety goes down if the third is a positive experience; a third aligned with the partner, or very anxious,
    does not help). The model differs in what the act relieves and in what the seeker learns from. Written up as a
-   spec proposal for approval: `docs/PROPOSAL — TRIANGLE RELIEF AND CREDIT.md`. Nothing is built yet.
+   spec proposal for approval: `docs/proposal_triangle_relief_and_credit.md`. Nothing is built yet.
 2. **X1:** accepted as a finding. Members with several ties rest well above the chronic floor at every level,
    from their own acts; the declared spell is not revisited.
 3. **`M11.C.5`:** its converged FAIL at the declared horizon is reported; no longer horizon (the approved rule).
@@ -123,7 +123,7 @@ tuning. Owner decision (TODO).
 
 ## The triangle change, approved and built (2026-10-09)
 
-`docs/PROPOSAL — TRIANGLE RELIEF AND CREDIT.md`. A `TRIANGLE` relieves only its seeker, scaled by the recruited
+`docs/proposal_triangle_relief_and_credit.md`. A `TRIANGLE` relieves only its seeker, scaled by the recruited
 third's help; the partner is not relieved. It is credited by the seeker's own relief, without the third's change.
 - `M11.C.3`, restated to "relieves the seeker and costs the third", passes: seeker −1.29 ± 0.10, third +1.10 ±
   0.26; the partner, reported, +0.93.

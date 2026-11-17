@@ -1,7 +1,7 @@
 """The live-position predicate — one rule, used in three places.
 
 Purpose: count the occupants of a group who hold a live position.
-Spec:    docs/bowen_agent_model_spec_v2.md#M8.1, #M8.2, #M8.3, #M8.4, #M8.5, #M13.1
+Spec:    docs/bowen_agent_model_spec_v2.md#M8.1, #M8.2, #M8.3, #M8.4, #M8.5
 Tests:   tests/bowen/test_live_positions.py
 
 M8.1, as written in the spec::

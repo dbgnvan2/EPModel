@@ -84,11 +84,12 @@ they set. Each item's own line says whether it is done. Items marked *verified* 
   `tests/test_doc_checklist.py` and `tools/record_changes.py` for path dependencies first. The list is in the report.
   *Partly done 2026-11-11: the six grid-engine documents, `gemini.md`, `monte_carlo_results.txt` and `data/` removed (`git rm`; all at the tag `version-1`). The archive move goes with the engine batch (the owner's choice of 2026-11-12): 17 candidates are cited by hashed `config/bowen/*.md` prose (6), by version 1's tag-checked files (2), by the LLM experiment's code and prompts (3) and by generated records (6), and that batch moves the hash and regenerates every record anyway.*
   *Done 2026-11-12: the archive move: 49 of the 60 finished documents and the 17 Phase C QA-gate logs moved to `docs/archive/` (`docs/archive/cycles/`), live references rewritten by script; the 11 kept in place are listed in the plan's criterion 14. Moved unedited, so their own relative links to documents still in `docs/` no longer resolve. The 12 filenames with spaces were not renamed.*
-- [ ] T-227 ⟨later⟩ **Fix: comments and README (2026-11-11).** [Minor] 416 "revision N" comments in 44 engine files
+- [x] T-227 ⟨later⟩ **Fix: comments and README (2026-11-11).** [Minor] 416 "revision N" comments in 44 engine files
   carry history where the current rule belongs (comments are outside the hash); explainer §11.3-11.5 are "what
   revision N changed" sections; README "Running" lacks a policy run; 12 filenames have spaces and em dashes.
   *Partly done 2026-11-11: 374 of the 416 "revision N" provenance tags removed from comments in `src/bowen/` (the engine hash did not move; one mutant's site, `displaced-coping-removed` in `stress_response.py`, kept as it was); the 42 left are narrative. README "Running" gives the scripted and policy runs. Not done: the explainer's §11.3-11.5 (`config/sweep/sweep.md` and the explainer itself cite them by number) and the 12 filenames with spaces (with T-226's move).*
   *2026-11-17 (triage batch 2026-11-17, Claude's recommendation, pending owner review): deferred: 15 archive names, not 12, and engine files and `config/bowen/*.md` cite them, so renaming moves the hash.* ⟦batch: engine batch E1 (engine and record-tool hygiene, one regeneration)⟧
+  *Built 2026-11-17 in spec revision 64 (engine batch E1), Claude's recommendation, pending owner review: the 15 archive files are renamed to snake case and every citation follows, except in `docs/CHANGELOG_archive.md`, kept verbatim. The explainer's §11.3–11.5 history sections stay, since `config/sweep/sweep.md` and the explainer cite them by number.*
 
 ## Decide
 

@@ -8,7 +8,7 @@
 > `reciprocal_contact_share`). Part 3 (§19–§24): T-128 (`M17.E.1`, `M10.C.1a`, `config/sweep/sweep.md`) and T-014
 > (`M8`, `M8.1`, `M8.5`, `M13.1`, `M11.C.7`, `M7.D.1a`). Written at plan step 4
 > (`docs/implementation_plan_version_2_stage_3.md` §3.8) from §3.3–§3.5, the proposal
-> `docs/PROPOSAL — DISPLACED COPING (P2).md`, the probes in `docs/review/`, and the owner's answers of 2026-10-25
+> `docs/proposal_displaced_coping_p2.md`, the probes in `docs/review/`, and the owner's answers of 2026-10-25
 > (Q1–Q6, §2 and §9; Q8–Q14, §18). Nothing under `src/bowen/` or `config/bowen/` is edited by this page, and nothing
 > here moves the engine hash (`66dcbb1e8ba5`). Each group's approved text was applied in the same commit as its code
 > (the owner's Q6, 2026-10-25, §9; §24 lists where each block lands); the page is kept as approved.

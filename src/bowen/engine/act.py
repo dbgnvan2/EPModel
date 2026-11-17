@@ -30,6 +30,15 @@ I_POSITION = "I-POSITION"
 SELF_CHANNEL = "self"
 
 
+def holds_or_self_directed(kinds, kind: str | None) -> bool:
+    """Purpose: whether an outcome is ``WITHHOLD`` or an act on the self-directed channel: the one check behind a
+             stance (`M1.B.5`), self-practice (`M1.E.7`) and coping under load (`M1.A.5e`), kept in one place (T-063).
+    Spec:    docs/bowen_agent_model_spec_v2.md#M1.B.5, #M1.E.7, #M1.A.5e
+    Tests:   tests/bowen/test_act_classes_helper.py::test_t063_a_hold_or_a_self_directed_act_and_nothing_else
+    """
+    return kind == WITHHOLD or (kind is not None and kinds.channels.get(kind) == SELF_CHANNEL)
+
+
 @dataclass(frozen=True)
 class Selection:
     """One person's outcome this tick: a move, or ``WITHHOLD``. A script or the policy supplies it.
@@ -190,6 +199,12 @@ def inject(state: RunState, event: Event, visibility: HouseholdConductanceVisibi
 
 
 def record_deliveries(state: RunState, batch) -> list:
+    """Purpose: put the week's deliveries in the store and log them; a delivery to a person who has died is stored but
+             not logged as delivered, since the dead perceive nothing (`M6.3a`; T-246). The store keeps it, so what a
+             run computes is unchanged: appraisal, beliefs and attribution already skip the dead.
+    Spec:    docs/bowen_agent_model_spec_v2.md#M16.A.2, #M6.3a
+    Tests:   tests/bowen/test_life_course.py::test_m63a_the_dead_stop_acting_and_their_ties_stay_with_their_bond_energy
+    """
     for delivery in batch:
         state.store.record_delivery(delivery)
-    return [DeliveredRecord(d) for d in batch]
+    return [DeliveredRecord(d) for d in batch if state.people[d.recipient].alive]

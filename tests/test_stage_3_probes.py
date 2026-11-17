@@ -95,7 +95,7 @@ def test_stage_3_displaced_coping_probe_moves_conserved_stress_functioning(tmp_p
 
 
 def test_stage_3_displaced_coping_probe_f1_ledger_holds_at_the_floor_and_sheds_off_it():
-    """F1 as the probe puts it in (`docs/archive/PROPOSAL — DISPLACED COPING (P2).md` §4.2): a week in which the floor held
+    """F1 as the probe puts it in (`docs/archive/proposal_displaced_coping_p2.md` §4.2): a week in which the floor held
     functional level while the swing decayed puts the held amount on the ledger, and the bound stops it being shed;
     off the floor a calm week sheds ``response_relaxation_rate`` of it, moving functional level with it; "kept" never
     sheds. Mutation (run 2026-10-25): shedding without the floor's bound (``move = -step``) takes the first week's

@@ -485,7 +485,7 @@ So C.16 stays partial in `docs/spec_coverage.md` (the tool reads the unmet claus
 
 ## 12. The failing-criteria decisions — 2026-10-09
 
-The owner approved every recommendation of `docs/archive/DECISIONS — PHASE C FAILING.md`. What was done and what each
+The owner approved every recommendation of `docs/archive/decisions_phase_c_failing.md`. What was done and what each
 step found is at the top of that memo; the measurements are in `docs/phase_c_diagnostic_record.md`. In brief:
 
 - **S.** A scripted act is made only if legal that week, and it was skipped in 25–60% of seeds, each adding a
@@ -504,7 +504,7 @@ step found is at the top of that memo; the measurements are in `docs/phase_c_dia
   but converged). `M11.C.4`'s nodal event moved to week 104, the longest horizon any criterion declares: no later
   cost shows. `M11.C.27` at 104 weeks showed nothing, so it is read week by week and gates on the week the act
   lands: 1 of 4 cells passes.
-- **Triangling (owner decision, approved and built 2026-10-09; `docs/archive/PROPOSAL — TRIANGLE RELIEF AND CREDIT.md`).**
+- **Triangling (owner decision, approved and built 2026-10-09; `docs/archive/proposal_triangle_relief_and_credit.md`).**
   A `TRIANGLE` relieves only its seeker, scaled by the recruited third's help (less if the third is anxious or
   closer to the partner); the partner is not relieved, and eases only through their own act. A `TRIANGLE` is
   credited by the seeker's own relief; the third is out of `M4.D.6e`'s cross-person term. `M11.C.3` is restated to

@@ -632,10 +632,13 @@ say whether that test was proved failing by mutation unless its note does.
 | M17.G.2 | not done | — | no test named for it; Phase E builds it and is not built yet |
 | M17.G.3 | not done | — | no test named for it; Phase E builds it and is not built yet |
 
-## Tests named for no spec ID (351)
+## Tests named for no spec ID (369)
 
 Their names embed no requirement ID, so they count only where an override cites them (marked *cited*). The rest check spec documents, tooling or helpers.
 
+- `tests/bowen/test_act_classes_helper.py::test_t063_a_hold_or_a_self_directed_act_and_nothing_else`
+- `tests/bowen/test_act_classes_helper.py::test_t063_no_site_writes_the_check_out_again`
+- `tests/bowen/test_appraise.py::test_t141_the_sender_appraises_returned_contact_without_the_events_sign_or_attention`
 - `tests/bowen/test_config.py::test_m0_1_criteria_settings_graded` — *cited*
 - `tests/bowen/test_config.py::test_m0_1_grade_must_match_the_spec` — *cited*
 - `tests/bowen/test_config.py::test_m0_1_unknown_grade_rejected` — *cited*
@@ -647,6 +650,8 @@ Their names embed no requirement ID, so they count only where an override cites 
 - `tests/bowen/test_engine_golden.py::test_b1_seeded_run_log_is_unchanged` — *cited*
 - `tests/bowen/test_engine_purity.py::test_s1_8b_only_run_imports_render`
 - `tests/bowen/test_engineering_gates.py::test_t147_the_engine_never_imports_the_policy`
+- `tests/bowen/test_ensemble.py::test_t032_a_failed_run_stops_its_workers_at_once`
+- `tests/bowen/test_ensemble.py::test_t032_a_stop_signal_stops_the_run_and_the_handler_is_restored`
 - `tests/bowen/test_ensemble_record.py::test_b2_code_text_drops_only_docstrings_and_comments`
 - `tests/bowen/test_ensemble_record.py::test_b2_code_text_is_the_same_on_every_python_version`
 - `tests/bowen/test_ensemble_record.py::test_b2_code_text_keeps_fstring_text_exactly`
@@ -657,7 +662,6 @@ Their names embed no requirement ID, so they count only where an override cites 
 - `tests/bowen/test_ensemble_record.py::test_d0_a_probe_key_holds_its_own_source`
 - `tests/bowen/test_ensemble_record.py::test_d0_diagnostic_record_is_current`
 - `tests/bowen/test_ensemble_record.py::test_d0_diagnostics_never_count_as_proof`
-- `tests/bowen/test_ensemble_record.py::test_d0_made_classifies_every_case`
 - `tests/bowen/test_ensemble_record.py::test_d0_summarise_leaves_out_seeds_with_nothing_to_measure`
 - `tests/bowen/test_ensemble_record.py::test_d9_sweep_marks_opposite_sign_and_report_only`
 - `tests/bowen/test_ensemble_record.py::test_d9_sweep_record_is_current` — *cited*
@@ -667,18 +671,25 @@ Their names embed no requirement ID, so they count only where an override cites 
 - `tests/bowen/test_ensemble_record.py::test_s1_5b_code_text_keeps_a_line_separator_inside_a_string`
 - `tests/bowen/test_ensemble_record.py::test_s1_8a_render_is_not_hashed`
 - `tests/bowen/test_ensemble_record.py::test_sweep_tool_shares_the_loaded_mutation_tool`
+- `tests/bowen/test_ensemble_record.py::test_t025_probes_take_no_builtin_sum`
+- `tests/bowen/test_ensemble_record.py::test_t026_a_failed_occupancy_child_keeps_the_other_variants_rows`
 - `tests/bowen/test_ensemble_record.py::test_t026_a_probe_that_fails_is_reported_and_the_record_goes_on`
 - `tests/bowen/test_ensemble_record.py::test_t029_a_flush_keeps_a_result_another_run_wrote_meanwhile`
 - `tests/bowen/test_ensemble_record.py::test_t030_a_record_write_is_whole_or_absent`
+- `tests/bowen/test_ensemble_record.py::test_t031_a_config_files_prose_does_not_move_the_hash`
+- `tests/bowen/test_ensemble_record.py::test_t031_config_text_keeps_a_break_between_table_rows`
+- `tests/bowen/test_ensemble_record.py::test_t068_the_occupancy_key_covers_the_band_pivot`
 - `tests/bowen/test_ensemble_record.py::test_t069_infrastructure_errors_match_by_class_not_by_name`
 - `tests/bowen/test_ensemble_record.py::test_t070_a_probe_with_no_rows_and_a_diagnostic_with_no_criterion_stop_the_record`
+- `tests/bowen/test_ensemble_record.py::test_t073_arm_made_classifies_every_case`
+- `tests/bowen/test_ensemble_record.py::test_t073_horizons_judge_made_from_the_arm_result`
 - `tests/bowen/test_ensemble_record.py::test_t148_c16_sentences_follow_the_mutant_results`
 - `tests/bowen/test_ensemble_record.py::test_t189_c16_row_l0_sentence_follows_the_audit_record`
 - `tests/bowen/test_events.py::test_b1_delivered_at_matches_delivered_to_filtered`
 - `tests/bowen/test_events.py::test_b1_indexes_match_a_full_scan`
 - `tests/bowen/test_external.py::test_m8_2_an_unrecruited_coach_is_live`
 - `tests/bowen/test_external.py::test_m8_3_a_coach_recruited_by_a_spouse_holds_no_live_position` — *cited*
-- `tests/bowen/test_external.py::test_m8_3_the_side_lapses_with_the_triangle_window`
+- `tests/bowen/test_external.py::test_m8_3_the_side_lapses_with_the_coach_side_window`
 - `tests/bowen/test_famdiag_export.py::test_v5_a_line_read_from_acts_and_silence_reports_both`
 - `tests/bowen/test_famdiag_export.py::test_v5_a_stopped_pattern_ends_where_it_stopped`
 - `tests/bowen/test_famdiag_export.py::test_v5_app_key_sets_are_the_declared_ones`
@@ -713,6 +724,7 @@ Their names embed no requirement ID, so they count only where an override cites 
 - `tests/bowen/test_live_positions.py::test_m8_s3_20_predicate_has_three_callers` — *cited*
 - `tests/bowen/test_mechanisms.py::test_m8_5_s1_4_a_sided_coach_leaves_its_triangle_active` — *cited*
 - `tests/bowen/test_mechanisms.py::test_t219_an_iposition_without_parameters_raises`
+- `tests/bowen/test_moves.py::test_t134_a_return_with_no_lender_is_logged_as_unreturned`
 - `tests/bowen/test_moves.py::test_t219_ties_in_the_third_go_to_the_shorter_identifier`
 - `tests/bowen/test_mutant_runner.py::test_s1_5a_a_cache_write_cut_short_leaves_the_last_whole_file`
 - `tests/bowen/test_mutant_runner.py::test_s1_5a_a_child_that_cannot_start_raises_its_own_error`
@@ -726,6 +738,7 @@ Their names embed no requirement ID, so they count only where an override cites 
 - `tests/bowen/test_mutant_runner.py::test_s1_5a_a_stopped_parent_leaves_no_process`
 - `tests/bowen/test_mutant_runner.py::test_s1_5a_a_timed_out_child_leaves_no_process`
 - `tests/bowen/test_mutant_runner.py::test_s1_5a_an_ignored_stop_signal_stays_ignored`
+- `tests/bowen/test_origin_danger_focus.py::test_t024_m11c47_stops_on_a_household_member_with_no_tie`
 - `tests/bowen/test_patterns.py::test_b2_a_misspelt_act_in_config_raises`
 - `tests/bowen/test_patterns.py::test_b2_now_must_be_the_week_just_run`
 - `tests/bowen/test_patterns.py::test_b2_now_reads_as_of_that_week`
@@ -742,7 +755,9 @@ Their names embed no requirement ID, so they count only where an override cites 
 - `tests/bowen/test_phase_c_criteria.py::test_s_every_scripted_criterion_holds_the_same_ties_in_both_arms`
 - `tests/bowen/test_phase_c_criteria.py::test_s_outcomes_classifies_every_case_from_the_records`
 - `tests/bowen/test_phase_c_criteria.py::test_s_scripted_criteria_are_found_by_running_them`
+- `tests/bowen/test_phase_c_criteria.py::test_t139_the_movers_perspective_comes_from_the_criterions_settings`
 - `tests/bowen/test_phase_d_criteria.py::test_forced_withheld_label_withholds_that_act_toward_that_person_only`
+- `tests/bowen/test_phase_d_criteria.py::test_t021_m11c7_refuses_a_coach_tie_too_slow_for_the_scripted_split`
 - `tests/bowen/test_phase_d_mutation_record.py::test_s1_9_engine_hash_ignores_comments`
 - `tests/bowen/test_phase_d_mutation_record.py::test_t254_a_phase_d_child_gets_its_measured_limit_and_run_cached_passes_it_on`
 - `tests/bowen/test_phase_d_record.py::test_phase_d2_record_covers_every_criterion_and_names_what_is_not_run`
@@ -753,6 +768,8 @@ Their names embed no requirement ID, so they count only where an override cites 
 - `tests/bowen/test_phase_d_record.py::test_s1_7b_variants_print_under_their_own_keys`
 - `tests/bowen/test_phase_d_record.py::test_s1_8c_a_stale_entry_is_rerun`
 - `tests/bowen/test_phase_d_record.py::test_s1_8c_records_render_from_the_cache`
+- `tests/bowen/test_phase_d_record.py::test_t026_a_failed_criterion_child_does_not_stop_the_others`
+- `tests/bowen/test_phase_d_record.py::test_t026_a_result_whose_code_changed_under_it_is_not_cached`
 - `tests/bowen/test_record_json.py::test_s1_5d_one_record_parser`
 - `tests/bowen/test_register.py::test_m14a_check_catches_a_field_with_no_row` — *cited*
 - `tests/bowen/test_register.py::test_m14a_register_matches_object_fields` — *cited*
@@ -785,6 +802,7 @@ Their names embed no requirement ID, so they count only where an override cites 
 - `tests/bowen/test_spec_rules_view.py::test_c5_every_spec_id_appears_in_exactly_one_view_file`
 - `tests/bowen/test_spec_rules_view.py::test_c5_view_is_current_and_holds_nothing_else`
 - `tests/bowen/test_spec_rules_view.py::test_e2_every_dispositions_row_is_true_of_the_spec_and_the_log`
+- `tests/bowen/test_tick.py::test_t251_the_founders_starting_tie_beliefs_are_logged_at_week_0`
 - `tests/experiments/llm_agents/test_budget.py::test_lx11_cached_rounds_are_not_charged`
 - `tests/experiments/llm_agents/test_budget.py::test_lx11_estimate_over_cap_refuses`
 - `tests/experiments/llm_agents/test_budget.py::test_lx11_phase_record_lists_runs_not_started`

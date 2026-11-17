@@ -50,7 +50,7 @@ claim being checked; "—" = not in that lens.
 | `tests/` | — | diff (except `test_mutant_runner.py`, skipped as infrastructure); `test_phase_c_gate.py` sampled | `test_doc_claims.py`, `doc_claims.json` full; `test_doc_status.py` 20–119 | diff + `test_engine_purity.py` full |
 | `tools/`, CI, `pytest.ini`, `requirements.txt` | — | — | — | diff + `tests.yml`, `pytest.ini`, `requirements.txt` full |
 | `TODO.md` | — | full (1,045 lines) | searched | searched (known items not re-reported) |
-| DECISIONS files | `DECISIONS FOR APPROVAL.md` searched | — | CUTOFF SEMANTICS status read | — |
+| DECISIONS files | `decisions_for_approval.md` searched | — | CUTOFF SEMANTICS status read | — |
 
 Left out by the brief's §3 step 5 filter, and searched only for a claim being checked: the deleted grid-engine files,
 `docs/records_cache/`, `docs/review/`, the generated records, `docs/spec_coverage.md`, `docs/version_1_status.md`,
@@ -280,7 +280,7 @@ only); triage checks them (§7).
 - **Severity:** minor · **Confidence:** high · **Verified:** not challenged
 - **Quoted:**
   - checklist:79 — "whether the engine's CUTOFF should become rejection (open)."
-  - `DECISIONS — CUTOFF SEMANTICS.md:3` — "status: BUILT 2026-10-11 — option B"
+  - `decisions_cutoff_semantics.md:3` — "status: BUILT 2026-10-11 — option B"
 - **How checked:** L3 read both; `test_doc_status.py:37` `_ENTRY` matches only bold `**Label:**` entries, so `- [ ]` items are never compared.
 - **Fix:** change "(open)" to "built 2026-10-11 (option B, `M1.B.3c`)"; extend D5b to list items or record them as out of its scope.
 

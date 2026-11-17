@@ -31,7 +31,7 @@
   `basic_level` moves.
 
 **What the owner has added for Phase D (2026-10-10):**
-- cutoff as rejection, not severing (`docs/DECISIONS — CUTOFF SEMANTICS.md`, option B);
+- cutoff as rejection, not severing (`docs/decisions_cutoff_semantics.md`, option B);
 - a pull toward reconnecting, since severed ties stay severed and that produced the long silences (Marta–Nadia
   102 of 104 weeks);
 - projection as a model mechanism, not only a readout.

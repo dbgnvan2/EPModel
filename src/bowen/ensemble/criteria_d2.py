@@ -420,6 +420,17 @@ def arm_c10_origin(arm, seed, settings):
                         summary)
 
 
+def household_ties(state, person) -> list:
+    """Everyone else in ``person``'s household with their tie to ``person``, in id order. One with no tie raises: they
+    would drop from `M11.C.47`'s readouts silently (T-024)."""
+    household = state.people[person].household_id
+    others = sorted(o for o in state.people if o != person and state.people[o].household_id == household)
+    missing = [o for o in others if TieId.of(person, o) not in state.ties]
+    if missing:
+        raise ValueError(f"M11.C.47: {sorted(str(o) for o in missing)} share {person}'s household and have no tie")
+    return [(o, state.ties[TieId.of(person, o)]) for o in others]
+
+
 def arm_c47(arm, seed, settings):
     """Purpose: M11.C.47 — on the danger fixture, one spouse at a low level under repeated stressors
     (treatment) or at a higher level with none (baseline); read the danger the rest of the household feels from them and
@@ -453,10 +464,7 @@ def arm_c47(arm, seed, settings):
     felt, principled, held = [], [], []
 
     def watch(state) -> None:
-        household = state.people[person].household_id
-        others = [o for o in state.people if o != person and state.people[o].household_id == household
-                  and TieId.of(person, o) in state.ties]
-        ties = [(o, state.ties[TieId.of(person, o)]) for o in others]
+        ties = household_ties(state, person)
         felt.append(max((t.felt_danger.get(o, 0.0) for o, t in ties), default=0.0))
         principled.append(max((t.rejection.get(o, 0.0) * t.felt_danger.get(o, 0.0) for o, t in ties), default=0.0))
         held.append(any(t.rejection.get(o, 0.0) > 0.0 for o, t in ties))

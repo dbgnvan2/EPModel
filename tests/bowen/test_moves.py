@@ -638,6 +638,36 @@ def test_m6i4a_s3_4_lent_functioning_returns_with_lost_capacity():
     assert all(v == (0.0, 0.0) for v in week(empty, floor - 1.0).values())  # no capacity at the week's start
 
 
+def test_t134_a_return_with_no_lender_is_logged_as_unreturned():
+    """T-134 (`M6.I.4a`): what is due back and reaches no lender stays with the taker and is logged on the return's
+    record as ``pseudo_self_unreturned``, so a readout can tell "no lender" from "capacity did not fall". With one
+    lender capped at what they lent, the rest of what is due is the unreturned amount."""
+    from src.bowen.engine.moves import _pole_of, return_lent_functioning
+
+    floor = 50.0 - PARAMS.stress_floor_below_basic
+    half = floor + 0.5 * (50.0 - floor)                                   # s falls from 1 to 0.5: half is due
+
+    def run(lent):
+        state = fresh()
+        ravi = state.people[RAVI]
+        ravi.basic_level, ravi.functional_level, ravi.pseudo_self = 50.0, 50.0, 6.0
+        for pid, held in lent.items():
+            person = state.people[pid]
+            person.functional_level += held - (person.pseudo_self or 0.0)
+            person.pseudo_self = held
+            tie = state.ties[TieId.of(RAVI, pid)]
+            tie.functioning_balance[DEFAULT_AREA] = 0.5 * _pole_of(tie, RAVI)
+        state.tick = PARAMS.exchange_window + 2
+        start = {pid: p.functional_level for pid, p in state.people.items()}
+        ravi.functional_level = half
+        records = return_lent_functioning(state, PARAMS, start)
+        return [(pid, value) for r in records for pid, name, value in r.people if name == "pseudo_self_unreturned"]
+
+    assert run({}) == [(RAVI, pytest.approx(3.0))]                       # no lender: all 3 due stays, logged
+    assert run({MARTA: -1.0}) == [(RAVI, pytest.approx(2.0))]            # capped at the 1 lent: 2 stay
+    assert run({MARTA: -4.0, NADIA: -2.0}) == []                         # all of it returned: nothing logged
+
+
 def test_m6i4a_returns_only_to_lenders_within_the_caps_dead_or_alive():
     """`M6.I.4a`'s lenders and caps (stage 3 step 12's correctness pass: none of them had a case). Ravi, at basic level
     50 holding 6 borrowed, loses half his capacity, so 3 is due back. A partner who holds lent pseudo-self on a tie whose

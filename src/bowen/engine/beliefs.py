@@ -44,6 +44,7 @@ from dataclasses import dataclass
 from src.bowen.engine.contact import clamp_unit
 from src.bowen.engine.events import Delivery, Event, Mechanism
 from src.bowen.engine.identifiers import PersonId, TieId
+from src.bowen.engine.invariants import InvariantViolation
 from src.bowen.engine.log_records import BeliefWriteRecord
 from src.bowen.engine.objects import Person, Relationship
 from src.bowen.engine.params import EngineParams
@@ -79,6 +80,21 @@ def initialise_beliefs(people: dict[PersonId, Person], ties: dict[TieId, Relatio
             for tid in sorted(ties)
             if pid not in tid.members()
         }
+
+
+def starting_beliefs(state: RunState) -> list[BeliefWriteRecord]:
+    """Purpose: the record of every person's starting belief about each tie they are not party to, written by
+             ``initialise_beliefs`` before the first tick, so the founders' priors are in the log as an entrant's are
+             when they enter (``life_course``; T-251). The first tick emits them; they change no state.
+    Spec:    docs/bowen_agent_model_spec_v2.md#M9.8, #M16.A.5
+    Tests:   tests/bowen/test_tick.py::test_t251_the_founders_starting_tie_beliefs_are_logged_at_week_0
+    """
+    records = []
+    for pid in sorted(state.people):
+        for tid, belief in sorted((state.people[pid].tie_beliefs or {}).items()):
+            records += [BeliefWriteRecord(state.tick, pid, f"tie_beliefs[{tid}].tension", belief.tension, None),
+                        BeliefWriteRecord(state.tick, pid, f"tie_beliefs[{tid}].contact", belief.contact, None)]
+    return with_truth(state, records)
 
 
 def update_beliefs(
@@ -141,7 +157,7 @@ def with_truth(state: RunState, records: list[BeliefWriteRecord]) -> list[Belief
              tick (`M16.A.5a`). A pure observer of the log: it reads the tie's true state into the record only, after
              the belief is written, and writes no state. In the week, the truth is read at step 3, when the belief is
              written, before step 4 appraises the same deliveries (T-248, revision 62). A ``tie_beliefs[...]`` subject
-             that names no tie raises.
+             that names no tie raises ``InvariantViolation``.
     Spec:    docs/bowen_agent_model_spec_v2.md#M16.A.5, #M16.A.5a
     Tests:   tests/bowen/test_beliefs.py::test_m16a5_a_tie_belief_write_is_its_own_record_with_its_truth
     """
@@ -154,8 +170,9 @@ def with_truth(state: RunState, records: list[BeliefWriteRecord]) -> list[Belief
         truth = None
         if prefix.startswith("tie_beliefs["):
             tie = ties.get(prefix)
-            if tie is None:  # T-248 (revision 62): a tie belief with no tie is a defect, not a record with no truth
-                raise ValueError(f"belief record {record.subject!r} names no tie in the field")
+            if tie is None:  # a tie belief with no tie is a defect, not a record with no truth; an invariant
+                # violation, so run_tick logs the failing tick before the raise (T-239 (d), T-251)
+                raise InvariantViolation(f"belief record {record.subject!r} names no tie in the field")
             truth = getattr(true_counterpart(tie), field_name)
         out.append(dataclasses.replace(record, true_value=truth))
     return out

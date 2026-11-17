@@ -214,3 +214,22 @@ def test_m16a4_t239_a_failing_tick_is_logged_before_the_raise():
     assert isinstance(emitter.records[0], TickRecord) and emitter.records[0].tick == 0
     [failure] = [r for r in emitter.records if isinstance(r, InvariantFailureRecord)]
     assert failure.tick == 0 and "M6.I.5" in failure.detail
+
+
+def test_t251_the_founders_starting_tie_beliefs_are_logged_at_week_0():
+    """T-251: the first tick logs every founder's starting belief about each tie they are not party to, as an
+    entrant's are logged when they enter (``life_course``), each with its true counterpart; a later tick does not."""
+    from src.bowen.engine.log_records import BeliefWriteRecord
+
+    state, emitter = fresh(), CollectingEmitter()
+    run_tick(state, FixedSource(), PARAMS, VIS, ACT, emitter)
+    priors = {(r.holder, r.subject) for r in emitter.records
+              if isinstance(r, BeliefWriteRecord) and r.tick == 0 and r.subject.startswith("tie_beliefs[")}
+    expected = {(pid, f"tie_beliefs[{tid}].{name}") for pid, person in state.people.items()
+                for tid in person.tie_beliefs for name in ("tension", "contact")}
+    assert expected and expected <= priors
+    assert all(r.true_value is not None for r in emitter.records
+               if isinstance(r, BeliefWriteRecord) and r.subject.startswith("tie_beliefs["))
+    later = CollectingEmitter()
+    run_tick(state, FixedSource(), PARAMS, VIS, ACT, later)
+    assert not [r for r in later.records if isinstance(r, BeliefWriteRecord)]  # nothing delivered, nothing logged

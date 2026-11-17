@@ -6,6 +6,9 @@ Spec:    docs/bowen_agent_model_spec_v2.md#M16.A.1, #M16.B.1, #M3.D.4
 Tests:   tests/bowen/test_log.py, tests/bowen/test_determinism.py
 
     python3 -m src.bowen.run --seed 7 --log runs/phase_b.jsonl --trace runs/phase_b_trace.md
+
+This root runs the scripted Phase B family only. A policy run (``PolicySource``) is composed by
+``src/bowen/ensemble/criteria.py::scenario`` and, rendered, by ``tools/phase_c_trace.py`` (README, "Running").
 """
 
 from __future__ import annotations

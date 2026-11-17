@@ -33,6 +33,7 @@ class EngineParams:
     hardening_run_length: int              # M4.G.1 — consecutive withdrawals that make a tie distant
     bond_energy_decay_rate: float          # M1.B.4 — at or near zero
     triangle_activity_window: int          # M1.C.3 amended — ticks a TRIANGLE act keeps its triangle active
+    coach_side_window: int                 # M8.3 — weeks an external agent stays on the side of a member who SPLIT toward it
     defence_threshold: float               # M4.C.2 — excess anxiety above which content is defended against
     witness_weight: float                  # M4.C.9 — a witness's share of an exchange it overhears
     speaker_echo_gain: float               # M4.C.7 — the speaker's own reaction to what it addressed
@@ -322,6 +323,8 @@ class EngineParams:
             raise ValueError("rejection_refusal_threshold must be in [0, 1)")
         if self.triangle_activity_window < 1:
             raise ValueError("triangle_activity_window must be at least 1")
+        if self.coach_side_window < 1:
+            raise ValueError("coach_side_window must be at least 1")
         if self.hardening_run_length < 2:
             raise ValueError("hardening_run_length must be at least 2")
         # Revision 28's life course (review 2026-10-14, adjacent finding): ages ordered, shares in [0, 1], sizes non-negative.

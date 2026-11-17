@@ -103,7 +103,7 @@ def evaluate(state: RunState, records, params: EngineParams, framing: str, windo
         },
         "multigenerational": {
             "basic_level_by_generation": {g: math.fsum(v) / len(v) for g, v in sorted(by_generation.items())},
-            "projection_line": "not built: children are born in the run from Phase D part II, but the line is not yet read",
+            "projection_line": "not built: children are born in the run, but the line is not yet read",
         },
         "cutoff": {str(t): {"bond_energy": state.ties[t].bond_energy, "cut_off": state.ties[t].tie_state is TieState.CUT_OFF}
                    for t in family.origin_ties if t in state.ties},

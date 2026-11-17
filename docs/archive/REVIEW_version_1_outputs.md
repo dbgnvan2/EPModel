@@ -27,7 +27,7 @@ import is outside version 1 (§3). The reference family (`config/bowen/family_ph
 graded `[I]`.
 
 **One wording item, fixed 2026-10-17 at the owner's decision.** `config/bowen/family_phase_d.md`, `docs/theory/_STATUS.md`
-and two lines of `docs/PROPOSAL — RUN VISUALIZATION MAPPING.md` said "the owner's family", meaning the reference
+and two lines of `docs/proposal_run_visualization_mapping.md` said "the owner's family", meaning the reference
 family the owner specified (plan D5); a reader could take that for the owner's real family, which `M11.F.9(a)` forbids an
 output to suggest. All four now read "the reference family the owner specified", and the family file adds that it is
 an invented family.

@@ -50,7 +50,7 @@ from typing import Protocol
 from src.bowen.engine.act import Selection, act, inject, record_deliveries
 from src.bowen.engine.activation import SynchronousActivation
 from src.bowen.engine.appraise import apply_appraisal, perceive
-from src.bowen.engine.beliefs import update_beliefs, with_truth
+from src.bowen.engine.beliefs import starting_beliefs, update_beliefs, with_truth
 from src.bowen.engine.consolidate import consolidate
 from src.bowen.engine.cutoff_stock import bridge_ties, cutoff_threat, decay_cutoff_stock
 from src.bowen.engine.event_effects import STRUCTURAL, apply_delivered_cutoffs, apply_structural_event, nodal_spike
@@ -154,6 +154,9 @@ def _run_steps(state: RunState, source: Source, params: EngineParams, visibility
     before = snapshot(state)
     start_acute = {pid: p.acute_anxiety for pid, p in state.people.items()}  # the learner's baseline
     start_level = week_start_levels(state)  # M6.I.4a's capacity at the week's start: the end of last week
+
+    if state.tick == 0:  # the founders' starting tie beliefs, logged as an entrant's are (T-251); no state changes
+        records += starting_beliefs(state)
 
     # 1 — standing load, before anything is delivered (M3.D.2, M6.I.8). A spike that has ended can never count again,
     # so it is dropped first (review 2026-10-17: unpruned, 2,543 accumulated over 40 years and slowed the run by half).

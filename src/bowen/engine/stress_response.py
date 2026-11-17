@@ -50,7 +50,7 @@ from __future__ import annotations
 
 import math
 
-from src.bowen.engine.act import SELF_CHANNEL, WITHHOLD
+from src.bowen.engine.act import SELF_CHANNEL, holds_or_self_directed
 from src.bowen.engine.contact import steepness
 from src.bowen.engine.events import Mechanism
 from src.bowen.engine.log_records import DecidedBy, EffectRecord
@@ -200,7 +200,7 @@ def respond(state: RunState, selections, load: dict, params: EngineParams) -> li
         above, kind = above_usual(person, load.get(pid, 0.0)), chose.get(pid)
         level = person.basic_level / SCALE_MAX
         if above > 0:  # loaded means above their own usual level
-            coped = kind == WITHHOLD or (kind is not None and state.kinds.channels.get(kind) == SELF_CHANNEL)
+            coped = holds_or_self_directed(state.kinds, kind)
             if coped:
                 change = params.response_up_gain * above / SCALE_MAX * level
             elif kind in state.kinds.soothing:

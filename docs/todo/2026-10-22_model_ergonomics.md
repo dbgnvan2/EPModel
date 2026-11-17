@@ -36,4 +36,5 @@
     line 430, and the `params.py` / `scenario/constants.py` field comments.
   - `engine/contact.py` said "revision-12 finding 6" where the spec (`M4.C.1c`) records revision 11; the phrase is
     gone from the docstring, but CHANGELOG may carry the same label.
-  ⟦batch: engine batch E1 (engine and record-tool hygiene, one regeneration)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
+ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
+  *Mostly built 2026-11-17 in revision 64: every bullet but the last two is fixed or found already done (`iposition` imports `math` at module level; `resolved_config` hashes the whole kinds table since T-218; `counterfeit.py` no longer exists; the two `Role` names are left, a reading hazard only). The `per_hop_fidelity` row now says the key is declared and not drawn. Kept open: the decision narration in comments, of which `danger.py` and `runner.py` are fixed; the rest, in `criteria.py` and `criteria_d.py`, record where each criterion's design came from, and removing them is a sweep of its own.*

@@ -39,7 +39,7 @@ EPModel session on davemini2. It reviews the brief itself. It does not run the m
 **What is wrong.** L1's attribution check says both ASR sources must never be quoted verbatim. The project's
 source of truth puts the no-verbatim rule on the 1979 tapes only. For the interviews the rule is "cite the
 interview, not the man". The "known item" about `M10.C.2` rests on the wider rule. A reviewer following the brief
-would report the ledger itself, `DECISIONS FOR APPROVAL.md` and the spec as defects.
+would report the ledger itself, `decisions_for_approval.md` and the spec as defects.
 
 **Quoted lines.**
 - Brief 141: "The ASR sources must never be quoted verbatim: the 1979 lectures (`Tape N`) and the Kerr–Bowen interviews (`KB`)."
@@ -48,13 +48,13 @@ would report the ledger itself, `DECISIONS FOR APPROVAL.md` and the spec as defe
 
 **How checked.** Read the ledger's source table (`_LEDGER.md:76-84`) and `CLAUDE.md:33-35`, which says the same:
 "`Tape N`, **ASR — no verbatim quotation**" and "`KB`, **ASR — cite the interview, not the man**". Then searched for
-`KB11` quotations: the same passage is quoted verbatim at `_LEDGER.md:1402-1405`, `docs/DECISIONS FOR APPROVAL.md:46`
+`KB11` quotations: the same passage is quoted verbatim at `_LEDGER.md:1402-1405`, `docs/decisions_for_approval.md:46`
 ("`KB11`, verbatim — …") and spec `M10.C.2` (`docs/bowen_agent_model_spec_v2.md:1206`).
 
 **Proposed fix.** Split the bullet: "`Tape N` is never quoted verbatim. A `KB` claim cites the interview, not the
 man." Replace the `M10.C.2` known item with: "if a `KB` quotation attributes the words to Bowen rather than to the
 interview, report it". If the owner does want `KB` to be no-verbatim, that is a rule change: the ledger,
-CLAUDE.md, `DECISIONS FOR APPROVAL.md` and the spec all need to change, and it belongs in §8, not in a lens.
+CLAUDE.md, `decisions_for_approval.md` and the spec all need to change, and it belongs in §8, not in a lens.
 
 ### MR-2 · major · `docs/milestone_review_brief.md:107-118`, `:169`: the workers cannot do what the brief asks of them
 

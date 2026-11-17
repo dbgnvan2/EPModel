@@ -44,7 +44,7 @@ Each failing criterion ends in exactly one of three outcomes, decided by evidenc
 
 ## 3. Owner decisions, collected in one memo
 
-After D1–D6, one memo (`docs/DECISIONS — PHASE C FAILING.md`) gives each criterion its outcome (A, B or C), the evidence, and a recommendation. The owner decides once. Approved restatements are then committed and rerun together; with the cache, only the changed criteria run.
+After D1–D6, one memo (`docs/decisions_phase_c_failing.md`) gives each criterion its outcome (A, B or C), the evidence, and a recommendation. The owner decides once. Approved restatements are then committed and rerun together; with the cache, only the changed criteria run.
 
 **Acceptance for this phase:** every failing criterion in report §1 carries one of these:
 - a verdict under an approved, pre-declared test (done);

@@ -114,11 +114,12 @@
   `estimator_breadth` are read by `M11.C.18` and other criteria, and the stage-end sweep leaves both out
   (`config/sweep/sweep.md`); no sweep over them exists. From T-004's `constants.md` note.
   ⟦batch: the next stage-end sweep⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
-- [ ] T-246 ⟨later⟩ **An event in flight is still delivered to a person who has died (2026-11-14).** Found writing
+- [x] T-246 ⟨later⟩ **An event in flight is still delivered to a person who has died (2026-11-14).** Found writing
   `M6.3a`'s test: a move emitted before a death is logged as a `DeliveredRecord` to the dead person a tick later. It
   moves none of their state (appraisal, beliefs and attribution skip the dead), but the log shows a delivery `M6.3a`
   says the dead no longer perceive. Decide: drop it at delivery, or log it as undeliverable.
   ⟦batch: engine batch E1 (engine and record-tool hygiene, one regeneration)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
+  *Built 2026-11-17 in spec revision 64 (engine batch E1), Claude's recommendation, pending owner review; see CHANGELOG.md's revision 64 entry. The log-only fix: a delivery to someone dead is not logged as delivered; the store keeps it, so a run computes the same.*
 - [x] T-247 ⟨later⟩ **`M1.A.5c`: a lender's lent pseudo-self has no way back once the borrower converts (2026-11-14).**
   *Built 2026-11-15 at spec revision 62; the lender's functional level is unchanged (owner 2026-11-15).*
   Both review passes of revision 61. `relax_pseudo_self` and `return_lent_functioning` (`src/bowen/engine/moves.py`)
@@ -142,7 +143,8 @@
   returns as if it were a loan, and one scalar cannot say whose loan a lender's lent is. The founders' starting tie
   beliefs (`initialise_beliefs`) are not logged, where an entrant's are. The trace test
   (`test_t248_every_mechanism_the_trace_names_is_one_the_engine_emits`) reads literal mechanism names only.
-  ⟦batch: engine batch E1 (engine and record-tool hygiene, one regeneration)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
+ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
+  *Partly built 2026-11-17 in revision 64: `with_truth` raises `InvariantViolation`, and the founders' starting tie beliefs are logged at week 0. Kept open: the `lenders_of` bookkeeping, because fixing it changes what `M6.I.4a` and `M1.A.5c` compute (a mechanism change, not hygiene); and the trace test still reads literal mechanism names only.*
 - [x] T-252 ⟨now⟩ **A named mutant survives `M11.C.10[family of origin]` at revision 62 (2026-11-15).** In
   `docs/phase_d_mutation_record.md`, `learner-reads-own-state-only` (`M4.B.2`'s exemption removed) now passes the
   variant (`cut_off_tie_weeks` +146 ± 128, p 0.014; red at revision 61, p 0.25). The variant stays covered:

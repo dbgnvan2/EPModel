@@ -10,26 +10,7 @@ moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's te
 ## Now (0)
 
 
-## Later (96)
-
-### engine batch E1 (engine and record-tool hygiene, one regeneration) (16)
-
-- T-007 · 2026-10-22 · Adjacent issues found by Part D's docstring pass, … · [record](docs/todo/2026-10-22_model_ergonomics.md)
-- T-021 · 2026-10-17 · Minor, from the revision 32 reviews (2026-10-17), not … · [record](docs/todo/2026-10-17_revision_32.md)
-- T-024 · 2026-10-14 · Minor, from the fix re-sweep (2026-10-14) · [record](docs/todo/2026-10-14_spec_revision_30.md)
-- T-025 · 2026-10-19 · Adjacent, not fixed (2026-10-19) · [record](docs/todo/2026-10-14_spec_revision_30.md)
-- T-026 · 2026-10-19 · Adjacent, not fixed (stage 1 review, 2026-10-19) · [record](docs/todo/2026-10-14_spec_revision_30.md)
-- T-031 · 2026-10-20 · Adjacent, not fixed (cold sweep, 2026-10-20, C3) · [record](docs/todo/2026-10-14_spec_revision_30.md)
-- T-032 · 2026-10-20 · Adjacent, not fixed (cold sweep, 2026-10-20, C4) · [record](docs/todo/2026-10-14_spec_revision_30.md)
-- T-063 · 2026-10-12 · Adjacent, not fixed (review of revision 21, 2026-10-12): … · [record](docs/todo/2026-10-11_phase_d.md)
-- T-068 · 2026-10-09 · `docs/phase_c_level_occupancy.md` is checked by its hash line only · [record](docs/todo/2026-10-08_phase_c.md)
-- T-073 · 2026-10-09 · Re-sweep notes, 2026-10-09 · [record](docs/todo/2026-10-08_phase_c.md)
-- T-134 · 2026-10-26 · `M6.I.4a`'s return with no lender is not counted … · [record](docs/todo/2026-10-25_stage_3_revision_39.md)
-- T-139 · 2026-10-26 · Two arm settings read outside the run's parameters … · [record](docs/todo/2026-10-25_stage_3_revision_39.md)
-- T-141 · 2026-10-26 · The sender's appraisal of returned contact reads the … · [record](docs/todo/2026-10-25_stage_3_revision_39.md)
-- T-227 · 2026-11-11 · Fix: comments and README (2026-11-11) · [record](docs/todo/2026-11-11_whole_repo_review.md)
-- T-246 · 2026-11-14 · An event in flight is still delivered to … · [record](docs/todo/2026-08-22_blocking_the_next_phase.md)
-- T-251 · 2026-11-15 · Revision 62's low review findings (2026-11-15) · [record](docs/todo/2026-08-22_blocking_the_next_phase.md)
+## Later (81)
 
 ### engine batch E2 (new mechanisms and mutants) (4)
 
@@ -103,12 +84,6 @@ moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's te
 - T-211 · 2026-11-09 · Why birth order predicts the main supplier below … · [record](docs/todo/2026-11-07_social_cues.md)
 - T-240 · 2026-11-12 · Later parts of T-233 (2026-11-12) · [record](docs/todo/2026-11-11_whole_repo_review.md)
 
-### the next spec revision (wording only; ride with engine batch E1's revision) (3)
-
-- T-100 · 2026-11-17 · Third parties quoted by an author, unmarked · [record](docs/todo/2026-08-28_batch_backlog.md)
-- T-106 · 2026-11-17 · `M1.A.4d`'s source sentence is gate-shaped · [record](docs/todo/2026-08-28_batch_backlog.md)
-- T-112 · 2026-11-17 · `§n` cross-references are ambiguous across documents · [record](docs/todo/2026-08-22_documentation_hygiene.md)
-
 ### the next stage-end sweep (1)
 
 - T-245 · 2026-11-14 · `M1.A.4c`: the estimator's sensitivity sweep (2026-11-14) · [record](docs/todo/2026-08-22_blocking_the_next_phase.md)
@@ -134,3 +109,10 @@ moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's te
 - T-116 · 2026-11-17 · Convergence C1 needs its scope re-derived from the … · [record](docs/todo/2026-08-22_theory_work.md)
 - T-117 · 2026-11-17 · The ego-mass terminology arc must be re-derived · [record](docs/todo/2026-08-22_theory_work.md)
 - T-118 · 2026-11-17 · When the basic level is fixed is genuinely … · [record](docs/todo/2026-08-22_theory_work.md)
+
+### No batch yet (4)
+
+- T-007 · 2026-10-22 · Adjacent issues found by Part D's docstring pass, … · [record](docs/todo/2026-10-22_model_ergonomics.md)
+- T-063 · 2026-10-12 · Adjacent, not fixed (review of revision 21, 2026-10-12): … · [record](docs/todo/2026-10-11_phase_d.md)
+- T-073 · 2026-10-09 · Re-sweep notes, 2026-10-09 · [record](docs/todo/2026-10-08_phase_c.md)
+- T-251 · 2026-11-15 · Revision 62's low review findings (2026-11-15) · [record](docs/todo/2026-08-22_blocking_the_next_phase.md)

@@ -74,11 +74,10 @@ def _counter_moves(state: RunState, members: tuple[PersonId, PersonId, PersonId]
     """DETRIANGLE and PREVENT_ALIGNMENT among the members, emitted in (after, now]."""
     found = []
     for event in state.store.moves_in(after, state.tick):
-        if event.kind not in (DETRIANGLE_KIND, PREVENT_ALIGNMENT_KIND):
+        if event.kind not in (DETRIANGLE_KIND, PREVENT_ALIGNMENT_KIND) or len(event.targets) != 1:
             continue
-        if event.kind in (DETRIANGLE_KIND, PREVENT_ALIGNMENT_KIND) and len(event.targets) == 1:
-            if {event.sender, event.targets[0]} <= set(members):
-                found.append(event)
+        if {event.sender, event.targets[0]} <= set(members):
+            found.append(event)
     return found
 
 

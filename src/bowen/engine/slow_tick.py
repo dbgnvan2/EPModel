@@ -41,7 +41,7 @@ import math
 from collections import deque
 from dataclasses import dataclass
 
-from src.bowen.engine.act import SELF_CHANNEL, WITHHOLD
+from src.bowen.engine.act import holds_or_self_directed
 from src.bowen.engine.events import Mechanism, Role
 from src.bowen.engine.iposition import STAY_IN_CONTACT
 from src.bowen.engine.identifiers import PersonId
@@ -114,7 +114,7 @@ def record_week(state: RunState, params: EngineParams, load: dict, selections, e
         if not person.alive:
             continue
         kind = chose.get(pid)
-        self_directed = kind == WITHHOLD or (kind is not None and state.kinds.channels.get(kind) == SELF_CHANNEL)
+        self_directed = holds_or_self_directed(state.kinds, kind)
         weeks = state.estimator_history.setdefault(pid, deque(maxlen=size))
         # The borrowed part — positive pseudo-self taken by over-functioning
         # — is not read. "Overfunctioning is a dysfunctional behaviour — pseudo-self looks better. It's not principle

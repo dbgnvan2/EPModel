@@ -12,18 +12,22 @@ A probe samples state as each tick starts by patching ``criteria.run_tick``, as 
 calls the criterion's arm function, so the arms are the criterion's own (``c44_act_counts`` re-runs the arm's
 scenario to read its records, and must be kept in step with ``arm_spell_triad``). Sampling at tick start misses the
 last tick and reads anxiety after the previous tick's decay, so peaks are slightly understated. A forced arm's rows
-say whether its scripted act was made (``made``): an act that is not legal that week is skipped.
+say whether its scripted act was made (``made``, ``arm_made``): emitted as scripted, from the run's records; an act
+that is not legal that week is skipped, and one rewritten after selection is not made.
 """
 
 from __future__ import annotations
 
 import argparse
 import json
+import math
 import sys
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO))
+
+from src.bowen.engine.counting import count  # noqa: E402
 
 
 def sampling(criteria, sample):
@@ -44,27 +48,33 @@ def sampling(criteria, sample):
     return Patch()
 
 
-def made(criteria, records=None) -> str:
-    """Whether the last scenario's scripted acts were made: "made", "skipped" (none made), "partly" (some of each),
-    "not reached" (the run ended first), or "none" (the arm scripts no act). With the run's ``records``, "made" means
-    emitted as scripted (``Forced.outcomes``); without them, placed in the week's selections, which an act rewritten
-    afterwards also counts as. Every arm calls ``scenario`` once, which sets ``last_source``; an arm that called it
-    twice would report its last call."""
+def classify(counts) -> str:
+    """Whether a run's scripted acts were made, from what became of each (``Forced.outcomes``): "made", "skipped"
+    (none made), "partly" (some of each), "not reached" (the run ended first). Only an act emitted as scripted is
+    made; one placed and rewritten afterwards is not."""
+    done = counts.get("made", 0)
+    missed = count(counts.values()) - done - counts.get("not reached", 0)
+    if done == 0 and missed == 0:
+        return "not reached"
+    return "made" if missed == 0 else ("skipped" if done == 0 else "partly")
+
+
+def made(criteria, records) -> str:
+    """Whether the last scenario's scripted acts were made, from that run's ``records`` (``classify``), or "none" if
+    it scripts no act. Every caller runs ``scenario`` once, which sets ``last_source``."""
     source = getattr(criteria.scenario, "last_source", None)
     if source is None or not source.forced:
         return "none"
-    if records is not None:
-        counts = source.outcomes(records)
-        done, missed = counts["made"], sum(counts.values()) - counts["made"] - counts["not reached"]
-        if done == 0 and missed == 0:
-            return "not reached"
-        return "made" if missed == 0 else ("skipped" if done == 0 else "partly")
-    missed = source.skipped + getattr(source, "owed_step", 0)
-    if source.made == 0 and missed == 0:
-        return "not reached"
-    if missed == 0:
-        return "made"
-    return "skipped" if source.made == 0 else "partly"
+    return classify(source.outcomes(records))
+
+
+def arm_made(result) -> str:
+    """Whether an arm's scripted acts were made, from its ``ArmResult``: the counts ``criteria.scripted_bookkeeping``
+    books from the run's records (``classify``), or "none" if the arm scripts no act (T-073)."""
+    if not result.moves["(scripted acts)"]:
+        return "none"
+    prefix = "(scripted act: "
+    return classify({k[len(prefix):-1]: n for k, n in result.moves.items() if k.startswith(prefix)})
 
 
 def c29_third_person(seeds: int) -> list[dict]:
@@ -136,9 +146,9 @@ def triangle_relief(seeds: int) -> list[dict]:
                     signals = [s for k, s in closed if pick(k)]
                     values = [v for (_, k), v in final_values.items() if pick(k.split("|")[2])]
                     rows.append({"criterion": cid, "arm": arm, "acts": group, "seed": seed, "count": len(signals),
-                                 "mean_signal": sum(signals) / len(signals) if signals else None,
-                                 "share_relieved": sum(s > 0 for s in signals) / len(signals) if signals else None,
-                                 "mean_learned_value": sum(values) / len(values) if values else None})
+                                 "mean_signal": math.fsum(signals) / len(signals) if signals else None,
+                                 "share_relieved": count(s > 0 for s in signals) / len(signals) if signals else None,
+                                 "mean_learned_value": math.fsum(values) / len(values) if values else None})
     return rows
 
 
@@ -171,10 +181,9 @@ def c27_deviation_terms(seeds: int) -> list[dict]:
 
                 criteria._pair_deviation = pair_deviation
                 try:
-                    criterion.arm(arm, seed, criterion.settings)
+                    status = arm_made(criterion.arm(arm, seed, criterion.settings))
                 finally:
                     criteria._pair_deviation = original
-                status = made(criteria)
                 for member, terms in captured.items():
                     rows.append({"cell": cid, "arm": arm, "act": status, "member": member, "seed": seed, **terms})
     return rows
@@ -198,8 +207,8 @@ def c44_act_counts(seeds: int) -> list[dict]:
             kinds = [r.event.kind for r in records if isinstance(r, EmittedRecord)
                      and r.event.mechanism is Mechanism.MOVE and r.event.sender in triad]
             rows.append({"arm": arm, "seed": seed, "moves": len(kinds),
-                         "outside_acts": sum(k in criteria.OUTSIDE_ACTS for k in kinds),
-                         "inside_acts": sum(k in criteria.INSIDE_ACTS for k in kinds),
+                         "outside_acts": count(k in criteria.OUTSIDE_ACTS for k in kinds),
+                         "inside_acts": count(k in criteria.INSIDE_ACTS for k in kinds),
                          "triangles": kinds.count("TRIANGLE"), "pursues": kinds.count("PURSUE"),
                          "distances": kinds.count("DISTANCE"), "cutoffs": kinds.count("CUTOFF")})
     return rows
@@ -220,10 +229,9 @@ def horizons(seeds: int) -> list[dict]:
         for value in values:
             settings = {**criterion.settings, key: value}
             for seed in range(seeds):
-                base = criterion.arm("baseline", seed, settings).readouts
-                base_act = made(criteria)
-                treat = criterion.arm("treatment", seed, settings).readouts
-                acts = f"treatment {made(criteria)}, baseline {base_act}"
+                base_result, treat_result = criterion.arm("baseline", seed, settings), criterion.arm("treatment", seed, settings)
+                base, treat = base_result.readouts, treat_result.readouts
+                acts = f"treatment {arm_made(treat_result)}, baseline {arm_made(base_result)}"
                 for readout in base:
                     rows.append({"criterion": cid, "horizon": f"{key}={value}", "acts": acts, "readout": readout,
                                  "seed": seed, "difference": treat[readout] - base[readout]})
@@ -265,8 +273,8 @@ def spell_effect(seeds: int) -> list[dict]:
                 criterion.arm(arm, seed, criterion.settings)
             for pid, samples in seen.items():
                 rows.append({"arm": arm, "person": pid, "seed": seed,
-                             "mean_acute": sum(a for a, _ in samples) / len(samples),
-                             "share_weeks_above_floor": sum(b for _, b in samples) / len(samples)})
+                             "mean_acute": math.fsum(a for a, _ in samples) / len(samples),
+                             "share_weeks_above_floor": count(b for _, b in samples) / len(samples)})
     return rows
 
 
@@ -374,7 +382,7 @@ def _scan_arm(cid: str, arm: str, seed: int) -> dict | None:
 
 
 def scripted_weeks(seeds: int) -> list[dict]:
-    """Step S (docs/archive/DECISIONS — PHASE C FAILING.md): for every criterion that scripts an act, the first week w at
+    """Step S (docs/archive/decisions_phase_c_failing.md): for every criterion that scripts an act, the first week w at
     or before its declared t0 at which, scripted at w, the arm's acts would not all be made (illegal, `M4.D.1e`, or
     the actor inactive), per seed; t0 + 1 if none. The latest week made in every seed from week 0 on is the minimum
     over both arms' seeds, less one. The run is the policy's own, without step S's held-open ties: this is the
@@ -455,8 +463,8 @@ def rest_state(seeds: int) -> list[dict]:
                     part["ties"] -= own * factor
                     rows.append({"fixture": family, "level": "own" if level is None else f"{level:g}",
                                  "person": str(pid), "seed": seed, "floor": person.chronic_anxiety,
-                                 "mean_excess": sum(values) / len(values),
-                                 "share_weeks_within_tolerance": sum(v <= REST_TOLERANCE for v in values) / len(values),
+                                 "mean_excess": math.fsum(values) / len(values),
+                                 "share_weeks_within_tolerance": count(v <= REST_TOLERANCE for v in values) / len(values),
                                  "from_self": own * factor, **{f"from_{s}": v for s, v in part.items()}})
     return rows
 

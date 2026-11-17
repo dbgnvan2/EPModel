@@ -338,7 +338,7 @@ marked † against the files.
 - **Found by:** L3 · **Where:**
   - `docs/theory/_STATUS.md:3`
   - `docs/implementation_plan_version_2_stage_3.md:3`
-  - `docs/PROPOSAL — DISPLACED COPING (P2).md:3`
+  - `docs/proposal_displaced_coping_p2.md:3`
   - `docs/two_mac_sweep.md:3`
   - `docs/model_explainer.md:5`
   - `README.md:63–64`

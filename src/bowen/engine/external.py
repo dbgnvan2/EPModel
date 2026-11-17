@@ -22,7 +22,7 @@ probability
   ``contact_window`` weeks, 1 up to ``contact_optimum`` and ``(optimum / n) ** contact_excess_exponent`` above it,
   so more coaching past a low rate is worse, not better.
 * **position** (`M8.2`, `M8.3`, `M8.5`) — 0 if the agent holds no live position in a triangle it shares with the
-  recipient: it has taken a side. The agent is on a member's side for ``triangle_activity_window`` weeks after that
+  recipient: it has taken a side. The agent is on a member's side for ``coach_side_window`` weeks after that
   member's ``SPLIT`` toward it (the family-to-external move that draws a professional onto one side; a member cannot
   send an external agent a ``TRIANGLE``, `M5.B.4`, `M5.B.5`); it has no move that declines, so it always goes along.
   The count is ``positions_live``, the predicate `M8.5` requires. `M1.E.7e`'s lending of pseudo-self by a sided coach
@@ -45,7 +45,7 @@ from __future__ import annotations
 
 from typing import NamedTuple
 
-from src.bowen.engine.act import SELF_CHANNEL, WITHHOLD
+from src.bowen.engine.act import holds_or_self_directed
 from src.bowen.engine.contact import deviation
 from src.bowen.engine.draws import DrawKey
 from src.bowen.engine.events import Delivery, Mechanism, Role
@@ -76,12 +76,12 @@ def coach_side(state: RunState, coach: PersonId, members: tuple, params: EngineP
     """Purpose: the member of a triangle an external agent has been drawn in on, or None.
     Spec:    docs/bowen_agent_model_spec_v2.md#M8.3, #M11.C.7
     Tests:   tests/bowen/test_external.py::test_m8_3_a_coach_recruited_by_a_spouse_holds_no_live_position,
-             tests/bowen/test_external.py::test_m8_3_the_side_lapses_with_the_triangle_window
+             tests/bowen/test_external.py::test_m8_3_the_side_lapses_with_the_coach_side_window
 
     The sender of the latest side-taking move (``state.kinds.side_taking``, from ``config/bowen/act_classes.md``)
-    toward the agent from another of the triangle's members within ``triangle_activity_window`` weeks, the window a
-    triangle act stays active (`M1.C.3`)."""
-    toward = [e for e in state.store.moves_in(state.tick - params.triangle_activity_window, state.tick)
+    toward the agent from another of the triangle's members within ``coach_side_window`` weeks (`M8.3`), its own
+    constant, so tuning how long a triangle act stays active (`M1.C.3`) leaves `M11.C.7` alone (T-021)."""
+    toward = [e for e in state.store.moves_in(state.tick - params.coach_side_window, state.tick)
               if e.kind in state.kinds.side_taking and e.targets == (coach,) and e.sender in members
               and e.sender != coach]
     return toward[-1].sender if toward else None
@@ -168,7 +168,7 @@ def record_stances(state: RunState, selections, params: EngineParams) -> None:
     for selection in selections:
         if not selection.targets or selection.decided_by is DecidedBy.FALLBACK:
             continue
-        if selection.kind == WITHHOLD or state.kinds.channels.get(selection.kind) == SELF_CHANNEL:
+        if holds_or_self_directed(state.kinds, selection.kind):
             for other in selection.targets:
                 state.stances[(selection.actor, other)] = state.tick
             continue
@@ -244,7 +244,7 @@ def self_practice(state: RunState, selections, load: dict, params: EngineParams)
                 rows.append((other, "functional_level", partner.functional_level - before_level))
     for selection in sorted(selections, key=lambda s: s.actor):
         person = state.people[selection.actor]
-        self_directed = selection.kind == WITHHOLD or state.kinds.channels.get(selection.kind) == SELF_CHANNEL
+        self_directed = holds_or_self_directed(state.kinds, selection.kind)
         # Under load means above the person's usual level, as for the stress response (M1.A.5e).
         if not (self_directed and person.alive and selection.targets
                 and above_usual(person, load.get(selection.actor, 0.0)) > 0):

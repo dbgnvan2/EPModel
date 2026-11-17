@@ -7,7 +7,7 @@ date: 2026-10-10
 # Decision — what the engine's CUTOFF does
 
 **Raised by:** the owner's correction to the visualization mapping, 2026-10-10
-(`docs/PROPOSAL — RUN VISUALIZATION MAPPING.md` §1 and §5 Q1):
+(`docs/proposal_run_visualization_mapping.md` §1 and §5 Q1):
 
 > cutoff is not about no interactions, which is distance, it is about the intensity of rejecting
 > interaction. Person A refuses to interact with B.

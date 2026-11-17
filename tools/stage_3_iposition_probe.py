@@ -53,7 +53,7 @@ def one_arm(level: float, scripted: bool, seed: int) -> dict:
     from src.bowen.engine.events import Mechanism
     from src.bowen.engine.identifiers import PersonId as P, TieId
     from src.bowen.engine.log_records import EffectRecord, EmittedRecord
-    from src.bowen.ensemble.criteria import act, held, mover_at, scenario, spell
+    from src.bowen.ensemble.criteria import SETTINGS, act, held, mover_at, scenario, spell
     from src.bowen.ensemble.criteria_d import ENGINE
 
     f, m = P("f"), P("m")
@@ -74,7 +74,7 @@ def one_arm(level: float, scripted: bool, seed: int) -> dict:
     # F's own I-POSITION, toward anyone, is withheld every week but the scripted one, in every arm, so the control has
     # none and the act arm has one.
     withheld = {t: {f: frozenset({"I-POSITION"})} for t in range(weeks) if not (scripted and t == T0)}
-    state, records = scenario("triad", seed, weeks, spells=spells, setup=mover_at("f", level), watch=watch, withheld=withheld,
+    state, records = scenario("triad", seed, weeks, spells=spells, setup=mover_at("f", level, SETTINGS["M11.C.49"]["mover_perspective"]), watch=watch, withheld=withheld,
                               forced=act("f", "I-POSITION", "m", T0) if scripted else None,
                               held_open=held(prepare_end + 1, "f-m"))
     on_tie = [r.event.kind for r in records if isinstance(r, EmittedRecord) and r.event.mechanism is Mechanism.MOVE

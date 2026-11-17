@@ -73,7 +73,7 @@ ranges read; "searched" = grepped for the claim being checked; "—" = not in th
 | `tests/` | — | `test_cutoff_stock.py`, `test_tie_repair.py` full; `test_event_sizes.py` 56–209; `test_phase_d2_criteria.py` 225–273; `test_moves.py` M5.B.3 tests | `test_doc_status.py` 1–115; `test_spec_consistency.py` 349–389; `doc_claims.json` full | diff, with `test_cutoff_stock`, `test_event_sizes`, `test_tie_repair`, `test_negative_runs`, `test_engine_purity` read; documentation-tooling tests not read (listed below) |
 | `tools/`, CI, `pytest.ini`, `requirements.txt` | — | `version_2_sweep.py` 110–179 | — | `version_2_sweep.py`, `two_mac_sweep.py`, `merge_cache.py`, `group_g_readout.py` full; `record_cache.py` 40–180; `tests.yml`, `pytest.ini`, `requirements.txt` full |
 | `TODO.md` and the records it names | — | `TODO.md` full; T-004's record, the revision 36 regeneration and overnight-decisions records full | searched | searched (known items not re-reported) |
-| DECISIONS and PROPOSAL files | `DECISIONS FOR APPROVAL.md` A1 read | `PROPOSAL — CUTOFF ANXIETY…` 60–219 | status lines of every changed one | — |
+| DECISIONS and PROPOSAL files | `decisions_for_approval.md` A1 read | `PROPOSAL — CUTOFF ANXIETY…` 60–219 | status lines of every changed one | — |
 
 Not reviewed, by any lens:
 
@@ -326,7 +326,7 @@ Not challenged, per §5. Those marked † the orchestrator re-read against the f
 
 #### MR-16 — † The revision-log range is quoted as "4 to 35" and "4 to 36"; the log holds 4 to 37 and still calls 36 and 37 pending
 
-- **Found by:** L3, orchestrator · **Where:** spec `:2127`; `docs/SPEC_REVIEW_CHECKLIST.md:31`; `docs/REVIEWER_READING_LIST.md:75`; `docs/spec_revision_log.md:9`, `:16`; `docs/PROPOSAL — EVENT SIZES FROM THE HOLMES–RAHE SCALE.md:8`
+- **Found by:** L3, orchestrator · **Where:** spec `:2127`; `docs/SPEC_REVIEW_CHECKLIST.md:31`; `docs/REVIEWER_READING_LIST.md:75`; `docs/spec_revision_log.md:9`, `:16`; `docs/proposal_event_sizes_from_the_holmes_rahe_scale.md:8`
 - **Severity:** minor · **Confidence:** high · **Verified:** re-read by the orchestrator (spec `:2127` and the log's headings)
 - **What is wrong:**
   - The spec's own pointer says the log covers "4 to 35"; the checklist says "4 to 35" and the reading list "4 to
@@ -566,7 +566,7 @@ Not challenged, per §5. Those marked † the orchestrator re-read against the f
   KS18.5. `:1519` paraphrases KB01 and cites the interview; `:1515` and `:1521` quote written chapters.
 - **L1 · the stage 1 review's KB11 item:**
   - Spec `M10.C.2` (`:1214`) and `_LEDGER.md:1398` (L16.3) now paraphrase.
-  - `DECISIONS FOR APPROVAL.md:51` (A1) still quotes verbatim. That is the owner's decision of 2026-10-22 ("A1 stays
+  - `decisions_for_approval.md:51` (A1) still quotes verbatim. That is the owner's decision of 2026-10-22 ("A1 stays
     frozen"), so it is an accepted exception, not a defect.
 - **L1 · the stage 1 review's MR-2, MR-3, MR-4, MR-7 and MR-8:** confirmed fixed at HEAD (explainer `:970-972`, `:382`,
   `:387`, `:807`, `:811`, `:946`).

@@ -32,8 +32,11 @@ module level so worker processes can run it, returning an ``ArmResult`` per (arm
 from __future__ import annotations
 
 import math
+import signal
+import threading
 from collections import Counter
 from concurrent.futures import ProcessPoolExecutor
+from contextlib import contextmanager
 from dataclasses import dataclass, field
 from typing import Callable
 
@@ -78,7 +81,7 @@ class Criterion:
     requires_moves: tuple[str, ...] = ()
     settings: dict = field(default_factory=dict)
     note: str = ""
-    seeds: int | None = None            # a fixed seed count (M11.C.10: "200 instead"); else adaptive
+    seeds: int | None = None            # a fixed seed count (M11.C.10); else adaptive
     requires_moves_baseline: tuple[str, ...] = ()  # T-216: moves the baseline arm must make; requires_moves is the treatment's
 
 
@@ -107,26 +110,74 @@ def _run_seed(args):
 def run_criterion(criterion: Criterion, rules: dict, workers: int = 1, first_seed: int = 0) -> Verdict:
     """Purpose: run one criterion adaptively and return its verdict.
     Spec:    docs/bowen_agent_model_spec_v2.md#M17.A.1, #M13.4, #M11.4e, #M17.A.4, #M11.1f, #M11.D.18
-    Tests:   tests/bowen/test_ensemble.py::test_m17a1_undetermined_at_cap_does_not_pass
+    Tests:   tests/bowen/test_ensemble.py::test_m17a1_undetermined_at_cap_does_not_pass,
+             tests/bowen/test_ensemble.py::test_t032_a_failed_run_stops_its_workers_at_once,
+             tests/bowen/test_ensemble.py::test_t032_a_stop_signal_stops_the_run_and_the_handler_is_restored
+
+    A stop signal raises (``_stop_raises``), and on any exception the workers are ended at once rather than left to
+    finish their tasks (T-032).
     """
     results = []
     seed = first_seed
     converged = False
     pool = ProcessPoolExecutor(workers) if workers > 1 else None
-    try:
-        target = criterion.seeds or rules["ensemble_cap"]
-        while len(results) < target:
-            size = min(rules["ensemble_block"], target - len(results))
-            block = [(criterion, s) for s in range(seed, seed + size)]
-            seed += size
-            results += list(pool.map(_run_seed, block)) if pool else [_run_seed(b) for b in block]
-            converged = _converged(criterion, results, rules)
-            if converged and criterion.seeds is None:
-                break
-    finally:
-        if pool:
-            pool.shutdown()
+    with _stop_raises():
+        try:
+            target = criterion.seeds or rules["ensemble_cap"]
+            while len(results) < target:
+                size = min(rules["ensemble_block"], target - len(results))
+                block = [(criterion, s) for s in range(seed, seed + size)]
+                seed += size
+                results += list(pool.map(_run_seed, block)) if pool else [_run_seed(b) for b in block]
+                converged = _converged(criterion, results, rules)
+                if converged and criterion.seeds is None:
+                    break
+        except BaseException:
+            if pool:
+                _end_workers(pool)
+            raise
+        finally:
+            if pool:
+                pool.shutdown(cancel_futures=True)
     return _verdict(criterion, results, converged, rules)
+
+
+STOP_SIGNALS = (signal.SIGTERM, signal.SIGHUP)
+
+
+def _stopped(signum, frame):
+    raise SystemExit(f"stopped by signal {signal.Signals(signum).name}")
+
+
+@contextmanager
+def _stop_raises():
+    """A stop signal raises ``SystemExit`` inside the block, so the caller's cleanup runs (T-032). A signal set to be
+    ignored stays ignored (``nohup``), handlers are set only from the main thread, and the previous ones are restored.
+    The same rule as ``tools/child_process.py`` for a mutant child (S1.5a), which ``src/`` must not import."""
+    previous = {}
+    if threading.current_thread() is threading.main_thread():
+        for signum in STOP_SIGNALS:
+            old = signal.getsignal(signum)
+            if old is not signal.SIG_IGN:
+                previous[signum] = old
+                signal.signal(signum, _stopped)
+    try:
+        yield
+    finally:
+        for signum, old in previous.items():
+            signal.signal(signum, signal.SIG_DFL if old is None else old)  # None: a handler not set from Python
+
+
+def _end_workers(pool: ProcessPoolExecutor, wait: float = 5.0) -> None:
+    """Terminate a pool's worker processes, then kill any still alive after ``wait`` seconds."""
+    processes = list((getattr(pool, "_processes", None) or {}).values())
+    for process in processes:
+        process.terminate()
+    for process in processes:
+        process.join(wait)
+        if process.is_alive():
+            process.kill()
+            process.join()
 
 
 def _arrays(criterion, results, name):

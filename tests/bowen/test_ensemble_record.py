@@ -100,6 +100,40 @@ def test_s1_8a_render_is_not_hashed(tmp_path, monkeypatch):
         assert (_tool.code_hash() != before) is changes, name
 
 
+def test_t031_a_config_files_prose_does_not_move_the_hash(tmp_path, monkeypatch):
+    """T-031: a note, a blank line or a heading added to a config file leaves ``code_hash`` unchanged, since no loader
+    reads them; a table cell or a metadata value changed moves it."""
+    import shutil
+
+    copy = tmp_path / "repo"
+    for part in ("src/bowen", "config/bowen"):
+        shutil.copytree(REPO / part, copy / part, ignore=shutil.ignore_patterns("__pycache__"))
+    monkeypatch.setattr(_tool, "REPO", copy)
+    before = _tool.code_hash()
+    acts, constants = copy / "config" / "bowen" / "act_classes.md", copy / "config" / "bowen" / "constants.md"
+    acts_text, constants_text = acts.read_text(encoding="utf-8"), constants.read_text(encoding="utf-8")
+    acts.write_text("# A new heading\n\n> A new note.\n" + acts_text.replace("> Read by", ">  Read, as before, by")
+                    + "\n\n> A closing note.\n", encoding="utf-8")
+    assert _tool.code_hash() == before, "prose moved the hash"
+    row = next(line for line in acts_text.splitlines() if line.startswith("| ") and "---" not in line)
+    for path, old, new in ((acts, acts_text, acts_text.replace(row, row[:-1] + " x|", 1)),
+                           (constants, constants_text, constants_text.replace("frozen_at: 2026-10-07", "frozen_at: 2026-10-08"))):
+        path.write_text(new, encoding="utf-8")
+        assert _tool.code_hash() != before, path.name
+        path.write_text(old, encoding="utf-8")
+
+
+def test_t031_config_text_keeps_a_break_between_table_rows():
+    """T-031: a blank line or note between two table rows ends the table, which the strict parser then refuses, so
+    the hash keeps the break; a ``## `` section line is kept, since the sectioned parser reads it."""
+    from tools.ensemble_record import config_text
+
+    assert config_text("| a |\n\n> n\n| b |\n") != config_text("| a |\n| b |\n")
+    assert config_text("> n\n| a |\n\n| b |\n") == config_text("| a |\n\n\n| b |\n")
+    assert "## People" in config_text("# Title\n## People\n### sub\n")
+    assert "sub" not in config_text("# Title\n## People\n### sub\n")
+
+
 def test_s1_5b_code_text_keeps_a_line_separator_inside_a_string(tmp_path):
     """S1.5b: ``code_text`` numbers lines as ``tokenize`` does. ``str.splitlines`` also breaks at U+2028, so two of
     them inside a string shifted every later line by two; a docstring after a line holding a two-byte character was
@@ -476,34 +510,73 @@ def occupancy_rows() -> list[dict]:
 
 
 def test_m111a_level_occupancy_record_is_current():
-    text = (REPO / "docs" / "phase_c_level_occupancy.md").read_text(encoding="utf-8")
-    match = re.search(r"^code_hash: ([0-9a-f]{64})$", text, re.M)
-    assert match and match.group(1) == _occupancy.record_hash(), "stale: rerun python3 tools/level_occupancy.py"
+    """T-068: the record is what its cache renders for the current engine, without running a child, so a stale record
+    or a hand-edited table fails."""
+    from tools.record_cache import Cache
+
+    with mock.patch.object(_occupancy, "run_in_copy", side_effect=AssertionError("ran a child in a test")):
+        built = _occupancy.build(Cache(_occupancy.CACHE_NAME), run=False)
+    assert built == (REPO / "docs" / "phase_c_level_occupancy.md").read_text(encoding="utf-8"), \
+        "stale or edited: rerun python3 tools/level_occupancy.py"
     assert {(r["variant"], r["arm"]) for r in occupancy_rows()} == {
         (v, a) for v in ("unmodified", "availability-level-inverted") for a in ("baseline", "treatment")}
 
 
-def test_m111a_level_occupancy_refuses_a_short_child(tmp_path, monkeypatch):
-    """A child that exits 0 having printed a row for only some of C.16's arms stops the run, and no record is written;
-    a row for each arm writes it (cold sweep, 2026-10-20: the rows were never counted, so a short record could be
-    written with no warning)."""
-    record = tmp_path / "phase_c_level_occupancy.md"
-    monkeypatch.setattr(_occupancy, "RECORD", record)
+def _occupancy_child(tmp_path, monkeypatch):
+    """Point the tool at a scratch record and cache; return a row maker for a child's output."""
+    monkeypatch.setattr(_occupancy, "RECORD", tmp_path / "phase_c_level_occupancy.md")
     monkeypatch.setattr(_occupancy, "REPO", tmp_path)  # the path it prints is relative to the repository
     monkeypatch.setattr(sys, "argv", ["level_occupancy.py"])
+    import tools.record_cache as record_cache
+
+    monkeypatch.setattr(record_cache, "CACHE_DIR", tmp_path / "cache")
     shares = {name: 0.5 for name in _occupancy.bands()}
+    return lambda arm: {"arm": arm, "member_weeks": {"whole_run": 10, "window": 5}, "whole_run": shares,
+                        "window": shares}
 
-    def row(arm):
-        return {"arm": arm, "member_weeks": {"whole_run": 10, "window": 5}, "whole_run": shares, "window": shares}
 
+def test_m111a_level_occupancy_refuses_a_short_child(tmp_path, monkeypatch):
+    """A child that exits 0 having printed a row for only some of C.16's arms is a failed variant, and no record is
+    written; a row for each arm writes it (cold sweep, 2026-10-20: the rows were never counted, so a short record
+    could be written with no warning)."""
+    row = _occupancy_child(tmp_path, monkeypatch)
+    record = _occupancy.RECORD
     monkeypatch.setattr(_occupancy, "run_in_copy", lambda *args, **kw: [row("baseline")])
-    import pytest
-
-    with pytest.raises(SystemExit, match="not one for each of C.16's arms"):
-        _occupancy.main()
-    assert not record.exists()
+    assert _occupancy.main() == 1 and not record.exists()
     monkeypatch.setattr(_occupancy, "run_in_copy", lambda *args, **kw: [row(a) for a in CRITERIA["M11.C.16"].arms])
     assert _occupancy.main() == 0 and len(occupancy_rows_of(record)) == 4  # two variants, two arms each
+
+
+def test_t068_the_occupancy_key_covers_the_band_pivot(monkeypatch):
+    """T-068 (review 2026-11-17): the band edges come from ``INVERSION_PIVOT``, so a changed pivot is a different key
+    and the cached rows are not rendered against new edges."""
+    before = _occupancy.variant_key(None)
+    monkeypatch.setattr(_occupancy, "INVERSION_PIVOT", _occupancy.INVERSION_PIVOT + 0.1)
+    assert _occupancy.variant_key(None) != before
+
+
+def test_t026_a_failed_occupancy_child_keeps_the_other_variants_rows(tmp_path, monkeypatch):
+    """T-026, T-068: a variant whose child fails does not lose the other's rows, which are cached; the run exits 1
+    without writing the record, and the next run runs only the variant with no cached rows."""
+    from tools.child_process import ChildFailed
+
+    row = _occupancy_child(tmp_path, monkeypatch)
+    arms = CRITERIA["M11.C.16"].arms
+    calls = []
+
+    def failing(mutant, *args, **kw):
+        calls.append(mutant.id if mutant else None)
+        if mutant is not None:
+            raise ChildFailed("toy child failed", [])
+        return [row(a) for a in arms]
+
+    monkeypatch.setattr(_occupancy, "run_in_copy", failing)
+    assert _occupancy.main() == 1 and not _occupancy.RECORD.exists()
+    assert calls == [None, "availability-level-inverted"]
+    calls.clear()
+    monkeypatch.setattr(_occupancy, "run_in_copy", lambda mutant, *a, **kw: calls.append(mutant.id) or [row(a) for a in arms])
+    assert _occupancy.main() == 0 and calls == ["availability-level-inverted"]
+    assert len(occupancy_rows_of(_occupancy.RECORD)) == 4
 
 
 def occupancy_rows_of(path) -> list[dict]:
@@ -837,20 +910,50 @@ def test_d0_a_probe_key_covers_the_whole_probe_module():
         assert inspect.getsource(_diagnostic.probes) in _diagnostic.probe_source(d.probe)
 
 
-def test_d0_made_classifies_every_case():
-    """A scripted act that was neither made nor skipped is not reported as made (narrow re-check, 2026-10-09)."""
-    from types import SimpleNamespace
+def _scripted(statuses: dict[str, int]):
+    """An arm result whose scripted-act bookkeeping is ``statuses``, as ``criteria.scripted_bookkeeping`` books it."""
+    from collections import Counter
 
-    def status(forced, made, skipped):
-        fake = SimpleNamespace(scenario=SimpleNamespace(last_source=SimpleNamespace(forced=forced, made=made,
-                                                                                   skipped=skipped)))
-        return _diagnostic.probes.made(fake)
+    from src.bowen.ensemble.runner import ArmResult
 
-    assert status({1: 1}, 1, 0) == "made"
-    assert status({1: 1}, 0, 1) == "skipped"
-    assert status({1: 1}, 1, 1) == "partly"
-    assert status({1: 1}, 0, 0) == "not reached"
-    assert status({}, 0, 0) == "none"
+    moves = Counter({f"(scripted act: {s})": n for s, n in statuses.items()})
+    moves["(scripted acts)"] = sum(statuses.values())
+    return ArmResult({"x": 0.0}, moves)
+
+
+def test_t073_arm_made_classifies_every_case():
+    """A scripted act that was neither made nor skipped is not reported as made (narrow re-check, 2026-10-09); a
+    placed act rewritten afterwards is not made (T-073)."""
+    arm_made = _diagnostic.probes.arm_made
+    assert arm_made(_scripted({"made": 1})) == "made"
+    assert arm_made(_scripted({"not legal": 1})) == "skipped"
+    assert arm_made(_scripted({"rewritten": 1})) == "skipped"
+    assert arm_made(_scripted({"made": 1, "owed a step": 1})) == "partly"
+    assert arm_made(_scripted({"not reached": 1})) == "not reached"
+    assert arm_made(_scripted({})) == "none"
+
+
+def test_t073_horizons_judge_made_from_the_arm_result(monkeypatch):
+    """T-073: `horizons` reads whether an act was made from the arm's own result, not from the acts placed."""
+    import types
+
+    import src.bowen.ensemble.criteria as criteria
+
+    def arm(name, seed, settings):
+        return _scripted({"rewritten": 1} if name == "treatment" else {"made": 1})
+
+    fake = {cid: types.SimpleNamespace(settings={}, arm=arm) for cid in ("M11.C.4", "M11.C.5")}
+    monkeypatch.setattr(criteria, "CRITERIA", fake)
+    rows = _diagnostic.probes.horizons(1)
+    assert rows and all(r["acts"] == "treatment skipped, baseline made" for r in rows)
+
+
+def test_t025_probes_take_no_builtin_sum():
+    """T-025: a float mean in the probes is an fsum and an integer total a count, never the builtin sum."""
+    import ast
+
+    tree = ast.parse((REPO / "tools" / "probes.py").read_text(encoding="utf-8"))
+    assert [n.lineno for n in ast.walk(tree) if isinstance(n, ast.Name) and n.id == "sum"] == []
 
 
 def test_d0_summarise_leaves_out_seeds_with_nothing_to_measure():

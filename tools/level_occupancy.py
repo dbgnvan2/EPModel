@@ -4,7 +4,8 @@ Purpose: give the share of member-weeks at which `availability-level-inverted` e
          §11's qualification of that mutant comes from a generated, hash-stamped record and not a scratch probe.
 Spec:    docs/bowen_agent_model_spec_v2.md#M11.1a, #M11.C.16
 Tests:   tests/bowen/test_ensemble_record.py::test_m111a_level_occupancy_record_is_current,
-         tests/bowen/test_ensemble_record.py::test_m111a_level_occupancy_refuses_a_short_child
+         tests/bowen/test_ensemble_record.py::test_m111a_level_occupancy_refuses_a_short_child,
+         tests/bowen/test_ensemble_record.py::test_t026_a_failed_occupancy_child_keeps_the_other_variants_rows
 
     python3 tools/level_occupancy.py
 
@@ -16,6 +17,12 @@ weeks C.16's entropy reads. The band edges are where the inversion, (INVERSION_P
 highest layer's capacity it equals the deletion on every layer; at or below the pivot less one layer's capacity, on
 layer 1; at or above the pivot, every layer above 0 is unavailable. SEEDS is [I], declared here: an occupancy share
 is a mean over thousands of member-weeks and does not need the criterion's seed count.
+
+Each variant's rows are cached in docs/records_cache/phase_c_level_occupancy.json (``tools/record_cache.Cache``), keyed
+by ``variant_key``, and the record is rendered from the cache (T-068), so its test re-renders it and compares. A run
+reuses a variant's cached rows and runs only the variants with none. A variant whose child fails, times out or prints
+a row short is reported and not cached, the other variant still runs, and the tool exits 1 without writing the
+record (T-026).
 """
 
 from __future__ import annotations
@@ -28,11 +35,14 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO))
 
+from tools.atomic_write import write_text_atomic  # noqa: E402
+from tools.child_process import ChildFailed  # noqa: E402
 from tools.mutant_runner import run_in_copy  # noqa: E402
-from tools.record_cache import result_key  # noqa: E402
+from tools.record_cache import Cache, result_key  # noqa: E402
 from tools.mutation_record import INVERSION_PIVOT, MUTANTS  # noqa: E402
 
 RECORD = REPO / "docs" / "phase_c_level_occupancy.md"
+CACHE_NAME = "phase_c_level_occupancy"  # docs/records_cache/<name>.json (T-068)
 # The record's hash covers this tool, the runner, RULE_KEYS and the engine, plus each variant's own edits: not the
 # rest of mutation_record.py, so adding or relabelling another mutant does not make it stale.
 HASHED_TOOLS = (Path(__file__).resolve(), REPO / "tools" / "mutant_runner.py")  # RULE_KEYS: in every code_hash
@@ -92,8 +102,8 @@ def arm_rows(printed: list[dict], label: str) -> list[dict]:
 
     arms, printed_arms = list(CRITERIA["M11.C.16"].arms), [r.get("arm") for r in printed]
     if printed_arms != arms:
-        raise SystemExit(f"{label}: the child printed rows for {printed_arms}, not one for each of C.16's arms "
-                         f"{arms}; {RECORD.name} was not written")
+        raise ChildFailed(f"{label}: the child printed rows for {printed_arms}, not one for each of C.16's arms "
+                          f"{arms}", printed)
     return printed
 
 
@@ -122,10 +132,55 @@ def render(rows: list[dict], edges: dict, hash_: str) -> str:
     return "\n".join(lines)
 
 
+def _mutant(variant: str | None):
+    return next(m for m in MUTANTS if m.id == variant) if variant else None
+
+
+def variant_key(variant: str | None) -> str:
+    """One variant's cache key: the engine and this tool (``HASHED_TOOLS``), the band pivot the rows are cut at
+    (``INVERSION_PIVOT``, set in ``tools/mutation_record.py``) and the variant's own edits.
+    Tests: tests/bowen/test_ensemble_record.py::test_t068_the_occupancy_key_covers_the_band_pivot"""
+    from tools.ensemble_record import code_hash
+
+    mutant = _mutant(variant)
+    engine = f"{code_hash(*HASHED_TOOLS)}:pivot={INVERSION_PIVOT!r}"
+    return result_key(engine, mutant.definition() if mutant else None, "occupancy")
+
+
+def build(cache: Cache, run: bool = True) -> str | None:
+    """Purpose: the record rendered from each variant's cached rows, running (when ``run``) each variant with none and
+             caching its rows as it finishes; None, having printed why, when any variant has no rows.
+    Spec:    docs/bowen_agent_model_spec_v2.md#M11.1a
+    Tests:   tests/bowen/test_ensemble_record.py::test_t026_a_failed_occupancy_child_keeps_the_other_variants_rows
+    """
+    rows, missing = [], []
+    for variant in VARIANTS:
+        label, key = variant or "unmodified", variant_key(variant)
+        if cache.get(key) is None and run:
+            try:
+                printed = arm_rows(run_in_copy(_mutant(variant), "level_occupancy.py", "--child", timeout=3600), label)
+            except ChildFailed as failed:
+                print(f"{label}: {failed.code}; not cached, rerun next time", flush=True)
+            else:
+                cache.put(key, {"rows": printed})
+                cache.flush()  # keep this variant's rows, whatever happens to the next
+        entry = cache.get(key)
+        if entry is None:
+            missing.append(label)
+            continue
+        for r in entry["rows"]:
+            rows.append({"variant": label, **r})
+            print(f"{label} {r['arm']}: {r['whole_run']} / window {r['window']}", flush=True)
+    if missing:
+        print(f"no rows for {', '.join(missing)}; {RECORD.name} was not written", flush=True)
+        return None
+    return render(rows, bands(), record_hash())
+
+
 def record_hash() -> str:
     from tools.ensemble_record import code_hash
 
-    variants = [next(m for m in MUTANTS if m.id == v).definition() if v else None for v in VARIANTS]
+    variants = [_mutant(v).definition() if v else None for v in VARIANTS]
     return result_key(code_hash(*HASHED_TOOLS), {"variants": variants}, "occupancy")
 
 
@@ -137,14 +192,12 @@ def main() -> int:
         child()
         return 0
 
-    rows = []
-    for variant in VARIANTS:
-        mutant = next(m for m in MUTANTS if m.id == variant) if variant else None
-        label = variant or "unmodified"
-        for r in arm_rows(run_in_copy(mutant, "level_occupancy.py", "--child", timeout=3600), label):
-            rows.append({"variant": label, **r})
-            print(f"{label} {r['arm']}: {r['whole_run']} / window {r['window']}", flush=True)
-    RECORD.write_text(render(rows, bands(), record_hash()), encoding="utf-8")
+    cache = Cache(CACHE_NAME)
+    text = build(cache)
+    if text is None:
+        return 1
+    cache.save()
+    write_text_atomic(RECORD, text)
     print(f"wrote {RECORD.relative_to(REPO)}")
     return 0
 

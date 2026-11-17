@@ -521,10 +521,10 @@ def test_m63a_a_death_with_no_living_mourner_queues_no_nodal_event():
 
 
 def test_m63a_the_dead_stop_acting_and_their_ties_stay_with_their_bond_energy():
-    """`M6.3a`'s clauses (T-004): after a death the dead person selects nothing and appraises nothing (an event already
-    in flight may still be logged as delivered, but it moves none of their state); every tie to them stays in the
-    state, non-interactive, with its bond energy where it was."""
-    from src.bowen.engine.log_records import EffectRecord, SelectionRecord
+    """`M6.3a`'s clauses (T-004): after a death the dead person selects nothing and appraises nothing, and an event
+    already in flight to them is not logged as delivered (T-246); every tie to them stays in the state,
+    non-interactive, with its bond energy where it was."""
+    from src.bowen.engine.log_records import DeliveredRecord, EffectRecord, SelectionRecord
 
     built, source = parts(seed=3)
     run_weeks(built, source, 30)
@@ -541,6 +541,8 @@ def test_m63a_the_dead_stop_acting_and_their_ties_stay_with_their_bond_energy():
                 and any(pid == RAVI for pid, _ in r.acute_anxiety)]
     assert state.people[RAVI].acute_anxiety == after_death
     assert [r for r in records if isinstance(r, SelectionRecord) and r.actor == MARTA]  # the living still act
+    assert not [r for r in records if isinstance(r, DeliveredRecord) and r.delivery.recipient == RAVI]  # T-246
+    assert [r for r in records if isinstance(r, DeliveredRecord) and r.delivery.recipient == MARTA]
 
 def test_m63c_tie_and_triangle_holdings_go_to_the_living():
     built = _ready_to_die()

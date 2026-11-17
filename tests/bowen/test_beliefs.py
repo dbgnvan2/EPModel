@@ -183,8 +183,10 @@ def test_m16a5a_t248_a_tie_belief_naming_no_tie_raises():
     """T-248 (spec revision 62): a ``tie_beliefs[...]`` record whose subject names no tie is a defect, not a record
     with no truth."""
     from src.bowen.engine.beliefs import with_truth
+    from src.bowen.engine.invariants import InvariantViolation
     from src.bowen.engine.log_records import BeliefWriteRecord
 
     state = fresh()
-    with pytest.raises(ValueError, match="names no tie"):
+    # T-251: an InvariantViolation, so ``run_tick`` logs the failing tick before the raise (T-239 (d))
+    with pytest.raises(InvariantViolation, match="names no tie"):
         with_truth(state, [BeliefWriteRecord(state.tick, NADIA, "tie_beliefs[nobody|no_one].tension", 0.5, None)])

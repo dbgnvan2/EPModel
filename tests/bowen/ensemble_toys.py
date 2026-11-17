@@ -25,3 +25,14 @@ def noisy(arm: str, seed: int, settings: dict) -> ArmResult:
     selections = Counter({"ravi": 10})
     fallbacks = Counter({"ravi": settings.get("fallbacks", 0)})
     return ArmResult({"x": value, "bounded": settings.get("bounded", 0.5)}, moves, fallbacks, selections)
+
+
+def slow(arm: str, seed: int, settings: dict) -> ArmResult:
+    """Seed 0 raises at once if ``fail`` is set; every other seed sleeps ``sleep`` seconds (T-032)."""
+    import time
+
+    if seed == 0 and settings.get("fail"):
+        raise ValueError("toy failure")
+    if seed:
+        time.sleep(settings.get("sleep", 0.0))
+    return noisy(arm, seed, settings)

@@ -36,7 +36,7 @@ import math
 
 from src.bowen.engine.act import WITHHOLD, Selection
 from src.bowen.engine.events import Channel, Event, EventId, Mechanism, SourcePosition
-from src.bowen.engine.identifiers import PersonId
+from src.bowen.engine.identifiers import PersonId, TieId
 from src.bowen.engine.log_records import EffectRecord, EmittedRecord
 from src.bowen.engine.objects import Role
 from src.bowen.ensemble.criteria import FAMILIES, ROLES, SETTINGS, result, scenario
@@ -853,6 +853,17 @@ CRITERIA_D.update({
 C7_TOPOLOGIES = ("joint", "one spouse", "sided")
 
 
+def side_reaches_the_landing(family, coach, spouses, params) -> None:
+    """`M11.C.7`'s sided topology scripts the ``SPLIT`` the week before each session. The coach stays on that side for
+    ``coach_side_window`` weeks (`M8.3`), so the session's contact, landing ``latency`` weeks after the session, still
+    finds the coach sided only while ``latency <= coach_side_window - 2``. Raise when a fixture's coach tie is slower,
+    rather than let the sided arm run with no side taken (T-021)."""
+    latency = max(family.ties[TieId.of(coach, p)].latency for p in spouses)
+    if latency > params.coach_side_window - 2:
+        raise ValueError(f"M11.C.7: the coach's tie latency {latency} outlasts coach_side_window "
+                         f"{params.coach_side_window} - 2, so the scripted SPLIT lapses before the session lands")
+
+
 def arm_c7(arm, seed, settings):
     """Purpose: `M11.C.7`, one coaching topology on the Phase C family, with the coach's parameters and schedule fixed.
     Spec:    docs/bowen_agent_model_spec_v2.md#M11.C.7, #M8.2, #M8.3, #M8.5
@@ -886,11 +897,12 @@ def arm_c7(arm, seed, settings):
     no_recruiting = frozenset({f"SPLIT>{coach}"})
     withheld = {t: {first: no_recruiting, second: no_recruiting} for t in range(weeks)}
     forced = {}
+    family = load_family(FAMILIES["phase_c"])
     if topology == "sided":
+        side_reaches_the_landing(family, coach, (first, second), params)
         every = params.session_interval_weeks
         for session in range(every, weeks, every):
             forced.update(act(second.value, "SPLIT", coach.value, session - 1))
-    family = load_family(FAMILIES["phase_c"])
     members = tuple(sorted(p for p, person in family.people.items() if person.role is Role.MEMBER))
     combined = []
 

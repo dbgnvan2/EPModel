@@ -43,7 +43,7 @@ Checked 2026-10-22 against the working tree (`src/bowen/engine/symptoms.py`).
     takes no share (`M6.3b`, `life_course.die`, `_member`);
   - the learner's cross-person relief is weighted by bond energy (`M4.D.6e`, `learner.py:101`);
   - a nodal event's reach through a tie is bond energy over 100 (`M1.A.4k`), and the Holmes–Rahe proposal's E1 scales
-    an event's arrival by the same (`docs/PROPOSAL — EVENT SIZES FROM THE HOLMES–RAHE SCALE.md`, §3).
+    an event's arrival by the same (`docs/proposal_event_sizes_from_the_holmes_rahe_scale.md`, §3).
 - **The coach.** `M1.E.7e` requires the coach tie to stay thin and never accumulate investment. Today a symptom's
   release reaches the coach as it reaches a child, so a coached family's release loads the coach, who then acts on it
   as any person does (`M1.E.4`, `external.py`). `M6.3b` already excludes external agents from a death's transfer.

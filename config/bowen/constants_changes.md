@@ -145,9 +145,9 @@
 | `equivalence_margin` | — | 0.5 | 2026-10-07 | — (ensemble rule; Phase C step 12) | no |
 | `contact_excess_exponent` | — | 2.0 | 2026-10-07 | — (promoted from a literal by M11.D.2; Phase C step 13) | no |
 | `ensemble_precision` | 0.25 | 0.25 (unit changed: pooled seed-to-seed sd of the two arms, was the baseline arm's) | 2026-10-08 | — (owner request; `docs/phase_c_completion_report.md` §10, decided before rerunning) | yes |
-| `pattern_window` | 8 | 4 | 2026-10-10 | — (owner decision D1, 2026-10-10, `docs/archive/PROPOSAL — RUN VISUALIZATION MAPPING.md`: the owner's pattern definitions; no criterion reads the pattern readouts) | no |
-| `pattern_min_acts` | 2 | 3 (unit changed: acts on the tie, was acts per member) | 2026-10-10 | — (owner decision D1, 2026-10-10, `docs/archive/PROPOSAL — RUN VISUALIZATION MAPPING.md`: the owner's pattern definitions; no criterion reads the pattern readouts) | no |
-| `pattern_pole` | 0.5 | retired | 2026-10-10 | — (owner decision D1, 2026-10-10, `docs/archive/PROPOSAL — RUN VISUALIZATION MAPPING.md`: the owner's pattern definitions; no criterion reads the pattern readouts) | no |
+| `pattern_window` | 8 | 4 | 2026-10-10 | — (owner decision D1, 2026-10-10, `docs/archive/proposal_run_visualization_mapping.md`: the owner's pattern definitions; no criterion reads the pattern readouts) | no |
+| `pattern_min_acts` | 2 | 3 (unit changed: acts on the tie, was acts per member) | 2026-10-10 | — (owner decision D1, 2026-10-10, `docs/archive/proposal_run_visualization_mapping.md`: the owner's pattern definitions; no criterion reads the pattern readouts) | no |
+| `pattern_pole` | 0.5 | retired | 2026-10-10 | — (owner decision D1, 2026-10-10, `docs/archive/proposal_run_visualization_mapping.md`: the owner's pattern definitions; no criterion reads the pattern readouts) | no |
 | `pattern_projection_hold` | — | 12 | 2026-10-10 | — (owner, 2026-10-10: projection holds until 12 turns without evidence; no criterion reads the pattern readouts) | no |
 | `rejection_cutoff_gain` | — | 0.5 | 2026-10-11 | — (new mechanism; Phase D B4, owner decisions P1 and P2: cutoff as rejection) | no |
 | `rejection_refusal_gain` | — | 0.1 | 2026-10-11 | — (new mechanism; Phase D B4, owner decisions P1 and P2: cutoff as rejection) | no |
@@ -270,3 +270,4 @@
 | `belief_cue_rate` | — | 0.1 | 2026-11-08 | — (new mechanism; spec revision 55, T-202, `M9.9`: the social cues, behind `social_cues_enabled`, off by default; `[I]`, the owner's approval of the draft 2026-11-08) | no |
 | `belief_leak_gain` | — | 0.5 | 2026-11-08 | — (new mechanism; spec revision 55, T-202, `M9.9`: the social cues, behind `social_cues_enabled`, off by default; `[I]`, the owner's approval of the draft 2026-11-08) | no |
 | `fast_tick_weeks` | 1 | retired | 2026-11-12 | — (spec revision 59, T-219 (10), `M3.A.1`: no code read it; the fast tick is one week by definition) | no |
+| `coach_side_window` | — | 4 | 2026-11-17 | — (spec revision 64, T-021, `M8.3`: how long an external agent stays on a member's side, split from `triangle_activity_window` at the same value, so tuning `M1.C.3` no longer moves `M11.C.7`; `[I]`, Claude's recommendation, pending owner review) | no |

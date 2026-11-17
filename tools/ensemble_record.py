@@ -54,20 +54,51 @@ def code_hash(*tools: Path) -> str:
 
     ``src/bowen/render/`` is left out (version 2 stage 1, S1.8a): it turns records into text and no verdict reads it
     (``tests/bowen/test_engine_purity.py::test_s1_8b_only_run_imports_render``), so a renderer change reruns nothing.
-    Tests: tests/bowen/test_ensemble_record.py::test_s1_8a_render_is_not_hashed
+    A config file is hashed by ``config_text``, the lines its loader reads, so a reworded note reruns nothing (T-031).
+
+    Tests: tests/bowen/test_ensemble_record.py::test_s1_8a_render_is_not_hashed,
+           tests/bowen/test_ensemble_record.py::test_t031_a_config_files_prose_does_not_move_the_hash
     """
     digest = hashlib.sha256()
     digest.update(f"RULE_KEYS={RULE_KEYS!r}".encode())
     bowen = REPO / "src" / "bowen"
+    config = sorted((REPO / "config" / "bowen").rglob("*.md"))
     paths = sorted(p for p in bowen.rglob("*.py") if p.relative_to(bowen).parts[0] != "render")
-    paths += sorted((REPO / "config" / "bowen").rglob("*.md"))
-    paths += sorted(Path(t).resolve() for t in tools)
+    paths += config + sorted(Path(t).resolve() for t in tools)
     for path in paths:
         if path.name == "constants_changes.md":
             continue  # a log of changes, not an input
         digest.update(path.relative_to(REPO).as_posix().encode())
-        digest.update(code_text(path).encode() if path.suffix == ".py" else path.read_bytes())
+        if path.suffix == ".py":
+            digest.update(code_text(path).encode())
+        elif path in config:
+            digest.update(config_text(path.read_text(encoding="utf-8")).encode())
+        else:
+            digest.update(path.read_bytes())
     return digest.hexdigest()
+
+
+def config_text(text: str) -> str:
+    """A config document as the hash sees it: the lines a loader reads, each right-stripped (T-031).
+
+    Every config loader parses through ``src/bowen/scenario/config_parse.py`` (or splits ``stress_response.md`` on its
+    ``## Displacing`` line first), and those parsers skip blank lines, ``>`` notes and ``#`` headings. So those lines
+    are dropped, except a line whose stripped form starts with ``## ``, which ``parse_sectioned_document`` reads as a
+    section name. Any such line between two table rows ends the table, which the parser then refuses as a second one,
+    so a run of them there is kept as one empty line. Metadata lines and table rows are kept as they are.
+    Tests: tests/bowen/test_ensemble_record.py::test_t031_config_text_keeps_a_break_between_table_rows
+    """
+    kept, gap = [], False
+    for raw in text.splitlines():
+        line, stripped = raw.rstrip(), raw.strip()
+        if not stripped or stripped.startswith(">") or (stripped.startswith("#") and not stripped.startswith("## ")):
+            gap = True
+            continue
+        if gap and stripped.startswith("|") and kept and kept[-1].lstrip().startswith("|"):
+            kept.append("")
+        kept.append(line)
+        gap = False
+    return "\n".join(kept)
 
 
 def code_text(path: Path) -> str:

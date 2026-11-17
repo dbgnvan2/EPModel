@@ -2,7 +2,7 @@
 
 Purpose: decay acute anxiety toward its chronic floor, decay bond energy (at or
          near zero), and harden ties that repeated moves have made distant.
-Spec:    docs/bowen_agent_model_spec_v2.md#M1.A.8, #M1.A.7a, #M1.B.4, #M4.G.1
+Spec:    docs/bowen_agent_model_spec_v2.md#M1.A.8, #M1.A.7a, #M1.B.4, #M4.G.1, #M4.C.1c
 Tests:   tests/bowen/test_mechanisms.py
 
 * Acute anxiety sheds ``acute_decay_rate`` of its excess over the chronic floor

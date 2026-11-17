@@ -148,7 +148,11 @@
   effect. The same regeneration moved `witnessed-cutoff-learning-removed` on the base `M11.C.10` from red to
   survived (+66.7 ± 69, p 0.031, the unmutated +66.6 ± 72), so each variant is now caught by one of the two
   mutants only. What revision 62's lender change did to the mutant is not measured: that needs the mutant on
-  revision 61 at 600 seeds (about 2 h on Mini1). *Pending the owner.*
+  revision 61 at 600 seeds (about 2 h on Mini1).
+  *Revision 61 at 600 seeds (Mini1, 2026-11-17): revision 62 changed neither number.* Unmutated +166 ± 77 (p 7.9e-05),
+  mutant +151 ± 71 (p 3.2e-05, survived), against +166 and +153 on revision 62's engine: revision 61's red (p 0.25)
+  was its 200-seed block. Open question for the owner: the mutant survives the variant on both engines, so should it
+  keep naming `M11.C.10[family of origin]` (the variant stays caught by `witnessed-cutoff-learning-removed`)?
 - [x] T-253 ⟨now⟩ **`M11.C.7[joint over one spouse]` fell from PASS to FAIL at revision 62 (2026-11-15).** In
   `docs/phase_d_ensemble_record.md`, `deviation_fall` +0.050 ± 0.061, p 0.0525 (revision 61: +0.033 ± 0.052, p 0.031).
   Close to the threshold on both sides; `M11.C.10` rose across it the other way (p 0.147 → 0.032). Decide whether

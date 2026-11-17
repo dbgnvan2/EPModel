@@ -7,9 +7,8 @@ Open items, one line each: ID, date raised, title, record. **Now** blocks the cu
 `docs/todo/` (grep its ID). To close one, tick it in its record and run `python3 tools/todo_index.py`: its line
 moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's text; that form is in git history.
 
-## Now (1)
+## Now (0)
 
-- T-252 · 2026-11-15 · A named mutant survives `M11.C.10[family of origin]` at … · [record](docs/todo/2026-08-22_blocking_the_next_phase.md)
 
 ## Later (150)
 

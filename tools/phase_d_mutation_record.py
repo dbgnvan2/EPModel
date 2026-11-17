@@ -263,6 +263,9 @@ MUTANTS = (
     # T-237 (b), spec revision 59, the owner's choice 2026-11-12 ("own state"): the learner reads only its own state.
     # M4.D.6e's cross-person relief becomes 0 and M4.D.6f's witnessed change is the witness's own level change, so the
     # [I] exemption M4.B.2 states (reading others' true anxiety and level) is removed. Run at step 4.
+    # T-252, a standing survivor by owner decision 2026-11-17: it survives M11.C.10[family of origin] at 600 seeds on
+    # revisions 61 and 62 (+151 and +153 against +166 unmutated), so the exemption carries little of that row; it stays
+    # named there, and the variant is caught by witnessed-cutoff-learning-removed.
     Mutant("learner-reads-own-state-only", NAMED, ("M11.C.10", "M11.C.10[family of origin]"), "src/bowen/engine/learner.py",
            'felt = relief.get(pid, 0.0) + params.cross_person_weight * cross_person_relief(state, pid, act.others, relief)',
            'felt = relief.get(pid, 0.0) + params.cross_person_weight * 0.0',

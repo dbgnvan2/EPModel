@@ -2053,7 +2053,9 @@ smoothing rule and its rate (`belief_rate`) are `[I]`. A static test fails if th
 **The learner's exemption** (spec revision 59, T-237): the rule binds the policy, not the learner. The learner reads
 other people's true acute anxiety (the cross-person relief, `M4.D.6e`) and their true functional level (the change
 after a witnessed cutoff, `M4.D.6f`). That is an invented choice, `[I]`, now stated in `M4.B.2`; the mutant
-`learner-reads-own-state-only`, run at the next regeneration on `M11.C.10[family of origin]`, removes it.
+`learner-reads-own-state-only` removes it. It survives `M11.C.10[family of origin]` (600 seeds, `cut_off_tie_weeks`
++151 on revision 61's engine and +153 on revision 62's, against +166 unmutated): the exemption carries little of that
+row, which `witnessed-cutoff-learning-removed` still turns red. A standing survivor by owner decision (T-252, 2026-11-17).
 
 **Belief against truth, as a readout** (`M16.A.5a`, `M17.B.3` · C41) — *so arms in which beliefs and outcomes
 move in opposite directions are seen rather than averaged away.* **Source:** `[SHOWN]` Kalluri 2026 §6.3 —

@@ -138,7 +138,7 @@
   returns as if it were a loan, and one scalar cannot say whose loan a lender's lent is. The founders' starting tie
   beliefs (`initialise_beliefs`) are not logged, where an entrant's are. The trace test
   (`test_t248_every_mechanism_the_trace_names_is_one_the_engine_emits`) reads literal mechanism names only.
-- [ ] T-252 ⟨now⟩ **A named mutant survives `M11.C.10[family of origin]` at revision 62 (2026-11-15).** In
+- [x] T-252 ⟨now⟩ **A named mutant survives `M11.C.10[family of origin]` at revision 62 (2026-11-15).** In
   `docs/phase_d_mutation_record.md`, `learner-reads-own-state-only` (`M4.B.2`'s exemption removed) now passes the
   variant (`cut_off_tie_weeks` +146 ± 128, p 0.014; red at revision 61, p 0.25). The variant stays covered:
   `witnessed-cutoff-learning-removed` still turns it red, and both mutants turn the base `M11.C.10` red. Find whether
@@ -153,6 +153,7 @@
   mutant +151 ± 71 (p 3.2e-05, survived), against +166 and +153 on revision 62's engine: revision 61's red (p 0.25)
   was its 200-seed block. Open question for the owner: the mutant survives the variant on both engines, so should it
   keep naming `M11.C.10[family of origin]` (the variant stays caught by `witnessed-cutoff-learning-removed`)?
+  *Decided by the owner 2026-11-17: it keeps naming the variant as a standing survivor; wording only, no rerun.*
 - [x] T-253 ⟨now⟩ **`M11.C.7[joint over one spouse]` fell from PASS to FAIL at revision 62 (2026-11-15).** In
   `docs/phase_d_ensemble_record.md`, `deviation_fall` +0.050 ± 0.061, p 0.0525 (revision 61: +0.033 ± 0.052, p 0.031).
   Close to the threshold on both sides; `M11.C.10` rose across it the other way (p 0.147 → 0.032). Decide whether

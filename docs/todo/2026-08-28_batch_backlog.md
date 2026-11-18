@@ -1,7 +1,7 @@
 # Arising from the 2026-08-28 batch
 
-- [ ] T-090 ⟨later⟩ **Audit the spec for requirements sourced from an extraction *heading* rather than a quoted sentence.** `M5.D.4` was inverted for exactly this reason: `docs/theory/ch13.md` carried the correct quotation in its body under a heading that said the opposite, and only the heading travelled into the spec. The heading is fixed and the requirement corrected, but **nothing has checked whether there are others of the same shape.** The check is mechanical: for each requirement citing a chapter, confirm the claim appears in a *quoted* passage in the extraction, not only in a section title or a bolded gloss. Highest risk in the earliest requirements, written when the extractions were newest.
-  ⟦batch: theory re-reading (corpus passages, grades, attribution)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
+- [x] T-090 ⟨later⟩ **Audit the spec for requirements sourced from an extraction *heading* rather than a quoted sentence.** `M5.D.4` was inverted for exactly this reason: `docs/theory/ch13.md` carried the correct quotation in its body under a heading that said the opposite, and only the heading travelled into the spec. The heading is fixed and the requirement corrected, but **nothing has checked whether there are others of the same shape.** The check is mechanical: for each requirement citing a chapter, confirm the claim appears in a *quoted* passage in the extraction, not only in a section title or a bolded gloss. Highest risk in the earliest requirements, written when the extractions were newest.
+  *Closed 2026-11-17 (Claude's recommendation 2026-11-17, pending owner review): audited 2026-11-17 over the 23 requirements that cite one of the 22 papers (M1.A.3, M1.A.3c, M1.A.4d, M1.A.4h, M1.A.19, M1.C.1, M1.C.3c, M1.D.7a, M1.D.7b, M1.D.7f, M1.E.2, M5.B.3a, M5.B.3, M5.B.6, M5.D.4, M5.D.4a, M5.D.7a, M5.F.4, M7.A.2, M7.D.1a, M8.3, M14.A.4, M11.C.14). None takes its claim from a heading or a bolded gloss. The hedge findings are under T-095, T-098 and T-099.*
 - [x] T-091 ⟨later⟩ **Two changes to the family-diagram application, both needing information the diagram does not currently hold.** Neither can be recovered afterwards, which is why `M13.3` names them as the ones to make first.
   - `M15.A.4` — export the **interval** a rater would defend, with the scale point defined, not a bare `3` on a 1–5 scale. The model divides by, differences and thresholds these values; a rank supports none of that.
   - `M15.C.2` — split the diagram's single **"distant"** line into *rupture* and *resolved low-contact*. `M1.B.3` calls telling those apart the most consequential discrimination in this part of the theory: same contact frequency, opposite bond energy. Until the app emits it, bond energy on any distant tie imports as a free range.
@@ -39,18 +39,18 @@ rule is to bound the loop rather than trade one defect class for another.
   not a guard. The shape to look for: a requirement whose source is a *descriptive* passage, whose hedges
   ("begins", "a few", "tends to", "usually") the requirement dropped, and which the spec then states as a
   threshold, a switch, or an exact count. Highest risk where a single chapter is the only source.
-  ⟦batch: theory re-reading (corpus passages, grades, attribution)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
+  *re-read 2026-11-17 over the same 23 requirements as T-090. One remaining defect: `M5.B.3`'s third-party cost is a MUST, but Ch22 (`ch22.md:405`, L22.6) says only that removing a symptom without regard for the family "can" stir anxiety, and that a person's own contact increase carries no cost. Final revision: grade the cost `[D]` and say Ch22 states a possibility. The MUST's other source, external review G1, and the strict xfail stay.* *(Claude's recommendation 2026-11-17, pending owner review)* ⟦batch: final engine batch⟧
 - [ ] T-096 ⟨later⟩ **Re-read `KS05.2` on the capacity floor at 25.** `M1.A.4d` was regraded to a continuous falloff at
   revision 7 **on the principle rather than on a reading** — its source says "they lack the flexibility to
   make basic change", which is a description of a group and the same grammatical shape as Ch16's band. The
   falloff is applied; the *location* stands pending the primary. It is the one number `M1.A.3d` admits as
   structural, and it is admitted provisionally.
-  ⟦batch: theory re-reading (corpus passages, grades, attribution)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
-- [ ] T-097 ⟨later⟩ **Re-read the source behind `M5.F.2`'s `outside_ness` threshold.** "Below threshold the same move
+  *re-read 2026-11-17 (`ks05.md:34-48` and the book). The 25 is Kerr's own number `[K]`, a group boundary ("25 or below on the continuum", about 20 percent, "based on observations to date"); it is not attributed to Bowen, and `FE04.2` repeats it. The ledger grade is right. Final revision: replace `M1.A.4d`'s "has not been re-read" and "pending" sentences with this reading, and drop its "same shape as Ch16" remark, since Kerr states the number. T-106 (in E1's revision) covers the gate wording.* *(Claude's recommendation 2026-11-17, pending owner review)* ⟦batch: final engine batch⟧
+- [x] T-097 ⟨later⟩ **Re-read the source behind `M5.F.2`'s `outside_ness` threshold.** "Below threshold the same move
   produces the opposite sign" is the same shape as the transition at 50 — a threshold on a continuous
   quantity, doing load-bearing work in the sign-flip argument at `M15.D.4`. It may be sound; it has not been
   checked with this question in mind.
-  ⟦batch: theory re-reading (corpus passages, grades, attribution)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
+  *Closed 2026-11-17 (Claude's recommendation 2026-11-17, pending owner review): re-read 2026-11-17. `KS05.5` and `FE07.5` support the sign flip (a reactive position raises anxiety) and give no threshold. `M5.F.2c` (revision 39) already makes the flip continuous, crossing zero at a declared 0.5 `[I]`. The one leftover, `M15.D.4`'s "below threshold", is under T-101.*
 
 ## Backlogged from the corpus-fidelity sweep, 2026-08-28 — graded LOW, recorded not fixed
 
@@ -63,33 +63,33 @@ hedge-level remainder, held back because each fix is new unreviewed surface.
   "**provided his spouse functions in a reciprocal opposite way**", which is a condition on the whole claim.
   `M1.A.5d` splices two passages ~5,700 characters apart into one quotation and drops a "per se, **but…**"
   that states the harmful case. `M11.F.3a` truncates a Bowen epigraph with no ellipsis shown.
-  ⟦batch: theory re-reading (corpus passages, grades, attribution)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
-- [ ] T-099 ⟨later⟩ **Hedges trimmed off the front of quotations.** `M1.A.13a` ("**I believe** the most important cue"),
-  `M1.D.7b` ("**I believe** a spectrum of problems"), `M1.A.18d` ("not observed it **fully**"),
-  `M8.6a` ("**as many as** fifty or sixty" flattened to "fifty to sixty").
-  ⟦batch: theory re-reading (corpus passages, grades, attribution)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
+  *re-read 2026-11-17; all four stand, one corrected. `M1.A.19`: restore Ch10's "would probably" and "as long as discussion touched emotional issues" (`ch10.md:459, 519`). `M1.A.14c`: restore "provided his spouse functions in a reciprocal opposite way" (`ks12.md:67`). `M1.A.5d`: the two spliced sentences are close together and the ellipsis shows the gap; the defects are the citation (`KS05.1`, not `KS14.2`) and the dropped ", but having more understanding…" clause. `M11.F.3a`: show the ellipsis and keep "somehow" and the tail of `KS24.8`'s sentence.* *(Claude's recommendation 2026-11-17, pending owner review)* ⟦batch: final engine batch⟧
+- [ ] T-099 ⟨later⟩ **Hedges trimmed off the front of quotations.** `M1.A.13a` (the leading *I believe* hedge of Tape 6 T6.1 dropped; ASR, paraphrased 2026-11-17),
+  `M1.D.7b` (*I believe a spectrum of problems*), `M1.A.18d` (*not observed it fully*),
+  `M8.6a` (*as many as fifty or sixty* flattened to *fifty to sixty*).
+  *re-read 2026-11-17. `M1.A.13a` is fixed (revision 34 paraphrases Tape 6 and keeps the hedge). Three stand: `M1.A.18d` should read *had not fully observed it in his own marriage until that day* (`KS16.6`); `M8.6a` turns `KS18.3`'s *as many as fifty or sixty* in a general conference layout into a headcount at the Medical College of Virginia and calls it *corroborated at scale* (drop the number and *at scale*); `M1.D.7b`'s two quotations are not in `ch18.md`; cite `KS14.1` or check them against the printed chapter.* *(Claude's recommendation 2026-11-17, pending owner review)* ⟦batch: final engine batch⟧
 - [ ] T-100 ⟨later⟩ **Third parties quoted by an author, unmarked.** `M7.C.1c` rests on **Sylvia Nasar's** thought, quoted
   by Kerr. (`M4.D.5c`'s Andrew Solomon attribution is fixed; this one is the same shape.)
   Same revision: drop `M11.D.12`'s "Not built: it needs `M10.C.4b`'s checks module (T-244)", built 2026-11-17.
   ⟦batch: the next spec revision (wording only; ride with engine batch E1's revision)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
-- [ ] T-101 ⟨later⟩ **A scope narrower than the requirement.** `M5.B.3a`'s band is stated of "**the alcoholic person**";
-  `M1.B.10` quotes a taboo-set claim made of **spouses** and applies it to every tie; `M15.D.4`'s "they could
-  do no wrong" comes from the inpatient schizophrenia project, the most severe families studied.
-  ⟦batch: theory re-reading (corpus passages, grades, attribution)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
+- [ ] T-101 ⟨later⟩ **A scope narrower than the requirement.** `M5.B.3a`'s band is stated of *the alcoholic person*;
+  `M1.B.10` quotes a taboo-set claim made of **spouses** and applies it to every tie; `M15.D.4`'s *they could
+  do no wrong* comes from the inpatient schizophrenia project, the most severe families studied.
+  *re-read 2026-11-17; all three stand, with two additions. `M5.B.3a`: say `L12.4`'s band is stated of the alcoholic and generalised here, and that KB08 concerns disclosure of self, which the spec extends to contact (from T-009). `M1.B.10`: the growth claim is Ch10's, of spouses (L10.8); the extraction of Tape 6 T6.4 does not hold *the start of the communication cutoff in a marriage*, so cite L10.8 and scope it to the marital tie or say the step is the spec's. `M15.D.4`: scope *they could do no wrong* to the inpatient schizophrenia families (`ch04.md:50`), and read *below the declared zero-crossing (`M5.F.2c`)* for *below threshold* (from T-097).* *(Claude's recommendation 2026-11-17, pending owner review)* ⟦batch: final engine batch⟧
 - [ ] T-102 ⟨later⟩ **`M4.D.3a`'s four-element evolutionary ordering has three sourced slots and one unsourced** —
   conflict's position between cooperation and dominant-adaptive is nowhere given in the source.
-  ⟦batch: theory re-reading (corpus passages, grades, attribution)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
+  *re-read 2026-11-17 (`KS06.1`). Kerr's example runs cooperation, then control and deference, which he calls dominant-adaptive and older; conflict is a second regression from cooperation, not ranked against dominant-adaptive. `ks06.md` is corrected. Final revision: grade conflict's slot in `M4.D.3a` `[I]`, as the spec already does for triangling.* *(Claude's recommendation 2026-11-17, pending owner review)* ⟦batch: final engine batch⟧
 - [ ] T-103 ⟨later⟩ **`M1.A.5a` quotes a phrase absent from the book it cites** ("more mature, more responsible for self",
   cited to Kerr 2019 ch6; nearest analogue is in ch24 and says something different). Its decomposition is
   tagged as user-derived, so the model claim survives — the citation does not.
-  ⟦batch: theory re-reading (corpus passages, grades, attribution)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
-- [ ] T-104 ⟨later⟩ **`M2.A.0e`'s "almost identical" reads as Kerr-2019-grounded** and is in fact from KB Interview #14.
+  *re-read 2026-11-17. The phrase is in neither `ks06.md` nor the book; the nearest, in the last chapter, is "being a more mature and responsible family member", about family-of-origin work. Final revision: drop the quotation marks in `M1.A.5a` and state the claim as the project's decomposition.* *(Claude's recommendation 2026-11-17, pending owner review)* ⟦batch: final engine batch⟧
+- [ ] T-104 ⟨later⟩ **`M2.A.0e`'s *almost identical* reads as Kerr-2019-grounded** and is in fact from KB Interview #14.
   Kerr 2019 says spouses marry at the "**same**" basic levels — stricter than the ±1 tolerance built on it.
-  ⟦batch: theory re-reading (corpus passages, grades, attribution)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
+  *re-read 2026-11-17. The near-match is the `KB14` interview's (K14.2, ASR); Kerr 2019 says *the same basic level* (`KS07.7`). Ledger U6 is corrected. Final revision: `M2.A.0e` cites KB14 for the near-match and `KS07.7` for the stricter claim, and grades the ±1 tolerance `[I]`, looser than Kerr.* *(Claude's recommendation 2026-11-17, pending owner review)* ⟦batch: final engine batch⟧
 - [ ] T-105 ⟨later⟩ **`M5.C.1a` borrows severity from an adjacent intervention class.** The three catastrophes are real and
   correctly sourced to *forcing conjoint contact*; the recorded consequence of the peace-agree/reactive
   mismatch itself is relational rupture. Careful drafting, suggestive juxtaposition.
-  ⟦batch: theory re-reading (corpus passages, grades, attribution)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
+  *re-read 2026-11-17. `KB08`'s three outcomes are recorded for forcing conjoint contact on families at capacity; the peace-agree mismatch's own recorded result is rejection and ineffectiveness (`KB05` · K05.1, `KB06` · K06.4). The explainer row now grades the safety framing `[M]`. Final revision: `M5.C.1a` says the link from KB08's cases to this technique is the spec's inference.* *(Claude's recommendation 2026-11-17, pending owner review)* ⟦batch: final engine batch⟧
 - [ ] T-106 ⟨later⟩ **`M1.A.4d`'s source sentence is gate-shaped.** Kerr 2019: "**People above 25** on the continuum can
   make basic changes." Revision 7 replaced the gate with a continuous falloff on principle; the requirement
   should say plainly that the source's own wording is the gate it forbids.
@@ -102,5 +102,5 @@ hedge-level remainder, held back because each fix is new unreviewed surface.
 - [x] T-109 ⟨later⟩ **Decide whether `M16`'s renderer output format is worth fixing in the spec.** `M16.C.2` says what a rendered line must carry and points at the proposal's §4.2 table as the shape, but does not fix a format. That is deliberate for now — the format is cheaper to settle against a running Phase B than in advance — but it should be settled *before* a second consumer exists, or the two will drift.
   ⟦batch: owner decisions (a rule, a criterion's meaning or a design choice)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
   *Decision 2026-11-17 (Claude's recommendation 2026-11-17, pending owner review):* Closed: there is one consumer of `M16`'s rendered lines and none planned; fix the format when a second one is planned, not before.
-- [ ] T-110 ⟨later⟩ **`M11.F.9(c)` deserves a worked demonstration before anyone relies on it.** The claim is that fitting one arm of a counterfactual to a known history breaks the error cancellation `M0.4` depends on. It is argued, not demonstrated. Phase E could show it directly: take a synthetic family, fit one arm to its own history, and measure how far the counterfactual moves against an unfitted control. If the effect is small the requirement is over-strong; if it is large it is the most important sentence in `M11.F`.
-  ⟦batch: mechanism proposals (theory work, then a spec revision)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
+- [x] T-110 ⟨later⟩ **`M11.F.9(c)` deserves a worked demonstration before anyone relies on it.** The claim is that fitting one arm of a counterfactual to a known history breaks the error cancellation `M0.4` depends on. It is argued, not demonstrated. Phase E could show it directly: take a synthetic family, fit one arm to its own history, and measure how far the counterfactual moves against an unfitted control. If the effect is small the requirement is over-strong; if it is large it is the most important sentence in `M11.F`.
+  *Closed 2026-11-17 (Claude's recommendation 2026-11-17, pending owner review): no tool or requirement fits an arm: `M15.D` runs an imported family as ranges, and `M11.F.9(c)` forbids fitting. The demonstration matters only if fitting is proposed, and it should be run then.*

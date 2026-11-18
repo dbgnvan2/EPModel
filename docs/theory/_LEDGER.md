@@ -506,9 +506,11 @@ for the full statement and the sign warning.
 ## Ch05 — Family Psychotherapy  *(1961)*
 
 **Provenance:** NIMH.
-**Chronological marker.** "Undifferentiated family ego mass" is described as discarded "because it has
-certain inaccuracies" — **and then used anyway two sentences later**. Retired-but-in-service, no
-successor; working substitutes are "family oneness" and "the family as the unit of illness".
+**Chronological marker.** "Undifferentiated family ego mass" is described as a term used early in the
+study that "was discarded because it has certain inaccuracies", and it is kept here because it conveys the
+notion. Ch06 (1961a) gives the full arc: used 1956–57, discarded, "then revived because of its usefulness".
+Ch08 (1965a) defends it; Ch17 (1976) abandons it (re-read 2026-11-17, T-117). Working substitutes in this
+chapter are "family oneness" and "the family as the unit of illness".
 "Interdependent triad" does the job "triangle" does later. **Differentiation of self is a process with
 ordinal grading, not yet a scale.**
 *Note the conflict:* **Ch08 (~1962) actively retains and defends the ego-mass term.** The arc is messier
@@ -588,7 +590,7 @@ different intervention, and a materially different implementation. The coach's o
 *Also:* couples who displaced part of the problem onto a child are *easier* to work with than undisplaced
 couples, whose defences are more rigid.
 **⚠ C1 has a direct counterexample in Ch22** — reducing cut-off reduces symptoms *and* makes therapy more
-productive. C1 likely survives only as a claim about *symptom relief obtained without structural change*.
+productive. C1 likely survives only as a claim about *symptom relief obtained without structural change*. *Re-derived 2026-11-17 (T-116, `_CONVERGENCES.md` C1): it does, at five chapters.*
 See L22.1.
 
 **`KB03` supplies the mechanism and the best evidence in the project.** "Therapeutic-itis": **the interview holds, as a belief with fairly good evidence behind it, that the problem began with the family's own efforts to help the patient**, so helping is the same operation. And the research-versus-therapy finding is now four statements, an experiment (residents told to learn rather than cure; the best lasted **ten hours** before the family demanded an answer and he gave in) and an **independent replication by Kerr** on cancer families, who produced more ideas per session and did better.
@@ -692,8 +694,8 @@ differentiating move is then a departure from a specified baseline rather than a
 
 **Provenance:** Menninger/Topeka 1949–54 **and** the NIMH live-in ward 1954–59 — **the same ward reported
 in Ch01–Ch06**. Agreement between Ch08 and any of those is not independent replication.
-*Terminology datum:* Ch08 **actively retains and defends "undifferentiated family ego mass"**, against the
-timeline's claim that it was discarded at Ch05.
+*Terminology datum:* Ch08 **actively retains and defends "undifferentiated family ego mass"**, inaccuracies
+admitted. The Ch05 marker and the timeline now give the arc (T-117, 2026-11-17).
 
 ### L08.1 — Removal fires off the REMAINING members' tolerance, and is gated by decision ownership  `[stands, refined]`
 **REFINES → scenario, `event-kind`**
@@ -2442,8 +2444,11 @@ and **returns if distancing is prevented**. The expert had the mechanism before 
 
 ## U6 — Spouse pairing is close, not exact  `[user→T]` → `M2.A.0e`
 `D3` approved with an amendment: matched `basic_level` "doesn't have to be **EXACTLY** matched. + or - one
-point." Corroborated by the corpus's own wording — "**almost identical**", not identical — and by
-`KS07.7`, which adds that pairing is **strict for spouses and looser for friendships**.
+point."
+
+The near-match comes from the `KB14` interview (K14.2: spouses at nearly the same level, ASR). Kerr 2019
+is stricter: partners have *the same basic level* and exceptions are rare (`KS07.7` `[K]`); friendships pair
+*somewhat less precisely*. So the ±1 tolerance is `[I]`, looser than Kerr (attribution corrected 2026-11-17, T-104).
 
 ## U7 — Systems perspective is orthogonal to functioning  `[user]` → `M1.A.18c`
 **The most consequential correction in this file, and it caught a structural error before it was built.**

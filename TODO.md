@@ -10,7 +10,7 @@ moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's te
 ## Now (0)
 
 
-## Later (63)
+## Later (49)
 
 ### engine batch E1 (engine and record-tool hygiene, one regeneration) (16)
 
@@ -38,26 +38,28 @@ moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's te
 - T-077 · 2026-11-17 · Not built · [record](docs/todo/2026-10-08_phase_c.md)
 - T-209 · 2026-11-09 · An arm or mutant that isolates `M4.C.6`'s by-channel … · [record](docs/todo/2026-11-07_social_cues.md)
 
-### final engine batch (6)
+### final engine batch (20)
 
+- T-010 · 2026-10-22 · Found while building SP-1 (2026-10-22), not fixed · [record](docs/todo/2026-10-21_stage_1_milestone_review.md)
+- T-044 · 2026-11-17 · Chronic anxiety ratchets across generations · [record](docs/todo/2026-10-13_phase_d_part_ii.md)
+- T-057 · 2026-11-17 · Lock-in does not make a symptom chronic · [record](docs/todo/2026-10-11_phase_d.md)
 - T-071 · 2026-11-17 · `M11.C.16`'s mutation clause is not met · [record](docs/todo/2026-10-08_phase_c.md)
 - T-082 · 2026-11-17 · Owner answer: anxiety shapes beliefs (answers MM1) · [record](docs/todo/2026-09-27_paper_material.md)
 - T-083 · 2026-11-17 · Owner answer: how coaching enters a family (answers … · [record](docs/todo/2026-09-27_paper_material.md)
 - T-088 · 2026-10-05 · Method proposals from the 2026-10-05 batch b (silicon … · [record](docs/todo/2026-09-27_paper_material.md)
+- T-095 · 2026-11-17 · Sweep the spec for other descriptions firmed up … · [record](docs/todo/2026-08-28_batch_backlog.md)
+- T-096 · 2026-11-17 · Re-read `KS05.2` on the capacity floor at 25 · [record](docs/todo/2026-08-28_batch_backlog.md)
+- T-098 · 2026-11-17 · Ellipses that remove a qualifier · [record](docs/todo/2026-08-28_batch_backlog.md)
+- T-099 · 2026-11-17 · Hedges trimmed off the front of quotations · [record](docs/todo/2026-08-28_batch_backlog.md)
+- T-101 · 2026-11-17 · A scope narrower than the requirement · [record](docs/todo/2026-08-28_batch_backlog.md)
+- T-102 · 2026-11-17 · `M4.D.3a`'s four-element evolutionary ordering has three sourced slots … · [record](docs/todo/2026-08-28_batch_backlog.md)
+- T-103 · 2026-11-17 · `M1.A.5a` quotes a phrase absent from the book … · [record](docs/todo/2026-08-28_batch_backlog.md)
+- T-104 · 2026-11-17 · `M2.A.0e`'s almost identical reads as Kerr-2019-grounded · [record](docs/todo/2026-08-28_batch_backlog.md)
+- T-105 · 2026-11-17 · `M5.C.1a` borrows severity from an adjacent intervention class · [record](docs/todo/2026-08-28_batch_backlog.md)
 - T-169 · 2026-10-31 · A coach's completed `I-POSITION` exchange still acts on … · [record](docs/todo/2026-10-29_version_2_definition.md)
-- T-212 · 2026-11-10 · Whether `M11.C.55`'s two predictors should be read to … · [record](docs/todo/2026-11-07_social_cues.md)
-
-### mechanism proposals (theory work, then a spec revision) (9)
-
-- T-044 · 2026-11-17 · Chronic anxiety ratchets across generations · [record](docs/todo/2026-10-13_phase_d_part_ii.md)
-- T-053 · 2026-10-12 · Reviews of revisions 25–27 (2026-10-12), not fixed, with … · [record](docs/todo/2026-10-11_phase_d.md)
-- T-057 · 2026-11-17 · Lock-in does not make a symptom chronic · [record](docs/todo/2026-10-11_phase_d.md)
-- T-059 · 2026-11-17 · `Family.tolerance` is declared, never updated · [record](docs/todo/2026-10-11_phase_d.md)
-- T-060 · 2026-10-12 · Review of revision 23, minor (2026-10-12) · [record](docs/todo/2026-10-11_phase_d.md)
-- T-061 · 2026-10-12 · Adjacent, found in the review of revision 23 … · [record](docs/todo/2026-10-11_phase_d.md)
-- T-110 · 2026-11-17 · `M11.F.9(c)` deserves a worked demonstration before anyone relies … · [record](docs/todo/2026-08-28_batch_backlog.md)
 - T-203 · 2026-11-07 · `KS10.1`'s uncertainty term as its own proposal (2026-11-07) · [record](docs/todo/2026-11-07_social_cues.md)
 - T-204 · 2026-11-07 · `KS09.6`'s parent-side separation as its own proposal (2026-11-07) · [record](docs/todo/2026-11-07_social_cues.md)
+- T-212 · 2026-11-10 · Whether `M11.C.55`'s two predictors should be read to … · [record](docs/todo/2026-11-07_social_cues.md)
 
 ### research runs (Mac Mini1 probes and experiments) (5)
 
@@ -76,25 +78,3 @@ moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's te
 ### the next stage-end sweep (1)
 
 - T-245 · 2026-11-14 · `M1.A.4c`: the estimator's sensitivity sweep (2026-11-14) · [record](docs/todo/2026-08-22_blocking_the_next_phase.md)
-
-### theory re-reading (corpus passages, grades, attribution) (19)
-
-- T-008 · 2026-10-22 · SP-1, the parts the owner deferred on 2026-10-22 · [record](docs/todo/2026-10-21_stage_1_milestone_review.md)
-- T-009 · 2026-10-22 · SP-1 Q7: six requirements whose passage supports less … · [record](docs/todo/2026-10-21_stage_1_milestone_review.md)
-- T-010 · 2026-10-22 · Found while building SP-1 (2026-10-22), not fixed · [record](docs/todo/2026-10-21_stage_1_milestone_review.md)
-- T-011 · 2026-10-22 · From the SP-1 build's review (2026-10-22), not fixed · [record](docs/todo/2026-10-21_stage_1_milestone_review.md)
-- T-090 · 2026-11-17 · Audit the spec for requirements sourced from an … · [record](docs/todo/2026-08-28_batch_backlog.md)
-- T-095 · 2026-11-17 · Sweep the spec for other descriptions firmed up … · [record](docs/todo/2026-08-28_batch_backlog.md)
-- T-096 · 2026-11-17 · Re-read `KS05.2` on the capacity floor at 25 · [record](docs/todo/2026-08-28_batch_backlog.md)
-- T-097 · 2026-11-17 · Re-read the source behind `M5.F.2`'s `outside_ness` threshold · [record](docs/todo/2026-08-28_batch_backlog.md)
-- T-098 · 2026-11-17 · Ellipses that remove a qualifier · [record](docs/todo/2026-08-28_batch_backlog.md)
-- T-099 · 2026-11-17 · Hedges trimmed off the front of quotations · [record](docs/todo/2026-08-28_batch_backlog.md)
-- T-101 · 2026-11-17 · A scope narrower than the requirement · [record](docs/todo/2026-08-28_batch_backlog.md)
-- T-102 · 2026-11-17 · `M4.D.3a`'s four-element evolutionary ordering has three sourced slots … · [record](docs/todo/2026-08-28_batch_backlog.md)
-- T-103 · 2026-11-17 · `M1.A.5a` quotes a phrase absent from the book … · [record](docs/todo/2026-08-28_batch_backlog.md)
-- T-104 · 2026-11-17 · `M2.A.0e`'s "almost identical" reads as Kerr-2019-grounded · [record](docs/todo/2026-08-28_batch_backlog.md)
-- T-105 · 2026-11-17 · `M5.C.1a` borrows severity from an adjacent intervention class · [record](docs/todo/2026-08-28_batch_backlog.md)
-- T-115 · 2026-11-17 · `M11.C.9`'s and sibling position's status generally · [record](docs/todo/2026-08-22_theory_work.md)
-- T-116 · 2026-11-17 · Convergence C1 needs its scope re-derived from the … · [record](docs/todo/2026-08-22_theory_work.md)
-- T-117 · 2026-11-17 · The ego-mass terminology arc must be re-derived · [record](docs/todo/2026-08-22_theory_work.md)
-- T-118 · 2026-11-17 · When the basic level is fixed is genuinely … · [record](docs/todo/2026-08-22_theory_work.md)

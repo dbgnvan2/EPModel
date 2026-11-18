@@ -17,7 +17,7 @@ Plan §4.7 and `docs/archive/phase_d2_status_2026-10-13.md` hold the evidence.
 - [ ] T-044 ⟨later⟩ **Chronic anxiety ratchets across generations.** A child's chronic anxiety is derived from the living parents'
   values and its own witnessed history and then fixed at 12 (`M7.B.1a`); nothing in the run lowers it again for later
   generations. Check over several generations whether it only rises; the 40-year run is too short to see it.
-  ⟦batch: mechanism proposals (theory work, then a spec revision)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
+  *adopt. Confirmed by construction: `M7.B.1a` adds `witnessed_gain` × a load that is never negative to the parents' mean, and `M7.B.1` lets the value fall only when `basic_level` rises, so a line's chronic anxiety can only climb. That contradicts `M7.E.1`'s direction that a child outside the process comes out better. **Build note:** read the childhood load term signed, as the child's yearly mean load minus the parents' mean load over the same years, so a child who carries less than its parents ends below their mean. No new constant. Guard: a two-arm test (focused vs unfocused child) with the unfocused child below the parents' mean.* *(Claude's recommendation 2026-11-17, pending owner review)* ⟦batch: final engine batch⟧
 - [x] T-045 ⟨later⟩ **Starting ages as settings in the fam-diag app.** The owner asked for them as settings in the app; they are
   config settings (`M2.A.0j`) and the app was not touched (standing instruction). Deferred.
   ⟦batch: owner decisions (a rule, a criterion's meaning or a design choice)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*

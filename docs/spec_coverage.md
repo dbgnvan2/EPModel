@@ -15,11 +15,11 @@ reported, not gated.
 
 Records read, each with the hash it states:
 
-- `docs/phase_c_ensemble_record.md` (263d553a9ee0)
-- `docs/phase_d_ensemble_record.md` (263d553a9ee0)
-- `docs/phase_d2_ensemble_record.md` (263d553a9ee0)
-- `docs/phase_c_mutation_record.md` (05d3b2345754)
-- `docs/phase_d_mutation_record.md` (d0640d74603c)
+- `docs/phase_c_ensemble_record.md` (6adcf228c9b5)
+- `docs/phase_d_ensemble_record.md` (6adcf228c9b5)
+- `docs/phase_d2_ensemble_record.md` (6adcf228c9b5)
+- `docs/phase_c_mutation_record.md` (d9e26aca1b99)
+- `docs/phase_d_mutation_record.md` (8aa24f721bb3)
 
 **602 IDs: 324 done, 134 partial, 144 not done.**
 
@@ -632,7 +632,7 @@ say whether that test was proved failing by mutation unless its note does.
 | M17.G.2 | not done | — | no test named for it; Phase E builds it and is not built yet |
 | M17.G.3 | not done | — | no test named for it; Phase E builds it and is not built yet |
 
-## Tests named for no spec ID (369)
+## Tests named for no spec ID (370)
 
 Their names embed no requirement ID, so they count only where an override cites them (marked *cited*). The rest check spec documents, tooling or helpers.
 
@@ -652,6 +652,7 @@ Their names embed no requirement ID, so they count only where an override cites 
 - `tests/bowen/test_engineering_gates.py::test_t147_the_engine_never_imports_the_policy`
 - `tests/bowen/test_ensemble.py::test_t032_a_failed_run_stops_its_workers_at_once`
 - `tests/bowen/test_ensemble.py::test_t032_a_stop_signal_stops_the_run_and_the_handler_is_restored`
+- `tests/bowen/test_ensemble.py::test_t032_workers_take_the_default_stop_handlers`
 - `tests/bowen/test_ensemble_record.py::test_b2_code_text_drops_only_docstrings_and_comments`
 - `tests/bowen/test_ensemble_record.py::test_b2_code_text_is_the_same_on_every_python_version`
 - `tests/bowen/test_ensemble_record.py::test_b2_code_text_keeps_fstring_text_exactly`

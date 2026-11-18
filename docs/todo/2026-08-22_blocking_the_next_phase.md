@@ -188,4 +188,4 @@
   as noise; and before reading any verdict move with p between about 0.01 and 0.2 as a change, run fresh blocks as
   T-253 did. T-252's mutant (p 0.25 → 0.014 on the `M11.C.10` variant) may be the same kind of move; not checked.
   *Built 2026-11-17 as spec revision 63, as recommended (owner 2026-11-16), with its one regeneration on Mac Mini1;
-  see CHANGELOG.md's revision 63 entry and `docs/version_3_revision_63_changes.md`.*
+  see CHANGELOG.md's revision 63 entry and `docs/archive/version_3_revision_63_changes.md`.*

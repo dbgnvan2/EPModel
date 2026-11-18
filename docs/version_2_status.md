@@ -15,13 +15,13 @@ over the declared ranges in which the direction held (`docs/version_2_sweep_reco
 so, with the sample, and has no fraction, so W4 counts it as not swept.
 
 Records read:
-- Phase C (`docs/phase_c_ensemble_record.md`): code_hash `263d553a9ee0`
-- Phase D part I (`docs/phase_d_ensemble_record.md`): code_hash `263d553a9ee0`
-- Phase D part II (`docs/phase_d2_ensemble_record.md`): code_hash `263d553a9ee0`
-- Phase C mutation record (`docs/phase_c_mutation_record.md`): engine_hash `05d3b2345754`
-- Phase D mutation record (`docs/phase_d_mutation_record.md`): phase_d_mutation_hash `d0640d74603c`
+- Phase C (`docs/phase_c_ensemble_record.md`): code_hash `6adcf228c9b5`
+- Phase D part I (`docs/phase_d_ensemble_record.md`): code_hash `6adcf228c9b5`
+- Phase D part II (`docs/phase_d2_ensemble_record.md`): code_hash `6adcf228c9b5`
+- Phase C mutation record (`docs/phase_c_mutation_record.md`): engine_hash `d9e26aca1b99`
+- Phase D mutation record (`docs/phase_d_mutation_record.md`): phase_d_mutation_hash `8aa24f721bb3`
 - Sweep record (`docs/version_2_sweep_record.md`): engine_hash `95368d6ddf18`, phase_d_engine_hash `75fd45e9778a`
-- Emergence audit record (`docs/emergence_audit_record.md`): engine_hash `61fa9e618f84`
+- Emergence audit record (`docs/emergence_audit_record.md`): engine_hash `134d872f0f78`
 - the tag's page (`docs/version_1_status.md`): the verdicts at `version-1`
 - this page as committed at `9ebf327`: the verdicts at spec revision 38
 

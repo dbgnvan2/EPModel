@@ -62,7 +62,11 @@ All notable changes to this project are recorded here. Dates are ISO.
 - **Documents.** The 15 archive files with spaces or dashes in their names are renamed to snake case, and every
   citation but `docs/CHANGELOG_archive.md`'s (kept verbatim) follows (T-227). Spec text: T-100, T-106, T-112, and
   `M11.D.12`'s stale sentence. Every change is Claude's recommendation, pending owner review.
-- **Regeneration.** RESULTS_PENDING
+- **Regeneration.** On Mac Mini1 (`429afd4`, about 22 h, every step exit 0) on engine `6adcf228c9b5`. No row of
+  any compared record differs, not a verdict, an effect or a seed count (`docs/version_3_revision_64_changes.md`),
+  and seed 7's trace changed only in its header, so T-141 moved no result the records read. Review fixes before
+  the run: the Phase D record rechecks the hash after each child, pool workers start with the default stop
+  handlers, the occupancy key covers the band pivot. Suite: 1510 tests, 1506 pass, 1 skips, 3 strict xfail.
 
 ### Backlog triage of the 150 Later items, and the tests-and-tools batch (2026-11-17)
 
@@ -87,7 +91,7 @@ All notable changes to this project are recorded here. Dates are ISO.
   read as a change. Every record regenerated on Mac Mini1. The Phase D children that run `M11.C.10` outran the
   7200 s child limit, so `tools/record_cache.py` now sets each child's limit from measured time (Phase D rows
   21,600 s, a whole Phase D part 36,000 s); no record hash moved for it.
-- **Result.** `docs/version_3_revision_63_changes.md`: only `M11.C.10`'s rows changed; no criterion verdict moved
+- **Result.** `docs/archive/version_3_revision_63_changes.md`: only `M11.C.10`'s rows changed; no criterion verdict moved
   (`M11.C.10` and `M11.C.10[family of origin]` pass, p 0.031 and 1.7e-05). One mutation verdict moved:
   `witnessed-cutoff-learning-removed` now survives the base `M11.C.10` (+66.7 ± 69, p 0.031, the unmutated +66.6).
   T-252 is clearly real at 600 seeds and waits on the owner.

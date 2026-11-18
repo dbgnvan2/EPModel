@@ -29,11 +29,12 @@ Plan §4.10 holds the evidence.
   child still stops it.*
   *2026-11-17 (triage batch 2026-11-17, Claude's recommendation, pending owner review): the diagnostic record's timeout and keep-going are built; the Phase D record runs in process, so it needs moving onto a child and re-keying its results, which reruns it.* ⟦batch: engine batch E1 (engine and record-tool hygiene, one regeneration)⟧
   *Built 2026-11-17 in spec revision 64 (engine batch E1), Claude's recommendation, pending owner review: `tools/phase_d_record.py` runs each criterion in a child with a timeout (`--child`) and goes on past a failed one, raising once with every missing criterion; `tools/level_occupancy.py` keeps the other variants' rows when one child fails. The cache key is unchanged.*
-- [ ] T-027 ⟨later⟩ **Adjacent, not fixed (stage 1 review, 2026-10-19):** the act-literal scan, widened to lists, tuples and one-act
+- [x] T-027 ⟨later⟩ **Adjacent, not fixed (stage 1 review, 2026-10-19):** the act-literal scan, widened to lists, tuples and one-act
   comparisons, finds act names in `src/bowen/ensemble/criteria.py`, `criteria_d.py` and `criteria_d2.py` (the acts
   each criterion reads), as well as `NEVER_REFUSED` (`rejection.py`) and `ABORT_ACTS` (`iposition.py`). Rule 9 asks
   whether each belongs in config; the criteria are definitions, not engine rules, and are for a later stage.
   ⟦batch: owner decisions (a rule, a criterion's meaning or a design choice)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
+  *Decision 2026-11-17 (Claude's recommendation 2026-11-17, pending owner review):* Closed: the act names in the criteria files are each criterion's definition (the acts its readout reads), not editorial content, and the act vocabulary is the spec's own enum. `NEVER_REFUSED` and `ABORT_ACTS` restate `M1.B.3c`'s and `M5.D.3`'s text, so moving them to config would make a rule look tunable that the spec fixes.
 - [x] T-028 ⟨later⟩ **Owner: freeze `docs/archive/version_2_stage_1_changes.md` at stage 1** (`/csdp` sweep, step 8, 2026-10-20). The page
   compares the tag `version-1` with the records as they are now, so a later regeneration fails
   `test_s1_10b_changes_page_is_current`, and rerunning `tools/record_changes.py` would rewrite the page under stage
@@ -72,7 +73,7 @@ Plan §4.10 holds the evidence.
   ends. Older than stage 1 (PLAUSIBLE: not reproduced).
   ⟦batch: engine batch E1 (engine and record-tool hygiene, one regeneration)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
   *Built 2026-11-17 in spec revision 64 (engine batch E1), Claude's recommendation, pending owner review; see CHANGELOG.md's revision 64 entry. `runner` turns SIGTERM and SIGHUP into `SystemExit` and ends its workers (terminate, then kill after 5 s) on any failure.*
-- [ ] T-033 ⟨later⟩ **Owner: a row that raises on every run is never cached** (cold sweep, 2026-10-20, after the C1 fix). A RAISED
+- [x] T-033 ⟨later⟩ **Owner: a row that raises on every run is never cached** (cold sweep, 2026-10-20, after the C1 fix). A RAISED
   row is a red under `tools/mutation_record.py`'s `judge` (the criterion can no longer pass), and the sweep and
   diagnostic records print its error as its result, but `tools/record_cache.py` caches no errored row. So a mutant,
   sweep setting or diagnostic variant that makes the engine raise every time leaves its record stale for good: the
@@ -80,6 +81,7 @@ Plan §4.10 holds the evidence.
   RAISED or BROKEN row (checked 2026-10-20). Caching a RAISED row whose cause is the model, not the machine, would
   let such a record be committed; what counts as evidence is the owner's choice.
   ⟦batch: owner decisions (a rule, a criterion's meaning or a design choice)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
+  *Decision 2026-11-17 (Claude's recommendation 2026-11-17, pending owner review):* Closed, kept as built: a row that raises on every run is an engine defect to fix, not a result, so it is not cached and its record stays red. Caching it would let a broken record be committed.
 - [x] T-034 ⟨now⟩ **Minor, from the document-claim tests' fix re-sweep (2026-10-20), not fixed** (`docs/plan_doc_claim_tests.md`;
   recorded under the owner's three-or-fewer rule). (1) D5b's `classify` (`tests/test_doc_status.py`) reads "Yet to be
   approved", "To be decided by the owner", "Not yet fully approved", "Not formally approved" and "Isn't approved" as
@@ -116,9 +118,10 @@ Plan §4.10 holds the evidence.
   with the review's revision, so the spec moves once. *2026-10-16:* all seven are in revision 31's plan (§4.11); the
   `TRIANGLE` one needs no spec change (the owner approved the config as built).
   *Closed 2026-11-17 (triage 2026-11-17, Claude's recommendation, pending owner review): done: all seven inconsistencies went into revision 31 (`docs/spec_revision_log.md`).*
-- [ ] T-039 ⟨later⟩ **rca: record findings and commit review fixes separately** (rca audit, 2026-10-14): with fixes folded into the
+- [x] T-039 ⟨later⟩ **rca: record findings and commit review fixes separately** (rca audit, 2026-10-14): with fixes folded into the
   feature commit, the audit cannot run a reproducer at the parent. Have csdp write `.rca/findings.md`.
   ⟦batch: owner decisions (a rule, a criterion's meaning or a design choice)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
+  *Decision 2026-11-17 (Claude's recommendation 2026-11-17, pending owner review):* Closed: the change is to the global `csdp` skill, not this repo, and with one full review per batch the audit's reproducer-at-parent need does not arise often enough to change the commit flow.
 - Dismissed with reason (correctness review, 2026-10-14): intrusion is read by `tie_change` after the week's move
   effects and landed contacts, not on the state appraisal saw. Both read the same function; the spec now says which
   state.

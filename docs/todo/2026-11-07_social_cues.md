@@ -26,14 +26,14 @@ Items from `docs/archive/proposal_social_cues.md`, decided by the owner on 2026-
   when a cue will come intensifies the reaction (`KS10.1`; `KS09.8`'s intermittent withdrawal). Left out of
   `docs/archive/proposal_social_cues.md` by the owner's Q6 (2026-11-07): a separate mechanism, variance in the other's
   response rather than its value, with its own criterion.
-  ⟦batch: mechanism proposals (theory work, then a spec revision)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
+  *adopt. `KS10.1` `[K]` (written, one sentence): uncertainty about whether and when a cue will come intensifies the process. The model reads a cue's value, not its variability. **Build note:** the appraisal of a cue channel on a tie is scaled up by the variance of that tie's cue values over a declared window, with one gain `[I]`. Guard (a direction criterion): two arms with the same mean cue and different variance; acute anxiety is higher in the high-variance arm. `KS09.8`'s intermittency reading is the extraction's inference and is not built on.* *(Claude's recommendation 2026-11-17, pending owner review)* ⟦batch: final engine batch⟧
 - [ ] T-204 ⟨later⟩ **`KS09.6`'s parent-side separation as its own proposal (2026-11-07).** T-202's ledger search
   (`docs/archive/plan_t202_social_cues.md` §2) found that a young child's dependency falling as it matures is supported
   (`KS09.6`, `K14.5`) with the cause on the parents' side: the parents tone down their togetherness urges as the child
   matures, and failure to do so prolongs dependency; `KS09.6` rejects developmental stages. The owner decided
   2026-11-07 (plan D5) not to build `SC-12`'s age term on the child, and to take this mechanism up as a separate
   proposal. `KS09.8`'s inverted projection (a child overfunctioning toward a dysfunctional parent) bears on it.
-  ⟦batch: mechanism proposals (theory work, then a spec revision)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
+  *adopt. `KS09.6` `[K]` (written): separation is gradual and bidirectional, and the parents' toning down of togetherness as the child matures drives it; failure to tone down prolongs dependency. `K14.5` (ASR) agrees. **Build note:** a parent's togetherness pull toward a child declines continuously with the child's age, no stages, more slowly as the parent's chronic anxiety rises, with one rate `[I]`. The child's dependency is then read, not written. Guard: two arms differing in the parents' chronic anxiety; the child's dependency at 18 is higher in the high-anxiety arm.* *(Claude's recommendation 2026-11-17, pending owner review)* ⟦batch: final engine batch⟧
 - [x] T-205 ⟨later⟩ **Wire `M11.G.5`'s perceived-cue half into a report (2026-11-08).** `ReadingTap` in
   `src/bowen/readouts/roles.py` (the mean perceived attention and approval cue per pair, when the social cues are on)
   is tested by `tests/bowen/test_roles_readout.py` and has no other caller: no record, criterion or report runs it, so
@@ -134,4 +134,5 @@ Items from `docs/archive/proposal_social_cues.md`, decided by the owner on 2026-
   alone. `M11.5`'s row names it. The alternative is to count the supply over `[0, start − relief_lead_weeks)` as well,
   one line in `supplier_run`, which moves the engine hash and so waits for a batch that does. Raised by the
   learning-qa and correctness passes on revision 57's diff, 2026-11-10; the owner's call.
-  ⟦batch: owner decisions (a rule, a criterion's meaning or a design choice)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
+  ⟦batch: final engine batch⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
+  *Decision 2026-11-17 (Claude's recommendation 2026-11-17, pending owner review):* Read both predictors to the same week, so the arms differ in one condition (learnings P7); a fail is then attributable. **Final engine batch:** count the prior supply over `[0, start − relief_lead_weeks)` in `supplier_run` (one line; it moves the hash).

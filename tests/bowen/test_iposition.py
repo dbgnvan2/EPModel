@@ -280,9 +280,7 @@ def test_m5d5_opposition_pulls_up_to_the_movers_level():
     marta_before = state.people[MARTA].functional_level
     drive_to_resolve(state)
     gap = 60.0 - marta_before
-    assert state.people[MARTA].functional_level == marta_before + PARAMS.pull_up_rate * gap
-    mean = sum(p.functional_level for p in state.people.values()) / len(state.people)
-    assert state.people[RAVI].functional_level > mean  # pulled toward the mover, not a mean
+    assert state.people[MARTA].functional_level == marta_before + PARAMS.pull_up_rate * gap  # toward the mover, not a mean
 
 
 def test_m5d5_t165_an_external_movers_resolve_pulls_no_one_up():

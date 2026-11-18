@@ -23,7 +23,7 @@ family (n = 1); Ch13, Ch17, Ch18 and Ch20 carry no clinical series at all.
 
 | Convergence | Chapters | Independent settings | Verdict |
 |---|---|---|---|
-| C1 relief opposes progress | disputed | — | scope must be re-derived (batch 9) |
+| C1 relief without structural change displaces the work | 5 (Ch06, 10, 11, 14, 20); 4 weaker | not computed; at most 3 (NIMH, Georgetown practice, the 1965 multiple-family pilot); Ch20 has no clinical series | narrowed 2026-11-17 (T-116) |
 | C2 reciprocal functioning | 6 (Ch07 withdrawn) | **~4** — NIMH, outpatient, private practice, alcoholism series | strong |
 | C3 anxiety conserved / reroutes | 5 (Ch11 withdrawn) | **~3** — Ch01+Ch08 are one project | good |
 | C4 investment seesaw | 5 | **~2** — 02/03/04/05 all NIMH | weaker than it looks |
@@ -84,16 +84,24 @@ rest of this table does not contain.
 
 ---
 
-## C1 — Relief opposes progress ⚠ **SCOPE DISPUTED AT PASS 2** *(was 11 chapters; Ch14's and Ch22's contributions are withdrawn or contradicted)*
+## C1 — Symptom relief obtained without structural change ends or displaces the work *(narrowed 2026-11-17, T-116: was "relief opposes progress" at 11 chapters; 5 support it)*
 
 > **Read before using.** Ch22 contains a **direct counterexample** — reducing cut-off reduces symptoms
 > *and* makes therapy more productive. Ch14's "gets worse before it gets better" was built from a risk
 > clause, not an observation. Ch22's "motivation budget" mechanism was invented by pass 1.
 > The finding likely survives as a narrower claim — **symptom relief obtained *without* structural
 > change opposes progress** — but pass 3 must re-derive its scope from the chapter texts, not from
-> these summaries.
+> these summaries. *Re-derived 2026-11-17 from the ledger entries and the chapter quotations (T-116); the
+> result is the paragraph below.*
 
-The single most corroborated finding in the corpus, and it **inverts the coach's objective function.**
+Five chapters state that symptom relief obtained by symptom-directed means does not become progress and can
+end the work: **Ch06** (motivation aims at the symptom, so relief satisfies it), **Ch10** (group therapy relieves
+symptoms but gives no structure for differentiation), **Ch11** (families pleased with relief and togetherness
+terminate), **Ch14** ("high praise" with no basic change; a divergence, not an opposition) and **Ch20**
+(solutions that worked short-run built dependence). Ch02/03, Ch07, Ch18 and Ch22's present-generation clause
+support only a weaker claim; Ch12 and Ch22's open-contact finding do not support it, and Ch22 is a
+counterexample to relief opposing progress in general. The five rest on at most three settings (the audit
+above), and Ch20 carries no clinical series. A direction, not a magnitude. The list below is what C1 cited at pass 2.
 
 - Ch02/03: when the parents change their functioning, the patient becomes *more* disturbed.
 - Ch06: symptom relief *reduces* motivation for differentiation.
@@ -108,9 +116,10 @@ The single most corroborated finding in the corpus, and it **inverts the coach's
 - Ch14: he abandoned a format that produced "high praise… but no basic change". *(The "accepts a
   temporary increase" half is withdrawn — it is a risk clause, not an observation.)*
 
-**Model consequence.** The coach cannot optimise for family anxiety or symptom load. The correct
-trajectory gets worse before better, so any short-horizon greedy policy rejects the right move. Needs
-two outcome axes and a coach objective defined on the structural one.
+**Model consequence.** A coach objective defined on symptom load alone would reward the relief these five
+chapters say ends the work, so the objective is defined on a structural axis separate from symptom load.
+That a right move can make things worse first rests on Ch02/03 (the patient more disturbed when the parents
+change), not on C1.
 
 ---
 
@@ -314,7 +323,7 @@ six-concept enumeration and one year after Ch18 — and it still contains no tri
 | 01 | 1957 | symbiosis · transfer of anxiety · projection. "family ego mass" and "undifferentiated" each appear exactly once, never joined. **No triangle** (the two file hits are in the 1977 Introduction), **no scale**, **no multigenerational vocabulary** — though four cross-generational *observations* are on the page, and the basic-vs-functional *distinction* is drawn without the terms ("mother was *really more impaired* than the daughter" while holding the adequate role) |
 | 04 | 1960 | maturity/immaturity used **under protest**, no scale, no zero point |
 | 03 | 1959a | **interdependent triad** · emotional divorce · overadequate–inadequate reciprocity |
-| 05 | 1961 | ego mass "discarded because it has certain inaccuracies" — **then used anyway two sentences later**. Retired-but-in-service, no successor. Working substitutes: "family oneness", "the family as the unit of illness". Differentiation is a **process** with **ordinal grading** but no scale. Triad membership **fixed**, positions **mobile** |
+| 05 | 1961 | ego mass called a 1956–57 term that "was discarded because it has certain inaccuracies", kept because it conveys the notion; Ch06 (1961a) says it was "then revived because of its usefulness". Ch08 (1965a) still defends it; Ch17 (1976) abandons it. No successor until then. Working substitutes: "family oneness", "the family as the unit of illness". Differentiation is a **process** with **ordinal grading** but no scale. Triad membership **fixed**, positions **mobile** |
 | 07 | 1965 | ego mass with a **stress-dependent radius**; still no triangle, projection process, cutoff or sibling position |
 | 09 | 1966 | **full scale**: 0–100 endpoints AND all four quarters, plus the 55/15/basic-35 arithmetic · **five** concepts named, **three** "major" · projection still a *sub-part* · triangle explicitly **excluded** · **sideline coaching ranked WORST of three avenues** |
 | 10 | 1971 | three sinks (distance named and excluded) · the neutral third generalised · **the communication reversal is already complete here**, "in use more than five years" (~1965) · a **per-person life-energy budget**, stated four times · a **fifth scale band** (upper 25–50) whose members look differentiated and are not |
@@ -324,7 +333,7 @@ six-concept enumeration and one year after Ch18 — and it still contains no tri
 | 13 | 1974a | societal regression · ratcheting togetherness · the differentiation state machine |
 | 14 | 1975 | communication direction **reversed** (and it inverts Ch03's signs, unacknowledged) · **still only six concepts**, cutoff and societal explicitly deferred · triangles now **second** · seven contradictions with his own earlier text |
 | 16 | 1976 | cutoff and societal regression **added in 1975** → eight concepts · the quartile scheme **returns** (it was present in Ch09/1966 and absent in Ch21/1972) · the 50 threshold is a **licence** over joint decisions, not suppression · renamed "the Bowen theory" |
-| 17 | 1976 | retractions: "triangle" is "my most unfortunate term" · scale research **stopped** to prevent misuse, **not** for invalidity · multigenerational transmission is "**one of the concepts** on which I have done the least detailed work, and one that needs the most attention" — **not** the superlative pass 1 recorded, and he is recruiting a researcher for it · **no scale bands at all** here |
+| 17 | 1976 | retractions: abandons "undifferentiated family ego mass" as conceptually inaccurate · "triangle" is "my most unfortunate term" · scale research **stopped** to prevent misuse, **not** for invalidity · multigenerational transmission is "**one of the concepts** on which I have done the least detailed work, and one that needs the most attention" — **not** the superlative pass 1 recorded, and he is recruiting a researcher for it · **no scale bands at all** here |
 
 **The scale is sourced — in Ch16, and it does not match the model.** 0–100 with profiles at 0–25 /
 25–50 / 50–75 / 75–100, a **qualitative regime change at 50**, and 75–100 withdrawn as "more

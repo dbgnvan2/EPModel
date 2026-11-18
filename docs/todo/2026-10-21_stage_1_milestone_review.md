@@ -4,7 +4,7 @@ The review is `docs/cycles/2026-10-21_milestone-review_v2-stage-1.md` (the secon
 `review/2026-10-21-v2-stage-1`). The triage refuted none of its 26 findings: 22 hold as stated and 4 in part. The
 owner's ten decisions and what this batch fixed are in `CHANGELOG.md`. Open:
 
-- [ ] T-008 ⟨later⟩ **SP-1, the parts the owner deferred on 2026-10-22** (the build was spending more on the transcripts than on
+- [x] T-008 ⟨later⟩ **SP-1, the parts the owner deferred on 2026-10-22** (the build was spending more on the transcripts than on
   the model; the proposal's §7 and §9):
   - SP1.3: the local test, marked `transcripts` and deselected by default, that matches quoted spans against the
     transcript folder named by `EPMODEL_TRANSCRIPTS`, with its line in `docs/milestone_review_brief.md`.
@@ -18,10 +18,10 @@ owner's ten decisions and what this batch fixed are in `CHANGELOG.md`. Open:
     paragraph, list item or table row, or that has none; one set as a block quote without quote marks; one whose
     marks do not pair (a curly opening closed by a straight one); one after a stray quote mark in its own block; one
     longer than 800 characters; one in straight single quotes or guillemets; one beside a citation form not in the
-    rules (`KB-04`, `T6.8`, "tape five"); an HTML entity in a Markdown file is not decoded; only tracked `.md` and
+    rules (`KB-04`, `T6.8`, *tape five*); an HTML entity in a Markdown file is not decoded; only tracked `.md` and
     `.html` files are read. The local test (SP1.3) is the check for most of those.
-  ⟦batch: theory re-reading (corpus passages, grades, attribution)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
-- [ ] T-009 ⟨later⟩ **SP-1 Q7: six requirements whose passage supports less than they say** (owner, 2026-10-22: each its own
+  *Closed 2026-11-17 (Claude's recommendation 2026-11-17, pending owner review): SP1.3's local test and SP1.6's header notes stay unbuilt: the owner deferred them for cost, and the default-suite test plus the paraphrase rule cover the risk. The six `kb02`–`kb15` headings that named Bowen as the speaker of a Hijack-set interview now name the interview (K02.3, K09.1, K10.1, K12.5, K13.2, K15.4). T-099's ASR quotation is paraphrased. The test's known limits stay documented in its docstring.*
+- [x] T-009 ⟨later⟩ **SP-1 Q7: six requirements whose passage supports less than they say** (owner, 2026-10-22: each its own
   decision; the paraphrases keep to the passage and the requirement's MUST is unchanged at revision 34; the
   proposal's Q7 table):
   - `M11.C.11` (SP1-S40): Tape 6 ranks a long absentee's return as probably the strongest of the additions, and says a
@@ -37,7 +37,7 @@ owner's ten decisions and what this batch fixed are in `CHANGELOG.md`. Open:
     warning against the protocol.
   - `M1.B.10a` (SP1-S15): Tape 6 states a closed subject's reopening as a wish, and says couples usually cannot
     reopen it themselves by the time they seek help; it supports the MUST as a possibility, not a common outcome.
-  ⟦batch: theory re-reading (corpus passages, grades, attribution)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
+  *Closed 2026-11-17 (Claude's recommendation 2026-11-17, pending owner review): re-read 2026-11-17. `M11.C.11`, `M1.C.3a` and `M1.E.7` already say no more than their passages (revision 34); `M1.B.10a` keeps to Tape 6. `_LECTURES_1979.md` T6.8 no longer says the return exceeds the removal, and the explainer's `routing_capacity` row now marks the triangle step `[M]` (T-010). The two spec remainders moved: `M5.B.3a`'s KB08 scope to T-101, `M5.C.1a` to T-105.*
 - [ ] T-010 ⟨later⟩ **Found while building SP-1 (2026-10-22), not fixed:**
   - `SP1-E06`, the explainer's §6.1 triangle table (`routing_capacity`): the proposal's check note says the text now
     says that applying Tape 5 to triangles is the project's inference (K04.15); the approved text does not say it.
@@ -46,8 +46,8 @@ owner's ten decisions and what this batch fixed are in `CHANGELOG.md`. Open:
   - `SP1-S35` (`M5.D.7a`) dropped the old note's explanation of why the attribution changed.
   - `FE03.21`: the block quotation in `M4.D` ends a quoted run in the chapter whose speaker is not known; it is cited
     as Kerr's chapter until it is checked against the printed book (`family_evaluation/fe03.md`).
-  ⟦batch: theory re-reading (corpus passages, grades, attribution)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
-- [ ] T-011 ⟨later⟩ **From the SP-1 build's review (2026-10-22), not fixed:**
+  *re-read 2026-11-17. SP1-E06 is fixed: the explainer's `routing_capacity` row marks the triangle step `[M]` and names K04.15. `M5.D.7a` states its attribution, and `FE03.21` is cited correctly as Kerr's chapter. Two spec wording fixes remain for the final revision: `M10.A.2` cites K10.9 twice (drop the inline one), and `M11.C.36`'s title says *appraisal and selection* but it measures appraisal only (from T-053).* *(Claude's recommendation 2026-11-17, pending owner review)* ⟦batch: final engine batch⟧
+- [x] T-011 ⟨later⟩ **From the SP-1 build's review (2026-10-22), not fixed:**
   - Six exempt paths in `tests/asr_quotations.json` hide no finding today (`CHANGELOG.md`, `LEARNINGS.md`, `papers/`,
     `_KERR_INTERVIEWS.md`, `_PASS2_CORRECTIONS.md`, `_SOURCE_QUALITY.md`). Kept: each is exempt by the proposal's §3
     for what it is (a dated record, the owner's files, extraction notes), so a quotation added there later should
@@ -70,7 +70,7 @@ owner's ten decisions and what this batch fixed are in `CHANGELOG.md`. Open:
     line. The tool writes in the app's format, so a key name cannot tell an owner's edit from a value an earlier
     version of the tool wrote; keeping every unknown key would keep stale run output. Owner edits to fields the tool
     draws (a name, a line's notes) are redrawn by design. The file is written in place, not atomically; it is in git.
-  ⟦batch: theory re-reading (corpus passages, grades, attribution)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
+  *Closed 2026-11-17 (Claude's recommendation 2026-11-17, pending owner review): the four cross-references (`ks07.md`, `ks19.md`, `fe10.md`, `fe07.md`) are paraphrased, so the folder exemptions in `tests/asr_quotations.json` hide nothing. The other points are documented limits of the test and of `tools/famdiag_export.py`, accepted as they stand.*
 - [x] T-012 ⟨later⟩ **With the next change that moves the engine hash.** Each of these edits moves a record hash, so it waits for a change that
   reruns the records anyway (owner, D6 and D7, 2026-10-21; until 2026-10-24 the trigger was group G's regeneration, which ran on
   2026-10-23 without it, stage 2 review MR-22):

@@ -52,7 +52,7 @@ Raised while drafting part 1 of spec revision 39 (`docs/archive/spec_revision_39
   it for `M11.C.21`, is a log change that moves the golden fingerprints; left for the owner's choice at the stage 3
   milestone review.
   ⟦batch: engine batch E1 (engine and record-tool hygiene, one regeneration)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
-- [ ] T-135 ⟨later⟩ **`M11.C.10`'s scripted renewal outlasts a cutoff (the step 7 suite run, 2026-10-26).** The
+- [x] T-135 ⟨later⟩ **`M11.C.10`'s scripted renewal outlasts a cutoff (the step 7 suite run, 2026-10-26).** The
   treatment renews each cutoff every `renew_every` = 13 weeks (`config/bowen/criteria.md`), and a cutoff's rejection
   (0.5) fades by `rejection_fade` 0.05 a week, so a renewal alone holds it about 10 weeks. Between renewals the cutoff
   is held only if the cutter refuses the other's contact. On the family-of-origin variant, seed 0, two years, the four
@@ -62,6 +62,7 @@ Raised while drafting part 1 of spec revision 39 (`docs/archive/spec_revision_39
   that bound, not the 416. Whether `renew_every` should be at most 10, so the scripted arm holds by itself, is a
   criterion-setting change that moves `M11.C.10`'s records; left for the owner.
   ⟦batch: owner decisions (a rule, a criterion's meaning or a design choice)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
+  *Decision 2026-11-17 (Claude's recommendation 2026-11-17, pending owner review):* Closed, `renew_every` kept at 13: `M11.C.10` passes and allows a lapse, and a held cutoff between renewals that rests on the cutter's own refusals is less written than one the script holds alone.
 - [x] T-137 ⟨later⟩ **`M11.C.49` fails at its first settings (the step 8 targeted run, 2026-10-26).** On Mac Mini1, 150
   seeds (`docs/review/stage_3_step_8_criteria.md`): the act's effect on the family's summed excess over six weeks is
   +2.2 ± 3.0 higher at level 35 than at 60, and on the `CONFLICT` share of the F–M tie's moves +0.003 ± 0.028; neither
@@ -71,7 +72,7 @@ Raised while drafting part 1 of spec revision 39 (`docs/archive/spec_revision_39
   row's mutants did not run, since it does not pass. Read with the other composite results at step 10's
   regeneration; left for the owner.
   *Closed 2026-11-17 (triage 2026-11-17, Claude's recommendation, pending owner review): superseded: `M11.C.49` now passes (`family_excess` +6.8 ± 2.8) with `demand-share-inverted` red.*
-- [ ] T-138 ⟨later⟩ **`M11.C.29`'s genuine `I-POSITION` almost never completes after D21 (the step 8 targeted run,
+- [x] T-138 ⟨later⟩ **`M11.C.29`'s genuine `I-POSITION` almost never completes after D21 (the step 8 targeted run,
   2026-10-26).** With the mover at level 60 and F's spell paused over the act's window (D21), the row fails:
   `third_symptom_weeks` +0.9 ± 3.7 and `budget` +0.04 ± 0.055 (100 seeds, `docs/review/stage_3_step_8_criteria.md`).
   In 30 seeds of the treatment arm, ad hoc: the scripted act is placed in 26 and owed a step in 4 (F already in a
@@ -81,6 +82,7 @@ Raised while drafting part 1 of spec revision 39 (`docs/archive/spec_revision_39
   F's own spell off `PREPARE`, but the excess that fails it is still there. Whether the arm needs another condition
   (M's spell over the same weeks, or a lower load) is a criterion-setting choice; left for the owner.
   ⟦batch: owner decisions (a rule, a criterion's meaning or a design choice)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
+  *Decision 2026-11-17 (Claude's recommendation 2026-11-17, pending owner review):* Closed: `M11.C.29`'s fail is accepted as a finding in the version 2 dispositions. Adding a condition (M's spell, a lower load) until the genuine arm completes would fit the arm to the outcome.
 - [ ] T-139 ⟨later⟩ **Two arm settings read outside the run's parameters (the step 8 `learning-qa` pass, 2026-10-26;
   P4).** `act_window` in `src/bowen/ensemble/criteria.py` reads `prepare_ticks` from `load_constants()`, not from the
   run's parameters, so an arm that overrode `prepare_ticks` would pause the spell over the wrong weeks; none does, and
@@ -88,7 +90,7 @@ Raised while drafting part 1 of spec revision 39 (`docs/archive/spec_revision_39
   1.0 in code (the owner's Q13 for `M11.C.49`, and `M11.C.29`'s and `M11.C.32`'s arms before it); a criteria setting
   in `config/bowen/criteria.md` would declare it. Neither changes a result now.
   ⟦batch: engine batch E1 (engine and record-tool hygiene, one regeneration)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
-- [ ] T-140 ⟨later⟩ **`M5.C.1`'s gate and `M4.C.1d`'s returned contact (the step 9 `learning-qa` pass, 2026-10-26).**
+- [x] T-140 ⟨later⟩ **`M5.C.1`'s gate and `M4.C.1d`'s returned contact (the step 9 `learning-qa` pass, 2026-10-26).**
   Under marital distance, `M5.C.1` stops a move addressed to a symptomatic child from improving them; the contact a
   relieved person returns to that child under `M4.C.1d` is not a move addressed to them, so it calms them. In a probe
   (a scratch copy), a symptomatic Nadia sends `STAY-IN-CONTACT` to a relieved Marta: Nadia's acute anxiety moves by
@@ -97,6 +99,7 @@ Raised while drafting part 1 of spec revision 39 (`docs/archive/spec_revision_39
   The approved text is silent on how the two rules meet. The owner chose to keep the code as built (2026-10-26);
   whether to gate it (one line in `apply_appraisal`, a sentence in `M4.C.1d`, a test) is left for the owner's review.
   ⟦batch: owner decisions (a rule, a criterion's meaning or a design choice)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
+  *Decision 2026-11-17 (Claude's recommendation 2026-11-17, pending owner review):* Closed, kept as built (the owner's 2026-10-26 choice): contact returned by a relieved parent is not the anxious focus `M5.C.1`'s gate models, so its calming the child is not a leak of the gate.
 - [ ] T-141 ⟨later⟩ **The sender's appraisal of returned contact reads the event's sign and attention (the step 9
   `learning-qa` pass, 2026-10-26; low).** `returned_contact` in `src/bowen/engine/appraise.py` signs the sender's
   appraisal with `sign(event.kind, event.source_position)`, the receiver's sign for the sender's position, and scales
@@ -130,7 +133,7 @@ Raised while drafting part 1 of spec revision 39 (`docs/archive/spec_revision_39
   account of its mutants is T-148; each survivor still needs a mutant that turns it red, or a reason, after the triage
   batch regenerates the records.*
   *Closed 2026-11-17 (triage 2026-11-17, Claude's recommendation, pending owner review): done: every survivor it lists is resolved in `docs/version_2_status.md` (2026-11-15).*
-- [ ] T-144 ⟨later⟩ **`M11.C.49` has no declared sweep ranges (step 11, 2026-10-27).** `M11.C.49` is a mixed
+- [x] T-144 ⟨later⟩ **`M11.C.49` has no declared sweep ranges (step 11, 2026-10-27).** `M11.C.49` is a mixed
   directional criterion, new at revision 39, and `config/sweep/sweep.md` declares no constants for it, so the stage-end
   sweep ran 34 keys, not the 35 the plan's §3.6 counted ("`M11.C.49` adds one Phase C criterion"). W4 is met without
   it, since it fails (S3.25 asks for a fraction for every *passing* directional criterion). Declaring its rows means
@@ -138,6 +141,7 @@ Raised while drafting part 1 of spec revision 39 (`docs/archive/spec_revision_39
   and their ranges, the same judgment as T-125's batch 5; for the owner, before the next sweep that should carry it.
   The owner kept `M17.E.1` *partial* until it is swept (2026-10-27); the sweep record lists it as not swept.
   ⟦batch: owner decisions (a rule, a criterion's meaning or a design choice)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
+  *Decision 2026-11-17 (Claude's recommendation 2026-11-17, pending owner review):* Built: `config/sweep/sweep.md` declares `M11.C.49`'s three rows (`self_channel_exponent`, `perspective_channel_gain`, `assertion_gain`, half to double), the constants that set `M5.F.4`'s demand share and what it does to M. The engine never reads this file, so the hash does not move; the next stage-end sweep carries it, and `M17.E.1` stays partial until then.
 - [x] T-145 ⟨now⟩ **`M11.C.21`'s scripted collapse falls between weeks, so `M6.I.4a` never sees it (step 12's
   `learning-qa` pass, 2026-10-27; major).** `run_tick` reads each person's level at the week's start inside the tick
   (`src/bowen/engine/tick.py:118`), and `arm_c21` drops both parents' levels in a `before` hook

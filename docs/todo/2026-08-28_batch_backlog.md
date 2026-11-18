@@ -2,10 +2,11 @@
 
 - [ ] T-090 ⟨later⟩ **Audit the spec for requirements sourced from an extraction *heading* rather than a quoted sentence.** `M5.D.4` was inverted for exactly this reason: `docs/theory/ch13.md` carried the correct quotation in its body under a heading that said the opposite, and only the heading travelled into the spec. The heading is fixed and the requirement corrected, but **nothing has checked whether there are others of the same shape.** The check is mechanical: for each requirement citing a chapter, confirm the claim appears in a *quoted* passage in the extraction, not only in a section title or a bolded gloss. Highest risk in the earliest requirements, written when the extractions were newest.
   ⟦batch: theory re-reading (corpus passages, grades, attribution)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
-- [ ] T-091 ⟨later⟩ **Two changes to the family-diagram application, both needing information the diagram does not currently hold.** Neither can be recovered afterwards, which is why `M13.3` names them as the ones to make first.
+- [x] T-091 ⟨later⟩ **Two changes to the family-diagram application, both needing information the diagram does not currently hold.** Neither can be recovered afterwards, which is why `M13.3` names them as the ones to make first.
   - `M15.A.4` — export the **interval** a rater would defend, with the scale point defined, not a bare `3` on a 1–5 scale. The model divides by, differences and thresholds these values; a rank supports none of that.
   - `M15.C.2` — split the diagram's single **"distant"** line into *rupture* and *resolved low-contact*. `M1.B.3` calls telling those apart the most consequential discrimination in this part of the theory: same contact frequency, opposite bond energy. Until the app emits it, bond energy on any distant tie imports as a free range.
   ⟦batch: owner decisions (a rule, a criterion's meaning or a design choice)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
+  *Decision 2026-11-17 (Claude's recommendation 2026-11-17, pending owner review):* Closed here: both changes are to the family-diagram application, outside this repo. `M15.A.4` and `M15.C.2` already state the import contract, and until the app emits them those values import as free ranges (`M15.D`), which is the honest default.
 ## Deferred from the 2026-08-28 re-sweep — graded below medium, backlogged rather than fixed
 
 The re-sweep of the fix commit returned fifteen findings. Four high and seven medium were fixed; these four
@@ -25,11 +26,12 @@ rule is to bound the loop rather than trade one defect class for another.
   is currently dangling, so nothing is wrong today — but the scan is narrower than it reads, and
   `_STATUS.md` describes it without that qualifier.
   *Closed 2026-11-17 (triage batch 2026-11-17, Claude's recommendation, pending owner review): the scan expands `/b`, `/2d` and `–l` forms (`test_t093_compound_references_are_read_in_full`).*
-- [ ] T-094 ⟨later⟩ **Name the stressor per criterion when the tests are written.** `M11.3` now places the obligation on the
+- [x] T-094 ⟨later⟩ **Name the stressor per criterion when the tests are written.** `M11.3` now places the obligation on the
   test rather than the criterion's prose, which is honest but defers it: 27 of 33 criteria are unclassified
   as discriminating or not. Classify them when each test is written, and consider a marking column then —
   `M11.3` originally required one and the table has no such column.
   ⟦batch: owner decisions (a rule, a criterion's meaning or a design choice)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
+  *Decision 2026-11-17 (Claude's recommendation 2026-11-17, pending owner review):* Closed as superseded: `M11.5` now gives every criterion a class, and each criterion row declares its stressor; no separate marking column is needed.
 
 - [ ] T-095 ⟨later⟩ **Sweep the spec for other descriptions firmed up into mechanisms.** Two are now known — `M5.D.4`
   (anger, revision 4) and `M1.A.3` (the transition at 50, revision 7) — and both were caught by reading the
@@ -97,7 +99,8 @@ hedge-level remainder, held back because each fix is new unreviewed surface.
   *Closed 2026-11-17 (triage 2026-11-17, Claude's recommendation, pending owner review): superseded: the cold reviews since (stage 1–3 and pre-tag milestone reviews in `docs/cycles/`, the whole-repo review `bda211e`) cover the range.*
 - [x] T-108 ⟨later⟩ **The sweep covered one failure family only.** It reports itself as not covering: theoretical fidelity (it did not open `_LEDGER.md`, the `family_evaluation/` extractions, or Ch13's primary text), whether the ~88 new requirements are individually implementable, whether the specified model is coherent, and the reasoning in the DECISIONS document. **The `M5.D.4` correction rests on one re-read of one chapter by the context that made the correction** — a second reader on the sources is the highest-value follow-up.
   *Closed 2026-11-17 (triage 2026-11-17, Claude's recommendation, pending owner review): superseded: the milestone reviews read the model theory-fidelity first without the build history; the stage 3 review re-read `M5.D.4a` (T-133).*
-- [ ] T-109 ⟨later⟩ **Decide whether `M16`'s renderer output format is worth fixing in the spec.** `M16.C.2` says what a rendered line must carry and points at the proposal's §4.2 table as the shape, but does not fix a format. That is deliberate for now — the format is cheaper to settle against a running Phase B than in advance — but it should be settled *before* a second consumer exists, or the two will drift.
+- [x] T-109 ⟨later⟩ **Decide whether `M16`'s renderer output format is worth fixing in the spec.** `M16.C.2` says what a rendered line must carry and points at the proposal's §4.2 table as the shape, but does not fix a format. That is deliberate for now — the format is cheaper to settle against a running Phase B than in advance — but it should be settled *before* a second consumer exists, or the two will drift.
   ⟦batch: owner decisions (a rule, a criterion's meaning or a design choice)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
+  *Decision 2026-11-17 (Claude's recommendation 2026-11-17, pending owner review):* Closed: there is one consumer of `M16`'s rendered lines and none planned; fix the format when a second one is planned, not before.
 - [ ] T-110 ⟨later⟩ **`M11.F.9(c)` deserves a worked demonstration before anyone relies on it.** The claim is that fitting one arm of a counterfactual to a known history breaks the error cancellation `M0.4` depends on. It is argued, not demonstrated. Phase E could show it directly: take a synthetic family, fit one arm to its own history, and measure how far the counterfactual moves against an unfitted control. If the effect is small the requirement is over-strong; if it is large it is the most important sentence in `M11.F`.
   ⟦batch: mechanism proposals (theory work, then a spec revision)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*

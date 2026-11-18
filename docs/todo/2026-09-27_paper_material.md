@@ -18,12 +18,13 @@ under external review. All of it waits for revision 11. None of it is a requirem
 without `M11.F`'s framing) was entered in the spec text directly, marked ⟦proposed rev11 · owner decision
 2026-10-06⟧. **Approved with revision 10 the same day**, so it is no longer a revision-11 item. Rationale: `model_explainer.md` §1.1.
 
-- [ ] T-081 ⟨later⟩ **Method proposals from the two 2026-09-27 batches.** 36 candidates. First batch: J1–J4, SV1–SV4, PD1–PD4,
+- [x] T-081 ⟨later⟩ **Method proposals from the two 2026-09-27 batches.** 36 candidates. First batch: J1–J4, SV1–SV4, PD1–PD4,
   X5–X9, in `papers/SWEEP_READING_REPORTS_2026-09-27.md`. Second batch: BB1–BB5, MM1–MM4, AD1–AD3, TM1–TM6, X10,
   in `papers/SWEEP_READING_REPORTS_2026-09-27b.md`. Plain-language versions with examples are in
   `papers/SPEC_CANDIDATES_plain_language_2026-09-27.md` and `…-27b.md`. Candidates labelled X are for the
   exploratory narrator line only and do not enter the v2 spec.
   ⟦batch: paper-method proposals (owner adoption decisions)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
+  *Decision 2026-11-17 (Claude's recommendation 2026-11-17, pending owner review):* Closed: MM1 and SV2, the batch's two mechanism candidates, are carried by T-082 and T-083; the rest are method conventions for `M17`, still a revision-10 draft, with no current use, and the X items are for the narrator line. The text stays in `papers/`.
 - [ ] T-082 ⟨later⟩ **Owner answer: anxiety shapes beliefs (answers MM1).** Anxiety makes a person's beliefs about others more
   subjective. It also biases risk assessment upward, so the same event is read as more threatening. For revision 11:
   - belief writes (`M9.8`, and the per-person belief store) read the receiver's own anxiety, not only the events
@@ -33,7 +34,8 @@ without `M11.F`'s framing) was entered in the spec text directly, marked ⟦prop
   - direction graded `[user]`, strength graded `[I]`;
   - check `M4.C.5` and FE05.10 for corpus support before raising the grade;
   - `M9.2` still binds: a threat-biased reading is not automatically false.
-  ⟦batch: paper-method proposals (owner adoption decisions)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
+  ⟦batch: final engine batch⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
+  *Decision 2026-11-17 (Claude's recommendation 2026-11-17, pending owner review):* Adopt as a mechanism: corpus support for the direction is K12.8, K04.7, FE05.10 and KS10.6; the strength is `[I]`. **Final engine batch:** `M9.8`'s belief write mixes in the receiver's own state with a weight that rises with the receiver's anxiety, and biases the reading upward only. Guard: MM1's identical-events probe with a label-only null arm; `M9.2` still binds.
 
   MM1's probe (identical events, only the receiver's anxiety differs, plus a label-only null arm) becomes the test.
 - [ ] T-083 ⟨later⟩ **Owner answer: how coaching enters a family (answers SV2).**
@@ -55,8 +57,9 @@ without `M11.F`'s framing) was entered in the spec text directly, marked ⟦prop
     comparison itself.
   - **Where it sits in the spec.** Next to `M1.E.7f` (family-relative entry threshold and rejection hazard) and
     `M1.E.8` (low optimum for contact frequency).
-  ⟦batch: paper-method proposals (owner adoption decisions)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
-- [ ] T-084 ⟨later⟩ **Method proposals from the two 2026-10-04 batches.** Added 2026-10-04 by owner decision; held for revision 11
+  ⟦batch: final engine batch⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
+  *Decision 2026-11-17 (Claude's recommendation 2026-11-17, pending owner review):* Adopt the owner's answer as `M17`'s arm definition; the coach already exists (`M1.E.7`–`7f`). **Final engine batch (spec text only):** in `M17.D`, an arm is a declared knowledge event (who, when) through `M17.D.3`'s channels, spread is an output, and the headline compares knew against did not know, with never tried, stopped and continued as a breakdown.
+- [x] T-084 ⟨later⟩ **Method proposals from the two 2026-10-04 batches.** Added 2026-10-04 by owner decision; held for revision 11
   on the same terms as the 2026-09-27 batches. 59 candidates, including narrator-line items.
   - **Batch a.** The five papers from the 2026-09-28 sweep: WA1–WA5, CD1–CD4, CB1–CB3, BV1–BV3, PW1–PW3, plus
     WA-X1, CD-X1 and PW-X1. In `papers/SWEEP_READING_REPORTS_2026-10-04.md`.
@@ -69,7 +72,8 @@ without `M11.F`'s framing) was entered in the spec text directly, marked ⟦prop
   - **Interactions with earlier proposals.** TP1 should be folded into BB5. PM2 and EV4 extend the MM1 test. EV1 and
     WA5 build on the SV2 answer. AR1's wording must be reconciled with PD4's "never select".
   ⟦batch: paper-method proposals (owner adoption decisions)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
-- [ ] T-085 ⟨later⟩ **Open owner questions from the 2026-10-04 batches.** Each one blocks the candidate named. The full list is at
+  *Decision 2026-11-17 (Claude's recommendation 2026-11-17, pending owner review):* Closed: method and reporting candidates for `M17` with no current use; the X items are for the narrator line. The text stays in `papers/`.
+- [x] T-085 ⟨later⟩ **Open owner questions from the 2026-10-04 batches.** Each one blocks the candidate named. The full list is at
   the end of each plain-language file.
   - **Silent mechanisms** (theory decisions):
     - **RA1.** How a move's target is chosen, and whether anxiety shifts targeting toward the sender of the latest
@@ -93,7 +97,8 @@ without `M11.F`'s framing) was entered in the spec text directly, marked ⟦prop
   - **Corpus item found while checking, not from a paper.** FE05.17 (protecting children from one's own problems
     transmits them) is marked testable in `fe05.md`, but no `M11` criterion covers it.
   ⟦batch: paper-method proposals (owner adoption decisions)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
-- [ ] T-086 ⟨later⟩ **Owner questions from the 2026-09 maturity-and-emotion conversation.** Added 2026-10-05. These four ideas
+  *Decision 2026-11-17 (Claude's recommendation 2026-11-17, pending owner review):* Closed: each question blocks a candidate closed with T-084, T-087 or T-088. FE05.17 is cited by `M1.B.9`, `M1.B.10`, `M1.B.10a`, `M1.F.5` and `M4.D.5a`, so its mechanism is built; projection is emergent and is not given its own criterion here.
+- [x] T-086 ⟨later⟩ **Owner questions from the 2026-09 maturity-and-emotion conversation.** Added 2026-10-05. These four ideas
   come from Claude's reasoning in `docs/archive/conversation_agents_maturity_emotion_2026-09.md` §4, not from a paper or
   the corpus. Each is `[I]` until corpus support is found. None is a requirement, and each needs an owner decision
   before it can become a proposal.
@@ -115,7 +120,8 @@ without `M11.F`'s framing) was entered in the spec text directly, marked ⟦prop
     (2026-10-05) gives this no support: his discount factors are fixed and never change with age or experience, and
     he states discounting is not the cause of addiction in his model. Any support would have to come from elsewhere.
   ⟦batch: paper-method proposals (owner adoption decisions)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
-- [ ] T-087 ⟨later⟩ **Method proposals from the 2026-10-05 full reads.** Added 2026-10-05 by owner request; held for revision 11 on
+  *Decision 2026-11-17 (Claude's recommendation 2026-11-17, pending owner review):* Closed: all four ideas are `[I]` with no corpus support (Redish gives none for an age horizon), and no claim of the model depends on them. `M1.A.10` is the place for goals and resources if one is ever adopted.
+- [x] T-087 ⟨later⟩ **Method proposals from the 2026-10-05 full reads.** Added 2026-10-05 by owner request; held for revision 11 on
   the same terms as the earlier batches. Three papers that had been catalogued at abstract level since 2026-09-17:
   Redish 2004 (TD1–TD3), Park et al. 2023, Generative Agents (GA1–GA4, GA-X1, GA-X2), Argyle et al. 2022, Out of One,
   Many (OM1–OM3, OM-X1). In `papers/SWEEP_READING_REPORTS_2026-10-05.md`; plain-language version in
@@ -128,6 +134,7 @@ without `M11.F`'s framing) was entered in the spec text directly, marked ⟦prop
   - **Catalogue gap found by the Argyle reader.** The three later silicon-sampling papers (2609.10280, 2609.15849,
     2609.16395) had not been read in full. *Closed 2026-10-05: read in batch b, below.*
   ⟦batch: paper-method proposals (owner adoption decisions)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
+  *Decision 2026-11-17 (Claude's recommendation 2026-11-17, pending owner review):* Closed: belief fading (GA1) and derived-belief lifetime (GA2) have no ledger support; OM1 is a method item; TD1's point on the update form is recorded under `M4.D.6`.
 - [ ] T-088 ⟨later⟩ **Method proposals from the 2026-10-05 batch b (silicon sampling).** Added 2026-10-05 by owner request; held for
   revision 11 on the same terms. Total Simulated Survey Error 2609.10280 (TS1–TS4, TS-X1), Before You Poll 2609.15849
   (BP1–BP5, BP-X1, BP-X2), Silicon Sampling Country Assumptions 2609.16395 (SC1–SC5, SC-X1, SC-X2). In
@@ -151,8 +158,9 @@ without `M11.F`'s framing) was entered in the spec text directly, marked ⟦prop
     - BP1 therefore depends on `M11.1d`'s rule sets being complete for every criterion.
   - **At approval of revision 10 or in revision 11.** The spec's line recording 2609.15849 and 2609.16395 as "read at
     abstract level only" is out of date. Left unchanged while revision 10 is under review.
-  ⟦batch: paper-method proposals (owner adoption decisions)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
-- [ ] T-089 ⟨later⟩ **Method proposals from the 2026-10-12 batch.** Added 2026-10-17 by owner request; held for revision 11 on the
+  ⟦batch: final engine batch⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
+  *Decision 2026-11-17 (Claude's recommendation 2026-11-17, pending owner review):* Adopt the owner's BP2 answer; close TS, SC and BP1 (BP1 needs `M11.1d`'s rule sets complete for every criterion, which they are not). **Final engine batch (spec text only):** add `M17.D.1`'s fifth control arm (e), coach quality set to null through `M17.D.3`, matching the coach arm in everything else.
+- [x] T-089 ⟨later⟩ **Method proposals from the 2026-10-12 batch.** Added 2026-10-17 by owner request; held for revision 11 on the
   same terms as the earlier batches. Six papers read in full from the 2026-10-12 method-literature digest: Fu 2026,
   *"Hot-Blooded" vs "Cold-Blooded"* (2610.11951; HB1, HB2), Peng et al. 2026, *MASC* (2610.08250; MC1, MC2), Deng et
   al. 2026, *SPIN — Cognitive-Affective Personality Inference* (2610.08328; SP1, SP2, SP3), Wang et al. 2026,
@@ -174,7 +182,8 @@ without `M11.F`'s framing) was entered in the spec text directly, marked ⟦prop
   - **Owner questions.** None about theory. The only owner decisions are adoption ones: whether to fold these into
     Phase E (`M17`) reporting/mutant conventions, and whether IR1–IR3 join the existing X-series protocol items.
   ⟦batch: paper-method proposals (owner adoption decisions)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
-- [ ] T-136 ⟨later⟩ **Method proposals from the 2026-10-26 batch.** Added 2026-10-26 by owner request; held for a later
+  *Decision 2026-11-17 (Claude's recommendation 2026-11-17, pending owner review):* Closed: inference, reporting and mutant-convention items for `M17`, none a theory change, with no current use.
+- [x] T-136 ⟨later⟩ **Method proposals from the 2026-10-26 batch.** Added 2026-10-26 by owner request; held for a later
   revision on the same terms as the earlier batches. Six papers read in full from the 2026-10-26 method-literature
   digest: Wu et al. 2026, *AgentMonopoly* (2610.29330; AM1–AM4), Bai et al. 2026, *Consistent but Biased: Chair
   Personas* (2610.31325; CP1–CP3), Kang et al. 2026, *What Makes a Social Agent's Interactions Effective* / HICO-Bench
@@ -196,7 +205,8 @@ without `M11.F`'s framing) was entered in the spec text directly, marked ⟦prop
     until discharge?). The other 18 are adoption decisions only: fold into Phase E (`M17`) reporting/mutant conventions,
     and whether HC4 joins the X-series protocol items.
   ⟦batch: paper-method proposals (owner adoption decisions)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
-- [ ] T-249 ⟨later⟩ **Method proposals from the 2026-11-02 batch.** Added 2026-11-02 by owner request; held for a later
+  *Decision 2026-11-17 (Claude's recommendation 2026-11-17, pending owner review):* Closed: the three mechanism candidates (CP3 buck-passing, AV1 a load-gated symptom, AV2 sensitisation) have no ledger support; the rest are method items.
+- [x] T-249 ⟨later⟩ **Method proposals from the 2026-11-02 batch.** Added 2026-11-02 by owner request; held for a later
   revision on the same terms as the earlier batches. Three papers read in full from the 2026-11-02 method-literature
   digest: Pan et al. 2026, *Your Agent Acts Differently When You're Around* / PRESENT (2610.36435; UP1, UP2, UP4, UP5),
   Lin et al. 2026, *Exploring AI Peer in Collaborative Mathematics Learning* (2610.38990; AP1, AP2, AP3), and Marks &
@@ -221,7 +231,8 @@ without `M11.F`'s framing) was entered in the spec text directly, marked ⟦prop
     intensity → felt-anxiety mapping reference-relative with diminishing sensitivity, or a fixed linear gain?). The
     other eight are adoption decisions only: fold into Phase E (`M17`) reporting/mutant conventions.
   ⟦batch: paper-method proposals (owner adoption decisions)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
-- [ ] T-250 ⟨later⟩ **Method proposals from the 2026-11-09 batch.** Added 2026-11-09 by owner request; held for a later
+  *Decision 2026-11-17 (Claude's recommendation 2026-11-17, pending owner review):* Closed: AP1, AP3 and PA1 have no ledger support, and `M4.C.1a`/`M4.C.2` already map intensity nonlinearly; the rest are method items.
+- [x] T-250 ⟨later⟩ **Method proposals from the 2026-11-09 batch.** Added 2026-11-09 by owner request; held for a later
   revision on the same terms as the earlier batches. Four papers read in full from the 2026-11-09 method-literature
   digest: Djurdjevac Conrad et al. 2026, *Measuring Model-Specific Alignment Drift* (2611.03980; MD1–MD4), Greiche et al.
   2026, *A Framework for Context Enrichment and Selective Robustness* (2611.06914; SR1, SR2), Downes et al. 2026, *Same
@@ -248,3 +259,4 @@ without `M11.F`'s framing) was entered in the spec text directly, marked ⟦prop
     protocol items. MD3 carries one minor dependency: "sign retention" needs a declared position axis (which position is
     being held) before it can be written as a readout.
   ⟦batch: paper-method proposals (owner adoption decisions)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
+  *Decision 2026-11-17 (Claude's recommendation 2026-11-17, pending owner review):* Closed: none of the eleven is a theory change; method and narrator-line items only.

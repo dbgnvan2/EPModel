@@ -106,4 +106,5 @@ on the owner's instruction of 2026-10-29 to proceed with Claude's recommendation
   and `tests/bowen/test_iposition.py::test_m5d5_opposition_pulls_up_to_the_movers_level`'s last assertion (the mover
   above the mean) always holds, since the mover is set to 60, so the exact-formula assertion above it carries the
   test. No engine file changed.
-  ⟦batch: owner decisions (a rule, a criterion's meaning or a design choice)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
+  ⟦batch: final engine batch⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
+  *Decision 2026-11-17 (Claude's recommendation 2026-11-17, pending owner review):* The completed exchange's effects on the member (`respect_gain` on outside-ness, the tie's habit, the triangle floor, the budget) act on the tie, not the member's level, so D5's reasoning holds and they stay. The always-true last assertion of `test_m5d5_opposition_pulls_up_to_the_movers_level` is removed (built). **Final engine batch:** build `M5.D.5`'s payoff propagation to later movers, leaving an external mover's sequence out, or restate the MUST as not built.

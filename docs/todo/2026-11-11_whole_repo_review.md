@@ -54,12 +54,13 @@ they set. Each item's own line says whether it is done. Items marked *verified* 
   `bowen/test_log.py:147-212`, the revision and requirement count restated across documents; the `version-1` tag
   re-run, the nine rebuilt revision pages, `pytest --collect-only` inside the suite. Goes with T-225.
   *Done 2026-11-11: removed the suite-count test with its `pytest --collect-only` and the D4 phrasing tests, D1's revision checks, the requirement-count test, MR-13's three-document hash check (the hash is read into `docs/STATUS.md`), and the `version-1` tag re-run; the constant set in `bowen/test_log.py` is computed from the two registers; only the live revision page is rebuilt. Kept by the owner's choice of 2026-11-11: the exact `Spec:` count (`M11.D.9` requires it; the rule goes to the Decide session).*
-- [ ] T-223 ⟨later⟩ **Fix: small test gaps and leftovers (2026-11-11).** [Minor] Add a cross-process determinism test
+- [x] T-223 ⟨later⟩ **Fix: small test gaps and leftovers (2026-11-11).** [Minor] Add a cross-process determinism test
   of a policy run under a changed hash salt; delete `bowen/test_log.py:31-43` (vacuous by its docstring); archive the
   five closed probe tools and their tests; replace report-fragment assertions with assertions on the numbers; pin
   CI's NumPy and add a manual `-m ensemble` job; `tools/c2_matched_probe.py` has no test.
   *Partly done 2026-11-11: added `tests/bowen/test_determinism.py::test_m11d5_policy_run_same_log_across_hash_salts`. Kept `bowen/test_log.py:31-43`: it checks that the sink writes every record, and the frozen Phase B mutation gate and two `Tests:` lines name it. Not done: the probe tools' archive (with T-226's move), the report-fragment assertions, the CI NumPy pin (1.26.4 has no wheel for Python 3.13; whether CI runs at all is T-233), the manual `-m ensemble` job, a test for `tools/c2_matched_probe.py`.*
   *2026-11-17 (triage batch 2026-11-17, Claude's recommendation, pending owner review): the `c2_matched_probe` test and the manual `ensemble` CI job are built; left: there is no archive location for tools, and the record names no report-fragment assertion to replace.* ⟦batch: owner decisions (a rule, a criterion's meaning or a design choice)⟧
+  *Decision 2026-11-17 (Claude's recommendation 2026-11-17, pending owner review):* Closed: the probe-tool archive has no location and the record names no report-fragment assertion, so nothing is left to do.
 
 ## Fix — documents
 

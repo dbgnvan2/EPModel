@@ -8,12 +8,13 @@
   `M11.C.6`'s arm, restored; the E2 pass was an agent's, so the owner's read of the rewritten rows is the check.
   The "stays" rows marked unsure carry the reason in the last column. A reversed row is one edit in the spec and one
   bullet back out of `docs/spec_revision_log.md`.
-- [ ] T-006 ⟨later⟩ **D4, long `Spec:` lines (Part D, 2026-10-22; the plan says record, do not split):** `engine/objects.py` 56 IDs
+- [x] T-006 ⟨later⟩ **D4, long `Spec:` lines (Part D, 2026-10-22; the plan says record, do not split):** `engine/objects.py` 56 IDs
   (its classes `Person` 21, `Relationship` 17), `engine/life_course.py` 21, `engine/appraise.py` 18,
   `engine/iposition.py` 18, `ensemble/criteria.py` 19 (a registry, one per criterion), `policy/policy.py` 16,
   `engine/invariants.py` 15, `engine/log_records.py` 14, `engine/events.py` 12, `engine/symptoms.py` 12,
   `engine/slow_tick.py` 12, `scenario/family.py` 12. A line this long may mean the module does too much.
   ⟦batch: owner decisions (a rule, a criterion's meaning or a design choice)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
+  *Decision 2026-11-17 (Claude's recommendation 2026-11-17, pending owner review):* Closed: the long lines are recorded as the plan asked; splitting a module with no defect in it is a refactor with no value now. `objects.py` is the data model and `criteria.py` a registry, so their counts are expected; `file-maintainability.md` applies when one of them next changes.
 - [ ] T-007 ⟨later⟩ **Adjacent issues found by Part D's docstring pass, not fixed (2026-10-22):**
   - `engine/draws.py` declares the `per_hop_fidelity` draw class (`M3.D.4b`'s row) but nothing draws it;
     `visibility.fidelity_for` uses the constant. The spec's table row or the engine is out of step.

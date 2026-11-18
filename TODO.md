@@ -10,7 +10,7 @@ moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's te
 ## Now (0)
 
 
-## Later (96)
+## Later (63)
 
 ### engine batch E1 (engine and record-tool hygiene, one regeneration) (16)
 
@@ -38,6 +38,15 @@ moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's te
 - T-077 · 2026-11-17 · Not built · [record](docs/todo/2026-10-08_phase_c.md)
 - T-209 · 2026-11-09 · An arm or mutant that isolates `M4.C.6`'s by-channel … · [record](docs/todo/2026-11-07_social_cues.md)
 
+### final engine batch (6)
+
+- T-071 · 2026-11-17 · `M11.C.16`'s mutation clause is not met · [record](docs/todo/2026-10-08_phase_c.md)
+- T-082 · 2026-11-17 · Owner answer: anxiety shapes beliefs (answers MM1) · [record](docs/todo/2026-09-27_paper_material.md)
+- T-083 · 2026-11-17 · Owner answer: how coaching enters a family (answers … · [record](docs/todo/2026-09-27_paper_material.md)
+- T-088 · 2026-10-05 · Method proposals from the 2026-10-05 batch b (silicon … · [record](docs/todo/2026-09-27_paper_material.md)
+- T-169 · 2026-10-31 · A coach's completed `I-POSITION` exchange still acts on … · [record](docs/todo/2026-10-29_version_2_definition.md)
+- T-212 · 2026-11-10 · Whether `M11.C.55`'s two predictors should be read to … · [record](docs/todo/2026-11-07_social_cues.md)
+
 ### mechanism proposals (theory work, then a spec revision) (9)
 
 - T-044 · 2026-11-17 · Chronic anxiety ratchets across generations · [record](docs/todo/2026-10-13_phase_d_part_ii.md)
@@ -49,51 +58,6 @@ moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's te
 - T-110 · 2026-11-17 · `M11.F.9(c)` deserves a worked demonstration before anyone relies … · [record](docs/todo/2026-08-28_batch_backlog.md)
 - T-203 · 2026-11-07 · `KS10.1`'s uncertainty term as its own proposal (2026-11-07) · [record](docs/todo/2026-11-07_social_cues.md)
 - T-204 · 2026-11-07 · `KS09.6`'s parent-side separation as its own proposal (2026-11-07) · [record](docs/todo/2026-11-07_social_cues.md)
-
-### owner decisions (a rule, a criterion's meaning or a design choice) (27)
-
-- T-006 · 2026-10-22 · D4, long `Spec:` lines (Part D, 2026-10-22; the … · [record](docs/todo/2026-10-22_model_ergonomics.md)
-- T-017 · 2026-11-17 · A genuine `I-POSITION` at level 40 almost never … · [record](docs/todo/2026-10-17_revision_32.md)
-- T-027 · 2026-10-19 · Adjacent, not fixed (stage 1 review, 2026-10-19) · [record](docs/todo/2026-10-14_spec_revision_30.md)
-- T-033 · 2026-10-20 · Owner: a row that raises on every run … · [record](docs/todo/2026-10-14_spec_revision_30.md)
-- T-039 · 2026-10-14 · rca: record findings and commit review fixes separately · [record](docs/todo/2026-10-14_spec_revision_30.md)
-- T-040 · 2026-11-17 · Focus steering has no measurable effect in Phase … · [record](docs/todo/2026-10-14_spec_revision_29.md)
-- T-045 · 2026-11-17 · Starting ages as settings in the fam-diag app · [record](docs/todo/2026-10-13_phase_d_part_ii.md)
-- T-065 · 2026-10-08 · `M11.C.42` and `.45` stopped passing after the `TRIANGLE` … · [record](docs/todo/2026-10-08_phase_c.md)
-- T-067 · 2026-10-09 · The record caches are trusted, not proved · [record](docs/todo/2026-10-08_phase_c.md)
-- T-071 · 2026-11-17 · `M11.C.16`'s mutation clause is not met · [record](docs/todo/2026-10-08_phase_c.md)
-- T-072 · 2026-10-09 · The triangle change is not proved by an … · [record](docs/todo/2026-10-08_phase_c.md)
-- T-074 · 2026-10-10 · Plan §9's human reviews · [record](docs/todo/2026-10-08_phase_c.md)
-- T-076 · 2026-11-17 · What the seed-7 picture shows · [record](docs/todo/2026-10-08_phase_c.md)
-- T-080 · 2026-11-17 · `E-RM` and C34 — one requirement or two … · [record](docs/todo/2026-09-22_spec_revision_10.md)
-- T-091 · 2026-11-17 · Two changes to the family-diagram application, both needing … · [record](docs/todo/2026-08-28_batch_backlog.md)
-- T-094 · 2026-11-17 · Name the stressor per criterion when the tests … · [record](docs/todo/2026-08-28_batch_backlog.md)
-- T-109 · 2026-11-17 · Decide whether `M16`'s renderer output format is worth … · [record](docs/todo/2026-08-28_batch_backlog.md)
-- T-135 · 2026-10-26 · `M11.C.10`'s scripted renewal outlasts a cutoff (the step … · [record](docs/todo/2026-10-25_stage_3_revision_39.md)
-- T-138 · 2026-10-26 · `M11.C.29`'s genuine `I-POSITION` almost never completes after D21 … · [record](docs/todo/2026-10-25_stage_3_revision_39.md)
-- T-140 · 2026-10-26 · `M5.C.1`'s gate and `M4.C.1d`'s returned contact (the step … · [record](docs/todo/2026-10-25_stage_3_revision_39.md)
-- T-144 · 2026-10-27 · `M11.C.49` has no declared sweep ranges (step 11, … · [record](docs/todo/2026-10-25_stage_3_revision_39.md)
-- T-150 · 2026-10-28 · Transcript phrases outside the spec, and a test … · [record](docs/todo/2026-10-28_stage_3_milestone_review.md)
-- T-160 · 2026-10-28 · `phase_c_completion_report.md`'s other rows quote the numbers of Phase … · [record](docs/todo/2026-10-28_stage_3_milestone_review.md)
-- T-169 · 2026-10-31 · A coach's completed `I-POSITION` exchange still acts on … · [record](docs/todo/2026-10-29_version_2_definition.md)
-- T-175 · 2026-11-01 · Hand-restated status goes stale (review systemic pattern 1, … · [record](docs/todo/2026-11-01_pre_tag_milestone_review.md)
-- T-212 · 2026-11-10 · Whether `M11.C.55`'s two predictors should be read to … · [record](docs/todo/2026-11-07_social_cues.md)
-- T-223 · 2026-11-11 · Fix: small test gaps and leftovers (2026-11-11) · [record](docs/todo/2026-11-11_whole_repo_review.md)
-
-### paper-method proposals (owner adoption decisions) (12)
-
-- T-081 · 2026-09-27 · Method proposals from the two 2026-09-27 batches · [record](docs/todo/2026-09-27_paper_material.md)
-- T-082 · 2026-11-17 · Owner answer: anxiety shapes beliefs (answers MM1) · [record](docs/todo/2026-09-27_paper_material.md)
-- T-083 · 2026-11-17 · Owner answer: how coaching enters a family (answers … · [record](docs/todo/2026-09-27_paper_material.md)
-- T-084 · 2026-10-04 · Method proposals from the two 2026-10-04 batches · [record](docs/todo/2026-09-27_paper_material.md)
-- T-085 · 2026-10-04 · Open owner questions from the 2026-10-04 batches · [record](docs/todo/2026-09-27_paper_material.md)
-- T-086 · 2026-10-05 · Owner questions from the 2026-09 maturity-and-emotion conversation · [record](docs/todo/2026-09-27_paper_material.md)
-- T-087 · 2026-10-05 · Method proposals from the 2026-10-05 full reads · [record](docs/todo/2026-09-27_paper_material.md)
-- T-088 · 2026-10-05 · Method proposals from the 2026-10-05 batch b (silicon … · [record](docs/todo/2026-09-27_paper_material.md)
-- T-089 · 2026-10-12 · Method proposals from the 2026-10-12 batch · [record](docs/todo/2026-09-27_paper_material.md)
-- T-136 · 2026-10-26 · Method proposals from the 2026-10-26 batch · [record](docs/todo/2026-09-27_paper_material.md)
-- T-249 · 2026-11-02 · Method proposals from the 2026-11-02 batch · [record](docs/todo/2026-09-27_paper_material.md)
-- T-250 · 2026-11-09 · Method proposals from the 2026-11-09 batch · [record](docs/todo/2026-09-27_paper_material.md)
 
 ### research runs (Mac Mini1 probes and experiments) (5)
 

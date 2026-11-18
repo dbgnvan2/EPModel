@@ -10,5 +10,6 @@ revision-10 section.
   with `M1.B.4` (bond energy decays at or near zero) and `M6.I.7` (no exit from the field). `M11.C.37` cannot be
   written until this is decided.
   *Closed 2026-11-17 (triage 2026-11-17, Claude's recommendation, pending owner review): done: `M6.3a`–`i` hold the owner's decision (revision 28); `M11.C.37` is built and tested (`test_m11c37_anxiety_conserved_across_death`).*
-- [ ] T-080 ⟨later⟩ **`E-RM` and C34 — one requirement or two (DESIGN_LESSONS Q16).** Currently `M17.D.1`(d) plus `M17.D.2`.
+- [x] T-080 ⟨later⟩ **`E-RM` and C34 — one requirement or two (DESIGN_LESSONS Q16).** Currently `M17.D.1`(d) plus `M17.D.2`.
   ⟦batch: owner decisions (a rule, a criterion's meaning or a design choice)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
+  *Decision 2026-11-17 (Claude's recommendation 2026-11-17, pending owner review):* Closed: keep `M17.D.1`(d) and `M17.D.2` as two requirements; they name different arms, and merging them changes no test or run. `M17` is revisited as a whole when Phase E is built.

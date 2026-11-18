@@ -134,4 +134,5 @@ Items from `docs/archive/proposal_social_cues.md`, decided by the owner on 2026-
   alone. `M11.5`'s row names it. The alternative is to count the supply over `[0, start − relief_lead_weeks)` as well,
   one line in `supplier_run`, which moves the engine hash and so waits for a batch that does. Raised by the
   learning-qa and correctness passes on revision 57's diff, 2026-11-10; the owner's call.
-  ⟦batch: owner decisions (a rule, a criterion's meaning or a design choice)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
+  ⟦batch: final engine batch⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
+  *Decision 2026-11-17 (Claude's recommendation 2026-11-17, pending owner review):* Read both predictors to the same week, so the arms differ in one condition (learnings P7); a fail is then attributable. **Final engine batch:** count the prior supply over `[0, start − relief_lead_weeks)` in `supplier_run` (one line; it moves the hash).

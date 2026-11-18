@@ -42,7 +42,7 @@ records are regenerated once.
   T-130 page was corrected 2026-10-28; the config note waits for the triage batch, since `config/bowen/` is in the
   engine hash. *Closed 2026-10-28 (the triage batch): the note says the load goes to the household, at the self reach.
   `tests/bowen/test_event_sizes.py::test_m7c1l_t149_the_find_work_note_says_where_the_load_lands`, red on the old note.*
-- [ ] T-150 ⟨later⟩ **Transcript phrases outside the spec, and a test for them (review MR-2, 2026-10-28).** Revision 40
+- [x] T-150 ⟨later⟩ **Transcript phrases outside the spec, and a test for them (review MR-2, 2026-10-28).** Revision 40
   reworded every distinctive run of three or more words that the spec shared with a quoted span of the KB extractions
   or `_LECTURES_1979.md` (an n-gram comparison; theory vocabulary such as "differentiation of self" and common phrases such as "level of anxiety" kept). The same
   comparison at four words finds about 14 lines in `docs/model_explainer.md` (for example its lines 837, 996, 2119);
@@ -50,6 +50,7 @@ records are regenerated once.
   review's MR-9), so it cannot find unquoted reuse. To decide: sweep the explainer the same way, and either add a test built on the n-gram
   comparison (with an allowlist of theory vocabulary in `tests/asr_quotations.json`) or record why the test stays as it is.
   ⟦batch: owner decisions (a rule, a criterion's meaning or a design choice)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
+  *Decision 2026-11-17 (Claude's recommendation 2026-11-17, pending owner review):* Closed, test kept: the ASR rule bans quotation, and the test reads quoted spans. A four-word overlap without quotation marks is mostly ordinary phrasing; a test on unquoted n-grams would judge wording, which effort-budget rule 5 bans. The explainer's 14 lines were not reworded.
 - [x] T-151 ⟨later⟩ **CI installs whatever `ruff` and `numpy` are current (review MR-15, 2026-10-28).** Pin `ruff` to the
   version that passed CI run 40630271972 and bound numpy's major version in `requirements.txt`; bump each on purpose,
   in its own commit. numpy's draws feed the golden fingerprints.
@@ -130,7 +131,7 @@ records are regenerated once.
   `status` uses the same pattern on Mac Mini1. To fix: match `tools/version_2_sweep.py` and test that a test run is
   not taken for a sweep.
   *Closed 2026-11-17 (triage batch 2026-11-17, Claude's recommendation, pending owner review): `two_mac_sweep` uses a word-boundary pattern (`test_t164_…`).*
-- [ ] T-160 ⟨later⟩ **`phase_c_completion_report.md`'s other rows quote the numbers of Phase C's close (found building
+- [x] T-160 ⟨later⟩ **`phase_c_completion_report.md`'s other rows quote the numbers of Phase C's close (found building
   T-148, 2026-10-28; not fixed).** The report opens by saying every number below comes from a committed, generated
   record. Since T-148, `M11.C.16`'s two rows and §11 are generated from the current records (`tools/c16_report.py`);
   the other rows of §1 and §2 still quote the numbers of Phase C's close (for example `M11.C.3`'s seeker −1.29 and third
@@ -138,6 +139,7 @@ records are regenerated once.
   or restate the opening as the report's state at Phase C's close, pointing at `docs/version_2_status.md` for where each
   criterion stands now.
   ⟦batch: owner decisions (a rule, a criterion's meaning or a design choice)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
+  *Decision 2026-11-17 (Claude's recommendation 2026-11-17, pending owner review):* Built: the report's opening now says its numbers are its state at Phase C's close, names the rows `tools/c16_report.py` generates, and points at `docs/version_2_status.md` for where each criterion stands now.
 - [x] T-161 ⟨later⟩ **`M11.C.21`'s parents keep over-functioning toward the child after they collapse (found building
   T-145, 2026-10-28; not fixed).** `arm_c21` (`src/bowen/ensemble/criteria_d.py`) scripts both parents'
   `OVERFUNCTION` toward C1 every `act_every` weeks for the whole run, the weeks after the collapse included, so the

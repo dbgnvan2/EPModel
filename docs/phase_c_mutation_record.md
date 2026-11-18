@@ -11,7 +11,7 @@ unimported name) is **broken** and proves nothing; an engine exception under a m
 representation mutant (`M11.1c`) should leave every verdict
 unchanged; a change is reported as an **encoding artefact**.
 
-engine_hash: 05d3b234575490e0217ad57dcecb3d48425f5927bb1f5c7a30285b84ade05678
+engine_hash: d9e26aca1b99696f57b3efabfc25e8d8ad392da2b0803ebb69b84ec261af30d5
 
 Results are cached by `tools/mutant_runner.py` under the engine hash and each mutant's own edits
 (`docs/records_cache/mutation.json`); this file is rendered from that cache.

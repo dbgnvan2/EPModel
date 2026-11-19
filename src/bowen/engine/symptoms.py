@@ -3,7 +3,7 @@
 Purpose: integrate each person's time above their usual level into symptom load in the channel they express, emit an
          endogenous event when it crosses threshold, let the family's focus on an active symptom bind and release
          anxiety, and remove a bearer when the others' tolerance gives out.
-Spec:    docs/bowen_agent_model_spec_v2.md#M4.C.3, #M4.C.3a, #M7.D.1, #M7.D.2, #M7.D.2a, #M7.D.2c, #M7.D.2d,
+Spec:    docs/bowen_agent_model_spec_v2.md#M4.C.3, #M4.C.3a, #M7.D.1, #M7.D.2, #M7.D.2a, #M7.D.2c, #M7.D.2d, #M7.D.2e,
          #M7.D.4, #M1.A.6, #M1.A.11b, #M1.A.11c, #M1.F.7
 Tests:   tests/bowen/test_symptoms.py
 
@@ -11,7 +11,8 @@ The forms are the project's, [I]:
 
     integrand  = max(0, excess − usual_excess)                     (M4.C.3a: above the usual level)
     into c     = integrand / (1 + channel_protection × Σ_{c'≠c} load[c'] / threshold)      (M7.D.2c)
-    load[c]    ← load[c] × (1 − symptom_leak_rate) + into c   (every channel leaks; only the expressed one is fed)
+    load[c]    ← load[c] × (1 − leak[c]) + into c   (every channel leaks; only the expressed one is fed)
+    leak[c]    = symptom_leak_rate × (1 − s) on an active channel while its lock-in s > 0 (M7.D.2e), else symptom_leak_rate
     onset when load[c] ≥ threshold = symptom_threshold_gain × functional_level           (M1.A.6)
     re-arm when load[c] < symptom_rearm_fraction × threshold
 
@@ -37,6 +38,9 @@ revision 36); ties all at zero split equally, and an external agent takes none. 
 ``binder_unavailable`` names it, the whole bound stock goes back, split the same way. Every
 movement is a transfer in `M6.4`'s table (``lock_in``). Removal (`INSTITUTIONALIZE`) makes the ties non-interactive,
 so both directions stop; the bound stock stays with the bearer. No rule writes resistance to removal or relief on it.
+While the hold is positive the bearer's active channels also leak more slowly, by ``(1 − s)`` (`M7.D.2e`, T-057,
+`KS23.1`): the family's stabilising around the symptom lengthens it. This adds no input, so the load cannot climb past
+what the integrand supplies; feeding the hold into the integrand instead made every bearer climb to the turn.
 
 **Removal fired by tolerance** (`M7.D.4`). If a living member has an active symptom and some other member on an
 interactive tie to them has excess above usual greater than their ``Family.tolerance``, the member carrying the most
@@ -99,8 +103,9 @@ def expressed_channel(person: Person, params: EngineParams) -> SymptomChannel | 
 
 def integrate(person: Person, params: EngineParams) -> tuple[SymptomChannel, ...]:
     """Purpose: one tick of the leaky chronicity integrator; return every channel whose onset fires now.
-    Spec:    docs/bowen_agent_model_spec_v2.md#M4.C.3, #M4.C.3a, #M7.D.1, #M7.D.2c
+    Spec:    docs/bowen_agent_model_spec_v2.md#M4.C.3, #M4.C.3a, #M7.D.1, #M7.D.2c, #M7.D.2e
     Tests:   tests/bowen/test_symptoms.py::test_m4c3a_one_sustained_excursion_builds_more_than_several_resolved,
+             tests/bowen/test_symptoms.py::test_m7d2e_lock_in_lengthens_a_symptom_without_feeding_it,
              tests/bowen/test_symptoms.py::test_m7d2c_load_in_one_channel_slows_onset_in_another
     """
     channel = expressed_channel(person, params)
@@ -110,9 +115,13 @@ def integrate(person: Person, params: EngineParams) -> tuple[SymptomChannel, ...
     integrand = max(0.0, above_usual(person, excess(person)))
     others = math.fsum(person.symptom_load[c] for c in CHANNELS if c is not channel)
     fed = person.symptom_suppression * integrand / (1.0 + params.channel_protection * others / limit)
+    active = [c for c in CHANNELS if person.symptom_active[c]]
+    held = lock_in_coefficient(max(person.symptom_load[c] for c in active) / limit, params) if active else 0.0
+    slowed = params.symptom_leak_rate * (1.0 - min(1.0, held)) if held > 0 else params.symptom_leak_rate  # M7.D.2e
     fired = []
     for c in CHANNELS:
-        load = person.symptom_load[c] * (1.0 - params.symptom_leak_rate) + (fed if c is channel else 0.0)
+        leak = slowed if person.symptom_active[c] else params.symptom_leak_rate
+        load = person.symptom_load[c] * (1.0 - leak) + (fed if c is channel else 0.0)
         person.symptom_load[c] = load
         # Every channel is checked: one that is not fed can still cross when functional level falls (review
         # 2026-10-12), and each crossing is its own onset.

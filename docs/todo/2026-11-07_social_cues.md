@@ -22,18 +22,20 @@ Items from `docs/archive/proposal_social_cues.md`, decided by the owner on 2026-
   recommended under the owner's overnight instruction of 2026-11-08, pending the owner's review, are in
   `docs/spec_revision_log.md` (revision 55). Open: T-205, T-206, T-207, T-208; the switch's default is the owner's
   later decision.
-- [ ] T-203 ⟨later⟩ **`KS10.1`'s uncertainty term as its own proposal (2026-11-07).** Uncertainty about whether and
+- [x] T-203 ⟨later⟩ **`KS10.1`'s uncertainty term as its own proposal (2026-11-07).** Uncertainty about whether and
   when a cue will come intensifies the reaction (`KS10.1`; `KS09.8`'s intermittent withdrawal). Left out of
   `docs/archive/proposal_social_cues.md` by the owner's Q6 (2026-11-07): a separate mechanism, variance in the other's
   response rather than its value, with its own criterion.
   *adopt. `KS10.1` `[K]` (written, one sentence): uncertainty about whether and when a cue will come intensifies the process. The model reads a cue's value, not its variability. **Build note:** the appraisal of a cue channel on a tie is scaled up by the variance of that tie's cue values over a declared window, with one gain `[I]`. Guard (a direction criterion): two arms with the same mean cue and different variance; acute anxiety is higher in the high-variance arm. `KS09.8`'s intermittency reading is the extraction's inference and is not built on.* *(Claude's recommendation 2026-11-17, pending owner review)* ⟦batch: final engine batch⟧
-- [ ] T-204 ⟨later⟩ **`KS09.6`'s parent-side separation as its own proposal (2026-11-07).** T-202's ledger search
+  *Done 2026-11-19 in spec revision 65 (the final engine batch), Claude's recommendation, pending owner review: New `M4.C.16`: a sender's cue parts are scaled by `1 + cue_uncertainty_gain × v`, `v` the variance of the cues it sent in the last `cue_uncertainty_window` weeks. Guard: `test_m4c16_t203_varied_cues_with_the_same_mean_are_felt_more`, a unit test, mutation-proved; no ensemble criterion was added.*
+- [x] T-204 ⟨later⟩ **`KS09.6`'s parent-side separation as its own proposal (2026-11-07).** T-202's ledger search
   (`docs/archive/plan_t202_social_cues.md` §2) found that a young child's dependency falling as it matures is supported
   (`KS09.6`, `K14.5`) with the cause on the parents' side: the parents tone down their togetherness urges as the child
   matures, and failure to do so prolongs dependency; `KS09.6` rejects developmental stages. The owner decided
   2026-11-07 (plan D5) not to build `SC-12`'s age term on the child, and to take this mechanism up as a separate
   proposal. `KS09.8`'s inverted projection (a child overfunctioning toward a dysfunctional parent) bears on it.
   *adopt. `KS09.6` `[K]` (written): separation is gradual and bidirectional, and the parents' toning down of togetherness as the child matures drives it; failure to tone down prolongs dependency. `K14.5` (ASR) agrees. **Build note:** a parent's togetherness pull toward a child declines continuously with the child's age, no stages, more slowly as the parent's chronic anxiety rises, with one rate `[I]`. The child's dependency is then read, not written. Guard: two arms differing in the parents' chronic anxiety; the child's dependency at 18 is higher in the high-anxiety arm.* *(Claude's recommendation 2026-11-17, pending owner review)* ⟦batch: final engine batch⟧
+  *Done 2026-11-19 in spec revision 65 (the final engine batch), Claude's recommendation, pending owner review: New `M7.E.1g`: a parent's pull toward a child falls with the child's age, more slowly for an anxious parent, and scales the parent's contact optimum (`parent_pull_rate` 0.02). Guard: `test_m7e1g_t204_an_anxious_parent_tones_down_its_pull_more_slowly`.*
 - [x] T-205 ⟨later⟩ **Wire `M11.G.5`'s perceived-cue half into a report (2026-11-08).** `ReadingTap` in
   `src/bowen/readouts/roles.py` (the mean perceived attention and approval cue per pair, when the social cues are on)
   is tested by `tests/bowen/test_roles_readout.py` and has no other caller: no record, criterion or report runs it, so
@@ -126,7 +128,7 @@ Items from `docs/archive/proposal_social_cues.md`, decided by the owner on 2026-
   with learning on, and 0.080 with it off (T-206's probe). Candidates: age at the window, leaving the parents'
   household. Left open by the owner, 2026-11-09; not run.
   ⟦batch: research runs (Mac Mini1 probes and experiments)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
-- [ ] T-212 ⟨later⟩ **Whether `M11.C.55`'s two predictors should be read to the same week (2026-11-10).** Spec
+- [x] T-212 ⟨later⟩ **Whether `M11.C.55`'s two predictors should be read to the same week (2026-11-10).** Spec
   revision 57 reads the relief `relief_lead_weeks` (52) before the window and counts the supply it is compared with
   over every week up to the window's start, so the prior-supply predictor sees 52 weeks the relief predictor does not:
   the arms differ in a second condition, the class T-194 and T-195 recorded (learnings P7). The asymmetry strengthens
@@ -136,3 +138,4 @@ Items from `docs/archive/proposal_social_cues.md`, decided by the owner on 2026-
   learning-qa and correctness passes on revision 57's diff, 2026-11-10; the owner's call.
   ⟦batch: final engine batch⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
   *Decision 2026-11-17 (Claude's recommendation 2026-11-17, pending owner review):* Read both predictors to the same week, so the arms differ in one condition (learnings P7); a fail is then attributable. **Final engine batch:** count the prior supply over `[0, start − relief_lead_weeks)` in `supplier_run` (one line; it moves the hash).
+  *Done 2026-11-19 in spec revision 65 (the final engine batch), Claude's recommendation, pending owner review: `supplier_run` counts the prior supply to the week the relief is read. Guard: `test_m11c55_t212_prior_supply_is_counted_to_the_relief_week`, mutation-proved.*

@@ -172,11 +172,12 @@ def test_m141_untested_id_is_not_read_as_unbuilt():
 
 
 def test_m141_unmet_mutation_clause_keeps_a_passing_criterion_partial():
-    """Plan A5: `M11.C.16` has no hand-written override; its row comes from the record, and because its spec row says
-    its own mutation clause is not met, a pass with red mutants is still partial. Mutation: the clause is not read."""
-    assert "M11.C.16" not in json.loads(OVERRIDES.read_text(encoding="utf-8"))
-    row = _rows()["M11.C.16"]
-    assert "M11.C.16 PASS (`docs/phase_c_ensemble_record.md`)" in row["note"]
+    """Plan A5: `M11.C.46` has no hand-written override; its row comes from the record, and because its spec row says
+    its own mutation clause is not met, a pass with red mutants is still partial. Mutation: the clause is not read.
+    (`M11.C.16` until revision 65, whose clause T-071 restated as a level result.)"""
+    assert "M11.C.46" not in json.loads(OVERRIDES.read_text(encoding="utf-8"))
+    row = _rows()["M11.C.46"]
+    assert "M11.C.46 PASS (`docs/phase_d_ensemble_record.md`)" in row["note"]
     assert row["status"] == "partial"
     assert "its spec row says its own mutation clause is not met" in row["note"]
 
@@ -187,7 +188,8 @@ def test_m141_unmet_clause_marker_reads_exactly_the_annotated_rows():
     and wordings that say "met" are not."""
     text = TOOL.SPEC.read_text(encoding="utf-8")
     # M11.C.48 since spec revision 50: its mutant survives on `[phase_d]` (T-180, T-185).
-    assert TOOL.unmet_clauses(text) == {"M11.C.14", "M11.C.16", "M11.C.46", "M11.C.48"}
+    # M11.C.16 left the set at revision 65: T-071 restated its clause as a level result.
+    assert TOOL.unmet_clauses(text) == {"M11.C.14", "M11.C.46", "M11.C.48"}
     for unmet in ("*Not met, 2026-10-08*", "**Mutation clause not met:**", "not yet met", "the clause is unmet",
                   "it isn't met"):
         assert TOOL.UNMET_CLAUSE.search(unmet), unmet

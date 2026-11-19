@@ -579,6 +579,7 @@ def test_m63e_balances_settle_back_after_a_death():
     state.people[RAVI].pseudo_self, state.people[MARTA].pseudo_self = 4.0, -4.0
     state.people[RAVI].functional_level += 4.0
     state.people[MARTA].functional_level -= 4.0
+    tie.lent[MARTA] = 4.0  # T-251: the loan the settling back repays
     die(state, MARTA, built.params)
     total = sum(p.pseudo_self or 0.0 for p in state.people.values())
     # Read on the tie itself (2026-10-14): over a run, Ravi's other exchanges move his pseudo-self as much as this does.
@@ -996,3 +997,44 @@ def test_m16a5_t248_each_resting_belief_made_at_an_entry_is_logged():
         tid = next(t for t in people[r.holder].tie_beliefs if r.subject.startswith(f"tie_beliefs[{t}]."))
         assert r.value == getattr(people[r.holder].tie_beliefs[tid], r.subject.rpartition(".")[2])
         assert r.true_value is not None
+
+
+def test_m7b1a_t044_a_child_who_carries_less_than_its_parents_ends_below_their_mean():
+    """T-044 (revision 65, `M7.E.1`): the childhood load term is the child's mean load less its parents' over the same
+    year, so chronic anxiety does not only rise down a line. A child outside the process (load 2 beside parents at 10)
+    ends below the parents' mean; a focused child (load 20) above it. Mutation: the unsigned term (the child's load
+    alone) puts the unfocused child above the parents' mean."""
+    def chronic(load):
+        built, _ = parts()
+        state, params = built.state, built.params
+        for pid in (RAVI, MARTA):
+            history(state, pid, 40.0, load=10.0)
+        history(state, PIA, 39.5, load=load)
+        _childhood(state, params)
+        parents = (state.people[RAVI].chronic_anxiety + state.people[MARTA].chronic_anxiety) / 2
+        return state.people[PIA].chronic_anxiety, parents
+
+    unfocused, parents = chronic(2.0)
+    focused, _ = chronic(20.0)
+    assert unfocused < parents < focused
+
+
+def test_m7e1g_t204_an_anxious_parent_tones_down_its_pull_more_slowly():
+    """T-204 (`M7.E.1g`, `KS09.6`): after a slow tick a parent's pull toward an 18-year-old child is lower than toward
+    a young one, and higher for a chronically anxious parent than for a calm one; the parent's felt contact optimum on
+    the tie reads it. Mutation: a pull of 1 at every age (no ``_parent_pull`` row) leaves the optimum unchanged."""
+    from src.bowen.engine.contact import optimum
+    from src.bowen.engine.life_course import parent_pull, yearly
+
+    built, _ = parts()
+    state, params = built.state, built.params
+    assert parent_pull(18, 70.0, params) > parent_pull(18, 20.0, params)
+    assert parent_pull(18, 20.0, params) < parent_pull(2, 20.0, params) < 1.0
+    tie = state.tie_between(MARTA, PIA)
+    assert tie.parent_pull[MARTA] == pytest.approx(  # set at t0, not after the first year
+        parent_pull(state.people[PIA].age_years, state.people[MARTA].chronic_anxiety, params))
+    before = optimum(state.people[MARTA], tie, params)
+    yearly(state, params)
+    assert tie.parent_pull[MARTA] == pytest.approx(
+        parent_pull(state.people[PIA].age_years, state.people[MARTA].chronic_anxiety, params))
+    assert optimum(state.people[MARTA], tie, params) < before

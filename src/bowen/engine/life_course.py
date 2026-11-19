@@ -17,7 +17,8 @@ A run has a life course only when its family declares one (``state.life`` is not
 
 1. everyone whose age the run tracks is a year older (`M7.C.1f`);
 2. a child under the fixation age has its chronic anxiety derived: the parents' mean, plus ``witnessed_gain`` × the
-   child's mean load over the year (`M7.B.1a`);
+   mean over its childhood years of its own mean load less its living parents' over the same year (`M7.B.1a`, signed
+   since revision 65);
 3. a child develops (`M7.E.1f`): held at the parents' mean before 5; anchored at 5; from 6 to 20 moved by
    ``development_rate × d`` within a band around the anchor, where ``d`` is half the parents' mean functioning above
    basic over the year, less what each gained or gave by displaced coping, and half the child's own. The band opens with the parents' acts to the child: from
@@ -27,6 +28,8 @@ A run has a life course only when its family declares one (``state.life`` is not
    (``note_parental_acts``; 0 with none). The acts open room; they do not move the level: a band that narrows under
    a level leaves it where it is, and only the development rule moves it;
 4. a child of ``launch_age_years`` leaves home, an earner and not dependent (`M7.C.1g`);
+4a. each living parent's togetherness pull toward each living child of known age eases with the child's age, more
+   slowly the more chronically anxious the parent (`M7.E.1g`, ``parent_pull``; revision 65, T-204);
 5. whoever has reached the age at death drawn for them at entry dies (`M7.C.1j`), with the disposition of `M6.3`;
 6. a coach of ``coach_retirement_age_years`` retires and a successor enters (`M2.A.0k`);
 7. a member reaching the pairing age of a partner row pairs (`M7.C.1h`);
@@ -184,6 +187,7 @@ def new_life_course(state: RunState, settings: LifeSettings, parents: dict, para
         tie = state.tie_between(settings.coach, settings.coachee)
         life.coach_template = (coach.basic_level, coach.chronic_anxiety, coach.channel_prior,
                                TieValues(tie.conductance, tie.bond_energy, tie.latency))
+    _parent_pull(state, params)  # M7.E.1g: a child present at t0 starts at its age's pull, not at 1 for a year
     return life
 
 
@@ -355,8 +359,9 @@ def yearly(state: RunState, params: EngineParams) -> list[EffectRecord | BeliefW
             rows.append((pid, "age_years", 1.0))
     rows += _childhood(state, params)
     rows += _launch(state, params)
-    if rows:
-        records.append(EffectRecord(state.tick, "life_course", None, people=tuple(rows)))
+    pulls = _parent_pull(state, params)
+    if rows or pulls:
+        records.append(EffectRecord(state.tick, "life_course", None, people=tuple(rows), ties=tuple(pulls)))
     for pid in sorted(life.death_age):
         person = state.people[pid]
         if person.alive and person.age_years is not None and person.age_years >= life.death_age[pid]:
@@ -379,6 +384,36 @@ def _year_mean(state: RunState, pid: PersonId, params: EngineParams, read) -> fl
     return math.fsum(read(w) for w in weeks) / len(weeks) if weeks else None
 
 
+def parent_pull(age_years: int, parent_chronic: float, params: EngineParams) -> float:
+    """Purpose: a parent's togetherness pull toward a child of ``age_years``, as a factor on the parent's felt contact
+             optimum (`M7.E.1g`, T-204, `KS09.6`): ``exp(−parent_pull_rate × age × (1 − min(1, chronic / SCALE_MAX)))``.
+             It falls continuously with the child's age, with no stage, and more slowly the more chronically anxious
+             the parent. The form and the rate are `[I]`.
+    Spec:    docs/bowen_agent_model_spec_v2.md#M7.E.1g
+    Tests:   tests/bowen/test_life_course.py::test_m7e1g_t204_an_anxious_parent_tones_down_its_pull_more_slowly
+    """
+    return math.exp(-params.parent_pull_rate * age_years * (1.0 - min(1.0, parent_chronic / SCALE_MAX)))
+
+
+def _parent_pull(state: RunState, params: EngineParams) -> list[tuple]:
+    """M7.E.1g: each living parent's pull toward each living child of known age, on the tie between them, written
+    after the ages advance; returns the tie rows (tie, ``parent_pull[parent]``, new value) for the values that moved."""
+    rows = []
+    for child in sorted(state.life.parents):
+        person = state.people[child]
+        if not person.alive or person.age_years is None:
+            continue
+        for parent in _living_parents(state, child):
+            tie = state.tie_between(parent, child)
+            if tie is None:
+                continue
+            value = parent_pull(person.age_years, state.people[parent].chronic_anxiety, params)
+            if value != tie.parent_pull.get(parent, 1.0):
+                tie.parent_pull[parent] = value
+                rows.append((tie.id, f"parent_pull[{parent.value}]", value))
+    return rows
+
+
 def _childhood(state: RunState, params: EngineParams) -> list[tuple]:
     """M7.B.1a and M7.E.1f: a child's chronic anxiety before 12, and its basic level from 5 to 20. Only living parents
     are read; an orphan keeps the values they have and develops by their own functioning alone."""
@@ -394,8 +429,14 @@ def _childhood(state: RunState, params: EngineParams) -> list[tuple]:
         if age <= params.chronic_anxiety_fixation_age_years and parents_chronic is not None:
             # chronic anxiety builds over childhood, the mean of every observed year's load (the owner).
             years = life.childhood_loads.setdefault(pid, [])
-            years.append(_year_mean(state, pid, params, lambda w: w.load) or 0.0)
-            chronic = parents_chronic + params.witnessed_gain * math.fsum(years) / len(years)
+            # T-044 (revision 65): the year's term is signed, the child's mean load less its living parents' over the
+            # same year, so a child who carries less than its parents ends below their mean (M7.E.1) and a line's
+            # chronic anxiety is not a ratchet. Chronic anxiety is a level, so it is floored at 0.
+            theirs = [m for p in _living_parents(state, pid)
+                      if (m := _year_mean(state, p, params, lambda w: w.load)) is not None]
+            parents_load = math.fsum(theirs) / len(theirs) if theirs else 0.0
+            years.append((_year_mean(state, pid, params, lambda w: w.load) or 0.0) - parents_load)
+            chronic = max(0.0, parents_chronic + params.witnessed_gain * math.fsum(years) / len(years))
             if chronic != person.chronic_anxiety:
                 rows.append((pid, "chronic_anxiety", chronic - person.chronic_anxiety))
                 person.chronic_anxiety = chronic

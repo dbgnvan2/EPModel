@@ -95,7 +95,7 @@ on the owner's instruction of 2026-10-29 to proceed with Claude's recommendation
   pending text (revision 40, the spec's status line and `docs/spec_revision_log.md`) and dated history entries, which
   need `PENDING` entries or an exemption rule. Changes no engine file.
   *Closed 2026-11-11 (T-224): moot, `tests/test_stale_text.py` was retired in `273398b`.*
-- [ ] T-169 ⟨later⟩ **A coach's completed `I-POSITION` exchange still acts on the member (spec revision 44's
+- [x] T-169 ⟨later⟩ **A coach's completed `I-POSITION` exchange still acts on the member (spec revision 44's
   `learning-qa` review, 2026-10-31; not decided).** Revision 44 (T-165, D5) takes away `M5.D.5`'s pull-up when the mover
   is the external agent. When that exchange completes (`complete`, `src/bowen/engine/iposition.py`), the member target's
   outside-ness axes are still multiplied by `1 − respect_gain`, the tie's `functioning_habit` is set to 0, the shared
@@ -108,3 +108,4 @@ on the owner's instruction of 2026-10-29 to proceed with Claude's recommendation
   test. No engine file changed.
   ⟦batch: final engine batch⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
   *Decision 2026-11-17 (Claude's recommendation 2026-11-17, pending owner review):* The completed exchange's effects on the member (`respect_gain` on outside-ness, the tie's habit, the triangle floor, the budget) act on the tie, not the member's level, so D5's reasoning holds and they stay. The always-true last assertion of `test_m5d5_opposition_pulls_up_to_the_movers_level` is removed (built). **Final engine batch:** build `M5.D.5`'s payoff propagation to later movers, leaving an external mover's sequence out, or restate the MUST as not built.
+  *Done 2026-11-19 in spec revision 65 (the final engine batch), Claude's recommendation, pending owner review: `M5.D.5`'s propagation MUST is restated as not built, a recorded gap: the corpus does not say what carries over to later movers.*

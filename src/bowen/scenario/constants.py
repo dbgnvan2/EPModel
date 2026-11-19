@@ -125,6 +125,7 @@ SCHEMA: Mapping[str, KeySpec] = MappingProxyType(
         "development_band_projection": KeySpec(float, "[I]", "M7.E.1f"),  # R31.B7
         "development_band_support": KeySpec(float, "[I]", "M7.E.1f"),  # R31.B7
         "witnessed_gain": KeySpec(float, "[I]", "M7.B.1a"),
+        "parent_pull_rate": KeySpec(float, "[I]", "M7.E.1g"),
         "launch_age_years": KeySpec(int, "[I]", "M7.C.1g"),
         "working_age_years": KeySpec(int, "[I]", "M7.C.1k"),
         "find_work_rate": KeySpec(float, "[I]", "M7.C.1k"),
@@ -160,6 +161,7 @@ SCHEMA: Mapping[str, KeySpec] = MappingProxyType(
         "attribution_rate": KeySpec(float, "[I]", "M9.6"),
         "focus_rate": KeySpec(float, "[I]", "M1.A.11c"),
         "belief_appraisal_gain": KeySpec(float, "[I]", "M9.7"),
+        "belief_anxiety_scale": KeySpec(float, "[I]", "M9.8"),
         "marital_distance_fraction": KeySpec(float, "[I]", "M5.C.1"),
         "contact_excess_exponent": KeySpec(float, "[I]", "M1.E.8"),
         "ensemble_block": KeySpec(int, "[I]", "M17.A.1"),
@@ -257,6 +259,8 @@ SCHEMA: Mapping[str, KeySpec] = MappingProxyType(
         "cue_spread_level_gain": KeySpec(float, "[I]", "M4.C.14"),
         "attention_load_gain": KeySpec(float, "[I]", "M4.C.15"),
         "attention_load_scale": KeySpec(float, "[I]", "M4.C.15"),
+        "cue_uncertainty_gain": KeySpec(float, "[I]", "M4.C.16"),
+        "cue_uncertainty_window": KeySpec(int, "[I]", "M4.C.16"),
         "belief_cue_rate": KeySpec(float, "[I]", "M9.9"),
         "belief_leak_gain": KeySpec(float, "[I]", "M9.9"),
     }

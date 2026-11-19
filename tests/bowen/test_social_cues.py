@@ -441,3 +441,28 @@ def test_m99_sc10_believed_distress_is_sent_as_leak():
     believing = cues.sender_signals(state, RAVI, (MARTA,), ON)
     assert believing.tone[2] < neutral.tone[2] and believing.tone[3] < neutral.tone[3]
     assert cues.sender_signals(state, RAVI, (NADIA,), ON).tone == neutral.tone  # the belief is about Marta only
+
+
+def test_m4c16_t203_varied_cues_with_the_same_mean_are_felt_more():
+    """T-203 (`M4.C.16`, `KS10.1`): two arms in which the sender's earlier cues to the target have the same mean and
+    different variance; the same move then raises the target's acute anxiety more in the varied arm. Mutation:
+    ``uncertainty_factor`` returning 1 gives both arms the same appraisal."""
+    def cued(index, v):
+        cue = (v,) * len(Cue)
+        return Event(id=EventId(0, RAVI.value, index), kind="CONFLICT", mechanism=Mechanism.MOVE, sender=RAVI,
+                     targets=(MARTA,), intensity=100.0, timestamp=0, duration=1, exogenous=False,
+                     source_position=SourcePosition.NONE, channel=Channel.SCRIPTED,
+                     signals=Signals(tone=cue, face=cue, posture=cue))
+
+    def anxiety(values):
+        state = fresh(NEUTRAL_READ)
+        for i, v in enumerate(values):
+            state.store.record_event(cued(10 + i, v))
+        event = cued(0, -0.4)  # the move appraised: the same cue in both arms, the arms' mean
+        state.store.record_event(event)
+        before = state.people[MARTA].acute_anxiety
+        apply_appraisal(state, {MARTA: ((deliver(state, event), event),)}, NEUTRAL_READ)
+        return state.people[MARTA].acute_anxiety - before
+
+    steady, varied = anxiety([-0.4] * 4), anxiety([-0.8, 0.0] * 2)
+    assert varied > steady > 0

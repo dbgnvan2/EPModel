@@ -6,6 +6,35 @@ The spec holds the current rules; this file holds how they got there. Until revi
 
 The sections `### Revision 34` to `### Revision 5` and the undated section are the spec's text as it stood, moved whole; a statement inside one of them (revision 34's, that revisions 13 to 33 are "not here") was true when written, before the bodies' narratives were moved under their own revisions. Those narratives are the bullets `- \`ID\`: sentence`, each the sentence as it stood in the body, under the revision it names, in sections titled "inline narratives moved from the bodies at revision 35" where no section existed.
 
+### Revision 65 — the final engine batch, 2026-11-19 ⟦rev65 · Claude's recommendation 2026-11-19, pending owner review⟧
+
+The engine hash moves once. Each change is Claude's recommendation from the 2026-11-17 triage and is pending owner
+review.
+
+- **`M7.D.2e` (T-057), new.** Below the turn, lock-in slows the leak of the active channels by `1 − min(1, s)`; it
+  lengthens a symptom and does not feed it.
+- **`M7.B.1a` (T-044).** The childhood load term is signed: the child's yearly mean load minus the living parents'.
+- **`M9.8` (T-082).** The receiver's own anxiety biases its reading of a tie's tension upward
+  (`belief_anxiety_scale`, 10, `[I]`).
+- **`M4.C.16` (T-203), new.** A sender's cue parts are scaled by the variance of the cues it sent over a window
+  (`cue_uncertainty_gain` 1.0, `cue_uncertainty_window` 12, `[I]`).
+- **`M7.E.1g` (T-204), new.** A parent's pull toward a child falls with the child's age, more slowly for an anxious
+  parent, and scales the parent's contact optimum on the tie (`parent_pull_rate` 0.02, `[I]`).
+- **`M6.I.4`, `M6.I.4a`, `M1.A.5c` (T-251).** Transfers are kept on a per-tie loan ledger, and settling back, return
+  and conversion read it; a starting swing is no loan. Settling back moved the smaller of the over-functioner's
+  borrowed and the other's lent pseudo-self until now; it moves a share of what the ledger says is owed.
+- **`M5.D.3` (T-257).** `test_m5d3_abort_is_the_usual_first_outcome` passes at 59 aborts and 54 holds over 192 seeds
+  (55 and 64, and 122 ending in anger, at revision 59), so its strict xfail is removed; the margin is within seed
+  noise and the ordering is not read as met until fresh seed blocks show it.
+- **The register** gains `Relationship.lent` and `Relationship.parent_pull`.
+- **`M11.C.55` (T-212).** The prior supply is counted to the week the relief is read, so both predictors are read to
+  the same week.
+- **`M5.D.5` (T-169).** The propagation MUST is restated as not built.
+- **`M17.D.1`, new `M17.D.1a` (T-083, T-088).** A null-coach control arm and the knowledge-event arm.
+- **Text only:** `M10.A.2`, `M11.C.36` (T-010); `M5.B.3` (T-095); `M1.A.4d` (T-096); `M1.A.19`, `M1.A.14c`, `M1.A.5d`,
+  `M11.F.3a` (T-098); `M1.A.18d`, `M8.6a`, `M1.D.7b` (T-099); `M5.B.3a`, `M1.B.10`, `M15.D.4` (T-101); `M4.D.3a`
+  (T-102); `M1.A.5a` (T-103); `M2.A.0e` (T-104); `M5.C.1a` (T-105); `M11.C.16` (T-071).
+
 ### Revision 64 — engine batch E1, 2026-11-17 ⟦rev64 · E1, Claude's recommendation 2026-11-17, pending owner review⟧
 
 The engine hash moves once. Each change is Claude's recommendation from the 2026-11-17 backlog triage, which classed

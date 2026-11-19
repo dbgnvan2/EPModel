@@ -5,7 +5,7 @@ Purpose: while ``social_cues_enabled`` is on (`M4.C.1f`), stamp each move with i
          (`M4.C.11`, `M4.C.12`, `M4.C.14`), turn that vector into felt contact and felt impingement (`M4.C.1e`), and
          keep each person's believed cue vector per partner (`M9.9`). Off, nothing here runs and nothing is drawn.
 Spec:    docs/bowen_agent_model_spec_v2.md#M1.F.1c, #M4.C.1e, #M4.C.1f, #M4.C.11, #M4.C.12, #M4.C.13, #M4.C.14,
-         #M4.C.15, #M9.9, #M4.C.6, #M4.C.9, #M1.F.4
+         #M4.C.15, #M4.C.16, #M9.9, #M4.C.6, #M4.C.9, #M1.F.4
 Tests:   tests/bowen/test_social_cues.py
 
 Every form below is the project's and `[I]`; the constants are in ``config/bowen/constants.md``. The cues are
@@ -39,6 +39,10 @@ perceived vector weighs the words against the share-weighted mean of the detecte
 ``w = min(cap, nonverbal_weight_base + nonverbal_weight_anxiety_gain × anxious)`` (`M4.C.11`); with no nonverbal
 channel detected the words take all the weight. Every draw is of the ``cue_perception`` class, keyed by the event's
 tick and index, the receiver, the sender and a label naming the channel and cue.
+
+**Uncertainty** (revision 65, T-203, `M4.C.16`). A target's appraisal of the cue parts of a move (what the words and
+the nonverbal channels are read to carry) is scaled by ``uncertainty_factor``: the more the sender's cues to it have
+varied over the window, the larger the reaction to the same mean cue (`KS10.1`).
 """
 
 from __future__ import annotations
@@ -57,7 +61,7 @@ from src.bowen.engine.signals import CUES, NEUTRAL, NONVERBAL, Cue, SignalChanne
 from src.bowen.engine.state import RunState
 
 __all__ = ["Cue", "SignalChannel", "Signals", "CUES", "NONVERBAL", "NEUTRAL_VECTOR", "Reading", "on", "sender_signals", "reading",
-           "cue_components", "witness_factor", "own_leak_share", "update_cue_beliefs", "belief"]
+           "cue_components", "witness_factor", "uncertainty_factor", "own_leak_share", "update_cue_beliefs", "belief"]
 
 DRAW_CLASS = "cue_perception"
 NEUTRAL_VECTOR = NEUTRAL
@@ -275,6 +279,29 @@ def _leak(event: Event) -> float:
     if event.signals is None:
         return 0.0
     return math.fsum(abs(v) for channel in NONVERBAL for v in event.signals.channel(channel))
+
+
+def uncertainty_factor(state: RunState, receiver: PersonId, sender: PersonId, params: EngineParams) -> float:
+    """Purpose: how much more a receiver reacts to a sender's cues when those cues have varied (`M4.C.16`, T-203,
+             `KS10.1`): ``1 + cue_uncertainty_gain × v``, where ``v`` is the variance, over the moves the sender sent
+             the receiver in the last ``cue_uncertainty_window`` ticks, of each move's share-weighted nonverbal cue
+             vector, averaged over the four cues. Fewer than two such moves read 1. It reads what was sent, the other's
+             response, not what was perceived, so the same mean with more spread reads larger.
+    Spec:    docs/bowen_agent_model_spec_v2.md#M4.C.16
+    Tests:   tests/bowen/test_social_cues.py::test_m4c16_t203_varied_cues_with_the_same_mean_are_felt_more
+    """
+    shares = _shares(params)
+    total = math.fsum(shares.values())
+    sent = []
+    for event in state.store.moves_in(state.tick - params.cue_uncertainty_window, state.tick):
+        if event.sender == sender and receiver in event.targets and event.signals is not None and total > 0:
+            sent.append(tuple(math.fsum(shares[c] * event.signals.channel(c)[i] for c in NONVERBAL) / total
+                              for i in range(len(CUES))))
+    if len(sent) < 2:
+        return 1.0
+    means = [math.fsum(v[i] for v in sent) / len(sent) for i in range(len(CUES))]
+    variance = math.fsum(math.fsum((v[i] - means[i]) ** 2 for v in sent) / len(sent) for i in range(len(CUES)))
+    return 1.0 + params.cue_uncertainty_gain * variance / len(CUES)
 
 
 def own_leak_share(state: RunState, person: PersonId, other: PersonId, window: int) -> float:

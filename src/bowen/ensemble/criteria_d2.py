@@ -483,7 +483,7 @@ def supplier_run(seed: int, years: int, from_year: int, lead_weeks: int) -> dict
              per parent, the child who was the main supplier over ``[from_year, years)`` (`M11.G.5`), the child with
              the highest felt relief from supplying that parent ``lead_weeks`` before that window (its learned values
              on the supplying kinds toward that parent, summed over bands and positions, `M4.D.6`), the child who
-             supplied that parent most over the run before the window, and the first-born child.
+             supplied that parent most over the run before that same week, and the first-born child.
     Spec:    docs/bowen_agent_model_spec_v2.md#M11.C.55, #M11.G.5, #M1.A.14b
     Tests:   tests/bowen/test_criteria_sc.py::test_m11c55_predictors_read_before_the_window,
              tests/bowen/test_criteria_sc.py::test_m11c55_t206_the_relief_is_read_a_lead_before_the_window
@@ -491,10 +491,8 @@ def supplier_run(seed: int, years: int, from_year: int, lead_weeks: int) -> dict
     Every predictor is read from the same run (the lesson of T-194): the relief at ``start - lead_weeks``, a week
     before the window that is not the window's own start, so the value is not the one the policy selects by over the
     window (T-206, the owner's decision of 2026-11-09); the supply before the window; and the birth order, which is
-    static (`M1.A.14`). The two are not read to the same week: the supply is counted over ``[0, start)`` and so sees
-    the ``lead_weeks`` the relief predictor does not. That asymmetry strengthens the baseline, so it runs against a
-    pass rather than toward one, but it is a second difference between the arms and `M11.5`'s row names it
-    (learning-qa 2026-11-10; the class T-194 and T-195 recorded). A child with no learned value on those kinds toward
+    static (`M1.A.14`). The relief and the supply are read to the same week: the supply is counted over
+    ``[0, start - lead_weeks)``, so the arms differ in the predictor alone (T-212, revision 65; learnings P7). A child with no learned value on those kinds toward
     the parent reads 0. A predictor that names no one (a tie for the highest, or no supply before the window) is a
     miss, as is a parent no child supplied over the window. ``chance`` is what a predictor drawing one of the children
     at random would name, ``parents_supplied`` ÷ the children.
@@ -519,7 +517,7 @@ def supplier_run(seed: int, years: int, from_year: int, lead_weeks: int) -> dict
 
     state, records = scenario("phase_d", seed, years * YEAR, watch=watch, overrides={"social_cues_enabled": 1})
     counts = supply_counts(records, kinds, since=start)
-    before = supply_counts(records, kinds, since=0, until=start)
+    before = supply_counts(records, kinds, since=0, until=read_week)  # to the relief's week (T-212)
     first = tuple(c for c in children if state.people[c].sibling_position.rank == 1)
     if len(relief) != len(children) * len(parents):
         raise RuntimeError(f"M11.C.55: the relief predictor was not read at week {read_week} "

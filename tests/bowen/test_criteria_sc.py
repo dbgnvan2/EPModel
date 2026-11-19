@@ -199,6 +199,21 @@ def test_m11c55_t206_the_relief_is_compared_with_prior_supply_and_with_chance():
     assert summary["parents_supplied"] == 2 and summary["chance"] == 2 / 3
 
 
+def test_m11c55_t212_prior_supply_is_counted_to_the_relief_week():
+    """T-212 (revision 65): the supply before the window is counted over ``[0, start - lead_weeks)``, the week the
+    relief is read, so both predictors see the same weeks. Here the second child supplies both parents twice inside
+    the lead and over the window, the first child once early; counted to the relief's week, prior supply names the
+    first child and misses. Mutation: counting to the window's start (``until=start``) names the second child and hits
+    both parents."""
+    parents, children = _c55_people()
+    window = 1 * criteria_d2.YEAR
+    records = ([_supply(children[0], parent, 2) for parent in parents] +
+               [_supply(children[1], parent, window - week) for parent in parents for week in (1, 2)] +
+               [_supply(children[1], parent, window + week) for parent in parents for week in (1, 2)])
+    summary = _c55_run(relief_at=lambda tick, child, parent: 0.0, records=records, from_year=1, lead_weeks=4)
+    assert summary["parents_supplied"] == 2 and summary["hits"]["prior_supply"] == 0
+
+
 def test_m11c55_t206_the_arms_read_the_relief_against_prior_supply_and_chance():
     """T-206: both compared readouts read the relief predictor in the treatment; the baseline reads the supply before
     the window in one and chance in the other, so a pass needs the relief above both. Birth order, the baseline until

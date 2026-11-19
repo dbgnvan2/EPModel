@@ -25,7 +25,7 @@ without `M11.F`'s framing) was entered in the spec text directly, marked ⟦prop
   exploratory narrator line only and do not enter the v2 spec.
   ⟦batch: paper-method proposals (owner adoption decisions)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
   *Decision 2026-11-17 (Claude's recommendation 2026-11-17, pending owner review):* Closed: MM1 and SV2, the batch's two mechanism candidates, are carried by T-082 and T-083; the rest are method conventions for `M17`, still a revision-10 draft, with no current use, and the X items are for the narrator line. The text stays in `papers/`.
-- [ ] T-082 ⟨later⟩ **Owner answer: anxiety shapes beliefs (answers MM1).** Anxiety makes a person's beliefs about others more
+- [x] T-082 ⟨later⟩ **Owner answer: anxiety shapes beliefs (answers MM1).** Anxiety makes a person's beliefs about others more
   subjective. It also biases risk assessment upward, so the same event is read as more threatening. For revision 11:
   - belief writes (`M9.8`, and the per-person belief store) read the receiver's own anxiety, not only the events
     delivered;
@@ -36,9 +36,10 @@ without `M11.F`'s framing) was entered in the spec text directly, marked ⟦prop
   - `M9.2` still binds: a threat-biased reading is not automatically false.
   ⟦batch: final engine batch⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
   *Decision 2026-11-17 (Claude's recommendation 2026-11-17, pending owner review):* Adopt as a mechanism: corpus support for the direction is K12.8, K04.7, FE05.10 and KS10.6; the strength is `[I]`. **Final engine batch:** `M9.8`'s belief write mixes in the receiver's own state with a weight that rises with the receiver's anxiety, and biases the reading upward only. Guard: MM1's identical-events probe with a label-only null arm; `M9.2` still binds.
+  *Done 2026-11-19 in spec revision 65 (the final engine batch), Claude's recommendation, pending owner review: `M9.8`: the receiver's own anxiety biases its reading of a tie's tension upward only (`belief_anxiety_scale` 10, `[I]`); `M9.2` binds. Guard: `test_m98_t082_the_same_events_read_more_tense_by_an_anxious_receiver`, mutation-proved.*
 
   MM1's probe (identical events, only the receiver's anxiety differs, plus a label-only null arm) becomes the test.
-- [ ] T-083 ⟨later⟩ **Owner answer: how coaching enters a family (answers SV2).**
+- [x] T-083 ⟨later⟩ **Owner answer: how coaching enters a family (answers SV2).**
   - **Coach.** Present from t0 in every run.
   - **Knowledge.** A family learns that coaching exists only through an outside event, which reaches one or more
     named people at a declared tick.
@@ -59,6 +60,7 @@ without `M11.F`'s framing) was entered in the spec text directly, marked ⟦prop
     `M1.E.8` (low optimum for contact frequency).
   ⟦batch: final engine batch⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
   *Decision 2026-11-17 (Claude's recommendation 2026-11-17, pending owner review):* Adopt the owner's answer as `M17`'s arm definition; the coach already exists (`M1.E.7`–`7f`). **Final engine batch (spec text only):** in `M17.D`, an arm is a declared knowledge event (who, when) through `M17.D.3`'s channels, spread is an output, and the headline compares knew against did not know, with never tried, stopped and continued as a breakdown.
+  *Done 2026-11-19 in spec revision 65 (the final engine batch), Claude's recommendation, pending owner review: `M17.D.1` gains the null-coach control arm (e) (text; the arm is not built).*
 - [x] T-084 ⟨later⟩ **Method proposals from the two 2026-10-04 batches.** Added 2026-10-04 by owner decision; held for revision 11
   on the same terms as the 2026-09-27 batches. 59 candidates, including narrator-line items.
   - **Batch a.** The five papers from the 2026-09-28 sweep: WA1–WA5, CD1–CD4, CB1–CB3, BV1–BV3, PW1–PW3, plus
@@ -135,7 +137,7 @@ without `M11.F`'s framing) was entered in the spec text directly, marked ⟦prop
     2609.16395) had not been read in full. *Closed 2026-10-05: read in batch b, below.*
   ⟦batch: paper-method proposals (owner adoption decisions)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
   *Decision 2026-11-17 (Claude's recommendation 2026-11-17, pending owner review):* Closed: belief fading (GA1) and derived-belief lifetime (GA2) have no ledger support; OM1 is a method item; TD1's point on the update form is recorded under `M4.D.6`.
-- [ ] T-088 ⟨later⟩ **Method proposals from the 2026-10-05 batch b (silicon sampling).** Added 2026-10-05 by owner request; held for
+- [x] T-088 ⟨later⟩ **Method proposals from the 2026-10-05 batch b (silicon sampling).** Added 2026-10-05 by owner request; held for
   revision 11 on the same terms. Total Simulated Survey Error 2609.10280 (TS1–TS4, TS-X1), Before You Poll 2609.15849
   (BP1–BP5, BP-X1, BP-X2), Silicon Sampling Country Assumptions 2609.16395 (SC1–SC5, SC-X1, SC-X2). In
   `papers/SWEEP_READING_REPORTS_2026-10-05b.md`; plain-language version in
@@ -160,6 +162,7 @@ without `M11.F`'s framing) was entered in the spec text directly, marked ⟦prop
     abstract level only" is out of date. Left unchanged while revision 10 is under review.
   ⟦batch: final engine batch⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
   *Decision 2026-11-17 (Claude's recommendation 2026-11-17, pending owner review):* Adopt the owner's BP2 answer; close TS, SC and BP1 (BP1 needs `M11.1d`'s rule sets complete for every criterion, which they are not). **Final engine batch (spec text only):** add `M17.D.1`'s fifth control arm (e), coach quality set to null through `M17.D.3`, matching the coach arm in everything else.
+  *Done 2026-11-19 in spec revision 65 (the final engine batch), Claude's recommendation, pending owner review: New `M17.D.1a` defines the knowledge-event arm, its shared-history rule, spread as an output and the headline comparison (text; not built).*
 - [x] T-089 ⟨later⟩ **Method proposals from the 2026-10-12 batch.** Added 2026-10-17 by owner request; held for revision 11 on the
   same terms as the earlier batches. Six papers read in full from the 2026-10-12 method-literature digest: Fu 2026,
   *"Hot-Blooded" vs "Cold-Blooded"* (2610.11951; HB1, HB2), Peng et al. 2026, *MASC* (2610.08250; MC1, MC2), Deng et

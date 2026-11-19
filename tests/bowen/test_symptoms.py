@@ -481,3 +481,23 @@ def test_m7d2a_binder_unavailable_release_uses_the_same_split():
     assert PersonId("halim") not in got and len(got) == len(weights)
     for pid, value in got.items():
         assert value == pytest.approx(90.0 * weights[pid] / sum(weights.values()))
+
+
+def test_m7d2e_lock_in_lengthens_a_symptom_without_feeding_it():
+    """T-057 (`M7.D.2e`, `KS23.1`): with nothing feeding it, a mild active symptom lasts longer while its lock-in holds
+    (``lock_in_gain`` 0.2) than with none (0), and its load only falls, so no bearer is pinned at the turn. Mutation:
+    leaking an active channel at the plain ``symptom_leak_rate`` gives both arms the same duration."""
+    def weeks_active(params):
+        nadia = bearer(calm(fresh()), NADIA, 1.2)
+        nadia.symptom_suppression = 0.0  # nothing is fed: only the leak acts
+        loads, weeks = [nadia.symptom_load[nadia.channel_prior]], 0
+        while nadia.symptom_active[nadia.channel_prior]:
+            integrate(nadia, params)
+            loads.append(nadia.symptom_load[nadia.channel_prior])
+            weeks += 1
+        assert all(b <= a for a, b in zip(loads, loads[1:]))
+        return weeks
+
+    assert weeks_active(dataclasses.replace(PARAMS, lock_in_gain=0.2)) > weeks_active(
+        dataclasses.replace(PARAMS, lock_in_gain=0.0))
+

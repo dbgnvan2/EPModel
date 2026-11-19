@@ -136,7 +136,7 @@
   (raise); a newborn's resting tie beliefs (`life_course._introduce`) are written with no `BeliefWriteRecord`;
   `with_truth` reads the truth at step 3, before step 4's appraisal of the same deliveries (state the timing in
   `M16.A.5a`, or move the call); `"belief"` and `"attribution"` in `trace.SYSTEM_SUMMARISED` are dead entries.
-- [ ] T-251 ⟨later⟩ **Revision 62's low review findings (2026-11-15).** Kept for a later engine batch:
+- [x] T-251 ⟨later⟩ **Revision 62's low review findings (2026-11-15).** Kept for a later engine batch:
   `beliefs.with_truth` raises `ValueError`, which `run_tick` does not catch, so a tick failing there is not logged
   before the raise (T-239 (d)); unreachable today, since no tie is ever removed. `moves.lenders_of` reads any negative
   pseudo-self as lent and any positive as borrowed, so a starting swing (`initialise_functioning`) converts and
@@ -145,6 +145,7 @@
   (`test_t248_every_mechanism_the_trace_names_is_one_the_engine_emits`) reads literal mechanism names only.
  *(triage 2026-11-17, Claude's recommendation, pending owner review)*
   *Partly built 2026-11-17 in revision 64: `with_truth` raises `InvariantViolation`, and the founders' starting tie beliefs are logged at week 0. Kept open: the `lenders_of` bookkeeping, because fixing it changes what `M6.I.4a` and `M1.A.5c` compute (a mechanism change, not hygiene); and the trace test still reads literal mechanism names only.*
+  *Done 2026-11-19 in spec revision 65 (the final engine batch), Claude's recommendation, pending owner review: The loan ledger (`Relationship.lent`) is built: transfers write it, and relaxation, return and conversion repay it; a starting swing is no loan. Guard: `test_t251_a_starting_swing_is_no_loan_and_does_not_return`, mutation-proved. The trace test's literal reading is complete: every `EffectRecord` mechanism name in `src/bowen/` is a literal.*
 - [x] T-252 ⟨now⟩ **A named mutant survives `M11.C.10[family of origin]` at revision 62 (2026-11-15).** In
   `docs/phase_d_mutation_record.md`, `learner-reads-own-state-only` (`M4.B.2`'s exemption removed) now passes the
   variant (`cut_off_tie_weeks` +146 ± 128, p 0.014; red at revision 61, p 0.25). The variant stays covered:

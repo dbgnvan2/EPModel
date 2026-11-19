@@ -534,14 +534,10 @@ def attempts_over_seeds(seeds=192, weeks=100):
     return tuple(outcomes)
 
 
-@pytest.mark.xfail(strict=True, raises=AssertionError,
-                   reason="T-158: since revision 41 (T-133) a mover angry at DEFINE says the position as a demand and "
-                   "the sequence ends before any opposition, so the movers who reach the first opposition are "
-                   "calmer: over the 192 seeds, 55 abort there and 64 hold (125 and 106 at revision 40), and 122 "
-                   "sequences end said in anger (spec revision 59). The claim is unchanged; the owner kept it as a finding (2026-10-31, "
-                   "T-158 (b)).")
 def test_m5d3_abort_is_the_usual_first_outcome():
-    """At the first opposition, aborting is commoner than holding."""
+    """At the first opposition, aborting is commoner than holding. A strict xfail from revision 41 to 64 (T-158: 55
+    abort and 64 hold over the 192 seeds at revision 59); at revision 65 it is 59 and 54, a margin within seed noise,
+    so the pass is not read as the claim restored until fresh seed blocks show it (T-257)."""
     held = aborted = 0
     for marks in attempts_over_seeds():
         at_opposition = False

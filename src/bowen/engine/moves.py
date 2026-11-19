@@ -357,14 +357,38 @@ def functioning_shift(state: RunState, event: Event, tie: Relationship, target: 
     for person, sign in ((taker, 1.0), (giver, -1.0)):
         person.functional_level += sign * amount
         person.pseudo_self = (person.pseudo_self or 0.0) + sign * amount
+    ties = _lend(tie, giver.id, taker.id, amount)
     flipped = balance != 0 and new_balance != 0 and math.copysign(1, balance) != math.copysign(1, new_balance)
-    ties = [(tie.id, f"functioning_balance:{DEFAULT_AREA}", new_balance - balance)]
+    ties.append((tie.id, f"functioning_balance:{DEFAULT_AREA}", new_balance - balance))
     if flipped:
         ties.append((tie.id, f"functioning_flip:{DEFAULT_AREA}", new_balance))
     return EffectRecord(
         state.tick, "functioning_shift", event.id, ties=tuple(ties),
         people=((taker.id, "pseudo_self", amount), (giver.id, "pseudo_self", -amount)) if amount else (),
     )
+
+
+def _lend(tie: Relationship, giver: PersonId, taker: PersonId, amount: float) -> list[tuple]:
+    """M6.I.4 (T-251): ``amount`` given by ``giver`` to ``taker`` on ``tie`` first repays what the giver had borrowed
+    from the taker there, and the rest is lent; returns the tie rows (``lent:<member>``, change)."""
+    rows = []
+    repaid = min(amount, tie.lent.get(taker, 0.0))
+    if repaid > 0:
+        tie.lent[taker] -= repaid
+        rows.append((tie.id, f"lent:{taker.value}", -repaid))
+    if amount - repaid > 0:
+        tie.lent[giver] = tie.lent.get(giver, 0.0) + amount - repaid
+        rows.append((tie.id, f"lent:{giver.value}", amount - repaid))
+    return rows
+
+
+def repay(tie: Relationship, lender: PersonId, amount: float) -> list[tuple]:
+    """M6.I.4a, M1.A.5c (T-251): lower what ``lender`` has lent on ``tie`` by ``amount``, never below 0; the tie row."""
+    taken = min(amount, tie.lent.get(lender, 0.0))
+    if taken <= 0:
+        return []
+    tie.lent[lender] -= taken
+    return [(tie.id, f"lent:{lender.value}", -taken)]
 
 
 def settle_functioning(state: RunState, params: EngineParams) -> list[EffectRecord]:
@@ -396,16 +420,15 @@ def relax_pseudo_self(state: RunState, params: EngineParams) -> list[EffectRecor
     Spec:    docs/bowen_agent_model_spec_v2.md#M6.I.4, #M1.A.5c, #M11.C.24
     Tests:   tests/bowen/test_moves.py::test_m6i4_pseudo_self_settles_back_when_the_exchange_stops
 
-    Each week, for each tie on which the pair has exchanged (its functioning balance is not zero), whose
-    over-functioning member carries borrowed pseudo-self and the other lent, and between whom no ``OVERFUNCTION`` or
-    ``UNDERFUNCTION`` was sent in the last ``exchange_window`` weeks,
-    ``pseudo_self_relaxation_rate × min(|borrowed|, |lent|)`` moves back from the one who borrowed to the one who lent,
-    with the same amount of ``functional_level``. Total pseudo-self is conserved (`M6.I.4`), and nothing rewrites
+    Each week, for each tie on which the pair has exchanged (its functioning balance is not zero) and between whom no
+    ``OVERFUNCTION`` or ``UNDERFUNCTION`` was sent in the last ``exchange_window`` weeks,
+    ``pseudo_self_relaxation_rate`` × what a member is owed on the tie's loan ledger (T-251) moves back to them from the
+    other, with the same amount of ``functional_level``, and the ledger is repaid by the same. Total pseudo-self is conserved (`M6.I.4`), and nothing rewrites
     either person's basic level (`M1.A.5c`, `M11.C.24`).
     """
     exchanged = {TieId.of(e.sender, t) for e in state.store.moves_in(state.tick - params.exchange_window, state.tick)
                  if e.kind in (OVERFUNCTION, UNDERFUNCTION) and e.sender is not None for t in e.targets if t != e.sender}
-    changes = []
+    changes, tie_rows = [], []
     for tid in sorted(state.ties):
         if tid in exchanged:
             continue
@@ -416,19 +439,21 @@ def relax_pseudo_self(state: RunState, params: EngineParams) -> list[EffectRecor
         # the dead beyond the conserved transfer itself.
         if balance == 0 or not (a.alive or b.alive):
             continue
-        borrower, lender = (a, b) if balance * _pole_of(tie, a.id) > 0 else (b, a)  # the over-functioner borrowed
-        if (borrower.pseudo_self or 0.0) <= 0 or (lender.pseudo_self or 0.0) >= 0:
-            continue
-        amount = params.pseudo_self_relaxation_rate * min(borrower.pseudo_self, -lender.pseudo_self)
-        amount = max(0.0, min(amount, borrower.functional_level, SCALE_MAX - lender.functional_level))
-        if amount <= 0:
-            continue
-        borrower.pseudo_self -= amount
-        borrower.functional_level -= amount
-        lender.pseudo_self += amount
-        lender.functional_level += amount
-        changes += [(borrower.id, "pseudo_self", -amount), (lender.id, "pseudo_self", amount)]
-    return [EffectRecord(state.tick, "pseudo_self_relaxation", None, people=tuple(changes))] if changes else []
+        # T-251: what settles back is what the ledger says is owed on this tie, so a starting swing is no loan.
+        for lender, borrower in ((a, b), (b, a)):
+            owed = tie.lent.get(lender.id, 0.0)
+            amount = params.pseudo_self_relaxation_rate * owed
+            amount = max(0.0, min(amount, borrower.functional_level, SCALE_MAX - lender.functional_level))
+            if amount <= 0:
+                continue
+            borrower.pseudo_self = (borrower.pseudo_self or 0.0) - amount
+            borrower.functional_level -= amount
+            lender.pseudo_self = (lender.pseudo_self or 0.0) + amount
+            lender.functional_level += amount
+            changes += [(borrower.id, "pseudo_self", -amount), (lender.id, "pseudo_self", amount)]
+            tie_rows += repay(tie, lender.id, amount)
+    return ([EffectRecord(state.tick, "pseudo_self_relaxation", None, ties=tuple(tie_rows), people=tuple(changes))]
+            if changes else [])
 
 
 def exchanged(records) -> dict[PersonId, float]:
@@ -443,15 +468,16 @@ def exchanged(records) -> dict[PersonId, float]:
     return moved
 
 
-def lenders_of(state: RunState, pid: PersonId) -> list[Person]:
-    """The people who lent ``pid`` pseudo-self: the partners, alive or dead (`M6.3e`), on ties whose functioning balance
-    names ``pid`` the over-functioner and who hold lent (negative) pseudo-self, in tie order. `M6.I.4a`'s return and
-    `M1.A.5c`'s conversion (T-247) split over them in proportion to what each holds lent."""
+def lenders_of(state: RunState, pid: PersonId) -> list[tuple[Person, Relationship, float]]:
+    """The people who lent ``pid`` pseudo-self through `M6.I.4`'s exchange and have not had it back, alive or dead
+    (`M6.3e`), each with the tie and what they lent there (``Relationship.lent``), in tie order. `M6.I.4a`'s return and
+    `M1.A.5c`'s conversion (T-247) split over them in proportion to what each lent. A starting swing is no loan
+    (T-251, revision 65), so a person whose negative pseudo-self is a swing lends nothing."""
     lenders = []
     for tie in sorted(state.ties_of(pid), key=lambda t: t.id):
-        other = state.people[next(m for m in tie.id.members() if m != pid)]
-        if tie.functioning_balance.get(DEFAULT_AREA, 0.0) * _pole_of(tie, pid) > 0 and (other.pseudo_self or 0.0) < 0:
-            lenders.append(other)
+        other = next(m for m in tie.id.members() if m != pid)
+        if tie.lent.get(other, 0.0) > 0:
+            lenders.append((state.people[other], tie, tie.lent[other]))
     return lenders
 
 
@@ -466,15 +492,15 @@ def return_lent_functioning(state: RunState, params: EngineParams, week_start: d
     ``week_start`` is each person's ``functional_level`` at the week's start; ``exchange`` what `M6.I.4`'s transfers
     moved this week (``exchanged``), left out of the level read now. For each living person holding borrowed
     (positive) pseudo-self, in id order, with ``s`` their ``capacity``: if ``s`` fell from ``s_before`` > 0 to
-    ``s_after``, ``borrowed × (s_before − s_after) / s_before`` goes back to the partners on ties whose functioning
-    balance names this person the over-functioner and who hold lent (negative) pseudo-self, alive or dead (`M6.3e`),
-    in proportion to what each holds lent; none is given back more than they lent nor taken above 100, and the taker
+    ``s_after``, ``borrowed × (s_before − s_after) / s_before`` goes back to the people who lent it through the
+    exchange (``lenders_of``, the tie's ``lent``), alive or dead (`M6.3e`), in proportion to what each lent; none is
+    given back more than they lent nor taken above 100, and the taker
     is not taken below 0. What a cap stops, or what has no lender to go to, stays with the taker and is logged as
     ``pseudo_self_unreturned`` (T-134), a value on the record, not a change of state. Total pseudo-self is conserved. A fall in level no
     larger than ``invariant_tolerance`` is rounding and returns nothing.
     """
     exchange = exchange or {}
-    changes = []
+    changes, tie_rows = [], []
     for pid in sorted(state.people):
         taker = state.people[pid]
         borrowed = taker.pseudo_self or 0.0
@@ -491,23 +517,24 @@ def return_lent_functioning(state: RunState, params: EngineParams, week_start: d
             continue
         due = borrowed * (s_before - s_after) / s_before
         lenders = lenders_of(state, pid)
-        lent = math.fsum(-o.pseudo_self for o in lenders)
+        lent = math.fsum(owed for _, _, owed in lenders)
         given = []
-        for lender in lenders:
-            amount = min(due * -lender.pseudo_self / lent, -lender.pseudo_self,
-                         SCALE_MAX - lender.functional_level, taker.functional_level)
+        for lender, tie, owed in lenders:
+            amount = min(due * owed / lent, owed, SCALE_MAX - lender.functional_level, taker.functional_level)
             if amount <= 0:
                 continue
             taker.pseudo_self -= amount
             taker.functional_level -= amount
-            lender.pseudo_self += amount
+            lender.pseudo_self = (lender.pseudo_self or 0.0) + amount
             lender.functional_level += amount
             given.append(amount)
             changes += [(taker.id, "pseudo_self", -amount), (lender.id, "pseudo_self", amount)]
+            tie_rows += repay(tie, lender.id, amount)
         unreturned = due - math.fsum(given)
         if unreturned > params.invariant_tolerance:
             changes.append((taker.id, "pseudo_self_unreturned", unreturned))
-    return [EffectRecord(state.tick, "pseudo_self_return", None, people=tuple(changes))] if changes else []
+    return ([EffectRecord(state.tick, "pseudo_self_return", None, ties=tuple(tie_rows), people=tuple(changes))]
+            if changes else [])
 
 
 # --- REDUCE_CUTOFF -------------------------------------------------------------------------

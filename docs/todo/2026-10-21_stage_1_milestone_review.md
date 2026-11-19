@@ -38,7 +38,7 @@ owner's ten decisions and what this batch fixed are in `CHANGELOG.md`. Open:
   - `M1.B.10a` (SP1-S15): Tape 6 states a closed subject's reopening as a wish, and says couples usually cannot
     reopen it themselves by the time they seek help; it supports the MUST as a possibility, not a common outcome.
   *Closed 2026-11-17 (Claude's recommendation 2026-11-17, pending owner review): re-read 2026-11-17. `M11.C.11`, `M1.C.3a` and `M1.E.7` already say no more than their passages (revision 34); `M1.B.10a` keeps to Tape 6. `_LECTURES_1979.md` T6.8 no longer says the return exceeds the removal, and the explainer's `routing_capacity` row now marks the triangle step `[M]` (T-010). The two spec remainders moved: `M5.B.3a`'s KB08 scope to T-101, `M5.C.1a` to T-105.*
-- [ ] T-010 ⟨later⟩ **Found while building SP-1 (2026-10-22), not fixed:**
+- [x] T-010 ⟨later⟩ **Found while building SP-1 (2026-10-22), not fixed:**
   - `SP1-E06`, the explainer's §6.1 triangle table (`routing_capacity`): the proposal's check note says the text now
     says that applying Tape 5 to triangles is the project's inference (K04.15); the approved text does not say it.
     Pair with `M1.C.3a` above.
@@ -47,6 +47,7 @@ owner's ten decisions and what this batch fixed are in `CHANGELOG.md`. Open:
   - `FE03.21`: the block quotation in `M4.D` ends a quoted run in the chapter whose speaker is not known; it is cited
     as Kerr's chapter until it is checked against the printed book (`family_evaluation/fe03.md`).
   *re-read 2026-11-17. SP1-E06 is fixed: the explainer's `routing_capacity` row marks the triangle step `[M]` and names K04.15. `M5.D.7a` states its attribution, and `FE03.21` is cited correctly as Kerr's chapter. Two spec wording fixes remain for the final revision: `M10.A.2` cites K10.9 twice (drop the inline one), and `M11.C.36`'s title says *appraisal and selection* but it measures appraisal only (from T-053).* *(Claude's recommendation 2026-11-17, pending owner review)* ⟦batch: final engine batch⟧
+  *Done 2026-11-19 in spec revision 65 (the final engine batch), Claude's recommendation, pending owner review: Text fixed: `M10.A.2` cites K10.9 once, and `M11.C.36` is titled for appraisal only.*
 - [x] T-011 ⟨later⟩ **From the SP-1 build's review (2026-10-22), not fixed:**
   - Six exempt paths in `tests/asr_quotations.json` hide no finding today (`CHANGELOG.md`, `LEARNINGS.md`, `papers/`,
     `_KERR_INTERVIEWS.md`, `_PASS2_CORRECTIONS.md`, `_SOURCE_QUALITY.md`). Kept: each is exempt by the proposal's §3

@@ -80,6 +80,11 @@ FINGERPRINT_DIGITS = 8  # significant digits kept per float; see the module docs
 ZERO_BELOW = 1e-12  # a float this close to zero is written as 0, so 1e-17 and -1e-17 agree
 GOLDEN = {
     # (family, seed, weeks): fingerprint
+    # Both moved at spec revision 65 (the final engine batch, 2026-11-19; P23, a decision): six rules change what a run
+    # computes (`M7.D.2e`, `M7.B.1a`, `M9.8`, `M4.C.16`, `M7.E.1g`, and the loan ledger of `M6.I.4`), and the log gains
+    # the ledger's and the parent pull's tie rows. Before revision 65:
+    # phase_c 57b54eb300d0d640d73ac849c8b2f4aefbafe62eea14ae97eaa80bb3de3bf7f4,
+    # phase_d 9938192935be701f04cb5fc46dd130bdf2fb8359584c8a653d2e362ce80d115e.
     # Both moved at spec revision 64 (engine batch E1, 2026-11-17; P23, a decision): the log gains the founders' week-0
     # tie beliefs (T-251) and `pseudo_self_unreturned` (T-134) and loses deliveries to the dead (T-246); the sender's
     # appraisal of returned contact drops the event's sign and attention (`M4.C.1d`, T-141). The regeneration moved no
@@ -123,8 +128,8 @@ GOLDEN = {
     # the additions' loads and a symptom's own load) each change what a seeded run computes, so every run's log moved.
     # Before revision 36: phase_c c4fd16123fa37db3ccf7d2f6624b3463ef51ec084a44cad1dc0b1501f07ca85c,
     # phase_d 4e5ebdad859f648c37e8bb3222de6f802df94172ff0dd3a5b3e5c1df9b16f559.
-    ("phase_c", 7, 104): "57b54eb300d0d640d73ac849c8b2f4aefbafe62eea14ae97eaa80bb3de3bf7f4",
-    ("phase_d", 11, 208): "9938192935be701f04cb5fc46dd130bdf2fb8359584c8a653d2e362ce80d115e",
+    ("phase_c", 7, 104): "19e65ea8065d0580f21655de69f1091f254ee269bbfde6825381043706057eca",
+    ("phase_d", 11, 208): "c1090763e0483522428425f13e613cc273713704450724b65a8fa66e79142e7c",
 }
 
 

@@ -157,6 +157,7 @@ activation_regime: synchronous
 | `focus_rate` | 0.05 | [I] | weekly decay of the family's focus on a person's channel, and what one anxious act adds (revision 25) | `M1.A.11c` |
 | `marital_distance_fraction` | 0.25 | [I] | share of the felt contact optimum below which, for both spouses, marital distance is high (revision 25) | `M5.C.1` |
 | `belief_appraisal_gain` | 1.0 | [I] | a witness's appraisal is scaled by 1 + this × its believed tension of the tie (revision 25) | `M9.7` |
+| `belief_anxiety_scale` | 10.0 | [I] | points of excess anxiety at which a receiver's own state carries half its reading of a tie's tension (revision 65, T-082) | `M9.8` |
 | `pseudo_self_relaxation_rate` | 0.05 | [I] | weekly share of a pair's opposite pseudo-self that settles back once their exchange stops (revision 27) | `M6.I.4` |
 | `exchange_window` | 8 | [I] | weeks without over/under-functioning between a pair before their pseudo-self settles (revision 27) | `M6.I.4` |
 | `acting_age_years` | 10 | [I] | year of age (the owner's, 2026-10-13) | `M7.C.1f` |
@@ -167,6 +168,7 @@ activation_regime: synchronous
 | `development_band_projection` | 0.10 | [I] | share of the anchor the level may fall when every parental act to the child was projection-type (the owner's, 2026-10-16: "projection up to 10% negative") | `M7.E.1f` |
 | `development_band_support` | 0.05 | [I] | share of the anchor the level may rise when every parental act to the child was supportive (the owner's, 2026-10-16: "up to 5% growth") | `M7.E.1f` |
 | `witnessed_gain` | 0.5 | [I] | chronic-anxiety points per point of the year's mean load | `M7.B.1a` |
+| `parent_pull_rate` | 0.02 | [I] | per year of the child's age, at zero parental chronic anxiety; a parent at chronic 50 eases at half the rate (revision 65, T-204) | `M7.E.1g` |
 | `launch_age_years` | 20 | [I] | year of age | `M7.C.1g` |
 | `working_age_years` | 16 | [I] | year of age | `M7.C.1k` |
 | `find_work_rate` | 0.1 | [I] | probability per week at full pressure | `M7.C.1k` |
@@ -296,5 +298,7 @@ activation_regime: synchronous
 | `cue_spread_level_gain` | 0.2 | [I] | added half-width at functional level 0 | `M4.C.14` |
 | `attention_load_gain` | 0.5 | [I] | attention cue units lost at a full stressor load (a proxy for life_energy) | `M4.C.15` |
 | `attention_load_scale` | 0.5 | [I] | stressor load (intensity ÷ intensity_scale, summed) at which the loss is full; one lasting Holmes–Rahe stressor of size 39–63 is 0.39–0.63 | `M4.C.15` |
+| `cue_uncertainty_gain` | 1.0 | [I] | scale of the reaction to a sender's cues per unit of their variance over the window (revision 65, T-203) | `M4.C.16` |
+| `cue_uncertainty_window` | 12 | [I] | fast ticks | `M4.C.16` |
 | `belief_cue_rate` | 0.1 | [I] | share of the gap a perceived cue moves the belief, per delivery | `M9.9` |
 | `belief_leak_gain` | 0.5 | [I] | expectations and distress leak per unit believed distress of the partner | `M9.9` |

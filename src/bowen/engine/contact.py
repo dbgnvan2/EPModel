@@ -12,8 +12,8 @@ every constant is invented ([I]) and lives in ``config/bowen/constants.md``.
 
     steepness(fl)  = SCALE_MAX / max(fl, floor)                      (M4.C.1a: falls as fl rises)
     band(fl)       = contact_band_max × fl / SCALE_MAX               (M4.C.1a: widens as fl rises)
-    optimum        = min(1, bond_energy / SCALE_MAX
-                            × (1 + anxiety_togetherness_gain × excess / SCALE_MAX))   (M4.C.1b)
+    optimum        = min(1, bond_energy / SCALE_MAX × parent_pull
+                            × (1 + anxiety_togetherness_gain × excess / SCALE_MAX))   (M4.C.1b, M7.E.1g)
     too little     = max(0, optimum − felt_contact − band)
     too much       = max(0, felt_impingement − band)
     resting contact = interactive_resting_contact × optimum on an interactive tie, 0 otherwise
@@ -58,11 +58,11 @@ def excess(person: Person) -> float:
 
 def optimum(person: Person, tie: Relationship, params: EngineParams) -> float:
     """Purpose: the person's felt contact optimum on a tie, moved toward closeness by anxiety and by origin cutoff.
-    Spec:    docs/bowen_agent_model_spec_v2.md#M4.C.1, #M4.C.1b, #M1.D.8a
+    Spec:    docs/bowen_agent_model_spec_v2.md#M4.C.1, #M4.C.1b, #M1.D.8a, #M7.E.1g
     Tests:   tests/bowen/test_contact.py::test_m4c1b_anxiety_moves_the_optimum_toward_closeness,
              tests/bowen/test_origin_danger_focus.py::test_m1d8a_and_seeks_more_closeness
     """
-    base = tie.bond_energy / SCALE_MAX
+    base = tie.bond_energy / SCALE_MAX * tie.parent_pull.get(person.id, 1.0)  # M7.E.1g: a parent's pull eases
     fusion = 1.0 + params.origin_fusion_gain * person.origin_cutoff  # M1.D.8a: the cutoff grown up with
     return min(1.0, base * fusion * (1.0 + params.anxiety_togetherness_gain * excess(person) / SCALE_MAX))
 

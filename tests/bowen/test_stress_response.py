@@ -534,6 +534,7 @@ def _lent_by(lent):
         state.people[pid].pseudo_self = held
         tie = state.ties[TieId.of(RAVI, pid)]
         tie.functioning_balance[DEFAULT_AREA] = 0.5 * _pole_of(tie, RAVI)
+        tie.lent[pid] = -held  # lent through the exchange (T-251)
     return state
 
 

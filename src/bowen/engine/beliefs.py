@@ -32,6 +32,9 @@ fidelity-weighted mean, and the belief moves toward it by
 holds. A belief with nothing delivered does not move: there is no drift toward
 truth, which is what lets a misperceived alliance persist (`M9.8`). The smoothing
 rule is [I].
+
+**The receiver's own anxiety** (revision 65, T-082) biases the observed tension upward before the step: the more
+anxious the receiver, the more of its own state it reads into the tie (``anxious_reading``). Contact is not biased.
 """
 
 from __future__ import annotations
@@ -136,7 +139,7 @@ def update_beliefs(
         weight = math.fsum(f for f, _, _ in obs)
         if weight <= 0:
             continue
-        tension = math.fsum(f * t for f, t, _ in obs) / weight
+        tension = anxious_reading(person, math.fsum(f * t for f, t, _ in obs) / weight, params)
         contact = math.fsum(f * c for f, _, c in obs) / weight
         step = params.belief_rate * weight / len(obs)
         belief = store[tie]
@@ -150,6 +153,22 @@ def update_beliefs(
         if d_contact:
             changes.append(BeliefWriteRecord(state.tick, pid, f"tie_beliefs[{tie}].contact", belief.contact, None))
     return changes
+
+
+def anxious_reading(person: Person, observed: float, params: EngineParams) -> float:
+    """Purpose: the receiver's own anxiety enters its reading of a tie's tension (`M9.8`, T-082): its own state
+             ``a = e / (e + belief_anxiety_scale)``, ``e`` its excess anxiety, is mixed into the observation with weight
+             ``a``, so the weight rises with anxiety, and only upward: ``max(observed, (1 − a) × observed + a × a)``. A
+             calm receiver (``e`` = 0) reads the observation as delivered. The direction is the owner's (`[user]`;
+             K12.8, FE05.10); the form and the scale are `[I]`. `M9.2` binds: the reading is not marked false.
+    Spec:    docs/bowen_agent_model_spec_v2.md#M9.8, #M9.2
+    Tests:   tests/bowen/test_beliefs.py::test_m98_t082_the_same_events_read_more_tense_by_an_anxious_receiver
+    """
+    from src.bowen.engine.contact import excess
+
+    e = excess(person)
+    own = e / (e + params.belief_anxiety_scale)
+    return max(observed, (1.0 - own) * observed + own * own)
 
 
 def with_truth(state: RunState, records: list[BeliefWriteRecord]) -> list[BeliefWriteRecord]:

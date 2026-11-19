@@ -10,7 +10,7 @@ moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's te
 ## Now (0)
 
 
-## Later (34)
+## Later (13)
 
 ### engine batch E2 (new mechanisms and mutants) (4)
 
@@ -18,29 +18,6 @@ moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's te
 - T-019 · 2026-11-17 · `M1.E.7e`'s lending of pseudo-self by a sided coach … · [record](docs/todo/2026-10-17_revision_32.md)
 - T-077 · 2026-11-17 · Not built · [record](docs/todo/2026-10-08_phase_c.md)
 - T-209 · 2026-11-09 · An arm or mutant that isolates `M4.C.6`'s by-channel … · [record](docs/todo/2026-11-07_social_cues.md)
-
-### final engine batch (20)
-
-- T-010 · 2026-10-22 · Found while building SP-1 (2026-10-22), not fixed · [record](docs/todo/2026-10-21_stage_1_milestone_review.md)
-- T-044 · 2026-11-17 · Chronic anxiety ratchets across generations · [record](docs/todo/2026-10-13_phase_d_part_ii.md)
-- T-057 · 2026-11-17 · Lock-in does not make a symptom chronic · [record](docs/todo/2026-10-11_phase_d.md)
-- T-071 · 2026-11-17 · `M11.C.16`'s mutation clause is not met · [record](docs/todo/2026-10-08_phase_c.md)
-- T-082 · 2026-11-17 · Owner answer: anxiety shapes beliefs (answers MM1) · [record](docs/todo/2026-09-27_paper_material.md)
-- T-083 · 2026-11-17 · Owner answer: how coaching enters a family (answers … · [record](docs/todo/2026-09-27_paper_material.md)
-- T-088 · 2026-10-05 · Method proposals from the 2026-10-05 batch b (silicon … · [record](docs/todo/2026-09-27_paper_material.md)
-- T-095 · 2026-11-17 · Sweep the spec for other descriptions firmed up … · [record](docs/todo/2026-08-28_batch_backlog.md)
-- T-096 · 2026-11-17 · Re-read `KS05.2` on the capacity floor at 25 · [record](docs/todo/2026-08-28_batch_backlog.md)
-- T-098 · 2026-11-17 · Ellipses that remove a qualifier · [record](docs/todo/2026-08-28_batch_backlog.md)
-- T-099 · 2026-11-17 · Hedges trimmed off the front of quotations · [record](docs/todo/2026-08-28_batch_backlog.md)
-- T-101 · 2026-11-17 · A scope narrower than the requirement · [record](docs/todo/2026-08-28_batch_backlog.md)
-- T-102 · 2026-11-17 · `M4.D.3a`'s four-element evolutionary ordering has three sourced slots … · [record](docs/todo/2026-08-28_batch_backlog.md)
-- T-103 · 2026-11-17 · `M1.A.5a` quotes a phrase absent from the book … · [record](docs/todo/2026-08-28_batch_backlog.md)
-- T-104 · 2026-11-17 · `M2.A.0e`'s almost identical reads as Kerr-2019-grounded · [record](docs/todo/2026-08-28_batch_backlog.md)
-- T-105 · 2026-11-17 · `M5.C.1a` borrows severity from an adjacent intervention class · [record](docs/todo/2026-08-28_batch_backlog.md)
-- T-169 · 2026-10-31 · A coach's completed `I-POSITION` exchange still acts on … · [record](docs/todo/2026-10-29_version_2_definition.md)
-- T-203 · 2026-11-07 · `KS10.1`'s uncertainty term as its own proposal (2026-11-07) · [record](docs/todo/2026-11-07_social_cues.md)
-- T-204 · 2026-11-07 · `KS09.6`'s parent-side separation as its own proposal (2026-11-07) · [record](docs/todo/2026-11-07_social_cues.md)
-- T-212 · 2026-11-10 · Whether `M11.C.55`'s two predictors should be read to … · [record](docs/todo/2026-11-07_social_cues.md)
 
 ### research runs (Mac Mini1 probes and experiments) (5)
 
@@ -54,9 +31,8 @@ moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's te
 
 - T-245 · 2026-11-14 · `M1.A.4c`: the estimator's sensitivity sweep (2026-11-14) · [record](docs/todo/2026-08-22_blocking_the_next_phase.md)
 
-### No batch yet (4)
+### No batch yet (3)
 
-- T-007 · 2026-10-22 · Adjacent issues found by Part D's docstring pass, … · [record](docs/todo/2026-10-22_model_ergonomics.md)
-- T-063 · 2026-10-12 · Adjacent, not fixed (review of revision 21, 2026-10-12): … · [record](docs/todo/2026-10-11_phase_d.md)
-- T-073 · 2026-10-09 · Re-sweep notes, 2026-10-09 · [record](docs/todo/2026-10-08_phase_c.md)
-- T-251 · 2026-11-15 · Revision 62's low review findings (2026-11-15) · [record](docs/todo/2026-08-22_blocking_the_next_phase.md)
+- T-255 · 2026-11-19 · `M1.D.7b`'s third quotation is not in its source … · [record](docs/todo/2026-08-28_batch_backlog.md)
+- T-256 · 2026-11-19 · Lock-in's slowed leak has no bound (2026-11-19) · [record](docs/todo/2026-08-28_batch_backlog.md)
+- T-257 · 2026-11-19 · `M5.D.3`'s abort-before-hold claim passes again at revision 65 … · [record](docs/todo/2026-08-28_batch_backlog.md)

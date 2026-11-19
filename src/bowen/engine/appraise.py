@@ -196,7 +196,7 @@ def tie_change_parts(state: RunState, delivery: Delivery, event: Event, params: 
     The words part is the move kind's components (`M4.C.1`, `M5.F.1`, `M5.F.4`) and, while the social cues are on,
     the cue the words are read to carry and an unmet expectation (`M4.C.1e`); the nonverbal part is the cue tone,
     face and posture are read to carry, (0, 0) while the cues are off. The cue parts are scaled as the move's own
-    components are.
+    components are, and by how much the sender's cues have varied (`M4.C.16`).
     """
     if event.mechanism is not Mechanism.MOVE or delivery.role is not Role.TARGET or event.sender is None:
         return None
@@ -215,7 +215,9 @@ def tie_change_parts(state: RunState, delivery: Delivery, event: Event, params: 
     w_contact, w_imp = cues.cue_components(read.words, params)
     w_contact += cues.unmet_expectation(receiver, event.sender, read.total, params)
     n_contact, n_imp = cues.cue_components(read.nonverbal, params)
-    return tie, (d_contact + w_contact * scale, d_imp + w_imp * scale), (n_contact * scale, n_imp * scale)
+    cue_scale = scale * cues.uncertainty_factor(state, delivery.recipient, event.sender, params)  # M4.C.16
+    return tie, (d_contact + w_contact * cue_scale, d_imp + w_imp * cue_scale), (n_contact * cue_scale,
+                                                                                n_imp * cue_scale)
 
 
 def tie_change(state: RunState, delivery: Delivery, event: Event, params: EngineParams):

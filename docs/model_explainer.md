@@ -479,8 +479,10 @@ That is the fixture test 15 needs: two counterfeits at **equal magnitude of the 
   What goes back is split by the bond energy of the bearer's interactive ties to living family members, so a parent
   takes more than a sibling and the coach nothing (G2, 2026-10-22, `[I]`; §11.5). An onset is also an illness: the
   bearer and the family take the scale's loads for it (`M7.D.1a`, §11.5).
-- **Not built:** the hold does not feed the bearer's integrator, so lock-in calms the family but does not by itself
-  make a symptom chronic.
+- **Lock-in lengthens the symptom** (revision 65, T-057, `M7.D.2e`): while the hold is positive, the bearer's active
+  channels leak more slowly, by `(1 − s)`. Nothing is added to the load, so the load cannot climb past what the
+  integrand supplies; feeding the hold into the integrator instead made every bearer climb to the turn. `[K]` `[D]`
+  (`KS23.1`: a family that stabilises around a symptom fosters it becoming chronic); form `[I]`.
 - **Removal by tolerance** `[I]`: a member whose excess above usual passes their declared tolerance removes the member
   carrying the most active symptom load. It reads the others, not the bearer's severity, and is suppressed while
   decision ownership is held outside the family. `M7.D.4`
@@ -585,7 +587,7 @@ Feeds the standing load (§7.2) every tick whether or not anything happened.
 
 **Revision 27 (2026-10-12; Claude's recommendation, approved by the owner 2026-10-16): a borrowed rise settles back.** When a pair
 who have over- and under-functioned for each other stop for eight weeks, what the one taking charge borrowed moves
-back to the other a little each week, conserved `[I]`. Pseudo-self does not move between people who never exchanged. Dissolve a discrepant pair and the discrepancy reverses (`M11.C.24`, the whisper of
+back to the other a little each week, conserved `[I]`. Pseudo-self does not move between people who never exchanged; since revision 65 what moves back is a share of what the tie's loan ledger says is owed, so a starting swing is no loan (T-251). Dissolve a discrepant pair and the discrepancy reverses (`M11.C.24`, the whisper of
 nature, passes ad hoc).
 
 **Revision 31 (2026-10-16; the owner's form): a collapsed over-functioner takes less.** What the one taking charge takes
@@ -605,7 +607,9 @@ accepted `M11.C.22`'s failure for now.
 - **Lent functioning returns when the taker's capacity falls (revision 39, `M6.I.4a`).** The share of borrowed
   pseudo-self equal to the share of room above the floor lost goes back to the lenders, conserved. `[I]`, the owner's
   D19. What a cap stops, or what has no lender to go to, stays with the taker and is logged as
-  `pseudo_self_unreturned` (revision 64, T-134). The week's start is the person's level at the end of the previous week, so a fall made between two weeks, as
+  `pseudo_self_unreturned` (revision 64, T-134). The lenders are read from each tie's loan ledger (`lent`), written by
+  `M6.I.4`'s exchange, so a starting swing is no loan and neither returns nor is converted as one (revision 65,
+  T-251, `[I]`). The week's start is the person's level at the end of the previous week, so a fall made between two weeks, as
   `M11.C.21`'s scripted collapse is, counts in the next week (revision 41, T-145, `[I]`). `M11.C.21` reads the rise
   from the end of the week before the collapse, so the return counts; regenerated at revision 41 it passes (the
   child's rise +0.271 ± 0.32, p 0.0139, 100 seeds), where at revision 40 it failed (−0.04 ± 0.44): before T-145 no week
@@ -1030,10 +1034,17 @@ project decisions, not corpus findings, and must never be cited as Bowen's.
 - **Ages and acting.** Starting ages are three settings (youngest grandchild 1, parents 30, grandparents 55; spec
   `M2.A.0j`). A person selects acts from 10 until death (`M7.C.1f`); a younger child still witnesses, carries anxiety
   and accumulates symptom load. `[I]` (owner)
-- **A child's chronic anxiety** before 12 is their parents' mean plus half their own mean load, averaged over every
-  year of childhood the run has seen (`M7.B.1a`; revision 29, the owner: "chronic Anxiety builds overchildhood"), then
-  fixed. It is the one place a family's anxiety enters a child's floor; it compounds across
-  generations, which is the direction the corpus states (`[D]` Ch16) and a magnitude it does not (`[I]`).
+- **A child's chronic anxiety** before 12 is their parents' mean plus half the mean, over every year of childhood the
+  run has seen, of their own mean load less their living parents' over the same year (`M7.B.1a`; revision 29, the
+  owner: "chronic Anxiety builds overchildhood"; signed since revision 65, T-044), then fixed. It is the one place a
+  family's anxiety enters a child's floor. A child who carries more than its parents ends above their mean and one who
+  carries less ends below it, so a line's chronic anxiety can fall as well as rise (`M7.E.1`'s child outside the
+  process, `[D]`); before revision 65 the term could only add, so it ratcheted. The magnitude is `[I]`.
+- **A parent's pull toward a child eases as the child grows** (revision 65, T-204, `M7.E.1g`). At the life course's start and each slow tick a
+  parent's felt contact optimum toward each child is multiplied by `exp(−parent_pull_rate × age × (1 − chronic/100))`:
+  it falls continuously with the child's age, with no stages, and more slowly the more chronically anxious the parent.
+  The child's dependency is not written; it follows from the parents' side. `[K]` `[D]` (`KS09.6`: the parents' toning
+  down of togetherness drives separation, and failure to do so prolongs dependency; `K14.5` agrees); form and rate `[I]`.
 - **A child's basic level** is held at their parents' mean until 5, anchored there, and from 5 to 20 moved each year
   by half the parents' and half the child's own functioning above basic, each read as the estimator reads it, so the
   exchange and the floor do not reach it and the stress swing does (revision 39), and what a parent gained or lost by
@@ -1238,6 +1249,10 @@ pole negative (`M1.F.1c`, `M4.C.1e`). The engine sets them at act; no policy cho
   acute anxiety rises, and as the receiver already believes the sender threatening, plus a spread. **The error is on
   meaning, never on presence:** a channel that carries nothing is never read as carrying something (`M4.C.12`,
   `KS01.7`'s "real or imagined cues", `[K]` `[T]`). No term reaches zero at the top level (`M4.C.14`).
+- **Uncertainty intensifies the reaction** (revision 65, T-203, `M4.C.16`). A target's appraisal of the cue parts of a
+  move is scaled by `1 + cue_uncertainty_gain × v`, where `v` is the variance of the cues the sender sent it over the
+  last `cue_uncertainty_window` weeks: the same mean cue with more spread is felt more. `[K]` `[D]` (`KS10.1`, one
+  sentence); form and constants `[I]`. `KS09.8`'s intermittency reading is the extraction's and is not built on.
 - **The cues move the two drives and are not drives** (`M4.C.1e`). Each cue moves felt contact and felt impingement by
   two config weights: attention moves contact; approval moves both, impingement more; expectations and distress move
   impingement (the side of distress is `[X]`: the corpus does not say, Q3). A received attention or approval cue
@@ -2051,6 +2066,10 @@ to be at rest). Each week they move toward what the person was delivered about t
 intensity, weighted by fidelity. They never move toward the truth on their own, so a tense marriage seen
 only in its calm moments stays believed calm. The sender's hidden state is not visible to the observer. The
 smoothing rule and its rate (`belief_rate`) are `[I]`. A static test fails if the update reads any true state.
+**The receiver's anxiety colours the reading** (revision 65, T-082, the owner's answer to MM1): before the step, the
+observed tension is mixed with the receiver's own state `a = e/(e + belief_anxiety_scale)`, with weight `a`, upward
+only, so the same events read more tense to a more anxious receiver. Direction `[user]` (corpus support K12.8, K04.7,
+FE05.10, KS10.6); form and scale `[I]`. `M9.2` binds: the reading is not marked false.
 **The learner's exemption** (spec revision 59, T-237): the rule binds the policy, not the learner. The learner reads
 other people's true acute anxiety (the cross-person relief, `M4.D.6e`) and their true functional level (the change
 after a witnessed cutoff, `M4.D.6f`). That is an invented choice, `[I]`, now stated in `M4.B.2`; the mutant
@@ -2332,7 +2351,8 @@ angry at `DEFINE` says the position as a demand and the sequence ends before any
 the first opposition are calmer: on the triad with F the mover, over 192 seeds, 55 sequences abort there and 64 hold, and 122
 sequences end said in anger (`test_m5d3_abort_is_the_usual_first_outcome`, a strict expected failure; 62, 66 and 118
 before spec revision 59, which stopped a second `I-POSITION` from overwriting a running sequence, `M5.D.9`, T-234). The owner kept
-the requirement and the divergence as a finding (T-158 (b), 2026-10-31). In the Phase C family, preparation fails in
+the requirement and the divergence as a finding (T-158 (b), 2026-10-31). At revision 65 the counts are 59 abort and 54 hold, within seed noise; the strict xfail is removed, and the
+ordering is not read as met until fresh seed blocks show it (T-257). In the Phase C family, preparation fails in
 most attempts (1,907 of 1,941 in that test's fixture notes), so the test runs on the triad.
 
 ### 19.5 Calmer contact (spec `M4.C.10`)

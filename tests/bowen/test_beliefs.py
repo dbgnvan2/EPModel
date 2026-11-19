@@ -190,3 +190,25 @@ def test_m16a5a_t248_a_tie_belief_naming_no_tie_raises():
     # T-251: an InvariantViolation, so ``run_tick`` logs the failing tick before the raise (T-239 (d))
     with pytest.raises(InvariantViolation, match="names no tie"):
         with_truth(state, [BeliefWriteRecord(state.tick, NADIA, "tie_beliefs[nobody|no_one].tension", 0.5, None)])
+
+
+def test_m98_t082_the_same_events_read_more_tense_by_an_anxious_receiver():
+    """T-082 (MM1's probe, `M9.8`): two witnesses receive identical deliveries and differ only in their own anxiety;
+    the anxious one believes the tie more tense. The label-only null arm (the same anxiety, the witnesses swapped)
+    reads no difference. Mutation: reading the observation as delivered (``anxious_reading`` returning ``observed``)
+    gives both the same belief."""
+    def tension(anxious, calm):
+        state = fresh()
+        for pid, extra in ((anxious, 20.0), (calm, 0.0)):
+            state.people[pid].acute_anxiety = state.people[pid].chronic_anxiety + extra
+        event = move("CONFLICT", 50.0)
+        state.store.record_event(event)
+        perceived = {pid: ((Delivery(1, event.id, pid, Role.WITNESS, emitted_tick=0, latency=1), event),)
+                     for pid in (NADIA, PIA)}
+        update_beliefs(state, perceived, PARAMS)
+        return {pid: state.people[pid].tie_beliefs[MARITAL].tension for pid in (NADIA, PIA)}
+
+    read = tension(NADIA, PIA)
+    assert read[NADIA] > read[PIA] > 0
+    swapped = tension(PIA, NADIA)
+    assert swapped[PIA] == pytest.approx(read[NADIA]) and swapped[NADIA] == pytest.approx(read[PIA])

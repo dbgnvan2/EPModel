@@ -420,7 +420,7 @@ def test_m1b5_triangling_someone_in_about_them_ends_the_stance():
 
 def test_m6i4_pseudo_self_settles_back_when_the_exchange_stops():
     """Revision 27: with no over/under-functioning between a pair for exchange_window weeks, the borrower's pseudo-self
-    moves back to the lender, conserved, with functional level; a recent exchange, or same-signed pseudo-self, holds it."""
+    moves back to the lender, conserved, with functional level; a recent exchange holds it."""
     from src.bowen.engine.moves import _pole_of, relax_pseudo_self
 
     def set_up(recent, balance=True, at=None):
@@ -431,6 +431,7 @@ def test_m6i4_pseudo_self_settles_back_when_the_exchange_stops():
             person.pseudo_self = ps
         tie = state.ties[MARITAL]
         tie.functioning_balance[DEFAULT_AREA] = 0.5 * _pole_of(tie, RAVI) if balance else 0.0  # Ravi took charge
+        tie.lent[MARTA] = 4.0  # T-251: what settles back is what the ledger says Marta lent
         state.tick = PARAMS.exchange_window + 2
         if recent:
             state.store.record_event(move("OVERFUNCTION", RAVI, MARTA, tick=state.tick - 1 if at is None else at))
@@ -465,6 +466,7 @@ def test_m6i4_the_exchange_window_counts_the_last_exchange_window_weeks():
             state.people[pid].pseudo_self = ps
         tie = state.ties[MARITAL]
         tie.functioning_balance[DEFAULT_AREA] = 0.5 * _pole_of(tie, RAVI)
+        tie.lent[MARTA] = 4.0
         state.tick = PARAMS.exchange_window + 2
         state.store.record_event(move("OVERFUNCTION", RAVI, MARTA, tick=state.tick - age))
         relax_pseudo_self(state, PARAMS)
@@ -600,6 +602,8 @@ def test_m6i4a_s3_4_lent_functioning_returns_with_lost_capacity():
             person.pseudo_self = held
             tie = state.ties[TieId.of(RAVI, pid)]
             tie.functioning_balance[DEFAULT_AREA] = 0.5 * _pole_of(tie, RAVI)
+            if held < 0:
+                tie.lent[pid] = -held  # lent through the exchange (T-251)
         state.tick = PARAMS.exchange_window + 2
         return state
 
@@ -657,6 +661,8 @@ def test_t134_a_return_with_no_lender_is_logged_as_unreturned():
             person.pseudo_self = held
             tie = state.ties[TieId.of(RAVI, pid)]
             tie.functioning_balance[DEFAULT_AREA] = 0.5 * _pole_of(tie, RAVI)
+            if held < 0:
+                tie.lent[pid] = -held  # lent through the exchange (T-251)
         state.tick = PARAMS.exchange_window + 2
         start = {pid: p.functional_level for pid, p in state.people.items()}
         ravi.functional_level = half
@@ -688,6 +694,8 @@ def test_m6i4a_returns_only_to_lenders_within_the_caps_dead_or_alive():
             person.pseudo_self = held
             tie = state.ties[TieId.of(RAVI, pid)]
             tie.functioning_balance[DEFAULT_AREA] = 0.5 * _pole_of(tie, (over or {}).get(pid, RAVI))
+            if held < 0 and (over or {}).get(pid, RAVI) == RAVI:
+                tie.lent[pid] = -held  # lent to Ravi through the exchange (T-251)
         return state
 
     def week(state, ravi_level_after):
@@ -742,6 +750,7 @@ def test_m6i4a_the_weeks_exchange_is_left_out_of_the_fall():
         marta.pseudo_self = -4.0
         tie = state.ties[MARITAL]
         tie.functioning_balance[DEFAULT_AREA] = 0.5 * _pole_of(tie, RAVI)  # Ravi took charge with Marta
+        tie.lent[MARTA] = 4.0
         start = {pid: p.functional_level for pid, p in state.people.items()}
         records = deliver(state, move("OVERFUNCTION", NADIA, RAVI, intensity=100.0))  # Nadia takes charge of Ravi
         gave = exchanged(records)
@@ -774,3 +783,53 @@ def test_t219_ties_in_the_third_go_to_the_shorter_identifier():
 
     assert max((PersonId("leo2"), PersonId("leo")), key=_desc) == PersonId("leo")
     assert max((PersonId("b"), PersonId("a")), key=_desc) == PersonId("a")
+
+
+def test_t251_a_starting_swing_is_no_loan_and_does_not_return():
+    """T-251 (revision 65, `M6.I.4a`): Marta's negative pseudo-self is her starting swing, not a loan to Ravi, so when
+    Ravi loses capacity nothing returns to her; once she has lent him 4 through the exchange, part of that returns.
+    Mutation: reading any negative pseudo-self as lent (the old ``lenders_of``) returns to the swing as well."""
+    from src.bowen.engine.moves import _pole_of, return_lent_functioning, stress_floor
+
+    def returned(loan):
+        state = fresh()
+        ravi, marta = state.people[RAVI], state.people[MARTA]
+        ravi.basic_level, ravi.functional_level, ravi.pseudo_self = 50.0, 50.0, 6.0
+        marta.pseudo_self = -4.0
+        tie = state.ties[MARITAL]
+        tie.functioning_balance[DEFAULT_AREA] = 0.5 * _pole_of(tie, RAVI)
+        if loan:
+            tie.lent[MARTA] = loan
+        start = {pid: p.functional_level for pid, p in state.people.items()}
+        ravi.functional_level = 0.5 * (50.0 + stress_floor(ravi, PARAMS))
+        return_lent_functioning(state, PARAMS, start)
+        return marta.pseudo_self + 4.0, tie.lent.get(MARTA, 0.0)
+
+    assert returned(0.0) == (0.0, 0.0)
+    back, owed = returned(4.0)
+    assert back > 0 and owed == pytest.approx(4.0 - back)
+
+
+def test_t251_the_exchange_writes_the_ledger_and_settling_back_repays_it():
+    """T-251 (revision 65, `M6.I.4`): what an exchange moves is written on the tie's ledger, an opposite exchange repays
+    it before lending, and settling back repays what it moves. Mutations: dropping ``_lend`` from
+    ``functioning_shift``, or the ``repay`` in ``relax_pseudo_self``, each breaks an assertion."""
+    from src.bowen.engine.moves import relax_pseudo_self
+
+    state = fresh()
+    tie = state.ties[RAVI_NADIA]
+    ps = {p: state.people[p].pseudo_self for p in (RAVI, NADIA)}
+    deliver(state, move("OVERFUNCTION", RAVI, NADIA))
+    lent = ps[NADIA] - state.people[NADIA].pseudo_self
+    assert lent > 0 and tie.lent[NADIA] == pytest.approx(lent)
+    deliver(state, move("OVERFUNCTION", NADIA, RAVI, intensity=50.0, tick=1))  # the balance stays on Ravi's side
+    back = ps[RAVI] + lent - state.people[RAVI].pseudo_self
+    assert back > 0 and tie.lent.get(NADIA, 0.0) + tie.lent.get(RAVI, 0.0) == pytest.approx(abs(lent - back))
+    owed = dict(tie.lent)
+    state.tick = PARAMS.exchange_window + 3
+    before = {p: state.people[p].pseudo_self for p in (RAVI, NADIA)}
+    relax_pseudo_self(state, PARAMS)
+    for member, value in owed.items():
+        if value > 0:
+            gained = state.people[member].pseudo_self - before[member]
+            assert gained > 0 and tie.lent[member] == pytest.approx(value - gained)

@@ -145,6 +145,7 @@ class EngineParams:
     focus_rate: float                      # M1.A.11c — weekly decay of the family's focus, and its gain per anxious act
     marital_distance_fraction: float       # M5.C.1 — felt contact below this share of optimum, both spouses, is marital distance
     belief_appraisal_gain: float           # M9.7 — how much a witness's believed tension of the tie scales its appraisal
+    belief_anxiety_scale: float            # M9.8 — excess anxiety at which a receiver's own state carries half its tension reading
     pseudo_self_relaxation_rate: float     # M6.I.4 — weekly share of a pair's opposite pseudo-self that settles back
     exchange_window: int                   # M6.I.4 — weeks without over/under-functioning before it settles
     acting_age_years: int                  # M7.C.1f — a person selects acts from this age until death
@@ -155,6 +156,7 @@ class EngineParams:
     development_band_projection: float     # M7.E.1f — the floor's room when every parental act to the child was projection
     development_band_support: float        # M7.E.1f — the ceiling's room when every parental act to the child was supportive
     witnessed_gain: float                  # M7.B.1a — a child's own load raises its chronic anxiety above the parents' before the fixation age
+    parent_pull_rate: float                # M7.E.1g — yearly rate at which a parent's togetherness pull toward a child eases
     chronic_anxiety_fixation_age_years: int  # M2.A.0a, M7.B.1a — revision 28 reads it: a child's chronic anxiety is derived until this age
     spouse_basic_level_tolerance: float    # M2.A.0e — revision 28 reads it: a partner's level is drawn within it (M7.C.1h)
     launch_age_years: int                  # M7.C.1g — a child leaves the household and supports themselves
@@ -220,6 +222,8 @@ class EngineParams:
     cue_spread_level_gain: float  # M4.C.14
     attention_load_gain: float  # M4.C.15
     attention_load_scale: float  # M4.C.15
+    cue_uncertainty_gain: float  # M4.C.16 — how much the variance of a sender's cues scales the reaction to them
+    cue_uncertainty_window: int  # M4.C.16 — ticks over which that variance is read
     belief_cue_rate: float  # M9.9
     belief_leak_gain: float  # M9.9
 
@@ -311,6 +315,8 @@ class EngineParams:
             raise ValueError("constitution_strength must be in [0, 1]")
         if not (0.0 <= self.attribution_rate <= 1.0 and 0.0 <= self.focus_rate <= 1.0) or self.belief_appraisal_gain < 0:
             raise ValueError("attribution_rate and focus_rate in [0, 1]; belief_appraisal_gain non-negative")
+        if self.belief_anxiety_scale <= 0:
+            raise ValueError("belief_anxiety_scale must be positive")
         if not 0.0 < self.marital_distance_fraction <= 1.0:
             raise ValueError("marital_distance_fraction must be in (0, 1]")
         if not 0.0 <= self.pseudo_self_relaxation_rate <= 1.0 or self.exchange_window < 1:
@@ -340,6 +346,8 @@ class EngineParams:
                      "new_tie_investment_share", "death_transfer_share"):
             if not 0.0 <= getattr(self, name) <= 1.0:
                 raise ValueError(f"{name} must be in [0, 1]")
+        if self.parent_pull_rate < 0:
+            raise ValueError("parent_pull_rate must be non-negative")
         if min(self.witnessed_gain, self.grief_weight, self.lcu_scale, self.income_loss_intensity, self.mortality_a,
                self.mortality_b, self.budget_per_undifferentiation, self.birth_focus_gain) < 0:
             raise ValueError("witnessed_gain, grief_weight, lcu_scale, income_loss_intensity, mortality_a, mortality_b, "
@@ -382,3 +390,5 @@ class EngineParams:
             raise ValueError("cue sensitivity is a probability: floor + level gain at most 1, level gain non-negative")
         if self.attention_load_scale <= 0:
             raise ValueError("attention_load_scale must be positive")
+        if self.cue_uncertainty_gain < 0 or self.cue_uncertainty_window < 1:
+            raise ValueError("cue_uncertainty_gain non-negative; cue_uncertainty_window at least 1")

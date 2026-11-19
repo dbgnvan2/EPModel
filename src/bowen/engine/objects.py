@@ -277,10 +277,17 @@ class Relationship:
     functioning_balance: dict[str, float] = field(default_factory=dict)
     # M1.B.6, L05.3: the hardened configuration a flipped balance reverts toward unless sustained.
     functioning_habit: dict[str, float] = field(default_factory=dict)
+    # M6.I.4 (T-251, revision 65): what each member has lent the other through the exchange and not had back. A starting
+    # swing is not a loan, so it never enters; `M6.I.4a`'s return and `M1.A.5c`'s conversion read it.
+    lent: dict[PersonId, float] = field(default_factory=dict)
     investment: dict[PersonId, float] = field(default_factory=dict)
     areas_of_joint_activity: set[str] = field(default_factory=set)
     taboo_set: set[str] = field(default_factory=set)
     dyad_age: int = 0
+    # M7.E.1g (T-204): a parent's togetherness pull toward the child on this tie, as a factor on the parent's felt
+    # contact optimum; absent reads 1. Written each slow tick by the life course from the child's age and the parent's
+    # chronic anxiety; the child's dependency is not written anywhere.
+    parent_pull: dict[PersonId, float] = field(default_factory=dict)
     basic_togetherness: float | None = None
     functional_togetherness: float | None = None
 

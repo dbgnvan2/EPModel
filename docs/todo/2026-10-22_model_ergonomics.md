@@ -15,7 +15,7 @@
   `engine/slow_tick.py` 12, `scenario/family.py` 12. A line this long may mean the module does too much.
   ⟦batch: owner decisions (a rule, a criterion's meaning or a design choice)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
   *Decision 2026-11-17 (Claude's recommendation 2026-11-17, pending owner review):* Closed: the long lines are recorded as the plan asked; splitting a module with no defect in it is a refactor with no value now. `objects.py` is the data model and `criteria.py` a registry, so their counts are expected; `file-maintainability.md` applies when one of them next changes.
-- [ ] T-007 ⟨later⟩ **Adjacent issues found by Part D's docstring pass, not fixed (2026-10-22):**
+- [x] T-007 ⟨later⟩ **Adjacent issues found by Part D's docstring pass, not fixed (2026-10-22):**
   - `engine/draws.py` declares the `per_hop_fidelity` draw class (`M3.D.4b`'s row) but nothing draws it;
     `visibility.fidelity_for` uses the constant. The spec's table row or the engine is out of step.
   - `engine/live_positions.py` cites `#M13.1`, a phase-plan requirement the code does not implement (the class B3
@@ -39,3 +39,4 @@
     gone from the docstring, but CHANGELOG may carry the same label.
  *(triage 2026-11-17, Claude's recommendation, pending owner review)*
   *Mostly built 2026-11-17 in revision 64: every bullet but the last two is fixed or found already done (`iposition` imports `math` at module level; `resolved_config` hashes the whole kinds table since T-218; `counterfeit.py` no longer exists; the two `Role` names are left, a reading hazard only). The `per_hop_fidelity` row now says the key is declared and not drawn. Kept open: the decision narration in comments, of which `danger.py` and `runner.py` are fixed; the rest, in `criteria.py` and `criteria_d.py`, record where each criterion's design came from, and removing them is a sweep of its own.*
+  *Decided 2026-11-19 in spec revision 65 (the final engine batch), Claude's recommendation, pending owner review: Closed, no change: the comments left in `criteria.py` and `criteria_d.py` record where each criterion's design came from, and are kept.*

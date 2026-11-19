@@ -356,6 +356,55 @@ def decide(obs: Observation, kinds: EventKinds, params: EngineParams, rules: Pol
     ), urge)
 
 
+def reactive_extras(obs: Observation, kinds: EventKinds, params: EngineParams, draws: DrawService,
+                    used: frozenset, excluded: frozenset[str] = frozenset()) -> tuple[Selection, ...]:
+    """Purpose: anxiety raises the amount of reactive behaviour: extra automatic acts in the week.
+    Spec:    docs/bowen_agent_model_spec_v2.md#M4.D.3c, #M4.D.3
+    Tests:   tests/bowen/test_reactive_amount.py
+
+    The expected number is ``reactive_extra_max × a ÷ (a + reactive_half_anxiety)``, a the actor's excess anxiety
+    (acute above chronic): the whole part is made, and one more with probability the fraction, by a keyed draw. Each
+    is drawn from the automatic channel only, by its within-channel weights (the learned values: which act is still
+    learned from relief, `M4.D.6a`), toward someone not in ``used`` and not already acted toward this week, so a
+    person sends at most one act a week across a tie; an outcome labelled in ``excluded`` (a criterion's withheld or
+    held-open outcomes) is never drawn. Slot ``k`` uses the draw key index ``k``; the week's own selection is slot 0.
+    No draw is taken when ``reactive_extra_max`` is 0 or ``a`` is 0, so a run at 0 is revision 65's. [I]
+    """
+    a = obs.acute_excess
+    if params.reactive_extra_max <= 0 or a <= 0:
+        return ()
+    expected = params.reactive_extra_max * a / (a + params.reactive_half_anxiety)
+    count = int(expected)
+    fraction = expected - count
+    if fraction > 0 and draws.uniform(DrawKey.make("move_selection", tick=obs.tick, actor=obs.person,
+                                                   purpose="reactive_count", index=0)) < fraction:
+        count += 1
+    if count == 0:
+        return ()
+    outcomes, _ = propensities(obs, kinds, params)
+    weights = channel_weights(outcomes, obs, kinds, params, steered=True)
+    pool = [(o, w) for o, w in zip(outcomes, weights)
+            if o.channel == AUTOMATIC and o.kind != WITHHOLD and o.target is not None and w > 0
+            and math.isfinite(w) and o.label not in excluded]
+    taken = set(used)
+    extras = []
+    for slot in range(1, count + 1):
+        open_ = [(o, w) for o, w in pool if o.target not in taken]
+        if not open_:
+            break
+        u = draws.uniform(DrawKey.make("move_selection", tick=obs.tick, actor=obs.person, purpose="reactive",
+                                       index=slot))
+        chosen = open_[_invert(u, [w for _, w in open_])][0]
+        taken.add(chosen.target)
+        extras.append(Selection(
+            actor=obs.person, kind=chosen.kind, targets=(chosen.target,), intensity=force(chosen, obs, params),
+            index=slot, decided_by=DecidedBy.POLICY, draw=u, value_key=chosen.value_key,
+            legal_set=tuple(o.label for o, _ in open_),
+            propensities=tuple((o.label, w) for o, w in open_),
+        ))
+    return tuple(extras)
+
+
 def force(outcome: Outcome, obs: Observation, params: EngineParams) -> float:
     """Purpose: an anxious person's automatic act lands with more force.
     Spec:    docs/bowen_agent_model_spec_v2.md#M4.D.1h

@@ -743,6 +743,10 @@ At low level a person is nearly all automatic; as level rises a real self-direct
 
 **The ordering within the automatic channel.** Rising anxiety does not simply "raise the reactive weights" — it **slides selection down a complexity ordering**: **cooperation** (requires both systems as a working team) → **conflict** → **dominant-adaptive** ("older evolutionarily, more primitive") → **distance**, the oldest of all. `TRIANGLE` is placed with distance (revision 39, `[I]`). `M4.D.3a`, `KS06.1`
 
+**Conflict consumes capacity; it does not need it** *(revision 66, the owner 2026-11-19)*. `CONFLICT` is placed with distance too, so a person at any level can fight; each conflict instead takes `conflict_capacity_cost` of functioning from its sender, on the stress ledger. Kerr's ordering is kept as evolutionary age and as which pattern dominates in deep regression. `[D]` Ch09 · L09: the lower the level, the more extreme the mechanisms, conflict and violence among them. `[I]` the cost and the placement. `M4.D.3a`, `M4.D.3d`
+
+**Anxiety sets how much a person acts, as well as what** *(revision 66, the owner 2026-11-19)*. A family member with excess anxiety `a` makes, besides the week's one selection, on average `reactive_extra_max × a ÷ (a + reactive_half_anxiety)` extra automatic acts, each toward someone not yet acted toward that week and chosen by the learned values, so which act is still learned from relief. Patterns on different ties run in the same week: conflict between the parents and focus on a child are not either/or (Bowen 1978, ch. 12: "Most use a combination of all three patterns"). `[D]` the direction; `[I]` the form and constants. `M4.D.3c`
+
 **Engagement is gated by perspective, not by anxiety.** Nothing else in the model makes an agent approach its hardest tie — every reactive move reduces engagement. "*Of course it is difficult if you lack a theory to guide you.*" Without mindware the loaded tie is **correctly** avoided; with it, the same tie becomes approachable. `M4.D.3b`, `KS15.11`
 
 **Ambivalence is itself anxiogenic.** Both parties hold **simultaneous** approach and withdraw urges, and "*the conflicting urges raise each person's anxiety*" — independently of whichever move resolves. An entropy term over the propensity distribution produces the vicious circle for free. `M4.D.1d`, `KS06.4`
@@ -1078,6 +1082,8 @@ project decisions, not corpus findings, and must never be cited as Bowen's.
 **What is not built:** pairs that fail to form (`M2.A.0f`), divorce, a child moving back home, the redistribution
 moving `expectations` against `investment` (`M7.C.1b`), and the projection line in `M11.G`'s readout.
 
+
+**Divorce** *(revision 66, the owner 2026-11-19)* is scheduled by a scenario, not drawn by the life course: a `SEPARATION` moves the leaving spouse to a household of their own and keeps every tie, bond energy and interactivity unchanged (coupling does not decay with distance, convergence C7), and a `DIVORCE` stressor of 73 LCU (Holmes and Rahe) lands on each spouse and, by tie, on each child. The family's marital tie still names the former couple, so their conflict is still marital conflict to the sinks. A scenario may size the divorce up by level or chronic anxiety, never by observed conflict. `[I]` the event's form, weeks and the children's reach. `M7.C.1m`
 ### 8.2 Cutoff and focus *(spec revision 29, built 2026-10-14: the owner's decisions of 2026-10-13; the forms are Claude's recommendation, approved by the owner 2026-10-16)*
 
 **What it is for.** The diagnosis of 2026-10-13 (plan §4.7) found that `M11.C.10`'s chain had no link from a parent's

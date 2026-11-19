@@ -80,6 +80,11 @@ FINGERPRINT_DIGITS = 8  # significant digits kept per float; see the module docs
 ZERO_BELOW = 1e-12  # a float this close to zero is written as 0, so 1e-17 and -1e-17 agree
 GOLDEN = {
     # (family, seed, weeks): fingerprint
+    # Both moved at spec revision 66 (2026-11-19; P23, a decision): anxiety adds reactive acts (`M4.D.3c`), `CONFLICT`
+    # moves to layer 0 and consumes capacity (`M4.D.3a`, `M4.D.3d`); behaviour, both runs. With `reactive_extra_max` and
+    # `conflict_capacity_cost` at 0 and `CONFLICT` at layer 2 both runs reproduce revision 65's fingerprints exactly
+    # (checked 2026-11-19). Before revision 66: phase_c 19e65ea8065d0580f21655de69f1091f254ee269bbfde6825381043706057eca,
+    # phase_d c1090763e0483522428425f13e613cc273713704450724b65a8fa66e79142e7c.
     # Both moved at spec revision 65 (the final engine batch, 2026-11-19; P23, a decision): six rules change what a run
     # computes (`M7.D.2e`, `M7.B.1a`, `M9.8`, `M4.C.16`, `M7.E.1g`, and the loan ledger of `M6.I.4`), and the log gains
     # the ledger's and the parent pull's tie rows. Before revision 65:
@@ -128,8 +133,8 @@ GOLDEN = {
     # the additions' loads and a symptom's own load) each change what a seeded run computes, so every run's log moved.
     # Before revision 36: phase_c c4fd16123fa37db3ccf7d2f6624b3463ef51ec084a44cad1dc0b1501f07ca85c,
     # phase_d 4e5ebdad859f648c37e8bb3222de6f802df94172ff0dd3a5b3e5c1df9b16f559.
-    ("phase_c", 7, 104): "19e65ea8065d0580f21655de69f1091f254ee269bbfde6825381043706057eca",
-    ("phase_d", 11, 208): "c1090763e0483522428425f13e613cc273713704450724b65a8fa66e79142e7c",
+    ("phase_c", 7, 104): "41d278a9639adebccf0eefcd163ff483d28e4590a715dafe58d6ddaf2812b1a2",
+    ("phase_d", 11, 208): "7858596d733ccb89324f44aae52c985c7bc4b4ed0faed6f2c5b864afa1fe35f7",
 }
 
 

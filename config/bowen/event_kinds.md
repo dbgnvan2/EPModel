@@ -48,12 +48,15 @@
 > distance and cutoff, layer 0, `[I]` (spec revision 39, `M4.D.3a`, the owner's D22): the source orders four classes
 > and names neither (`KS06.1`, `KS02.3`); triangles may have roots older than language (`KS15.10`) and form among the
 > well differentiated too (`FE06.20`).
+> **Spec revision 66 (the owner, 2026-11-19):** `CONFLICT` moves to layer 0. Kerr's ordering is kept as evolutionary
+> age and as which pattern dominates in deep regression; it no longer gates conflict's availability, since "conflict
+> doesn't 'need' capacity, it consumes it" (`M4.D.3d`, `conflict_capacity_cost`). `PURSUE` stays at layer 2.
 
 | kind | mechanism | inside_sign | outside_sign | contact | impingement | accommodates | channel | layer | spec |
 |---|---|---|---|---|---|---|---|---|---|
 | `PURSUE` | move | +1 | +1 | 0.5 | 0.3 | no | automatic | 2 | `M5.A.1` |
 | `DISTANCE` | move | +1 | +1 | -0.5 | 0 | no | automatic | 0 | `M5.A.1` |
-| `CONFLICT` | move | +1 | +1 | 0.3 | 0.6 | no | automatic | 2 | `M5.A.1` |
+| `CONFLICT` | move | +1 | +1 | 0.3 | 0.6 | no | automatic | 0 | `M5.A.1` |
 | `OVERFUNCTION` | move | +1 | +1 | 0.2 | 0.5 | no | automatic | 1 | `M5.A.1` |
 | `UNDERFUNCTION` | move | +1 | +1 | 0.2 | 0 | yes | automatic | 1 | `M5.A.1` |
 | `TRIANGLE` | move | +1 | +1 | 0.3 | 0 | no | automatic | 0 | `M5.A.1` |
@@ -70,8 +73,10 @@
 | `TRIGGER` | trigger | +1 | +1 | 0 | 0 | no | — | — | `M4.A.2` |
 | `RECONCILIATION` | reconciliation | +1 | +1 | 0 | 0 | no | — | — | `M4.A.3` |
 | `INSTITUTIONALIZE` | institutionalize | +1 | +1 | 0 | 0 | no | — | — | `M4.A.4` |
+| `SEPARATION` | separation | +1 | +1 | 0 | 0 | no | — | — | `M7.C.1m` |
 | `BINDER_UNAVAILABLE` | binder_unavailable | +1 | +1 | 0 | 0 | no | — | — | `M1.F.9` |
 | `JOB_LOSS` | exogenous_stressor | +1 | +1 | 0 | 0 | no | — | — | `M1.F.6` |
+| `DIVORCE` | exogenous_stressor | +1 | +1 | 0 | 0 | no | — | — | `M7.C.1m` |
 | `JOB_CHANGE` | exogenous_stressor | +1 | +1 | 0 | 0 | no | — | — | `M1.F.6` |
 | `MOVE` | exogenous_stressor | +1 | +1 | 0 | 0 | no | — | — | `M1.F.6` |
 | `SERIOUS_ILLNESS` | exogenous_stressor | +1 | +1 | 0 | 0 | no | — | — | `M1.F.6` |

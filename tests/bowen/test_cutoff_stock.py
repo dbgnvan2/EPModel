@@ -402,15 +402,16 @@ def _bridged_and_gained(records):
     return reopened, gained
 
 
-def test_m1d2b_seed7_no_one_gains_the_stock_of_a_bridged_tie():
+def test_m1d2b_a_seeded_run_gives_no_one_the_stock_of_a_bridged_tie():
     """A12, a fixed-seed regression check (P23): in version 1 the seed-7 phase_c run released a reopened tie's stock
     to a third party at week 74 (`reduce_cutoff`'s transfer, D7). Under revision 36 a bridged tie's stock dissipates
-    or stays in the tie; no person gains it. The run must contain a reopening, or the check reads nothing."""
+    or stays in the tie; no person gains it. The run must contain a reopening, or the check reads nothing. Seed 7 was the
+    run until spec revision 66, whose extra reactive acts left it with no reopening; seed 3 reopens two ties (P23)."""
     from src.bowen.ensemble.criteria import scenario, spell
 
-    _, records = scenario("phase_c", 7, 104, spells=spell("phase_c", 104))
+    _, records = scenario("phase_c", 3, 104, spells=spell("phase_c", 104))
     reopened, gained = _bridged_and_gained(records)
-    assert reopened, "seed 7 no longer reopens a cut-off tie in 104 weeks; pick a run that does"
+    assert reopened, "seed 3 no longer reopens a cut-off tie in 104 weeks; pick a run that does"
     assert gained == []
     assert not any(isinstance(r, EffectRecord) and r.mechanism == "reduce_cutoff" and r.acute_anxiety for r in records)
 
@@ -443,6 +444,12 @@ def _third_party_anxiety(seed: int, bridged: bool, weeks: int = 26, bridge_week:
     positives = ("STAY-IN-CONTACT", "REDUCE_CUTOFF")
     withheld = {t: {RAVI: [f"{k}>marta" for k in positives], MARTA: [f"{k}>ravi" for k in positives]}
                 for t in range(weeks)}
+    # Spec revision 66: with CONFLICT at layer 0 a spouse's negative contact in the bridge week defeated the bridge (seed
+    # 12), and a negative contact wins the week (M1.D.2b). Both arms withhold the couple's negative contacts toward each
+    # other that week only, so the bridging stays the arms' one difference.
+    negatives = sorted(load_event_kinds().negative_contacts)
+    withheld[bridge_week] = {who: kinds + [f"{k}>{other}" for k in negatives]
+                             for (who, kinds), other in zip(withheld[bridge_week].items(), ("marta", "ravi"))}
     forced = act("ravi", "STAY-IN-CONTACT", "marta", bridge_week) if bridged else {}
     seen, after_bridge = [], []
 

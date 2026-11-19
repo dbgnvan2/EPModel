@@ -6,6 +6,27 @@ The spec holds the current rules; this file holds how they got there. Until revi
 
 The sections `### Revision 34` to `### Revision 5` and the undated section are the spec's text as it stood, moved whole; a statement inside one of them (revision 34's, that revisions 13 to 33 are "not here") was true when written, before the bodies' narratives were moved under their own revisions. Those narratives are the bullets `- \`ID\`: sentence`, each the sentence as it stood in the body, under the revision it names, in sections titled "inline narratives moved from the bodies at revision 35" where no section existed.
 
+### Revision 66 — reactive amount, conflict as consumption, divorce, 2026-11-19 ⟦rev66 · owner 2026-11-19⟧
+
+The engine hash moves. The owner's corrections of 2026-11-19, made while the model was used to reinterpret van Dijk et
+al. (2020) on divorce, written up in `docs/proposal_reactivity_conflict_divorce.md` and approved the same day ("write it
+up - I approve. get it built"). Every ensemble, mutation and sweep record is stale on the new engine until regenerated.
+
+- **`M4.D.3` (amended), `M4.D.3c` (new).** Anxiety raises the number of reactive acts a week, not only which act:
+  extra automatic acts, `reactive_extra_max × a ÷ (a + reactive_half_anxiety)` on average, each toward a person not
+  yet acted toward that week, chosen by the learned values. New constants `reactive_extra_max` (3) and
+  `reactive_half_anxiety` (100), `[I]`; at 0 the run is revision 65's.
+- **`M4.D.3a` (amended), `M4.D.3d` (new).** `CONFLICT` moves from capacity layer 2 to 0; each `CONFLICT` takes
+  `conflict_capacity_cost` (1.0, `[I]`) of functioning from its sender, on the stress ledger.
+- **`M7.C.1m` (new).** Divorce as a scripted pair: `SEPARATION` (structural; the leaver's household changes, every
+  tie kept) and `DIVORCE` (73 LCU, Holmes and Rahe, to each spouse and to each child by tie). New kinds in
+  `event_kinds.md`, `event_sizes.md` and `nodal_events.md`; new mechanism `separation`.
+- **Numbering.** Built as revision 65 in a Cowork session beside the final engine batch, also 65; renumbered 66 and
+  rebased onto it (the owner, 2026-11-19).
+- **Review fixes (2026-11-19).** A criterion's redrawn actor keeps their extra acts under the arm's exclusions; the
+  fallback rate and `M11.C.41`'s reactive-over-chance count slot 0 only; the evaluation's nuclear household is the
+  declared one, so a separation does not move it with which spouse left (`M11.G`).
+
 ### Revision 65 — the final engine batch, 2026-11-19 ⟦rev65 · Claude's recommendation 2026-11-19, pending owner review⟧
 
 The engine hash moves once. Each change is Claude's recommendation from the 2026-11-17 triage and is pending owner

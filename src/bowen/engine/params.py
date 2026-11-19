@@ -190,6 +190,9 @@ class EngineParams:
     danger_gain: float                       # M1.B.3e — what contact with a dangerous person costs
     focus_reinforce_gain: float              # M1.B.8b — attention follows one's own anxious acts
     force_anxiety_gain: float                # M4.D.1h — an anxious person acts with more force
+    reactive_extra_max: float                # M4.D.3c — the most extra reactive acts a week anxiety can add
+    reactive_half_anxiety: float             # M4.D.3c — the excess anxiety at which half that many are made
+    conflict_capacity_cost: float            # M4.D.3d — functioning a CONFLICT consumes in its sender
     focus_compound_gain: float               # M1.B.8b — anxious focus grows where it already is
     lock_in_turn: float                    # M7.D.2d — the severity (load over threshold) past which lock-in turns over
     # The social cues, behind one switch that is off by default (M4.C.1f).
@@ -367,6 +370,9 @@ class EngineParams:
                self.force_anxiety_gain, self.focus_compound_gain) < 0:
             raise ValueError("origin_cutoff_anxiety_gain, origin_fusion_gain, danger_gain, focus_reinforce_gain, "
                              "force_anxiety_gain and focus_compound_gain must be non-negative")
+        if min(self.reactive_extra_max, self.conflict_capacity_cost) < 0 or self.reactive_half_anxiety <= 0:
+            raise ValueError("reactive_extra_max and conflict_capacity_cost must be non-negative and "
+                             "reactive_half_anxiety positive")
         # The switch is 0 or 1; every cue gain is non-negative; shares and probabilities
         # are in [0, 1]; the nonverbal weight's cap is below one and at least its base.
         if self.social_cues_enabled not in (0, 1):

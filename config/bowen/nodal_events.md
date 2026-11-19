@@ -10,7 +10,8 @@
 > (`reach` = `ties`) also reaches everyone tied to them. A nodal event that reaches no one raises.
 > `BINDER_UNAVAILABLE` is not listed: it names a binder (a tie's distance, a triangle position, a symptom channel), not
 > a person, so it reaches no one by this rule (review, 2026-10-11). Births, deaths, marriages and a child moving out were added with the life course at spec revision 28 (Phase
-> D part II); divorce and a child moving back in are not modelled.
+> D part II); divorce was added at spec revision 66 as a scripted pair, `SEPARATION` and `DIVORCE` (`M7.C.1m`), not
+> drawn by the life course; a child moving back in is not modelled.
 
 | kind | reach | what it is |
 |---|---|---|
@@ -25,3 +26,5 @@
 | `PARTNERING` | reached | a marriage (`M7.C.1h`), reaching the couple |
 | `LAUNCH` | ties | a child moving out (`M7.C.1g`) |
 | `FIND_WORK` | reached | a big job change: finding work after a lost income (`M7.C.1k`) |
+| `SEPARATION` | ties | a divorce: a spouse moving out of the household (`M7.C.1m`) |
+| `DIVORCE` | reached | a divorce: its load on the couple and the children (`M7.C.1m`) |

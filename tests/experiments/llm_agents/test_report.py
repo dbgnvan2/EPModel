@@ -7,6 +7,7 @@ Spec:    docs/plan_v3_llm_agent_experiment.md#6, #10
 Tests:   this file
 """
 
+import pytest
 import copy
 import json
 import re
@@ -23,6 +24,7 @@ from experiments.llm_agents.source import family_terms
 from src.bowen.render.trace import FRAMING
 
 
+@pytest.mark.xfail(strict=True, reason="spec revision 66 (2026-11-19: M4.D.3c, M4.D.3d, M7.C.1m) moved the engine hash; this record is regenerated on the Macs (T-258) and is stale on the new engine until then")
 def test_lx16_report_is_current(tmp_path):
     summaries = load_summaries()
     assert summaries, "the A0 baseline is committed"

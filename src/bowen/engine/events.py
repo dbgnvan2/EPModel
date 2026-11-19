@@ -35,6 +35,7 @@ class Mechanism(enum.Enum):
     RECONCILIATION = "reconciliation"          # M4.A.3
     INSTITUTIONALIZE = "institutionalize"      # M4.A.4
     BINDER_UNAVAILABLE = "binder_unavailable"  # M1.F.9
+    SEPARATION = "separation"                  # M7.C.1m — a spouse leaves the household; the tie is kept
     EXOGENOUS_STRESSOR = "exogenous_stressor"  # M1.F.6 — a spell, never a per-tick draw
     ENDOGENOUS_SYMPTOM = "endogenous_symptom"  # M7.D.1 — emitted when symptom load crosses threshold (M1.F.7)
     LIFE_EVENT = "life_event"                  # M7.C.1 — a death, birth, partnering, launch or FIND_WORK:

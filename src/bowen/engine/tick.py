@@ -74,7 +74,8 @@ from src.bowen.engine.rejection import fade_rejection, reactive_cutoff_cost, ref
 from src.bowen.engine.recompute import recompute_involvement, recompute_triangles
 from src.bowen.engine.standing_load import apply_standing_load
 from src.bowen.engine.attribution import update_attribution, update_focus
-from src.bowen.engine.stress_response import register_stressors, respond, stressor_load, update_usual
+from src.bowen.engine.stress_response import (consume_conflict, register_stressors, respond, stressor_load,
+                                               update_usual)
 from src.bowen.engine.state import RunState
 from src.bowen.engine.symptoms import accumulate_symptoms
 from src.bowen.engine.visibility import HouseholdConductanceVisibility
@@ -225,8 +226,9 @@ def _run_steps(state: RunState, source: Source, params: EngineParams, visibility
     actors = [s.actor for s in selections]
     if not set(actors) <= set(active):
         raise SelectionFromInactivePerson(f"selections for {sorted(set(actors) - set(active))}")
-    if len(actors) != len(set(actors)):
-        raise ValueError("a person selected more than once in one tick")
+    slots = [(s.actor, s.index) for s in selections]
+    if len(slots) != len(set(slots)):  # M4.D.3c: extra reactive acts are further slots, each at most once
+        raise ValueError("a person selected the same slot more than once in one tick")
     # M4.D.1d: competing urges raise the person's acute anxiety, whatever the outcome — a
     # source in M6.4's table, logged by name. A scripted selection carries none.
     urges = tuple(sorted((s.actor, s.urge) for s in selections if s.urge))
@@ -243,6 +245,7 @@ def _run_steps(state: RunState, source: Source, params: EngineParams, visibility
     records += self_practice(state, selections, load_at_selection, params)  # M1.E.7
     record_stances(state, selections, params)  # M1.B.5: whom each person is holding a position toward
     records += respond(state, selections, load_at_selection, params)  # M1.A.5e: coping or soothing
+    records += consume_conflict(state, selections, params)  # M4.D.3d: conflict consumes capacity
     update_usual(state, load_at_selection, params)  # M1.A.5e: each person's usual level follows slowly
     records += find_work(state, load_at_selection, params)  # M7.C.1k: after a lost income
     steps.append("act")

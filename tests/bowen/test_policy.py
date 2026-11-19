@@ -101,11 +101,16 @@ def test_m16a3a_a_policy_selection_logs_the_beliefs_it_read():
 
 
 def test_m4d1_exactly_one_outcome_per_person_per_tick():
+    """Revision 66: each living person has exactly one outcome in slot 0 a week; any further selection is one of
+    `M4.D.3c`'s extra reactive acts, an emitted act in a later slot."""
     state, records = policy_run(ticks=6)
     selections = [r for r in records if isinstance(r, SelectionRecord)]
     for tick in range(6):
-        actors = [r.actor for r in selections if r.tick == tick]
-        assert sorted(actors) == sorted(p for p in state.people if state.people[p].alive)
+        week = [r for r in selections if r.tick == tick]
+        own = [r.actor for r in week if r.event_id is None or r.event_id.index == 0]
+        assert sorted(own) == sorted(p for p in state.people if state.people[p].alive)
+        extras = [(r.actor, r.event_id.index) for r in week if r.event_id is not None and r.event_id.index > 0]
+        assert len(extras) == len(set(extras))
 
 
 def test_m4d1e_legal_set_excludes_impossible_and_gated_acts():

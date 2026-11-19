@@ -116,6 +116,10 @@ def evaluate(state: RunState, records, params: EngineParams, framing: str, windo
 
 
 def _nuclear(state: RunState, spouses) -> str | None:
+    # The reference family's declared household, not a spouse's: after a separation (`M7.C.1m`) the leaver's
+    # household is their own, and which spouse left must not change the readout (review 2026-11-19).
+    if state.family.household is not None:
+        return state.family.household
     return state.people[spouses[0]].household_id if spouses else None
 
 

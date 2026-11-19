@@ -39,7 +39,8 @@ from src.bowen.engine.state import ActiveTrigger, RunState
 CUTOFF_KIND = "CUTOFF"
 
 STRUCTURAL = frozenset(
-    {Mechanism.TRIGGER, Mechanism.RECONCILIATION, Mechanism.INSTITUTIONALIZE, Mechanism.BINDER_UNAVAILABLE}
+    {Mechanism.TRIGGER, Mechanism.RECONCILIATION, Mechanism.INSTITUTIONALIZE, Mechanism.BINDER_UNAVAILABLE,
+     Mechanism.SEPARATION}
 )
 
 
@@ -126,6 +127,17 @@ def apply_structural_event(state: RunState, event: Event, params: EngineParams) 
                 records.append(EffectRecord(state.tick, "lock_in", event.id, acute_anxiety=moved,
                                             people=((bearer, "symptom_bound", -math.fsum(v for _, v in moved)),)))
         return records
+    if event.mechanism is Mechanism.SEPARATION:
+        # M7.C.1m: the leaving spouse takes a household of their own. Every tie is kept, with its bond energy and
+        # its interactivity: coupling does not decay with distance (C7), so separation rewires who shares a
+        # household (what is witnessed, M1.F.1b) and nothing else. The family's marital tie still names the pair.
+        moved = []
+        for target in event.targets:
+            person = state.people[target]
+            if person.alive and person.household_id != f"{target}_apart":
+                person.household_id = f"{target}_apart"
+                moved.append((target, "household_apart", 1.0))
+        return [EffectRecord(state.tick, "separation", event.id, people=tuple(moved))]
     raise ValueError(f"{event.mechanism} is not a structural event")
 
 

@@ -180,6 +180,37 @@ def bounded(person, level: float, params: EngineParams) -> float:
     return min(SCALE_MAX, max(0.0, lowest, level)) if level < person.functional_level else min(SCALE_MAX, max(0.0, level))
 
 
+CONFLICT = "CONFLICT"
+
+
+def consume_conflict(state: RunState, selections, params: EngineParams) -> list[EffectRecord]:
+    """Purpose: conflict consumes capacity: each CONFLICT a person sends takes functioning from them.
+    Spec:    docs/bowen_agent_model_spec_v2.md#M4.D.3d
+    Tests:   tests/bowen/test_reactive_amount.py
+
+    Each chosen ``CONFLICT`` (a fallback hold is no choice) lowers its living sender's ``functional_level`` by
+    ``conflict_capacity_cost``, on the stress ledger (``stress_swing``), so it settles back when calm as stress-moved
+    functioning does, and never below the stress floor (``bounded``). The owner, 2026-11-19: "Conflict doesn't 'need'
+    capacity, it consumes it." [I]
+    """
+    if params.conflict_capacity_cost <= 0:
+        return []
+    rows = []
+    for sel in sorted(selections, key=lambda s: (s.actor, s.index)):
+        if sel.kind != CONFLICT or sel.decided_by is DecidedBy.FALLBACK:
+            continue
+        person = state.people.get(sel.actor)
+        if person is None or not person.alive:
+            continue
+        before = person.functional_level
+        person.functional_level = bounded(person, before - params.conflict_capacity_cost, params)
+        moved = person.functional_level - before
+        if moved:
+            person.stress_swing += moved
+            rows.append((sel.actor, "functional_level", moved))
+    return [EffectRecord(state.tick, "conflict_consumption", None, people=tuple(rows))] if rows else []
+
+
 def respond(state: RunState, selections, load: dict, params: EngineParams) -> list[EffectRecord]:
     """Purpose: what a person does under load moves their functioning; calm, it settles back slowly.
     Spec:    docs/bowen_agent_model_spec_v2.md#M1.A.5e, #M1.A.5f, #M7.A.1, #M1.E.7
@@ -190,7 +221,8 @@ def respond(state: RunState, selections, load: dict, params: EngineParams) -> li
     Displaced coping (``displace``) runs first, so each person's own response below reads the level it left.
     """
     # A fallback hold (nothing legal, or no finite score) is not a choice, so it is not coping (review 2026-10-11).
-    chose = {s.actor: s.kind for s in selections if s.decided_by is not DecidedBy.FALLBACK}
+    chose = {s.actor: s.kind for s in selections if s.decided_by is not DecidedBy.FALLBACK
+             and s.index == 0}  # M4.D.3c: the week's own choice, not an extra reactive act
     rows = displace(state, selections, load, params)  # M1.A.5f, revision 39
     conversions = []
     for pid in sorted(state.people):

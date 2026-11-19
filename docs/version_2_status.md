@@ -46,7 +46,7 @@ Rows by status:
 - pass, proved by a test: 1
 - pass; changed since the tag `version-1`, pending the owner's review (T-122): 2
 
-Learning (`docs/emergence_audit_record.md`): of 40 passing rows, 15 are audited with all learning removed; 11 still pass and 4 need learning (`M11.C.10`, `M11.C.10[family of origin]`, `M11.C.2[twelve-person family]`, `M11.C.55`); robustness not read: the sweep record is of an earlier engine. Not audited: `M11.C.39` (the audit's Scope says why).
+Learning (`docs/emergence_audit_record.md`): of 40 passing rows, 15 are audited with all learning removed; 11 still pass and 4 need learning (`M11.C.10`, `M11.C.10[family of origin]`, `M11.C.2[twelve-person family]`, `M11.C.55`); robustness not read: the sweep record is of an earlier engine. Not audited: `M11.C.39` (the audit's Scope says why). The audit is of an earlier engine, so this tally is not current.
 
 Verdicts not the one this page gave at revision 38: 15 of 69 rows: `M11.C.2[twelve-person family]` (FAIL → PASS), `M11.C.7[one spouse over sided]` (FAIL → PASS), `M11.C.10` (FAIL → PASS), `M11.C.10[family of origin]` (FAIL → PASS), `M11.C.17` (FAIL → PASS), `M11.C.32` (PASS → FAIL), `M11.C.44` (PASS → FAIL), `M11.C.48` (PASS → FAIL), `M11.C.49` (new since revision 38 → PASS), `M11.C.50` (new since revision 38 → FAIL), `M11.C.51` (new since revision 38 → FAIL), `M11.C.52` (new since revision 38 → PASS), `M11.C.53` (new since revision 38 → FAIL), `M11.C.54` (new since revision 38 → FAIL), `M11.C.55` (new since revision 38 → PASS).
 

@@ -537,7 +537,8 @@ def attempts_over_seeds(seeds=192, weeks=100):
 def test_m5d3_abort_is_the_usual_first_outcome():
     """At the first opposition, aborting is commoner than holding. A strict xfail from revision 41 to 64 (T-158: 55
     abort and 64 hold over the 192 seeds at revision 59); at revision 65 it is 59 and 54, a margin within seed noise,
-    so the pass is not read as the claim restored until fresh seed blocks show it (T-257)."""
+    so the pass is not read as the claim restored until fresh seed blocks show it (T-257).
+    Revision 66's extra reactive acts (`M4.D.3c`) keep it passing."""
     held = aborted = 0
     for marks in attempts_over_seeds():
         at_opposition = False
@@ -552,6 +553,10 @@ def test_m5d3_abort_is_the_usual_first_outcome():
     assert aborted > held > 0
 
 
+@pytest.mark.xfail(strict=True, raises=AssertionError,
+                   reason="spec revision 66 (2026-11-19): with the extra reactive acts of M4.D.3c no I-POSITION sequence "
+                   "completes in the triad over the 192 seeds (27 at revision 30), so the ensemble holds nothing to "
+                   "order; T-259, for the owner's review")
 def test_m5d8_success_usually_follows_several_failures():
     firsts = []
     for marks in attempts_over_seeds():

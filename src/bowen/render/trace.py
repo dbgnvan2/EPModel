@@ -61,7 +61,7 @@ TABLE_HEAD = "| Week | Who | Move | Toward | Witnesses | What it did |\n|---|---
 # Every mechanism the engine emits, and how the trace treats it. Anything else
 # raises: a record the renderer does not understand must not vanish (P2, P19).
 CAUSED = frozenset({"appraisal", "calm_contact", "symptom_onset", "distance_binding", "triangle_transfer",
-                    "functioning_shift", "position_held", "reduce_cutoff", "refusal", "stressor_load", "assertion", "debit", "landed_contact", "trigger", "nodal_spike", "cutoff", "reconciliation", "institutionalize", "binder_unavailable", "lock_in", "conflict_binding"})
+                    "functioning_shift", "position_held", "reduce_cutoff", "refusal", "stressor_load", "assertion", "debit", "landed_contact", "trigger", "nodal_spike", "cutoff", "reconciliation", "institutionalize", "binder_unavailable", "lock_in", "conflict_binding", "separation"})
 SYSTEM_SHOWN = frozenset({"triangle_recompute", "consolidation", "rejection_fade", "slow_tick",
                           "lock_in",  # version 2 stage 1 (D6 (a)): a release has its own row; the weekly hold does not
                           # What a week's contact did to a tie's stock, and a tie's state moves.
@@ -75,6 +75,7 @@ SYSTEM_SUMMARISED = frozenset({
     "pseudo_self_return",  # Lent functioning returns with lost capacity
     "pseudo_self_conversion",  # M1.A.5c: a self-directed rise converts borrowed pseudo-self
     "danger_contact", "felt_danger",  # weekly, read from received intrusion (M1.B.3e)
+    "conflict_consumption",  # M4.D.3d: what each CONFLICT took from its sender
 })  # every week, everyone; stated once
 
 
@@ -214,6 +215,8 @@ def _what_it_did(event: Event, index: _Index, names: _Names, view: PersonId | No
             # The move lowers rejection only; the tie's stock is bridged by contact, not moved.
             parts += [f"{names(PersonId(f.split(':', 1)[1]))}'s rejection {v:+.2f}" for _, f, v in effect.ties
                       if f.startswith("rejection:")]
+        elif effect.mechanism == "separation":
+            parts += [f"{names(p)} moves to a household of their own (every tie kept)" for p, _, _ in effect.people]
         elif effect.mechanism == "institutionalize":
             parts.append(f"{len(effect.ties)} ties become worry edges (no events; bond energy kept)")
         elif effect.mechanism == "binder_unavailable":

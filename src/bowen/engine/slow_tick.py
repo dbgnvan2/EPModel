@@ -102,7 +102,8 @@ def record_week(state: RunState, params: EngineParams, load: dict, selections, e
     it is (a criterion arm that scripts ``I-POSITION`` or exchanges is declaring that behaviour, M11.C.18, M11.C.33),
     although the log stamps it ``scripted``.
     """
-    chose = {s.actor: s.kind for s in selections if s.decided_by is not DecidedBy.FALLBACK}  # a fallback is no choice
+    chose = {s.actor: s.kind for s in selections if s.decided_by is not DecidedBy.FALLBACK
+             and s.index == 0}  # a fallback is no choice; M4.D.3c: the week's own choice, not an extra reactive act
     nodal: dict[PersonId, set[str]] = {}
     for event in events:
         if event.kind in state.kinds.nodal:

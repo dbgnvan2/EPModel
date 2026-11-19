@@ -32,6 +32,8 @@
 | `GRIEF` | relative | Death of close family member | 63 | — | Holmes–Rahe, `[I]`; `M6.3g` sets the weeks |
 | `INCOME_LOSS` | self | Change in financial state | — | — | outside the scale (the owner, Q8): `income_loss_intensity` |
 | `JOB_LOSS` | self | Fired at work | 47 | 1 | Holmes–Rahe, `[I]` |
+| `DIVORCE` | self | Divorce | 73 | 12 | Holmes–Rahe, `[I]`; `M7.C.1m` (the owner, 2026-11-19): each spouse; a scenario may scale it by level or chronic anxiety, never by observed conflict |
+| `DIVORCE` | tie | Divorce | 73 | 12 | Holmes–Rahe, `[I]`; `M7.C.1m`: each child, through their tie to each parent; the scale has no item for a child of divorce, so the couple's item at the tie's reach is `[I]` |
 | `JOB_CHANGE` | self | Change to different line of work | 36 | 1 | Holmes–Rahe, `[I]` |
 | `MOVE` | self | Change in residence | 20 | 1 | Holmes–Rahe, `[I]` |
 | `SERIOUS_ILLNESS` | self | Personal injury or illness | 53 | 12 | Holmes–Rahe, `[I]` |

@@ -199,6 +199,9 @@ activation_regime: synchronous
 | `danger_gain` | 2.0 | [I] | acute anxiety per accepted move from a person felt as fully dangerous, scaled by the move's intensity | `M1.B.3e` |
 | `focus_reinforce_gain` | 1.0 | [I] | investment added on a tie per projection-type act sent across it, scaled by the act's intensity | `M1.B.8b` |
 | `force_anxiety_gain` | 2.0 | [I] | the most an automatic act's intensity can rise, as a fraction: it rises by gain × a ÷ (a + 100), a the actor's excess anxiety | `M4.D.1h` |
+| `reactive_extra_max` | 3.0 | [I] | the most extra automatic acts a week a person's excess anxiety can add: the expected number is max × a ÷ (a + half), the whole part made and the fraction by a keyed draw; 0 restores one act a week | `M4.D.3c` |
+| `reactive_half_anxiety` | 100.0 | [I] | the excess anxiety at which half of `reactive_extra_max` extra acts are made; 100 is `M4.D.1h`'s force midpoint | `M4.D.3c` |
+| `conflict_capacity_cost` | 1.0 | [I] | functional-level points each `CONFLICT` a person sends takes from them, on the stress ledger, bounded by the stress floor (the owner, 2026-11-19: conflict consumes capacity) | `M4.D.3d` |
 | `focus_compound_gain` | 10.0 | [I] | how fast an anxious parent's attention among the children moves to where it already is: weekly, gain × load above usual ÷ 100 × the parent's total investment in the children × share × (share − Σ share²), which sums to 0 over the children (raised from 2 when the form became a shift, the owner 2026-10-14) | `M1.B.8b` |
 | `lock_in_turn` | 3.0 | [I] | severity (load ÷ threshold) past which lock-in releases instead of holding; peak at half of it (revision 24) | `M7.D.2d` |
 | `self_channel_exponent` | 2.0 | [I] | exponent on functional_level / 100 | `M4.D.1a` |

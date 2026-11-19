@@ -275,3 +275,6 @@
 | `cue_uncertainty_gain` | — | 1.0 | 2026-11-19 | — (new mechanism; spec revision 65, T-203, `M4.C.16`: the variance of a sender's cues scales the reaction to them, behind `social_cues_enabled`; `[I]`, Claude's recommendation, pending owner review) | no |
 | `cue_uncertainty_window` | — | 12 | 2026-11-19 | — (new mechanism; spec revision 65, T-203, `M4.C.16`: the ticks that variance is read over; `[I]`, Claude's recommendation, pending owner review) | no |
 | `parent_pull_rate` | — | 0.02 | 2026-11-19 | — (new mechanism; spec revision 65, T-204, `M7.E.1g`: a parent's togetherness pull toward a child eases with the child's age, more slowly with the parent's chronic anxiety; `[I]`, Claude's recommendation, pending owner review) | no |
+| `reactive_extra_max` | — | 3.0 | 2026-11-19 | — (new mechanism; spec revision 66, `M4.D.3c`: anxiety raises the number of reactive acts a week; `[I]`, the owner's approval 2026-11-19 of `docs/proposal_reactivity_conflict_divorce.md`; 0 restores revision 65) | no |
+| `reactive_half_anxiety` | — | 100.0 | 2026-11-19 | — (new mechanism; spec revision 66, `M4.D.3c`; `[I]`, `M4.D.1h`'s force midpoint) | no |
+| `conflict_capacity_cost` | — | 1.0 | 2026-11-19 | — (new mechanism; spec revision 66, `M4.D.3d`: conflict consumes capacity; `[I]`, the owner 2026-11-19) | no |

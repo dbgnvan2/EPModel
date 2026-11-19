@@ -180,14 +180,26 @@ def test_m11c31_the_budget_rises_by_exactly_what_the_binder_held():
 
     import src.bowen.ensemble.criteria_d as module
 
-    original = module.scenario
-    module.scenario = lambda *a, **k: original(*a, **{**k, "watch": watch})
+    from src.bowen.engine.log_records import EffectRecord
+
+    original, kept = module.scenario, []
+
+    def recorded(*a, **k):
+        state, records = original(*a, **{**k, "watch": watch})
+        kept.extend(records)
+        return state, records
+
+    module.scenario = recorded
     try:
         arm_c31("treatment", 2, settings)
     finally:
         module.scenario = original
-    # watch runs after each tick, when state.tick has already moved on: key t + 1 is the end of week t
-    assert held[t0 + 1] == 0.0 and held[t0] > 0
+    # watch runs after each tick, when state.tick has already moved on: key t + 1 is the end of week t. The release
+    # itself empties the tie; a cutoff standing on the spouses' tie may renew its threat later in the same tick
+    # (revision 66's extra acts make one in this seed), so the release is read from its own record.
+    released = [v for r in kept if isinstance(r, EffectRecord) and r.mechanism == "binder_unavailable"
+                for t, f, v in r.ties if t == tie and f == "distance_bound_anxiety"]
+    assert held[t0] > 0 and released == [pytest.approx(-held[t0])]
     assert budget[t0 + 1] - budget[t0] == pytest.approx(held[t0])
 
 

@@ -239,7 +239,7 @@ class Forced:
         for actor in sorted((set(absent) | set(excluded)) & set(active)):
             if state.people[actor].alive:
                 redrawn = self._without(state, actor, absent.get(actor), excluded.get(actor, frozenset()))
-                chosen = [s for s in chosen if s.actor != actor] + [redrawn]
+                chosen = [s for s in chosen if s.actor != actor] + list(redrawn)
         for (t, actor), selection in self.forced.items():
             if t != tick:
                 continue
@@ -288,11 +288,14 @@ class Forced:
 
 
     def _without(self, state, actor, absent=None, excluded: frozenset[str] = frozenset()):
-        """The actor's selection drawn again without ``absent`` (a person) or the ``excluded`` outcomes."""
+        """The actor's selection drawn again without ``absent`` (a person) or the ``excluded`` outcomes, and the
+        extra reactive acts their anxiety adds (`M4.D.3c`), under the same constraints: only a scripted selection
+        loses them (review 2026-11-19)."""
         from types import MappingProxyType
 
+        from src.bowen.engine.objects import Role
         from src.bowen.engine.observe import observe
-        from src.bowen.policy.policy import decide
+        from src.bowen.policy.policy import decide, reactive_extras
 
         obs = observe(state, actor, self.policy.params)
         if absent is not None:
@@ -303,7 +306,11 @@ class Forced:
                                                if t != absent and absent not in tri.members}),
             )
         decision = decide(obs, state.kinds, self.policy.params, self.policy.rules, state.draws, excluded)
-        return dataclasses.replace(decision.selection, urge=decision.urge)
+        first = dataclasses.replace(decision.selection, urge=decision.urge)
+        if state.people[actor].role is not Role.MEMBER:
+            return (first,)
+        used = frozenset(t for t in first.targets if t is not None)
+        return (first, *reactive_extras(obs, state.kinds, self.policy.params, state.draws, used, excluded))
 
 
 def scenario(family: str, seed: int, weeks: int, *, spells=(), forced=None, setup=None, until=None,
@@ -335,12 +342,18 @@ def scenario(family: str, seed: int, weeks: int, *, spells=(), forced=None, setu
     return parts.state, records
 
 
+def own_choice(record: SelectionRecord) -> bool:
+    """Whether a selection record is its actor's one choice of the week (slot 0), not an extra reactive act
+    (`M4.D.3c`). An extra is always emitted, so a record with no event (a hold or a withheld act) is slot 0."""
+    return record.event_id is None or record.event_id.index == 0
+
+
 def bookkeeping(records) -> tuple[Counter, Counter, Counter]:
     moves, fallbacks, selections = Counter(), Counter(), Counter()
     for r in records:
         if isinstance(r, EmittedRecord) and r.event.mechanism is Mechanism.MOVE:
             moves[r.event.kind] += 1
-        elif isinstance(r, SelectionRecord):
+        elif isinstance(r, SelectionRecord) and own_choice(r):  # a fallback rate per week's choice, not per act
             selections[str(r.actor)] += 1
             if r.decided_by is DecidedBy.FALLBACK:
                 fallbacks[str(r.actor)] += 1
@@ -781,12 +794,13 @@ def reactive_over_chance(records) -> float:
     A chooser picking uniformly at random scores 0 on this at any legal-set size, so it reads a preference for
     reactive acts beyond what the legal set makes likely. Only the policy's own draws count: a ``FALLBACK`` is always
     a hold (`M4.D.1f`), not a choice, and a fallback rate that differed between arms would otherwise shift the
-    readout.
+    readout. An extra reactive act (`M4.D.3c`) is drawn from reactive acts only, so it scores 0 by construction and
+    is not counted: the readout is about the week's own choice.
     """
     kinds = {r.event.id: r.event.kind for r in records if isinstance(r, EmittedRecord)}
     excess, n = 0.0, 0
     for r in records:
-        if isinstance(r, SelectionRecord) and r.decided_by is DecidedBy.POLICY and r.legal_set:
+        if isinstance(r, SelectionRecord) and r.decided_by is DecidedBy.POLICY and r.legal_set and own_choice(r):
             offered = count(1 for label in r.legal_set if label.split(">")[0] in REACTIVE_ACTS)
             if offered:
                 excess += (kinds.get(r.event_id) in REACTIVE_ACTS) - offered / len(r.legal_set)

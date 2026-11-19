@@ -172,6 +172,7 @@ def test_lx8_t207_replay_refuses_changed_choices_or_a_summary_off_its_hash(tmp_p
     assert rec["status"] == "not_replayable" and "not the hash of its content" in rec["status_detail"]
 
 
+@pytest.mark.xfail(strict=True, reason="spec revision 66 (2026-11-19: M4.D.3c, M4.D.3d, M7.C.1m) moved the engine hash; this record is regenerated on the Macs (T-258) and is stale on the new engine until then")
 def test_lx25_committed_pilot_replays_fixed(tmp_path):
     import shutil
 

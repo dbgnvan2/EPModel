@@ -58,3 +58,15 @@ Built as revision 65 on the branch `claude/reactivity-divorce`, merged as revisi
   would not raise conflict on a tie already quiet. For the owner: whether the spouses' cutoff within two years in
   almost every run is the model's finding or a defect to trace (it is 28–50% of weeks 0–19 at revision 64 and 52–72%
   at 66), before P4 is read again.
+  **Traced 2026-11-20** (Phase C family, no events, 156 weeks, 20 seeds a level). The cutoff is older than revision
+  66: at revision 64 every run cuts the marital tie (median week 16 at level 0, 9 at −20), by a spouse's own `CUTOFF`; it is cut
+  80% of the time at level 0 (92% at −20). Entry and exit are unequal: one `CUTOFF` (rejection 0.5) cuts the tie
+  (`M1.B.3c`), and it reopens only when rejection has faded to zero, about ten quiet weeks, and then a positive
+  contact is accepted (`M1.D.2b`); the only positive contacts are `STAY-IN-CONTACT` and `REDUCE_CUTOFF`, both `self`
+  channel, which the spouses send across the cut tie 0.002–0.015 times a week. At revision 64, with `CUTOFF` across
+  the cut tie at 0.06 a week, it reopens 5 times in 60 run-years at level 0; at revision 66 the spouses send it 0.59 a
+  week (0.17 their own choice, 0.43 extra acts, which are automatic only and so never the repair), and it never
+  reopens. Removing `CUTOFF` across a cut tie from the extra acts alone leaves it cut 91% with no reopening, the own
+  choice staying at 0.18. Raising every level by 40 lowers the cut share (65%, against 29% at revision 64), so the
+  direction by level holds. For the owner: whether a cut whose rejection has faded ends without a `self` contact
+  (revision 36 decided it does not), or the spouses' cutoff stands as the model's result and P4 is dropped.

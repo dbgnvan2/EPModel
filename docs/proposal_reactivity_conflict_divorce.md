@@ -101,11 +101,16 @@ child, the sinks' projection acts (`M1.D.1`).
 | P1. Spousal conflict rises as level falls | Intensity: level 20 minus level 0, +1,285 [+589, +1,983]. Count: +1.2 acts [−1.3, +3.7] | Met for intensity; not met for counts |
 | P2. Child focus rises as level falls | Intensity +8,337 [+6,835, +9,841] | Met |
 | P3. Conflict and child focus correlate positively across families | Intensity r = .09 [−.02, .20]; counts r = −.01 [−.11, .11]. Divorced families: .10 [−.01, .22] | Not met |
-| P4. A divorce raises both | Conflict intensity −340 [−729, +47]; child focus −336 [−1,505, +838] | Not met |
+| P4. A divorce raises both | Conflict intensity −340 [−729, +47]; child focus −336 [−1,505, +838] | Not met; dropped (the owner, 2026-11-20, T-263) |
 
 Spousal conflict now falls in 15% of weeks on average (3% at revision 64), and in up to 72% in the most conflictual
 run; the owner's estimate for conflictual divorced couples is 25–75%. Conflict now correlates with the children's
 symptom load across families, r = .29 [.18, .38]; child focus with it, .52 [.44, .60].
+
+P4 is dropped (the owner, 2026-11-20). The marital tie is cut off before the divorce in almost every run: one
+`CUTOFF` cuts it, and it reopens only after its rejection fades and a `self` contact is accepted (revision 36's
+rule, kept), so the divorce lands on a tie with no conflict left to raise. The spouses' cutoff stands as the
+model's result (T-263).
 
 ## 5. What moves
 

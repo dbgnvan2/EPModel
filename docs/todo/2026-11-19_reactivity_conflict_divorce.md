@@ -39,7 +39,7 @@ Built as revision 65 on the branch `claude/reactivity-divorce`, merged as revisi
   combined trajectory reaches a path neither revision 65 nor the Cowork build alone did; the gap is older. The test is
   a strict expected failure. For the owner: whether an external agent's sequence steps wait for its next session, or
   an external agent never opens a sequence.
-- [ ] T-263 ⟨now⟩ **The extra acts raise a two-year anxiety peak, and why P4 failed (2026-11-19, corrected 2026-11-20).**
+- [x] T-263 ⟨now⟩ **The extra acts raise a two-year anxiety peak, and why P4 failed (2026-11-19, corrected 2026-11-20).**
   Revision 66's extra acts (`M4.D.3c`) do not make anxiety climb without bound, as this item first said: with no
   scripted events (Phase C family, 312 weeks, 20 seeds, a grid of `reactive_extra_max` 0–3, `reactive_half_anxiety`
   100 and 300, `conflict_capacity_cost` 0 and 1) the members' mean excess peaks in years 2–3 and is back by year 6 in
@@ -70,3 +70,5 @@ Built as revision 65 on the branch `claude/reactivity-divorce`, merged as revisi
   choice staying at 0.18. Raising every level by 40 lowers the cut share (65%, against 29% at revision 64), so the
   direction by level holds. For the owner: whether a cut whose rejection has faded ends without a `self` contact
   (revision 36 decided it does not), or the spouses' cutoff stands as the model's result and P4 is dropped.
+  **Decided 2026-11-20 (the owner): revision 36's rule is kept; the spouses' cutoff stands as the model's result and
+  P4 is dropped.** No rule or constant changes.

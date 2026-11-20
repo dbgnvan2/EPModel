@@ -312,7 +312,9 @@ def competing_urges(outcomes: list[Outcome], obs: Observation, kinds: EventKinds
     total = math.fsum(auto)
     if len(auto) < 2 or total <= 0 or not math.isfinite(total):
         return 0.0
-    entropy = -math.fsum(w / total * math.log(w / total) for w in auto if w > 0)
+    # A weight can be positive and still underflow to a share of 0 against a large total (5e-324 at an acute
+    # excess of about 9400); its term is dropped, the limit of p*log p as p -> 0.
+    entropy = -math.fsum(p * math.log(p) for p in (w / total for w in auto) if p > 0)
     return params.competing_urge_gain * entropy / math.log(len(auto))
 
 

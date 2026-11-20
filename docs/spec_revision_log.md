@@ -26,6 +26,9 @@ up - I approve. get it built"). Every ensemble, mutation and sweep record is sta
 - **Review fixes (2026-11-19).** A criterion's redrawn actor keeps their extra acts under the arm's exclusions; the
   fallback rate and `M11.C.41`'s reactive-over-chance count slot 0 only; the evaluation's nuclear household is the
   declared one, so a separation does not move it with which spouse left (`M11.G`).
+- **Numeric fix (2026-11-19).** `M4.D.1d`'s entropy drops a weight whose share underflows to 0 against the total
+  (an acute excess of about 9400 under the extra acts raised a math domain error); no rule changes, the golden
+  fingerprints hold, and the engine hash moves before any record was built on it.
 
 ### Revision 65 — the final engine batch, 2026-11-19 ⟦rev65 · Claude's recommendation 2026-11-19, pending owner review⟧
 

@@ -70,7 +70,9 @@ All notable changes to this project are recorded here. Dates are ISO.
   from its record: in seed 2 the spouses' standing cutoff renews its threat in the release week. The coach makes an
   `I-POSITION` sequence step between sessions in the LLM stub run, against `M1.E.8`; that test is a strict expected
   failure (T-262, for the owner). The two oldest entries moved to `docs/CHANGELOG_archive.md`, verbatim.
-- **Suite.** 1531 tests: 1513 pass, 1 skips, 17 strict expected failures (this Mac, 2026-11-19).
+- **Numeric fix.** `competing_urges` (`M4.D.1d`) skips a share that underflows to 0, which crashed a probe run at an
+  acute excess of about 9400 (seed 71, level lowered by 20); a guard test covers it, the golden fingerprints hold.
+- **Suite.** 1532 tests: 1514 pass, 1 skips, 17 strict expected failures (this Mac, 2026-11-19).
 - **Numbering.** Built in a Cowork session as revision 65 (`e600322`) on revision 64, alongside the final engine batch,
   also revision 65; renumbered 66 and rebased onto it (the owner, 2026-11-19), its items T-255 to T-257 renumbered
   T-258 to T-260.

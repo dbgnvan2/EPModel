@@ -93,7 +93,7 @@ full table.
   the ASR no-quotation rule. It must never judge a wording: D5a and D5b were retired on 2026-11-10 for it
   (`docs/plan_doc_claim_tests.md`), so do not rebuild them.
 - Run tests before declaring done: `python3 -m pytest tests/`
-- **A red suite is never normal — 1531 tests: 1513 pass, 1 skips and 17 are strict expected failures** (each marked
+- **A red suite is never normal — 1532 tests: 1514 pass, 1 skips and 17 are strict expected failures** (each marked
   `xfail(strict=True)` with a reason naming why, so it turns the suite red if it starts passing: `M5.B.3`'s third-party
   cost (G1's A6); `test_m5d8_success_usually_follows_several_failures`, which no completed sequence supports at
   revision 66 (T-259); the LLM stub run's coach making a sequence step between sessions (T-262); the version 2 sweep record, stale until the stage-end sweep; and thirteen engine-keyed records

@@ -285,6 +285,19 @@ def test_m4d1d_competing_urges_raise_anxiety_by_entropy():
     assert any(getattr(r, "mechanism", None) == "competing_urges" for r in records)
 
 
+
+def test_m4d1d_a_weight_whose_share_underflows_gives_a_finite_urge(monkeypatch):
+    """Adversarial: a positive weight whose share against the total underflows to 0 (seen at an acute excess of about
+    9400) drops out of the entropy instead of raising a math domain error."""
+    import src.bowen.policy.policy as policy
+
+    obs = observe(fresh(ravi={"functional_level": 80.0}), RAVI, PARAMS)
+    outcomes = legal_outcomes(obs, KINDS, PARAMS)
+    n = sum(o.channel == AUTOMATIC for o in outcomes)
+    monkeypatch.setattr(policy, "channel_weights", lambda o, *_: [1e300 if i == 0 else 5e-324 for i in range(len(o))])
+    urge = competing_urges(outcomes, obs, KINDS, PARAMS)
+    assert n >= 2 and math.isfinite(urge) and urge == pytest.approx(0.0, abs=1e-12)
+
 def test_m4d1f_fallback_on_empty_legal_set_is_flagged():
     state = fresh()
     for tie in state.ties_of(ANA):

@@ -39,17 +39,22 @@ Built as revision 65 on the branch `claude/reactivity-divorce`, merged as revisi
   combined trajectory reaches a path neither revision 65 nor the Cowork build alone did; the gap is older. The test is
   a strict expected failure. For the owner: whether an external agent's sequence steps wait for its next session, or
   an external agent never opens a sequence.
-- [ ] T-263 ⟨now⟩ **Anxiety climbs without bound under the extra acts, and why P4 failed (2026-11-19).** On the probe
-  of T-260 (Phase C family, the M11.C.1 spell, 40 seeds, no divorce), Marta's mean excess anxiety in weeks 20–103 is
-  33 at revision 64 and 327 at revision 66, at level −20 189 and 3414 (one run reached 9408 and underflowed
-  `M4.D.1d`'s entropy, fixed in `0aece2f`). With `reactive_extra_max` 0 it is 48 and 721; with `conflict_capacity_cost`
-  0 too, 37 and 243. The extra acts of `M4.D.3c` feed back: each act delivers anxiety to its receiver and witnesses,
-  whose excess draws more acts. P4 (a divorce raises the former spouses' conflict) fails for three reasons, measured
-  over 40 seeds with each part of the divorce on its own: the `DIVORCE` load lands (+10 to 15 acute anxiety for 12
-  weeks) but is small against the climb, and alone leaves the window's mean unchanged (131.2 against 131.0 for Ravi);
-  the `SEPARATION` lowers every member's excess by about 40% (Ravi 79, Marta 191, the children 93), because the leaver
-  no longer witnesses or is witnessed in the household; and the spouses' conflict rate does not move with anxiety in
-  this range (0.152 to 0.159 a week in all four arms), the marital tie being cut off in 99% of the window's weeks with
-  or without the divorce. The sinks reading the old marital tie and the load reaching the children are not the cause.
-  For the owner: whether the extra acts' constants (`[I]`) are set so a run without events stays bounded, before P4 is
-  run again; and whether former spouses keep a contact channel through the children after a separation.
+- [ ] T-263 ⟨now⟩ **The extra acts raise a two-year anxiety peak, and why P4 failed (2026-11-19, corrected 2026-11-20).**
+  Revision 66's extra acts (`M4.D.3c`) do not make anxiety climb without bound, as this item first said: with no
+  scripted events (Phase C family, 312 weeks, 20 seeds, a grid of `reactive_extra_max` 0–3, `reactive_half_anxiety`
+  100 and 300, `conflict_capacity_cost` 0 and 1) the members' mean excess peaks in years 2–3 and is back by year 6 in
+  every setting. The constants set the peak's height: at level −20, about 1,500 at the current constants against 170
+  with both off (146 and 24 at level 0). The probe of T-260 read weeks 20–103, the rising phase; there Marta's excess was
+  327 against 33 at revision 64, and one run reached 9408 and underflowed `M4.D.1d`'s entropy (fixed in `0aece2f`).
+  Bounding a no-event run is already met, so no constant was re-set: a magnitude target would be invented.
+  P4 (a divorce raises the former spouses' conflict) fails at week 20 and again at week 260, after the peak (40 seeds,
+  52 weeks each side, no spell): divorced minus not, the spouses' conflict is −0.006 ± 0.014 a week at level 0 and
+  +0.000 ± 0.010 at level −20 (2 se). The cause is that the marital tie is cut off before the divorce: in 99% of weeks
+  20–103 and in every week of year 5, with or without it, and the spouses' conflict is then near zero (0.02 a week).
+  The divorce's parts, each run alone at week 20: the `DIVORCE` load lands (+10 to 15 acute anxiety for 12 weeks) but
+  leaves the window's mean unchanged; the `SEPARATION` lowers every member's excess by about 40% (by more than half
+  for Ravi at week 260), because the leaver no longer witnesses or is witnessed in the household. The sinks reading
+  the old marital tie and the load reaching the children are not the cause; a contact channel through the children
+  would not raise conflict on a tie already quiet. For the owner: whether the spouses' cutoff within two years in
+  almost every run is the model's finding or a defect to trace (it is 28–50% of weeks 0–19 at revision 64 and 52–72%
+  at 66), before P4 is read again.

@@ -39,3 +39,17 @@ Built as revision 65 on the branch `claude/reactivity-divorce`, merged as revisi
   combined trajectory reaches a path neither revision 65 nor the Cowork build alone did; the gap is older. The test is
   a strict expected failure. For the owner: whether an external agent's sequence steps wait for its next session, or
   an external agent never opens a sequence.
+- [ ] T-263 ⟨now⟩ **Anxiety climbs without bound under the extra acts, and why P4 failed (2026-11-19).** On the probe
+  of T-260 (Phase C family, the M11.C.1 spell, 40 seeds, no divorce), Marta's mean excess anxiety in weeks 20–103 is
+  33 at revision 64 and 327 at revision 66, at level −20 189 and 3414 (one run reached 9408 and underflowed
+  `M4.D.1d`'s entropy, fixed in `0aece2f`). With `reactive_extra_max` 0 it is 48 and 721; with `conflict_capacity_cost`
+  0 too, 37 and 243. The extra acts of `M4.D.3c` feed back: each act delivers anxiety to its receiver and witnesses,
+  whose excess draws more acts. P4 (a divorce raises the former spouses' conflict) fails for three reasons, measured
+  over 40 seeds with each part of the divorce on its own: the `DIVORCE` load lands (+10 to 15 acute anxiety for 12
+  weeks) but is small against the climb, and alone leaves the window's mean unchanged (131.2 against 131.0 for Ravi);
+  the `SEPARATION` lowers every member's excess by about 40% (Ravi 79, Marta 191, the children 93), because the leaver
+  no longer witnesses or is witnessed in the household; and the spouses' conflict rate does not move with anxiety in
+  this range (0.152 to 0.159 a week in all four arms), the marital tie being cut off in 99% of the window's weeks with
+  or without the divorce. The sinks reading the old marital tie and the load reaching the children are not the cause.
+  For the owner: whether the extra acts' constants (`[I]`) are set so a run without events stays bounded, before P4 is
+  run again; and whether former spouses keep a contact channel through the children after a separation.

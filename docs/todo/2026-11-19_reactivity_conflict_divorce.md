@@ -3,7 +3,7 @@
 Built as revision 65 on the branch `claude/reactivity-divorce`, merged as revision 66 on the final engine batch, from `docs/proposal_reactivity_conflict_divorce.md`, approved by the owner
 2026-11-19. Open:
 
-- [ ] T-258 ⟨now⟩ **Regenerate every record on revision 66's engine (2026-11-19).** The batch moved the engine hash, so
+- [x] T-258 ⟨now⟩ **Regenerate every record on revision 66's engine (2026-11-19).** The batch moved the engine hash, so
   the ensemble, mutation, sweep, level-occupancy, diagnostic, Phase D (parts I and II), Phase D mutation, emergence
   audit and sensitivity records, and the LLM experiment's pilot cache and report, are stale. Each test that reads one is
   a strict expected failure naming T-258; remove each mark as its record is regenerated (the test then passes, or turns
@@ -11,6 +11,11 @@ Built as revision 65 on the branch `claude/reactivity-divorce`, merged as revisi
   triangle and cutoff criteria) may change verdict: report each move to the owner, with T-254's seed-block rule. This one regeneration also serves revision 65 (the final engine batch): its own
   run on Mac Mini1 was stopped after Phase D part II and part I (the owner, 2026-11-19), and those two records are rerun
   here.
+  *Closed 2026-11-20: Mac Mini1's queue (`~/regen66.sh` at `0aece2f`) ran 13 steps; 12 exited 0. The emergence audit
+  exited 1 because its pilot row `M11.C.48[phase_d]` no longer passes; the row left `config/audit/emergence_audit.md`'s
+  pilot table and the audit was rerun alone. Every record but the LLM experiment's is regenerated and its mark removed;
+  the verdict moves are `docs/version_3_revision_66_changes.md`, for the owner in T-264. The LLM runs do not replay:
+  T-265.*
 - [ ] T-259 ⟨now⟩ **No I-POSITION sequence completes in the triad at revision 66 (2026-11-19).** With `M4.D.3c`'s extra
   reactive acts, `tests/bowen/test_iposition.py::attempts_over_seeds` (192 seeds, mover at level 60) draws no
   completed sequence (27 at revision 30), so `test_m5d8_success_usually_follows_several_failures` is a strict expected
@@ -72,3 +77,21 @@ Built as revision 65 on the branch `claude/reactivity-divorce`, merged as revisi
   (revision 36 decided it does not), or the spouses' cutoff stands as the model's result and P4 is dropped.
   **Decided 2026-11-20 (the owner): revision 36's rule is kept; the spouses' cutoff stands as the model's result and
   P4 is dropped.** No rule or constant changes.
+- [ ] T-264 ⟨now⟩ **Revision 66's verdict moves (2026-11-20).** From `docs/version_3_revision_66_changes.md` (T-258), for
+  the owner. Ensemble rows, PASS to FAIL: `M11.C.18`, `M11.C.20` and `M11.C.33` (`rise` is +0 ± 0 in every pair; in
+  `M11.C.20` 783 of 900 treatment moves are not legal), `M11.C.22` (the severe removal's effect turns positive),
+  `M11.C.15` (`death_rise` −109), `M11.C.10[family of origin]`, `M11.C.2[twelve-person family]` and
+  `M11.C.48[phase_d]`; FAIL to PASS: `M11.C.6`, `M11.C.23`, `M11.C.27[unstable,add_third]`. Under T-254's rule these
+  are not yet read as changes of the model, a p on one side lying between about 0.01 and 0.2: `M11.C.10` (p 0.031 to
+  0.80), `M11.C.17` (0.018 to 0.10), `M11.C.49` (to 0.21), `M11.C.12` (to 0.042), `M11.C.44` (to 0.036), `M11.C.51`
+  (to 0.048), and the Phase D mutants on `M11.C.46` (0.17), `M11.C.7[one spouse over sided]` (0.017) and `M11.C.55`
+  (0.049); fresh, disjoint seed blocks (`tools/t253_seed_blocks.py`, on Mac Mini1) decide them. Also: the
+  `availability-level-inverted` mutant's treatment arm is 84% of member-weeks in the every-layer deletion band (98.5%
+  in C.16's window, against 40% and 44% at revision 64), so `test_m111a_availability_inversion_acts_over_c16s_run` is
+  a strict expected failure: the inversion now acts as a deletion.
+- [ ] T-265 ⟨now⟩ **The LLM experiment's runs do not replay on revision 66's engine (2026-11-20).** The replay in T-258
+  refused every committed run: the A0 baseline's behavior changed with the engine, and the A1–A4 runs' rendered prompts
+  changed, so their cached responses miss. The committed runs were left as they were (their `run.json` would read
+  `not_replayable`), and `test_lx16_report_is_current` and `test_lx25_committed_pilot_replays_fixed` stay strict
+  expected failures naming this item. For the owner: whether the A0 baseline is rerun on the new engine and whether
+  the LLM arms are run again live (a paid run), or the experiment is frozen at revision 64.

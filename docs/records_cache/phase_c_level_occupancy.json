@@ -1,5 +1,5 @@
 {
- "193a149eabe0a3312f825bcd67231dc08be3418bbc8f6181ef5094cbcf0f9706": {
+ "c02caa8be29efdc34e83c8954b157ae35715f8563fce57da039eb4cce1731341": {
   "rows": [
    {
     "arm": "baseline",
@@ -8,14 +8,14 @@
      "window": 7280
     },
     "whole_run": {
-     "deletion_on_every_layer": 0.0,
-     "deletion_on_layer_1": 0.5587225274725275,
-     "layers_above_0_unavailable": 0.012225274725274725
+     "deletion_on_every_layer": 0.06078296703296703,
+     "deletion_on_layer_1": 0.8853708791208791,
+     "layers_above_0_unavailable": 0.0
     },
     "window": {
-     "deletion_on_every_layer": 0.0,
-     "deletion_on_layer_1": 0.5557692307692308,
-     "layers_above_0_unavailable": 0.02197802197802198
+     "deletion_on_every_layer": 0.10453296703296704,
+     "deletion_on_layer_1": 0.9802197802197802,
+     "layers_above_0_unavailable": 0.0
     }
    },
    {
@@ -25,19 +25,19 @@
      "window": 7280
     },
     "whole_run": {
-     "deletion_on_every_layer": 0.4225274725274725,
-     "deletion_on_layer_1": 0.9536401098901099,
-     "layers_above_0_unavailable": 0.0022664835164835167
+     "deletion_on_every_layer": 0.8471153846153846,
+     "deletion_on_layer_1": 0.9986263736263736,
+     "layers_above_0_unavailable": 0.0
     },
     "window": {
-     "deletion_on_every_layer": 0.46373626373626375,
-     "deletion_on_layer_1": 0.9379120879120879,
-     "layers_above_0_unavailable": 0.0037087912087912086
+     "deletion_on_every_layer": 0.985989010989011,
+     "deletion_on_layer_1": 1.0,
+     "layers_above_0_unavailable": 0.0
     }
    }
   ]
  },
- "c2d4f3c4281c5529e0dc95733c955021fd8daf7febd023366de4f5f21679b036": {
+ "f59338c927da619e89a5e06e5c21445857c1b29f7de6f6d8f5f2c05d072f4481": {
   "rows": [
    {
     "arm": "baseline",
@@ -46,14 +46,14 @@
      "window": 7280
     },
     "whole_run": {
-     "deletion_on_every_layer": 0.0,
-     "deletion_on_layer_1": 0.5502747252747253,
-     "layers_above_0_unavailable": 0.0057692307692307696
+     "deletion_on_every_layer": 0.07685439560439561,
+     "deletion_on_layer_1": 0.9030906593406594,
+     "layers_above_0_unavailable": 0.0
     },
     "window": {
-     "deletion_on_every_layer": 0.0,
-     "deletion_on_layer_1": 0.5447802197802197,
-     "layers_above_0_unavailable": 0.00989010989010989
+     "deletion_on_every_layer": 0.13557692307692307,
+     "deletion_on_layer_1": 0.9884615384615385,
+     "layers_above_0_unavailable": 0.0
     }
    },
    {
@@ -63,14 +63,14 @@
      "window": 7280
     },
     "whole_run": {
-     "deletion_on_every_layer": 0.3968406593406593,
-     "deletion_on_layer_1": 0.9544642857142858,
-     "layers_above_0_unavailable": 0.0005494505494505495
+     "deletion_on_every_layer": 0.8393543956043956,
+     "deletion_on_layer_1": 0.9984203296703297,
+     "layers_above_0_unavailable": 0.0
     },
     "window": {
-     "deletion_on_every_layer": 0.43763736263736264,
-     "deletion_on_layer_1": 0.9440934065934066,
-     "layers_above_0_unavailable": 0.001098901098901099
+     "deletion_on_every_layer": 0.9847527472527473,
+     "deletion_on_layer_1": 1.0,
+     "layers_above_0_unavailable": 0.0
     }
    }
   ]

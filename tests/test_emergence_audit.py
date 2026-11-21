@@ -111,11 +111,15 @@ def test_m111g_ea1_the_real_scope_is_the_plans():
     row, so they enter by its rule). Since spec revision 59's regeneration (T-001 step 4, 2026-11-12) `M11.C.34` and
     `M11.C.10[family of origin]` fail, so they leave the scope by the same rule: eleven rows. Since spec revision 61's
     regeneration (2026-11-14) `M11.C.10[family of origin]`, `M11.C.17`, `M11.C.49` and `M11.C.7[one spouse over sided]`
-    pass, so they enter by it: fifteen rows."""
+    pass, so they enter by it: fifteen rows. Since spec revision 66's regeneration (T-258, 2026-11-20)
+    `M11.C.10`, `M11.C.10[family of origin]`, `M11.C.15`, `M11.C.17`, `M11.C.22`, `M11.C.2[twelve-person family]`,
+    `M11.C.48[phase_d]` and `M11.C.49` fail and
+    `M11.C.6`, `M11.C.12`, `M11.C.23`, `M11.C.44`, `M11.C.51` and `M11.C.27[unstable,add_third]` pass: thirteen rows."""
     audited, rows, by_class, excluded = ea.in_scope(ea.read_records(), ea.read_config())
     ea.check_registries(rows)
     keys = {r.key for r in audited}
-    assert len(audited) == 15 and {"M11.C.48[phase_d]", "M11.C.52", "M11.C.55", "M11.C.10[family of origin]"} <= keys
+    assert len(audited) == 13 and {"M11.C.52", "M11.C.55", "M11.C.6", "M11.C.12"} <= keys
+    assert "M11.C.48[phase_d]" not in keys
     assert "M11.C.34" not in keys
     assert [k for k, _ in excluded] == ["M11.C.39"]
     # T-192 (owner 2026-11-05): M11.C.41's two level cells have only premise limbs, so they leave the scope.
@@ -339,7 +343,8 @@ def test_m111g_ea12_the_config_is_parsed_strictly():
     with pytest.raises(SystemExit, match="cells"):
         ea.read_config(text.replace("| `M11.C.39` | its treatment arm", "| `M11.C.39` | its | treatment arm"))
     with pytest.raises(SystemExit, match="twice"):
-        ea.read_config(text.replace("| `M11.C.48[phase_d]` |", "| `M11.C.27[unstable,remove_one]` |"))
+        ea.read_config(text.replace("| `M11.C.27[unstable,remove_one]` | a short Phase C row (21 ticks) |\n",
+                                    "| `M11.C.27[unstable,remove_one]` | a short Phase C row (21 ticks) |\n" * 2))
 
 
 def test_m111g_ea12_l0_stage_runs_l0_on_every_row_and_nothing_else():
@@ -372,7 +377,6 @@ def test_m111g_ea13_key_is_engine_and_edits():
 
 
 # --- EA-14 -----------------------------------------------------------------------------------------------------------
-@pytest.mark.xfail(strict=True, reason="spec revision 66 (2026-11-19: M4.D.3c, M4.D.3d, M7.C.1m) moved the engine hash; this record is regenerated on the Macs (T-258) and is stale on the new engine until then")
 def test_m111g_ea14_emergence_audit_record_is_current():
     try:
         rendered = ea.build(Cache(ea.CACHE))

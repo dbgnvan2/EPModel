@@ -24,7 +24,7 @@ from experiments.llm_agents.source import family_terms
 from src.bowen.render.trace import FRAMING
 
 
-@pytest.mark.xfail(strict=True, reason="spec revision 66 (2026-11-19: M4.D.3c, M4.D.3d, M7.C.1m) moved the engine hash; this record is regenerated on the Macs (T-258) and is stale on the new engine until then")
+@pytest.mark.xfail(strict=True, reason="T-265: on revision 66's engine the committed LLM runs do not replay (the A0 baseline's behavior changed; the A1-A4 runs' rendered prompts changed, so their cached responses miss); stale until the owner decides how they are rerun")
 def test_lx16_report_is_current(tmp_path):
     summaries = load_summaries()
     assert summaries, "the A0 baseline is committed"

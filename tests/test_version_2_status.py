@@ -227,8 +227,10 @@ def test_w3_a_pass_whose_named_mutant_survived_is_not_labelled_unmutated():
     pass with no mutant in any record keeps the old label. Since spec revision 43 `M11.C.11` and `M11.C.15` each have a
     red mutant beside the survivor, so they are proved; with the red ones taken away the survivor is what the page
     shows. `M11.C.17` left this test at revision 44 (T-165): its red mutant, `coach-pull-up-removed`, became the rule
-    and was retired. Mutation: survived mutants not read (both unmutated)."""
-    keys = ("M11.C.11", "M11.C.15")
+    and was retired. At revision 66 (T-258) `M11.C.11`'s red mutant survives and `M11.C.15` fails, so `M11.C.39` and
+    `M11.C.7[joint over sided]`, each with a Phase D red mutant beside a named survivor, take their place. Mutation:
+    survived mutants not read (both unmutated)."""
+    keys = ("M11.C.39", "M11.C.7[joint over sided]")
     rows = {s.key: s for s in tool.statuses()}
     for key in keys:
         assert rows[key].status == "pass" and rows[key].final and "proved by" in rows[key].evidence, key

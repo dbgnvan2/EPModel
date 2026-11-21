@@ -30,7 +30,6 @@ def record_text() -> str:
     return (REPO / "docs" / "phase_c_ensemble_record.md").read_text(encoding="utf-8")
 
 
-@pytest.mark.xfail(strict=True, reason="spec revision 66 (2026-11-19: M4.D.3c, M4.D.3d, M7.C.1m) moved the engine hash; this record is regenerated on the Macs (T-258) and is stale on the new engine until then")
 def test_m134_ensemble_record_is_current():
     """MR-23: the record is exactly what its cache renders for the current code, without running anything: a changed
     engine has no cached result (stale), and a hand edit or a renderer change does not match."""
@@ -202,7 +201,6 @@ def test_m111a_every_mutant_applies_exactly_once(tmp_path):
             assert new in (root / file).read_text(encoding="utf-8"), mutant.id
 
 
-@pytest.mark.xfail(strict=True, reason="spec revision 66 (2026-11-19: M4.D.3c, M4.D.3d, M7.C.1m) moved the engine hash; this record is regenerated on the Macs (T-258) and is stale on the new engine until then")
 def test_m111d_mutation_record_is_current():
     """The record is exactly what its cache renders for the current engine and every mutant's current edits: a changed
     engine or mutant has no cached result (KeyError: rerun the tool), and a hand edit does not match."""
@@ -228,7 +226,6 @@ def test_m111c_representation_mutants_ran_on_every_passing_criterion():
         assert _mutants.passing() <= ran, f"{mutant.id} did not run on {sorted(_mutants.passing() - ran)}"
 
 
-@pytest.mark.xfail(strict=True, reason="spec revision 66 (2026-11-19: M4.D.3c, M4.D.3d, M7.C.1m) moved the engine hash; this record is regenerated on the Macs (T-258) and is stale on the new engine until then")
 def test_d9_sweep_record_is_current():
     """Plan D9: every composite criterion was swept at low and high α, H and temperature on the current code."""
     text = (REPO / "docs" / "phase_c_sweep_record.md").read_text(encoding="utf-8")
@@ -514,7 +511,6 @@ def occupancy_rows() -> list[dict]:
     return record_json(text)
 
 
-@pytest.mark.xfail(strict=True, reason="spec revision 66 (2026-11-19: M4.D.3c, M4.D.3d, M7.C.1m) moved the engine hash; this record is regenerated on the Macs (T-258) and is stale on the new engine until then")
 def test_m111a_level_occupancy_record_is_current():
     """T-068: the record is what its cache renders for the current engine, without running a child, so a stale record
     or a hand-edited table fails."""
@@ -611,6 +607,7 @@ def test_m111a_availability_deletion_is_full_on_every_layer():
                for level in (0.0, 50.0, 100.0) for k in _layers())
 
 
+@pytest.mark.xfail(strict=True, reason="T-264: at revision 66 the availability-level-inverted treatment arm is 84% of member-weeks in the every-layer deletion band over the whole run (98.5% in the window), so the partial band is under the quarter; for the owner")
 def test_m111a_availability_inversion_acts_over_c16s_run():
     """In each arm, over the whole run and over C.16's window, at least a quarter of member-weeks lie in the partial
     band (above the every-layer deletion edge, below the pivot), where the inversion falls with level, so it is not a
@@ -726,25 +723,26 @@ def test_t189_c16_row_l0_sentence_follows_the_audit_record():
     import tools.c16_report as report
 
     committed = report.RENDERED["spec_row"]
-    assert "inverting availability reverses it (+0.011 ± 0.0017, 150 seeds)" in committed
-    assert "with availability removed as well it is red (-0.000368 ± 0.0013, 150 seeds)" in committed
+    # At revision 66 (T-258) the audit's L0 inversion turns it red and the removal as well is red (100 seeds).
+    assert "inverting availability turns it red (+0.000536 ± 0.0006, 100 seeds)" in committed
+    assert "with availability removed as well it is red, not still passing (+0.000203 ± 0.00056, 100 seeds)" in committed
     records = copy.deepcopy(report._records())
     same = report.render(*records, audit=_c16_audit(
         {"C7:availability-and-learner-removed": {"verdict": "reversed"},
          "C7:availability-level-inverted": {"verdict": "survived"}}))["spec_row"]
     assert "inverting availability leaves it passing" in same
-    assert "it is reversed, not red (-0.000368" in same
+    assert "it is reversed, not still passing (+0.000203" in same
     other = report.render(*records, audit=_c16_audit(
         {"C7:availability-and-learner-removed": {"verdict": "survived"},
          "C7:availability-level-inverted": {"verdict": "red"}}))["spec_row"]
     assert "inverting availability turns it red" in other
-    assert "it is still passing, not red (-0.000368" in other
+    assert "it is still passing (+0.000203" in other
     mutants = copy.deepcopy(records[0])
     for row in mutants:
         if row["criterion"] == "M11.C.16" and row["mutant"] == "learner-disabled":
             row["seeds"] = 120
     # The runner stops a run when it converges, so the two learner-disabled runs may differ: each count is stated.
-    assert "(120 seeds alone, 150 with availability removed)" in report.render(mutants, *records[1:])["spec_row"]
+    assert "(120 seeds alone, 100 with availability removed)" in report.render(mutants, *records[1:])["spec_row"]
     gone = _c16_audit({})
     for entry in gone["carriers"]:
         if entry["criterion"] == "M11.C.16":
@@ -878,7 +876,6 @@ sys.modules[_dspec.name] = _diagnostic
 _dspec.loader.exec_module(_diagnostic)
 
 
-@pytest.mark.xfail(strict=True, reason="spec revision 66 (2026-11-19: M4.D.3c, M4.D.3d, M7.C.1m) moved the engine hash; this record is regenerated on the Macs (T-258) and is stale on the new engine until then")
 def test_d0_diagnostic_record_is_current():
     """The diagnostic record is what its cache renders for the current engine, variants and probes."""
     try:

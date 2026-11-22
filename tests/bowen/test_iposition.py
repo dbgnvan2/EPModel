@@ -188,7 +188,11 @@ def test_m5d2a_unprepared_sequence_holds_with_less_capacity():
     deliver_to(rushed, RAVI, MARTA)  # the issue comes up in the first week
     ip.advance_sequences(rushed, PARAMS)
     assert seq(rushed).due == ip.DEFINE and seq(rushed).prepared == 0
-    assert ip.capacity(rushed.people[RAVI], PARAMS) < ip.capacity(prepared.people[RAVI], PARAMS)
+    for state in (prepared, rushed):  # the position said in both, with the same conviction (M5.D.3b, revision 67)
+        take_owed_step(state)
+        seq(state).importance, seq(state).line = 0.0, False
+    assert ip.conviction(rushed, RAVI, PARAMS) == ip.conviction(prepared, RAVI, PARAMS)
+    assert ip.capacity(rushed, RAVI, PARAMS) < ip.capacity(prepared, RAVI, PARAMS)
 
 
 # --- the opposition ------------------------------------------------------------------------
@@ -478,6 +482,141 @@ def test_m5d7_t219_a_completion_at_the_scale_top_logs_the_gain_it_made():
     assert (RAVI, "functional_level", 0.0) in done.people
 
 
+# --- revision 67: conviction (M5.D.3b) and the coach's sessions (M5.D.9b) -------------------
+
+
+def as_coach(state):
+    from src.bowen.engine.objects import Role as PersonRole
+
+    state.people[RAVI].role = PersonRole.EXTERNAL
+
+
+def off_session(state):
+    """Move the clock to the first week after a session week."""
+    every = PARAMS.session_interval_weeks
+    state.tick = (state.tick // every + 1) * every + 1
+
+
+def test_m5d9b_a_coachs_step_waits_for_a_session_week():
+    """`M5.D.9b` (revision 67, T-262): an external agent's step due between sessions waits for its next session; the
+    wait is no deferral. A member's step is owed the same week."""
+    owed_by_role = {}
+    for coach in (False, True):
+        state = fresh()
+        if coach:
+            as_coach(state)
+        choose_iposition(state)
+        for _ in range(PARAMS.prepare_ticks):
+            calm(state, RAVI)
+            week(state)
+        assert seq(state).due == ip.DEFINE
+        off_session(state)
+        owed, records = ip.sequence_selections(state, PARAMS)
+        owed_by_role[coach] = len(owed)
+        assert seq(state).deferrals == 0 and not any("deferred" in f for r in records for _, f, _ in r.people)
+        if coach:
+            state.tick = (state.tick // PARAMS.session_interval_weeks + 1) * PARAMS.session_interval_weeks
+            assert len(ip.sequence_selections(state, PARAMS)[0]) == 1  # owed at the session
+    assert owed_by_role == {False: 1, True: 0}
+
+
+def test_m5d9b_a_coachs_windows_count_session_ticks():
+    """`M5.D.9b`: `opposition_window` counts a coach's session ticks, so a coach waiting for opposition is still waiting
+    after that many weeks, where a member's move has not landed."""
+    ended = {}
+    for coach in (False, True):
+        state = fresh()
+        prepared_to_opposition(state)
+        if coach:
+            as_coach(state)
+        off_session(state)
+        seq(state).stage_since = state.tick
+        for _ in range(PARAMS.opposition_window):
+            week(state)
+        ended[coach] = seq(state) is None
+    assert ended == {False: True, True: False}
+
+
+def conviction_at_define(prepare=lambda state: None, line_tendency=0.0):
+    state = fresh()
+    state.people[RAVI].line_tendency = line_tendency
+    prepare(state)
+    prepared_to_opposition(state)
+    return state
+
+
+def test_m5d3b_conviction_rests_on_basic_level():
+    """`M5.D.3b` (revision 67, T-259): conviction's solid part is the basic level, which pressure does not change
+    (FTCP Ch. 21 ¶15): a mover with the higher basic level holds with more capacity, and one whose functional level
+    was dragged down keeps it."""
+    def levels(basic, functional):
+        def prepare(state):
+            state.people[RAVI].basic_level, state.people[RAVI].functional_level = basic, functional
+        return prepare
+
+    high, low, dragged = (conviction_at_define(levels(*arms)) for arms in ((60.0, 60.0), (30.0, 60.0), (60.0, 30.0)))
+    assert seq(high).solid == 60.0 and seq(low).solid == 30.0 and seq(dragged).solid == 60.0
+    assert ip.conviction(high, RAVI, PARAMS) > ip.conviction(low, RAVI, PARAMS)
+
+
+def test_m5d3b_a_more_intense_tie_lowers_conviction():
+    """`M5.D.3b`: the more intense the tie to the target (`bond_energy`, O3), the less conviction (FE Ch. 4 ¶94–95)."""
+    def bond(value):
+        def prepare(state):
+            state.ties[TieId.of(RAVI, MARTA)].bond_energy = value
+        return prepare
+
+    intense, light = conviction_at_define(bond(90.0)), conviction_at_define(bond(10.0))
+    assert seq(intense).importance == seq(light).importance  # the same draw: only the tie differs
+    assert ip.conviction(intense, RAVI, PARAMS) < ip.conviction(light, RAVI, PARAMS)
+
+
+def test_m5d3b_a_line_raises_conviction():
+    """`M5.D.3b`: a position that is one of the person's lines carries `line_importance`, above any other position's
+    importance, so the same mover holds it with more conviction."""
+    line, ordinary = conviction_at_define(line_tendency=1.0), conviction_at_define(line_tendency=0.0)
+    assert seq(line).line and not seq(ordinary).line
+    assert ip.conviction(line, RAVI, PARAMS) > ip.conviction(ordinary, RAVI, PARAMS)
+
+
+def test_m5d3b_borrowed_conviction_falls_under_opposition():
+    """`M5.D.3b`, §3.5 (O4): the borrowed part of conviction (positive pseudo-self) counts while the ties hold still
+    and falls away as they push; the solid part does not move with them."""
+    found = {}
+    for borrowed in (0.0, 10.0):
+        state = conviction_at_define()
+        state.people[RAVI].pseudo_self = borrowed
+        still = ip.conviction(state, RAVI, PARAMS)
+        state.tick += 1
+        for n, other in enumerate(sorted(p for p in state.people if p != RAVI and state.tie_between(RAVI, p))):
+            deliver_to(state, RAVI, other, index=n)
+        found[borrowed] = (still, ip.conviction(state, RAVI, PARAMS))
+    assert found[0.0][0] == found[0.0][1]  # solid: pressure does not move it
+    assert found[10.0][1] < found[10.0][0]  # borrowed: falls under pressure
+    assert found[10.0][0] > found[0.0][0]
+
+
+def test_m5d3b_conviction_is_set_at_define():
+    """`M5.D.3b`: conviction's solid part, importance and tie discount are set when `DEFINE` is said and hold for the
+    sequence: a later change of basic level or of the tie does not move them."""
+    state = conviction_at_define()
+    before = ip.conviction(state, RAVI, PARAMS)
+    state.people[RAVI].basic_level -= 20.0
+    state.ties[TieId.of(RAVI, MARTA)].bond_energy = 100.0
+    assert ip.conviction(state, RAVI, PARAMS) == before
+
+
+def test_m5d9_o1_an_extra_act_toward_the_target_stays_automatic():
+    """O1 (revision 67, `M5.D.9`): an extra reactive act toward the sequence's other (`M4.D.3c`, slot 1 on) stays what
+    it is, part of the opposition the mover holds against; the week's own act toward them is still `STAY-IN-CONTACT`."""
+    state = fresh()
+    choose_iposition(state)
+    own = Selection(actor=RAVI, kind="CONFLICT", targets=(MARTA,), intensity=50.0, value_key="k")
+    extra = dataclasses.replace(own, index=1)
+    assert ip.redirect_to_sequence_tie(state, own).kind == "STAY-IN-CONTACT"
+    assert ip.redirect_to_sequence_tie(state, extra) == extra
+
+
 # --- what usually happens: an ensemble --------------------------------------------------------
 
 
@@ -554,9 +693,9 @@ def test_m5d3_abort_is_the_usual_first_outcome():
 
 
 @pytest.mark.xfail(strict=True, raises=AssertionError,
-                   reason="spec revision 66 (2026-11-19): with the extra reactive acts of M4.D.3c no I-POSITION sequence "
-                   "completes in the triad over the 192 seeds (27 at revision 30), so the ensemble holds nothing to "
-                   "order; T-259, for the owner's review")
+                   reason="spec revision 67 (2026-11-21): conviction (M5.D.3b) brings back 3 completed I-POSITION "
+                   "sequences in the triad over the 192 seeds (0 at revision 66, 27 at revision 30), and all 3 are "
+                   "the seed's first attempt, so success does not follow several failures; for the owner's review")
 def test_m5d8_success_usually_follows_several_failures():
     firsts = []
     for marks in attempts_over_seeds():

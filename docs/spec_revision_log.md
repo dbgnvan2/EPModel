@@ -6,6 +6,27 @@ The spec holds the current rules; this file holds how they got there. Until revi
 
 The sections `### Revision 34` to `### Revision 5` and the undated section are the spec's text as it stood, moved whole; a statement inside one of them (revision 34's, that revisions 13 to 33 are "not here") was true when written, before the bodies' narratives were moved under their own revisions. Those narratives are the bullets `- \`ID\`: sentence`, each the sentence as it stood in the body, under the revision it names, in sections titled "inline narratives moved from the bodies at revision 35" where no section existed.
 
+### Revision 67 — conviction, and the coach acting only in sessions, 2026-11-21 ⟦rev67 · owner 2026-11-21⟧
+
+The engine hash moves (`4aaa9029f63a` → `9321b8523500`). Built from `docs/proposal_conviction_and_coach_sessions.md`,
+approved by the owner 2026-11-21 ("Approve with §3.5"), with O1, O2 and O4; O3 settled at the plan step (§7). Every
+engine-keyed record is stale until regenerated.
+
+- **`M5.D.3b` (new), `M5.D.3` (amended), T-259.** Capacity to hold is `hold_gain × conviction × efficacy`. Conviction is
+  set at `DEFINE`: basic level (solid) plus the position's importance (`line_importance` for a line, otherwise a draw
+  from `[0, importance_max]`), times `1 − tie_discount × bond_energy ÷ 100`; a borrowed part, positive pseudo-self, is
+  added at each check in the bond-weighted share of the mover's ties that hold still that week (§3.5, O4). Intensity
+  is `bond_energy`, since `functional_togetherness` is not built (O3). Stress enters through excess anxiety only (O2).
+  New constants `importance_max` 20, `line_importance` 60, `line_tendency_max` 0.2, `tie_discount` 0.5, all `[I]`;
+  `hold_gain` keeps 0.3 in the new unit.
+- **`M3.D.4b` (amended).** A new draw class, `conviction` (tick, person, purpose; per person).
+- **`M5.D.9` (amended), O1.** An extra reactive act toward the sequence's other (`M4.D.3c`) stays automatic and is no
+  longer made as `STAY-IN-CONTACT`; the week's own act toward them still is.
+- **`M5.D.9b` (new), T-262.** An external agent's sequence step waits for its next session week, and its windows
+  count session ticks.
+- **T-265 (tests only).** The LLM experiment is frozen as a revision-64 result: its report and runs are checked against
+  their recorded engine (`d9e26aca1b99`), not the current one.
+
 ### Revision 66 — reactive amount, conflict as consumption, divorce, 2026-11-19 ⟦rev66 · owner 2026-11-19⟧
 
 The engine hash moves. The owner's corrections of 2026-11-19, made while the model was used to reinterpret van Dijk et

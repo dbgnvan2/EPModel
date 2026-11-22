@@ -164,6 +164,10 @@ class Person:
     systems_perspective: float | None = None
     reactive_state: dict[str, float] | None = None
     pseudo_self: float | None = None
+    # M5.D.3b (revision 67): the chance that a position the person takes is one of their lines, drawn once per run
+    # from [0, line_tendency_max] at the person's first DEFINE (``iposition.line_tendency``); a value set on the
+    # person before then stands (no family file declares one).
+    line_tendency: float | None = None
     # the part of functional_level that stress moved — up by coping, down by soothing — which
     # settles back slowly when calm (stress_response.respond). Kept apart from borrowed pseudo-self (M6.I.4).
     stress_swing: float = 0.0

@@ -93,13 +93,13 @@ full table.
   the ASR no-quotation rule. It must never judge a wording: D5a and D5b were retired on 2026-11-10 for it
   (`docs/plan_doc_claim_tests.md`), so do not rebuild them.
 - Run tests before declaring done: `python3 -m pytest tests/`
-- **A red suite is never normal — 1532 tests: 1524 pass, 1 skips and 7 are strict expected failures** (each marked
+- **A red suite is never normal — 1540 tests: 1524 pass, 1 skips and 15 are strict expected failures** (each marked
   `xfail(strict=True)` with a reason naming why, so it turns the suite red if it starts passing: `M5.B.3`'s third-party
-  cost (G1's A6); `test_m5d8_success_usually_follows_several_failures`, which no completed sequence supports at
-  revision 66 (T-259); the LLM stub run's coach making a sequence step between sessions (T-262); the version 2 sweep record, stale until the stage-end sweep; the two LLM experiment
-  tests whose committed runs do not replay on revision 66's engine (T-265); and the availability inversion, which acts as a
-  deletion at revision 66 (T-264)). `test_m5d3_abort_is_the_usual_first_outcome`, a strict
-  expected failure from revision 41 (T-158), passes again since revision 65 (T-257). The skip is `test_t172_the_installed_ruff_is_the_pinned_version` where the installed
+  cost (G1's A6); `test_m5d8_success_usually_follows_several_failures`, whose 3 completed sequences at revision 67 are
+  all first attempts; the version 2 sweep record, stale until the stage-end sweep; the availability inversion, which
+  acts as a deletion at revision 66 (T-264); and eleven engine-keyed records stale on revision 67's engine until Mac
+  Mini1's regeneration is merged (T-266)). The LLM stub run's coach (T-262) and the two LLM experiment tests (T-265)
+  pass again at revision 67. The skip is `test_t172_the_installed_ruff_is_the_pinned_version` where the installed
   ruff is not the pin (this Mac has 0.15.1; CI fails instead). Measured 2026-11-21 on this Mac with `python3 -m pytest tests/`;
   the 60 `ensemble`-marked tests (58 criterion tests, 2 slow stage 3 probes) are deselected by `pytest.ini` and run with `python3 -m pytest -m ensemble`.
   No test checks this count since T-222 (2026-11-11); the dated history of counts is in `CHANGELOG.md`.

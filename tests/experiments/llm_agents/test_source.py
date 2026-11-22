@@ -8,7 +8,6 @@ Spec:    docs/plan_v3_llm_agent_experiment.md#10
 Tests:   this file
 """
 
-import pytest
 
 from conftest import REPO_ROOT, StubChooser, StubTransport, final_state, stub_run
 
@@ -57,15 +56,16 @@ def test_lx2_one_selection_per_active_member():
         assert (external <= set(actors)) is (tick % interval == 0) or not external
 
 
-@pytest.mark.xfail(strict=True, reason="T-262 (2026-11-19): at revision 66 the coach starts an I-POSITION sequence at a "
-                   "session and makes its DEFINE step at week 124, between sessions, against M1.E.8; for the owner")
 def test_lx2_external_agent_keeps_the_policy():
     run, _ = stub_run("A1", 1, WEEKS)
     halim = [p for p, person in run.state.people.items() if person.role is Role.EXTERNAL]
     assert halim, "phase_c has an external agent"
     sel = [r for r in run.records if isinstance(r, SelectionRecord) and r.actor in halim]
     assert sel, "the external agent had sessions"
-    assert {r.decided_by for r in sel} <= {DecidedBy.POLICY, DecidedBy.FALLBACK, DecidedBy.TIE_BREAK}
+    # A step of a sequence the policy started is the sequence's (M5.D.9); since revision 67 it too falls in a session
+    # week (M5.D.9b, T-262), which the next line checks for every selection the coach makes.
+    allowed = {DecidedBy.POLICY, DecidedBy.FALLBACK, DecidedBy.TIE_BREAK, DecidedBy.SEQUENCE}
+    assert {r.decided_by for r in sel} <= allowed
     assert all(r.tick % run.params.session_interval_weeks == 0 for r in sel)
     # The members are the chooser's: every one of their selections is SCRIPTED or a flagged hold, never the policy.
     members = [r for r in run.records if isinstance(r, SelectionRecord) and r.actor not in halim

@@ -172,27 +172,23 @@ def test_lx8_t207_replay_refuses_changed_choices_or_a_summary_off_its_hash(tmp_p
     assert rec["status"] == "not_replayable" and "not the hash of its content" in rec["status_detail"]
 
 
-@pytest.mark.xfail(strict=True, reason="T-265: on revision 66's engine the committed LLM runs do not replay (the A0 baseline's behavior changed; the A1-A4 runs' rendered prompts changed, so their cached responses miss); stale until the owner decides how they are rerun")
-def test_lx25_committed_pilot_replays_fixed(tmp_path):
-    import shutil
-
+def test_lx25_committed_pilot_replays_fixed():
+    """T-265 (the owner, 2026-11-21): the experiment is frozen at revision 64, so the committed first pilot is checked
+    against the engine it records, not replayed on the current one: its record predates ``option_order`` (read as
+    fixed), its summary was computed on the frozen engine and is the hash of its content, and its choices are there."""
     from experiments.llm_agents import files
+    from experiments.llm_agents.cache import canonical_json, text_hash
     from experiments.llm_agents.summary import CHOICES
 
     committed = files.RUNS / "pilot-A1-s1"
     rec = json.loads((committed / "run.json").read_text())
     assert "option_order" not in rec, "the first pilot's record predates the field: it is read as fixed"
-    shutil.copytree(committed, tmp_path / "pilot-A1-s1")
-    (tmp_path / "pilot-A1-s1" / CHOICES).unlink()
-    [out] = replay_all(tmp_path, config())
-    assert out.record["status"] == "complete" and out.record["option_order"] == "fixed"
-    assert out.summary["summary_hash"] == json.loads((committed / "summary.json").read_text())["summary_hash"]
-    assert json.loads((tmp_path / "pilot-A1-s1" / "run.json").read_text()) == rec, "the record is left as it was"
-    # The matched replay writes the run's choices with their positions, the same as the committed file. The content is
-    # compared, not the gzip bytes: zlib's output differs between platforms (CI on Linux, 2026-11-12).
-    assert gzip.decompress((tmp_path / "pilot-A1-s1" / CHOICES).read_bytes()) == gzip.decompress(
-        (committed / CHOICES).read_bytes()
-    )
+    assert rec["status"] == "complete"
+    summary = json.loads((committed / "summary.json").read_text())
+    assert summary["engine_hash"] == files.FROZEN_ENGINE
+    content = {k: v for k, v in summary.items() if k != "summary_hash"}
+    assert text_hash(canonical_json(content))[:12] == summary["summary_hash"]
+    assert gzip.decompress((committed / CHOICES).read_bytes())
 
 
 def test_lx8_t207_replay_refuses_a_changed_status_or_a_complete_run_without_its_summary(tmp_path):

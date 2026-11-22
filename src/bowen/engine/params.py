@@ -91,7 +91,11 @@ class EngineParams:
     assertion_gain: float      # M5.F.4 — extra impingement an I-POSITION delivers, times its demand share
     assertion_evidence_gain: float # M5.F.2a — claiming a position raises the claimant's outward axis
     opposition_window: int     # M5.E.3 — weeks after DEFINE in which no opposition means the move did not land
-    hold_gain: float           # M5.D.3 — capacity to hold = hold_gain × functional_level × efficacy
+    hold_gain: float           # M5.D.3, M5.D.3b — capacity to hold = hold_gain × conviction × efficacy (revision 67)
+    importance_max: float      # M5.D.3b — a position that is not a line draws its importance from [0, this]
+    line_importance: float     # M5.D.3b — the importance of a position that is one of the person's lines
+    line_tendency_max: float   # M5.D.3b — each person's line tendency is drawn once from [0, this]
+    tie_discount: float        # M5.D.3b — conviction × (1 − this × bond_energy ÷ 100) toward the target
     stall_limit: int           # M5.D.4 — angry weeks in HOLD before the sequence lapses
     hold_window: int           # M5.D.2 — weeks in HOLD without a final attack before the sequence settles without a peak
     pull_up_rate: float        # M5.D.5 — on RESOLVE the opposition's functional level closes this share of the gap to the mover's
@@ -270,8 +274,11 @@ class EngineParams:
         if min(self.prepare_ticks, self.opposition_window, self.stall_limit, self.hold_window) < 1:
             raise ValueError("prepare_ticks, opposition_window, stall_limit and hold_window must be at least 1")
         if min(self.anger_threshold, self.assertion_gain, self.assertion_evidence_gain, self.hold_gain,
-               self.exchange_gain, self.debit_gain) < 0:
+               self.exchange_gain, self.debit_gain, self.importance_max, self.line_importance) < 0:
             raise ValueError("the I-POSITION gains and thresholds are non-negative")
+        for name in ("line_tendency_max", "tie_discount"):  # M5.D.3b: a probability bound and a share
+            if not 0.0 <= getattr(self, name) <= 1.0:
+                raise ValueError(f"{name} must be in [0, 1]")
         for name in ("landing_rate", "binder_failure_fraction", "perspective_gain"):
             if not 0.0 <= getattr(self, name) <= 1.0:
                 raise ValueError(f"{name} must be in [0, 1]")

@@ -7,7 +7,6 @@ Spec:    docs/plan_v3_llm_agent_experiment.md#6, #10
 Tests:   this file
 """
 
-import pytest
 import copy
 import json
 import re
@@ -17,25 +16,27 @@ from conftest import stub_run
 from experiments.llm_agents import files
 from experiments.llm_agents.config import load_llm
 from experiments.llm_agents.prompts import banned_hits
-from experiments.llm_agents.record import engine_hash
 from experiments.llm_agents.report import load_summaries, render
-from experiments.llm_agents.runner import run_one
 from experiments.llm_agents.source import family_terms
 from src.bowen.render.trace import FRAMING
 
 
-@pytest.mark.xfail(strict=True, reason="T-265: on revision 66's engine the committed LLM runs do not replay (the A0 baseline's behavior changed; the A1-A4 runs' rendered prompts changed, so their cached responses miss); stale until the owner decides how they are rerun")
-def test_lx16_report_is_current(tmp_path):
+def test_lx16_report_is_current():
+    """T-265 (the owner, 2026-11-21): the experiment is frozen as a revision-64 result, so the report and its summaries
+    are checked against the engine each summary records (``files.FROZEN_ENGINE``), not the current one: the report is
+    rendered from the committed summaries, every complete run was computed on the frozen engine, and each summary is
+    the hash of its own content."""
+    from experiments.llm_agents.cache import canonical_json, text_hash
+
     summaries = load_summaries()
     assert summaries, "the A0 baseline is committed"
     assert files.REPORT.read_text(encoding="utf-8") == render(summaries), \
         "stale: run `python3 -m experiments.llm_agents.runner report`"
-    assert {s["engine_hash"] for s in summaries} == {engine_hash()}, "a summary was computed on another engine"
-    # The committed summaries are what the code computes: seed 1 of the baseline, recomputed.
-    cfg = load_llm()
-    again = run_one(cfg.phases["baseline"], "A0", 1, cfg=cfg, live=False, runs=tmp_path, write_record=False).summary
-    committed = json.loads((files.RUNS / "baseline-A0-s1" / "summary.json").read_text(encoding="utf-8"))
-    assert again == committed
+    assert {s["engine_hash"] for s in summaries} == {files.FROZEN_ENGINE}, "a summary was computed on another engine"
+    for path in sorted(files.RUNS.glob("*/summary.json")):
+        committed = json.loads(path.read_text(encoding="utf-8"))
+        content = {k: v for k, v in committed.items() if k != "summary_hash"}
+        assert text_hash(canonical_json(content))[:12] == committed["summary_hash"], path.parent.name
 
 
 def _synthetic():

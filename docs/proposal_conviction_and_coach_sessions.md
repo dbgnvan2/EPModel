@@ -1,8 +1,8 @@
 # Proposal — conviction in holding an I-position, and the coach acting only in sessions
 
 **Status:** approved by the owner 2026-11-21 ("Approve with §3.5"), with §4's recommendations O1 and O2 and the
-candidate O4 (§3.5); O3 is settled at the plan step. Not yet built: §2 and §3 are to be built together as spec
-revision 67, so the records are regenerated once; §5 changes tests only. Drafted by Claude from the owner's
+candidate O4 (§3.5); O3 settled at the plan step (§7). **Built** 2026-11-21 as spec revision 67 (§2, §3, §3.5 and O1;
+§5 in tests only); the predictions are run (§3.4); the records wait for their one regeneration (T-266). Drafted by Claude from the owner's
 decisions of 2026-11-21 on T-259, T-262 and T-265, checked against the corpus the same day.
 
 ## 1. Why
@@ -108,7 +108,24 @@ be reported as a finding. P1 and P5 are measurements.
 
 `M5.D.3`'s claim that abort is the usual first outcome is measured again on fresh seed blocks; it is not tuned for.
 
-### 3.5 Candidate: a conviction's origin, solid or borrowed (for the owner's decision; not to be built before it)
+**Run 2026-11-21** (`tools/t259_conviction_predictions.py`, Mac Mini1, 192 seeds of 100 weeks per arm, engine
+`2fda9d12ca35`, before any constant was tuned, and again on the committed engine `9321b8523500` after the review's
+fixes, which changed no run (the same counts in every arm); per-arm counts in `docs/review/2026-11-21_t259_conviction_predictions.json`):
+
+| # | Result | Met |
+|---|---|---|
+| P1 | 3 completed sequences at level 60 (revision 66: 0); 9 hold and 54 abort at the first opposition | met |
+| P2 | hold share 9 of 63 at level 60 against 0 of 9 at level 30 | met (premise) |
+| P3 | hold share 25 of 64 at bond 20 against 4 of 60 at bond 80 | met (premise) |
+| P4 | under the load no sequence reaches the first opposition (`PREPARE` fails every time), so the hold share has no value | not measurable |
+| P5 | at level 30, 0 completions with and without lines; 9 sequences reach the first opposition in each arm and none holds | not met |
+
+P2 and P3 confirm the code and are not findings. P4 is not measurable: the load acts before the comparison it was
+registered against, so the arm has no hold share to compare, though it has fewer holds (0 against 9). P5 is a
+measurement: at level 30 only 9 sequences in 192 seeds reach the first opposition, so lines, at most one position in
+five, have almost nothing to act on. No constant was changed after the run.
+
+### 3.5 A conviction's origin, solid or borrowed (approved 2026-11-21 with the proposal; built, §7)
 
 Added 2026-11-21 at the owner's request, made in the session "Conviction types and strength data": compare the
 research literature with Bowen and use it to define how conviction is modelled. That session's research summary
@@ -151,7 +168,7 @@ sequence holds. What is new is an explicit difference between holding firm and f
   to hold against), and stop converting it.
 - **O2. Stress.** Recommended: stress enters only through excess anxiety, as now; a second term would count it twice.
 - **O4. Solid and borrowed conviction (§3.5).** Whether a conviction carries an origin, so that the solid part holds
-  against tie pressure and the borrowed part yields to it. This is a candidate; it is not built until decided.
+  against tie pressure and the borrowed part yields to it. Approved by the owner 2026-11-21 and built (§7).
 - **O3. Intensity.** Which tie quantity is "the importance of the relationship" — settled at the plan step against
   the spec's definitions.
 
@@ -168,3 +185,51 @@ seed and A0 on the same engine, and is compared as a direction with its spread.
 
 §2 and §3 move the engine hash, so every engine-keyed record is regenerated once, on Mac Mini1, after both are built
 (about the size of T-258's run). §5 changes tests only and does not move the hash.
+
+## 7. Build plan (2026-11-21, revision 67)
+
+**O3, settled: intensity is `bond_energy ÷ 100`.** `functional_togetherness` is declared but not built: nothing writes
+it (`M14`'s register, `M1.A.5b`'s balance is not built). `bond_energy` is the built quantity for how much a tie
+matters (`M4.C.1c`: it sets how much the tie's standing load weighs; `M6.3g` reads it as reach), and it is set per tie
+in the fixtures (spouse 60, parent and child 50). So "the importance of the relationship" reads it.
+
+**§3.5, concrete form.** Conviction has three parts:
+
+```
+solid      = basic_level                                         (set at DEFINE)
+importance = line_importance if a line, else U × importance_max  (drawn at DEFINE)
+borrowed   = max(0, pseudo_self) × support                       (read at each hold check)
+support    = bond-weighted share of the mover's live ties on which nothing impinging reached the mover this week
+conviction = (solid + importance + borrowed) × (1 − tie_discount × bond_energy ÷ 100)   (the discount set at DEFINE)
+capacity   = hold_gain × conviction × efficacy
+```
+
+The solid part and the importance hold for the sequence; the borrowed part is there while the ties hold still and
+falls away as they push. A position is a line with the person's line tendency, a probability drawn once per person
+from `[0, line_tendency_max]` (the proposal's `line_tendency_range`, written as its upper bound) on a new keyed draw
+class, `conviction` (`M3.D.4b`); each sequence's line and importance come from the same class at its `DEFINE` tick.
+
+**Rules and their guard tests** (`tests/bowen/test_iposition.py`; each fails under the named mutation):
+
+| Rule | Test | Mutation it fails |
+|---|---|---|
+| `M5.D.9b` a coach's step waits for a session week | `test_m5d9b_a_coachs_step_waits_for_a_session_week` | the wait removed |
+| `M5.D.9b` the windows count session ticks | `test_m5d9b_a_coachs_windows_count_session_ticks` | age counted in weeks |
+| `M5.D.3b` conviction rests on basic level, not functional level | `test_m5d3b_conviction_rests_on_basic_level` | `functional_level` read |
+| `M5.D.3b` a more intense tie, less conviction | `test_m5d3b_a_more_intense_tie_lowers_conviction` | discount removed |
+| `M5.D.3b` a line raises importance | `test_m5d3b_a_line_raises_conviction` | line ignored |
+| `M5.D.3b` (§3.5) the borrowed part falls under opposition, the solid part does not | `test_m5d3b_borrowed_conviction_falls_under_opposition` | support read as 1 |
+| `M5.D.3b` set once at `DEFINE` | `test_m5d3b_conviction_is_set_at_define` | the discount read live |
+| O1 (`M5.D.9`) an extra reactive act toward the target stays automatic | `test_m5d9_o1_an_extra_act_toward_the_target_stays_automatic` | extras converted |
+
+**Predictions, arms** (one probe, `tools/t259_conviction_predictions.py`, on Mac Mini1, before any constant is tuned):
+P1 counts completions in `attempts_over_seeds` (T-259's fixture) against revision 66's 0. P2 runs that fixture with the
+mover's basic and functional level at 30 and at 60. P3 sets the mover's tie to the target to `bond_energy` 80 and 20.
+P4 adds a scripted load (10 units of acute anxiety to the mover each week) against none. P5 sets movers at level 30
+with `line_tendency_max` 0 against the declared value. P2–P4 compare the hold share at the first opposition; P1 and
+P5 count completed sequences.
+
+**Constants** (all `[I]`, Claude's pick, pending owner review): `importance_max` 20 and `line_importance` 60, in points
+of conviction; `line_tendency_max` 0.2; `tie_discount` 0.5. `hold_gain` keeps 0.3, now per point of conviction: at
+the triad's basic level 40, a typical conviction is about 35 (40 + 10, discounted on the spouse tie), close to the
+functional level the old unit read, so no value is chosen against an outcome.

@@ -79,6 +79,7 @@ STRUCTURAL = {
     ("policy.py", 2),                # entropy needs at least two outcomes (M4.D.1d)
     ("objects.py", 100.0),           # SCALE_MAX, the 0-100 scale, defined once
     ("cues.py", 2.0),                # a uniform on [0, 1) mapped to [-1, 1) for the meaning spread (M4.C.12)
+    ("iposition.py", 2),             # conviction takes two draws at DEFINE, the line and the importance (M5.D.3b)
 }
 SCANNED = ("src/bowen/engine", "src/bowen/policy")
 # The criteria's declared settings live in config/bowen/criteria.md (Hermes gate finding 4, 2026-10-08).

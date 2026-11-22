@@ -1,20 +1,20 @@
 # The spec's current rules, by module
 
-*Generated from the spec at revision 66 by `tools/spec_rules_view.py`. Not normative: where this and the spec differ, the spec wins. Do not edit.*
+*Generated from the spec at revision 67 by `tools/spec_rules_view.py`. Not normative: where this and the spec differ, the spec wins. Do not edit.*
 
 One file per `## M` module of `docs/bowen_agent_model_spec_v2.md`, with §0 as `M00.md`. The view removes,
-mechanically and nothing else: the front matter's `status:` line; every `⟦…⟧` revision tag (765 of them); every block-quote line, the source quotations (17 lines; the `→ file · ID` pointers stay); and the revision-history sections, of which the spec has none since revision 35 moved them to `docs/spec_revision_log.md`. No sentence of a requirement body is removed: `history_in_body.md` lists the 30 IDs whose bodies hold a sentence matching a history phrase (after revision 35 moved the narratives to `docs/spec_revision_log.md`, Part E of `docs/plan_model_ergonomics.md`, these are the sentences that pass left in place, each a "stays" row of `docs/spec_revision_35_dispositions.md`).
+mechanically and nothing else: the front matter's `status:` line; every `⟦…⟧` revision tag (770 of them); every block-quote line, the source quotations (17 lines; the `→ file · ID` pointers stay); and the revision-history sections, of which the spec has none since revision 35 moved them to `docs/spec_revision_log.md`. No sentence of a requirement body is removed: `history_in_body.md` lists the 30 IDs whose bodies hold a sentence matching a history phrase (after revision 35 moved the narratives to `docs/spec_revision_log.md`, Part E of `docs/plan_model_ergonomics.md`, these are the sentences that pass left in place, each a "stays" row of `docs/spec_revision_35_dispositions.md`).
 
 To find an ID's module, grep `docs/spec_index.jsonl` for it: the record's `module` field names the `##` heading, and `lines` the spec's lines.
 
 | File | Module | Bytes | Words |
 |---|---|---|---|
-| `M00.md` | 0. Status, scope, and how to read | 9,921 | 1,572 |
+| `M00.md` | 0. Status, scope, and how to read | 10,022 | 1,588 |
 | `M01.md` | M1 — Core objects | 109,570 | 16,621 |
 | `M02.md` | M2 — The reference family | 12,830 | 2,145 |
-| `M03.md` | M3 — Clocks, ordering and determinism | 9,621 | 1,549 |
+| `M03.md` | M3 — Clocks, ordering and determinism | 9,836 | 1,587 |
 | `M04.md` | M4 — The fast tick, step by step | 57,989 | 8,909 |
-| `M05.md` | M5 — The move repertoire | 27,303 | 4,249 |
+| `M05.md` | M5 — The move repertoire | 30,226 | 4,705 |
 | `M06.md` | M6 — Invariants | 17,026 | 2,732 |
 | `M07.md` | M7 — The slow tick | 33,820 | 5,213 |
 | `M08.md` | M8 — The live-position predicate | 5,584 | 868 |
@@ -23,9 +23,9 @@ To find an ID's module, grep `docs/spec_index.jsonl` for it: the record's `modul
 | `M11.md` | M11 — Acceptance criteria | 133,754 | 20,557 |
 | `M12.md` | M12 — Out of scope, and must never be built | 3,092 | 472 |
 | `M13.md` | M13 — Implementation order | 7,925 | 1,192 |
-| `M14.md` | M14 — Spec coverage | 30,907 | 4,852 |
+| `M14.md` | M14 — Spec coverage | 31,129 | 4,889 |
 | `M15.md` | M15 — Family diagram import  `Phase E` | 10,418 | 1,626 |
 | `M16.md` | M16 — The run log and the readable trace | 13,324 | 2,102 |
 | `M17.md` | M17 — Phase E: ensemble runner, arms and readouts | 25,547 | 3,849 |
 
-**Size.** The view's 18 module files hold 529,106 bytes (81,669 words) against the spec's 571,390 bytes (87,476 words): 93% of the spec by bytes, 93% by words.
+**Size.** The view's 18 module files hold 532,567 bytes (82,216 words) against the spec's 575,078 bytes (88,054 words): 93% of the spec by bytes, 93% by words.

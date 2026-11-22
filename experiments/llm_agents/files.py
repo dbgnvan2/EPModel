@@ -16,6 +16,9 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parents[2]
 RUNS = REPO / "experiments" / "llm_agents" / "runs"
 REPORT = REPO / "docs" / "llm_agent_experiment_report.md"
+# T-265 (the owner, 2026-11-21): the experiment is frozen as a revision-64 result. A live run does not repeat, so the
+# committed runs are the record, and they are checked against the engine they were computed on, not the current one.
+FROZEN_ENGINE = "d9e26aca1b99"  # spec revision 64
 
 
 class OutsideRuns(PermissionError):

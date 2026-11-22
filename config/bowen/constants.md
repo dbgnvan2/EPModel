@@ -57,6 +57,11 @@
 > usual outcome at first opposition; `constants_changes.md` records the measurement. Since revision 41 (T-133) aborts
 > are not the usual outcome: a mover angry at `DEFINE` says the position as a demand and the sequence ends before any
 > opposition, so the movers who reach it are calmer (T-158; the owner kept `M5.D.3`'s claim as a finding, T-158 (b)).
+> **Revision 67 (T-259):** capacity reads conviction (`M5.D.3b`) in place of functional level, so `hold_gain`'s unit
+> is now per point of conviction; its value is kept at 0.3, since a typical conviction at the triad's basic level 40
+> (40 + a mean importance of 10, discounted on the spouse tie) is about 35, close to the level the old unit read.
+> `importance_max`, `line_importance`, `line_tendency_max` and `tie_discount` are new, all `[I]`, Claude's pick,
+> pending owner review; none was tuned against an outcome (the predictions ran before any tuning, the proposal §3.4).
 >
 > **Phase D B4, 2026-10-11 — cutoff as rejection** (`M1.B.3c`, owner decisions P1 and P2), from
 > `rejection_cutoff_gain` to `declared_rejection`. All `[I]`. One `CUTOFF` at the policy's intensity takes rejection
@@ -225,7 +230,11 @@ activation_regime: synchronous
 | `assertion_gain` | 0.5 | [I] | impingement per unit scaled intensity | `M5.F.4` |
 | `assertion_evidence_gain` | 0.05 | [I] | outward impingement per assertion | `M5.F.2a` |
 | `opposition_window` | 3 | [I] | fast ticks | `M5.E.3` |
-| `hold_gain` | 0.3 | [I] | excess anxiety per point of functional level at full efficacy | `M5.D.3` |
+| `hold_gain` | 0.3 | [I] | excess anxiety per point of conviction at full efficacy | `M5.D.3` |
+| `importance_max` | 20.0 | [I] | points of conviction | `M5.D.3b` |
+| `line_importance` | 60.0 | [I] | points of conviction | `M5.D.3b` |
+| `line_tendency_max` | 0.2 | [I] | probability a position is a line | `M5.D.3b` |
+| `tie_discount` | 0.5 | [I] | share of conviction at bond energy 100 | `M5.D.3b` |
 | `stall_limit` | 4 | [I] | fast ticks | `M5.D.4` |
 | `hold_window` | 6 | [I] | fast ticks | `M5.D.2` |
 | `pull_up_rate` | 0.2 | [I] | share of the level gap | `M5.D.5` |

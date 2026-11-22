@@ -16,7 +16,7 @@ Built as revision 65 on the branch `claude/reactivity-divorce`, merged as revisi
   pilot table and the audit was rerun alone. Every record but the LLM experiment's is regenerated and its mark removed;
   the verdict moves are `docs/version_3_revision_66_changes.md`, for the owner in T-264. The LLM runs do not replay:
   T-265.*
-- [ ] T-259 ⟨now⟩ **No I-POSITION sequence completes in the triad at revision 66 (2026-11-19).** With `M4.D.3c`'s extra
+- [x] T-259 ⟨now⟩ **No I-POSITION sequence completes in the triad at revision 66 (2026-11-19).** With `M4.D.3c`'s extra
   reactive acts, `tests/bowen/test_iposition.py::attempts_over_seeds` (192 seeds, mover at level 60) draws no
   completed sequence (27 at revision 30), so `test_m5d8_success_usually_follows_several_failures` is a strict expected
   failure; `test_m5d3_abort_is_the_usual_first_outcome`, a strict expected failure since revision 41 (T-158), passes
@@ -29,6 +29,8 @@ Built as revision 65 on the branch `claude/reactivity-divorce`, merged as revisi
   individual lines and less conviction toward more intense ties; drafted as `docs/proposal_conviction_and_coach_sessions.md`
   §3, approved by the owner 2026-11-21 with §3.5. §3.5 adds, at the owner's request, a candidate definition of a conviction's
   origin (solid or borrowed) from a comparison of the research literature with Bowen, for the owner's decision.
+  *Closed 2026-11-21: built as spec revision 67's `M5.D.3b` with §3.5 (the owner, 2026-11-21). Over the same 192 seeds
+  3 sequences complete (P1, met; the proposal's §3.4); the records wait for their regeneration (T-266).*
 - [x] T-260 ⟨now⟩ **Run the predictions registered in the proposal's §4 (2026-11-19).** P1–P4 on the probe of
   2026-11-19, no constant tuned afterwards; report each as met or not met.
   *Closed 2026-11-19: run the same day on the Cowork build (revision 64 plus this change, before the merge), no constant tuned (720 runs). P2 met; P1 met for intensity,
@@ -41,13 +43,15 @@ Built as revision 65 on the branch `claude/reactivity-divorce`, merged as revisi
   refused or never lands; whether it should is the owner's call. (5) `divorce_events` treats any non-spouse in a
   parent–child tie as a child, correct only because the loader keeps nuclear ties. (6) No test runs a divorce through
   `run_tick` and the trace renderer.
-- [ ] T-262 ⟨now⟩ **An external agent makes an `I-POSITION` sequence step between sessions (2026-11-19).** At revision
+- [x] T-262 ⟨now⟩ **An external agent makes an `I-POSITION` sequence step between sessions (2026-11-19).** At revision
   66, in `tests/experiments/llm_agents/test_source.py::test_lx2_external_agent_keeps_the_policy` (stub run A1, seed 1,
   208 weeks), the coach's policy chooses `I-POSITION` at a session and `M5.D.9`'s sequence makes its `DEFINE` step
   at week 124, which is not a session week; `M1.E.8` gives an external agent no outcome between sessions. The
   combined trajectory reaches a path neither revision 65 nor the Cowork build alone did; the gap is older. The test is
   a strict expected failure. For the owner: whether an external agent's sequence steps wait for its next session, or
   an external agent never opens a sequence.
+  *Closed 2026-11-21: built as spec revision 67's `M5.D.9b` (the owner, 2026-11-21): a coach's step waits for its
+  next session week, and its windows count session ticks.*
 - [x] T-263 ⟨now⟩ **The extra acts raise a two-year anxiety peak, and why P4 failed (2026-11-19, corrected 2026-11-20).**
   Revision 66's extra acts (`M4.D.3c`) do not make anxiety climb without bound, as this item first said: with no
   scripted events (Phase C family, 312 weeks, 20 seeds, a grid of `reactive_extra_max` 0–3, `reactive_half_anxiety`
@@ -145,9 +149,12 @@ Built as revision 65 on the branch `claude/reactivity-divorce`, merged as revisi
   *Closed 2026-11-21 (owner): the finding stands. `M4.D.3d`'s cost, with `M4.D.3c`'s extra `CONFLICT`s, holding
   functioning below basic level is the model's result at revision 66; no rule or constant changes. The verdict moves
   above stand as the records show them.*
-- [ ] T-265 ⟨now⟩ **The LLM experiment's runs do not replay on revision 66's engine (2026-11-20).** The replay in T-258
+- [x] T-265 ⟨now⟩ **The LLM experiment's runs do not replay on revision 66's engine (2026-11-20).** The replay in T-258
   refused every committed run: the A0 baseline's behavior changed with the engine, and the A1–A4 runs' rendered prompts
   changed, so their cached responses miss. The committed runs were left as they were (their `run.json` would read
   `not_replayable`), and `test_lx16_report_is_current` and `test_lx25_committed_pilot_replays_fixed` stay strict
   expected failures naming this item. For the owner: whether the A0 baseline is rerun on the new engine and whether
   the LLM arms are run again live (a paid run), or the experiment is frozen at revision 64.
+  *Closed 2026-11-21: frozen at revision 64 (the owner, 2026-11-21; the proposal's §5). The two tests check the report
+  and the committed runs against their recorded engine, `d9e26aca1b99` (`experiments/llm_agents/files.py`'s
+  `FROZEN_ENGINE`), and their marks are removed.*

@@ -77,9 +77,9 @@ LEVEL_BLIND = (  # every remaining read of level on the path to onset, made leve
     ("src/bowen/engine/moves.py",
      "return max(0.0, 1.0 - math.fsum(p.functional_level for p in members) / (len(members) * SCALE_MAX))",
      "return 0.5"),
-    ("src/bowen/engine/iposition.py",
-     "return params.hold_gain * person.functional_level * efficacy(person)",
-     "return params.hold_gain * (SCALE_MAX / 2) * efficacy(person)"),
+    ("src/bowen/engine/iposition.py",  # revision 67: hold capacity reads conviction, whose solid part is basic level
+     "    seq.solid = person.basic_level",
+     "    seq.solid = SCALE_MAX / 2"),
 )
 
 
@@ -92,7 +92,7 @@ AVAILABILITY_INVERTED = (f"return min(1.0, max(0.0, (SCALE_MAX * {INVERSION_PIVO
 BAND = "return params.contact_band_max * person.functional_level / SCALE_MAX"
 OUTSIDE_NESS = "start = params.initial_impingement_scale * (1.0 - person.basic_level / SCALE_MAX)"
 ROUTING = "return max(0.0, 1.0 - math.fsum(p.functional_level for p in members) / (len(members) * SCALE_MAX))"
-HOLD = "return params.hold_gain * person.functional_level * efficacy(person)"
+HOLD = "    seq.solid = person.basic_level"  # revision 67 (M5.D.3b): the level hold capacity reads
 
 MUTANTS = (
     # --- plan §3's named mutations --------------------------------------------------------------
@@ -214,11 +214,11 @@ MUTANTS = (
            ROUTING, "return max(0.0, math.fsum(p.functional_level for p in members) / (len(members) * SCALE_MAX))",
            "M1.C.3a's routing capacity rises with the members' functional_level"),
     Mutant("hold-level-independent", DELETION, ("M11.C.16",), "src/bowen/engine/iposition.py",
-           HOLD, "return params.hold_gain * (SCALE_MAX / 2) * efficacy(person)",
-           "M5.D.3's hold capacity made independent of functional_level (fixed at level 50)"),
+           HOLD, "    seq.solid = SCALE_MAX / 2",
+           "M5.D.3's hold capacity made independent of level: conviction's solid part fixed at level 50 (M5.D.3b)"),
     Mutant("hold-level-inverted", SIGN, ("M11.C.16",), "src/bowen/engine/iposition.py",
-           HOLD, "return params.hold_gain * (SCALE_MAX - person.functional_level) * efficacy(person)",
-           "M5.D.3's hold capacity falls as functional_level rises"),
+           HOLD, "    seq.solid = SCALE_MAX - person.basic_level",
+           "M5.D.3's hold capacity falls as level rises: conviction's solid part inverted (M5.D.3b)"),
     # --- M11.C.16's grounds (csdp sweeps, 2026-10-08). Its criterion row cites M4.C.1a (KS03.2: steepness and band)
     # --- and M1.C.3a (routing). M11.5's redundancy clause proves a premise by removing the whole set, so the cited
     # --- grounds are removed together, alone and with M4.D.3a's availability, the one rule that names the repertoire.

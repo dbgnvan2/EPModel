@@ -4,7 +4,7 @@ Purpose: run a person's differentiating sequence across weeks — prepare, defin
          the opposition, abort or hold, peak, resolve, follow up — from the person's
          own state and what is delivered to them; give the said position its demand share; and
          run the assertion form when the person is angry.
-Spec:    docs/bowen_agent_model_spec_v2.md#M5.D.1, #M5.D.2, #M5.D.2a, #M5.D.3, #M5.D.4, #M5.D.4a, #M5.D.5, #M5.D.6, #M5.D.7, #M5.D.7a, #M5.D.8, #M5.D.9, #M5.E.3, #M5.E.7, #M5.E.8, #M5.F.2a, #M5.F.2c, #M5.F.4, #M1.C.5
+Spec:    docs/bowen_agent_model_spec_v2.md#M5.D.1, #M5.D.2, #M5.D.2a, #M5.D.3, #M5.D.3b, #M5.D.4, #M5.D.4a, #M5.D.5, #M5.D.6, #M5.D.7, #M5.D.7a, #M5.D.8, #M5.D.9, #M5.D.9b, #M5.E.3, #M5.E.7, #M5.E.8, #M5.F.2a, #M5.F.2c, #M5.F.4, #M1.C.5
 Tests:   tests/bowen/test_iposition.py
 
 Every form is the project's, graded [I]; the constants are in ``config/bowen/constants.md``.
@@ -41,7 +41,13 @@ debits nothing and raises the claimant's outward axis by ``assertion_evidence_ga
 * ``OPPOSITION`` — waits for the first impinging move delivered to the mover from
   anyone. With none in ``opposition_window`` weeks the move **did not land** (`M5.E.3`),
   not a success. At the first opposition the mover holds if its excess anxiety is within
-  its capacity, ``hold_gain × functional_level × efficacy``; otherwise ``ABORT`` is due.
+  its capacity, ``hold_gain × conviction × efficacy``; otherwise ``ABORT`` is due. **Conviction** (`M5.D.3b`,
+  revision 67) is set when ``DEFINE`` is said: the mover's basic level (the solid part, which pressure does not move)
+  plus the position's importance (``line_importance`` if it is one of the person's lines, which it is with the
+  person's line tendency; otherwise a draw from ``[0, importance_max]``), times ``1 − tie_discount × bond_energy ÷ 100``
+  on the tie to ``T``. A borrowed part, the mover's positive pseudo-self, is added at each check in the share of the
+  mover's ties (weighted by bond energy) on which nothing impinging reached the mover that week, so it falls away
+  under the ties' pressure (§3.5 of the proposal).
 * ``ABORT`` (an outcome) — defend, counterattack or go silent (`PURSUE`, `CONFLICT`,
   `DISTANCE`, [I]), drawn from the mover's own automatic values with a keyed draw; and
   the mover returns to the prior balance — the tie's functioning balance and the mover's
@@ -64,7 +70,11 @@ debits nothing and raises the claimant's outward axis by ``assertion_evidence_ga
 
 **One outcome a week** (`M5.D.9`): on a week a step is due, the person's outcome is that
 step; on other weeks the person selects normally, and an act toward ``T`` is made as
-`STAY-IN-CONTACT`. A step that cannot be made that week is deferred one week and logged.
+`STAY-IN-CONTACT`; an extra reactive act toward ``T`` (`M4.D.3c`, slot 1 on) stays automatic (O1, revision 67).
+A step that cannot be made that week is deferred one week and logged.
+
+**An external agent's sequence** (`M5.D.9b`, revision 67, T-262): its steps wait for its session weeks, the wait is no
+deferral, and ``opposition_window``, ``hold_window`` and ``stall_limit`` count its session ticks only.
 """
 
 from __future__ import annotations
@@ -92,6 +102,7 @@ PREPARE, DEFINE, OPPOSITION, ABORT, HOLD, PEAK, RESOLVE, FOLLOW_UP = (
 )
 STATES = (PREPARE, DEFINE, OPPOSITION, ABORT, HOLD, PEAK, RESOLVE, FOLLOW_UP)  # M5.D.2, in order
 OUTCOME_STEPS = frozenset({DEFINE, ABORT, FOLLOW_UP})
+CONVICTION_DRAWS = 2  # M5.D.3b: one draw for the line, one for the importance
 I_POSITION, STAY_IN_CONTACT = "I-POSITION", "STAY-IN-CONTACT"
 
 
@@ -111,6 +122,11 @@ class Sequence:
     start_axes: tuple[float, float] = (0.0, 0.0)
     pull_up: float = 0.0
     deferrals: int = 0
+    # M5.D.3b (revision 67): conviction's parts, set when DEFINE is said; None before it.
+    solid: float | None = None
+    importance: float = 0.0
+    line: bool = False
+    tie_factor: float = 1.0
     history: list[str] = field(default_factory=list)
 
 
@@ -149,12 +165,95 @@ def demand_share(state: RunState, mover: PersonId, target: PersonId, params: Eng
     return max(0.0, 1.0 - w)  # w may pass 1 by rounding
 
 
-def capacity(person: Person, params: EngineParams) -> float:
-    """Purpose: how much excess anxiety the mover can sit with and hold course.
-    Spec:    docs/bowen_agent_model_spec_v2.md#M5.D.3, #M5.D.2a
+def session_week(person: Person, tick: int, params: EngineParams) -> bool:
+    """Purpose: whether this week is one in which the person can act: every week for a member, a session week for an
+             external agent (M1.E.8: a session every ``session_interval_weeks``).
+    Spec:    docs/bowen_agent_model_spec_v2.md#M1.E.8, #M5.D.9b
+    Tests:   tests/bowen/test_iposition.py::test_m5d9b_a_coachs_step_waits_for_a_session_week
+    """
+    return person.role is not PersonRole.EXTERNAL or tick % params.session_interval_weeks == 0
+
+
+def _age(person: Person, seq: Sequence, tick: int, params: EngineParams) -> int:
+    """The weeks since the stage began, counted in session ticks for an external agent (M5.D.9b)."""
+    if person.role is not PersonRole.EXTERNAL:
+        return tick - seq.stage_since
+    every = params.session_interval_weeks
+    return tick // every - seq.stage_since // every
+
+
+def line_tendency(state: RunState, mover: PersonId, params: EngineParams) -> float:
+    """Purpose: the person's line tendency — the chance that a position is one of their lines — drawn once per person
+             from ``[0, line_tendency_max]`` and kept (M5.D.3b: a random initial condition; a value set on the person before
+             its first DEFINE stands).
+    Spec:    docs/bowen_agent_model_spec_v2.md#M5.D.3b, #M3.D.4b
+    Tests:   tests/bowen/test_iposition.py::test_m5d3b_a_line_raises_conviction
+    """
+    from src.bowen.engine.draws import DrawKey
+
+    person = state.people[mover]
+    if person.line_tendency is None:
+        key = DrawKey.make("conviction", tick=0, person=mover, purpose="line_tendency")
+        person.line_tendency = state.draws.uniform(key) * params.line_tendency_max
+    return person.line_tendency
+
+
+def set_conviction(state: RunState, mover: PersonId, params: EngineParams) -> None:
+    """Purpose: when DEFINE is said, set the parts of the mover's conviction that hold for the sequence: the solid part
+             (basic level), the position's importance (a line or a draw) and the tie discount (M5.D.3b, revision 67).
+    Spec:    docs/bowen_agent_model_spec_v2.md#M5.D.3b
+    Tests:   tests/bowen/test_iposition.py::test_m5d3b_conviction_is_set_at_define
+    """
+    from src.bowen.engine.draws import DrawKey
+
+    person = state.people[mover]
+    seq = person.iposition_state
+    tendency = line_tendency(state, mover, params)
+    key = DrawKey.make("conviction", tick=state.tick, person=mover, purpose="importance")
+    line_draw, importance_draw = state.draws.uniforms(key, CONVICTION_DRAWS)
+    seq.solid = person.basic_level
+    seq.line = line_draw < tendency
+    seq.importance = params.line_importance if seq.line else importance_draw * params.importance_max
+    intensity = min(1.0, state.tie_between(mover, seq.target).bond_energy / SCALE_MAX)  # O3: bond_energy
+    seq.tie_factor = 1.0 - params.tie_discount * intensity
+
+
+def _support(state: RunState, mover: PersonId) -> float:
+    """The bond-weighted share of the mover's live ties on which nothing impinging reached the mover this week."""
+    weights = {}
+    for other in sorted(state.people):
+        if other != mover and _live(state, mover, other):
+            weights[other] = state.tie_between(mover, other).bond_energy
+    total = math.fsum(weights.values())
+    if total <= 0:
+        return 0.0
+    quiet = math.fsum(w for other, w in weights.items() if not _impinging_delivered(state, mover, other))
+    return quiet / total
+
+
+def conviction(state: RunState, mover: PersonId, params: EngineParams) -> float:
+    """Purpose: the mover's conviction in the running sequence's position this week (M5.D.3b, revision 67): the solid
+             part and importance set at DEFINE, plus the borrowed part (positive pseudo-self) in the share of the ties
+             that hold still, all times the tie discount set at DEFINE.
+    Spec:    docs/bowen_agent_model_spec_v2.md#M5.D.3b
+    Tests:   tests/bowen/test_iposition.py::test_m5d3b_conviction_rests_on_basic_level,
+             tests/bowen/test_iposition.py::test_m5d3b_borrowed_conviction_falls_under_opposition
+    """
+    person = state.people[mover]
+    seq = person.iposition_state
+    if seq.solid is None:
+        raise ValueError(f"{mover}'s conviction is read before DEFINE was said")
+    borrowed = max(0.0, person.pseudo_self or 0.0) * _support(state, mover)
+    return (seq.solid + seq.importance + borrowed) * seq.tie_factor
+
+
+def capacity(state: RunState, mover: PersonId, params: EngineParams) -> float:
+    """Purpose: how much excess anxiety the mover can sit with and hold course: ``hold_gain × conviction × efficacy``
+             (M5.D.3b replaced functional level with conviction, revision 67).
+    Spec:    docs/bowen_agent_model_spec_v2.md#M5.D.3, #M5.D.3b, #M5.D.2a
     Tests:   tests/bowen/test_iposition.py::test_m5d2a_unprepared_sequence_holds_with_less_capacity
     """
-    return params.hold_gain * person.functional_level * efficacy(person)
+    return params.hold_gain * conviction(state, mover, params) * efficacy(state.people[mover])
 
 
 def begin(state: RunState, mover: PersonId, target: PersonId) -> EffectRecord:
@@ -216,7 +315,8 @@ def advance_sequences(state: RunState, params: EngineParams) -> list[EffectRecor
             continue
         if seq.due is not None:
             continue  # an outcome is still owed this week (deferred, M5.D.9)
-        age = state.tick - seq.stage_since
+        weeks = state.tick - seq.stage_since
+        age = _age(person, seq, state.tick, params)  # M5.D.9b: a coach's windows count its session ticks
         if seq.stage == PREPARE:
             if excess(person) > params.defence_threshold:
                 records.append(end(state, pid, "prepare_failed"))
@@ -232,10 +332,10 @@ def advance_sequences(state: RunState, params: EngineParams) -> list[EffectRecor
             if seq.prepared >= params.prepare_ticks:
                 seq.due = DEFINE
         elif seq.stage == OPPOSITION:
-            if age < 1:
+            if weeks < 1:
                 continue
             if _impinging_delivered(state, pid):
-                if excess(person) <= capacity(person, params):
+                if excess(person) <= capacity(state, pid, params):
                     _set(seq, HOLD, state.tick)
                     records.append(_record(state, pid, "enter", HOLD))
                 else:
@@ -243,15 +343,15 @@ def advance_sequences(state: RunState, params: EngineParams) -> list[EffectRecor
             elif age >= params.opposition_window:
                 records.append(end(state, pid, "did_not_land"))
         elif seq.stage == HOLD:
-            if age < 1:
+            if weeks < 1:
                 continue
             if angry(state, pid, seq.target, params):
-                seq.stalls += 1
+                seq.stalls += session_week(person, state.tick, params)  # M5.D.9b
                 if seq.stalls >= params.stall_limit:
                     records.append(end(state, pid, "stalled"))
             elif _impinging_delivered(state, pid):
                 _set(seq, PEAK, state.tick)
-                if excess(person) <= capacity(person, params):
+                if excess(person) <= capacity(state, pid, params):
                     records.append(resolve(state, pid, params))
                 else:
                     seq.due = ABORT
@@ -310,6 +410,7 @@ def step_done(state: RunState, mover: PersonId, params: EngineParams, *,
     if step == DEFINE and said_in_anger:
         return [end(state, mover, "said_in_anger")]
     if step == DEFINE:
+        set_conviction(state, mover, params)  # M5.D.3b: conviction is set when the position is said
         _set(seq, OPPOSITION, state.tick)
         return [_record(state, mover, "enter", OPPOSITION)]
     if step == ABORT:
@@ -391,8 +492,9 @@ def _abort_act(state: RunState, mover: PersonId, target: PersonId, params: Engin
 
 def sequence_selections(state: RunState, params: EngineParams) -> tuple[list, list[EffectRecord]]:
     """Purpose: the outcomes owed this week by persons whose sequence has a step due.
-    Spec:    docs/bowen_agent_model_spec_v2.md#M5.D.9, #M5.D.6, #M5.D.3
-    Tests:   tests/bowen/test_iposition.py::test_m5d9_a_due_step_is_the_weeks_outcome
+    Spec:    docs/bowen_agent_model_spec_v2.md#M5.D.9, #M5.D.9b, #M5.D.6, #M5.D.3
+    Tests:   tests/bowen/test_iposition.py::test_m5d9_a_due_step_is_the_weeks_outcome,
+             tests/bowen/test_iposition.py::test_m5d9b_a_coachs_step_waits_for_a_session_week
 
     A step that cannot be made because the tie is not live is deferred one week and
     logged; a second deferral ends the sequence. A follow-up that cannot be made reverts
@@ -406,6 +508,8 @@ def sequence_selections(state: RunState, params: EngineParams) -> tuple[list, li
         seq = state.people[pid].iposition_state
         if seq is None or seq.due is None or not state.people[pid].alive:
             continue
+        if not session_week(state.people[pid], state.tick, params):
+            continue  # M5.D.9b: a coach's step waits for its next session; the wait is no deferral
         if not _live(state, pid, seq.target):
             if seq.due == FOLLOW_UP:
                 records += skip_follow_up(state, pid)
@@ -426,15 +530,19 @@ def sequence_selections(state: RunState, params: EngineParams) -> tuple[list, li
 
 
 def redirect_to_sequence_tie(state: RunState, selection):
-    """Purpose: on a week with no step due, an act toward the sequence's other is made as STAY-IN-CONTACT.
-    Spec:    docs/bowen_agent_model_spec_v2.md#M5.D.9
-    Tests:   tests/bowen/test_iposition.py::test_m5d9_acts_on_the_sequence_tie_count_as_stay_in_contact
+    """Purpose: on a week with no step due, the week's own act toward the sequence's other is made as STAY-IN-CONTACT;
+             an extra reactive act toward them (M4.D.3c, slot 1 on) stays automatic (O1, revision 67).
+    Spec:    docs/bowen_agent_model_spec_v2.md#M5.D.9, #M4.D.3c
+    Tests:   tests/bowen/test_iposition.py::test_m5d9_acts_on_the_sequence_tie_count_as_stay_in_contact,
+             tests/bowen/test_iposition.py::test_m5d9_o1_an_extra_act_toward_the_target_stays_automatic
     """
     import dataclasses
 
     seq = state.people[selection.actor].iposition_state
     if seq is None or selection.targets != (seq.target,) or selection.kind in (STAY_IN_CONTACT, "WITHHOLD"):
         return selection
+    if selection.index >= 1 and selection.kind != I_POSITION:
+        return selection  # O1: an extra reactive act is part of the opposition the mover holds against
     if not _live(state, selection.actor, seq.target):
         return selection  # across a cut-off tie the act stays what it is (M1.B.3c)
     return dataclasses.replace(selection, kind=STAY_IN_CONTACT, value_key="", withheld=None)

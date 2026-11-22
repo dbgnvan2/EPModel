@@ -2342,17 +2342,30 @@ written; it is not a rule against reopening.
     outruns the person's defences. If the other raises the issue first, the person defines unprepared.
   - **`DEFINE`.** The person states their position, and the other loses some of the contact they were
     receiving. Angry then, they say it all as demand and the sequence ends (revision 41).
-  - **First opposition.** The mover holds only if their anxiety fits their capacity (level × efficacy);
+  - **First opposition.** The mover holds only if their anxiety fits their capacity (conviction × efficacy);
     otherwise they defend, counterattack or go silent, and return to where they started.
-  - **`HOLD`.** An angry mover stalls; no peak comes. A calm one who meets the next attack resolves.
+  - **Conviction** (revision 67, `M5.D.3b`, T-259) is set when the position is said: the person's basic level, which
+    pressure does not move (*FTCP* Ch. 21 ¶15, `[B]` `[T]`), plus how much this position matters to them, all reduced
+    the more intense the tie to the other (`bond_energy`; *FE* Ch. 4 ¶94–95, `[K]` `[T]`). Some positions are a
+    person's **lines**, which carry a large importance, so even a person at a low level holds them against ordinary
+    opposition, though not against any stress; how often a position is a line is a per-person draw (the owner's
+    account, `[D]`). Borrowed functioning (positive pseudo-self) adds to conviction only while the person's ties hold
+    still, and falls away as they push (§3.5 of the proposal, `M6.I.4`). Stress enters only through anxiety. The form
+    and the constants (`importance_max`, `line_importance`, `line_tendency_max`, `tie_discount`) are `[I]`.
+  - **`HOLD`.** An angry mover stalls; no peak comes. A calm one who meets the next attack resolves. While the
+    sequence runs, the person's own act toward the other each week is made as contact; an extra reactive act toward
+    them (`M4.D.3c`) stays reactive, part of the opposition the mover holds against (revision 67).
   - **`RESOLVE`.** The other rises toward the mover's level, unless the mover is the coach: a coach's resolved
     position raises no one (revision 44, T-165).
   - **`FOLLOW_UP`.** Contact the next week completes the exchange. It brings a small level gain, a
     permanent drop in the triangle's intensity, and lower impingement on both sides of the tie.
 - **No reaction is not success.** It means the move did not land.
+- **A coach acts in sessions only** (revision 67, `M5.D.9b`, T-262). A coach's sequence step due between sessions
+  waits for the next session, and its windows count sessions, not weeks (*FTCP* Ch. 10 ¶111–112, `[B]` `[T]`).
 
 The spec requires that aborting is the usual outcome at the first opposition (`M5.D.3`), and the rate at which movers
-hold (`hold_gain`, `[I]`) was first set against that. Since revision 41 (T-133) the model does not meet it. A mover
+hold (`hold_gain`, `[I]`, per point of functional level until revision 67 and per point of conviction since) was
+first set against that. Since revision 41 (T-133) the model does not meet it. A mover
 angry at `DEFINE` says the position as a demand and the sequence ends before any opposition, so the movers who reach
 the first opposition are calmer: on the triad with F the mover, over 192 seeds, 55 sequences abort there and 64 hold, and 122
 sequences end said in anger (`test_m5d3_abort_is_the_usual_first_outcome`, a strict expected failure; 62, 66 and 118

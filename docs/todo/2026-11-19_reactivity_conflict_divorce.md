@@ -27,7 +27,7 @@ Built as revision 65 on the branch `claude/reactivity-divorce`, merged as revisi
   the finding stands.
   **Plan 2026-11-21** (the owner): conviction, both on the basic level and on each position's own importance, with
   individual lines and less conviction toward more intense ties; drafted as `docs/proposal_conviction_and_coach_sessions.md`
-  §3, pending the owner's approval. §3.5 adds, at the owner's request, a candidate definition of a conviction's
+  §3, approved by the owner 2026-11-21 with §3.5. §3.5 adds, at the owner's request, a candidate definition of a conviction's
   origin (solid or borrowed) from a comparison of the research literature with Bowen, for the owner's decision.
 - [x] T-260 ⟨now⟩ **Run the predictions registered in the proposal's §4 (2026-11-19).** P1–P4 on the probe of
   2026-11-19, no constant tuned afterwards; report each as met or not met.

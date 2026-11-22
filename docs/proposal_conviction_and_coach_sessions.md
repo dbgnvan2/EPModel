@@ -1,8 +1,9 @@
 # Proposal — conviction in holding an I-position, and the coach acting only in sessions
 
-**Status:** draft, pending the owner's approval (2026-11-21). Nothing is built. Drafted by Claude from the owner's
-decisions of 2026-11-21 on T-259, T-262 and T-265, checked against the corpus the same day. If approved, §2 and §3
-are built together as one spec revision (67), so the records are regenerated once.
+**Status:** approved by the owner 2026-11-21 ("Approve with §3.5"), with §4's recommendations O1 and O2 and the
+candidate O4 (§3.5); O3 is settled at the plan step. Not yet built: §2 and §3 are to be built together as spec
+revision 67, so the records are regenerated once; §5 changes tests only. Drafted by Claude from the owner's
+decisions of 2026-11-21 on T-259, T-262 and T-265, checked against the corpus the same day.
 
 ## 1. Why
 

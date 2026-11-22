@@ -77,7 +77,7 @@ Built as revision 65 on the branch `claude/reactivity-divorce`, merged as revisi
   (revision 36 decided it does not), or the spouses' cutoff stands as the model's result and P4 is dropped.
   **Decided 2026-11-20 (the owner): revision 36's rule is kept; the spouses' cutoff stands as the model's result and
   P4 is dropped.** No rule or constant changes.
-- [ ] T-264 ⟨now⟩ **Revision 66's verdict moves (2026-11-20).** From `docs/version_3_revision_66_changes.md` (T-258), for
+- [x] T-264 ⟨now⟩ **Revision 66's verdict moves (2026-11-20).** From `docs/version_3_revision_66_changes.md` (T-258), for
   the owner. Ensemble rows, PASS to FAIL: `M11.C.18`, `M11.C.20` and `M11.C.33` (`rise` is +0 ± 0 in every pair; in
   `M11.C.20` 783 of 900 treatment moves are not legal), `M11.C.22` (the severe removal's effect turns positive),
   `M11.C.15` (`death_rise` −109), `M11.C.10[family of origin]`, `M11.C.2[twelve-person family]` and
@@ -138,6 +138,9 @@ Built as revision 65 on the branch `claude/reactivity-divorce`, merged as revisi
   1.75 to 3.7 hours on Mini1) `cut_off_tie_weeks` differs by −53 ± 59 (p 0.98) at revision 66 and +42 ± 76 (p 0.09)
   at revision 64. Revision 66's difference is negative on the record's seeds too (−30), and revision 64's positive
   (+67), so the sign changed with the engine; revision 64's own pass was borderline (T-253).
+  *Closed 2026-11-21 (owner): the finding stands. `M4.D.3d`'s cost, with `M4.D.3c`'s extra `CONFLICT`s, holding
+  functioning below basic level is the model's result at revision 66; no rule or constant changes. The verdict moves
+  above stand as the records show them.*
 - [ ] T-265 ⟨now⟩ **The LLM experiment's runs do not replay on revision 66's engine (2026-11-20).** The replay in T-258
   refused every committed run: the A0 baseline's behavior changed with the engine, and the A1–A4 runs' rendered prompts
   changed, so their cached responses miss. The committed runs were left as they were (their `run.json` would read

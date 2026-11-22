@@ -7,11 +7,10 @@ Open items, one line each: ID, date raised, title, record. **Now** blocks the cu
 `docs/todo/` (grep its ID). To close one, tick it in its record and run `python3 tools/todo_index.py`: its line
 moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's text; that form is in git history.
 
-## Now (4)
+## Now (3)
 
 - T-259 · 2026-11-19 · No I-POSITION sequence completes in the triad at … · [record](docs/todo/2026-11-19_reactivity_conflict_divorce.md)
 - T-262 · 2026-11-19 · An external agent makes an `I-POSITION` sequence step … · [record](docs/todo/2026-11-19_reactivity_conflict_divorce.md)
-- T-264 · 2026-11-20 · Revision 66's verdict moves (2026-11-20) · [record](docs/todo/2026-11-19_reactivity_conflict_divorce.md)
 - T-265 · 2026-11-20 · The LLM experiment's runs do not replay on … · [record](docs/todo/2026-11-19_reactivity_conflict_divorce.md)
 
 ## Later (14)

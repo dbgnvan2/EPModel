@@ -279,6 +279,8 @@ without the build history on either Mac: what it checks, how it is set up, the r
 
 **Approved 2026-11-19, built as spec revision 66:** [proposal_reactivity_conflict_divorce.md](proposal_reactivity_conflict_divorce.md) — the owner's corrections of 2026-11-19: anxiety raises the number of reactive acts (`M4.D.3c`), conflict consumes capacity and moves to layer 0 (`M4.D.3a`, `M4.D.3d`), and divorce as a scripted pair (`M7.C.1m`); its predictions registered before the run.
 
+**Draft, pending the owner's approval (2026-11-21):** [proposal_conviction_and_coach_sessions.md](proposal_conviction_and_coach_sessions.md) — conviction in holding an I-position (basic level, a per-position importance with individual lines, the intensity of the tie; T-259), the coach acting only in session weeks (T-262), and freezing the LLM experiment at revision 64 (T-265).
+
 **Approved 2026-11-12 (each choice as recommended):** [plan_engine_batch_2026-11-12.md](plan_engine_batch_2026-11-12.md) — the engine batch's plan (T-001 step 3): acceptance criteria and tests for T-213 (b), T-214 to T-219, T-226's archive move, T-234, T-237, T-239 and T-242's scan check, at spec revision 59.
 
 **Built 2026-10-20:** [plan_doc_claim_tests.md](plan_doc_claim_tests.md) — tests that fail when a document restates a fact that has since changed: the spec revision in four places, repo paths in README and CLAUDE.md, `requirements.txt` against the imports, the suite-size pattern widened, and status claims checked against each document's own status line, both ways. Each test with the files it reads and the mutation that proves it fails; the build record (§12) and each criterion's status (§13). Approved by the owner 2026-10-20.

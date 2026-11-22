@@ -365,6 +365,9 @@ NOT_COMPARED = (
     ("docs/review/2026-11-15_t253_seed_blocks.md, docs/review/t253_seed_blocks.json",
      "T-253's seed blocks of `M11.C.7[joint over one spouse]` and `M11.C.10` on revisions 61 and 62 and their "
      "per-seed values (`tools/t253_seed_blocks.py`, in no record's hash); nothing at {side} to compare"),
+    ("docs/review/2026-11-21_t264_seed_blocks.md, docs/review/t264_seed_blocks.json",
+     "T-264's fresh seed blocks of revision 66's borderline verdict moves on revisions 64 and 66 and their per-seed "
+     "values (`tools/t264_seed_blocks.py`, in no record's hash); nothing at {side} to compare"),
 )
 # A not-compared entry whose reason differs by the page's earlier side: path -> {earlier ref: why}. A page whose ref is
 # not named takes the entry's reason in NOT_COMPARED.

@@ -89,6 +89,55 @@ Built as revision 65 on the branch `claude/reactivity-divorce`, merged as revisi
   `availability-level-inverted` mutant's treatment arm is 84% of member-weeks in the every-layer deletion band (98.5%
   in C.16's window, against 40% and 44% at revision 64), so `test_m111a_availability_inversion_acts_over_c16s_run` is
   a strict expected failure: the inversion now acts as a deletion.
+  **Traced 2026-11-21** (probes on the triad fixture, seeds 0–9, both engines; no rule or constant changed).
+  *The zero rise in `M11.C.18`, `M11.C.20` and `M11.C.33`.* At revision 66 F's load-weighted functional level over
+  the estimator's window is about 27 against a basic level of 40, so the evidence (`M1.A.4k`) is negative in all 20 of
+  F's readings in every arm (at most −8.9; at revision 64 it straddles 0, at most +0.46) and no arm ever rises. Both
+  arms read `rise` 0 in every seed, so the criteria have nothing to compare and their failure says nothing about
+  `I-POSITION` or borrowing. The harness is sound: with `conflict_capacity_cost` 0 for the arm (a scratch override)
+  the treatment arm rises in 10 of 10 seeds in all three (difference +0.30 to +0.36), and with only
+  `reactive_extra_max` 0 no arm rises, so `M4.D.3d`'s cost, enlarged by `M4.D.3c`'s extra `CONFLICT`s, is the cause.
+  *The cut tie.* The F–M tie is cut in most weeks on both engines (seed 0: 198 of 208 weeks at revision 66, 187 at
+  revision 64), so most scripted `I-POSITION`s are not legal on both (revision 64's record: 4180 of 5250 in
+  `M11.C.18`). Revision 66 raises that share (`M11.C.20`'s 783 of 900), but with the cost off the treatment arm rises
+  in every seed with 332 of 350 scripted acts still not legal. The cut ties are not what zeroes the rise.
+  *`availability-level-inverted`.* The same fall puts the unmodified `M11.C.16` treatment arm at functional level 20
+  or below in 84.7% of member-weeks (98.6% in the window), against 42.3% (46.4%) at revision 64
+  (`docs/phase_c_level_occupancy.md`). In that band the inverted rule equals the deletion on every layer, so the
+  mutant acts as a deletion because the engine's levels fell, not because of the mutant. For the owner: whether
+  `M4.D.3d`'s cost is meant to hold functioning this far below basic level for years, since the estimator cannot
+  raise anyone in that state.
+  **Seed blocks 2026-11-21** (`docs/review/2026-11-21_t264_seed_blocks.md`, from `tools/t264_seed_blocks.py` on Mac
+  Mini1: fresh disjoint blocks of the records' size from seed 40000, revisions 64 and 66; pooled p over the blocks).
+  *`M11.C.12`, FAIL to PASS: an effect.* Pooled over 300 fresh seeds `marital_conflict` rises by +1.47 ± 0.73 (p
+  0.0008) at revision 66 and by +0.02 (p 0.36) at revision 64, where no block passes. At the record's 100 seeds only 1
+  of 3 revision-66 blocks passes, so the effect is new but the verdict at that size is borderline.
+  *`M11.C.17`, PASS to FAIL: not a change of verdict; the effect weakens.* Revision 66 passes 2 of 3 blocks (pooled
+  `coached_rise` +0.0016, p 0.007) and revision 64 3 of 3 (+0.0029, p 6e-7). The record's FAIL is the threshold; the
+  effect about halves.
+  *`M11.C.44`, FAIL to PASS: not an effect of revision 66.* Both engines pass 2 of 3 blocks with pooled p at most
+  0.0014, so revision 64's FAIL (p 0.71) was seed noise. Revision 66's effect is about twice revision 64's (+0.17
+  against +0.08).
+  *`M11.C.49`, PASS to FAIL: the effect weakens and keeps its direction.* Revision 64 passes 3 of 3 blocks
+  (`family_excess` +4.0, p 2e-7); revision 66 passes 1 of 3, pooled `family_excess` +2.7 (p 0.008) and
+  `conflict_share` +0.022 (p 0.004). The smaller effect is real; at 150 seeds the verdict is unstable.
+  *`M11.C.51`, FAIL to PASS: noise.* Revision 66 passes none of 3 blocks (pooled p 0.15), nor does revision 64 (p
+  0.80). The record's PASS at p 0.048 does not hold.
+  *`triangle-help-ignored` on `M11.C.46`, reversed to red: the catch holds, the label is noise.* The mutant is caught
+  in all 6 blocks on both engines. Revision 64's "reversed" came from a negative mean that its fresh blocks do not
+  show (pooled +0.13).
+  *`coach-position-blind` on `M11.C.7[one spouse over sided]`, red to survived: an effect.* At revision 66 both gating
+  readouts hold pooled (`deviation_fall` +0.092, p 0.008; `landed_contacts` +1.6, p 3e-11), so the criterion passes
+  under the mutant; at revision 64 `deviation_fall` is −0.03 (p 0.95) and the mutant is caught. No fixed block reaches
+  PASS in 100 seeds (each ends UNDETERMINED, short of the precision rule), so the record's survival at 100 seeds sits
+  at that rule's edge.
+  *`supply-by-birth-order` on `M11.C.55`, red to survived: an effect.* Revision 66 passes 3 of 3 blocks under the
+  mutant (pooled `predicted_main_supplier` +0.32, p 9e-14) and revision 64 none (−0.56, p 1). The record's p 0.049
+  understated it: at revision 66 `M11.C.55` no longer catches the mutant.
+  *`M11.C.10`, PASS to FAIL: an effect.* On one fresh block of 600 seeds (one block, not three: a 600-seed block takes
+  1.75 to 3.7 hours on Mini1) `cut_off_tie_weeks` differs by −53 ± 59 (p 0.98) at revision 66 and +42 ± 76 (p 0.09)
+  at revision 64. Revision 66's difference is negative on the record's seeds too (−30), and revision 64's positive
+  (+67), so the sign changed with the engine; revision 64's own pass was borderline (T-253).
 - [ ] T-265 ⟨now⟩ **The LLM experiment's runs do not replay on revision 66's engine (2026-11-20).** The replay in T-258
   refused every committed run: the A0 baseline's behavior changed with the engine, and the A1–A4 runs' rendered prompts
   changed, so their cached responses miss. The committed runs were left as they were (their `run.json` would read

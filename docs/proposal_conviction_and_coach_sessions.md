@@ -107,6 +107,41 @@ be reported as a finding. P1 and P5 are measurements.
 
 `M5.D.3`'s claim that abort is the usual first outcome is measured again on fresh seed blocks; it is not tuned for.
 
+### 3.5 Candidate: a conviction's origin, solid or borrowed (for the owner's decision; not to be built before it)
+
+Added 2026-11-21 at the owner's request, made in the session "Conviction types and strength data": compare the
+research literature with Bowen and use it to define how conviction is modelled. That session's research summary
+(Schwartz & Bardi 2001 on shared value rankings; Skitka 2021 on moral conviction; Glasman & Albarracín and Conner et
+al. on attitude strength; Tetlock and Ginges & Atran on sacred values; Converse 1964 and Freeder et al. 2018 on panel
+stability) was not re-checked here, and it is context, not a source.
+
+**The comparison.** Both say few people hold stable views (Converse; *FTCP* Ch. 18 ¶81: "Most people operate on
+poorly defined principles", [B,T]) and that resisting social pressure is what makes a conviction strong. They split
+on what counts as strong: every research measure (certainty, importance, moralization, refusal to trade) counts the
+know-it-all, the rebel and the sacred-value holder as strong, where Bowen and Kerr class them as pseudo-self, with
+conviction "so fused with feeling that it becomes a cause" (*FE* Ch. 4 ¶90, [K,T]). In Bowen's solid self, being sure
+goes with being open to revision (*FTCP* Ch. 9 ¶38, [B,T]). No research instrument separates a position held because
+it was reasoned from one held because it is fused, so the research supports directions only; every constant stays [I].
+
+**The proposed definition** ([M]; magnitudes [I]). A conviction is a position held on an issue, with:
+
+- (a) **an origin**: solid (the person's own) or borrowed (pseudo-self);
+- (b) **a channel of change**: a solid position changes only through the person's own evidence or self-practice, never
+  through tie pressure or approval (*FTCP* Ch. 21 ¶15; KS05.14); a borrowed one moves with relationship pressure, and
+  borrowing it lowers anxiety (KS05.1);
+- (c) **fusion with feeling**: a borrowed position comes out as a demand or a cause, which is `M5.F.4`'s demand share;
+  opposition (the rebel) is borrowed too, and keeps itself going by provoking (*FE* Ch. 4 ¶100);
+- (d) **the observable is behaviour, not certainty**: the position is held under tie pressure, without discharge and
+  without trying to change the other, which the model already reads (`M5.F.5`, `M4.D.5a`, `M5.F.3`, `M10.A.1a`).
+
+**What it adds to §3.3.** The solid self acts on its principles "even in situations of high anxiety" (*FTCP* Ch. 16
+¶62, [B,T]). So the part of the position that is solid could set how far the opposition and the extra reactive acts
+move the mover, in place of a blanket shield on a running sequence (T-259's first option). In §3.3's terms: the
+`basic_level` part of conviction would be solid and hold against tie pressure, while a borrowed part (the model's
+`pseudo_self`) would add to conviction only while the ties support it and fall away under their opposition. That
+keeps the outcome emergent: the solid share sets how far pressure moves the person and does not write whether the
+sequence holds. What is new is an explicit difference between holding firm and fused rigidity.
+
 ## 4. For the owner
 
 - **O1. The extra acts within a sequence.** At revision 66, an extra reactive act toward the sequence's other person
@@ -114,6 +149,8 @@ be reported as a finding. P1 and P5 are measurements.
   window, against `M4.D.3c`. Recommended: keep the extra act automatic (it is part of the opposition the mover has
   to hold against), and stop converting it.
 - **O2. Stress.** Recommended: stress enters only through excess anxiety, as now; a second term would count it twice.
+- **O4. Solid and borrowed conviction (§3.5).** Whether a conviction carries an origin, so that the solid part holds
+  against tie pressure and the borrowed part yields to it. This is a candidate; it is not built until decided.
 - **O3. Intensity.** Which tie quantity is "the importance of the relationship" — settled at the plan step against
   the spec's definitions.
 

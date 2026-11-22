@@ -25,6 +25,10 @@ Built as revision 65 on the branch `claude/reactivity-divorce`, merged as revisi
   self-directed act that takes a stance and opens a `self_practice` window, contrary to `M4.D.3c`'s automatic channel;
   the correctness review of 2026-11-19), or the fixture's mover level should rise, or
   the finding stands.
+  **Plan 2026-11-21** (the owner): conviction, both on the basic level and on each position's own importance, with
+  individual lines and less conviction toward more intense ties; drafted as `docs/proposal_conviction_and_coach_sessions.md`
+  §3, pending the owner's approval. §3.5 adds, at the owner's request, a candidate definition of a conviction's
+  origin (solid or borrowed) from a comparison of the research literature with Bowen, for the owner's decision.
 - [x] T-260 ⟨now⟩ **Run the predictions registered in the proposal's §4 (2026-11-19).** P1–P4 on the probe of
   2026-11-19, no constant tuned afterwards; report each as met or not met.
   *Closed 2026-11-19: run the same day on the Cowork build (revision 64 plus this change, before the merge), no constant tuned (720 runs). P2 met; P1 met for intensity,

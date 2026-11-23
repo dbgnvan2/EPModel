@@ -487,14 +487,17 @@ def test_m7d2e_lock_in_lengthens_a_symptom_without_feeding_it():
     """T-057 (`M7.D.2e`, `KS23.1`): with nothing feeding it, a mild active symptom lasts longer while its lock-in holds
     (``lock_in_gain`` 0.2) than with none (0), and its load only falls, so no bearer is pinned at the turn. Mutation:
     leaking an active channel at the plain ``symptom_leak_rate`` gives both arms the same duration."""
+    MAX_WEEKS = 520  # both arms end within 10 weeks at revision 67
     def weeks_active(params):
         nadia = bearer(calm(fresh()), NADIA, 1.2)
         nadia.symptom_suppression = 0.0  # nothing is fed: only the leak acts
         loads, weeks = [nadia.symptom_load[nadia.channel_prior]], 0
-        while nadia.symptom_active[nadia.channel_prior]:
+        while nadia.symptom_active[nadia.channel_prior] and weeks < MAX_WEEKS:
             integrate(nadia, params)
             loads.append(nadia.symptom_load[nadia.channel_prior])
             weeks += 1
+        # T-256: at a high enough lock_in_gain (2.0 here) the leak stops and the symptom never ends, so the loop is bounded.
+        assert not nadia.symptom_active[nadia.channel_prior], f"still active after {MAX_WEEKS} weeks: the leak stopped"
         assert all(b <= a for a, b in zip(loads, loads[1:]))
         return weeks
 

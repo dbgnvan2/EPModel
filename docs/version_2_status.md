@@ -51,7 +51,7 @@ Rows by status:
 - pass, proved by a test: 1
 - pass; changed since the tag `version-1`, pending the owner's review (T-122): 3
 
-Learning (`docs/emergence_audit_record.md`): of 33 passing rows, 11 are audited with all learning removed; 6 still pass and 5 need learning (`M11.C.44`, `M11.C.17`, `M11.C.11`, `M11.C.23`, `M11.C.55`); robustness not read: the sweep record is of an earlier engine. Not audited: `M11.C.39` (the audit's Scope says why).
+Learning (`docs/emergence_audit_record.md`): of 33 passing rows, 11 are audited with all learning removed; 6 still pass and 5 need learning (`M11.C.44`, `M11.C.17`, `M11.C.11`, `M11.C.23`, `M11.C.55`); robustness not read: the sweep record is of an earlier engine. Not audited: `M11.C.39` (the audit's Scope says why). The audit is of an earlier engine, so this tally is not current.
 
 Verdicts not the one this page gave at revision 38: 19 of 69 rows: `M11.C.6` (FAIL → PASS), `M11.C.15` (PASS → FAIL), `M11.C.17` (FAIL → PASS), `M11.C.18` (PASS → FAIL), `M11.C.20` (PASS → FAIL), `M11.C.22` (PASS → FAIL), `M11.C.23` (FAIL → PASS), `M11.C.27[unstable,add_third]` (FAIL → PASS), `M11.C.32` (PASS → FAIL), `M11.C.33` (PASS → FAIL), `M11.C.48` (PASS → FAIL), `M11.C.48[phase_d]` (PASS → FAIL), `M11.C.49` (new since revision 38 → FAIL), `M11.C.50` (new since revision 38 → FAIL), `M11.C.51` (new since revision 38 → FAIL), `M11.C.52` (new since revision 38 → PASS), `M11.C.53` (new since revision 38 → FAIL), `M11.C.54` (new since revision 38 → FAIL), `M11.C.55` (new since revision 38 → PASS).
 

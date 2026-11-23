@@ -310,7 +310,7 @@ class Forced:
         if state.people[actor].role is not Role.MEMBER:
             return (first,)
         used = frozenset(t for t in first.targets if t is not None)
-        return (first, *reactive_extras(obs, state.kinds, self.policy.params, state.draws, used, excluded))
+        return reactive_extras(obs, state.kinds, self.policy.params, state.draws, used, excluded).after(first)
 
 
 def scenario(family: str, seed: int, weeks: int, *, spells=(), forced=None, setup=None, until=None,

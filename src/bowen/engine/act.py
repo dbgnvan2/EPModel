@@ -69,6 +69,8 @@ class Selection:
     beliefs_used: tuple[tuple[str, float], ...] = ()
     # M5.D.9: the I-POSITION sequence step this outcome is, if it is one (DEFINE, ABORT, FOLLOW_UP).
     sequence_step: str | None = None
+    # M4.D.3c (revision 68, T-261 (2)): on the week's own selection, the extra reactive acts drawn and not made.
+    reactive_unmade: int | None = None
 
 
 def _record(state: RunState, selection: Selection, event_id) -> SelectionRecord:
@@ -79,6 +81,7 @@ def _record(state: RunState, selection: Selection, event_id) -> SelectionRecord:
         withheld=selection.withheld,
         withheld_toward=selection.targets[0] if selection.withheld and selection.targets else None,
         fallback_rule=selection.fallback_rule, sequence_step=selection.sequence_step,
+        reactive_unmade=selection.reactive_unmade,
     )
 
 

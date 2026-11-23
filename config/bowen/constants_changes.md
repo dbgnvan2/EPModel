@@ -14,6 +14,9 @@
 > moved out of the code into `act_classes.md` (`M8.3`, `M5.B.4`, `M5.B.5`) are lists of act names, not constants, and
 > their contents did not change.
 >
+> **Spec revision 68 (2026-11-23, T-261) changed no constant.** It adds the `capacity_consuming` class to
+> `act_classes.md`, a list of act names holding the one act the code named (`CONFLICT`).
+>
 > **Spec revision 63 (2026-11-16, T-254) changed no constant in `constants.md`.** `criteria.md`'s `M11.C.10` `seeds`
 > rose from 200 to 600 (the owner: "C.10 to 600 seeds"): a criterion setting, the seed count of a fixed-count
 > criterion, not a model constant; no other value changed.

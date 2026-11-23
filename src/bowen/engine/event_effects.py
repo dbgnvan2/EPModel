@@ -37,6 +37,8 @@ from src.bowen.engine.state import ActiveTrigger, RunState
 
 # M5.A.1 fixes the move repertoire, so this name is the spec's, not editorial content.
 CUTOFF_KIND = "CUTOFF"
+# M7.C.1m: the household a separating spouse takes is their own id with this suffix (an identifier format).
+APART_SUFFIX = "_apart"
 
 STRUCTURAL = frozenset(
     {Mechanism.TRIGGER, Mechanism.RECONCILIATION, Mechanism.INSTITUTIONALIZE, Mechanism.BINDER_UNAVAILABLE,
@@ -134,8 +136,8 @@ def apply_structural_event(state: RunState, event: Event, params: EngineParams) 
         moved = []
         for target in event.targets:
             person = state.people[target]
-            if person.alive and person.household_id != f"{target}_apart":
-                person.household_id = f"{target}_apart"
+            if person.alive and person.household_id != f"{target}{APART_SUFFIX}":
+                person.household_id = f"{target}{APART_SUFFIX}"
                 moved.append((target, "household_apart", 1.0))
         return [EffectRecord(state.tick, "separation", event.id, people=tuple(moved))]
     raise ValueError(f"{event.mechanism} is not a structural event")

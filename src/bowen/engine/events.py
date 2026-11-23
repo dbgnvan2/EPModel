@@ -47,7 +47,7 @@ TIE_MECHANISMS = frozenset({Mechanism.TRIGGER, Mechanism.RECONCILIATION})
 
 # The act classes, each a field of EventKinds read from config/bowen/act_classes.md (version 2 stage 1, S1.3).
 ACT_CLASSES = ("side_taking", "family_to_external", "external_repertoire", "reactive", "iposition_abort",
-               "position_outside", "position_inside")
+               "position_outside", "position_inside", "capacity_consuming")
 ORDERED_ACT_CLASSES = ("iposition_abort",)  # read as a tuple in the file's order: the abort draw indexes it (T-219)
 
 
@@ -125,6 +125,8 @@ class EventKinds:
     iposition_abort: tuple[str, ...] | None = None
     position_outside: frozenset[str] | None = None
     position_inside: frozenset[str] | None = None
+    # M4.D.3d (revision 68, T-261 (1)): the acts whose choice costs their sender functioning. From act_classes.md.
+    capacity_consuming: frozenset[str] | None = None
     # The acts that are negative or positive contact across a tie, and
     # the rebuffs the negative-run readout also counts. From config/bowen/contact_classes.md. None until loaded.
     negative_contacts: frozenset[str] | None = None

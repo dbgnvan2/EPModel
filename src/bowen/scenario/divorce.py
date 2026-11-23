@@ -31,7 +31,8 @@ def divorce_events(state: RunState, params: EngineParams, week: int, leaver: Per
 
     The loads are sized from ``state`` as it is when this is called: who is alive, which children exist and each
     child tie's bond energy. A scenario that builds the events before the run sizes them from the starting state,
-    so a child born before ``week`` gets none (review 2026-11-19).
+    so a child born before ``week`` gets none (review 2026-11-19). It raises if either spouse is dead, or if a
+    parent–child tie of the family does not join one spouse to a child (revision 68, T-261 (3), (5)).
     """
     tie = state.family.marital_tie
     if tie is None or leaver not in tie.members():
@@ -39,6 +40,9 @@ def divorce_events(state: RunState, params: EngineParams, week: int, leaver: Per
     if scale < 0:
         raise ValueError("scale is non-negative")
     spouses = tie.members()
+    dead = [str(p) for p in spouses if not state.people[p].alive]
+    if dead:  # revision 68, T-261 (3): a widowed spouse cannot divorce
+        raise ValueError(f"{', '.join(dead)} is not alive; a divorce needs both spouses living")
     events = [Event(id=EventId(week, "separation", 0), kind=SEPARATION, mechanism=Mechanism.SEPARATION, sender=None,
                     targets=(leaver,), intensity=0.0, timestamp=week, duration=1, exogenous=True,
                     source_position=SourcePosition.NONE, channel=Channel.EXOGENOUS)]
@@ -54,8 +58,11 @@ def divorce_events(state: RunState, params: EngineParams, week: int, leaver: Per
         events.append(load(n, spouse, "self", 1.0))
         n += 1
     for child_tie in sorted(state.family.parent_child_ties):
-        if not set(child_tie.members()) & set(spouses):
-            continue
+        parents = set(child_tie.members()) & set(spouses)
+        # Revision 68, T-261 (5): a nuclear parent–child tie has exactly one spouse in it and is no spouse's tie to
+        # their own parent (a family-of-origin tie), so a grandparent living in the household is not read as a child.
+        if len(parents) != 1 or child_tie in state.family.origin_ties:
+            raise ValueError(f"{child_tie} is not a tie between one spouse and a child of the nuclear family")
         child = next(p for p in child_tie.members() if p not in spouses)
         if not state.people[child].alive:
             continue

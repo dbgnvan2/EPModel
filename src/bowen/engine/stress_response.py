@@ -180,24 +180,23 @@ def bounded(person, level: float, params: EngineParams) -> float:
     return min(SCALE_MAX, max(0.0, lowest, level)) if level < person.functional_level else min(SCALE_MAX, max(0.0, level))
 
 
-CONFLICT = "CONFLICT"
-
-
 def consume_conflict(state: RunState, selections, params: EngineParams) -> list[EffectRecord]:
-    """Purpose: conflict consumes capacity: each CONFLICT a person sends takes functioning from them.
+    """Purpose: conflict consumes capacity: each CONFLICT a person chooses takes functioning from them.
     Spec:    docs/bowen_agent_model_spec_v2.md#M4.D.3d
     Tests:   tests/bowen/test_reactive_amount.py
 
-    Each chosen ``CONFLICT`` (a fallback hold is no choice) lowers its living sender's ``functional_level`` by
+    Each chosen act of the ``capacity_consuming`` class (``config/bowen/act_classes.md``: ``CONFLICT``; a fallback hold is
+    no choice) lowers its living sender's ``functional_level`` by
     ``conflict_capacity_cost``, on the stress ledger (``stress_swing``), so it settles back when calm as stress-moved
     functioning does, and never below the stress floor (``bounded``). The owner, 2026-11-19: "Conflict doesn't 'need'
-    capacity, it consumes it." [I]
+    capacity, it consumes it." [I] It is charged at selection, whether or not the act lands: the energy is the
+    sender's own, spent on the other even apart (revision 68, T-261 (4), `M4.D.3d`).
     """
     if params.conflict_capacity_cost <= 0:
         return []
     rows = []
     for sel in sorted(selections, key=lambda s: (s.actor, s.index)):
-        if sel.kind != CONFLICT or sel.decided_by is DecidedBy.FALLBACK:
+        if sel.kind not in state.kinds.capacity_consuming or sel.decided_by is DecidedBy.FALLBACK:
             continue
         person = state.people.get(sel.actor)
         if person is None or not person.alive:

@@ -1,0 +1,14 @@
+# Spec revision 68 — revision 66's minor review items (T-261) (2026-11-23)
+
+Built from T-261's plan of 2026-11-23 (Claude's recommendation, pending owner review). Open:
+
+- [ ] T-268 ⟨now⟩ **Regenerate every record on revision 68's engine (2026-11-23).** The batch moved the engine hash
+  from `9321b8523500` to `f7685ff9542f`, so every engine-keyed record is stale. No run's state changed, so each record
+  is expected to match revision 67's; a verdict that moves is a defect to trace, not a finding. Mac Mini1's queue
+  `~/regen68.sh` runs at the revision 68 commit; when it ends, merge its records, remove each strict-xfail mark naming
+  T-268, and report any move with T-254's seed-block rule.
+- [ ] T-269 ⟨later⟩ **A divorce built before the run does not see a spouse who dies before its week (2026-11-23).**
+  From revision 68's learning-qa pass. `divorce_events` checks that both spouses live in the state it is given; a
+  scenario that builds the events at the start and a spouse who dies before `week` gives a `SEPARATION` that moves no
+  one and loads addressed to the dead. For the owner: whether the engine should drop a divorce
+  whose spouse has died, or a scenario should build the events at their week.

@@ -80,6 +80,11 @@ FINGERPRINT_DIGITS = 8  # significant digits kept per float; see the module docs
 ZERO_BELOW = 1e-12  # a float this close to zero is written as 0, so 1e-17 and -1e-17 agree
 GOLDEN = {
     # (family, seed, weeks): fingerprint
+    # Both moved at spec revision 68 (T-261 (2), 2026-11-23; P23, a decision): the log only. The week's own selection
+    # record carries `reactive_unmade` when fewer extra acts are made than drawn (381 records in phase_c, 110 in
+    # phase_d); with that field dropped both runs give revision 67's fingerprints exactly (checked 2026-11-23). Before
+    # revision 68: phase_c 41d278a9639adebccf0eefcd163ff483d28e4590a715dafe58d6ddaf2812b1a2,
+    # phase_d 7858596d733ccb89324f44aae52c985c7bc4b4ed0faed6f2c5b864afa1fe35f7.
     # Both moved at spec revision 66 (2026-11-19; P23, a decision): anxiety adds reactive acts (`M4.D.3c`), `CONFLICT`
     # moves to layer 0 and consumes capacity (`M4.D.3a`, `M4.D.3d`); behaviour, both runs. With `reactive_extra_max` and
     # `conflict_capacity_cost` at 0 and `CONFLICT` at layer 2 both runs reproduce revision 65's fingerprints exactly
@@ -133,8 +138,8 @@ GOLDEN = {
     # the additions' loads and a symptom's own load) each change what a seeded run computes, so every run's log moved.
     # Before revision 36: phase_c c4fd16123fa37db3ccf7d2f6624b3463ef51ec084a44cad1dc0b1501f07ca85c,
     # phase_d 4e5ebdad859f648c37e8bb3222de6f802df94172ff0dd3a5b3e5c1df9b16f559.
-    ("phase_c", 7, 104): "41d278a9639adebccf0eefcd163ff483d28e4590a715dafe58d6ddaf2812b1a2",
-    ("phase_d", 11, 208): "7858596d733ccb89324f44aae52c985c7bc4b4ed0faed6f2c5b864afa1fe35f7",
+    ("phase_c", 7, 104): "21cda6b275664e150d404e915fe0921e3e0949a66144304fe9b26c906200e572",
+    ("phase_d", 11, 208): "65244e456224996219e50d0a0327d971041aeecd5a0a91b6414ed7ba6a34829f",
 }
 
 

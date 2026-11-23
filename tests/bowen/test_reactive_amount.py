@@ -48,7 +48,7 @@ def mean_extras(excess, seeds=200, params=PARAMS):
     total = 0
     for seed in range(seeds):
         state = fresh(params)
-        total += len(reactive_extras(at_excess(state, RAVI, excess), KINDS, params, DrawService(seed), frozenset()))
+        total += len(reactive_extras(at_excess(state, RAVI, excess), KINDS, params, DrawService(seed), frozenset()).acts)
     return total / seeds
 
 
@@ -58,9 +58,9 @@ def mean_extras(excess, seeds=200, params=PARAMS):
 def test_m4d3c_a_calm_person_makes_no_extra_acts_and_a_switched_off_register_makes_none():
     """Adversarial: no excess anxiety, or `reactive_extra_max` 0, gives no extra act and takes no draw."""
     state = fresh()
-    assert reactive_extras(at_excess(state, RAVI, 0.0), KINDS, PARAMS, DrawService(1), frozenset()) == ()
+    assert reactive_extras(at_excess(state, RAVI, 0.0), KINDS, PARAMS, DrawService(1), frozenset()).acts == ()
     off = dataclasses.replace(PARAMS, reactive_extra_max=0.0)
-    assert reactive_extras(at_excess(state, RAVI, 500.0), KINDS, off, DrawService(1), frozenset()) == ()
+    assert reactive_extras(at_excess(state, RAVI, 500.0), KINDS, off, DrawService(1), frozenset()).acts == ()
 
 
 def test_m4d3c_more_anxiety_makes_more_reactive_acts_on_average():
@@ -78,7 +78,7 @@ def test_m4d3c_extra_acts_are_automatic_toward_distinct_people_and_not_the_weeks
     for seed in range(50):
         state = fresh()
         obs = at_excess(state, RAVI, 400.0)
-        extras = reactive_extras(obs, KINDS, PARAMS, DrawService(seed), frozenset({MARTA}))
+        extras = reactive_extras(obs, KINDS, PARAMS, DrawService(seed), frozenset({MARTA})).acts
         targets = [s.targets[0] for s in extras]
         assert MARTA not in targets
         assert len(targets) == len(set(targets))
@@ -187,9 +187,9 @@ def test_m4d3c_an_excluded_outcome_is_never_an_extra_act():
     for seed in range(50):
         state = fresh()
         obs = at_excess(state, RAVI, 400.0)
-        everyone = reactive_extras(obs, KINDS, PARAMS, DrawService(seed), frozenset())
+        everyone = reactive_extras(obs, KINDS, PARAMS, DrawService(seed), frozenset()).acts
         banned = frozenset(f"{s.kind}>{s.targets[0]}" for s in everyone)
-        again = reactive_extras(obs, KINDS, PARAMS, DrawService(seed), frozenset(), banned)
+        again = reactive_extras(obs, KINDS, PARAMS, DrawService(seed), frozenset(), banned).acts
         assert not {f"{s.kind}>{s.targets[0]}" for s in again} & banned
 
 
@@ -237,3 +237,100 @@ def test_m11g_the_household_readout_does_not_move_with_which_spouse_leaves():
             apply_structural_event(state, event, PARAMS)
         assert state.people[leaver].household_id != declared
         assert _nuclear(state, tuple(sorted(state.family.marital_tie.members()))) == declared
+
+
+# --- Revision 68, T-261: revision 66's minor review items ----------------------------------------------------------
+
+
+def test_m4d3d_t261_1_the_capacity_consuming_acts_come_from_config():
+    """The consuming class is read from `act_classes.md`; a run whose class names another act charges that act and
+    not CONFLICT (T-261 (1), P4)."""
+    assert KINDS.capacity_consuming == frozenset({"CONFLICT"})
+    state = fresh()
+    state.kinds = dataclasses.replace(KINDS, capacity_consuming=frozenset({"DISTANCE"}))
+    before = state.people[RAVI].functional_level
+    assert consume_conflict(state, (conflict(),), PARAMS) == []
+    consume_conflict(state, (dataclasses.replace(conflict(), kind="DISTANCE"),), PARAMS)
+    assert state.people[RAVI].functional_level == pytest.approx(before - PARAMS.conflict_capacity_cost)
+
+
+def test_m4d3c_t261_2_extra_acts_drawn_and_not_made_are_on_the_weeks_own_record():
+    """Adversarial: with everyone but one person already acted toward, a very anxious actor draws more extra acts than
+    can be made; the week's own selection record carries the shortfall, and a week with none carries no field."""
+    from src.bowen.engine.act import _record
+
+    shortfalls = 0
+    for seed in range(30):
+        state = fresh()
+        obs = at_excess(state, RAVI, 5000.0)
+        others = sorted({v.other for v in obs.ties})
+        extras = reactive_extras(obs, KINDS, PARAMS, DrawService(seed), frozenset(others[1:]))
+        assert len(extras.acts) <= 1 and extras.drawn >= len(extras.acts)
+        first = conflict(target=others[1])
+        own = extras.after(first)[0]
+        record = _record(state, own, None)
+        assert record.reactive_unmade == (extras.unmade or None)
+        shortfalls += bool(record.reactive_unmade)
+    assert shortfalls  # the case occurs
+    from src.bowen.engine.log_records import plain
+    assert "reactive_unmade" not in plain(_record(fresh(), conflict(), None))
+
+
+def test_m7c1m_t261_3_a_divorce_needs_both_spouses_living():
+    state = fresh()
+    state.people[MARTA].alive = False
+    with pytest.raises(ValueError, match="not alive"):
+        divorce_events(state, PARAMS, 0, RAVI)
+
+
+def test_m4d3d_t261_4_a_conflict_that_never_lands_still_costs_its_sender():
+    """Revision 68, T-261 (4): the cost is charged at selection, from the sender's own energy, whether or not the act
+    reaches the other (here the target has died)."""
+    state = fresh()
+    state.people[MARTA].alive = False
+    before = state.people[RAVI].functional_level
+    consume_conflict(state, (conflict(),), PARAMS)
+    assert state.people[RAVI].functional_level == pytest.approx(before - PARAMS.conflict_capacity_cost)
+
+
+def test_m7c1m_t261_5_a_tie_that_is_not_one_spouse_and_a_child_fails_loudly():
+    """Adversarial: a sibling tie, or a spouse's tie to their own parent, placed among the family's parent–child ties
+    raises instead of reading that person as a child."""
+    state = fresh()
+    state.family.parent_child_ties = tuple(sorted(state.family.parent_child_ties + (TieId.of(NADIA, PIA),)))
+    with pytest.raises(ValueError, match="one spouse and a child"):
+        divorce_events(state, PARAMS, 0, RAVI)
+    grandparent = fresh()  # a spouse's own parent's tie, as if that parent lived in the household
+    origin = next(t for t in grandparent.family.origin_ties if RAVI in t.members())
+    grandparent.family.parent_child_ties = tuple(sorted(grandparent.family.parent_child_ties + (origin,)))
+    with pytest.raises(ValueError, match="one spouse and a child"):
+        divorce_events(grandparent, PARAMS, 0, RAVI)
+
+
+def test_m7c1m_t261_6_a_divorce_runs_through_run_tick_and_renders():
+    """A scripted divorce at week 2 of a policy run: the separation and the loads land, and the trace renders the log."""
+    from src.bowen.engine.events import EventId
+    from src.bowen.engine.log_records import CollectingEmitter, EffectRecord, EmittedRecord
+    from src.bowen.engine.tick import run_tick
+    from src.bowen.io.load import load_frozen_constants, load_policy_rules, load_spec_revision
+    from src.bowen.render.trace import render
+    from src.bowen.scenario.assemble import assemble
+    from src.bowen.scenario.header import build_header
+    from src.bowen.scenario.policy_source import PolicySource
+    from src.bowen.scenario.scripted_source import ScriptedSource
+
+    constants, family = load_constants(), load_family(CONFIG_DIR / "family_phase_c.md")
+    bare = assemble(constants, KINDS, family, ScriptedSource("divorce", 6, (), ()), seed=3)
+    script = ScriptedSource("divorce", 6, divorce_events(bare.state, bare.params, 2, RAVI), ())
+    parts = assemble(constants, KINDS, family, script, seed=3)
+    source = PolicySource(script, parts.params, load_policy_rules())
+    log = CollectingEmitter()
+    log.emit(build_header(seed=3, spec_revision=load_spec_revision(), constants=constants,
+                          frozen=load_frozen_constants(), kinds=KINDS, family=family, script=script,
+                          activation=parts.activation, visibility=parts.visibility, policy=source.rules))
+    for _ in range(6):
+        run_tick(parts.state, source, parts.params, parts.visibility, parts.activation, log)
+    assert parts.state.people[RAVI].household_id != family.family.household
+    assert any(isinstance(r, EffectRecord) and r.cause == EventId(2, "separation", 0) for r in log.records)
+    assert sum(isinstance(r, EmittedRecord) and r.event.kind == "DIVORCE" for r in log.records) >= 2
+    assert render(log.records, family.display_names)

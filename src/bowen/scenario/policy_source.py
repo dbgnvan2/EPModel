@@ -58,9 +58,11 @@ class PolicySource:
                 continue
             obs = observe(state, pid, self.params)
             decision = decide(obs, state.kinds, self.params, self.rules, state.draws)
-            chosen.append(dataclasses.replace(decision.selection, urge=decision.urge))
+            first = dataclasses.replace(decision.selection, urge=decision.urge)
             # M4.D.3c: anxiety adds reactive acts toward others; a member only (an external agent keeps its sessions).
             if state.people[pid].role is Role.MEMBER:
-                used = frozenset(t for t in decision.selection.targets if t is not None)
-                chosen.extend(reactive_extras(obs, state.kinds, self.params, state.draws, used))
+                used = frozenset(t for t in first.targets if t is not None)
+                chosen.extend(reactive_extras(obs, state.kinds, self.params, state.draws, used).after(first))
+            else:
+                chosen.append(first)
         return tuple(chosen)

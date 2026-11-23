@@ -35,7 +35,7 @@ Built as revision 65 on the branch `claude/reactivity-divorce`, merged as revisi
   2026-11-19, no constant tuned afterwards; report each as met or not met.
   *Closed 2026-11-19: run the same day on the Cowork build (revision 64 plus this change, before the merge), no constant tuned (720 runs). P2 met; P1 met for intensity,
   not for counts; P3 not met (r = .09 [−.02, .20]); P4 not met. The proposal's §4.1 has the table.*
-- [ ] T-261 ⟨later⟩ **Revision 66's minor review items (2026-11-19).** From the learning-qa and correctness passes, not
+- [x] T-261 ⟨later⟩ **Revision 66's minor review items (2026-11-19).** From the learning-qa and correctness passes, not
   fixed: (1) the `_apart` household suffix (`event_effects.py`) and the `"CONFLICT"` kind name (`stress_response.py`)
   are literals; a set of capacity-consuming kinds belongs in `event_kinds.md` (P4). (2) `reactive_extras` stops early
   when nobody is left to act toward, and nothing records the drawn count against the made one (P2). (3)
@@ -43,6 +43,16 @@ Built as revision 65 on the branch `claude/reactivity-divorce`, merged as revisi
   refused or never lands; whether it should is the owner's call. (5) `divorce_events` treats any non-spouse in a
   parent–child tie as a child, correct only because the loader keeps nuclear ties. (6) No test runs a divorce through
   `run_tick` and the trace renderer.
+  **Plan 2026-11-23** (spec revision 68; one guard test each, shown failing by mutation): (1) a `capacity_consuming`
+  class in `config/bowen/act_classes.md`, where the engine's other act classes are, read by `consume_conflict`; the
+  `_apart` suffix becomes a named constant, since it is an identifier format, not a parameter or editorial content.
+  (2) the week's own selection record carries `reactive_unmade`, the extra acts drawn and not made, omitted when none.
+  (3), (5) `divorce_events` raises when a spouse is dead or a parent–child tie does not have exactly one spouse.
+  (4) corpus first; keep or change by its direction. (6) a test runs a divorce through `run_tick` and `render`.
+  No run's state changes, so the regenerated records are expected to match revision 67's.
+  *Closed 2026-11-23: built as spec revision 68. Item 4 keeps the cost at choice (*FTCP* Ch. 10 ¶46, Ch. 16 ¶90,
+  Ch. 9 ¶68; Kerr 1981 ¶204). Six guards, each failing by mutation; item 6's run found no rendering gap. The
+  regeneration is T-268; the review's one open minor item is T-269.*
 - [x] T-262 ⟨now⟩ **An external agent makes an `I-POSITION` sequence step between sessions (2026-11-19).** At revision
   66, in `tests/experiments/llm_agents/test_source.py::test_lx2_external_agent_keeps_the_policy` (stub run A1, seed 1,
   208 weeks), the coach's policy chooses `I-POSITION` at a session and `M5.D.9`'s sequence makes its `DEFINE` step

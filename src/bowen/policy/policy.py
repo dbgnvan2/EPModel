@@ -62,6 +62,7 @@ automatic act is computed — flagged ``FALLBACK``.
 from __future__ import annotations
 
 import math
+import dataclasses
 from dataclasses import dataclass
 
 from src.bowen.engine.act import WITHHOLD, Selection
@@ -358,8 +359,26 @@ def decide(obs: Observation, kinds: EventKinds, params: EngineParams, rules: Pol
     ), urge)
 
 
+@dataclass(frozen=True)
+class ReactiveExtras:
+    """The extra reactive acts made, and how many were drawn: fewer are made when nobody is left to act toward."""
+
+    acts: tuple[Selection, ...] = ()
+    drawn: int = 0
+
+    @property
+    def unmade(self) -> int:
+        return self.drawn - len(self.acts)
+
+    def after(self, first: Selection) -> tuple[Selection, ...]:
+        """The week's own selection, carrying the count drawn and not made if any (`M4.D.3c`, P2), then the acts."""
+        if self.unmade:
+            first = dataclasses.replace(first, reactive_unmade=self.unmade)
+        return (first, *self.acts)
+
+
 def reactive_extras(obs: Observation, kinds: EventKinds, params: EngineParams, draws: DrawService,
-                    used: frozenset, excluded: frozenset[str] = frozenset()) -> tuple[Selection, ...]:
+                    used: frozenset, excluded: frozenset[str] = frozenset()) -> ReactiveExtras:
     """Purpose: anxiety raises the amount of reactive behaviour: extra automatic acts in the week.
     Spec:    docs/bowen_agent_model_spec_v2.md#M4.D.3c, #M4.D.3
     Tests:   tests/bowen/test_reactive_amount.py
@@ -370,11 +389,12 @@ def reactive_extras(obs: Observation, kinds: EventKinds, params: EngineParams, d
     learned from relief, `M4.D.6a`), toward someone not in ``used`` and not already acted toward this week, so a
     person sends at most one act a week across a tie; an outcome labelled in ``excluded`` (a criterion's withheld or
     held-open outcomes) is never drawn. Slot ``k`` uses the draw key index ``k``; the week's own selection is slot 0.
-    No draw is taken when ``reactive_extra_max`` is 0 or ``a`` is 0, so a run at 0 is revision 65's. [I]
+    No draw is taken when ``reactive_extra_max`` is 0 or ``a`` is 0, so a run at 0 is revision 65's. [I] The count drawn
+    is returned beside the acts, so the caller can record those not made (revision 68, T-261 (2)).
     """
     a = obs.acute_excess
     if params.reactive_extra_max <= 0 or a <= 0:
-        return ()
+        return ReactiveExtras()
     expected = params.reactive_extra_max * a / (a + params.reactive_half_anxiety)
     count = int(expected)
     fraction = expected - count
@@ -382,7 +402,7 @@ def reactive_extras(obs: Observation, kinds: EventKinds, params: EngineParams, d
                                                    purpose="reactive_count", index=0)) < fraction:
         count += 1
     if count == 0:
-        return ()
+        return ReactiveExtras()
     outcomes, _ = propensities(obs, kinds, params)
     weights = channel_weights(outcomes, obs, kinds, params, steered=True)
     pool = [(o, w) for o, w in zip(outcomes, weights)
@@ -404,7 +424,7 @@ def reactive_extras(obs: Observation, kinds: EventKinds, params: EngineParams, d
             legal_set=tuple(o.label for o, _ in open_),
             propensities=tuple((o.label, w) for o, w in open_),
         ))
-    return tuple(extras)
+    return ReactiveExtras(tuple(extras), count)
 
 
 def force(outcome: Outcome, obs: Observation, params: EngineParams) -> float:

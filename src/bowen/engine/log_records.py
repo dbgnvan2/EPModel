@@ -106,6 +106,9 @@ class SelectionRecord:
     fallback_rule: str | None = None
     # M5.D.9: the I-POSITION sequence step this outcome was, if any.
     sequence_step: str | None = None
+    # M4.D.3c (revision 68): the extra reactive acts drawn and not made, for want of anyone left to act toward. Omitted
+    # when none, so a log with no shortfall is byte-identical to revision 67's.
+    reactive_unmade: int | None = dataclasses.field(default=None, metadata={LOG_OMIT_NONE: True})
     record_type = "selection"
 
 

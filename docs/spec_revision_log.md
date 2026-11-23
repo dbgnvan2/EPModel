@@ -6,6 +6,19 @@ The spec holds the current rules; this file holds how they got there. Until revi
 
 The sections `### Revision 34` to `### Revision 5` and the undated section are the spec's text as it stood, moved whole; a statement inside one of them (revision 34's, that revisions 13 to 33 are "not here") was true when written, before the bodies' narratives were moved under their own revisions. Those narratives are the bullets `- \`ID\`: sentence`, each the sentence as it stood in the body, under the revision it names, in sections titled "inline narratives moved from the bodies at revision 35" where no section existed.
 
+### Revision 68 — revision 66's minor review items, 2026-11-23 ⟦rev68 · T-261, Claude's recommendation 2026-11-23, pending owner review⟧
+
+The engine hash moves; no run's state changes, so the regenerated records are expected to match revision 67's.
+
+- **`M4.D.3d`, T-261 (1), (4).** The consuming acts are `act_classes.md`'s `capacity_consuming` class (`CONFLICT`),
+  not a literal in code. The cost stays charged at choice, landed or not: the corpus places the energy in the sender's
+  self focused on the other, spent even apart (*FTCP* Ch. 10 ¶46, Ch. 16 ¶90, Ch. 9 ¶68; Kerr 1981 ¶204).
+- **`M4.D.3c`, T-261 (2).** The week's own selection record carries `reactive_unmade`, the extra acts drawn and not
+  made for want of anyone left to act toward; omitted when none.
+- **`M7.C.1m`, T-261 (3), (5).** Building a divorce raises when a spouse is dead or a parent–child tie does not join
+  one spouse to a child. The separation's household suffix is a named constant.
+- T-261 (6): a test runs a divorce through `run_tick` and the trace renderer.
+
 ### Revision 67 — conviction, and the coach acting only in sessions, 2026-11-21 ⟦rev67 · owner 2026-11-21⟧
 
 The engine hash moves (`4aaa9029f63a` → `9321b8523500`). Built from `docs/proposal_conviction_and_coach_sessions.md`,

@@ -25,3 +25,4 @@
 | iposition_abort | PURSUE, CONFLICT, DISTANCE | `iposition._abort_act`: `M5.D.3`'s three abort branches, defend, counterattack, go silent, in this order (the abort draw indexes it) [I] |
 | position_outside | DISTANCE, CUTOFF | `criteria.OUTSIDE_ACTS`: the acts that take the outside position, read by `M11.C.44` and `M11.C.45` [I] |
 | position_inside | TRIANGLE, PURSUE | `criteria.INSIDE_ACTS`: the acts that seek the inside position, read by `M11.C.44` and `M11.C.45` [I] |
+| capacity_consuming | CONFLICT | `stress_response.consume_conflict`: the acts whose choice lowers their sender's functioning, `M4.D.3d` (revision 68, T-261 (1)) [I] |

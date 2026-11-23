@@ -8,7 +8,7 @@ Purpose: both files are read in part by most sessions and grew without bound (13
          it carries, the rule the archive groups by. The limits are the named constants below. Since 2026-10-22
          `TODO.md` is generated from the records under `docs/todo/` (`tools/todo_index.py`, `tests/test_todo_index.py`)
          and holds one line per open item, so its limit is the one-line form's; the ticked-item check still guards it.
-Spec:    docs/plan_model_ergonomics.md (the two files the plan left growing); CLAUDE.md — "Documentation stays current
+Spec:    docs/plan_model_ergonomics.md (the two files the plan left growing); AGENTS.md — "Documentation stays current
          with the build"
 Tests:   this file
 """

@@ -2,7 +2,7 @@
 
 Purpose: keep docs/SPEC_REVIEW_CHECKLIST.md a complete index of docs/, config/bowen/ and config/sweep/, so a
          reviewer reading from it never misses a document and never follows a dead link.
-Spec:    CLAUDE.md — "Documentation stays current with the build"
+Spec:    AGENTS.md — "Documentation stays current with the build"
 Tests:   this file
 
 These assert on documents only; nothing here imports `src/`.

@@ -14,7 +14,7 @@
     "README.md": {
       "src/main.py": "the grid engine's entry point, retired at version 2 stage 1 (S1.6)"
     },
-    "CLAUDE.md": {
+    "AGENTS.md": {
       "src/engine.py": "the grid engine, retired at version 2 stage 1 (S1.6)",
       "src/main.py": "the grid engine's entry point, retired with it",
       "monte_carlo.py": "the grid engine's Monte Carlo script, retired with it",

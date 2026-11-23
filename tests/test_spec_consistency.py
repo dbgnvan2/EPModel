@@ -37,7 +37,7 @@ CITING_DOCS = [
     REPO / "docs" / "model_explainer.md",
     REPO / "docs" / "agent_model_proposal.html",
     REPO / "docs" / "theory" / "_STATUS.md",
-    REPO / "CLAUDE.md",
+    REPO / "AGENTS.md",
     REPO / "README.md",
     REPO / "CHANGELOG.md",
     REPO / "TODO.md",

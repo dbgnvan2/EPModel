@@ -1,6 +1,6 @@
 """Documents that restate a fact held somewhere else must still agree with it.
 
-Purpose: D2, the repo paths README.md and CLAUDE.md name. Each check is a function over a checkout that returns its
+Purpose: D2, the repo paths README.md and AGENTS.md name. Each check is a function over a checkout that returns its
          findings, so the self-tests can run it on a copy that carries the drift it exists to catch. D1, the spec's
          revision as four documents restated it, was retired 2026-11-11 (T-225): those documents point to
          `docs/STATUS.md`, which `tools/status.py` generates.
@@ -20,7 +20,7 @@ REPO = Path(__file__).resolve().parents[1]
 
 # ---------------------------------------------------------------------------------------------------- D2
 
-PATH_DOCS = ("README.md", "CLAUDE.md")
+PATH_DOCS = ("README.md", "AGENTS.md")
 _ROOTS = ("src/", "tools/", "tests/", "docs/", "config/")
 _SKIP = set("*<>{}$")
 _OUTPUT_DIRS = {"runs/"}  # ignored by git (`.gitignore`) and written by the commands the README shows: never tracked
@@ -103,7 +103,7 @@ def _real_scan() -> PathScan:
 
 
 def test_d2_repo_paths_in_readme_and_claude_md_exist():
-    """D2.1–D2.3: a path README.md or CLAUDE.md names is tracked, or its own sentence says it is gone."""
+    """D2.1–D2.3: a path README.md or AGENTS.md names is tracked, or its own sentence says it is gone."""
     missing = _real_scan().missing
     assert missing == {}, f"{missing}; a new file is read from git, so stage it (git add) first"
 
@@ -125,8 +125,8 @@ def test_d2_a_retired_path_passes_only_in_its_own_sentence():
     assert [path for path, _ in missing["README.md"]] == ["src/main.py"]
     # A neighbouring table row or list item is its own unit, so its marker does not count either.
     table = "| `docs/model_config.md` | the old engine's settings |\n| `src/engine.py` | retired |\n"
-    missing = path_scan({"CLAUDE.md": table}, files).missing
-    assert [path for path, _ in missing["CLAUDE.md"]] == ["docs/model_config.md"]
+    missing = path_scan({"AGENTS.md": table}, files).missing
+    assert [path for path, _ in missing["AGENTS.md"]] == ["docs/model_config.md"]
 
 
 def test_d2_paths_with_spaces_and_module_commands_resolve():
@@ -153,8 +153,8 @@ def test_d2_patterns_placeholders_and_test_ids_are_read_as_intended():
 def test_d2_a_marker_about_something_else_does_not_excuse_a_path():
     """D2.3 (adversarial): a missing path that is not listed as retired fails even beside a retirement marker."""
     files = tracked_files()
-    missing = path_scan({"CLAUDE.md": "`docs/a.md` is frozen at the tag `version-1`.\n"}, files).missing
-    assert [path for path, _ in missing["CLAUDE.md"]] == ["docs/a.md"]
+    missing = path_scan({"AGENTS.md": "`docs/a.md` is frozen at the tag `version-1`.\n"}, files).missing
+    assert [path for path, _ in missing["AGENTS.md"]] == ["docs/a.md"]
     # A listed path that its sentence no longer marks as gone fails too.
     files = [p for p in files if p != "src/main.py"]
     missing = path_scan({"README.md": "Run `src/main.py` to start.\n"}, files).missing
@@ -174,7 +174,7 @@ def test_d2_the_scan_is_not_vacuous():
     """D2.4: the scan reads both documents, including a path under a top-level folder read from git (`.github/`), and
     it sees README.md's retired entry point as missing and marked."""
     scan = _real_scan()
-    assert "tests/test_repo_layout.py" in scan.checked.get("CLAUDE.md", set())
+    assert "tests/test_repo_layout.py" in scan.checked.get("AGENTS.md", set())
     assert "tools/record_cache.py" in scan.checked.get("README.md", set())
     assert ".github/workflows/tests.yml" in scan.checked.get("README.md", set())
     assert "src/main.py" in scan.retired.get("README.md", set())

@@ -4,7 +4,7 @@ Purpose: `tools/todo_index.py` generates the three; a hand edit to any of them, 
          tool, or a new changelog entry left out of the index, fails here. The records must stay well formed (every
          open item has an ID and exactly one of ⟨now⟩ ⟨later⟩; IDs are unique), and the tool must never write a
          record. Each rule is tried on a fixture that breaks it as well as on the real files.
-Spec:    CLAUDE.md — "Token budget — how to read this repo" (owner rule, 2026-10-22)
+Spec:    AGENTS.md — "Token budget — how to read this repo" (owner rule, 2026-10-22)
 Tests:   this file
 """
 

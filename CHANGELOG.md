@@ -53,7 +53,7 @@ All notable changes to this project are recorded here. Dates are ISO.
 
 ### Spec revision 68: revision 66's minor review items (T-261) (2026-11-23)
 
-- **Engine (hash `9321b8523500` → `f7685ff9542f`); no run's state changes.** `consume_conflict` reads the new
+- **Engine (hash `9321b8523500` → `1ecd38073e84`); no run's state changes.** `consume_conflict` reads the new
   `capacity_consuming` class of `act_classes.md`; the separation's household suffix is a named constant; the week's own
   selection record carries `reactive_unmade` when fewer extra acts are made than drawn; `divorce_events` raises on a
   dead spouse or a parent–child tie that is not one spouse and a child.

@@ -6,16 +6,16 @@ which members' functional level lies in each band, over 20 seeds, unmodified and
 reads. In the first band that mutant equals the deletion on every layer; in the second, on layer 1; in the
 third it makes every layer above 0 unavailable.
 
-code_hash: 459d7dfb081e40083f863f2fda730973bfb3f58d2800960706a0f410179da5e2
+code_hash: 0739d5401b2409d16e67e890ff5ec40a190ac0ba183a2643dc6b2592853fe607
 
 | Variant | Arm | Span | Member-weeks | deletion_on_every_layer (≤ 20) | deletion_on_layer_1 (≤ 40) | layers_above_0_unavailable (≥ 60) |
 |---|---|---|---|---|---|---|
-| unmodified | baseline | whole_run | 14560 | 6.1% | 88.5% | 0.0% |
-| unmodified | baseline | window | 7280 | 10.5% | 98.0% | 0.0% |
-| unmodified | treatment | whole_run | 14560 | 84.7% | 99.9% | 0.0% |
+| unmodified | baseline | whole_run | 14560 | 5.7% | 88.6% | 0.0% |
+| unmodified | baseline | window | 7280 | 9.6% | 98.0% | 0.0% |
+| unmodified | treatment | whole_run | 14560 | 84.5% | 99.9% | 0.0% |
 | unmodified | treatment | window | 7280 | 98.6% | 100.0% | 0.0% |
-| availability-level-inverted | baseline | whole_run | 14560 | 7.7% | 90.3% | 0.0% |
-| availability-level-inverted | baseline | window | 7280 | 13.6% | 98.8% | 0.0% |
+| availability-level-inverted | baseline | whole_run | 14560 | 7.8% | 90.8% | 0.0% |
+| availability-level-inverted | baseline | window | 7280 | 13.6% | 99.1% | 0.0% |
 | availability-level-inverted | treatment | whole_run | 14560 | 83.9% | 99.8% | 0.0% |
 | availability-level-inverted | treatment | window | 7280 | 98.5% | 100.0% | 0.0% |
 
@@ -31,13 +31,13 @@ code_hash: 459d7dfb081e40083f863f2fda730973bfb3f58d2800960706a0f410179da5e2
    "window": 7280
   },
   "whole_run": {
-   "deletion_on_every_layer": 0.06078296703296703,
-   "deletion_on_layer_1": 0.8853708791208791,
+   "deletion_on_every_layer": 0.05728021978021978,
+   "deletion_on_layer_1": 0.8855082417582417,
    "layers_above_0_unavailable": 0.0
   },
   "window": {
-   "deletion_on_every_layer": 0.10453296703296704,
-   "deletion_on_layer_1": 0.9802197802197802,
+   "deletion_on_every_layer": 0.0962912087912088,
+   "deletion_on_layer_1": 0.9799450549450549,
    "layers_above_0_unavailable": 0.0
   }
  },
@@ -49,8 +49,8 @@ code_hash: 459d7dfb081e40083f863f2fda730973bfb3f58d2800960706a0f410179da5e2
    "window": 7280
   },
   "whole_run": {
-   "deletion_on_every_layer": 0.8471153846153846,
-   "deletion_on_layer_1": 0.9986263736263736,
+   "deletion_on_every_layer": 0.845467032967033,
+   "deletion_on_layer_1": 0.9989010989010989,
    "layers_above_0_unavailable": 0.0
   },
   "window": {
@@ -67,13 +67,13 @@ code_hash: 459d7dfb081e40083f863f2fda730973bfb3f58d2800960706a0f410179da5e2
    "window": 7280
   },
   "whole_run": {
-   "deletion_on_every_layer": 0.07685439560439561,
-   "deletion_on_layer_1": 0.9030906593406594,
+   "deletion_on_every_layer": 0.07809065934065934,
+   "deletion_on_layer_1": 0.907967032967033,
    "layers_above_0_unavailable": 0.0
   },
   "window": {
-   "deletion_on_every_layer": 0.13557692307692307,
-   "deletion_on_layer_1": 0.9884615384615385,
+   "deletion_on_every_layer": 0.1364010989010989,
+   "deletion_on_layer_1": 0.9913461538461539,
    "layers_above_0_unavailable": 0.0
   }
  },
@@ -85,7 +85,7 @@ code_hash: 459d7dfb081e40083f863f2fda730973bfb3f58d2800960706a0f410179da5e2
    "window": 7280
   },
   "whole_run": {
-   "deletion_on_every_layer": 0.8393543956043956,
+   "deletion_on_every_layer": 0.8390796703296703,
    "deletion_on_layer_1": 0.9984203296703297,
    "layers_above_0_unavailable": 0.0
   },

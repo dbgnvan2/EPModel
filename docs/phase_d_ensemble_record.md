@@ -5,7 +5,7 @@ seeds (`M3.D.4a`), stopped adaptively (`M17.A.1`, `M13.4`): `UNDETERMINED` at th
 pass. Every verdict carries its class (`M11.5`). **A premise passing confirms that the code renders the
 spec; it is not a finding about families.** Spec revisions 24–27 are Claude's recommendations, approved by the owner 2026-10-16 (revision 31).
 
-code_hash: e49a014f7d0d4f2e2cbe0d01a09c8c37984331466b50fc97fd13154647c6b04c
+code_hash: 0107327673166bd55eef9a22c45b821969d075831f666d7319d3795ed4e88cbd
 
 Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25, `ensemble_margin` = 0.1, `ensemble_alpha` = 0.05, `fallback_flag_rate` = 0.2, `equivalence_margin` = 0.5.
 
@@ -14,28 +14,28 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
 | `M11.C.18` | check | **FAIL** | 50 | `rise` +0 ± 0, p 1, does not hold, pairs differing 0.00 | baseline 0 of 1750; treatment 1636 of 1750 (1633 not legal, 3 owed a step) | 0.00 | — |
 | `M11.C.20` | check | **FAIL** | 50 | `rise` +0 ± 0, p 1, does not hold, pairs differing 0.00; `support_blocked` -0.00748 ± 0.0037 (reported only), pairs differing 0.30 | baseline 1 of 1750 (1 owed a step); treatment 786 of 900 (783 not legal, 3 owed a step) | 0.00 | — |
 | `M11.C.33` | premise | **FAIL** | 50 | `rise` +0 ± 0, p 1, does not hold, pairs differing 0.00 | baseline 1636 of 1750 (1633 not legal, 3 owed a step); treatment 1636 of 1750 (1633 not legal, 3 owed a step) | 0.00 | — |
-| `M11.C.17` | composite | **FAIL** | 150 | `coached_rise` +0.00162 ± 0.0038, p 0.102, does not hold, pairs differing 0.08; `family_rise` +0.000464 ± 0.0011 (reported only), pairs differing 0.08 | — | 0.01 | — |
+| `M11.C.17` | composite | **PASS** | 150 | `coached_rise` +0.00207 ± 0.0039, p 0.0467, holds, pairs differing 0.11; `family_rise` +0.00059 ± 0.0011 (reported only), pairs differing 0.11 | — | 0.01 | — |
 | `M11.C.30` | premise | **PASS** | 100 | `social_load` -266 ± 21, p 4.04e-18, holds, pairs differing 1.00 | — | 0.00 | — |
-| `M11.C.22` | mixed | **FAIL** | 150 | `mild_removal_effect` +35.4 ± 3.3, p 3.63e-26, holds, pairs differing 1.00; `severe_removal_effect` +22.1 ± 3.5, p 1, does not hold, pairs differing 1.00 | — | 0.05 | — |
-| `M11.C.12` | composite | **PASS** | 100 | `marital_conflict` +1.7 ± 1.3, p 0.0421, holds, pairs differing 0.95 | — | 0.00 | — |
+| `M11.C.22` | mixed | **FAIL** | 150 | `mild_removal_effect` +35.4 ± 3.2, p 2.08e-26, holds, pairs differing 1.00; `severe_removal_effect` +21.7 ± 3.5, p 1, does not hold, pairs differing 1.00 | — | 0.05 | — |
+| `M11.C.12` | composite | **FAIL** | 100 | `marital_conflict` +1.58 ± 1.3, p 0.0621, does not hold, pairs differing 0.94 | — | 0.00 | — |
 | `M11.C.31` | check | **PASS** | 150 | `budget_rise` +36.2 ± 2.7, p 1.14e-26, holds, pairs differing 1.00 | — | 0.00 | — |
 | `M11.C.11` | mixed | **PASS** | 100 | `disturbance` +10.5 ± 3.9, p 5.12e-07, holds, pairs differing 1.00 | — | 0.08 | — |
-| `M11.C.26` | premise | **PASS** | 200 | `belief_to_sink` +0.36 ± 0.038, p 1.69e-27, holds, pairs differing 0.74; `sink_to_belief` +0.36 ± 0.038 (reported only), pairs differing 0.74 | baseline 7 of 31200 (5 owed a step, 2 rewritten); treatment 7 of 31200 (5 owed a step, 2 rewritten) | 0.00 | — |
+| `M11.C.26` | premise | **PASS** | 200 | `belief_to_sink` +0.363 ± 0.038, p 1.8e-27, holds, pairs differing 0.74; `sink_to_belief` +0.363 ± 0.038 (reported only), pairs differing 0.74 | baseline 7 of 31200 (5 owed a step, 2 rewritten); treatment 7 of 31200 (5 owed a step, 2 rewritten) | 0.00 | — |
 | `M11.C.36` | check | **PASS** | 50 | `witness_response` +3.08 ± 0.015, p 3.89e-10, holds, pairs differing 1.00 | baseline 0 of 400; treatment 0 of 400 | 0.00 | — |
-| `M11.C.14[firmness]` | premise | **PASS** | 100 | `child_symptom_load` +25.6 ± 15, equivalence bound 33.8 (one-sided: the treatment no lower than the baseline less the bound), within, pairs differing 1.00 | baseline 1 of 5200 (1 owed a step); treatment 2 of 5200 (1 owed a step, 1 rewritten) | 0.00 | — |
-| `M11.C.14[talking it out]` | premise | **PASS** | 100 | `child_symptom_load` +23.2 ± 14, equivalence bound 33.8 (one-sided: the treatment no lower than the baseline less the bound), within, pairs differing 1.00; `talking_less_firmness` -2.34 ± 15 (reported only), pairs differing 1.00 | baseline 1 of 5200 (1 owed a step); treatment 1 of 5200 (1 owed a step) | 0.00 | — |
-| `M11.C.2` | composite | **FAIL** | 50 | `symptom_load` +2.07 ± 2.8, p 0.0844, does not hold, pairs differing 0.98 | — | 0.00 | — |
-| `M11.C.39` | composite | **PASS** | 150 | `pattern_after_spell` +17.7 ± 3.9, p 4.62e-14, holds, pairs differing 0.99; `time_to_remission` +0.08 ± 0.063 (reported only), pairs differing 0.10 | — | 0.00 | — |
-| `M11.C.40` | premise | **PASS** | 150 | `automatic_entropy_fall` +0.339 ± 0.017, p 1.16e-26, holds, pairs differing 1.00; `automatic_less_self` +0.527 ± 0.065 (reported only), pairs differing 1.00; `self_entropy_fall` -0.188 ± 0.064 (reported only), pairs differing 0.98; `empty_windows` -0.107 ± 0.056 (reported only), pairs differing 0.13 | — | 0.00 | — |
-| `M11.C.43` | composite | **FAIL** | 100 | `loss_rise` -4.36 ± 3.7, p 0.974, does not hold, pairs differing 1.00 | — | 0.00 | — |
+| `M11.C.14[firmness]` | premise | **PASS** | 100 | `child_symptom_load` +25.7 ± 15, equivalence bound 33.8 (one-sided: the treatment no lower than the baseline less the bound), within, pairs differing 1.00 | baseline 1 of 5200 (1 owed a step); treatment 2 of 5200 (1 owed a step, 1 rewritten) | 0.00 | — |
+| `M11.C.14[talking it out]` | premise | **PASS** | 100 | `child_symptom_load` +23.2 ± 14, equivalence bound 33.8 (one-sided: the treatment no lower than the baseline less the bound), within, pairs differing 1.00; `talking_less_firmness` -2.41 ± 15 (reported only), pairs differing 1.00 | baseline 1 of 5200 (1 owed a step); treatment 1 of 5200 (1 owed a step) | 0.00 | — |
+| `M11.C.2` | composite | **FAIL** | 50 | `symptom_load` +1.1 ± 3.1, p 0.187, does not hold, pairs differing 0.98 | — | 0.00 | — |
+| `M11.C.39` | composite | **PASS** | 150 | `pattern_after_spell` +17.6 ± 3.9, p 8.12e-14, holds, pairs differing 0.99; `time_to_remission` +0.08 ± 0.063 (reported only), pairs differing 0.10 | — | 0.00 | — |
+| `M11.C.40` | premise | **PASS** | 150 | `automatic_entropy_fall` +0.338 ± 0.016, p 1.16e-26, holds, pairs differing 1.00; `automatic_less_self` +0.545 ± 0.067 (reported only), pairs differing 1.00; `self_entropy_fall` -0.207 ± 0.065 (reported only), pairs differing 0.99; `empty_windows` -0.08 ± 0.054 (reported only), pairs differing 0.12 | — | 0.00 | — |
+| `M11.C.43` | composite | **FAIL** | 100 | `loss_rise` -4.74 ± 3.7, p 0.985, does not hold, pairs differing 1.00 | — | 0.00 | — |
 | `M11.C.34` | mixed | **FAIL** | 150 | `automatic_reaction` +0.233 ± 0.17, p 0.996, does not hold, pairs differing 0.54 | — | 0.00 | — |
-| `M11.C.21` | composite | **FAIL** | 100 | `target_rise` -0.926 ± 0.45, p 1, does not hold, pairs differing 0.80 | baseline 2 of 2600 (1 owed a step, 1 rewritten); treatment 2 of 2600 (1 owed a step, 1 rewritten) | 0.00 | — |
+| `M11.C.21` | composite | **FAIL** | 100 | `target_rise` -0.932 ± 0.45, p 1, does not hold, pairs differing 0.79 | baseline 2 of 2600 (1 owed a step, 1 rewritten); treatment 2 of 2600 (1 owed a step, 1 rewritten) | 0.00 | — |
 | `M11.C.23` | composite | **PASS** | 150 | `relapses` +0.0533 ± 0.036, p 0.00391, holds, pairs differing 0.05 | baseline 5 of 7800 (5 owed a step); treatment 5 of 7800 (4 owed a step, 1 rewritten) | 0.00 | — |
-| `M11.C.24` | premise | **PASS** | 150 | `under_change` +8.86 ± 0.49, p 1.19e-26, holds, pairs differing 1.00; `over_change` -8.14 ± 0.96, p 1.98e-22, holds, pairs differing 1.00 | baseline 11 of 15600 (3 owed a step, 8 rewritten); treatment 11 of 7800 (3 owed a step, 8 rewritten) | 0.00 | — |
-| `M11.C.46` | premise | **PASS** | 100 | `seeker_relief` +2.06 ± 0.17, p 1.98e-18, holds, pairs differing 1.00; `third_excess` +0.145 ± 1.6 (reported only), pairs differing 1.00; `seeker_change` -1.54 ± 0.89 (reported only), pairs differing 1.00 | baseline 0 of 100; treatment 0 of 100 | 0.00 | — |
-| `M11.C.7[joint over one spouse]` | mixed | **FAIL** | 150 | `deviation_fall` +0.0037 ± 0.093, p 0.457, does not hold, pairs differing 1.00; `landed_contacts` -1.39 ± 0.68 (reported only), pairs differing 0.91 | — | 0.00 | — |
-| `M11.C.7[one spouse over sided]` | mixed | **PASS** | 150 | `deviation_fall` +0.112 ± 0.092, p 0.00806, holds, pairs differing 1.00; `landed_contacts` +10.3 ± 0.58, p 1.03e-26, holds, pairs differing 1.00 | baseline 0 of 9600 | 0.00 | — |
-| `M11.C.7[joint over sided]` | mixed | **PASS** | 150 | `deviation_fall` +0.116 ± 0.098, p 0.00309, holds, pairs differing 1.00; `landed_contacts` +8.89 ± 0.52, p 1.02e-26, holds, pairs differing 1.00 | baseline 0 of 9600 | 0.00 | — |
+| `M11.C.24` | premise | **PASS** | 150 | `under_change` +8.81 ± 0.49, p 1.19e-26, holds, pairs differing 1.00; `over_change` -7.99 ± 0.99, p 1.26e-21, holds, pairs differing 1.00 | baseline 11 of 15600 (3 owed a step, 8 rewritten); treatment 11 of 7800 (3 owed a step, 8 rewritten) | 0.00 | — |
+| `M11.C.46` | premise | **PASS** | 100 | `seeker_relief` +2.06 ± 0.16, p 1.98e-18, holds, pairs differing 1.00; `third_excess` +0.203 ± 1.6 (reported only), pairs differing 1.00; `seeker_change` -1.52 ± 0.88 (reported only), pairs differing 1.00 | baseline 0 of 100; treatment 0 of 100 | 0.00 | — |
+| `M11.C.7[joint over one spouse]` | mixed | **FAIL** | 150 | `deviation_fall` +0.0596 ± 0.095, p 0.144, does not hold, pairs differing 1.00; `landed_contacts` -1.45 ± 0.68 (reported only), pairs differing 0.91 | — | 0.00 | — |
+| `M11.C.7[one spouse over sided]` | mixed | **FAIL** | 150 | `deviation_fall` +0.0687 ± 0.091, p 0.0915, does not hold, pairs differing 1.00; `landed_contacts` +10.4 ± 0.55, p 1.03e-26, holds, pairs differing 1.00 | baseline 0 of 9600 | 0.00 | — |
+| `M11.C.7[joint over sided]` | mixed | **PASS** | 150 | `deviation_fall` +0.128 ± 0.1, p 0.0024, holds, pairs differing 1.00; `landed_contacts` +8.97 ± 0.53, p 1.02e-26, holds, pairs differing 1.00 | baseline 0 of 9600 | 0.00 | — |
 
 ## Counts the arms record (`M11.1f`)
 
@@ -227,36 +227,36 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
  {
   "criterion": "M11.C.17",
   "class": "composite",
-  "outcome": "FAIL",
+  "outcome": "PASS",
   "seeds": 150,
   "readouts": [
    {
     "baseline_position": null,
-    "baseline_sd": 0.010860017701867326,
+    "baseline_sd": 0.010874960384108906,
     "direction": 1,
-    "half_width": 0.0037953052752037887,
-    "holds": false,
-    "mean_difference": 0.0016234511894746599,
-    "n_nonzero": 12,
-    "nonzero_share": 0.08,
-    "p": 0.101806640625,
-    "pooled_sd": 0.016672591570971854,
+    "half_width": 0.003862937782910895,
+    "holds": true,
+    "mean_difference": 0.0020665473280420815,
+    "n_nonzero": 16,
+    "nonzero_share": 0.10666666666666667,
+    "p": 0.046722412109375,
+    "pooled_sd": 0.016950671010898945,
     "readout": "coached_rise",
-    "w_plus": 56.0
+    "w_plus": 101.0
    },
    {
     "baseline_position": null,
-    "baseline_sd": 0.0031028622005335217,
+    "baseline_sd": 0.0031071315383168316,
     "direction": 1,
-    "half_width": 0.001084372935772511,
-    "mean_difference": 0.00046384319699275997,
-    "nonzero_share": 0.08,
-    "pooled_sd": 0.004763597591706244,
+    "half_width": 0.0011036965094031127,
+    "mean_difference": 0.000590442093726309,
+    "nonzero_share": 0.10666666666666667,
+    "pooled_sd": 0.004843048860256843,
     "readout": "family_rise",
     "report_only": true
    }
   ],
-  "fallback_rate": 0.008770825087258466,
+  "fallback_rate": 0.008771929824561403,
   "flags": [],
   "missing_moves": [],
   "scripted": {}
@@ -295,31 +295,31 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "readouts": [
    {
     "baseline_position": null,
-    "baseline_sd": 18.634026136439726,
+    "baseline_sd": 18.49101750454103,
     "direction": 1,
-    "half_width": 3.3488289800697326,
+    "half_width": 3.2444807536164406,
     "holds": true,
-    "mean_difference": 35.37384817522063,
+    "mean_difference": 35.42713471025786,
     "n_nonzero": 150,
     "nonzero_share": 1.0,
-    "p": 3.632720699285564e-26,
-    "pooled_sd": 17.251121084349354,
+    "p": 2.0776403651133408e-26,
+    "pooled_sd": 17.025637790177964,
     "readout": "mild_removal_effect",
-    "w_plus": 11268.0
+    "w_plus": 11296.0
    },
    {
     "baseline_position": null,
-    "baseline_sd": 18.634026136439726,
+    "baseline_sd": 18.49101750454103,
     "direction": -1,
-    "half_width": 3.4754442800659366,
+    "half_width": 3.475659863253423,
     "holds": false,
-    "mean_difference": 22.065317937998152,
+    "mean_difference": 21.68775963408857,
     "n_nonzero": 143,
     "nonzero_share": 1.0,
     "p": 1.0,
-    "pooled_sd": 16.230610172205807,
+    "pooled_sd": 16.12946567999026,
     "readout": "severe_removal_effect",
-    "w_plus": 433.0
+    "w_plus": 448.0
    }
   ],
   "fallback_rate": 0.05316951566951567,
@@ -330,22 +330,22 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
  {
   "criterion": "M11.C.12",
   "class": "composite",
-  "outcome": "PASS",
+  "outcome": "FAIL",
   "seeds": 100,
   "readouts": [
    {
     "baseline_position": null,
-    "baseline_sd": 4.173933057886431,
+    "baseline_sd": 4.3038507540493685,
     "direction": 1,
-    "half_width": 1.2795086809578373,
-    "holds": true,
-    "mean_difference": 1.7,
-    "n_nonzero": 95,
-    "nonzero_share": 0.95,
-    "p": 0.04206869129916856,
-    "pooled_sd": 5.315072906367325,
+    "half_width": 1.2830460196286213,
+    "holds": false,
+    "mean_difference": 1.58,
+    "n_nonzero": 94,
+    "nonzero_share": 0.94,
+    "p": 0.06208576896879302,
+    "pooled_sd": 5.3518523178730595,
     "readout": "marital_conflict",
-    "w_plus": 2745.0
+    "w_plus": 2640.0
    }
   ],
   "fallback_rate": 0.0,
@@ -415,24 +415,24 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
     "baseline_position": null,
     "baseline_sd": 0.14168760314304887,
     "direction": 1,
-    "half_width": 0.03801100196311706,
+    "half_width": 0.03824446796574962,
     "holds": true,
-    "mean_difference": 0.36,
+    "mean_difference": 0.36333333333333334,
     "n_nonzero": 148,
     "nonzero_share": 0.74,
-    "p": 1.686390864797003e-27,
-    "pooled_sd": 0.1713007353512577,
+    "p": 1.798745590757458e-27,
+    "pooled_sd": 0.17188643622173116,
     "readout": "belief_to_sink",
-    "w_plus": 10984.0
+    "w_plus": 10985.0
    },
    {
     "baseline_position": null,
     "baseline_sd": 0.14168760314304887,
     "direction": 1,
-    "half_width": 0.03801100196311706,
-    "mean_difference": 0.36,
+    "half_width": 0.03824446796574962,
+    "mean_difference": 0.36333333333333334,
     "nonzero_share": 0.74,
-    "pooled_sd": 0.1713007353512577,
+    "pooled_sd": 0.17188643622173116,
     "readout": "sink_to_belief",
     "report_only": true
    }
@@ -527,10 +527,10 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
     "bound_side": 1,
     "direction": 0,
     "equivalence_bound": 33.82302097769308,
-    "half_width": 15.341330149790148,
-    "mean_difference": 25.586745500018033,
+    "half_width": 15.350328447369483,
+    "mean_difference": 25.662966015140828,
     "nonzero_share": 1.0,
-    "pooled_sd": 74.84519613623566,
+    "pooled_sd": 74.83170646591688,
     "readout": "child_symptom_load",
     "within_bound": true
    }
@@ -581,12 +581,12 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
    },
    {
     "baseline_position": null,
-    "baseline_sd": 81.41019455272972,
+    "baseline_sd": 81.38538930896888,
     "direction": 0,
-    "half_width": 14.800048399317259,
-    "mean_difference": -2.3383792436579713,
+    "half_width": 14.781054487468362,
+    "mean_difference": -2.414599758780773,
     "nonzero_share": 1.0,
-    "pooled_sd": 78.7194142267331,
+    "pooled_sd": 78.70658856874404,
     "readout": "talking_less_firmness",
     "report_only": true
    }
@@ -623,17 +623,17 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "readouts": [
    {
     "baseline_position": null,
-    "baseline_sd": 23.734294648998485,
+    "baseline_sd": 22.67531120719669,
     "direction": 1,
-    "half_width": 2.791031219472028,
+    "half_width": 3.0548116937196763,
     "holds": false,
-    "mean_difference": 2.0724103163112715,
-    "n_nonzero": 24,
+    "mean_difference": 1.0994504297526668,
+    "n_nonzero": 26,
     "nonzero_share": 0.98,
-    "p": 0.0844048261642456,
-    "pooled_sd": 25.977398444562716,
+    "p": 0.18702056452708443,
+    "pooled_sd": 24.680460329701397,
     "readout": "symptom_load",
-    "w_plus": 199.0
+    "w_plus": 211.0
    }
   ],
   "fallback_rate": 0.0,
@@ -649,17 +649,17 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "readouts": [
    {
     "baseline_position": null,
-    "baseline_sd": 8.419081873774328,
+    "baseline_sd": 8.44303453829043,
     "direction": 1,
-    "half_width": 3.919128207308914,
+    "half_width": 3.928211997905939,
     "holds": true,
-    "mean_difference": 17.72,
+    "mean_difference": 17.56,
     "n_nonzero": 148,
     "nonzero_share": 0.9866666666666667,
-    "p": 4.6225656530904716e-14,
-    "pooled_sd": 18.17471139325706,
+    "p": 8.119562300134076e-14,
+    "pooled_sd": 18.15880728129451,
     "readout": "pattern_after_spell",
-    "w_plus": 9405.5
+    "w_plus": 9366.5
    },
    {
     "baseline_position": null,
@@ -686,48 +686,48 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "readouts": [
    {
     "baseline_position": null,
-    "baseline_sd": 0.016162711457725052,
+    "baseline_sd": 0.0162796144940348,
     "direction": 1,
-    "half_width": 0.017113230399007872,
+    "half_width": 0.01620739287385577,
     "holds": true,
-    "mean_difference": 0.3390323421125775,
+    "mean_difference": 0.3376819095404042,
     "n_nonzero": 150,
     "nonzero_share": 1.0,
     "p": 1.1614203074307053e-26,
-    "pooled_sd": 0.07651589610971306,
+    "pooled_sd": 0.07140395750289019,
     "readout": "automatic_entropy_fall",
     "w_plus": 11325.0
    },
    {
     "baseline_position": null,
-    "baseline_sd": 0.3372449524753002,
+    "baseline_sd": 0.3496003563082653,
     "direction": 1,
-    "half_width": 0.06536986295068704,
-    "mean_difference": 0.5268438027510631,
+    "half_width": 0.06732081251904813,
+    "mean_difference": 0.5448335075529654,
     "nonzero_share": 1.0,
-    "pooled_sd": 0.3341477525825997,
+    "pooled_sd": 0.34151582822647575,
     "readout": "automatic_less_self",
     "report_only": true
    },
    {
     "baseline_position": null,
-    "baseline_sd": 0.33781370830525587,
+    "baseline_sd": 0.34941790773846665,
     "direction": 0,
-    "half_width": 0.06378959276934895,
-    "mean_difference": -0.1878114606384856,
-    "nonzero_share": 0.98,
-    "pooled_sd": 0.3254018612076931,
+    "half_width": 0.06544444991504153,
+    "mean_difference": -0.2071515980125613,
+    "nonzero_share": 0.9866666666666667,
+    "pooled_sd": 0.3349799161857897,
     "readout": "self_entropy_fall",
     "report_only": true
    },
    {
     "baseline_position": null,
-    "baseline_sd": 0.3260501875972697,
+    "baseline_sd": 0.301005027940793,
     "direction": 0,
-    "half_width": 0.056074283319660634,
-    "mean_difference": -0.10666666666666667,
-    "nonzero_share": 0.13333333333333333,
-    "pooled_sd": 0.24449189424900689,
+    "half_width": 0.0541192915522811,
+    "mean_difference": -0.08,
+    "nonzero_share": 0.12,
+    "pooled_sd": 0.23487823491098386,
     "readout": "empty_windows",
     "report_only": true
    }
@@ -745,17 +745,17 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "readouts": [
    {
     "baseline_position": null,
-    "baseline_sd": 17.643530502118367,
+    "baseline_sd": 17.68611067872661,
     "direction": 1,
-    "half_width": 3.703237280158917,
+    "half_width": 3.7095867887145366,
     "holds": false,
-    "mean_difference": -4.359971816355286,
-    "n_nonzero": 91,
+    "mean_difference": -4.742004009439374,
+    "n_nonzero": 90,
     "nonzero_share": 1.0,
-    "p": 0.9736514579690954,
-    "pooled_sd": 15.777927137153107,
+    "p": 0.985252836905938,
+    "pooled_sd": 15.801740426472605,
     "readout": "loss_rise",
-    "w_plus": 1604.0
+    "w_plus": 1507.0
    }
   ],
   "fallback_rate": 0.0,
@@ -797,17 +797,17 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "readouts": [
    {
     "baseline_position": null,
-    "baseline_sd": 2.9857204891131817,
+    "baseline_sd": 2.986510763341147,
     "direction": 1,
-    "half_width": 0.4518996329647059,
+    "half_width": 0.45125864209274535,
     "holds": false,
-    "mean_difference": -0.9256548571000941,
-    "n_nonzero": 57,
-    "nonzero_share": 0.8,
-    "p": 0.9999806928132917,
-    "pooled_sd": 2.6007845149204605,
+    "mean_difference": -0.9317119131100803,
+    "n_nonzero": 56,
+    "nonzero_share": 0.79,
+    "p": 0.9999849262099254,
+    "pooled_sd": 2.600196815021636,
     "readout": "target_rise",
-    "w_plus": 309.0
+    "w_plus": 287.0
    }
   ],
   "fallback_rate": 0.0,
@@ -887,31 +887,31 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "readouts": [
    {
     "baseline_position": null,
-    "baseline_sd": 1.2410198320064634,
+    "baseline_sd": 1.382306427531299,
     "direction": 1,
-    "half_width": 0.48508590014674585,
+    "half_width": 0.48769468218281536,
     "holds": true,
-    "mean_difference": 8.86009736013553,
+    "mean_difference": 8.806098854851959,
     "n_nonzero": 150,
     "nonzero_share": 1.0,
     "p": 1.185005392007276e-26,
-    "pooled_sd": 2.1579664360230066,
+    "pooled_sd": 2.199281163672393,
     "readout": "under_change",
     "w_plus": 11324.0
    },
    {
     "baseline_position": null,
-    "baseline_sd": 4.590919668474089,
+    "baseline_sd": 4.6966869683847285,
     "direction": -1,
-    "half_width": 0.9581814538661928,
+    "half_width": 0.9919450450367578,
     "holds": true,
-    "mean_difference": -8.139525705953956,
+    "mean_difference": -7.9948168842484115,
     "n_nonzero": 150,
     "nonzero_share": 1.0,
-    "p": 1.9824758193734908e-22,
-    "pooled_sd": 4.302840570502138,
+    "p": 1.2636642004958626e-21,
+    "pooled_sd": 4.378215848688488,
     "readout": "over_change",
-    "w_plus": 10818.0
+    "w_plus": 10716.0
    }
   ],
   "fallback_rate": 0.0,
@@ -946,37 +946,37 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "readouts": [
    {
     "baseline_position": null,
-    "baseline_sd": 0.4043651494805605,
+    "baseline_sd": 0.4025651344957319,
     "direction": 1,
-    "half_width": 0.16501751837733208,
+    "half_width": 0.16475736795166374,
     "holds": true,
-    "mean_difference": 2.0627938273393194,
+    "mean_difference": 2.059827666025592,
     "n_nonzero": 100,
     "nonzero_share": 1.0,
     "p": 1.9779558044497787e-18,
-    "pooled_sd": 0.7232069249047378,
+    "pooled_sd": 0.7230064272326787,
     "readout": "seeker_relief",
     "w_plus": 5050.0
    },
    {
     "baseline_position": null,
-    "baseline_sd": 8.009905045099433,
+    "baseline_sd": 7.983631345705228,
     "direction": 0,
-    "half_width": 1.594590178168878,
-    "mean_difference": 0.1454322222988199,
+    "half_width": 1.574428389064743,
+    "mean_difference": 0.20300787128848555,
     "nonzero_share": 1.0,
-    "pooled_sd": 7.9081545546901,
+    "pooled_sd": 7.913311757472587,
     "readout": "third_excess",
     "report_only": true
    },
    {
     "baseline_position": null,
-    "baseline_sd": 4.760652030369674,
+    "baseline_sd": 4.759085859651828,
     "direction": -1,
-    "half_width": 0.8850601661030002,
-    "mean_difference": -1.5438754704311373,
+    "half_width": 0.8758438822959773,
+    "mean_difference": -1.516059827107011,
     "nonzero_share": 1.0,
-    "pooled_sd": 4.3435774851888596,
+    "pooled_sd": 4.34350420849133,
     "readout": "seeker_change",
     "report_only": true
    }
@@ -1013,26 +1013,26 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "readouts": [
    {
     "baseline_position": null,
-    "baseline_sd": 0.41123436161195587,
+    "baseline_sd": 0.4031012376386469,
     "direction": 1,
-    "half_width": 0.0934755709548857,
+    "half_width": 0.09515845815524122,
     "holds": false,
-    "mean_difference": 0.0037034985775717733,
-    "n_nonzero": 143,
+    "mean_difference": 0.05964860114987215,
+    "n_nonzero": 141,
     "nonzero_share": 1.0,
-    "p": 0.45707220637617335,
-    "pooled_sd": 0.4096446983392959,
+    "p": 0.14412680163222696,
+    "pooled_sd": 0.4293905417632141,
     "readout": "deviation_fall",
-    "w_plus": 5202.0
+    "w_plus": 5522.0
    },
    {
     "baseline_position": null,
-    "baseline_sd": 3.586208980885823,
+    "baseline_sd": 3.4529823701145865,
     "direction": 1,
-    "half_width": 0.6847358075525686,
-    "mean_difference": -1.3933333333333333,
-    "nonzero_share": 0.9133333333333333,
-    "pooled_sd": 3.4296933420615985,
+    "half_width": 0.680629327067991,
+    "mean_difference": -1.4533333333333334,
+    "nonzero_share": 0.9066666666666666,
+    "pooled_sd": 3.3685145658454854,
     "readout": "landed_contacts",
     "report_only": true
    }
@@ -1045,34 +1045,34 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
  {
   "criterion": "M11.C.7[one spouse over sided]",
   "class": "mixed",
-  "outcome": "PASS",
+  "outcome": "FAIL",
   "seeds": 150,
   "readouts": [
    {
     "baseline_position": null,
-    "baseline_sd": 0.44120534618924734,
+    "baseline_sd": 0.44124968317965735,
     "direction": 1,
-    "half_width": 0.09176775301246548,
-    "holds": true,
-    "mean_difference": 0.11234195750737529,
-    "n_nonzero": 139,
+    "half_width": 0.09100930415808547,
+    "holds": false,
+    "mean_difference": 0.06866690109483961,
+    "n_nonzero": 141,
     "nonzero_share": 1.0,
-    "p": 0.008057741448000113,
-    "pooled_sd": 0.42648321049976073,
+    "p": 0.09150129187909835,
+    "pooled_sd": 0.4226061350075013,
     "readout": "deviation_fall",
-    "w_plus": 6010.0
+    "w_plus": 5653.0
    },
    {
     "baseline_position": null,
-    "baseline_sd": 0.18010685369303292,
+    "baseline_sd": 3.4529823701145865,
     "direction": 1,
-    "half_width": 0.5760006363406875,
+    "half_width": 0.552592266643646,
     "holds": true,
-    "mean_difference": 10.28,
+    "mean_difference": 10.42,
     "n_nonzero": 150,
     "nonzero_share": 1.0,
-    "p": 1.0285634412494476e-26,
-    "pooled_sd": 2.5390286856722724,
+    "p": 1.0327368337658618e-26,
+    "pooled_sd": 2.441627249225621,
     "readout": "landed_contacts",
     "w_plus": 11325.0
    }
@@ -1100,29 +1100,29 @@ Rules: `ensemble_block` = 50, `ensemble_cap` = 500, `ensemble_precision` = 0.25,
   "readouts": [
    {
     "baseline_position": null,
-    "baseline_sd": 0.44120534618924734,
+    "baseline_sd": 0.44124968317965735,
     "direction": 1,
-    "half_width": 0.09844708149816506,
+    "half_width": 0.10183596434431123,
     "holds": true,
-    "mean_difference": 0.11604545608494708,
-    "n_nonzero": 139,
+    "mean_difference": 0.12831550224471178,
+    "n_nonzero": 141,
     "nonzero_share": 1.0,
-    "p": 0.0030861803571298305,
-    "pooled_sd": 0.4249505942404165,
+    "p": 0.0024045790831012086,
+    "pooled_sd": 0.4477516889034323,
     "readout": "deviation_fall",
-    "w_plus": 6168.0
+    "w_plus": 6376.0
    },
    {
     "baseline_position": null,
-    "baseline_sd": 0.18010685369303292,
+    "baseline_sd": 3.281873475974394,
     "direction": 1,
-    "half_width": 0.519324639616159,
+    "half_width": 0.525209140545415,
     "holds": true,
-    "mean_difference": 8.886666666666667,
+    "mean_difference": 8.966666666666667,
     "n_nonzero": 150,
     "nonzero_share": 1.0,
-    "p": 1.0234532596382356e-26,
-    "pooled_sd": 2.312697177034251,
+    "p": 1.0169336420576875e-26,
+    "pooled_sd": 2.32063498985776,
     "readout": "landed_contacts",
     "w_plus": 11325.0
    }

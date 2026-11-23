@@ -11,7 +11,7 @@ unimported name) is **broken** and proves nothing; an engine exception under a m
 representation mutant (`M11.1c`) should leave every verdict
 unchanged; a change is reported as an **encoding artefact**.
 
-engine_hash: 4aaa9029f63a14df002acc8b697a23dff5c90538a2aae6be6a1d2de52cf0b245
+engine_hash: 9321b8523500e01ed04fbf4bcac03d02d6f289381679aced02f19a640e618434
 
 Results are cached by `tools/mutant_runner.py` under the engine hash and each mutant's own edits
 (`docs/records_cache/mutation.json`); this file is rendered from that cache.
@@ -19,99 +19,98 @@ Results are cached by `tools/mutant_runner.py` under the engine hash and each mu
 | Mutant | Kind | What it changes | Criterion | Verdict under mutant | Seeds | Difference under mutant | Result |
 |---|---|---|---|---|---|---|---|
 | `steepness-level-independent` | named | M4.C.1a's steepness made independent of functional_level (fixed at its value for level 50) | `M11.C.1` | PASS | 150 | `time_to_threshold` -1.67 ± 0.17 | **survived** |
-| `steepness-level-independent` | named | M4.C.1a's steepness made independent of functional_level (fixed at its value for level 50) | `M11.C.16` | PASS | 150 | `repertoire_entropy` -0.0457 ± 0.0068; `top_move_share` +0.0677 ± 0.01 | **survived** |
-| `steepness-level-independent` | named | M4.C.1a's steepness made independent of functional_level (fixed at its value for level 50) | `M11.C.38[-0 vs -5]` | PASS | 100 | `time_to_threshold` -0.83 ± 0.18 | **survived** |
-| `steepness-level-independent` | named | M4.C.1a's steepness made independent of functional_level (fixed at its value for level 50) | `M11.C.38[-5 vs -10]` | PASS | 100 | `time_to_threshold` -0.77 ± 0.18 | **survived** |
-| `steepness-level-independent` | named | M4.C.1a's steepness made independent of functional_level (fixed at its value for level 50) | `M11.C.38[-10 vs -15]` | PASS | 100 | `time_to_threshold` -0.72 ± 0.16 | **survived** |
-| `steepness-level-independent` | named | M4.C.1a's steepness made independent of functional_level (fixed at its value for level 50) | `M11.C.41[light: lower level]` | PASS | 150 | `mean_acute` +23.6 ± 13; `reactive_over_chance` +0.0555 ± 0.0028 | **survived** |
-| `steepness-level-independent` | named | M4.C.1a's steepness made independent of functional_level (fixed at its value for level 50) | `M11.C.41[heavy: lower level]` | PASS | 150 | `mean_acute` +21.2 ± 15; `reactive_over_chance` +0.0557 ± 0.0028 | **survived** |
-| `mixing-weight-level-independent` | named | M4.D.1a's mixing weight made independent of functional_level | `M11.C.16` | PASS | 100 | `repertoire_entropy` -0.176 ± 0.025; `top_move_share` +0.2 ± 0.026 | **survived** |
-| `mixing-weight-level-independent` | named | M4.D.1a's mixing weight made independent of functional_level | `M11.C.41[light: lower level]` | PASS | 150 | `mean_acute` +820 ± 38; `reactive_over_chance` +0.00598 ± 0.0021 | **survived** |
-| `mixing-weight-level-independent` | named | M4.D.1a's mixing weight made independent of functional_level | `M11.C.41[heavy: lower level]` | PASS | 150 | `mean_acute` +856 ± 40; `reactive_over_chance` +0.00466 ± 0.0023 | **survived** |
+| `steepness-level-independent` | named | M4.C.1a's steepness made independent of functional_level (fixed at its value for level 50) | `M11.C.16` | PASS | 150 | `repertoire_entropy` -0.0454 ± 0.007; `top_move_share` +0.0672 ± 0.0099 | **survived** |
+| `steepness-level-independent` | named | M4.C.1a's steepness made independent of functional_level (fixed at its value for level 50) | `M11.C.38[-0 vs -5]` | PASS | 100 | `time_to_threshold` -0.82 ± 0.18 | **survived** |
+| `steepness-level-independent` | named | M4.C.1a's steepness made independent of functional_level (fixed at its value for level 50) | `M11.C.38[-5 vs -10]` | PASS | 100 | `time_to_threshold` -0.78 ± 0.18 | **survived** |
+| `steepness-level-independent` | named | M4.C.1a's steepness made independent of functional_level (fixed at its value for level 50) | `M11.C.38[-10 vs -15]` | PASS | 100 | `time_to_threshold` -0.7 ± 0.16 | **survived** |
+| `steepness-level-independent` | named | M4.C.1a's steepness made independent of functional_level (fixed at its value for level 50) | `M11.C.41[light: lower level]` | PASS | 100 | `mean_acute` +29.1 ± 16; `reactive_over_chance` +0.0548 ± 0.0033 | **survived** |
+| `steepness-level-independent` | named | M4.C.1a's steepness made independent of functional_level (fixed at its value for level 50) | `M11.C.41[heavy: lower level]` | PASS | 150 | `mean_acute` +22.5 ± 15; `reactive_over_chance` +0.0562 ± 0.0028 | **survived** |
+| `mixing-weight-level-independent` | named | M4.D.1a's mixing weight made independent of functional_level | `M11.C.16` | PASS | 100 | `repertoire_entropy` -0.184 ± 0.025; `top_move_share` +0.209 ± 0.026 | **survived** |
+| `mixing-weight-level-independent` | named | M4.D.1a's mixing weight made independent of functional_level | `M11.C.41[light: lower level]` | PASS | 100 | `mean_acute` +788 ± 43; `reactive_over_chance` +0.0082 ± 0.0023 | **survived** |
+| `mixing-weight-level-independent` | named | M4.D.1a's mixing weight made independent of functional_level | `M11.C.41[heavy: lower level]` | PASS | 150 | `mean_acute` +855 ± 42; `reactive_over_chance` +0.00471 ± 0.0023 | **survived** |
 | `triangle-transfer-removed` | named | M1.C.1's transfer removed | `M11.C.3` | FAIL | 50 | `seeker_anxiety` -0.0541 ± 0.088; `third_anxiety` -0.715 ± 0.24; `partner_anxiety` +0.853 ± 0.16 | **red** |
 | `seeker-relief-removed` | deletion | M1.C.1's relief of the seeker removed; the third still absorbs, now all of it a logged source, so the ledger balances (proves M11.C.3's seeker readout, which the transfer and roles mutants reach only through the third's) | `M11.C.3` | FAIL | 50 | `seeker_anxiety` +0.0715 ± 0.095; `third_anxiety` +2.13 ± 0.43; `partner_anxiety` +0.751 ± 0.18 | **red** |
 | `triangle-help-ignored` | named | M1.C.1's dependence on the third's help removed (owner decision 2026-10-09): every third helps fully | `M11.C.3` | PASS | 50 | `seeker_anxiety` -4.81 ± 0.44; `third_anxiety` +7.58 ± 0.81; `partner_anxiety` +0.489 ± 0.29 | **survived** |
-| `learner-disabled` | named | M4.D.6 disabled in both arms: no learned value ever moves | `M11.C.16` | PASS | 150 | `repertoire_entropy` -0.0415 ± 0.0023; `top_move_share` +0.066 ± 0.0027 | **survived** |
+| `learner-disabled` | named | M4.D.6 disabled in both arms: no learned value ever moves | `M11.C.16` | PASS | 150 | `repertoire_entropy` -0.0417 ± 0.0023; `top_move_share` +0.0662 ± 0.0026 | **survived** |
 | `axes-collapsed` | named | M5.F.2b's two axes collapsed to their mean | `M11.C.19` | FAIL | 50 | `outward_failed` +0 ± 0; `inward_failed` +0 ± 0 | **red** |
 | `sex-term-in-pole` | named | a sex term added to pole assignment: a female over-functioner pushes four times as hard | `M11.C.25` | FAIL | 100 | `first_dominant` -0.35 ± 0.094 | **red** |
 | `one-sided-deviation` | named | M4.C.1 made one-sided: only too little contact is felt | `M11.C.44` | PASS | 150 | `outside_inside_ratio` +0.198 ± 0.13 | **survived** |
 | `one-sided-deviation` | named | M4.C.1 made one-sided: only too little contact is felt | `M11.C.27[unstable,add_third]` | FAIL | 50 | `pair_deviation` +0.054 ± 0.032; `pair_deviation_week_1` +0.054 ± 0.032; `pair_deviation_week_2` +0.0487 ± 0.03; `pair_deviation_week_3` +0.0356 ± 0.024; `pair_deviation_week_4` +0.0581 ± 0.04; `pair_deviation_week_5` +0.0717 ± 0.044; `pair_deviation_week_6` +0.0517 ± 0.032; `pair_deviation_week_7` +0.0804 ± 0.046; `pair_deviation_week_8` +0.0738 ± 0.054; `pair_deviation_week_9` +0.0761 ± 0.057; `pair_deviation_week_10` +0.0761 ± 0.058; `pair_deviation_week_11` +0.0709 ± 0.058; `pair_deviation_week_12` +0.0662 ± 0.058 | **reversed** |
-| `one-sided-deviation` | named | M4.C.1 made one-sided: only too little contact is felt | `M11.C.27[unstable,remove_one]` | FAIL | 100 | `pair_deviation` +0.0806 ± 0.028; `pair_deviation_week_1` +0.0806 ± 0.028; `pair_deviation_week_2` +0.104 ± 0.034; `pair_deviation_week_3` +0.0956 ± 0.033; `pair_deviation_week_4` +0.137 ± 0.045; `pair_deviation_week_5` +0.169 ± 0.048; `pair_deviation_week_6` +0.202 ± 0.05; `pair_deviation_week_7` +0.24 ± 0.051; `pair_deviation_week_8` +0.255 ± 0.052; `pair_deviation_week_9` +0.279 ± 0.053; `pair_deviation_week_10` +0.281 ± 0.055; `pair_deviation_week_11` +0.278 ± 0.058; `pair_deviation_week_12` +0.269 ± 0.058 | **reversed** |
+| `one-sided-deviation` | named | M4.C.1 made one-sided: only too little contact is felt | `M11.C.27[unstable,remove_one]` | FAIL | 100 | `pair_deviation` +0.0806 ± 0.028; `pair_deviation_week_1` +0.0806 ± 0.028; `pair_deviation_week_2` +0.102 ± 0.034; `pair_deviation_week_3` +0.0933 ± 0.033; `pair_deviation_week_4` +0.135 ± 0.045; `pair_deviation_week_5` +0.166 ± 0.048; `pair_deviation_week_6` +0.195 ± 0.049; `pair_deviation_week_7` +0.235 ± 0.05; `pair_deviation_week_8` +0.249 ± 0.051; `pair_deviation_week_9` +0.275 ± 0.053; `pair_deviation_week_10` +0.283 ± 0.053; `pair_deviation_week_11` +0.279 ± 0.056; `pair_deviation_week_12` +0.272 ± 0.056 | **reversed** |
 | `witness-position-blind` | named | witness appraisal made a copy that reads neither of the witness's ties | `M11.C.35` | FAIL | 50 | `witness_appraisal` +0.00941 ± 0.028 | **red** |
 | `threshold-level-independent` | deletion | M1.A.6's symptom threshold made independent of functional_level (fixed at its value for level 50) | `M11.C.1` | PASS | 100 | `time_to_threshold` -1.62 ± 0.17 | **survived** |
-| `threshold-level-independent` | deletion | M1.A.6's symptom threshold made independent of functional_level (fixed at its value for level 50) | `M11.C.16` | PASS | 150 | `repertoire_entropy` -0.139 ± 0.025; `top_move_share` +0.147 ± 0.025 | **survived** |
-| `threshold-level-independent` | deletion | M1.A.6's symptom threshold made independent of functional_level (fixed at its value for level 50) | `M11.C.38[-0 vs -5]` | PASS | 100 | `time_to_threshold` -0.82 ± 0.16 | **survived** |
-| `threshold-level-independent` | deletion | M1.A.6's symptom threshold made independent of functional_level (fixed at its value for level 50) | `M11.C.38[-5 vs -10]` | PASS | 100 | `time_to_threshold` -0.8 ± 0.15 | **survived** |
-| `threshold-level-independent` | deletion | M1.A.6's symptom threshold made independent of functional_level (fixed at its value for level 50) | `M11.C.38[-10 vs -15]` | PASS | 100 | `time_to_threshold` -0.7 ± 0.13 | **survived** |
-| `threshold-level-independent` | deletion | M1.A.6's symptom threshold made independent of functional_level (fixed at its value for level 50) | `M11.C.41[light: lower level]` | PASS | 150 | `mean_acute` +1.05e+03 ± 97; `reactive_over_chance` +0.0602 ± 0.0029 | **survived** |
-| `threshold-level-independent` | deletion | M1.A.6's symptom threshold made independent of functional_level (fixed at its value for level 50) | `M11.C.41[heavy: lower level]` | PASS | 150 | `mean_acute` +1.1e+03 ± 1.1e+02; `reactive_over_chance` +0.062 ± 0.0026 | **survived** |
-| `threshold-level-inverted` | sign-inverted | M1.A.6's symptom threshold falls as functional_level rises | `M11.C.1` | PASS | 100 | `time_to_threshold` -1.28 ± 0.22 | **survived** |
-| `threshold-level-inverted` | sign-inverted | M1.A.6's symptom threshold falls as functional_level rises | `M11.C.16` | PASS | 150 | `repertoire_entropy` -0.086 ± 0.019; `top_move_share` +0.109 ± 0.022 | **survived** |
+| `threshold-level-independent` | deletion | M1.A.6's symptom threshold made independent of functional_level (fixed at its value for level 50) | `M11.C.16` | PASS | 150 | `repertoire_entropy` -0.14 ± 0.025; `top_move_share` +0.15 ± 0.024 | **survived** |
+| `threshold-level-independent` | deletion | M1.A.6's symptom threshold made independent of functional_level (fixed at its value for level 50) | `M11.C.38[-0 vs -5]` | PASS | 100 | `time_to_threshold` -0.83 ± 0.16 | **survived** |
+| `threshold-level-independent` | deletion | M1.A.6's symptom threshold made independent of functional_level (fixed at its value for level 50) | `M11.C.38[-5 vs -10]` | PASS | 100 | `time_to_threshold` -0.79 ± 0.15 | **survived** |
+| `threshold-level-independent` | deletion | M1.A.6's symptom threshold made independent of functional_level (fixed at its value for level 50) | `M11.C.38[-10 vs -15]` | PASS | 100 | `time_to_threshold` -0.71 ± 0.13 | **survived** |
+| `threshold-level-independent` | deletion | M1.A.6's symptom threshold made independent of functional_level (fixed at its value for level 50) | `M11.C.41[light: lower level]` | PASS | 150 | `mean_acute` +994 ± 46; `reactive_over_chance` +0.0601 ± 0.0029 | **survived** |
+| `threshold-level-independent` | deletion | M1.A.6's symptom threshold made independent of functional_level (fixed at its value for level 50) | `M11.C.41[heavy: lower level]` | PASS | 150 | `mean_acute` +1.09e+03 ± 1.1e+02; `reactive_over_chance` +0.0623 ± 0.0026 | **survived** |
+| `threshold-level-inverted` | sign-inverted | M1.A.6's symptom threshold falls as functional_level rises | `M11.C.1` | PASS | 150 | `time_to_threshold` -1.35 ± 0.19 | **survived** |
+| `threshold-level-inverted` | sign-inverted | M1.A.6's symptom threshold falls as functional_level rises | `M11.C.16` | PASS | 150 | `repertoire_entropy` -0.081 ± 0.017; `top_move_share` +0.105 ± 0.021 | **survived** |
 | `threshold-level-inverted` | sign-inverted | M1.A.6's symptom threshold falls as functional_level rises | `M11.C.38[-0 vs -5]` | PASS | 100 | `time_to_threshold` -0.6 ± 0.2 | **survived** |
-| `threshold-level-inverted` | sign-inverted | M1.A.6's symptom threshold falls as functional_level rises | `M11.C.38[-5 vs -10]` | PASS | 100 | `time_to_threshold` -0.68 ± 0.19 | **survived** |
+| `threshold-level-inverted` | sign-inverted | M1.A.6's symptom threshold falls as functional_level rises | `M11.C.38[-5 vs -10]` | PASS | 100 | `time_to_threshold` -0.7 ± 0.19 | **survived** |
 | `threshold-level-inverted` | sign-inverted | M1.A.6's symptom threshold falls as functional_level rises | `M11.C.38[-10 vs -15]` | PASS | 100 | `time_to_threshold` -0.82 ± 0.18 | **survived** |
-| `threshold-level-inverted` | sign-inverted | M1.A.6's symptom threshold falls as functional_level rises | `M11.C.41[light: lower level]` | PASS | 150 | `mean_acute` +1.12e+03 ± 92; `reactive_over_chance` +0.0628 ± 0.0029 | **survived** |
-| `threshold-level-inverted` | sign-inverted | M1.A.6's symptom threshold falls as functional_level rises | `M11.C.41[heavy: lower level]` | PASS | 150 | `mean_acute` +1.27e+03 ± 1.2e+02; `reactive_over_chance` +0.0606 ± 0.0025 | **survived** |
-| `standing-load-level-independent` | deletion | M4.A.5's self term made independent of basic_level (fixed at its value for level 50) | `M11.C.1` | PASS | 100 | `time_to_threshold` -1.92 ± 0.16 | **survived** |
-| `standing-load-level-independent` | deletion | M4.A.5's self term made independent of basic_level (fixed at its value for level 50) | `M11.C.16` | PASS | 150 | `repertoire_entropy` -0.159 ± 0.027; `top_move_share` +0.149 ± 0.026 | **survived** |
-| `standing-load-level-independent` | deletion | M4.A.5's self term made independent of basic_level (fixed at its value for level 50) | `M11.C.38[-0 vs -5]` | PASS | 100 | `time_to_threshold` -1.06 ± 0.14 | **survived** |
+| `threshold-level-inverted` | sign-inverted | M1.A.6's symptom threshold falls as functional_level rises | `M11.C.41[light: lower level]` | PASS | 150 | `mean_acute` +1.14e+03 ± 97; `reactive_over_chance` +0.0623 ± 0.0029 | **survived** |
+| `threshold-level-inverted` | sign-inverted | M1.A.6's symptom threshold falls as functional_level rises | `M11.C.41[heavy: lower level]` | PASS | 150 | `mean_acute` +1.26e+03 ± 1.2e+02; `reactive_over_chance` +0.0602 ± 0.0026 | **survived** |
+| `standing-load-level-independent` | deletion | M4.A.5's self term made independent of basic_level (fixed at its value for level 50) | `M11.C.1` | PASS | 100 | `time_to_threshold` -1.93 ± 0.17 | **survived** |
+| `standing-load-level-independent` | deletion | M4.A.5's self term made independent of basic_level (fixed at its value for level 50) | `M11.C.16` | PASS | 150 | `repertoire_entropy` -0.166 ± 0.027; `top_move_share` +0.161 ± 0.026 | **survived** |
+| `standing-load-level-independent` | deletion | M4.A.5's self term made independent of basic_level (fixed at its value for level 50) | `M11.C.38[-0 vs -5]` | PASS | 100 | `time_to_threshold` -1.07 ± 0.15 | **survived** |
 | `standing-load-level-independent` | deletion | M4.A.5's self term made independent of basic_level (fixed at its value for level 50) | `M11.C.38[-5 vs -10]` | PASS | 100 | `time_to_threshold` -0.86 ± 0.13 | **survived** |
 | `standing-load-level-independent` | deletion | M4.A.5's self term made independent of basic_level (fixed at its value for level 50) | `M11.C.38[-10 vs -15]` | PASS | 100 | `time_to_threshold` -0.87 ± 0.12 | **survived** |
-| `standing-load-level-independent` | deletion | M4.A.5's self term made independent of basic_level (fixed at its value for level 50) | `M11.C.41[light: lower level]` | PASS | 150 | `mean_acute` +985 ± 79; `reactive_over_chance` +0.0592 ± 0.0029 | **survived** |
-| `standing-load-level-independent` | deletion | M4.A.5's self term made independent of basic_level (fixed at its value for level 50) | `M11.C.41[heavy: lower level]` | PASS | 150 | `mean_acute` +1.01e+03 ± 63; `reactive_over_chance` +0.0601 ± 0.0027 | **survived** |
-| `standing-load-level-inverted` | sign-inverted | M4.A.5's self term rises with basic_level instead of falling | `M11.C.1` | PASS | 100 | `time_to_threshold` -1.91 ± 0.17 | **survived** |
-| `standing-load-level-inverted` | sign-inverted | M4.A.5's self term rises with basic_level instead of falling | `M11.C.16` | PASS | 150 | `repertoire_entropy` -0.163 ± 0.03; `top_move_share` +0.153 ± 0.029 | **survived** |
-| `standing-load-level-inverted` | sign-inverted | M4.A.5's self term rises with basic_level instead of falling | `M11.C.38[-0 vs -5]` | PASS | 100 | `time_to_threshold` -1.05 ± 0.15 | **survived** |
+| `standing-load-level-independent` | deletion | M4.A.5's self term made independent of basic_level (fixed at its value for level 50) | `M11.C.41[light: lower level]` | PASS | 150 | `mean_acute` +996 ± 78; `reactive_over_chance` +0.0596 ± 0.0031 | **survived** |
+| `standing-load-level-independent` | deletion | M4.A.5's self term made independent of basic_level (fixed at its value for level 50) | `M11.C.41[heavy: lower level]` | PASS | 150 | `mean_acute` +1.05e+03 ± 66; `reactive_over_chance` +0.0606 ± 0.0028 | **survived** |
+| `standing-load-level-inverted` | sign-inverted | M4.A.5's self term rises with basic_level instead of falling | `M11.C.1` | PASS | 100 | `time_to_threshold` -1.93 ± 0.17 | **survived** |
+| `standing-load-level-inverted` | sign-inverted | M4.A.5's self term rises with basic_level instead of falling | `M11.C.16` | PASS | 150 | `repertoire_entropy` -0.146 ± 0.028; `top_move_share` +0.137 ± 0.027 | **survived** |
+| `standing-load-level-inverted` | sign-inverted | M4.A.5's self term rises with basic_level instead of falling | `M11.C.38[-0 vs -5]` | PASS | 100 | `time_to_threshold` -1.07 ± 0.15 | **survived** |
 | `standing-load-level-inverted` | sign-inverted | M4.A.5's self term rises with basic_level instead of falling | `M11.C.38[-5 vs -10]` | PASS | 100 | `time_to_threshold` -0.86 ± 0.13 | **survived** |
 | `standing-load-level-inverted` | sign-inverted | M4.A.5's self term rises with basic_level instead of falling | `M11.C.38[-10 vs -15]` | PASS | 100 | `time_to_threshold` -0.86 ± 0.12 | **survived** |
-| `standing-load-level-inverted` | sign-inverted | M4.A.5's self term rises with basic_level instead of falling | `M11.C.41[light: lower level]` | PASS | 150 | `mean_acute` +1.07e+03 ± 1.4e+02; `reactive_over_chance` +0.0603 ± 0.003 | **survived** |
-| `standing-load-level-inverted` | sign-inverted | M4.A.5's self term rises with basic_level instead of falling | `M11.C.41[heavy: lower level]` | PASS | 150 | `mean_acute` +1.07e+03 ± 83; `reactive_over_chance` +0.0605 ± 0.0028 | **survived** |
+| `standing-load-level-inverted` | sign-inverted | M4.A.5's self term rises with basic_level instead of falling | `M11.C.41[light: lower level]` | PASS | 150 | `mean_acute` +1.07e+03 ± 1.4e+02; `reactive_over_chance` +0.061 ± 0.003 | **survived** |
+| `standing-load-level-inverted` | sign-inverted | M4.A.5's self term rises with basic_level instead of falling | `M11.C.41[heavy: lower level]` | PASS | 150 | `mean_acute` +1.05e+03 ± 77; `reactive_over_chance` +0.061 ± 0.0027 | **survived** |
 | `level-blind` | deletion | every rule that reads level made level-independent at once: steepness, band, threshold, mixing weight, layer availability, M4.A.5's self term, initial outside-ness, triangle routing capacity and I-POSITION hold capacity | `M11.C.1` | FAIL | 50 | `time_to_threshold` +0 ± 0 | **red** |
-| `level-blind` | deletion | every rule that reads level made level-independent at once: steepness, band, threshold, mixing weight, layer availability, M4.A.5's self term, initial outside-ness, triangle routing capacity and I-POSITION hold capacity | `M11.C.16` | FAIL | 150 | `repertoire_entropy` -0.00204 ± 0.0034; `top_move_share` +0.00444 ± 0.0056 | **red** |
+| `level-blind` | deletion | every rule that reads level made level-independent at once: steepness, band, threshold, mixing weight, layer availability, M4.A.5's self term, initial outside-ness, triangle routing capacity and I-POSITION hold capacity | `M11.C.16` | PASS | 150 | `repertoire_entropy` -0.00392 ± 0.0035; `top_move_share` +0.007 ± 0.006 | **survived** |
 | `level-blind` | deletion | every rule that reads level made level-independent at once: steepness, band, threshold, mixing weight, layer availability, M4.A.5's self term, initial outside-ness, triangle routing capacity and I-POSITION hold capacity | `M11.C.38[-0 vs -5]` | FAIL | 50 | `time_to_threshold` +0 ± 0 | **red** |
 | `level-blind` | deletion | every rule that reads level made level-independent at once: steepness, band, threshold, mixing weight, layer availability, M4.A.5's self term, initial outside-ness, triangle routing capacity and I-POSITION hold capacity | `M11.C.38[-5 vs -10]` | FAIL | 50 | `time_to_threshold` +0 ± 0 | **red** |
 | `level-blind` | deletion | every rule that reads level made level-independent at once: steepness, band, threshold, mixing weight, layer availability, M4.A.5's self term, initial outside-ness, triangle routing capacity and I-POSITION hold capacity | `M11.C.38[-10 vs -15]` | FAIL | 50 | `time_to_threshold` +0 ± 0 | **red** |
-| `level-blind` | deletion | every rule that reads level made level-independent at once: steepness, band, threshold, mixing weight, layer availability, M4.A.5's self term, initial outside-ness, triangle routing capacity and I-POSITION hold capacity | `M11.C.41[light: lower level]` | FAIL | 50 | `mean_acute` +6.46 ± 36; `reactive_over_chance` -0.000317 ± 0.0024 | **red** |
-| `level-blind` | deletion | every rule that reads level made level-independent at once: steepness, band, threshold, mixing weight, layer availability, M4.A.5's self term, initial outside-ness, triangle routing capacity and I-POSITION hold capacity | `M11.C.41[heavy: lower level]` | FAIL | 100 | `mean_acute` +8.67 ± 28; `reactive_over_chance` +0.000581 ± 0.0017 | **red** |
-| `availability-level-independent` | deletion | M4.D.3a's layer availability removed: every layer fully available at every level | `M11.C.16` | PASS | 150 | `repertoire_entropy` -0.154 ± 0.025; `top_move_share` +0.154 ± 0.025 | **survived** |
-| `availability-level-inverted` | sign-inverted | M4.D.3a's layer availability reflected about level 30, so it falls as level rises over C.16's levels | `M11.C.16` | PASS | 150 | `repertoire_entropy` -0.158 ± 0.026; `top_move_share` +0.155 ± 0.026 | **survived** |
-| `availability-and-learner-removed` | deletion | M4.D.3a's availability removed and M4.D.6 disabled, together | `M11.C.16` | PASS | 100 | `repertoire_entropy` -0.00175 ± 0.0013; `top_move_share` +0.00122 ± 0.0019 | **survived** |
-| `band-level-independent` | deletion | M4.C.1a's band made independent of functional_level (fixed at level 50) | `M11.C.16` | PASS | 150 | `repertoire_entropy` -0.164 ± 0.026; `top_move_share` +0.157 ± 0.025 | **survived** |
-| `band-level-inverted` | sign-inverted | M4.C.1a's band narrows as functional_level rises | `M11.C.16` | PASS | 100 | `repertoire_entropy` -0.16 ± 0.03; `top_move_share` +0.145 ± 0.029 | **survived** |
-| `outside-ness-level-independent` | deletion | M1.A.9's initial outside-ness made independent of basic_level (fixed at level 50) | `M11.C.16` | PASS | 150 | `repertoire_entropy` -0.17 ± 0.03; `top_move_share` +0.162 ± 0.029 | **survived** |
-| `outside-ness-level-inverted` | sign-inverted | M1.A.9's initial outside-ness rises with basic_level | `M11.C.16` | PASS | 150 | `repertoire_entropy` -0.188 ± 0.029; `top_move_share` +0.171 ± 0.027 | **survived** |
-| `routing-level-independent` | deletion | M1.C.3a's routing capacity made independent of functional_level | `M11.C.16` | PASS | 150 | `repertoire_entropy` -0.168 ± 0.029; `top_move_share` +0.157 ± 0.027 | **survived** |
-| `routing-level-inverted` | sign-inverted | M1.C.3a's routing capacity rises with the members' functional_level | `M11.C.16` | PASS | 150 | `repertoire_entropy` -0.169 ± 0.028; `top_move_share` +0.163 ± 0.026 | **survived** |
-| `hold-level-independent` | deletion | M5.D.3's hold capacity made independent of functional_level (fixed at level 50) | `M11.C.16` | PASS | 150 | `repertoire_entropy` -0.168 ± 0.029; `top_move_share` +0.155 ± 0.028 | **survived** |
-| `hold-level-inverted` | sign-inverted | M5.D.3's hold capacity falls as functional_level rises | `M11.C.16` | PASS | 150 | `repertoire_entropy` -0.167 ± 0.029; `top_move_share` +0.155 ± 0.028 | **survived** |
-| `c16-cited-grounds-removed` | deletion | M4.C.1a's steepness and band and M1.C.3a's routing capacity, the rules C.16's criterion row cites, made level-independent together; availability kept | `M11.C.16` | PASS | 150 | `repertoire_entropy` -0.043 ± 0.0079; `top_move_share` +0.0591 ± 0.011 | **survived** |
-| `c16-grounds-removed` | deletion | M4.C.1a's steepness and band and M1.C.3a's routing capacity, which C.16's criterion row cites, made level-independent together with M4.D.3a's availability | `M11.C.16` | FAIL | 150 | `repertoire_entropy` -0.00338 ± 0.004; `top_move_share` +0.00466 ± 0.0074 | **red** |
+| `level-blind` | deletion | every rule that reads level made level-independent at once: steepness, band, threshold, mixing weight, layer availability, M4.A.5's self term, initial outside-ness, triangle routing capacity and I-POSITION hold capacity | `M11.C.41[light: lower level]` | FAIL | 100 | `mean_acute` +17.1 ± 28; `reactive_over_chance` +0.000233 ± 0.0015 | **red** |
+| `level-blind` | deletion | every rule that reads level made level-independent at once: steepness, band, threshold, mixing weight, layer availability, M4.A.5's self term, initial outside-ness, triangle routing capacity and I-POSITION hold capacity | `M11.C.41[heavy: lower level]` | FAIL | 100 | `mean_acute` +24.5 ± 25; `reactive_over_chance` +7.02e-05 ± 0.0016 | **red** |
+| `availability-level-independent` | deletion | M4.D.3a's layer availability removed: every layer fully available at every level | `M11.C.16` | PASS | 150 | `repertoire_entropy` -0.154 ± 0.024; `top_move_share` +0.152 ± 0.024 | **survived** |
+| `availability-level-inverted` | sign-inverted | M4.D.3a's layer availability reflected about level 30, so it falls as level rises over C.16's levels | `M11.C.16` | PASS | 150 | `repertoire_entropy` -0.151 ± 0.025; `top_move_share` +0.148 ± 0.026 | **survived** |
+| `availability-and-learner-removed` | deletion | M4.D.3a's availability removed and M4.D.6 disabled, together | `M11.C.16` | PASS | 100 | `repertoire_entropy` -0.00165 ± 0.0013; `top_move_share` +0.00134 ± 0.0019 | **survived** |
+| `band-level-independent` | deletion | M4.C.1a's band made independent of functional_level (fixed at level 50) | `M11.C.16` | PASS | 150 | `repertoire_entropy` -0.189 ± 0.026; `top_move_share` +0.18 ± 0.024 | **survived** |
+| `band-level-inverted` | sign-inverted | M4.C.1a's band narrows as functional_level rises | `M11.C.16` | PASS | 150 | `repertoire_entropy` -0.179 ± 0.027; `top_move_share` +0.162 ± 0.026 | **survived** |
+| `outside-ness-level-independent` | deletion | M1.A.9's initial outside-ness made independent of basic_level (fixed at level 50) | `M11.C.16` | PASS | 150 | `repertoire_entropy` -0.182 ± 0.029; `top_move_share` +0.178 ± 0.027 | **survived** |
+| `outside-ness-level-inverted` | sign-inverted | M1.A.9's initial outside-ness rises with basic_level | `M11.C.16` | PASS | 150 | `repertoire_entropy` -0.195 ± 0.029; `top_move_share` +0.183 ± 0.027 | **survived** |
+| `routing-level-independent` | deletion | M1.C.3a's routing capacity made independent of functional_level | `M11.C.16` | PASS | 150 | `repertoire_entropy` -0.171 ± 0.028; `top_move_share` +0.162 ± 0.026 | **survived** |
+| `routing-level-inverted` | sign-inverted | M1.C.3a's routing capacity rises with the members' functional_level | `M11.C.16` | PASS | 150 | `repertoire_entropy` -0.168 ± 0.028; `top_move_share` +0.161 ± 0.027 | **survived** |
+| `hold-level-independent` | deletion | M5.D.3's hold capacity made independent of level: conviction's solid part fixed at level 50 (M5.D.3b) | `M11.C.16` | PASS | 150 | `repertoire_entropy` -0.177 ± 0.027; `top_move_share` +0.166 ± 0.025 | **survived** |
+| `hold-level-inverted` | sign-inverted | M5.D.3's hold capacity falls as level rises: conviction's solid part inverted (M5.D.3b) | `M11.C.16` | PASS | 150 | `repertoire_entropy` -0.177 ± 0.027; `top_move_share` +0.166 ± 0.025 | **survived** |
+| `c16-cited-grounds-removed` | deletion | M4.C.1a's steepness and band and M1.C.3a's routing capacity, the rules C.16's criterion row cites, made level-independent together; availability kept | `M11.C.16` | PASS | 150 | `repertoire_entropy` -0.0398 ± 0.0073; `top_move_share` +0.0561 ± 0.011 | **survived** |
+| `c16-grounds-removed` | deletion | M4.C.1a's steepness and band and M1.C.3a's routing capacity, which C.16's criterion row cites, made level-independent together with M4.D.3a's availability | `M11.C.16` | FAIL | 150 | `repertoire_entropy` -0.00211 ± 0.0039; `top_move_share` +0.00596 ± 0.007 | **red** |
 | `triangle-roles-swapped` | sign-inverted | M1.C.1's partner and target swapped: the sender's tense partner is loaded as the outsider, and the target the act recruits is neither relieved nor loaded | `M11.C.3` | FAIL | 50 | `seeker_anxiety` -1.48 ± 0.14; `third_anxiety` -0.608 ± 0.22; `partner_anxiety` +2.96 ± 0.25 | **red** |
-| `steepness-inverted` | sign-inverted | M4.C.1a's steepness rises with functional_level instead of falling | `M11.C.1` | PASS | 150 | `time_to_threshold` -0.467 ± 0.24 | **survived** |
-| `steepness-inverted` | sign-inverted | M4.C.1a's steepness rises with functional_level instead of falling | `M11.C.16` | PASS | 150 | `repertoire_entropy` -0.0154 ± 0.0033; `top_move_share` +0.0256 ± 0.005 | **survived** |
-| `steepness-inverted` | sign-inverted | M4.C.1a's steepness rises with functional_level instead of falling | `M11.C.38[-0 vs -5]` | PASS | 100 | `time_to_threshold` -0.23 ± 0.22 | **survived** |
-| `steepness-inverted` | sign-inverted | M4.C.1a's steepness rises with functional_level instead of falling | `M11.C.38[-5 vs -10]` | FAIL | 100 | `time_to_threshold` -0.1 ± 0.25 | **red** |
-| `steepness-inverted` | sign-inverted | M4.C.1a's steepness rises with functional_level instead of falling | `M11.C.38[-10 vs -15]` | FAIL | 100 | `time_to_threshold` -0.2 ± 0.25 | **red** |
-| `steepness-inverted` | sign-inverted | M4.C.1a's steepness rises with functional_level instead of falling | `M11.C.41[light: lower level]` | FAIL | 150 | `mean_acute` -53.1 ± 9.3; `reactive_over_chance` +0.0538 ± 0.0029 | **red** |
-| `steepness-inverted` | sign-inverted | M4.C.1a's steepness rises with functional_level instead of falling | `M11.C.41[heavy: lower level]` | FAIL | 150 | `mean_acute` -66.2 ± 10; `reactive_over_chance` +0.052 ± 0.0026 | **red** |
-| `mixing-weight-inverted` | sign-inverted | M4.D.1a's mixing weight falls with functional_level instead of rising | `M11.C.16` | PASS | 150 | `repertoire_entropy` -0.105 ± 0.013; `top_move_share` +0.164 ± 0.016 | **survived** |
-| `mixing-weight-inverted` | sign-inverted | M4.D.1a's mixing weight falls with functional_level instead of rising | `M11.C.41[light: lower level]` | FAIL | 150 | `mean_acute` +450 ± 41; `reactive_over_chance` -0.131 ± 0.0032 | **red** |
-| `mixing-weight-inverted` | sign-inverted | M4.D.1a's mixing weight falls with functional_level instead of rising | `M11.C.41[heavy: lower level]` | FAIL | 150 | `mean_acute` +498 ± 39; `reactive_over_chance` -0.131 ± 0.0032 | **red** |
-| `learner-inverted` | sign-inverted | M4.D.6 inverted: relief lowers an act's learned value, distress raises it | `M11.C.16` | PASS | 150 | `repertoire_entropy` -0.0109 ± 0.0088; `top_move_share` +0.00691 ± 0.011 | **survived** |
+| `steepness-inverted` | sign-inverted | M4.C.1a's steepness rises with functional_level instead of falling | `M11.C.1` | PASS | 150 | `time_to_threshold` -0.493 ± 0.24 | **survived** |
+| `steepness-inverted` | sign-inverted | M4.C.1a's steepness rises with functional_level instead of falling | `M11.C.16` | PASS | 150 | `repertoire_entropy` -0.0151 ± 0.0034; `top_move_share` +0.0267 ± 0.0048 | **survived** |
+| `steepness-inverted` | sign-inverted | M4.C.1a's steepness rises with functional_level instead of falling | `M11.C.38[-0 vs -5]` | PASS | 100 | `time_to_threshold` -0.26 ± 0.22 | **survived** |
+| `steepness-inverted` | sign-inverted | M4.C.1a's steepness rises with functional_level instead of falling | `M11.C.38[-5 vs -10]` | FAIL | 100 | `time_to_threshold` -0.11 ± 0.24 | **red** |
+| `steepness-inverted` | sign-inverted | M4.C.1a's steepness rises with functional_level instead of falling | `M11.C.38[-10 vs -15]` | FAIL | 100 | `time_to_threshold` -0.19 ± 0.25 | **red** |
+| `steepness-inverted` | sign-inverted | M4.C.1a's steepness rises with functional_level instead of falling | `M11.C.41[light: lower level]` | FAIL | 150 | `mean_acute` -57.5 ± 9.9; `reactive_over_chance` +0.0537 ± 0.0027 | **red** |
+| `steepness-inverted` | sign-inverted | M4.C.1a's steepness rises with functional_level instead of falling | `M11.C.41[heavy: lower level]` | FAIL | 150 | `mean_acute` -69.4 ± 11; `reactive_over_chance` +0.0525 ± 0.0025 | **red** |
+| `mixing-weight-inverted` | sign-inverted | M4.D.1a's mixing weight falls with functional_level instead of rising | `M11.C.16` | PASS | 150 | `repertoire_entropy` -0.0998 ± 0.013; `top_move_share` +0.157 ± 0.016 | **survived** |
+| `mixing-weight-inverted` | sign-inverted | M4.D.1a's mixing weight falls with functional_level instead of rising | `M11.C.41[light: lower level]` | FAIL | 150 | `mean_acute` +466 ± 43; `reactive_over_chance` -0.133 ± 0.0033 | **red** |
+| `mixing-weight-inverted` | sign-inverted | M4.D.1a's mixing weight falls with functional_level instead of rising | `M11.C.41[heavy: lower level]` | FAIL | 150 | `mean_acute` +483 ± 37; `reactive_over_chance` -0.131 ± 0.0032 | **red** |
+| `learner-inverted` | sign-inverted | M4.D.6 inverted: relief lowers an act's learned value, distress raises it | `M11.C.16` | PASS | 150 | `repertoire_entropy` -0.00879 ± 0.0081; `top_move_share` +0.00452 ± 0.011 | **survived** |
 | `axes-swapped` | sign-inverted | M5.F.2b's axes read the wrong way round | `M11.C.19` | FAIL | 50 | `outward_failed` -1 ± 0; `inward_failed` +1 ± 0 | **reversed** |
-| `deviation-inverted` | sign-inverted | M4.C.1's deviation inverted: moving away from the optimum relieves | `M11.C.44` | FAIL | 150 | `outside_inside_ratio` +0.0655 ± 0.12 | **red** |
-| `deviation-inverted` | sign-inverted | M4.C.1's deviation inverted: moving away from the optimum relieves | `M11.C.27[unstable,add_third]` | FAIL | 50 | `pair_deviation` +0.0132 ± 0.037; `pair_deviation_week_1` +0.0132 ± 0.037; `pair_deviation_week_2` -0.04 ± 0.054; `pair_deviation_week_3` -0.0413 ± 0.048; `pair_deviation_week_4` -0.0155 ± 0.042; `pair_deviation_week_5` -0.0575 ± 0.045; `pair_deviation_week_6` -0.0405 ± 0.048; `pair_deviation_week_7` -0.055 ± 0.048; `pair_deviation_week_8` -0.0483 ± 0.061; `pair_deviation_week_9` -0.0733 ± 0.067; `pair_deviation_week_10` -0.0395 ± 0.07; `pair_deviation_week_11` -0.0632 ± 0.064; `pair_deviation_week_12` -0.0693 ± 0.069 | **red** |
-| `deviation-inverted` | sign-inverted | M4.C.1's deviation inverted: moving away from the optimum relieves | `M11.C.27[unstable,remove_one]` | FAIL | 100 | `pair_deviation` +0.138 ± 0.053; `pair_deviation_week_1` +0.138 ± 0.053; `pair_deviation_week_2` +0.112 ± 0.052; `pair_deviation_week_3` +0.0892 ± 0.061; `pair_deviation_week_4` +0.0483 ± 0.056; `pair_deviation_week_5` -0.00181 ± 0.058; `pair_deviation_week_6` -0.0461 ± 0.057; `pair_deviation_week_7` -0.0726 ± 0.054; `pair_deviation_week_8` -0.116 ± 0.059; `pair_deviation_week_9` -0.115 ± 0.058; `pair_deviation_week_10` -0.144 ± 0.061; `pair_deviation_week_11` -0.144 ± 0.062; `pair_deviation_week_12` -0.192 ± 0.064 | **reversed** |
-| `standing-load-tie-term-removed` | deletion | M4.A.1's tie term removed: a tie's "too little" side adds no standing load | `M11.C.4` | PASS | 150 | `actor_relief_now` -4.22 ± 0.29; `family_anxiety_at_nodal` +53.8 ± 3.1 | **survived** |
-| `nodal-spike-removed` | deletion | M4.C.1c's nodal-event spike removed: a nodal event re-opens no cut tie's absence | `M11.C.4` | PASS | 150 | `actor_relief_now` -4.26 ± 0.3; `family_anxiety_at_nodal` +58.3 ± 2.7 | **survived** |
-| `cutoff-later-costs-removed` | deletion | M4.A.1's tie term, M1.B.3c's refusal cost (for every refused move) and M1.B.3d's reactive cutoff cost removed | `M11.C.4` | FAIL | 150 | `actor_relief_now` -4.03 ± 0.3; `family_anxiety_at_nodal` -3.7 ± 1.6 | **red** |
-| `witness-reach-inverted` | sign-inverted | the witness feels more through weaker ties | `M11.C.35` | FAIL | 150 | `witness_appraisal` -0.525 ± 0.009 | **reversed** |
-| `cue-belief-bias-removed` | named | M4.C.12's belief term removed: a believed threat adds no bias to the meaning read | `M11.C.51` | FAIL | 50 | `distance_conflict_share` -0.00541 ± 0.016; `no_moves` +0 ± 0 | **red** |
-| `cue-attribution-discount-removed` | named | M4.C.6's self-attribution removed: perspective no longer discounts the nonverbal part of an appraisal | `M11.C.52` | PASS | 100 | `escalation` -125 ± 60 | **survived** |
-| `appraisal-sum-order-reversed` | representation | same-tick appraisal summed in reverse order (M1.F.8: order-free up to float rounding) | `M11.C.1` | PASS | 100 | `time_to_threshold` -1.91 ± 0.16 | **unchanged** |
+| `deviation-inverted` | sign-inverted | M4.C.1's deviation inverted: moving away from the optimum relieves | `M11.C.44` | FAIL | 150 | `outside_inside_ratio` +0.072 ± 0.12 | **red** |
+| `deviation-inverted` | sign-inverted | M4.C.1's deviation inverted: moving away from the optimum relieves | `M11.C.27[unstable,add_third]` | FAIL | 50 | `pair_deviation` +0.0132 ± 0.037; `pair_deviation_week_1` +0.0132 ± 0.037; `pair_deviation_week_2` -0.04 ± 0.054; `pair_deviation_week_3` -0.0413 ± 0.048; `pair_deviation_week_4` -0.0155 ± 0.042; `pair_deviation_week_5` -0.0575 ± 0.045; `pair_deviation_week_6` -0.0405 ± 0.048; `pair_deviation_week_7` -0.0593 ± 0.048; `pair_deviation_week_8` -0.0513 ± 0.061; `pair_deviation_week_9` -0.0734 ± 0.067; `pair_deviation_week_10` -0.0394 ± 0.07; `pair_deviation_week_11` -0.0631 ± 0.064; `pair_deviation_week_12` -0.083 ± 0.069 | **red** |
+| `deviation-inverted` | sign-inverted | M4.C.1's deviation inverted: moving away from the optimum relieves | `M11.C.27[unstable,remove_one]` | FAIL | 100 | `pair_deviation` +0.137 ± 0.053; `pair_deviation_week_1` +0.137 ± 0.053; `pair_deviation_week_2` +0.114 ± 0.053; `pair_deviation_week_3` +0.0876 ± 0.061; `pair_deviation_week_4` +0.0469 ± 0.056; `pair_deviation_week_5` +0.00121 ± 0.058; `pair_deviation_week_6` -0.0422 ± 0.058; `pair_deviation_week_7` -0.0695 ± 0.054; `pair_deviation_week_8` -0.122 ± 0.061; `pair_deviation_week_9` -0.126 ± 0.06; `pair_deviation_week_10` -0.157 ± 0.062; `pair_deviation_week_11` -0.147 ± 0.062; `pair_deviation_week_12` -0.205 ± 0.064 | **reversed** |
+| `standing-load-tie-term-removed` | deletion | M4.A.1's tie term removed: a tie's "too little" side adds no standing load | `M11.C.4` | PASS | 150 | `actor_relief_now` -4.21 ± 0.29; `family_anxiety_at_nodal` +54.1 ± 3.1 | **survived** |
+| `nodal-spike-removed` | deletion | M4.C.1c's nodal-event spike removed: a nodal event re-opens no cut tie's absence | `M11.C.4` | PASS | 150 | `actor_relief_now` -4.25 ± 0.3; `family_anxiety_at_nodal` +58.3 ± 2.7 | **survived** |
+| `cutoff-later-costs-removed` | deletion | M4.A.1's tie term, M1.B.3c's refusal cost (for every refused move) and M1.B.3d's reactive cutoff cost removed | `M11.C.4` | FAIL | 150 | `actor_relief_now` -4.02 ± 0.3; `family_anxiety_at_nodal` -3.54 ± 1.6 | **red** |
+| `witness-reach-inverted` | sign-inverted | the witness feels more through weaker ties | `M11.C.35` | FAIL | 150 | `witness_appraisal` -0.526 ± 0.009 | **reversed** |
+| `cue-attribution-discount-removed` | named | M4.C.6's self-attribution removed: perspective no longer discounts the nonverbal part of an appraisal | `M11.C.52` | PASS | 100 | `escalation` -123 ± 60 | **survived** |
+| `appraisal-sum-order-reversed` | representation | same-tick appraisal summed in reverse order (M1.F.8: order-free up to float rounding) | `M11.C.1` | PASS | 100 | `time_to_threshold` -1.92 ± 0.16 | **unchanged** |
 | `appraisal-sum-order-reversed` | representation | same-tick appraisal summed in reverse order (M1.F.8: order-free up to float rounding) | `M11.C.3` | PASS | 50 | `seeker_anxiety` -1.62 ± 0.16; `third_anxiety` +2.14 ± 0.33; `partner_anxiety` +0.756 ± 0.21 | **unchanged** |
-| `appraisal-sum-order-reversed` | representation | same-tick appraisal summed in reverse order (M1.F.8: order-free up to float rounding) | `M11.C.4` | PASS | 150 | `actor_relief_now` -4.26 ± 0.3; `family_anxiety_at_nodal` +60.5 ± 3.3 | **unchanged** |
-| `appraisal-sum-order-reversed` | representation | same-tick appraisal summed in reverse order (M1.F.8: order-free up to float rounding) | `M11.C.16` | PASS | 150 | `repertoire_entropy` -0.168 ± 0.029; `top_move_share` +0.155 ± 0.027 | **unchanged** |
+| `appraisal-sum-order-reversed` | representation | same-tick appraisal summed in reverse order (M1.F.8: order-free up to float rounding) | `M11.C.4` | PASS | 150 | `actor_relief_now` -4.25 ± 0.3; `family_anxiety_at_nodal` +60.4 ± 3.3 | **unchanged** |
+| `appraisal-sum-order-reversed` | representation | same-tick appraisal summed in reverse order (M1.F.8: order-free up to float rounding) | `M11.C.16` | PASS | 150 | `repertoire_entropy` -0.178 ± 0.027; `top_move_share` +0.168 ± 0.026 | **unchanged** |
 | `appraisal-sum-order-reversed` | representation | same-tick appraisal summed in reverse order (M1.F.8: order-free up to float rounding) | `M11.C.19` | PASS | 50 | `outward_failed` +1 ± 0; `inward_failed` -1 ± 0 | **unchanged** |
 | `appraisal-sum-order-reversed` | representation | same-tick appraisal summed in reverse order (M1.F.8: order-free up to float rounding) | `M11.C.25` | PASS | 50 | `first_dominant` +0 ± 0 | **unchanged** |
 | `appraisal-sum-order-reversed` | representation | same-tick appraisal summed in reverse order (M1.F.8: order-free up to float rounding) | `M11.C.35` | PASS | 50 | `witness_appraisal` +0.581 ± 0.033 | **unchanged** |
@@ -119,16 +118,15 @@ Results are cached by `tools/mutant_runner.py` under the engine hash and each mu
 | `appraisal-sum-order-reversed` | representation | same-tick appraisal summed in reverse order (M1.F.8: order-free up to float rounding) | `M11.C.27[unstable,add_third]` | PASS | 50 | `pair_deviation` -0.0554 ± 0.035; `pair_deviation_week_1` -0.0554 ± 0.035; `pair_deviation_week_2` -0.0126 ± 0.04; `pair_deviation_week_3` -0.00991 ± 0.041; `pair_deviation_week_4` +0.024 ± 0.045; `pair_deviation_week_5` +0.0352 ± 0.063; `pair_deviation_week_6` +0.0126 ± 0.063; `pair_deviation_week_7` +0.0163 ± 0.066; `pair_deviation_week_8` +0.0381 ± 0.062; `pair_deviation_week_9` +0.0458 ± 0.053; `pair_deviation_week_10` +0.0314 ± 0.063; `pair_deviation_week_11` +0.0625 ± 0.066; `pair_deviation_week_12` +0.0651 ± 0.076 | **unchanged** |
 | `appraisal-sum-order-reversed` | representation | same-tick appraisal summed in reverse order (M1.F.8: order-free up to float rounding) | `M11.C.27[unstable,remove_one]` | PASS | 50 | `pair_deviation` -0.345 ± 0.062; `pair_deviation_week_1` -0.345 ± 0.062; `pair_deviation_week_2` -0.27 ± 0.077; `pair_deviation_week_3` -0.207 ± 0.076; `pair_deviation_week_4` -0.122 ± 0.081; `pair_deviation_week_5` +0.0062 ± 0.083; `pair_deviation_week_6` +0.0585 ± 0.093; `pair_deviation_week_7` +0.0632 ± 0.078; `pair_deviation_week_8` +0.144 ± 0.068; `pair_deviation_week_9` +0.195 ± 0.057; `pair_deviation_week_10` +0.116 ± 0.088; `pair_deviation_week_11` +0.0984 ± 0.081; `pair_deviation_week_12` +0.0903 ± 0.076 | **unchanged** |
 | `appraisal-sum-order-reversed` | representation | same-tick appraisal summed in reverse order (M1.F.8: order-free up to float rounding) | `M11.C.38[-0 vs -5]` | PASS | 100 | `time_to_threshold` -1.04 ± 0.14 | **unchanged** |
-| `appraisal-sum-order-reversed` | representation | same-tick appraisal summed in reverse order (M1.F.8: order-free up to float rounding) | `M11.C.38[-5 vs -10]` | PASS | 100 | `time_to_threshold` -0.87 ± 0.13 | **unchanged** |
+| `appraisal-sum-order-reversed` | representation | same-tick appraisal summed in reverse order (M1.F.8: order-free up to float rounding) | `M11.C.38[-5 vs -10]` | PASS | 100 | `time_to_threshold` -0.88 ± 0.13 | **unchanged** |
 | `appraisal-sum-order-reversed` | representation | same-tick appraisal summed in reverse order (M1.F.8: order-free up to float rounding) | `M11.C.38[-10 vs -15]` | PASS | 100 | `time_to_threshold` -0.87 ± 0.12 | **unchanged** |
-| `appraisal-sum-order-reversed` | representation | same-tick appraisal summed in reverse order (M1.F.8: order-free up to float rounding) | `M11.C.41[light: lower level]` | PASS | 150 | `mean_acute` +1.02e+03 ± 66; `reactive_over_chance` +0.0608 ± 0.003 | **unchanged** |
-| `appraisal-sum-order-reversed` | representation | same-tick appraisal summed in reverse order (M1.F.8: order-free up to float rounding) | `M11.C.41[heavy: lower level]` | PASS | 150 | `mean_acute` +1.06e+03 ± 95; `reactive_over_chance` +0.0588 ± 0.0029 | **unchanged** |
-| `appraisal-sum-order-reversed` | representation | same-tick appraisal summed in reverse order (M1.F.8: order-free up to float rounding) | `M11.C.51` | PASS | 100 | `distance_conflict_share` +0.0155 ± 0.021; `no_moves` +0 ± 0 | **unchanged** |
-| `appraisal-sum-order-reversed` | representation | same-tick appraisal summed in reverse order (M1.F.8: order-free up to float rounding) | `M11.C.52` | PASS | 100 | `escalation` -128 ± 60 | **unchanged** |
-| `clamp-within-tolerance` | representation | felt contact and impingement clamped 1e-12 inside [0, 1] | `M11.C.1` | PASS | 100 | `time_to_threshold` -1.91 ± 0.16 | **unchanged** |
+| `appraisal-sum-order-reversed` | representation | same-tick appraisal summed in reverse order (M1.F.8: order-free up to float rounding) | `M11.C.41[light: lower level]` | PASS | 150 | `mean_acute` +1.03e+03 ± 66; `reactive_over_chance` +0.0607 ± 0.003 | **unchanged** |
+| `appraisal-sum-order-reversed` | representation | same-tick appraisal summed in reverse order (M1.F.8: order-free up to float rounding) | `M11.C.41[heavy: lower level]` | PASS | 150 | `mean_acute` +1.05e+03 ± 97; `reactive_over_chance` +0.0592 ± 0.0029 | **unchanged** |
+| `appraisal-sum-order-reversed` | representation | same-tick appraisal summed in reverse order (M1.F.8: order-free up to float rounding) | `M11.C.52` | PASS | 100 | `escalation` -127 ± 60 | **unchanged** |
+| `clamp-within-tolerance` | representation | felt contact and impingement clamped 1e-12 inside [0, 1] | `M11.C.1` | PASS | 100 | `time_to_threshold` -1.92 ± 0.16 | **unchanged** |
 | `clamp-within-tolerance` | representation | felt contact and impingement clamped 1e-12 inside [0, 1] | `M11.C.3` | PASS | 50 | `seeker_anxiety` -1.62 ± 0.16; `third_anxiety` +2.14 ± 0.33; `partner_anxiety` +0.756 ± 0.21 | **unchanged** |
-| `clamp-within-tolerance` | representation | felt contact and impingement clamped 1e-12 inside [0, 1] | `M11.C.4` | PASS | 150 | `actor_relief_now` -4.26 ± 0.3; `family_anxiety_at_nodal` +60.5 ± 3.3 | **unchanged** |
-| `clamp-within-tolerance` | representation | felt contact and impingement clamped 1e-12 inside [0, 1] | `M11.C.16` | PASS | 150 | `repertoire_entropy` -0.167 ± 0.029; `top_move_share` +0.155 ± 0.027 | **unchanged** |
+| `clamp-within-tolerance` | representation | felt contact and impingement clamped 1e-12 inside [0, 1] | `M11.C.4` | PASS | 150 | `actor_relief_now` -4.25 ± 0.3; `family_anxiety_at_nodal` +60.4 ± 3.3 | **unchanged** |
+| `clamp-within-tolerance` | representation | felt contact and impingement clamped 1e-12 inside [0, 1] | `M11.C.16` | PASS | 150 | `repertoire_entropy` -0.179 ± 0.027; `top_move_share` +0.168 ± 0.026 | **unchanged** |
 | `clamp-within-tolerance` | representation | felt contact and impingement clamped 1e-12 inside [0, 1] | `M11.C.19` | PASS | 50 | `outward_failed` +1 ± 0; `inward_failed` -1 ± 0 | **unchanged** |
 | `clamp-within-tolerance` | representation | felt contact and impingement clamped 1e-12 inside [0, 1] | `M11.C.25` | PASS | 50 | `first_dominant` +0 ± 0 | **unchanged** |
 | `clamp-within-tolerance` | representation | felt contact and impingement clamped 1e-12 inside [0, 1] | `M11.C.35` | PASS | 50 | `witness_appraisal` +0.581 ± 0.033 | **unchanged** |
@@ -136,13 +134,12 @@ Results are cached by `tools/mutant_runner.py` under the engine hash and each mu
 | `clamp-within-tolerance` | representation | felt contact and impingement clamped 1e-12 inside [0, 1] | `M11.C.27[unstable,add_third]` | PASS | 50 | `pair_deviation` -0.0554 ± 0.035; `pair_deviation_week_1` -0.0554 ± 0.035; `pair_deviation_week_2` -0.0126 ± 0.04; `pair_deviation_week_3` -0.00991 ± 0.041; `pair_deviation_week_4` +0.024 ± 0.045; `pair_deviation_week_5` +0.0352 ± 0.063; `pair_deviation_week_6` +0.0126 ± 0.063; `pair_deviation_week_7` +0.0163 ± 0.066; `pair_deviation_week_8` +0.0381 ± 0.062; `pair_deviation_week_9` +0.0458 ± 0.053; `pair_deviation_week_10` +0.0314 ± 0.063; `pair_deviation_week_11` +0.0625 ± 0.066; `pair_deviation_week_12` +0.0651 ± 0.076 | **unchanged** |
 | `clamp-within-tolerance` | representation | felt contact and impingement clamped 1e-12 inside [0, 1] | `M11.C.27[unstable,remove_one]` | PASS | 50 | `pair_deviation` -0.345 ± 0.062; `pair_deviation_week_1` -0.345 ± 0.062; `pair_deviation_week_2` -0.27 ± 0.077; `pair_deviation_week_3` -0.207 ± 0.076; `pair_deviation_week_4` -0.122 ± 0.081; `pair_deviation_week_5` +0.0062 ± 0.083; `pair_deviation_week_6` +0.0585 ± 0.093; `pair_deviation_week_7` +0.0632 ± 0.078; `pair_deviation_week_8` +0.144 ± 0.068; `pair_deviation_week_9` +0.195 ± 0.057; `pair_deviation_week_10` +0.116 ± 0.088; `pair_deviation_week_11` +0.0984 ± 0.081; `pair_deviation_week_12` +0.0903 ± 0.076 | **unchanged** |
 | `clamp-within-tolerance` | representation | felt contact and impingement clamped 1e-12 inside [0, 1] | `M11.C.38[-0 vs -5]` | PASS | 100 | `time_to_threshold` -1.04 ± 0.14 | **unchanged** |
-| `clamp-within-tolerance` | representation | felt contact and impingement clamped 1e-12 inside [0, 1] | `M11.C.38[-5 vs -10]` | PASS | 100 | `time_to_threshold` -0.87 ± 0.13 | **unchanged** |
+| `clamp-within-tolerance` | representation | felt contact and impingement clamped 1e-12 inside [0, 1] | `M11.C.38[-5 vs -10]` | PASS | 100 | `time_to_threshold` -0.88 ± 0.13 | **unchanged** |
 | `clamp-within-tolerance` | representation | felt contact and impingement clamped 1e-12 inside [0, 1] | `M11.C.38[-10 vs -15]` | PASS | 100 | `time_to_threshold` -0.87 ± 0.12 | **unchanged** |
-| `clamp-within-tolerance` | representation | felt contact and impingement clamped 1e-12 inside [0, 1] | `M11.C.41[light: lower level]` | PASS | 150 | `mean_acute` +1.02e+03 ± 66; `reactive_over_chance` +0.0608 ± 0.003 | **unchanged** |
-| `clamp-within-tolerance` | representation | felt contact and impingement clamped 1e-12 inside [0, 1] | `M11.C.41[heavy: lower level]` | PASS | 150 | `mean_acute` +1.06e+03 ± 95; `reactive_over_chance` +0.0588 ± 0.0029 | **unchanged** |
-| `clamp-within-tolerance` | representation | felt contact and impingement clamped 1e-12 inside [0, 1] | `M11.C.51` | PASS | 100 | `distance_conflict_share` +0.0135 ± 0.02; `no_moves` +0 ± 0 | **unchanged** |
-| `clamp-within-tolerance` | representation | felt contact and impingement clamped 1e-12 inside [0, 1] | `M11.C.52` | PASS | 100 | `escalation` -128 ± 60 | **unchanged** |
-| `relief-less-expected-decay` | named | M4.D.6's felt relief taken net of the expected decay toward the chronic floor (acute_decay_rate of the week's excess), so decay alone teaches nothing | `M11.C.16` | PASS | 100 | `repertoire_entropy` -0.0375 ± 0.013; `top_move_share` +0.0407 ± 0.014 | **survived** |
+| `clamp-within-tolerance` | representation | felt contact and impingement clamped 1e-12 inside [0, 1] | `M11.C.41[light: lower level]` | PASS | 150 | `mean_acute` +1.03e+03 ± 66; `reactive_over_chance` +0.0604 ± 0.003 | **unchanged** |
+| `clamp-within-tolerance` | representation | felt contact and impingement clamped 1e-12 inside [0, 1] | `M11.C.41[heavy: lower level]` | PASS | 150 | `mean_acute` +1.05e+03 ± 97; `reactive_over_chance` +0.0592 ± 0.0029 | **unchanged** |
+| `clamp-within-tolerance` | representation | felt contact and impingement clamped 1e-12 inside [0, 1] | `M11.C.52` | PASS | 100 | `escalation` -127 ± 60 | **unchanged** |
+| `relief-less-expected-decay` | named | M4.D.6's felt relief taken net of the expected decay toward the chronic floor (acute_decay_rate of the week's excess), so decay alone teaches nothing | `M11.C.16` | PASS | 100 | `repertoire_entropy` -0.0351 ± 0.013; `top_move_share` +0.0388 ± 0.014 | **survived** |
 
 ## Not run
 
@@ -188,6 +185,7 @@ criterion.
 - `budget-reduction-removed` → `M11.C.29`
 - `iposition-debit-removed` → `M11.C.5`
 - `cue-leak-removed` → `M11.C.50`
+- `cue-belief-bias-removed` → `M11.C.51`
 - `cue-attention-load-removed` → `M11.C.53`
 - `cue-belief-leak-removed` → `M11.C.54`
 
@@ -223,16 +221,16 @@ criterion.
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.006844354383687388,
-    "mean_difference": -0.04566873028044577,
+    "half_width": 0.007031520391022462,
+    "mean_difference": -0.04543383890641485,
     "nonzero_share": 1.0,
     "readout": "repertoire_entropy",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 0.010170192767856225,
-    "mean_difference": 0.06768402292842228,
+    "half_width": 0.009891286237195176,
+    "mean_difference": 0.06724373925400366,
     "nonzero_share": 1.0,
     "readout": "top_move_share",
     "report_only": true
@@ -249,9 +247,9 @@ criterion.
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.18066011840978735,
-    "mean_difference": -0.83,
-    "nonzero_share": 0.66,
+    "half_width": 0.1813568433957336,
+    "mean_difference": -0.82,
+    "nonzero_share": 0.65,
     "readout": "time_to_threshold",
     "report_only": false
    }
@@ -267,9 +265,9 @@ criterion.
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.18448583641673913,
-    "mean_difference": -0.77,
-    "nonzero_share": 0.65,
+    "half_width": 0.18390650237596717,
+    "mean_difference": -0.78,
+    "nonzero_share": 0.66,
     "readout": "time_to_threshold",
     "report_only": false
    }
@@ -285,9 +283,9 @@ criterion.
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.15778679388095926,
-    "mean_difference": -0.72,
-    "nonzero_share": 0.61,
+    "half_width": 0.15635391090262327,
+    "mean_difference": -0.7,
+    "nonzero_share": 0.6,
     "readout": "time_to_threshold",
     "report_only": false
    }
@@ -298,21 +296,21 @@ criterion.
   "kind": "named",
   "criterion": "M11.C.41[light: lower level]",
   "outcome": "PASS",
-  "seeds": 150,
+  "seeds": 100,
   "result": "survived",
   "readouts": [
    {
     "direction": 1,
-    "half_width": 13.478864989078257,
-    "mean_difference": 23.552109688397966,
+    "half_width": 15.876277132532184,
+    "mean_difference": 29.079116853483914,
     "nonzero_share": 1.0,
     "readout": "mean_acute",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 0.0028049756802864733,
-    "mean_difference": 0.05550601831534832,
+    "half_width": 0.0033246470956580254,
+    "mean_difference": 0.054783382285517324,
     "nonzero_share": 1.0,
     "readout": "reactive_over_chance",
     "report_only": false
@@ -329,16 +327,16 @@ criterion.
   "readouts": [
    {
     "direction": 1,
-    "half_width": 14.94038475808832,
-    "mean_difference": 21.150462774882254,
+    "half_width": 14.731950315262944,
+    "mean_difference": 22.490193640571196,
     "nonzero_share": 1.0,
     "readout": "mean_acute",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 0.002800210310516678,
-    "mean_difference": 0.05566396414104579,
+    "half_width": 0.002804433943393153,
+    "mean_difference": 0.056170481990720764,
     "nonzero_share": 1.0,
     "readout": "reactive_over_chance",
     "report_only": false
@@ -355,16 +353,16 @@ criterion.
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.024651300319120873,
-    "mean_difference": -0.17638567875981784,
+    "half_width": 0.024788684160319995,
+    "mean_difference": -0.18404643273724314,
     "nonzero_share": 1.0,
     "readout": "repertoire_entropy",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 0.02595790931737364,
-    "mean_difference": 0.1997797955132847,
+    "half_width": 0.026028337067582025,
+    "mean_difference": 0.2093297617768105,
     "nonzero_share": 1.0,
     "readout": "top_move_share",
     "report_only": true
@@ -376,21 +374,21 @@ criterion.
   "kind": "named",
   "criterion": "M11.C.41[light: lower level]",
   "outcome": "PASS",
-  "seeds": 150,
+  "seeds": 100,
   "result": "survived",
   "readouts": [
    {
     "direction": 1,
-    "half_width": 38.39765753910995,
-    "mean_difference": 820.3574672431848,
+    "half_width": 43.43700711800384,
+    "mean_difference": 787.6843103326585,
     "nonzero_share": 1.0,
     "readout": "mean_acute",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 0.0021329436934350533,
-    "mean_difference": 0.0059811948433290685,
+    "half_width": 0.0023014820379971975,
+    "mean_difference": 0.008201388067789705,
     "nonzero_share": 1.0,
     "readout": "reactive_over_chance",
     "report_only": false
@@ -407,16 +405,16 @@ criterion.
   "readouts": [
    {
     "direction": 1,
-    "half_width": 40.11376924904679,
-    "mean_difference": 856.4446107499692,
+    "half_width": 41.69977322819056,
+    "mean_difference": 855.2712939653738,
     "nonzero_share": 1.0,
     "readout": "mean_acute",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 0.0023156210166333873,
-    "mean_difference": 0.0046639896987104,
+    "half_width": 0.0022631451408857838,
+    "mean_difference": 0.004708324683731227,
     "nonzero_share": 1.0,
     "readout": "reactive_over_chance",
     "report_only": false
@@ -535,16 +533,16 @@ criterion.
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.0022614606912011947,
-    "mean_difference": -0.04146159268907577,
+    "half_width": 0.0022648883511156704,
+    "mean_difference": -0.04170198627239068,
     "nonzero_share": 1.0,
     "readout": "repertoire_entropy",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 0.0026582871815513972,
-    "mean_difference": 0.06597441277471917,
+    "half_width": 0.0026124530794822613,
+    "mean_difference": 0.06624836015824001,
     "nonzero_share": 1.0,
     "readout": "top_move_share",
     "report_only": true
@@ -605,8 +603,8 @@ criterion.
   "readouts": [
    {
     "direction": 1,
-    "half_width": 0.13348052121725612,
-    "mean_difference": 0.19831765406385796,
+    "half_width": 0.13364711447157057,
+    "mean_difference": 0.19793799851448782,
     "nonzero_share": 1.0,
     "readout": "outside_inside_ratio",
     "report_only": false
@@ -753,88 +751,88 @@ criterion.
    },
    {
     "direction": -1,
-    "half_width": 0.03375921916650938,
-    "mean_difference": 0.1044068130870985,
-    "nonzero_share": 0.53,
+    "half_width": 0.03374301850847043,
+    "mean_difference": 0.10221220740291168,
+    "nonzero_share": 0.52,
     "readout": "pair_deviation_week_2",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.0327273253396972,
-    "mean_difference": 0.09561441941347452,
-    "nonzero_share": 0.61,
+    "half_width": 0.032672735290611474,
+    "mean_difference": 0.09333426660185147,
+    "nonzero_share": 0.6,
     "readout": "pair_deviation_week_3",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.0448595638503281,
-    "mean_difference": 0.13726100877096875,
-    "nonzero_share": 0.76,
+    "half_width": 0.04489447006507459,
+    "mean_difference": 0.13488781395706909,
+    "nonzero_share": 0.75,
     "readout": "pair_deviation_week_4",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.04804312767074874,
-    "mean_difference": 0.16878355612999865,
+    "half_width": 0.04810387146806812,
+    "mean_difference": 0.16644381503061723,
     "nonzero_share": 0.91,
     "readout": "pair_deviation_week_5",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.05018655491645957,
-    "mean_difference": 0.2023948893963697,
-    "nonzero_share": 0.89,
+    "half_width": 0.04918761968377289,
+    "mean_difference": 0.19482096572750404,
+    "nonzero_share": 0.9,
     "readout": "pair_deviation_week_6",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.05110911560673189,
-    "mean_difference": 0.23964612848859182,
+    "half_width": 0.050158620436188114,
+    "mean_difference": 0.23500396956504643,
     "nonzero_share": 0.96,
     "readout": "pair_deviation_week_7",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.051869971417407144,
-    "mean_difference": 0.25520450284210805,
+    "half_width": 0.051294046883784514,
+    "mean_difference": 0.2488365720075697,
     "nonzero_share": 0.96,
     "readout": "pair_deviation_week_8",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.05342560121569571,
-    "mean_difference": 0.2794410719883202,
+    "half_width": 0.052777642599790044,
+    "mean_difference": 0.2749561364584363,
     "nonzero_share": 0.97,
     "readout": "pair_deviation_week_9",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.05507414141245992,
-    "mean_difference": 0.28145481929099897,
+    "half_width": 0.05323164715035091,
+    "mean_difference": 0.2828591284641979,
     "nonzero_share": 0.99,
     "readout": "pair_deviation_week_10",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.058055451133646206,
-    "mean_difference": 0.2779522823357883,
+    "half_width": 0.05621242035565227,
+    "mean_difference": 0.2792142445312366,
     "nonzero_share": 1.0,
     "readout": "pair_deviation_week_11",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.05839859646548905,
-    "mean_difference": 0.2687740955009838,
+    "half_width": 0.056194628432209306,
+    "mean_difference": 0.2716429295379954,
     "nonzero_share": 1.0,
     "readout": "pair_deviation_week_12",
     "report_only": true
@@ -869,7 +867,7 @@ criterion.
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.1712318105063803,
+    "half_width": 0.16895044279673294,
     "mean_difference": -1.62,
     "nonzero_share": 0.92,
     "readout": "time_to_threshold",
@@ -887,16 +885,16 @@ criterion.
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.025373398336534167,
-    "mean_difference": -0.1386189889287561,
+    "half_width": 0.025380222483928214,
+    "mean_difference": -0.14043883746803454,
     "nonzero_share": 1.0,
     "readout": "repertoire_entropy",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 0.024753418024814358,
-    "mean_difference": 0.14700705522533136,
+    "half_width": 0.024107358514922506,
+    "mean_difference": 0.1497342730403554,
     "nonzero_share": 1.0,
     "readout": "top_move_share",
     "report_only": true
@@ -913,9 +911,9 @@ criterion.
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.16334521168928762,
-    "mean_difference": -0.82,
-    "nonzero_share": 0.72,
+    "half_width": 0.1625713133341547,
+    "mean_difference": -0.83,
+    "nonzero_share": 0.73,
     "readout": "time_to_threshold",
     "report_only": false
    }
@@ -931,9 +929,9 @@ criterion.
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.15002114329101557,
-    "mean_difference": -0.8,
-    "nonzero_share": 0.67,
+    "half_width": 0.15078225118603075,
+    "mean_difference": -0.79,
+    "nonzero_share": 0.66,
     "readout": "time_to_threshold",
     "report_only": false
    }
@@ -949,9 +947,9 @@ criterion.
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.13214317304279544,
-    "mean_difference": -0.7,
-    "nonzero_share": 0.65,
+    "half_width": 0.1285559831671821,
+    "mean_difference": -0.71,
+    "nonzero_share": 0.64,
     "readout": "time_to_threshold",
     "report_only": false
    }
@@ -967,16 +965,16 @@ criterion.
   "readouts": [
    {
     "direction": 1,
-    "half_width": 97.33259763217914,
-    "mean_difference": 1052.1176815896245,
+    "half_width": 46.19293094338882,
+    "mean_difference": 994.2797831807201,
     "nonzero_share": 1.0,
     "readout": "mean_acute",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 0.0028552613545526134,
-    "mean_difference": 0.060236519112937224,
+    "half_width": 0.0028799066143344485,
+    "mean_difference": 0.060118460867591046,
     "nonzero_share": 1.0,
     "readout": "reactive_over_chance",
     "report_only": false
@@ -993,16 +991,16 @@ criterion.
   "readouts": [
    {
     "direction": 1,
-    "half_width": 107.27373721419825,
-    "mean_difference": 1099.4998341520875,
+    "half_width": 105.92997577493583,
+    "mean_difference": 1094.1428654292429,
     "nonzero_share": 1.0,
     "readout": "mean_acute",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 0.002630829786123702,
-    "mean_difference": 0.061979455251947646,
+    "half_width": 0.0025983565833466683,
+    "mean_difference": 0.062311067421200524,
     "nonzero_share": 1.0,
     "readout": "reactive_over_chance",
     "report_only": false
@@ -1014,14 +1012,14 @@ criterion.
   "kind": "sign-inverted",
   "criterion": "M11.C.1",
   "outcome": "PASS",
-  "seeds": 100,
+  "seeds": 150,
   "result": "survived",
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.2177223363772669,
-    "mean_difference": -1.28,
-    "nonzero_share": 0.85,
+    "half_width": 0.18539727672287026,
+    "mean_difference": -1.3466666666666667,
+    "nonzero_share": 0.8733333333333333,
     "readout": "time_to_threshold",
     "report_only": false
    }
@@ -1037,16 +1035,16 @@ criterion.
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.018916669351339753,
-    "mean_difference": -0.0860135554249617,
+    "half_width": 0.016961699831212478,
+    "mean_difference": -0.0809651343122584,
     "nonzero_share": 1.0,
     "readout": "repertoire_entropy",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 0.022331642672014356,
-    "mean_difference": 0.10884137952285604,
+    "half_width": 0.020531902071224382,
+    "mean_difference": 0.10510828146470663,
     "nonzero_share": 1.0,
     "readout": "top_move_share",
     "report_only": true
@@ -1063,9 +1061,9 @@ criterion.
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.19894753381764047,
+    "half_width": 0.20088853133069096,
     "mean_difference": -0.6,
-    "nonzero_share": 0.62,
+    "nonzero_share": 0.61,
     "readout": "time_to_threshold",
     "report_only": false
    }
@@ -1081,8 +1079,8 @@ criterion.
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.18662932959925316,
-    "mean_difference": -0.68,
+    "half_width": 0.1919995791241178,
+    "mean_difference": -0.7,
     "nonzero_share": 0.67,
     "readout": "time_to_threshold",
     "report_only": false
@@ -1117,16 +1115,16 @@ criterion.
   "readouts": [
    {
     "direction": 1,
-    "half_width": 92.20170004902278,
-    "mean_difference": 1123.2051985869753,
+    "half_width": 96.88532807930999,
+    "mean_difference": 1138.9308215163273,
     "nonzero_share": 1.0,
     "readout": "mean_acute",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 0.0029354008695692043,
-    "mean_difference": 0.0627778548561556,
+    "half_width": 0.002889995240175725,
+    "mean_difference": 0.06230526245450489,
     "nonzero_share": 1.0,
     "readout": "reactive_over_chance",
     "report_only": false
@@ -1143,16 +1141,16 @@ criterion.
   "readouts": [
    {
     "direction": 1,
-    "half_width": 115.67986195075692,
-    "mean_difference": 1265.7459379847376,
+    "half_width": 116.64327085689092,
+    "mean_difference": 1262.7838086347472,
     "nonzero_share": 1.0,
     "readout": "mean_acute",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 0.002503553232439105,
-    "mean_difference": 0.06063693726253406,
+    "half_width": 0.002575872550331683,
+    "mean_difference": 0.060232164828315775,
     "nonzero_share": 1.0,
     "readout": "reactive_over_chance",
     "report_only": false
@@ -1169,8 +1167,8 @@ criterion.
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.16405633917725465,
-    "mean_difference": -1.92,
+    "half_width": 0.1654107883086496,
+    "mean_difference": -1.93,
     "nonzero_share": 0.99,
     "readout": "time_to_threshold",
     "report_only": false
@@ -1187,16 +1185,16 @@ criterion.
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.027383257116418598,
-    "mean_difference": -0.15908909000214005,
+    "half_width": 0.027162175239890812,
+    "mean_difference": -0.16630408959136422,
     "nonzero_share": 1.0,
     "readout": "repertoire_entropy",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 0.026226667021401338,
-    "mean_difference": 0.14938037938447218,
+    "half_width": 0.025572722611332185,
+    "mean_difference": 0.16107366928540726,
     "nonzero_share": 1.0,
     "readout": "top_move_share",
     "report_only": true
@@ -1213,8 +1211,8 @@ criterion.
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.14427226785743433,
-    "mean_difference": -1.06,
+    "half_width": 0.14543755506829184,
+    "mean_difference": -1.07,
     "nonzero_share": 0.82,
     "readout": "time_to_threshold",
     "report_only": false
@@ -1267,16 +1265,16 @@ criterion.
   "readouts": [
    {
     "direction": 1,
-    "half_width": 78.7894065152099,
-    "mean_difference": 985.3759956453644,
+    "half_width": 78.29124270236241,
+    "mean_difference": 996.2558444890434,
     "nonzero_share": 1.0,
     "readout": "mean_acute",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 0.0029196849817428035,
-    "mean_difference": 0.059159326795044175,
+    "half_width": 0.0031142392868681807,
+    "mean_difference": 0.05958834295958466,
     "nonzero_share": 1.0,
     "readout": "reactive_over_chance",
     "report_only": false
@@ -1293,16 +1291,16 @@ criterion.
   "readouts": [
    {
     "direction": 1,
-    "half_width": 62.76600999065858,
-    "mean_difference": 1014.2643226037175,
+    "half_width": 65.93580395787374,
+    "mean_difference": 1045.0901320694122,
     "nonzero_share": 1.0,
     "readout": "mean_acute",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 0.0026856256973274858,
-    "mean_difference": 0.060130859958147174,
+    "half_width": 0.002803149290104531,
+    "mean_difference": 0.06062668786715148,
     "nonzero_share": 1.0,
     "readout": "reactive_over_chance",
     "report_only": false
@@ -1319,8 +1317,8 @@ criterion.
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.16503501434421713,
-    "mean_difference": -1.91,
+    "half_width": 0.16541078830864964,
+    "mean_difference": -1.93,
     "nonzero_share": 0.99,
     "readout": "time_to_threshold",
     "report_only": false
@@ -1337,16 +1335,16 @@ criterion.
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.029777643890074534,
-    "mean_difference": -0.1631328998779734,
+    "half_width": 0.027963502932525027,
+    "mean_difference": -0.14562858675465756,
     "nonzero_share": 1.0,
     "readout": "repertoire_entropy",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 0.02861062664054097,
-    "mean_difference": 0.15269577011834637,
+    "half_width": 0.02744253098765795,
+    "mean_difference": 0.13704493289093378,
     "nonzero_share": 1.0,
     "readout": "top_move_share",
     "report_only": true
@@ -1363,9 +1361,9 @@ criterion.
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.14575737415723475,
-    "mean_difference": -1.05,
-    "nonzero_share": 0.81,
+    "half_width": 0.14543755506829184,
+    "mean_difference": -1.07,
+    "nonzero_share": 0.82,
     "readout": "time_to_threshold",
     "report_only": false
    }
@@ -1417,16 +1415,16 @@ criterion.
   "readouts": [
    {
     "direction": 1,
-    "half_width": 142.1819804869561,
-    "mean_difference": 1070.844978168406,
+    "half_width": 142.52067364420046,
+    "mean_difference": 1067.8420106617366,
     "nonzero_share": 1.0,
     "readout": "mean_acute",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 0.0030016896315834896,
-    "mean_difference": 0.060347002786189395,
+    "half_width": 0.002972872181775756,
+    "mean_difference": 0.06095585339372002,
     "nonzero_share": 1.0,
     "readout": "reactive_over_chance",
     "report_only": false
@@ -1443,16 +1441,16 @@ criterion.
   "readouts": [
    {
     "direction": 1,
-    "half_width": 82.71671659633672,
-    "mean_difference": 1067.2600351914336,
+    "half_width": 77.00875074994916,
+    "mean_difference": 1049.8476951345242,
     "nonzero_share": 1.0,
     "readout": "mean_acute",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 0.0027874240692739487,
-    "mean_difference": 0.06045134274351644,
+    "half_width": 0.0027481119291628857,
+    "mean_difference": 0.06101572455964277,
     "nonzero_share": 1.0,
     "readout": "reactive_over_chance",
     "report_only": false
@@ -1481,22 +1479,22 @@ criterion.
   "mutant": "level-blind",
   "kind": "deletion",
   "criterion": "M11.C.16",
-  "outcome": "FAIL",
+  "outcome": "PASS",
   "seeds": 150,
-  "result": "red",
+  "result": "survived",
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.0033534221213064475,
-    "mean_difference": -0.002044791503074419,
+    "half_width": 0.0034560954695091748,
+    "mean_difference": -0.003915354616866453,
     "nonzero_share": 1.0,
     "readout": "repertoire_entropy",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 0.005617652610198364,
-    "mean_difference": 0.004439097937352547,
+    "half_width": 0.006039376321290343,
+    "mean_difference": 0.006998581980988125,
     "nonzero_share": 1.0,
     "readout": "top_move_share",
     "report_only": true
@@ -1562,22 +1560,22 @@ criterion.
   "kind": "deletion",
   "criterion": "M11.C.41[light: lower level]",
   "outcome": "FAIL",
-  "seeds": 50,
+  "seeds": 100,
   "result": "red",
   "readouts": [
    {
     "direction": 1,
-    "half_width": 35.71012416969758,
-    "mean_difference": 6.458317523158968,
+    "half_width": 27.899718137049554,
+    "mean_difference": 17.12228506180493,
     "nonzero_share": 1.0,
     "readout": "mean_acute",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 0.002396719060016782,
-    "mean_difference": -0.00031696926691604456,
-    "nonzero_share": 0.92,
+    "half_width": 0.0015303657303352444,
+    "mean_difference": 0.00023322865515879366,
+    "nonzero_share": 0.9,
     "readout": "reactive_over_chance",
     "report_only": false
    }
@@ -1593,16 +1591,16 @@ criterion.
   "readouts": [
    {
     "direction": 1,
-    "half_width": 27.717078276557242,
-    "mean_difference": 8.666375846738788,
+    "half_width": 24.882639676242377,
+    "mean_difference": 24.488144717623022,
     "nonzero_share": 1.0,
     "readout": "mean_acute",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 0.0016613780388527477,
-    "mean_difference": 0.000580688484848622,
+    "half_width": 0.0016210357115041933,
+    "mean_difference": 7.016072795290513e-05,
     "nonzero_share": 0.97,
     "readout": "reactive_over_chance",
     "report_only": false
@@ -1619,16 +1617,16 @@ criterion.
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.024622920006007656,
-    "mean_difference": -0.15357909398968525,
+    "half_width": 0.02423185186379329,
+    "mean_difference": -0.15360232741412716,
     "nonzero_share": 1.0,
     "readout": "repertoire_entropy",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 0.02465533913510061,
-    "mean_difference": 0.1535595471818116,
+    "half_width": 0.023966720677791938,
+    "mean_difference": 0.1519167955095842,
     "nonzero_share": 1.0,
     "readout": "top_move_share",
     "report_only": true
@@ -1645,16 +1643,16 @@ criterion.
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.026014124392637998,
-    "mean_difference": -0.1582085798335467,
+    "half_width": 0.025367372752195624,
+    "mean_difference": -0.15118164158004202,
     "nonzero_share": 1.0,
     "readout": "repertoire_entropy",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 0.02615301452726624,
-    "mean_difference": 0.15456879106515548,
+    "half_width": 0.025787419992188452,
+    "mean_difference": 0.1483439890634922,
     "nonzero_share": 1.0,
     "readout": "top_move_share",
     "report_only": true
@@ -1671,16 +1669,16 @@ criterion.
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.0013050071534333762,
-    "mean_difference": -0.0017509116508886403,
+    "half_width": 0.0013067479155943773,
+    "mean_difference": -0.001649237914418229,
     "nonzero_share": 1.0,
     "readout": "repertoire_entropy",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 0.0018883819232980077,
-    "mean_difference": 0.0012228972943138072,
+    "half_width": 0.0018573109918471758,
+    "mean_difference": 0.001344116632287762,
     "nonzero_share": 1.0,
     "readout": "top_move_share",
     "report_only": true
@@ -1697,16 +1695,16 @@ criterion.
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.026243013378498863,
-    "mean_difference": -0.16438829283920928,
+    "half_width": 0.02601765835284299,
+    "mean_difference": -0.18948858791870632,
     "nonzero_share": 1.0,
     "readout": "repertoire_entropy",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 0.02478103768552414,
-    "mean_difference": 0.1568923834750268,
+    "half_width": 0.023959508909047345,
+    "mean_difference": 0.18043525526221216,
     "nonzero_share": 1.0,
     "readout": "top_move_share",
     "report_only": true
@@ -1718,21 +1716,21 @@ criterion.
   "kind": "sign-inverted",
   "criterion": "M11.C.16",
   "outcome": "PASS",
-  "seeds": 100,
+  "seeds": 150,
   "result": "survived",
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.030413630708867778,
-    "mean_difference": -0.16036864697423311,
+    "half_width": 0.027144021930970416,
+    "mean_difference": -0.17877038705811926,
     "nonzero_share": 1.0,
     "readout": "repertoire_entropy",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 0.029187435038307848,
-    "mean_difference": 0.14518204365739593,
+    "half_width": 0.026044387515819438,
+    "mean_difference": 0.16161482514393166,
     "nonzero_share": 1.0,
     "readout": "top_move_share",
     "report_only": true
@@ -1749,16 +1747,16 @@ criterion.
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.030233197392449316,
-    "mean_difference": -0.16988700341450472,
+    "half_width": 0.02908852087220804,
+    "mean_difference": -0.182159764463641,
     "nonzero_share": 1.0,
     "readout": "repertoire_entropy",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 0.029038666935623018,
-    "mean_difference": 0.16167958088744097,
+    "half_width": 0.027315494904748338,
+    "mean_difference": 0.17832388721338857,
     "nonzero_share": 1.0,
     "readout": "top_move_share",
     "report_only": true
@@ -1775,16 +1773,16 @@ criterion.
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.029300889147692553,
-    "mean_difference": -0.1881914315651934,
+    "half_width": 0.028637580071964878,
+    "mean_difference": -0.19507352211904488,
     "nonzero_share": 1.0,
     "readout": "repertoire_entropy",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 0.02661018237594397,
-    "mean_difference": 0.17073450060039072,
+    "half_width": 0.02662662447185093,
+    "mean_difference": 0.1826708860593293,
     "nonzero_share": 1.0,
     "readout": "top_move_share",
     "report_only": true
@@ -1801,16 +1799,16 @@ criterion.
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.028520615946261228,
-    "mean_difference": -0.16772237461645878,
+    "half_width": 0.027943443896603522,
+    "mean_difference": -0.17094944173656085,
     "nonzero_share": 1.0,
     "readout": "repertoire_entropy",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 0.026638086159345663,
-    "mean_difference": 0.15673126407184976,
+    "half_width": 0.026093712445423,
+    "mean_difference": 0.16243678135400155,
     "nonzero_share": 1.0,
     "readout": "top_move_share",
     "report_only": true
@@ -1827,16 +1825,16 @@ criterion.
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.02774964438825401,
-    "mean_difference": -0.1687677642534541,
+    "half_width": 0.02753144630781332,
+    "mean_difference": -0.1680355546797992,
     "nonzero_share": 1.0,
     "readout": "repertoire_entropy",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 0.026264201210559064,
-    "mean_difference": 0.16280635309892252,
+    "half_width": 0.026915756442433176,
+    "mean_difference": 0.16063171257586,
     "nonzero_share": 1.0,
     "readout": "top_move_share",
     "report_only": true
@@ -1853,16 +1851,16 @@ criterion.
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.02909339325245892,
-    "mean_difference": -0.16760046181208638,
+    "half_width": 0.0273133182422775,
+    "mean_difference": -0.17688089818825917,
     "nonzero_share": 1.0,
     "readout": "repertoire_entropy",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 0.02763610844728909,
-    "mean_difference": 0.15489144643202454,
+    "half_width": 0.02545331727122037,
+    "mean_difference": 0.1659324240136237,
     "nonzero_share": 1.0,
     "readout": "top_move_share",
     "report_only": true
@@ -1879,16 +1877,16 @@ criterion.
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.029166370964213765,
-    "mean_difference": -0.16742784736568025,
+    "half_width": 0.02719390374367275,
+    "mean_difference": -0.17720743447153312,
     "nonzero_share": 1.0,
     "readout": "repertoire_entropy",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 0.027630666980700047,
-    "mean_difference": 0.15509027067992606,
+    "half_width": 0.025275943919550625,
+    "mean_difference": 0.1658551229788693,
     "nonzero_share": 1.0,
     "readout": "top_move_share",
     "report_only": true
@@ -1905,16 +1903,16 @@ criterion.
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.00788299249899651,
-    "mean_difference": -0.043005803715065814,
+    "half_width": 0.007290461533993182,
+    "mean_difference": -0.039834615741947355,
     "nonzero_share": 1.0,
     "readout": "repertoire_entropy",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 0.011261562035764712,
-    "mean_difference": 0.05910152548753374,
+    "half_width": 0.010959255268137406,
+    "mean_difference": 0.056052401031080425,
     "nonzero_share": 1.0,
     "readout": "top_move_share",
     "report_only": true
@@ -1931,16 +1929,16 @@ criterion.
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.003985940817489321,
-    "mean_difference": -0.0033764907495166543,
+    "half_width": 0.00385291073813704,
+    "mean_difference": -0.002110507595869353,
     "nonzero_share": 1.0,
     "readout": "repertoire_entropy",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 0.007425726606706139,
-    "mean_difference": 0.004657632709375927,
+    "half_width": 0.007048492799297432,
+    "mean_difference": 0.005962190213303668,
     "nonzero_share": 1.0,
     "readout": "top_move_share",
     "report_only": true
@@ -1991,9 +1989,9 @@ criterion.
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.24150747051528348,
-    "mean_difference": -0.4666666666666667,
-    "nonzero_share": 0.6666666666666666,
+    "half_width": 0.24085180581408877,
+    "mean_difference": -0.49333333333333335,
+    "nonzero_share": 0.68,
     "readout": "time_to_threshold",
     "report_only": false
    }
@@ -2009,16 +2007,16 @@ criterion.
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.0033380653903366253,
-    "mean_difference": -0.015412093850002183,
+    "half_width": 0.003350634479104811,
+    "mean_difference": -0.015104750224103002,
     "nonzero_share": 1.0,
     "readout": "repertoire_entropy",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 0.005025665090718285,
-    "mean_difference": 0.025585167470888587,
+    "half_width": 0.0048341411691041605,
+    "mean_difference": 0.026674357941698073,
     "nonzero_share": 1.0,
     "readout": "top_move_share",
     "report_only": true
@@ -2035,8 +2033,8 @@ criterion.
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.21552799532236358,
-    "mean_difference": -0.23,
+    "half_width": 0.21690094187406972,
+    "mean_difference": -0.26,
     "nonzero_share": 0.55,
     "readout": "time_to_threshold",
     "report_only": false
@@ -2053,9 +2051,9 @@ criterion.
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.24524734988631916,
-    "mean_difference": -0.1,
-    "nonzero_share": 0.58,
+    "half_width": 0.2442882185807857,
+    "mean_difference": -0.11,
+    "nonzero_share": 0.57,
     "readout": "time_to_threshold",
     "report_only": false
    }
@@ -2071,9 +2069,9 @@ criterion.
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.2507240424341978,
-    "mean_difference": -0.2,
-    "nonzero_share": 0.65,
+    "half_width": 0.25179738206772845,
+    "mean_difference": -0.19,
+    "nonzero_share": 0.66,
     "readout": "time_to_threshold",
     "report_only": false
    }
@@ -2089,16 +2087,16 @@ criterion.
   "readouts": [
    {
     "direction": 1,
-    "half_width": 9.34567047212942,
-    "mean_difference": -53.08795385609699,
+    "half_width": 9.88392865224083,
+    "mean_difference": -57.485818772769754,
     "nonzero_share": 1.0,
     "readout": "mean_acute",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 0.0028757088560104277,
-    "mean_difference": 0.053802590291537805,
+    "half_width": 0.002735881031382455,
+    "mean_difference": 0.0536791816099133,
     "nonzero_share": 1.0,
     "readout": "reactive_over_chance",
     "report_only": false
@@ -2115,16 +2113,16 @@ criterion.
   "readouts": [
    {
     "direction": 1,
-    "half_width": 10.164558843726494,
-    "mean_difference": -66.17553886498446,
+    "half_width": 10.695004257066817,
+    "mean_difference": -69.44617165830985,
     "nonzero_share": 1.0,
     "readout": "mean_acute",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 0.0026107517567105737,
-    "mean_difference": 0.05203040486803888,
+    "half_width": 0.0025319543001186065,
+    "mean_difference": 0.052482449482023255,
     "nonzero_share": 1.0,
     "readout": "reactive_over_chance",
     "report_only": false
@@ -2141,16 +2139,16 @@ criterion.
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.012932072098969967,
-    "mean_difference": -0.10482323988463964,
+    "half_width": 0.012644861073777127,
+    "mean_difference": -0.0997761930504598,
     "nonzero_share": 1.0,
     "readout": "repertoire_entropy",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 0.01645770778919641,
-    "mean_difference": 0.1642338046764004,
+    "half_width": 0.016184456195037913,
+    "mean_difference": 0.15676327601327722,
     "nonzero_share": 1.0,
     "readout": "top_move_share",
     "report_only": true
@@ -2167,16 +2165,16 @@ criterion.
   "readouts": [
    {
     "direction": 1,
-    "half_width": 40.63518993946163,
-    "mean_difference": 450.38532735316977,
+    "half_width": 42.88665861324754,
+    "mean_difference": 465.70663787112534,
     "nonzero_share": 1.0,
     "readout": "mean_acute",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 0.0031798909229737242,
-    "mean_difference": -0.13143414250374913,
+    "half_width": 0.0032592567495137964,
+    "mean_difference": -0.13283376212450462,
     "nonzero_share": 1.0,
     "readout": "reactive_over_chance",
     "report_only": false
@@ -2193,16 +2191,16 @@ criterion.
   "readouts": [
    {
     "direction": 1,
-    "half_width": 38.73242089083811,
-    "mean_difference": 498.181997980606,
+    "half_width": 36.95586375081407,
+    "mean_difference": 483.4852386889658,
     "nonzero_share": 1.0,
     "readout": "mean_acute",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 0.0032449013499375634,
-    "mean_difference": -0.13053941071247346,
+    "half_width": 0.0031900446809767363,
+    "mean_difference": -0.13109171822257557,
     "nonzero_share": 1.0,
     "readout": "reactive_over_chance",
     "report_only": false
@@ -2219,16 +2217,16 @@ criterion.
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.008831817970583621,
-    "mean_difference": -0.010878187271462851,
+    "half_width": 0.008116514062940174,
+    "mean_difference": -0.008787062075270686,
     "nonzero_share": 1.0,
     "readout": "repertoire_entropy",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 0.01144292671528688,
-    "mean_difference": 0.006914434159129659,
+    "half_width": 0.011396206861532192,
+    "mean_difference": 0.0045167540334538755,
     "nonzero_share": 1.0,
     "readout": "top_move_share",
     "report_only": true
@@ -2271,8 +2269,8 @@ criterion.
   "readouts": [
    {
     "direction": 1,
-    "half_width": 0.12462982985134397,
-    "mean_difference": 0.06554083326209884,
+    "half_width": 0.12397663652203933,
+    "mean_difference": 0.07200479313406373,
     "nonzero_share": 1.0,
     "readout": "outside_inside_ratio",
     "report_only": false
@@ -2337,56 +2335,56 @@ criterion.
    },
    {
     "direction": -1,
-    "half_width": 0.048317138720171876,
-    "mean_difference": -0.04050693682482174,
+    "half_width": 0.04833495735277808,
+    "mean_difference": -0.04054693682482173,
     "nonzero_share": 0.98,
     "readout": "pair_deviation_week_6",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.048376465692006224,
-    "mean_difference": -0.05500271701363256,
+    "half_width": 0.04785975892548925,
+    "mean_difference": -0.05928819238509395,
     "nonzero_share": 0.96,
     "readout": "pair_deviation_week_7",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.06093127958715154,
-    "mean_difference": -0.04833798991815748,
+    "half_width": 0.06068449539368155,
+    "mean_difference": -0.051285782553474914,
     "nonzero_share": 0.92,
     "readout": "pair_deviation_week_8",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.0672854897946669,
-    "mean_difference": -0.0733437695763941,
+    "half_width": 0.06728977217049335,
+    "mean_difference": -0.07338144004739046,
     "nonzero_share": 0.98,
     "readout": "pair_deviation_week_9",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.06986599432932271,
-    "mean_difference": -0.039458667056279165,
+    "half_width": 0.06986293615270171,
+    "mean_difference": -0.039417223612218937,
     "nonzero_share": 0.98,
     "readout": "pair_deviation_week_10",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.06350853067617254,
-    "mean_difference": -0.06316302753549274,
+    "half_width": 0.06351918880982924,
+    "mean_difference": -0.06312168976997032,
     "nonzero_share": 0.96,
     "readout": "pair_deviation_week_11",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.06917570316280146,
-    "mean_difference": -0.06929375560758061,
+    "half_width": 0.06877364493346637,
+    "mean_difference": -0.08297669581072736,
     "nonzero_share": 0.98,
     "readout": "pair_deviation_week_12",
     "report_only": true
@@ -2403,104 +2401,104 @@ criterion.
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.053115158729724776,
-    "mean_difference": 0.13829319257684314,
+    "half_width": 0.05313946523850045,
+    "mean_difference": 0.1371381641692815,
     "nonzero_share": 0.98,
     "readout": "pair_deviation",
     "report_only": false
    },
    {
     "direction": -1,
-    "half_width": 0.053115158729724776,
-    "mean_difference": 0.13829319257684314,
+    "half_width": 0.05313946523850045,
+    "mean_difference": 0.1371381641692815,
     "nonzero_share": 0.98,
     "readout": "pair_deviation_week_1",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.05207893239398338,
-    "mean_difference": 0.1120243479215766,
+    "half_width": 0.053091409907664554,
+    "mean_difference": 0.11391384142162057,
     "nonzero_share": 0.97,
     "readout": "pair_deviation_week_2",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.06103246339904308,
-    "mean_difference": 0.08922383370336393,
+    "half_width": 0.061286209248746296,
+    "mean_difference": 0.08759988326572131,
     "nonzero_share": 0.98,
     "readout": "pair_deviation_week_3",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.05608233801863536,
-    "mean_difference": 0.04833232521581321,
+    "half_width": 0.05603036464243939,
+    "mean_difference": 0.04689190396688704,
     "nonzero_share": 0.98,
     "readout": "pair_deviation_week_4",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.05783484258504269,
-    "mean_difference": -0.0018097802473163093,
+    "half_width": 0.05831867902183953,
+    "mean_difference": 0.0012069755298957784,
     "nonzero_share": 0.98,
     "readout": "pair_deviation_week_5",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.0573967289004965,
-    "mean_difference": -0.046129727389872546,
+    "half_width": 0.057779038451775996,
+    "mean_difference": -0.04221726759237756,
     "nonzero_share": 0.98,
     "readout": "pair_deviation_week_6",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.05381569173721856,
-    "mean_difference": -0.07255102443193101,
+    "half_width": 0.05369622280209209,
+    "mean_difference": -0.06950680466304215,
     "nonzero_share": 0.98,
     "readout": "pair_deviation_week_7",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.05915705537270701,
-    "mean_difference": -0.11613205578212112,
+    "half_width": 0.060755117639535935,
+    "mean_difference": -0.12231558007751886,
     "nonzero_share": 0.98,
     "readout": "pair_deviation_week_8",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.058379531719318575,
-    "mean_difference": -0.11534296246069856,
+    "half_width": 0.06014465242177273,
+    "mean_difference": -0.1264741411767899,
     "nonzero_share": 0.98,
     "readout": "pair_deviation_week_9",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.060879838705343844,
-    "mean_difference": -0.14350439009466734,
+    "half_width": 0.06195900485305979,
+    "mean_difference": -0.15698304884515504,
     "nonzero_share": 0.98,
     "readout": "pair_deviation_week_10",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.061607378169741565,
-    "mean_difference": -0.143540485657774,
+    "half_width": 0.062158795973982196,
+    "mean_difference": -0.14656524950293323,
     "nonzero_share": 0.98,
     "readout": "pair_deviation_week_11",
     "report_only": true
    },
    {
     "direction": -1,
-    "half_width": 0.0639154836596245,
-    "mean_difference": -0.19172689974720533,
+    "half_width": 0.06371517554010733,
+    "mean_difference": -0.2052380638224413,
     "nonzero_share": 0.98,
     "readout": "pair_deviation_week_12",
     "report_only": true
@@ -2517,16 +2515,16 @@ criterion.
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.29288711899046155,
-    "mean_difference": -4.215377294873327,
+    "half_width": 0.29122423370947687,
+    "mean_difference": -4.208471607603151,
     "nonzero_share": 1.0,
     "readout": "actor_relief_now",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 3.1108987348487305,
-    "mean_difference": 53.7769556946191,
+    "half_width": 3.0866726971883915,
+    "mean_difference": 54.1404081571992,
     "nonzero_share": 1.0,
     "readout": "family_anxiety_at_nodal",
     "report_only": false
@@ -2543,16 +2541,16 @@ criterion.
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.3010844916430861,
-    "mean_difference": -4.263457627526832,
+    "half_width": 0.29923551746194643,
+    "mean_difference": -4.250737721448257,
     "nonzero_share": 1.0,
     "readout": "actor_relief_now",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 2.667823254736007,
-    "mean_difference": 58.32855601901225,
+    "half_width": 2.662210391680492,
+    "mean_difference": 58.3391158203476,
     "nonzero_share": 1.0,
     "readout": "family_anxiety_at_nodal",
     "report_only": false
@@ -2569,16 +2567,16 @@ criterion.
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.30228213455135394,
-    "mean_difference": -4.031530081568256,
+    "half_width": 0.30056171237304125,
+    "mean_difference": -4.024626006066768,
     "nonzero_share": 1.0,
     "readout": "actor_relief_now",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 1.6261602977704033,
-    "mean_difference": -3.7029904217527383,
+    "half_width": 1.62369506024612,
+    "mean_difference": -3.5410999399222436,
     "nonzero_share": 1.0,
     "readout": "family_anxiety_at_nodal",
     "report_only": false
@@ -2595,37 +2593,11 @@ criterion.
   "readouts": [
    {
     "direction": 1,
-    "half_width": 0.008978784958552375,
-    "mean_difference": -0.5251290724650416,
+    "half_width": 0.009015206143225695,
+    "mean_difference": -0.5256367108847804,
     "nonzero_share": 1.0,
     "readout": "witness_appraisal",
     "report_only": false
-   }
-  ]
- },
- {
-  "mutant": "cue-belief-bias-removed",
-  "kind": "named",
-  "criterion": "M11.C.51",
-  "outcome": "FAIL",
-  "seeds": 50,
-  "result": "red",
-  "readouts": [
-   {
-    "direction": 1,
-    "half_width": 0.01642145013044363,
-    "mean_difference": -0.0054118863265431695,
-    "nonzero_share": 0.56,
-    "readout": "distance_conflict_share",
-    "report_only": false
-   },
-   {
-    "direction": 1,
-    "half_width": 0.0,
-    "mean_difference": 0.0,
-    "nonzero_share": 0.0,
-    "readout": "no_moves",
-    "report_only": true
    }
   ]
  },
@@ -2639,8 +2611,8 @@ criterion.
   "readouts": [
    {
     "direction": -1,
-    "half_width": 60.19629411258528,
-    "mean_difference": -124.95971554022714,
+    "half_width": 59.66997812003488,
+    "mean_difference": -122.54518780894469,
     "nonzero_share": 1.0,
     "readout": "escalation",
     "report_only": false
@@ -2657,8 +2629,8 @@ criterion.
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.16026351532221655,
-    "mean_difference": -1.91,
+    "half_width": 0.16167375054770522,
+    "mean_difference": -1.92,
     "nonzero_share": 0.99,
     "readout": "time_to_threshold",
     "report_only": false
@@ -2709,16 +2681,16 @@ criterion.
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.30108487780802284,
-    "mean_difference": -4.263438065171306,
+    "half_width": 0.29923588457336303,
+    "mean_difference": -4.250718159092732,
     "nonzero_share": 1.0,
     "readout": "actor_relief_now",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 3.306345735273535,
-    "mean_difference": 60.468487401598786,
+    "half_width": 3.3207721943850466,
+    "mean_difference": 60.44465569227291,
     "nonzero_share": 1.0,
     "readout": "family_anxiety_at_nodal",
     "report_only": false
@@ -2735,16 +2707,16 @@ criterion.
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.02884882102531852,
-    "mean_difference": -0.1675938123944031,
+    "half_width": 0.02741355978728487,
+    "mean_difference": -0.17846698577527054,
     "nonzero_share": 1.0,
     "readout": "repertoire_entropy",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 0.02725550971091186,
-    "mean_difference": 0.15529954299392018,
+    "half_width": 0.025519395607718154,
+    "mean_difference": 0.16765923807683808,
     "nonzero_share": 1.0,
     "readout": "top_move_share",
     "report_only": true
@@ -3087,9 +3059,9 @@ criterion.
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.12963807272167344,
-    "mean_difference": -0.87,
-    "nonzero_share": 0.72,
+    "half_width": 0.12851069837161264,
+    "mean_difference": -0.88,
+    "nonzero_share": 0.73,
     "readout": "time_to_threshold",
     "report_only": false
    }
@@ -3123,16 +3095,16 @@ criterion.
   "readouts": [
    {
     "direction": 1,
-    "half_width": 66.23598956006785,
-    "mean_difference": 1020.5485072132984,
+    "half_width": 65.8087037260059,
+    "mean_difference": 1025.9774202083809,
     "nonzero_share": 1.0,
     "readout": "mean_acute",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 0.0029793725898273654,
-    "mean_difference": 0.06081389428545864,
+    "half_width": 0.002965803858930785,
+    "mean_difference": 0.06067399790236138,
     "nonzero_share": 1.0,
     "readout": "reactive_over_chance",
     "report_only": false
@@ -3149,45 +3121,19 @@ criterion.
   "readouts": [
    {
     "direction": 1,
-    "half_width": 95.42906241383616,
-    "mean_difference": 1056.2994909772667,
+    "half_width": 97.18835347615263,
+    "mean_difference": 1046.8464297977432,
     "nonzero_share": 1.0,
     "readout": "mean_acute",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 0.0028557087069291634,
-    "mean_difference": 0.05880539841632427,
+    "half_width": 0.0029431955736505685,
+    "mean_difference": 0.059173099145144924,
     "nonzero_share": 1.0,
     "readout": "reactive_over_chance",
     "report_only": false
-   }
-  ]
- },
- {
-  "mutant": "appraisal-sum-order-reversed",
-  "kind": "representation",
-  "criterion": "M11.C.51",
-  "outcome": "PASS",
-  "seeds": 100,
-  "result": "unchanged",
-  "readouts": [
-   {
-    "direction": 1,
-    "half_width": 0.02069978209679002,
-    "mean_difference": 0.015479622972100258,
-    "nonzero_share": 0.89,
-    "readout": "distance_conflict_share",
-    "report_only": false
-   },
-   {
-    "direction": 1,
-    "half_width": 0.0,
-    "mean_difference": 0.0,
-    "nonzero_share": 0.0,
-    "readout": "no_moves",
-    "report_only": true
    }
   ]
  },
@@ -3201,8 +3147,8 @@ criterion.
   "readouts": [
    {
     "direction": -1,
-    "half_width": 60.23013989359763,
-    "mean_difference": -128.27233448043225,
+    "half_width": 60.103401395788225,
+    "mean_difference": -127.48641826236508,
     "nonzero_share": 1.0,
     "readout": "escalation",
     "report_only": false
@@ -3219,8 +3165,8 @@ criterion.
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.16026351532221655,
-    "mean_difference": -1.91,
+    "half_width": 0.16167375054770522,
+    "mean_difference": -1.92,
     "nonzero_share": 0.99,
     "readout": "time_to_threshold",
     "report_only": false
@@ -3271,16 +3217,16 @@ criterion.
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.3010848778076928,
-    "mean_difference": -4.263438065168749,
+    "half_width": 0.29923588457303874,
+    "mean_difference": -4.250718159090171,
     "nonzero_share": 1.0,
     "readout": "actor_relief_now",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 3.3063457352725036,
-    "mean_difference": 60.46848740161479,
+    "half_width": 3.3207721943839585,
+    "mean_difference": 60.444655692289224,
     "nonzero_share": 1.0,
     "readout": "family_anxiety_at_nodal",
     "report_only": false
@@ -3297,16 +3243,16 @@ criterion.
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.02883949836440765,
-    "mean_difference": -0.16742629543592177,
+    "half_width": 0.02741188449676274,
+    "mean_difference": -0.17851554301572597,
     "nonzero_share": 1.0,
     "readout": "repertoire_entropy",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 0.027205251142361064,
-    "mean_difference": 0.15492983280028308,
+    "half_width": 0.025529520181944185,
+    "mean_difference": 0.16771561295149215,
     "nonzero_share": 1.0,
     "readout": "top_move_share",
     "report_only": true
@@ -3649,9 +3595,9 @@ criterion.
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.12963807272167344,
-    "mean_difference": -0.87,
-    "nonzero_share": 0.72,
+    "half_width": 0.12851069837161264,
+    "mean_difference": -0.88,
+    "nonzero_share": 0.73,
     "readout": "time_to_threshold",
     "report_only": false
    }
@@ -3685,16 +3631,16 @@ criterion.
   "readouts": [
    {
     "direction": 1,
-    "half_width": 66.2272427903335,
-    "mean_difference": 1020.8397565312505,
+    "half_width": 65.68425886347727,
+    "mean_difference": 1027.3235262831852,
     "nonzero_share": 1.0,
     "readout": "mean_acute",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 0.0029853907414650683,
-    "mean_difference": 0.06083730665351998,
+    "half_width": 0.002989648147048848,
+    "mean_difference": 0.06042793165296518,
     "nonzero_share": 1.0,
     "readout": "reactive_over_chance",
     "report_only": false
@@ -3711,45 +3657,19 @@ criterion.
   "readouts": [
    {
     "direction": 1,
-    "half_width": 95.42904924157237,
-    "mean_difference": 1056.284274478436,
+    "half_width": 97.18791989921196,
+    "mean_difference": 1046.8409449562753,
     "nonzero_share": 1.0,
     "readout": "mean_acute",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 0.0028557087069291634,
-    "mean_difference": 0.05880539841632427,
+    "half_width": 0.0029431955736505685,
+    "mean_difference": 0.059173099145144924,
     "nonzero_share": 1.0,
     "readout": "reactive_over_chance",
     "report_only": false
-   }
-  ]
- },
- {
-  "mutant": "clamp-within-tolerance",
-  "kind": "representation",
-  "criterion": "M11.C.51",
-  "outcome": "PASS",
-  "seeds": 100,
-  "result": "unchanged",
-  "readouts": [
-   {
-    "direction": 1,
-    "half_width": 0.01956914772421294,
-    "mean_difference": 0.013485878369009054,
-    "nonzero_share": 0.89,
-    "readout": "distance_conflict_share",
-    "report_only": false
-   },
-   {
-    "direction": 1,
-    "half_width": 0.0,
-    "mean_difference": 0.0,
-    "nonzero_share": 0.0,
-    "readout": "no_moves",
-    "report_only": true
    }
   ]
  },
@@ -3763,8 +3683,8 @@ criterion.
   "readouts": [
    {
     "direction": -1,
-    "half_width": 60.23013989360446,
-    "mean_difference": -128.2723344803681,
+    "half_width": 60.103401395795686,
+    "mean_difference": -127.48641826230431,
     "nonzero_share": 1.0,
     "readout": "escalation",
     "report_only": false
@@ -3781,16 +3701,16 @@ criterion.
   "readouts": [
    {
     "direction": -1,
-    "half_width": 0.01319508754307425,
-    "mean_difference": -0.0374702295152331,
+    "half_width": 0.013006853696456055,
+    "mean_difference": -0.0351455405960801,
     "nonzero_share": 1.0,
     "readout": "repertoire_entropy",
     "report_only": false
    },
    {
     "direction": 1,
-    "half_width": 0.013799910599438966,
-    "mean_difference": 0.0406964784081543,
+    "half_width": 0.01369521137487538,
+    "mean_difference": 0.038809759126039345,
     "nonzero_share": 1.0,
     "readout": "top_move_share",
     "report_only": true

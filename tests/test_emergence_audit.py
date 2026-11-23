@@ -114,11 +114,13 @@ def test_m111g_ea1_the_real_scope_is_the_plans():
     pass, so they enter by it: fifteen rows. Since spec revision 66's regeneration (T-258, 2026-11-20)
     `M11.C.10`, `M11.C.10[family of origin]`, `M11.C.15`, `M11.C.17`, `M11.C.22`, `M11.C.2[twelve-person family]`,
     `M11.C.48[phase_d]` and `M11.C.49` fail and
-    `M11.C.6`, `M11.C.12`, `M11.C.23`, `M11.C.44`, `M11.C.51` and `M11.C.27[unstable,add_third]` pass: thirteen rows."""
+    `M11.C.6`, `M11.C.12`, `M11.C.23`, `M11.C.44`, `M11.C.51` and `M11.C.27[unstable,add_third]` pass: thirteen rows.
+    Since spec revision 67's regeneration (T-266, 2026-11-22) `M11.C.12`, `M11.C.51` and
+    `M11.C.7[one spouse over sided]` fail and `M11.C.17` passes: eleven rows."""
     audited, rows, by_class, excluded = ea.in_scope(ea.read_records(), ea.read_config())
     ea.check_registries(rows)
     keys = {r.key for r in audited}
-    assert len(audited) == 13 and {"M11.C.52", "M11.C.55", "M11.C.6", "M11.C.12"} <= keys
+    assert len(audited) == 11 and {"M11.C.52", "M11.C.55", "M11.C.6", "M11.C.17"} <= keys
     assert "M11.C.48[phase_d]" not in keys
     assert "M11.C.34" not in keys
     assert [k for k, _ in excluded] == ["M11.C.39"]
@@ -377,7 +379,6 @@ def test_m111g_ea13_key_is_engine_and_edits():
 
 
 # --- EA-14 -----------------------------------------------------------------------------------------------------------
-@pytest.mark.xfail(strict=True, reason="T-266: spec revision 67 (2026-11-21, M5.D.3b and M5.D.9b) moved the engine hash; this record is regenerated on Mac Mini1 and is stale on the new engine until then")
 def test_m111g_ea14_emergence_audit_record_is_current():
     try:
         rendered = ea.build(Cache(ea.CACHE))

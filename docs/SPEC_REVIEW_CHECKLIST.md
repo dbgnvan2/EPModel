@@ -250,7 +250,9 @@ the owner decisions it needs (§1a records them), and the split into D-I and D-I
 
 **Generated, 2026-11-18 (engine batch E1, spec revision 64):** [version_3_revision_64_changes.md](archive/version_3_revision_64_changes.md) — the records at `ebbaeca` compared with the records after spec revision 64's one regeneration (`tools/record_changes.py revision-64`), read at `0359119`; frozen. The version 2 sweep record is not compared: it reruns at the stage-end sweep.
 
-**Generated, 2026-11-20 (T-258, spec revision 66):** [version_3_revision_66_changes.md](version_3_revision_66_changes.md) — the records at `0359119` compared with the records after spec revision 66's one regeneration (`tools/record_changes.py revision-66`). The version 2 sweep record is not compared: it reruns at the stage-end sweep.
+**Generated, 2026-11-20 (T-258, spec revision 66):** [version_3_revision_66_changes.md](archive/version_3_revision_66_changes.md) — the records at `0359119` compared with the records after spec revision 66's one regeneration (`tools/record_changes.py revision-66`), read at `41b14c3`; frozen. The version 2 sweep record is not compared: it reruns at the stage-end sweep.
+
+**Generated, 2026-11-22 (T-266, spec revision 67):** [version_3_revision_67_changes.md](version_3_revision_67_changes.md) — the records at `41b14c3` compared with the records after spec revision 67's one regeneration (`tools/record_changes.py revision-67`). The version 2 sweep record is not compared: it reruns at the stage-end sweep.
 
 **Generated, 2026-11-09 (T-202, spec revision 55):** [version_3_revision_55_changes.md](archive/version_3_revision_55_changes.md) — the records at `a694e78` (revision 47's regeneration, its sweep (T-181) and revision 54) compared with the records after spec revision 55's one regeneration (`tools/record_changes.py revision-55`): no existing row changed with the social cues off; the rows of `M11.C.50` to `M11.C.55` and their mutants are new. Since revision 55 the revision 47 page reads its later side at `a694e78` and is frozen.
 

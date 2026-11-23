@@ -1,5 +1,5 @@
 {
- "c02caa8be29efdc34e83c8954b157ae35715f8563fce57da039eb4cce1731341": {
+ "3f01fcb92511f7b9251ce0f129cb5b4406dc6c313d0e002e2ed51dd3e8906524": {
   "rows": [
    {
     "arm": "baseline",
@@ -8,13 +8,13 @@
      "window": 7280
     },
     "whole_run": {
-     "deletion_on_every_layer": 0.06078296703296703,
-     "deletion_on_layer_1": 0.8853708791208791,
+     "deletion_on_every_layer": 0.07809065934065934,
+     "deletion_on_layer_1": 0.907967032967033,
      "layers_above_0_unavailable": 0.0
     },
     "window": {
-     "deletion_on_every_layer": 0.10453296703296704,
-     "deletion_on_layer_1": 0.9802197802197802,
+     "deletion_on_every_layer": 0.1364010989010989,
+     "deletion_on_layer_1": 0.9913461538461539,
      "layers_above_0_unavailable": 0.0
     }
    },
@@ -25,19 +25,19 @@
      "window": 7280
     },
     "whole_run": {
-     "deletion_on_every_layer": 0.8471153846153846,
-     "deletion_on_layer_1": 0.9986263736263736,
+     "deletion_on_every_layer": 0.8390796703296703,
+     "deletion_on_layer_1": 0.9984203296703297,
      "layers_above_0_unavailable": 0.0
     },
     "window": {
-     "deletion_on_every_layer": 0.985989010989011,
+     "deletion_on_every_layer": 0.9847527472527473,
      "deletion_on_layer_1": 1.0,
      "layers_above_0_unavailable": 0.0
     }
    }
   ]
  },
- "f59338c927da619e89a5e06e5c21445857c1b29f7de6f6d8f5f2c05d072f4481": {
+ "ac018814ffbc3d5ef11ed8a0fadbf34f9162cf6c1febe3459c0df7bc9f358c5e": {
   "rows": [
    {
     "arm": "baseline",
@@ -46,13 +46,13 @@
      "window": 7280
     },
     "whole_run": {
-     "deletion_on_every_layer": 0.07685439560439561,
-     "deletion_on_layer_1": 0.9030906593406594,
+     "deletion_on_every_layer": 0.05728021978021978,
+     "deletion_on_layer_1": 0.8855082417582417,
      "layers_above_0_unavailable": 0.0
     },
     "window": {
-     "deletion_on_every_layer": 0.13557692307692307,
-     "deletion_on_layer_1": 0.9884615384615385,
+     "deletion_on_every_layer": 0.0962912087912088,
+     "deletion_on_layer_1": 0.9799450549450549,
      "layers_above_0_unavailable": 0.0
     }
    },
@@ -63,12 +63,12 @@
      "window": 7280
     },
     "whole_run": {
-     "deletion_on_every_layer": 0.8393543956043956,
-     "deletion_on_layer_1": 0.9984203296703297,
+     "deletion_on_every_layer": 0.845467032967033,
+     "deletion_on_layer_1": 0.9989010989010989,
      "layers_above_0_unavailable": 0.0
     },
     "window": {
-     "deletion_on_every_layer": 0.9847527472527473,
+     "deletion_on_every_layer": 0.985989010989011,
      "deletion_on_layer_1": 1.0,
      "layers_above_0_unavailable": 0.0
     }

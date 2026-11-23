@@ -9,7 +9,7 @@ moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's te
 
 ## Now (1)
 
-- T-266 · 2026-11-21 · Regenerate every record on revision 67's engine (2026-11-21) · [record](docs/todo/2026-11-21_conviction_coach_sessions.md)
+- T-267 · 2026-11-22 · Revision 67's verdict moves (2026-11-22) · [record](docs/todo/2026-11-21_conviction_coach_sessions.md)
 
 ## Later (14)
 

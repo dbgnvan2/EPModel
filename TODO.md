@@ -11,7 +11,7 @@ moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's te
 
 - T-267 · 2026-11-22 · Revision 67's verdict moves (2026-11-22) · [record](docs/todo/2026-11-21_conviction_coach_sessions.md)
 
-## Later (12)
+## Later (11)
 
 ### engine batch E2 (new mechanisms and mutants) (4)
 
@@ -32,7 +32,6 @@ moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's te
 
 - T-245 · 2026-11-14 · `M1.A.4c`: the estimator's sensitivity sweep (2026-11-14) · [record](docs/todo/2026-08-22_blocking_the_next_phase.md)
 
-### No batch yet (2)
+### No batch yet (1)
 
-- T-257 · 2026-11-19 · `M5.D.3`'s abort-before-hold claim passes again at revision 65 … · [record](docs/todo/2026-08-28_batch_backlog.md)
 - T-261 · 2026-11-19 · Revision 66's minor review items (2026-11-19) · [record](docs/todo/2026-11-19_reactivity_conflict_divorce.md)

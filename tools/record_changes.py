@@ -386,6 +386,9 @@ NOT_COMPARED = (
      "T-267's fresh seed blocks of revision 67's borderline verdict moves, two surviving mutants and three sweep "
      "settings on revisions 66 and 67 and their per-seed values (`tools/t267_seed_blocks.py`, in no record's hash); "
      "nothing at {side} to compare"),
+    ("docs/review/2026-11-23_t257_seed_blocks.md, docs/review/t257_seed_blocks.json",
+     "T-257's seed blocks of `M5.D.3`'s abort-before-hold test on revision 67 and their per-seed counts "
+     "(`tools/t257_seed_blocks.py`, in no record's hash); nothing at {side} to compare"),
     ("docs/review/2026-11-21_t259_conviction_predictions.json",
      "T-259's registered predictions P1–P5 for revision 67, run once on Mac Mini1 before any constant was tuned "
      "(`tools/t259_conviction_predictions.py`, in no record's hash); nothing at {side} to compare"),

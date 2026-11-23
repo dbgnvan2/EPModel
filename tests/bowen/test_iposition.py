@@ -641,36 +641,39 @@ def attempts_over_seeds(seeds=192, weeks=100):
     ``MOVER_LEVEL`` (60), a person able to prepare: 27 completions over the same seeds. These tests are about the
     sequence, not about who can start one.
     """
+    return tuple(attempt_marks(seed, weeks) for seed in range(seeds))
+
+
+def attempt_marks(seed, weeks=100):
+    """One seed of ``attempts_over_seeds``: the mover's ``iposition:`` marks in order. Also run by
+    ``tools/t257_seed_blocks.py`` on fresh seed blocks (T-257)."""
     constants, family = load_constants(), load_family(REPO / "config" / "bowen" / "fixtures" / "triad.md")
     mover, target = P("f"), P("m")
     events = ScriptedSource("events", weeks, (), ())
-    outcomes = []
-    for seed in range(seeds):
-        parts = assemble(constants, KINDS, family, events, seed=seed)
-        parts.state.people[mover].systems_perspective = 1.0
-        parts.state.people[mover].basic_level = parts.state.people[mover].functional_level = MOVER_LEVEL
-        policy = PolicySource(events, parts.params, load_policy_rules())
+    parts = assemble(constants, KINDS, family, events, seed=seed)
+    parts.state.people[mover].systems_perspective = 1.0
+    parts.state.people[mover].basic_level = parts.state.people[mover].functional_level = MOVER_LEVEL
+    policy = PolicySource(events, parts.params, load_policy_rules())
 
-        class Source:
-            def scheduled(self, tick):
-                return policy.scheduled(tick)
+    class Source:
+        def scheduled(self, tick):
+            return policy.scheduled(tick)
 
-            def selections(self, tick, active, state):
-                chosen = [s for s in policy.selections(tick, active, state) if s.actor != mover or mover not in active]
-                if mover in active and state.people[mover].iposition_state is None:
-                    chosen.append(Selection(actor=mover, kind="I-POSITION", targets=(target,), intensity=100.0))
-                elif mover in active:
-                    chosen += [s for s in policy.selections(tick, (mover,), state)]
-                return tuple(chosen)
+        def selections(self, tick, active, state):
+            chosen = [s for s in policy.selections(tick, active, state) if s.actor != mover or mover not in active]
+            if mover in active and state.people[mover].iposition_state is None:
+                chosen.append(Selection(actor=mover, kind="I-POSITION", targets=(target,), intensity=100.0))
+            elif mover in active:
+                chosen += [s for s in policy.selections(tick, (mover,), state)]
+            return tuple(chosen)
 
-        out = []
-        sink = type("Sink", (), {"emit": lambda self, r: out.append(r)})()
-        for _ in range(weeks):
-            run_tick(parts.state, Source(), parts.params, parts.visibility, parts.activation, sink)
-        marks = [f for r in out if isinstance(r, EffectRecord) and r.mechanism == "iposition"
-                 for p, f, _ in r.people if p == mover and f.startswith("iposition:")]
-        outcomes.append(tuple(marks))
-    return tuple(outcomes)
+    out = []
+    sink = type("Sink", (), {"emit": lambda self, r: out.append(r)})()
+    for _ in range(weeks):
+        run_tick(parts.state, Source(), parts.params, parts.visibility, parts.activation, sink)
+    marks = [f for r in out if isinstance(r, EffectRecord) and r.mechanism == "iposition"
+             for p, f, _ in r.people if p == mover and f.startswith("iposition:")]
+    return tuple(marks)
 
 
 def test_m5d3_abort_is_the_usual_first_outcome():
@@ -678,8 +681,15 @@ def test_m5d3_abort_is_the_usual_first_outcome():
     abort and 64 hold over the 192 seeds at revision 59); at revision 65 it is 59 and 54, a margin within seed noise,
     so the pass is not read as the claim restored until fresh seed blocks show it (T-257).
     Revision 66's extra reactive acts (`M4.D.3c`) keep it passing."""
+    aborted, held = first_outcomes(attempts_over_seeds())
+    assert aborted > held > 0
+
+
+def first_outcomes(attempts):
+    """(aborted, held): what each opposition led to first, over every sequence of every seed. Also used by
+    ``tools/t257_seed_blocks.py``."""
     held = aborted = 0
-    for marks in attempts_over_seeds():
+    for marks in attempts:
         at_opposition = False
         for mark in marks:
             if mark == "iposition:enter:OPPOSITION":
@@ -689,7 +699,7 @@ def test_m5d3_abort_is_the_usual_first_outcome():
             elif at_opposition and mark.startswith("iposition:end:"):
                 aborted += mark == "iposition:end:aborted"
                 at_opposition = False
-    assert aborted > held > 0
+    return aborted, held
 
 
 @pytest.mark.xfail(strict=True, raises=AssertionError,

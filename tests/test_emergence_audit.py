@@ -379,6 +379,7 @@ def test_m111g_ea13_key_is_engine_and_edits():
 
 
 # --- EA-14 -----------------------------------------------------------------------------------------------------------
+@pytest.mark.xfail(strict=True, reason="T-294: spec revision 69 (2026-11-24, T-269) moved the engine hash; this record is regenerated on Mac Mini1 and is stale on the new engine until then")
 def test_m111g_ea14_emergence_audit_record_is_current():
     try:
         rendered = ea.build(Cache(ea.CACHE))

@@ -11,8 +11,11 @@ Built from T-261's plan of 2026-11-23 (Claude's recommendation, pending owner re
   **Closed 2026-11-24:** all 12 steps exited 0 (queue done 02:57 Mini1 time); the records are merged and the
   eleven marks removed. `docs/version_3_revision_68_changes.md`: no verdict, effect or field changed in any compared
   record, and the other caches equal revision 67's entry for entry apart from their hashes.
-- [ ] T-269 ⟨later⟩ **A divorce built before the run does not see a spouse who dies before its week (2026-11-23).**
+- [x] T-269 ⟨later⟩ **A divorce built before the run does not see a spouse who dies before its week (2026-11-23).**
   From revision 68's learning-qa pass. `divorce_events` checks that both spouses live in the state it is given; a
   scenario that builds the events at the start and a spouse who dies before `week` gives a `SEPARATION` that moves no
   one and loads addressed to the dead. For the owner: whether the engine should drop a divorce
   whose spouse has died, or a scenario should build the events at their week.
+  **Closed 2026-11-24 (spec revision 69):** a divorce is built in its own week from the run's live state by the new
+  `DivorceSource`, and one whose spouse has died by then is dropped and recorded ("N of M"); `divorce_events` refuses
+  any other week. Claude's recommendation 2026-11-24, pending owner review; the reasons are in `docs/spec_revision_log.md`.

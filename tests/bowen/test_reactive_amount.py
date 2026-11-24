@@ -283,6 +283,25 @@ def test_m7c1m_t261_3_a_divorce_needs_both_spouses_living():
         divorce_events(state, PARAMS, 0, RAVI)
 
 
+def test_m7c1m_t269_a_divorce_whose_spouse_has_died_is_dropped_and_recorded():
+    """Adversarial (revision 69, T-269): a divorce is built in its week from the live state, never before it; one whose
+    spouse has died by then gives no event and is recorded as dropped, while the living arm builds it."""
+    from src.bowen.scenario.divorce import DivorceSource
+    from src.bowen.scenario.scripted_source import ScriptedSource
+
+    quiet = ScriptedSource("quiet", 1, (), ())
+    state = fresh()
+    with pytest.raises(ValueError, match="built in that week"):
+        divorce_events(state, PARAMS, 1, RAVI)
+    living = DivorceSource(quiet, state, PARAMS, ((0, RAVI, 1.0),))
+    assert {e.kind for e in living.scheduled(0)} == {"SEPARATION", "DIVORCE"} and not living.dropped
+    widowed = fresh()
+    widowed.people[MARTA].alive = False
+    source = DivorceSource(quiet, widowed, PARAMS, ((0, RAVI, 1.0),))
+    assert source.scheduled(0) == ()
+    assert source.dropped == [(0, RAVI, (MARTA,))]
+
+
 def test_m4d3d_t261_4_a_conflict_that_never_lands_still_costs_its_sender():
     """Revision 68, T-261 (4): the cost is charged at selection, from the sender's own energy, whether or not the act
     reaches the other (here the target has died)."""
@@ -315,22 +334,27 @@ def test_m7c1m_t261_6_a_divorce_runs_through_run_tick_and_renders():
     from src.bowen.io.load import load_frozen_constants, load_policy_rules, load_spec_revision
     from src.bowen.render.trace import render
     from src.bowen.scenario.assemble import assemble
+    from src.bowen.scenario.divorce import DivorceSource
     from src.bowen.scenario.header import build_header
     from src.bowen.scenario.policy_source import PolicySource
     from src.bowen.scenario.scripted_source import ScriptedSource
 
     constants, family = load_constants(), load_family(CONFIG_DIR / "family_phase_c.md")
-    bare = assemble(constants, KINDS, family, ScriptedSource("divorce", 6, (), ()), seed=3)
-    script = ScriptedSource("divorce", 6, divorce_events(bare.state, bare.params, 2, RAVI), ())
+    script = ScriptedSource("divorce", 6, (), ())
     parts = assemble(constants, KINDS, family, script, seed=3)
-    source = PolicySource(script, parts.params, load_policy_rules())
+    policy = PolicySource(script, parts.params, load_policy_rules())
+    source = DivorceSource(policy, parts.state, parts.params, ((2, RAVI, 1.0),))  # built at week 2 (T-269)
     log = CollectingEmitter()
     log.emit(build_header(seed=3, spec_revision=load_spec_revision(), constants=constants,
                           frozen=load_frozen_constants(), kinds=KINDS, family=family, script=script,
-                          activation=parts.activation, visibility=parts.visibility, policy=source.rules))
+                          activation=parts.activation, visibility=parts.visibility, policy=policy.rules,
+                          divorces=source.divorces))
     for _ in range(6):
         run_tick(parts.state, source, parts.params, parts.visibility, parts.activation, log)
     assert parts.state.people[RAVI].household_id != family.family.household
     assert any(isinstance(r, EffectRecord) and r.cause == EventId(2, "separation", 0) for r in log.records)
     assert sum(isinstance(r, EmittedRecord) and r.event.kind == "DIVORCE" for r in log.records) >= 2
     assert render(log.records, family.display_names)
+    from src.bowen.scenario.header import config_hash, resolved_config
+    hashed = [config_hash(resolved_config(constants, KINDS, family, script, policy.rules, d)) for d in ((), source.divorces)]
+    assert hashed[0] != hashed[1]  # T-269: the run's config hash names its divorces

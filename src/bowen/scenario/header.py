@@ -27,10 +27,12 @@ from src.bowen.scenario.scripted_source import ScriptedSource
 
 
 def resolved_config(constants: Constants, kinds: EventKinds, family: FamilyInstance, script: ScriptedSource,
-                    policy: PolicyRules | None = None) -> dict:
+                    policy: PolicyRules | None = None, divorces: tuple = ()) -> dict:
     """Every loaded input that can change a run, as parsed values (T-218): the whole ``EventKinds``, the whole
-    ``FamilyInstance`` (its life course included) and the policy rules, each by its own fields, so a new field is in."""
-    return {
+    ``FamilyInstance`` (its life course included) and the policy rules, each by its own fields, so a new field is in.
+    ``divorces`` are a ``DivorceSource``'s ``(week, leaver, scale)``, built during the run, not in the script (T-269);
+    they enter only when there are some, so a run without one keeps its hash."""
+    config = {
         "constants": {k: [c.value, c.grade] for k, c in sorted(constants.values.items())},
         "activation_regime": constants.activation_regime,
         "kinds": plain(kinds),
@@ -43,6 +45,9 @@ def resolved_config(constants: Constants, kinds: EventKinds, family: FamilyInsta
             "moves": [[t, plain(s)] for t, s in script.moves],
         },
     }
+    if divorces:
+        config["divorces"] = [[week, str(leaver), scale] for week, leaver, scale in divorces]
+    return config
 
 
 def config_hash(config: dict) -> str:
@@ -62,6 +67,7 @@ def build_header(
     activation: SynchronousActivation,
     visibility: HouseholdConductanceVisibility,
     policy: PolicyRules | None = None,
+    divorces: tuple = (),
 ) -> LogHeader:
     """Purpose: the header record that opens every log.
     Spec:    docs/bowen_agent_model_spec_v2.md#M16.A.1, #M16.A.1a, #M16.A.7
@@ -72,7 +78,7 @@ def build_header(
     )
     return LogHeader(
         seed=seed,
-        config_hash=config_hash(resolved_config(constants, kinds, family, script, policy)),
+        config_hash=config_hash(resolved_config(constants, kinds, family, script, policy, divorces)),
         spec_revision=spec_revision,
         instance_id=family.instance_id,
         activation_component=activation.component_id,

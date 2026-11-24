@@ -7,9 +7,10 @@ Open items, one line each: ID, date raised, title, record. **Now** blocks the cu
 `docs/todo/` (grep its ID). To close one, tick it in its record and run `python3 tools/todo_index.py`: its line
 moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's text; that form is in git history.
 
-## Now (1)
+## Now (2)
 
 - T-267 · 2026-11-22 · Revision 67's verdict moves (2026-11-22) · [record](docs/todo/2026-11-21_conviction_coach_sessions.md)
+- T-294 · 2026-11-24 · Regenerate every record on revision 69's engine (2026-11-24) · [record](docs/todo/2026-11-24_revision_69_divorce_at_its_week.md)
 
 ## Later (34)
 
@@ -60,4 +61,4 @@ moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's te
 
 ### No batch yet (1)
 
-- T-269 · 2026-11-23 · A divorce built before the run does not … · [record](docs/todo/2026-11-23_revision_68_review_items.md)
+- T-295 · 2026-11-24 · Revision 69's minor review items (2026-11-24) · [record](docs/todo/2026-11-24_revision_69_divorce_at_its_week.md)

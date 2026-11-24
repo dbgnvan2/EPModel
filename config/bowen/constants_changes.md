@@ -14,6 +14,8 @@
 > moved out of the code into `act_classes.md` (`M8.3`, `M5.B.4`, `M5.B.5`) are lists of act names, not constants, and
 > their contents did not change.
 >
+> **Spec revision 69 (2026-11-24, T-269) changed no constant.** A divorce is built in its own week by `DivorceSource`.
+>
 > **Spec revision 68 (2026-11-23, T-261) changed no constant.** It adds the `capacity_consuming` class to
 > `act_classes.md`, a list of act names holding the one act the code named (`CONFLICT`).
 >

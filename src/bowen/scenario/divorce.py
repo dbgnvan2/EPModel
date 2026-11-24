@@ -1,8 +1,8 @@
 """A scripted divorce — a spouse leaves the household, and the event's load lands on the couple and the children.
 
-Purpose: build the events of one divorce at one week, for a scenario to schedule: a ``SEPARATION`` (structural) and a
-         ``DIVORCE`` stressor for each spouse and for each child through their tie to each parent, sized from the
-         Holmes–Rahe scale (``config/bowen/event_sizes.md``).
+Purpose: build the events of one divorce at its week, from the run's state as it is that week: a ``SEPARATION``
+         (structural) and a ``DIVORCE`` stressor for each spouse and for each child through their tie to each parent,
+         sized from the Holmes–Rahe scale (``config/bowen/event_sizes.md``). ``DivorceSource`` schedules them.
 Spec:    docs/bowen_agent_model_spec_v2.md#M7.C.1m, #M1.F.6a
 Tests:   tests/bowen/test_reactive_amount.py
 
@@ -13,12 +13,15 @@ child focus by construction (the owner, 2026-11-19; `M7.C.1m`). [I]
 
 from __future__ import annotations
 
+from dataclasses import dataclass, field
+
 from src.bowen.engine.event_sizes import sized_intensity
 from src.bowen.engine.events import Channel, Event, EventId, Mechanism, SourcePosition
 from src.bowen.engine.identifiers import PersonId
 from src.bowen.engine.objects import SCALE_MAX
 from src.bowen.engine.params import EngineParams
 from src.bowen.engine.state import RunState
+from src.bowen.engine.tick import Source
 
 SEPARATION, DIVORCE = "SEPARATION", "DIVORCE"
 
@@ -30,10 +33,12 @@ def divorce_events(state: RunState, params: EngineParams, week: int, leaver: Per
     Tests:   tests/bowen/test_reactive_amount.py::test_m7c1m_divorce_moves_the_leaver_and_keeps_the_tie
 
     The loads are sized from ``state`` as it is when this is called: who is alive, which children exist and each
-    child tie's bond energy. A scenario that builds the events before the run sizes them from the starting state,
-    so a child born before ``week`` gets none (review 2026-11-19). It raises if either spouse is dead, or if a
-    parent–child tie of the family does not join one spouse to a child (revision 68, T-261 (3), (5)).
+    child tie's bond energy. So it builds only in ``week`` itself (revision 69, T-269): events built earlier would
+    miss a child born before ``week`` and could address a spouse who has died. It raises if either spouse is dead, or
+    if a parent–child tie of the family does not join one spouse to a child (revision 68, T-261 (3), (5)).
     """
+    if week != state.tick:  # revision 69, T-269: built at its week, from that week's state
+        raise ValueError(f"a divorce at week {week} is built in that week, not at tick {state.tick}; use DivorceSource")
     tie = state.family.marital_tie
     if tie is None or leaver not in tie.members():
         raise ValueError(f"{leaver} is not a spouse in the reference family")
@@ -69,3 +74,60 @@ def divorce_events(state: RunState, params: EngineParams, week: int, leaver: Per
         events.append(load(n, child, "tie", state.ties[child_tie].bond_energy / SCALE_MAX))
         n += 1
     return tuple(events)
+
+
+@dataclass
+class DivorceSource:
+    """Purpose: a Source that adds scripted divorces to ``inner``'s events, each built in its own week from the run's
+             live ``state``, so it sees who has died and who has been born since the run began (revision 69, T-269).
+    Spec:    docs/bowen_agent_model_spec_v2.md#M7.C.1m
+    Tests:   tests/bowen/test_reactive_amount.py::test_m7c1m_t269_a_divorce_whose_spouse_has_died_is_dropped_and_recorded
+
+    ``divorces`` holds ``(week, leaver, scale)``. A divorce whose spouse has died by its week is not a divorce: it is
+    dropped and recorded in ``dropped`` as ``(week, leaver, the dead)``; ``built`` holds the weeks built, and ``summary``
+    gives "N of M" with those not yet reached. ``state`` is the one object the run is given, read here, never written. [I]
+    """
+
+    inner: Source
+    state: RunState
+    params: EngineParams
+    divorces: tuple[tuple[int, PersonId, float], ...]
+    dropped: list[tuple[int, PersonId, tuple[PersonId, ...]]] = field(default_factory=list)
+    built: list[int] = field(default_factory=list)
+
+    def __post_init__(self) -> None:
+        weeks = [week for week, _, _ in self.divorces]
+        if len(set(weeks)) != len(weeks):
+            raise ValueError("one divorce per week: two would share their events' ids")
+        if any(week < self.state.tick for week in weeks):
+            raise ValueError(f"a divorce before the run's tick {self.state.tick} would never be built")
+        tie = self.state.family.marital_tie
+        strangers = [str(leaver) for _, leaver, _ in self.divorces if tie is None or leaver not in tie.members()]
+        if strangers:
+            raise ValueError(f"{', '.join(strangers)} is not a spouse in the reference family")
+
+    def scheduled(self, tick: int) -> tuple[Event, ...]:
+        if tick != self.state.tick:
+            raise RuntimeError(f"DivorceSource asked for tick {tick} while its state is at tick {self.state.tick}")
+        events = list(self.inner.scheduled(tick))
+        for week, leaver, scale in self.divorces:
+            if week != tick:
+                continue
+            tie = self.state.family.marital_tie
+            dead = tuple(p for p in tie.members() if not self.state.people[p].alive) if tie is not None else ()
+            if dead:
+                self.dropped.append((week, leaver, dead))
+                continue
+            events += divorce_events(self.state, self.params, week, leaver, scale)
+            self.built.append(week)
+        return tuple(events)
+
+    def selections(self, tick: int, active: tuple[PersonId, ...], state: RunState):
+        if state is not self.state:
+            raise RuntimeError("DivorceSource is run on a state other than its own")
+        return self.inner.selections(tick, active, state)
+
+    def summary(self) -> str:
+        waiting = len(self.divorces) - len(self.dropped) - len(self.built)
+        return (f"{len(self.dropped)} of {len(self.divorces)} divorces dropped: a spouse had died before the week; "
+                f"{len(self.built)} built, {waiting} not yet reached")

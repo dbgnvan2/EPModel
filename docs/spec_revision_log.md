@@ -6,7 +6,7 @@ The spec holds the current rules; this file holds how they got there. Until revi
 
 The sections `### Revision 34` to `### Revision 5` and the undated section are the spec's text as it stood, moved whole; a statement inside one of them (revision 34's, that revisions 13 to 33 are "not here") was true when written, before the bodies' narratives were moved under their own revisions. Those narratives are the bullets `- \`ID\`: sentence`, each the sentence as it stood in the body, under the revision it names, in sections titled "inline narratives moved from the bodies at revision 35" where no section existed.
 
-### Revision 69 — a divorce is built in its week, 2026-11-24 ⟦rev69 · T-269, Claude's recommendation 2026-11-24, pending owner review⟧
+### Revision 69 — a divorce is built in its week, 2026-11-24 ⟦rev69 · T-269, Claude's recommendation 2026-11-24, approved by the owner 2026-11-24⟧
 
 The engine hash moves (every `src/bowen/` file is hashed); no run schedules a divorce, so the regenerated records are
 expected to match revision 68's.

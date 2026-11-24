@@ -28,4 +28,4 @@ To find an ID's module, grep `docs/spec_index.jsonl` for it: the record's `modul
 | `M16.md` | M16 — The run log and the readable trace | 13,324 | 2,102 |
 | `M17.md` | M17 — Phase E: ensemble runner, arms and readouts | 25,547 | 3,849 |
 
-**Size.** The view's 18 module files hold 534,691 bytes (82,574 words) against the spec's 577,557 bytes (88,458 words): 93% of the spec by bytes, 93% by words.
+**Size.** The view's 18 module files hold 534,691 bytes (82,574 words) against the spec's 577,569 bytes (88,460 words): 93% of the spec by bytes, 93% by words.

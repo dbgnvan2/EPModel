@@ -18,4 +18,4 @@ Built from T-261's plan of 2026-11-23 (Claude's recommendation, pending owner re
   whose spouse has died, or a scenario should build the events at their week.
   **Closed 2026-11-24 (spec revision 69):** a divorce is built in its own week from the run's live state by the new
   `DivorceSource`, and one whose spouse has died by then is dropped and recorded ("N of M"); `divorce_events` refuses
-  any other week. Claude's recommendation 2026-11-24, pending owner review; the reasons are in `docs/spec_revision_log.md`.
+  any other week. Claude's recommendation 2026-11-24, approved by the owner 2026-11-24; the reasons are in `docs/spec_revision_log.md`.

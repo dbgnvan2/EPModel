@@ -1,6 +1,6 @@
 # Spec revision 69 — a divorce is built in its week (T-269) (2026-11-24)
 
-Built from T-269 (Claude's recommendation 2026-11-24, pending owner review). Open:
+Built from T-269 (Claude's recommendation 2026-11-24, approved by the owner 2026-11-24). Open:
 
 - [ ] T-294 ⟨now⟩ **Regenerate every record on revision 69's engine (2026-11-24).** The batch moved the engine hash
   from `1ecd38073e84` to `c9b45e586f6d` (every `src/bowen/` file is hashed, the scenario layer too), so every

@@ -1,6 +1,6 @@
 # Spec revision 68 — revision 66's minor review items (T-261) (2026-11-23)
 
-Built from T-261's plan of 2026-11-23 (Claude's recommendation, pending owner review). Open:
+Built from T-261's plan of 2026-11-23 (Claude's recommendation, pending owner review; item 4, the cost charged at choice, approved by the owner 2026-11-24). Open:
 
 - [x] T-268 ⟨now⟩ **Regenerate every record on revision 68's engine (2026-11-23).** The batch moved the engine hash
   from `9321b8523500` to `1ecd38073e84`, so every engine-keyed record is stale. No run's state changed, so each record

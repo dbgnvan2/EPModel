@@ -6,7 +6,7 @@ The spec holds the current rules; this file holds how they got there. Until revi
 
 The sections `### Revision 34` to `### Revision 5` and the undated section are the spec's text as it stood, moved whole; a statement inside one of them (revision 34's, that revisions 13 to 33 are "not here") was true when written, before the bodies' narratives were moved under their own revisions. Those narratives are the bullets `- \`ID\`: sentence`, each the sentence as it stood in the body, under the revision it names, in sections titled "inline narratives moved from the bodies at revision 35" where no section existed.
 
-### Revision 68 — revision 66's minor review items, 2026-11-23 ⟦rev68 · T-261, Claude's recommendation 2026-11-23, pending owner review⟧
+### Revision 68 — revision 66's minor review items, 2026-11-23 ⟦rev68 · T-261, Claude's recommendation 2026-11-23, pending owner review; item 4 approved by the owner 2026-11-24⟧
 
 The engine hash moves; no run's state changes, so the regenerated records are expected to match revision 67's.
 

@@ -12,7 +12,7 @@ moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's te
 - T-267 · 2026-11-22 · Revision 67's verdict moves (2026-11-22) · [record](docs/todo/2026-11-21_conviction_coach_sessions.md)
 - T-268 · 2026-11-23 · Regenerate every record on revision 68's engine (2026-11-23) · [record](docs/todo/2026-11-23_revision_68_review_items.md)
 
-## Later (11)
+## Later (34)
 
 ### engine batch E2 (new mechanisms and mutants) (4)
 
@@ -20,6 +20,32 @@ moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's te
 - T-019 · 2026-11-17 · `M1.E.7e`'s lending of pseudo-self by a sided coach … · [record](docs/todo/2026-10-17_revision_32.md)
 - T-077 · 2026-11-17 · Not built · [record](docs/todo/2026-10-08_phase_c.md)
 - T-209 · 2026-11-09 · An arm or mutant that isolates `M4.C.6`'s by-channel … · [record](docs/todo/2026-11-07_social_cues.md)
+
+### paper-method proposals (2026-11-23) (23)
+
+- T-271 · 2026-11-23 · Failable staged repair, not a scripted reconciliation · [record](docs/todo/2026-11-23_paper_candidates.md)
+- T-272 · 2026-11-23 · A repair aimed at the wrong attribute does … · [record](docs/todo/2026-11-23_paper_candidates.md)
+- T-273 · 2026-11-23 · A graded taboo register, with bypassed and addressed … · [record](docs/todo/2026-11-23_paper_candidates.md)
+- T-274 · 2026-11-23 · Every success is a rate over the chances … · [record](docs/todo/2026-11-23_paper_candidates.md)
+- T-275 · 2026-11-23 · Name what a confidence interval is resampled over; … · [record](docs/todo/2026-11-23_paper_candidates.md)
+- T-276 · 2026-11-23 · Fault injection over an arm's declared inputs · [record](docs/todo/2026-11-23_paper_candidates.md)
+- T-277 · 2026-11-23 · Control retention at a fixed mutant survival, and … · [record](docs/todo/2026-11-23_paper_candidates.md)
+- T-278 · 2026-11-23 · Classify every seed by which member the mechanism … · [record](docs/todo/2026-11-23_paper_candidates.md)
+- T-279 · 2026-11-23 · Denominators: exposure, eligibility, and which of the three … · [record](docs/todo/2026-11-23_paper_candidates.md)
+- T-280 · 2026-11-23 · A plausibility judgement never enters a verdict · [record](docs/todo/2026-11-23_paper_candidates.md)
+- T-281 · 2026-11-23 · A cue's scale is the tie's own, not … · [record](docs/todo/2026-11-23_paper_candidates.md)
+- T-282 · 2026-11-23 · A change in a cue amplifies the deviation … · [record](docs/todo/2026-11-23_paper_candidates.md)
+- T-283 · 2026-11-23 · An adaptive mechanism is tested in three rungs · [record](docs/todo/2026-11-23_paper_candidates.md)
+- T-284 · 2026-11-23 · A quantity that is read and updated is … · [record](docs/todo/2026-11-23_paper_candidates.md)
+- T-285 · 2026-11-23 · Report the counterpart and a joint measure, and … · [record](docs/todo/2026-11-23_paper_candidates.md)
+- T-286 · 2026-11-23 · Say how many persons carried a difference · [record](docs/todo/2026-11-23_paper_candidates.md)
+- T-287 · 2026-11-23 · Separate the act selected from the act delivered · [record](docs/todo/2026-11-23_paper_candidates.md)
+- T-288 · 2026-11-23 · One recorded outcome class per person-tick, and a … · [record](docs/todo/2026-11-23_paper_candidates.md)
+- T-289 · 2026-11-23 · Record the choice the policy reached for before … · [record](docs/todo/2026-11-23_paper_candidates.md)
+- T-290 · 2026-11-23 · A verdict is provisional until it replicates on … · [record](docs/todo/2026-11-23_paper_candidates.md)
+- T-291 · 2026-11-23 · Ensemble records are append-only, and a superseded verdict … · [record](docs/todo/2026-11-23_paper_candidates.md)
+- T-292 · 2026-11-23 · A composite criterion's composition dimension may not read … · [record](docs/todo/2026-11-23_paper_candidates.md)
+- T-293 · 2026-11-23 · One guardrail readout per criterion, with a bound … · [record](docs/todo/2026-11-23_paper_candidates.md)
 
 ### research runs (Mac Mini1 probes and experiments) (5)
 

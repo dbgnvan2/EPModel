@@ -263,3 +263,49 @@ without `M11.F`'s framing) was entered in the spec text directly, marked ⟦prop
     being held) before it can be written as a readout.
   ⟦batch: paper-method proposals (owner adoption decisions)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
   *Decision 2026-11-17 (Claude's recommendation 2026-11-17, pending owner review):* Closed: none of the eleven is a theory change; method and narrator-line items only.
+- [x] T-270 ⟨later⟩ **Method proposals from the 2026-11-23 batch.** Added 2026-11-23; held for a later revision on the
+  same terms as the earlier batches. Six papers read in full from the 2026-11-23 method-literature digest: Chai et al.
+  2026, *Alliance Rupture and Repair in Simulating Cognitive Behavioral Therapy Dialogues* (2611.27544; AL1–AL5), Zhou
+  et al. 2026, *On Evaluating User Simulators for Interactive Agents* (2611.24892; US1–US5), Keskin et al. 2026,
+  *Personalized Affective Perception via Continual Learning in Human-Agent Negotiation* (2611.14247; AP1–AP5), Qin et
+  al. 2026, *PsyWorld: Profile-Conditioned World Modeling for Human Behavior Prediction* (2611.24999; PS1, PS2), Amar
+  2026, *MANGO Arena: Same Seeds, Different Chains* (2611.23613; MG1–MG4), and Zhu et al. 2026, *Probe What-If Worlds
+  Before You Ship* (2611.14700; PW1–PW4). All six were the digest's deep-review candidates. In
+  `papers/SWEEP_READING_REPORTS_2026-11-23.md`; plain-language version in
+  `papers/SPEC_CANDIDATES_plain_language_2026-11-23.md`.
+  - **Scope note.** Twenty-five candidates, of which six are model changes (AL1–AL3, AP1, AP2, MG2) and nineteen are
+    test, reporting or mutant conventions. None is a theory change in the sense of a new mechanism the corpus demands.
+    AL1–AL3 are the batch's only structural gap: EPModel has no repair a person can choose and fail. `RECONCILIATION`
+    (`M4.A.2`) frees the tie's whole stock when it fires and `M5.D.2a` requires only the mover's own I-POSITION sequence
+    to be failable, so "smoothed over" and "worked out" cannot currently be told apart — AL1 (staged, failable repair),
+    AL2 (repair aimed at the strained attribute of the tie, not the tie), AL3 (graded per-subject register with
+    bypass/addressed durability). AP1–AP2 are appraisal-side: a per-tie cue scale and a bounded change-amplification
+    (the spec has `M9.9`'s per-tie cue location and one level-derived slope in `M4.C.14`, but no per-tie spread). MG2 is
+    a record change: the pre-mask selection score, which `M4.D.1e`/`M16.A.3b` (legality) and `M1.B.3c` (refused
+    delivery) do not cover. The remaining nineteen are conventions for `M17`, `M11`, `M16` and `M1.A`: US1 (fault
+    injection over declared inputs with declared detection coverage), US2 (control retention at fixed mutant survival,
+    no composites), US3 (per-seed classification of which member the mechanism landed on), US4 (exposure-adjusted
+    readouts; a shorter run must not score better), US5 (a plausibility judgement never enters a verdict), AP3 (any
+    adaptive mechanism tested in three rungs), AP4 (a read-and-updated quantity is read from the previous tick's end),
+    AP5 (counterpart and joint readouts plus a path check for a named channel), PS1 (a directional readout reports how
+    many persons carried it), PS2 (act selected vs act delivered), MG1 (person-tick census, forced outcomes never
+    counted as choices), MG3 (confirmatory replication on a fresh pre-declared seed block), MG4 (append-only ensemble
+    records, no superseded verdict quoted bare), PW1 (a composite criterion's composition dimension may not read
+    "unaudited"), PW2 (one guardrail readout per criterion with a bound declared in advance), PW3 (split cumulative
+    readouts into reach and per-event effect), PW4 (the resampling unit is the seed's family, never the person-week),
+    AL4 (successes as a rate over opportunities, a chance that arose and drew nothing is a failure), AL5 (every
+    interval names what it resamples, nested version printed beside the naive one).
+  - **Narrator-line items (do not enter the v2 spec).** None this week — no X/IR-labelled candidates from any of the six
+    papers.
+  - **Owner questions.** MG3's cost (confirm every passing criterion on a fresh block, only criteria that a report cites
+    as a finding, or only gating criteria? the reader recommends the middle), MG2's vocabulary (is "the move the person
+    was heading for and could not make" a family readout or a trace observation only? the model has no intentions), MG1's
+    fifth census class (does a deferred I-POSITION step, `M5.D.9`, get its own class or a flag?), and the AL question:
+    does the theory permit a repair attempt that fails, and is the bypassed/addressed distinction one EPModel is entitled
+    to represent? Dependencies: PS2 is only meaningful with the social cues switched on; AP4 needs a declared
+    read-order before it can be written as a requirement; AL5's nested interval needs the `D0` family draws to be
+    recorded per ensemble.
+  *Done 2026-11-23:* reviewed for inclusion against revision 67; decomposed into T-271–T-293 in
+  `docs/todo/2026-11-23_paper_candidates.md` — twenty-three items from twenty-five candidates (AL5 and PW4 merged into
+  T-275, US4 and PW3 into T-279), no candidate rejected on merit, three carrying an owner decision. Nothing built;
+  nothing enters the spec until the owner assigns it to a revision.

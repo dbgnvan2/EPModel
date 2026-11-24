@@ -9,14 +9,11 @@ Tests:   this file
 
 from unittest import mock
 
-import pytest
-
 import tools.record_cache as record_cache
 import tools.sensitivity_grid as tool
 from tools.record_cache import Cache
 
 
-@pytest.mark.xfail(strict=True, reason="T-268: spec revision 68 (2026-11-23, T-261) moved the engine hash; this record is regenerated on Mac Mini1 and is stale on the new engine until then")
 def test_t236_sensitivity_record_is_current():
     with mock.patch.object(record_cache, "child_rows", side_effect=AssertionError("ran a child in a test")):
         text = tool.build(Cache(tool.CACHE_NAME))

@@ -15,13 +15,13 @@ over the declared ranges in which the direction held (`docs/version_2_sweep_reco
 so, with the sample, and has no fraction, so W4 counts it as not swept.
 
 Records read:
-- Phase C (`docs/phase_c_ensemble_record.md`): code_hash `010732767316`
-- Phase D part I (`docs/phase_d_ensemble_record.md`): code_hash `010732767316`
-- Phase D part II (`docs/phase_d2_ensemble_record.md`): code_hash `010732767316`
-- Phase C mutation record (`docs/phase_c_mutation_record.md`): engine_hash `9321b8523500`
-- Phase D mutation record (`docs/phase_d_mutation_record.md`): phase_d_mutation_hash `bbe164f37aec`
+- Phase C (`docs/phase_c_ensemble_record.md`): code_hash `f8a3b143ebf1`
+- Phase D part I (`docs/phase_d_ensemble_record.md`): code_hash `f8a3b143ebf1`
+- Phase D part II (`docs/phase_d2_ensemble_record.md`): code_hash `f8a3b143ebf1`
+- Phase C mutation record (`docs/phase_c_mutation_record.md`): engine_hash `1ecd38073e84`
+- Phase D mutation record (`docs/phase_d_mutation_record.md`): phase_d_mutation_hash `d4158fa8b045`
 - Sweep record (`docs/version_2_sweep_record.md`): engine_hash `95368d6ddf18`, phase_d_engine_hash `75fd45e9778a`
-- Emergence audit record (`docs/emergence_audit_record.md`): engine_hash `6f91a1e8296e`
+- Emergence audit record (`docs/emergence_audit_record.md`): engine_hash `84b3dc74f1a7`
 - the tag's page (`docs/version_1_status.md`): the verdicts at `version-1`
 - this page as committed at `9ebf327`: the verdicts at spec revision 38
 
@@ -51,7 +51,7 @@ Rows by status:
 - pass, proved by a test: 1
 - pass; changed since the tag `version-1`, pending the owner's review (T-122): 3
 
-Learning (`docs/emergence_audit_record.md`): of 33 passing rows, 11 are audited with all learning removed; 6 still pass and 5 need learning (`M11.C.44`, `M11.C.17`, `M11.C.11`, `M11.C.23`, `M11.C.55`); robustness not read: the sweep record is of an earlier engine. Not audited: `M11.C.39` (the audit's Scope says why). The audit is of an earlier engine, so this tally is not current.
+Learning (`docs/emergence_audit_record.md`): of 33 passing rows, 11 are audited with all learning removed; 6 still pass and 5 need learning (`M11.C.44`, `M11.C.17`, `M11.C.11`, `M11.C.23`, `M11.C.55`); robustness not read: the sweep record is of an earlier engine. Not audited: `M11.C.39` (the audit's Scope says why).
 
 Verdicts not the one this page gave at revision 38: 19 of 69 rows: `M11.C.6` (FAIL → PASS), `M11.C.15` (PASS → FAIL), `M11.C.17` (FAIL → PASS), `M11.C.18` (PASS → FAIL), `M11.C.20` (PASS → FAIL), `M11.C.22` (PASS → FAIL), `M11.C.23` (FAIL → PASS), `M11.C.27[unstable,add_third]` (FAIL → PASS), `M11.C.32` (PASS → FAIL), `M11.C.33` (PASS → FAIL), `M11.C.48` (PASS → FAIL), `M11.C.48[phase_d]` (PASS → FAIL), `M11.C.49` (new since revision 38 → FAIL), `M11.C.50` (new since revision 38 → FAIL), `M11.C.51` (new since revision 38 → FAIL), `M11.C.52` (new since revision 38 → PASS), `M11.C.53` (new since revision 38 → FAIL), `M11.C.54` (new since revision 38 → FAIL), `M11.C.55` (new since revision 38 → PASS).
 

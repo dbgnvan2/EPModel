@@ -93,13 +93,12 @@ full table.
   the ASR no-quotation rule. It must never judge a wording: D5a and D5b were retired on 2026-11-10 for it
   (`docs/plan_doc_claim_tests.md`), so do not rebuild them.
 - Run tests before declaring done: `python3 -m pytest tests/`
-- **A red suite is never normal — 1546 tests: 1530 pass, 1 skips and 15 are strict expected failures** (each marked
+- **A red suite is never normal — 1546 tests: 1541 pass, 1 skips and 4 are strict expected failures** (each marked
   `xfail(strict=True)` with a reason naming why, so it turns the suite red if it starts passing: `M5.B.3`'s third-party
   cost (G1's A6); `test_m5d8_success_usually_follows_several_failures`, whose 3 completed sequences at revision 67 are
   all first attempts; the version 2 sweep record, stale until the stage-end sweep; and the availability inversion,
-  which acts as a deletion since revision 66 (T-264); and eleven engine-keyed records stale on revision 68's engine
-  until Mac Mini1's regeneration is merged (T-268)). The skip is `test_t172_the_installed_ruff_is_the_pinned_version` where the installed
-  ruff is not the pin (this Mac has 0.15.1; CI fails instead). Measured 2026-11-23 on this Mac with `python3 -m pytest tests/`;
+  which acts as a deletion since revision 66 (T-264)). The skip is `test_t172_the_installed_ruff_is_the_pinned_version` where the installed
+  ruff is not the pin (this Mac has 0.15.1; CI fails instead). Measured 2026-11-24 on this Mac with `python3 -m pytest tests/`;
   the 60 `ensemble`-marked tests (58 criterion tests, 2 slow stage 3 probes) are deselected by `pytest.ini` and run with `python3 -m pytest -m ensemble`.
   No test checks this count since T-222 (2026-11-11); the dated history of counts is in `CHANGELOG.md`.
 

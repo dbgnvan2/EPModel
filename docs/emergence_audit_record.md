@@ -8,7 +8,7 @@ direction (`tools/mutation_record.py`'s `judge`). A mixed row is judged on its c
 is evidence for triage, not a defect by itself: the defect test is `M11.1d`'s, whether a rule that carries it
 names its outcome, and the owner decides it for each survivor.
 
-engine_hash: 6f91a1e8296e9b71066eb066159e40c7b37d52a497c1390e477e07483e328966
+engine_hash: 84b3dc74f1a78e526d093807d850f32d8eabc55abda149b64f1c55362482eaf8
 
 Stage: **carriers**. The carriers stage (plan §7 steps 4 and 6, owner 2026-11-04): L0 on every in-scope row and the two controls, and the carriers of each L0 survivor; L1 to L4 are not run.
 
@@ -242,7 +242,7 @@ Not tested: the legal set's structural preconditions (a tie to a living person; 
 
 ```json
 {
- "engine_hash": "6f91a1e8296e9b71066eb066159e40c7b37d52a497c1390e477e07483e328966",
+ "engine_hash": "84b3dc74f1a78e526d093807d850f32d8eabc55abda149b64f1c55362482eaf8",
  "stage": "carriers",
  "scope": {
   "audited": 11,

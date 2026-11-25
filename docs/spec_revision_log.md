@@ -19,7 +19,7 @@ expected to match revision 68's.
   `ScriptedSource` cannot do (its `scheduled` has no state). Widowhood ends the marriage; no corpus reading bears on
   it.
 
-### Revision 68 — revision 66's minor review items, 2026-11-23 ⟦rev68 · T-261, Claude's recommendation 2026-11-23, pending owner review; item 4 approved by the owner 2026-11-24⟧
+### Revision 68 — revision 66's minor review items, 2026-11-23 ⟦rev68 · T-261, approved by the owner: item 4 on 2026-11-24, the other items on 2026-11-25⟧
 
 The engine hash moves; no run's state changes, so the regenerated records are expected to match revision 67's.
 

@@ -162,8 +162,7 @@ defect, not a lag.
   fix-loop re-sweep gets a narrow brief (the fix diff and the claims it changes) on a cheaper model (`model:
   "sonnet"`). If a sweep returns three or fewer minor items, record them in `TODO.md` and move on (owner rule).
   State the cost (wall time, tokens) before proposing another loop.
-- **The run mix after an engine batch** (Claude's decision 2026-11-26 under the owner's "determine an optimize (not
-  perfect) testing path", pending owner review; `docs/review/2026-11-26_short_rerun_test.md`): D2 and the Phase D
+- **The run mix after an engine batch** (owner rule, accepted 2026-11-26; `docs/review/2026-11-26_short_rerun_test.md`): D2 and the Phase D
   mutation record rerun at `--seed-fraction 0.2`, every other record in full, without the emergence audit. Mac Mini1
   first, the MacBook Pro second (6 workers), this Mac only as overflow (at most 4 workers 00:00–07:30, 2 otherwise).
   Full seeds and the audit at a milestone or before a report quotes a number.

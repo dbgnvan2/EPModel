@@ -13,7 +13,7 @@ Mini1) worth its cost, or would a short rerun catch the same real problems?
   and Phase D mutation records run at 1/5 (`--seed-fraction 0.2`, `tools/seed_fraction.py`) and every other record
   at full seeds, without the emergence audit; full seeds and the audit at a milestone or before a report quotes a
   number. Revision 70 (T-296) ran under it. **Pending the owner:** the relayed brief asked for the mix to be written
-  into `AGENTS.md` as an owner rule; that was not done on a relayed request, and waits for the owner's word here.
+  into `AGENTS.md` as an owner rule; the parent session wrote it there on 2026-11-26, marked as Claude's decision pending owner review.
   Proposed line, for "Generated records and reviews": "After an engine batch, D2 and the Phase D mutation record
   rerun at `--seed-fraction 0.2` and every other record in full, without the emergence audit, on Mac Mini1 first,
   the MacBook Pro second (6 workers), this Mac only as overflow (at most 4 workers 00:00-07:30, 2 otherwise); full seeds and the audit at a milestone or before a report quotes a number (`docs/review/2026-11-26_short_rerun_test.md`)."

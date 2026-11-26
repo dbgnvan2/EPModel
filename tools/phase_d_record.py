@@ -45,6 +45,7 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO))
 from tools import detection_limit  # noqa: E402  (M17.A.1's rerun, revision 70, T-018)
+from tools import seed_fraction  # noqa: E402  (T-299's run mix)
 from tools.atomic_write import write_text_atomic  # noqa: E402
 
 from tools.child_process import ChildFailed, run_child  # noqa: E402
@@ -95,7 +96,7 @@ def rules() -> dict:
     return {k: constants[k] for k in _record.RULE_KEYS}
 
 
-def verdict_row(part: int, cid: str, workers: int, fixed: int | None = None) -> dict:
+def verdict_row(part: int, cid: str, workers: int, fixed: int | None = None, fraction: float = 1.0) -> dict:
     """Purpose: run criterion ``cid`` of ``part`` in this process and return its verdict as a dict, under its
              ``CRITERIA_D`` or ``CRITERIA_D2`` key (S1.7b: two variants that share an id are two rows). The child's
              work, and the tests' stand-in for a child.
@@ -104,12 +105,17 @@ def verdict_row(part: int, cid: str, workers: int, fixed: int | None = None) -> 
     """
     from src.bowen.ensemble.runner import run_criterion
 
-    run_rules = rules() if fixed is None else detection_limit.rerun_rules(rules(), fixed)  # M17.A.1, T-018
-    verdict = run_criterion(criteria_for(part)[cid], run_rules, workers=workers)
+    criterion = criteria_for(part)[cid]
+    if fixed is None:  # the near-limit rerun keeps its declared count at any fraction (tools/seed_fraction.py)
+        run_rules = seed_fraction.scaled_rules(rules(), fraction)
+        criterion = seed_fraction.scaled_criterion(criterion, fraction)
+    else:
+        run_rules = detection_limit.rerun_rules(rules(), fixed)  # M17.A.1, T-018
+    verdict = run_criterion(criterion, run_rules, workers=workers)
     return dataclasses.asdict(dataclasses.replace(verdict, criterion=cid))
 
 
-def child_verdict(part: int, cid: str, workers: int, fixed: int | None = None) -> dict:
+def child_verdict(part: int, cid: str, workers: int, fixed: int | None = None, fraction: float = 1.0) -> dict:
     """Purpose: run criterion ``cid`` in a child process of this tool, in its own process group, and return the one
              verdict it prints; a child that fails, times out or prints anything but one verdict raises ``ChildFailed``.
     Spec:    docs/implementation_plan_version_2.md#S1.5a
@@ -117,6 +123,7 @@ def child_verdict(part: int, cid: str, workers: int, fixed: int | None = None) -
     """
     argv = [sys.executable, str(Path(__file__).resolve()), "--child", cid, "--part", str(part), "--workers", str(workers)]
     argv += ["--fixed-seeds", str(fixed)] if fixed is not None else []
+    argv += ["--seed-fraction", str(fraction)] if fraction != 1 else []
     # One or two criteria a child: the Phase D row limit, three times the longest row measured (record_cache).
     rows = run_child(argv, REPO, f"phase_d_record.py {cid}", timeout_for(PHASE_D_CHILD, whole_part=False))
     verdicts = [r for r in rows if r.get("criterion") == cid]
@@ -126,7 +133,8 @@ def child_verdict(part: int, cid: str, workers: int, fixed: int | None = None) -
     return verdicts[0]
 
 
-def build(part: int, cache: Cache, workers: int | None = None, only: list[str] | None = None) -> str:
+def build(part: int, cache: Cache, workers: int | None = None, only: list[str] | None = None,
+          fraction: float | None = None) -> str:
     """Purpose: the record for ``part``, from the cache. With ``workers``, a criterion with no result for the current
              code is run first in a child (``child_verdict``) and cached (with ``only``, only those it names); a child
              that fails is printed and the next criterion runs. If any criterion is then without a result, KeyError
@@ -141,34 +149,37 @@ def build(part: int, cache: Cache, workers: int | None = None, only: list[str] |
     from src.bowen.ensemble.runner import Verdict
 
     engine = result_hash()
+    if fraction is None:  # a rebuild from the cache reads the fraction the committed record states
+        fraction = seed_fraction.declared(RECORDS[part])
     multiple, fixed = detection_limit.limits()
     verdicts, missing = [], []
     for cid, criterion in criteria_for(part).items():
         wanted = workers is not None and (not only or any(cid.startswith(o) for o in only))
-        entry = _cached_child(cache, result_key(engine, None, cid), part, cid, workers, wanted, engine, None)
+        entry = _cached_child(cache, result_key(engine, seed_fraction.definition(None, fraction), cid), part, cid,
+                              workers, wanted, engine, None, fraction)
         first = None
         if entry is not None and detection_limit.needs_rerun(entry, criterion.seeds, multiple, fixed):  # T-018
             first = entry
             entry = _cached_child(cache, result_key(engine, detection_limit.rerun_definition(multiple, fixed), cid),
-                                  part, cid, workers, wanted, engine, fixed)
+                                  part, cid, workers, wanted, engine, fixed)  # its declared count at any fraction
         if entry is None:
             missing.append(cid)
             continue
         verdicts.append((Verdict(**entry), first))
     if missing:
         raise KeyError(", ".join(missing))
-    return render(verdicts, rules(), engine, part)
+    return seed_fraction.noted(render(verdicts, rules(), engine, part), fraction)
 
 
 def _cached_child(cache: Cache, key, part: int, cid: str, workers, wanted: bool, engine: str,
-                  fixed: int | None) -> dict | None:
+                  fixed: int | None, fraction: float = 1.0) -> dict | None:
     """The cached verdict under ``key``; when missing and ``wanted``, run it in a child and cache it. None when it is
     still missing (a failed child, or not wanted)."""
     entry = cache.get(key)
     if entry is None and wanted:
         started = time.time()
         try:
-            result = child_verdict(part, cid, workers, fixed)
+            result = child_verdict(part, cid, workers, fixed, fraction)
         except ChildFailed as failed:
             print(f"{cid}: the run failed, not the model; not cached, rerun next time: {failed.code}", flush=True)
         else:
@@ -246,13 +257,17 @@ def main() -> int:
     parser.add_argument("--part", type=int, choices=(1, 2), default=1)
     parser.add_argument("--child", metavar="ID", help="run one criterion and print its verdict as one JSON line")
     parser.add_argument("--fixed-seeds", type=int, help="with --child: M17.A.1's rerun at this fixed seed count")
+    parser.add_argument("--seed-fraction", type=float, default=1.0,
+                        help="run each row at this fraction of its seeds (tools/seed_fraction.py); 1 is the full run")
     args = parser.parse_args()
+    fraction = seed_fraction.check(args.seed_fraction)
     if args.child:
-        print(json.dumps(verdict_row(args.part, args.child, args.workers, args.fixed_seeds), default=float), flush=True)
+        print(json.dumps(verdict_row(args.part, args.child, args.workers, args.fixed_seeds, fraction), default=float),
+              flush=True)
         return 0
     cache = Cache(CACHES[args.part])
     try:
-        text = build(args.part, cache, workers=args.workers, only=args.only)
+        text = build(args.part, cache, workers=args.workers, only=args.only, fraction=fraction)
     except KeyError as missing:
         raise SystemExit(f"no result for {missing} on the current code; {RECORDS[args.part].name} was not written: "
                          "rerun, without --only or naming them") from None

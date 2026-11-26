@@ -35,6 +35,7 @@ sys.path.insert(0, str(REPO))
 from tools.atomic_write import write_text_atomic  # noqa: E402
 
 from tools.mutant_runner import Mutant, apply, run_in_copy  # noqa: E402,F401
+from tools import seed_fraction  # noqa: E402  (T-299's run mix)
 from tools.mutation_record import NAMED, judge  # noqa: E402
 from tools.record_cache import PHASE_D_ROW_TIMEOUT, ERRORED, Cache, child_rows, exit_status, result_key  # noqa: E402
 from tools.record_json import record_json  # noqa: E402
@@ -329,22 +330,25 @@ def _part_2_keys():
     return CRITERIA_D2
 
 
-def build(cache: Cache, workers: int | None = None) -> str:
+def build(cache: Cache, workers: int | None = None, fraction: float | None = None) -> str:
     """The record, from the cache. With ``workers``, missing results are run first; without, a missing one raises
     KeyError, so a test can check the committed record without running anything."""
     part_2, engine = passing(), engine_hash()
+    if fraction is None:  # a rebuild from the cache reads the fraction the committed record states
+        fraction = seed_fraction.declared(RECORD)
     passed = part_2 | passing_part_1()
     rows, skipped = [], []
     for mutant in MUTANTS:
         run_ids = [c for c in mutant.criteria if c in passed]
         skipped += [(mutant, c) for c in mutant.criteria if c not in passed]
-        keys = {c: result_key(engine, mutant.definition(), c) for c in run_ids}
+        run = seed_fraction.scaled_mutant(mutant, fraction)  # its copy carries the scaled seed settings
+        keys = {c: result_key(engine, run.definition(), c) for c in run_ids}
         missing = [c for c in run_ids if cache.get(keys[c]) is None]
         if missing and workers is None:
             raise KeyError(f"{mutant.id}: no cached result for the current engine and edits")
         fresh = {}
         if missing:
-            for result in child_rows(mutant, CHILD.name, missing, workers, mutant.id, timeout=PHASE_D_ROW_TIMEOUT):
+            for result in child_rows(run, CHILD.name, missing, workers, mutant.id, timeout=PHASE_D_ROW_TIMEOUT):
                 fresh[result["criterion"]] = result
                 if result["outcome"] not in ERRORED:  # an errored row is reported but rerun next time, never cached
                     cache.put(keys[result["criterion"]], result)
@@ -361,7 +365,7 @@ def build(cache: Cache, workers: int | None = None) -> str:
         raise SystemExit(f"AD_HOC names a criterion that now has a mutant here or no longer passes: {stale_ad_hoc}")
     if unproved:
         raise SystemExit(f"passing in part II with no mutant here and none named in AD_HOC: {unproved}")
-    return render(rows, skipped, engine)
+    return seed_fraction.noted(render(rows, skipped, engine), fraction)
 
 
 def render(rows, skipped, engine: str) -> str:
@@ -405,9 +409,11 @@ def render(rows, skipped, engine: str) -> str:
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--workers", type=int, default=os.cpu_count() or 1)
+    parser.add_argument("--seed-fraction", type=float, default=1.0,
+                        help="run each row at this fraction of its seeds (tools/seed_fraction.py); 1 is the full run")
     args = parser.parse_args()
     cache = Cache("phase_d_mutation")
-    text = build(cache, args.workers)
+    text = build(cache, args.workers, seed_fraction.check(args.seed_fraction))
     cache.save()
     write_text_atomic(RECORD, text)
     print(f"wrote {RECORD.relative_to(REPO)}")

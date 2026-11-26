@@ -14,7 +14,7 @@ Built from `docs/proposal_conviction_and_coach_sessions.md`, approved by the own
   frozen at `41b14c3` and archived) and listed for the owner in T-267. The emergence audit's scope follows the
   verdicts: 13 rows to 11 (`M11.C.12`, `M11.C.51`, `M11.C.7[one spouse over sided]` leave, `M11.C.17` enters).
 
-- [ ] T-267 ⟨now⟩ **Revision 67's verdict moves (2026-11-22).** From `docs/version_3_revision_67_changes.md` (T-266),
+- [x] T-267 ⟨now⟩ **Revision 67's verdict moves (2026-11-22).** From `docs/version_3_revision_67_changes.md` (T-266),
   for the owner. Criteria: `M11.C.51` PASS→FAIL (p 0.048→0.081), `M11.C.17` FAIL→PASS (p 0.10→0.047), `M11.C.12`
   PASS→FAIL (p 0.042→0.062), `M11.C.7[one spouse over sided]` PASS→FAIL (p 0.008→0.092). Each now sits with p
   between about 0.01 and 0.2, so under T-254's rule none is read as a change of the model until fresh, disjoint seed
@@ -48,3 +48,4 @@ Built from `docs/proposal_conviction_and_coach_sessions.md`, approved by the own
   *Sweep: `M11.C.50` at `learning_rate` 0.1 and 0.4, and `M11.C.54` at `policy_temperature` 2.0: noise.* No block passes
   on either engine (pooled p 0.96 and 0.97 at 0.1, 0.26 and 0.26 at 0.4, 0.62 and 0.78 at 2.0). Revision 66's two
   `M11.C.50` passes and revision 67's `M11.C.54` pass were seed noise, and both criteria fail at the central setting.
+  *Closed 2026-11-25 by the owner: the finding is accepted; none of revision 67's nine moves is a change of the model.*

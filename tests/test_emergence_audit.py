@@ -116,11 +116,13 @@ def test_m111g_ea1_the_real_scope_is_the_plans():
     `M11.C.48[phase_d]` and `M11.C.49` fail and
     `M11.C.6`, `M11.C.12`, `M11.C.23`, `M11.C.44`, `M11.C.51` and `M11.C.27[unstable,add_third]` pass: thirteen rows.
     Since spec revision 67's regeneration (T-266, 2026-11-22) `M11.C.12`, `M11.C.51` and
-    `M11.C.7[one spouse over sided]` fail and `M11.C.17` passes: eleven rows."""
+    `M11.C.7[one spouse over sided]` fail and `M11.C.17` passes: eleven rows. Since spec revision 70's regeneration
+    (T-296, 2026-11-26) `M11.C.12` and `M11.C.53` pass and `M11.C.7[joint over sided]` fails: twelve rows (each a
+    borderline move, T-300)."""
     audited, rows, by_class, excluded = ea.in_scope(ea.read_records(), ea.read_config())
     ea.check_registries(rows)
     keys = {r.key for r in audited}
-    assert len(audited) == 11 and {"M11.C.52", "M11.C.55", "M11.C.6", "M11.C.17"} <= keys
+    assert len(audited) == 12 and {"M11.C.52", "M11.C.55", "M11.C.6", "M11.C.17"} <= keys
     assert "M11.C.48[phase_d]" not in keys
     assert "M11.C.34" not in keys
     assert [k for k, _ in excluded] == ["M11.C.39"]
@@ -379,7 +381,7 @@ def test_m111g_ea13_key_is_engine_and_edits():
 
 
 # --- EA-14 -----------------------------------------------------------------------------------------------------------
-@pytest.mark.xfail(strict=True, reason="T-296: spec revision 70 (2026-11-25, T-295 and E2) moved the engine hash; this record is regenerated on Mac Mini1 and is stale on the new engine until then")
+@pytest.mark.xfail(strict=True, reason="T-296: spec revision 70 (2026-11-25) moved the engine hash, and the run mix of T-299 (docs/review/2026-11-26_short_rerun_test.md) leaves the emergence audit for the milestone run, so this record is revision 69's until then")
 def test_m111g_ea14_emergence_audit_record_is_current():
     try:
         rendered = ea.build(Cache(ea.CACHE))

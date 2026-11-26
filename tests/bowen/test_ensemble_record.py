@@ -30,7 +30,6 @@ def record_text() -> str:
     return (REPO / "docs" / "phase_c_ensemble_record.md").read_text(encoding="utf-8")
 
 
-@pytest.mark.xfail(strict=True, reason="T-296: spec revision 70 (2026-11-25, T-295 and E2) moved the engine hash; this record is regenerated on Mac Mini1 and is stale on the new engine until then")
 def test_m134_ensemble_record_is_current():
     """MR-23: the record is exactly what its cache renders for the current code, without running anything: a changed
     engine has no cached result (stale), and a hand edit or a renderer change does not match."""
@@ -181,7 +180,6 @@ def test_s1_5b_code_text_keeps_a_line_separator_inside_a_string(tmp_path):
     assert '"a\u2028b\u2028c"' in text.split("\x00")
 
 
-@pytest.mark.xfail(strict=True, reason="T-296: spec revision 70 adds M11.C.52[by channel] (T-209); the record gains its row at the Mac Mini1 regeneration")
 def test_m134_record_covers_every_criterion_and_names_what_is_not_built():
     text = record_text()
     for cid in CRITERIA:
@@ -230,7 +228,6 @@ def test_m111a_every_mutant_applies_exactly_once(tmp_path):
             assert new in (root / file).read_text(encoding="utf-8"), mutant.id
 
 
-@pytest.mark.xfail(strict=True, reason="T-296: spec revision 70 (2026-11-25, T-295 and E2) moved the engine hash; this record is regenerated on Mac Mini1 and is stale on the new engine until then")
 def test_m111d_mutation_record_is_current():
     """The record is exactly what its cache renders for the current engine and every mutant's current edits: a changed
     engine or mutant has no cached result (KeyError: rerun the tool), and a hand edit does not match."""
@@ -256,7 +253,6 @@ def test_m111c_representation_mutants_ran_on_every_passing_criterion():
         assert _mutants.passing() <= ran, f"{mutant.id} did not run on {sorted(_mutants.passing() - ran)}"
 
 
-@pytest.mark.xfail(strict=True, reason="T-296: the severing mutants (revision 70, T-077) run at the Mac Mini1 regeneration")
 def test_m111b_t077_each_severing_mutant_ran_on_its_passing_criteria():
     """`M11.1b` (revision 70, T-077): every severing mutant has a result on each passing criterion it targets, and the
     record judges it red or survived (a survivor is a finding, reported, not tuned away)."""
@@ -270,7 +266,6 @@ def test_m111b_t077_each_severing_mutant_ran_on_its_passing_criteria():
         assert {results[c] for c in chosen} <= {"red", "reversed", "survived"}, mutant.id
 
 
-@pytest.mark.xfail(strict=True, reason="T-296: spec revision 70 (2026-11-25, T-295 and E2) moved the engine hash; this record is regenerated on Mac Mini1 and is stale on the new engine until then")
 def test_d9_sweep_record_is_current():
     """Plan D9: every composite criterion was swept at low and high α, H and temperature on the current code."""
     text = (REPO / "docs" / "phase_c_sweep_record.md").read_text(encoding="utf-8")
@@ -556,7 +551,6 @@ def occupancy_rows() -> list[dict]:
     return record_json(text)
 
 
-@pytest.mark.xfail(strict=True, reason="T-296: spec revision 70 (2026-11-25, T-295 and E2) moved the engine hash; this record is regenerated on Mac Mini1 and is stale on the new engine until then")
 def test_m111a_level_occupancy_record_is_current():
     """T-068: the record is what its cache renders for the current engine, without running a child, so a stale record
     or a hand-edited table fails."""
@@ -812,7 +806,10 @@ def test_t148_c16_sentences_follow_the_mutant_results():
     assert "No other single rule's removal turns it red" not in red_band["section"]
     assert "`band-level-independent`" in red_band["row_class"] and "but for `band-level-independent`" in red_band["section"]
     calm = _c16_render({"steepness-inverted": {"result": "survived", "readouts": _gating(-0.03, 0.006)},
-                        "band-level-independent": {"result": "survived", "readouts": _gating(-0.036, 0.007)}})
+                        "band-level-independent": {"result": "survived", "readouts": _gating(-0.036, 0.007)},
+                        # the record's own results for these two moved at revision 70 (T-300); calm sets them here
+                        "learner-inverted": {"result": "survived", "readouts": _gating(-0.006, 0.007)},
+                        "level-blind": {"result": "survived", "readouts": _gating(-0.003, 0.003)}})
     assert "Of the other inversions" not in calm["section"] and "No other single rule's removal" in calm["section"]
     assert "`steepness-inverted`" not in calm["row_class"]
     kept = _c16_render({"availability-and-learner-removed": {"result": "survived", "readouts": _gating(-0.02, 0.005)}})
@@ -922,7 +919,6 @@ sys.modules[_dspec.name] = _diagnostic
 _dspec.loader.exec_module(_diagnostic)
 
 
-@pytest.mark.xfail(strict=True, reason="T-296: spec revision 70 (2026-11-25, T-295 and E2) moved the engine hash; this record is regenerated on Mac Mini1 and is stale on the new engine until then")
 def test_d0_diagnostic_record_is_current():
     """The diagnostic record is what its cache renders for the current engine, variants and probes."""
     try:

@@ -14,7 +14,6 @@ import shutil
 import sys
 from pathlib import Path
 
-import pytest
 
 REPO = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(REPO))
@@ -41,7 +40,6 @@ def test_m111a_every_phase_d_mutant_applies_exactly_once(tmp_path):
             assert new in (root / file).read_text(encoding="utf-8"), mutant.id
 
 
-@pytest.mark.xfail(strict=True, reason="T-296: spec revision 70 (2026-11-25, T-295 and E2) moved the engine hash; this record is regenerated on Mac Mini1 and is stale on the new engine until then")
 def test_m111d_phase_d_mutation_record_is_current():
     try:
         rendered = _tool.build(Cache("phase_d_mutation"))

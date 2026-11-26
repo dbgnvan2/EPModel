@@ -11,7 +11,7 @@ Purpose: after an engine batch the two slow records, the Phase D part II ensembl
          run never reads it; the record states F in its header (``note``), and a rebuild from the cache reads F back
          from the committed record (``declared``).
 Spec:    docs/review/2026-11-26_short_rerun_test.md#recommended-mix-of-runs
-Tests:   tests/test_seed_fraction.py
+Tests:   tests/bowen/test_seed_fraction.py
 """
 
 from __future__ import annotations
@@ -71,7 +71,7 @@ def config_edits(fraction: float, root: Path = REPO) -> tuple[tuple[str, str, st
     """The (file, old, new) line edits that put ``root``'s seed settings at ``fraction``; each line must occur once."""
     edits = []
     for file, start, how in SCALED_CONFIG:
-        lines = [l for l in (root / file).read_text(encoding="utf-8").splitlines() if l.startswith(start)]
+        lines = [line for line in (root / file).read_text(encoding="utf-8").splitlines() if line.startswith(start)]
         if len(lines) != 1:
             raise SystemExit(f"{file}: {len(lines)} lines start {start!r}, not one")
         rest = lines[0][len(start):]

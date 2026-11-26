@@ -6,6 +6,27 @@ The spec holds the current rules; this file holds how they got there. Until revi
 
 The sections `### Revision 34` to `### Revision 5` and the undated section are the spec's text as it stood, moved whole; a statement inside one of them (revision 34's, that revisions 13 to 33 are "not here") was true when written, before the bodies' narratives were moved under their own revisions. Those narratives are the bullets `- \`ID\`: sentence`, each the sentence as it stood in the body, under the revision it names, in sections titled "inline narratives moved from the bodies at revision 35" where no section existed.
 
+### Revision 70 — T-295 and engine batch E2, 2026-11-25 ⟦rev70 · T-295, T-019, T-209, T-018, T-077, Claude's recommendation 2026-11-25, pending owner review⟧
+
+The engine hash moves to `9a7c6f9d7e0d`. T-019 changes what a run computes wherever a coach is on a member's side
+(`M11.C.7`'s sided arm); the other items leave every run at its defaults unchanged.
+
+- **`M1.E.7e`, T-019.** A coach on a member's side (`coach_side`) lends that member pseudo-self instead of landing its
+  contact: `M6.I.4`'s conserved transfer with the coach as lender, sized by `pseudo_self_transfer_gain` and recorded
+  on the tie's loan ledger. Once the coach is off that side, the loan returns at `pseudo_self_relaxation_rate` a week.
+  Source: Kerr, *Bowen Theory's Secrets*, ledger KS18.5 `[K]`; Bowen's third person who stays in contact without
+  taking sides (*FTCP* Ch. 10 ¶91 `[B]`) is the unsided case, unchanged.
+- **`M16.A.11`, T-295 (1), (3).** A scheduled divorce dropped because a spouse died reaches the run log as a
+  `scheduled_drop` record; `DivorceSource` builds each week once, so a second read of a week records nothing twice.
+  T-295 (2): the source passes its inner source's `rules` and `ticks` through.
+- **`M4.C.6`, T-209.** A switch `nonverbal_reattribution_enabled` (default 1) removes only the by-channel discount;
+  the new row `M11.C.52[by channel]` gives both arms the perspective and switches the discount off in the baseline.
+- **`M17.A.1`, T-018.** The gating ensemble records adopt the detection-limit rerun (`tools/detection_limit.py`,
+  shared with the sweep); the seed cell shows both counts and the first verdict.
+- **`M11.1b`, T-077.** Two severing mutants: `acute-excess-severed` (against `M11.C.16`) and `tie-deviation-severed`
+  (against `M11.C.27` and `M11.C.44`). The integer-tick re-encoding, a rescaled state range and plan D9's dominant
+  constants stay open (T-077's record says why).
+
 ### Revision 69 — a divorce is built in its week, 2026-11-24 ⟦rev69 · T-269, Claude's recommendation 2026-11-24, approved by the owner 2026-11-24⟧
 
 The engine hash moves (every `src/bowen/` file is hashed); no run schedules a divorce, so the regenerated records are

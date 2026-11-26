@@ -11,9 +11,12 @@ Built from T-269 (Claude's recommendation 2026-11-24, approved by the owner 2026
   **Closed 2026-11-25:** all 12 steps exited 0 (queue done 02:27 Mini1 time, at `74183a9`); the records are merged
   and the eleven marks removed. `docs/version_3_revision_69_changes.md`: no verdict, effect or field changed in any
   compared record, and the other caches equal revision 68's entry for entry apart from their hashes.
-- [ ] T-295 ⟨later⟩ **Revision 69's minor review items (2026-11-24).** From the batch's learning-qa and correctness
+- [x] T-295 ⟨later⟩ **Revision 69's minor review items (2026-11-24).** From the batch's learning-qa and correctness
   passes, none medium in today's code since no runner uses `DivorceSource`: (1) a dropped divorce reaches the run log
   only through `DivorceSource.dropped` and `summary()`, which the first runner that schedules a divorce must report
   ("N of M"), or the source needs a log record; (2) the wrapper has no `.rules` or `.ticks`, so a tool reading those
   from its source (`tools/phase_c_trace.py:51`) fails on it; (3) calling `scheduled` twice for one tick records a drop
   twice.
+  **Closed 2026-11-25 (spec revision 70, `M16.A.11`):** (1) a dropped divorce is emitted as a `scheduled_drop` log
+  record when the source is given an emitter; (2) `rules` and `ticks` pass through to the inner source; (3) each
+  week is built once and cached. Claude's recommendation 2026-11-25, pending owner review.

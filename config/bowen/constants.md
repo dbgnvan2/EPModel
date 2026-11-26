@@ -112,6 +112,7 @@ activation_regime: synchronous
 | `witness_weight` | 0.5 | [I] | share of an overheard exchange | `M4.C.9` |
 | `speaker_echo_gain` | 0.2 | [I] | share of what was addressed | `M4.C.7` |
 | `reappraisal_window` | 4 | [I] | fast ticks | `M4.C.6` |
+| `nonverbal_reattribution_enabled` | 1 | [I] | switch: 1 on, 0 off; 0 removes only the by-channel discount of `M4.C.6`, for `M11.C.52[by channel]`'s baseline arm (revision 70, T-209) | `M4.C.6` |
 | `attention_gain` | 0.5 | [I] | relative change in appraisal | `M4.C.8` |
 | `perspective_anxiety_scale` | 10.0 | [I] | points of excess anxiety | `M4.C.4` |
 | `calm_transfer_rate` | 0.05 | [I] | share of the anxiety gap per unit conductance | `M4.C.10` |

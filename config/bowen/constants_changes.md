@@ -14,6 +14,11 @@
 > moved out of the code into `act_classes.md` (`M8.3`, `M5.B.4`, `M5.B.5`) are lists of act names, not constants, and
 > their contents did not change.
 >
+> **Spec revision 70 (2026-11-25, T-295 and E2) adds one constant**, `nonverbal_reattribution_enabled` (1, `[I]`, a
+> switch under `M4.C.6`): 0 removes only the by-channel discount, for `M11.C.52[by channel]`'s baseline arm (T-209).
+> At its default no run changes. T-019's coach lending reuses `pseudo_self_transfer_gain` and
+> `pseudo_self_relaxation_rate`; no other value changed.
+>
 > **Spec revision 69 (2026-11-24, T-269) changed no constant.** A divorce is built in its own week by `DivorceSource`.
 >
 > **Spec revision 68 (2026-11-23, T-261) changed no constant.** It adds the `capacity_consuming` class to
@@ -288,3 +293,4 @@
 | `line_tendency_max` | — | 0.2 | 2026-11-21 | — (new mechanism; spec revision 67, T-259, `M5.D.3b`: each person's line tendency is drawn once from [0, this]; `[I]`, Claude's pick under the owner's approval of `docs/proposal_conviction_and_coach_sessions.md` 2026-11-21, pending owner review) | no |
 | `tie_discount` | — | 0.5 | 2026-11-21 | — (new mechanism; spec revision 67, T-259, `M5.D.3b`: conviction falls by this share at bond energy 100 on the tie to the target; `[I]`, Claude's pick under the owner's approval of `docs/proposal_conviction_and_coach_sessions.md` 2026-11-21, pending owner review) | no |
 | `hold_gain` | 0.3 | 0.3 | 2026-11-21 | — (spec revision 67, T-259, `M5.D.3b`: the unit changes from per point of functional level to per point of conviction; the value is kept, not tuned) | no |
+| `nonverbal_reattribution_enabled` | — | 1 | 2026-11-25 | — (new switch; spec revision 70, T-209, `M4.C.6`: 0 removes only the by-channel discount, for `M11.C.52[by channel]`'s baseline arm; at its default no run changes; `[I]`, Claude's recommendation 2026-11-25, pending owner review) | no |

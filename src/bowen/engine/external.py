@@ -2,7 +2,8 @@
 
 Purpose: decide, for each move an external agent delivers to a family member, whether
          it lands, and raise the recipient's systems perspective only then.
-Spec:    docs/bowen_agent_model_spec_v2.md#M1.E.1, #M1.E.6, #M1.E.7, #M1.E.7c, #M1.E.7d, #M1.E.7e, #M1.E.8, #M16.D.1
+Spec:    docs/bowen_agent_model_spec_v2.md#M1.E.1, #M1.E.6, #M1.E.7, #M1.E.7c, #M1.E.7d, #M1.E.7e, #M1.E.8, #M6.I.4,
+         #M16.D.1
 Tests:   tests/bowen/test_external.py
 
 Every form is the project's, graded [I]; the constants are in ``config/bowen/constants.md``.
@@ -25,8 +26,12 @@ probability
   recipient: it has taken a side. The agent is on a member's side for ``coach_side_window`` weeks after that
   member's ``SPLIT`` toward it (the family-to-external move that draws a professional onto one side; a member cannot
   send an external agent a ``TRIANGLE``, `M5.B.4`, `M5.B.5`); it has no move that declines, so it always goes along.
-  The count is ``positions_live``, the predicate `M8.5` requires. `M1.E.7e`'s lending of pseudo-self by a sided coach
-  is not built: a sided coach's contact lands nothing.
+  The count is ``positions_live``, the predicate `M8.5` requires. A sided coach's contact lands nothing; instead,
+  delivered to the member it sides with, it **lends pseudo-self** (`M1.E.7e`, revision 70, T-019): `M6.I.4`'s
+  transfer with the coach as the giver (``lend_to_side``), sized as an over-functioning act is, so the recipient's
+  functional level rises and basic level is untouched (`M1.A.4k` reads functional level less pseudo-self). What the
+  coach lent goes back at ``pseudo_self_relaxation_rate`` a week once the coach is no longer on that member's side
+  (``return_coach_loans``): a borrowed rise does not survive the withdrawal of its source (`M1.A.5c`). [I]
 * **own log** — 1 if the recipient's delayed view (`M16.D`: its own events older than
   ``delayed_view_weeks``) holds any move it sent, else 0: `M1.E.7c`'s fourth form, delayed
   self-observation, makes landing likelier. With the store emptied it never fires (`M16.T.6`).
@@ -49,10 +54,10 @@ from src.bowen.engine.act import holds_or_self_directed
 from src.bowen.engine.contact import deviation
 from src.bowen.engine.draws import DrawKey
 from src.bowen.engine.events import Delivery, Mechanism, Role
-from src.bowen.engine.identifiers import PersonId
+from src.bowen.engine.identifiers import PersonId, TieId
 from src.bowen.engine.live_positions import Occupant, positions_live
 from src.bowen.engine.log_records import DecidedBy, EffectRecord
-from src.bowen.engine.moves import TRIANGLE, triangle_partner
+from src.bowen.engine.moves import TRIANGLE, _lend, capacity, repay, stress_floor, triangle_partner
 from src.bowen.engine.objects import SCALE_MAX, Role as PersonRole
 from src.bowen.engine.outside_ness import efficacy
 from src.bowen.engine.params import EngineParams
@@ -104,6 +109,71 @@ def coach_live(state: RunState, coach: PersonId, recipient: PersonId, params: En
     return True
 
 
+def sided_with(state: RunState, coach: PersonId, recipient: PersonId, params: EngineParams) -> bool:
+    """Purpose: whether the coach is on ``recipient``'s side in some triangle the two share (`M8.3`).
+    Spec:    docs/bowen_agent_model_spec_v2.md#M1.E.7e, #M8.3
+    Tests:   tests/bowen/test_external.py::test_m1e7e_t019_a_sided_coach_lends_pseudo_self_that_returns_when_the_side_lapses
+    """
+    return any(coach_side(state, coach, tri.members, params) == recipient
+               for tri in sorted(state.triangles) if coach in tri.members and recipient in tri.members)
+
+
+def lend_to_side(state: RunState, event, coach, recipient, params: EngineParams) -> EffectRecord | None:
+    """Purpose: `M1.E.7e` (revision 70, T-019) — a sided coach's move to the member it sides with lends pseudo-self:
+             `M6.I.4`'s transfer with the coach as the giver, the amount an over-functioning act of the same intensity
+             would move, on the coach tie's loan ledger. Claude's recommendation 2026-11-25, pending owner review. [I]
+    Spec:    docs/bowen_agent_model_spec_v2.md#M1.E.7e, #M6.I.4
+    Tests:   tests/bowen/test_external.py::test_m1e7e_t019_a_sided_coach_lends_pseudo_self_that_returns_when_the_side_lapses
+    """
+    tie = state.ties.get(TieId.of(coach.id, recipient.id))
+    if tie is None:
+        return None
+    amount = max(0.0, min(
+        capacity(recipient, recipient.functional_level, params) * params.pseudo_self_transfer_gain
+        * event.intensity / params.intensity_scale,
+        coach.functional_level - stress_floor(coach, params),
+        SCALE_MAX - recipient.functional_level,
+    ))
+    if amount <= 0:
+        return None
+    for person, sign in ((recipient, 1.0), (coach, -1.0)):
+        person.functional_level += sign * amount
+        person.pseudo_self = (person.pseudo_self or 0.0) + sign * amount
+    return EffectRecord(state.tick, "coach_lending", event.id, ties=tuple(_lend(tie, coach.id, recipient.id, amount)),
+                        people=((recipient.id, "pseudo_self", amount), (coach.id, "pseudo_self", -amount)))
+
+
+def return_coach_loans(state: RunState, params: EngineParams) -> list[EffectRecord]:
+    """Purpose: step 9 — what a coach lent a member (`lend_to_side`) goes back, ``pseudo_self_relaxation_rate`` of what
+             is owed a week, with the same of functional level, while the coach is not on that member's side: the
+             borrowed rise does not survive the withdrawal of its source (`M1.A.5c`). Conserved (`M6.I.4`). [I]
+    Spec:    docs/bowen_agent_model_spec_v2.md#M1.E.7e, #M1.A.5c, #M6.I.4
+    Tests:   tests/bowen/test_external.py::test_m1e7e_t019_a_sided_coach_lends_pseudo_self_that_returns_when_the_side_lapses
+    """
+    changes, tie_rows = [], []
+    for tid in sorted(state.ties):
+        tie = state.ties[tid]
+        for coach_id, borrower_id in (tid.members(), tuple(reversed(tid.members()))):
+            coach, borrower = state.people[coach_id], state.people[borrower_id]
+            owed = tie.lent.get(coach_id, 0.0)
+            if coach.role is not PersonRole.EXTERNAL or borrower.role is PersonRole.EXTERNAL or owed <= 0:
+                continue
+            if sided_with(state, coach_id, borrower_id, params):
+                continue
+            amount = max(0.0, min(params.pseudo_self_relaxation_rate * owed, borrower.functional_level,
+                                  SCALE_MAX - coach.functional_level))
+            if amount <= 0:
+                continue
+            borrower.pseudo_self = (borrower.pseudo_self or 0.0) - amount
+            borrower.functional_level -= amount
+            coach.pseudo_self = (coach.pseudo_self or 0.0) + amount
+            coach.functional_level += amount
+            changes += [(borrower_id, "pseudo_self", -amount), (coach_id, "pseudo_self", amount)]
+            tie_rows += repay(tie, coach_id, amount)
+    return ([EffectRecord(state.tick, "coach_loan_return", None, ties=tuple(tie_rows), people=tuple(changes))]
+            if changes else [])
+
+
 def landing_probability(state: RunState, coach, recipient, params: EngineParams) -> float:
     """Purpose: the chance one contact lands.
     Spec:    docs/bowen_agent_model_spec_v2.md#M1.E.7, #M1.E.7c, #M1.E.7d, #M1.E.8, #M8.3
@@ -128,8 +198,10 @@ def landing_probability(state: RunState, coach, recipient, params: EngineParams)
 
 def apply_landed_contacts(state: RunState, batch: tuple[Delivery, ...], params: EngineParams) -> list[EffectRecord]:
     """Purpose: step 4 — each external agent's move delivered to a family member lands or does not.
-    Spec:    docs/bowen_agent_model_spec_v2.md#M1.E.7, #M1.E.7d
+    Spec:    docs/bowen_agent_model_spec_v2.md#M1.E.7, #M1.E.7d, #M1.E.7e
     Tests:   tests/bowen/test_external.py::test_m1e7_perspective_rises_only_on_a_landed_contact_or_own_practice
+
+    A move from a coach on the recipient's side does not land; it lends (``lend_to_side``, revision 70, T-019).
     """
     records = []
     for delivery in sorted(batch):
@@ -140,6 +212,10 @@ def apply_landed_contacts(state: RunState, batch: tuple[Delivery, ...], params: 
             continue
         coach, recipient = state.people[event.sender], state.people[delivery.recipient]
         if coach.role is not PersonRole.EXTERNAL or recipient.role is PersonRole.EXTERNAL or not recipient.alive:
+            continue
+        if sided_with(state, coach.id, recipient.id, params):  # M1.E.7e (T-019): lends instead of landing
+            lent = lend_to_side(state, event, coach, recipient, params)
+            records += [lent] if lent is not None else []
             continue
         p = landing_probability(state, coach, recipient, params)
         if p <= 0:

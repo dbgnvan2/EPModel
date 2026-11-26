@@ -30,6 +30,7 @@ def record_text() -> str:
     return (REPO / "docs" / "phase_c_ensemble_record.md").read_text(encoding="utf-8")
 
 
+@pytest.mark.xfail(strict=True, reason="T-296: spec revision 70 (2026-11-25, T-295 and E2) moved the engine hash; this record is regenerated on Mac Mini1 and is stale on the new engine until then")
 def test_m134_ensemble_record_is_current():
     """MR-23: the record is exactly what its cache renders for the current code, without running anything: a changed
     engine has no cached result (stale), and a hand edit or a renderer change does not match."""
@@ -84,6 +85,33 @@ def test_mr23_a_stale_entry_is_rerun(tmp_path):
         assert ran.call_count == len(CRITERIA)
         cache.save()
         assert not old & set(Cache("c").entries) and len(Cache("c").entries) == len(CRITERIA)
+
+
+def test_m17a1_t018_a_near_limit_criterion_is_rerun_at_the_fixed_count(tmp_path):
+    """Revision 70, T-018 (`M17.A.1`): a first verdict within the declared multiple of half-widths of zero, on fewer
+    seeds than the declared count, is run again in one block of that count, and the record prints both counts and the
+    first verdict; one clear of the limit is not run again."""
+    from src.bowen.ensemble.runner import Verdict
+    from tools import detection_limit
+    from tools.record_cache import Cache
+
+    multiple, fixed = detection_limit.limits()
+    near = "M11.C.52"
+    calls = []
+
+    def stub(criterion, rules, workers=1):
+        calls.append((criterion.id, rules["ensemble_block"], rules["ensemble_cap"]))
+        seeds = rules["ensemble_cap"] if rules["ensemble_block"] == fixed else 3
+        width = 1.0 if criterion.id == near and seeds == 3 else 0.1
+        readout = {"readout": "x", "direction": 1, "mean_difference": 1.0, "half_width": width, "p": 0.01,
+                   "holds": True}
+        return Verdict(criterion.id, criterion.cls, "PASS", seeds, [readout], 0.0, {}, [], [], {})
+
+    with _in_tmp_cache(tmp_path), mock.patch("src.bowen.ensemble.runner.run_criterion", side_effect=stub):
+        text = _tool.build(Cache("c"), workers=1)
+    assert [c for c in calls if c[0] == near] == [(near, mock.ANY, mock.ANY), (near, fixed, fixed)]
+    assert sum(1 for c in calls if c[1] == fixed) == 1
+    assert f"| {fixed} (first run 3 seeds, PASS) |" in text
 
 
 def test_s1_8a_render_is_not_hashed(tmp_path, monkeypatch):
@@ -153,6 +181,7 @@ def test_s1_5b_code_text_keeps_a_line_separator_inside_a_string(tmp_path):
     assert '"a\u2028b\u2028c"' in text.split("\x00")
 
 
+@pytest.mark.xfail(strict=True, reason="T-296: spec revision 70 adds M11.C.52[by channel] (T-209); the record gains its row at the Mac Mini1 regeneration")
 def test_m134_record_covers_every_criterion_and_names_what_is_not_built():
     text = record_text()
     for cid in CRITERIA:
@@ -201,6 +230,7 @@ def test_m111a_every_mutant_applies_exactly_once(tmp_path):
             assert new in (root / file).read_text(encoding="utf-8"), mutant.id
 
 
+@pytest.mark.xfail(strict=True, reason="T-296: spec revision 70 (2026-11-25, T-295 and E2) moved the engine hash; this record is regenerated on Mac Mini1 and is stale on the new engine until then")
 def test_m111d_mutation_record_is_current():
     """The record is exactly what its cache renders for the current engine and every mutant's current edits: a changed
     engine or mutant has no cached result (KeyError: rerun the tool), and a hand edit does not match."""
@@ -226,6 +256,21 @@ def test_m111c_representation_mutants_ran_on_every_passing_criterion():
         assert _mutants.passing() <= ran, f"{mutant.id} did not run on {sorted(_mutants.passing() - ran)}"
 
 
+@pytest.mark.xfail(strict=True, reason="T-296: the severing mutants (revision 70, T-077) run at the Mac Mini1 regeneration")
+def test_m111b_t077_each_severing_mutant_ran_on_its_passing_criteria():
+    """`M11.1b` (revision 70, T-077): every severing mutant has a result on each passing criterion it targets, and the
+    record judges it red or survived (a survivor is a finding, reported, not tuned away)."""
+    rows = record_json(mutation_text())
+    severing = [m for m in _mutants.MUTANTS if m.kind == _mutants.SEVERING]
+    assert severing
+    for mutant in severing:
+        chosen, _ = _mutants.targets(mutant, CRITERIA, _mutants.passing())
+        results = {r["criterion"]: r["result"] for r in rows if r["mutant"] == mutant.id}
+        assert chosen and set(chosen) <= set(results), f"{mutant.id} did not run on {sorted(set(chosen) - set(results))}"
+        assert {results[c] for c in chosen} <= {"red", "reversed", "survived"}, mutant.id
+
+
+@pytest.mark.xfail(strict=True, reason="T-296: spec revision 70 (2026-11-25, T-295 and E2) moved the engine hash; this record is regenerated on Mac Mini1 and is stale on the new engine until then")
 def test_d9_sweep_record_is_current():
     """Plan D9: every composite criterion was swept at low and high α, H and temperature on the current code."""
     text = (REPO / "docs" / "phase_c_sweep_record.md").read_text(encoding="utf-8")
@@ -511,6 +556,7 @@ def occupancy_rows() -> list[dict]:
     return record_json(text)
 
 
+@pytest.mark.xfail(strict=True, reason="T-296: spec revision 70 (2026-11-25, T-295 and E2) moved the engine hash; this record is regenerated on Mac Mini1 and is stale on the new engine until then")
 def test_m111a_level_occupancy_record_is_current():
     """T-068: the record is what its cache renders for the current engine, without running a child, so a stale record
     or a hand-edited table fails."""
@@ -876,6 +922,7 @@ sys.modules[_dspec.name] = _diagnostic
 _dspec.loader.exec_module(_diagnostic)
 
 
+@pytest.mark.xfail(strict=True, reason="T-296: spec revision 70 (2026-11-25, T-295 and E2) moved the engine hash; this record is regenerated on Mac Mini1 and is stale on the new engine until then")
 def test_d0_diagnostic_record_is_current():
     """The diagnostic record is what its cache renders for the current engine, variants and probes."""
     try:

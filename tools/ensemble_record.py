@@ -33,6 +33,7 @@ from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO))
+from tools import detection_limit  # noqa: E402  (M17.A.1's rerun, revision 70, T-018)
 from tools.atomic_write import write_text_atomic  # noqa: E402
 
 RECORD = REPO / "docs" / "phase_c_ensemble_record.md"
@@ -188,21 +189,35 @@ def build(cache, workers: int | None = None, only: list[str] | None = None) -> s
     constants = load_constants()
     rules = {k: constants[k] for k in RULE_KEYS}
     engine = result_hash()
+    multiple, fixed = detection_limit.limits()
     verdicts = []
     for cid, criterion in CRITERIA.items():
-        key = result_key(engine, None, cid)
-        entry = cache.get(key)
-        if entry is None and workers is not None and (not only or any(cid.startswith(o) for o in only)):
-            started = time.time()
-            verdict = dataclasses.replace(run_criterion(criterion, rules, workers=workers), criterion=cid)
-            cache.put(key, dataclasses.asdict(verdict))
-            cache.flush()  # keep every finished result, whatever happens to the next criterion
-            entry = cache.get(key)
-            print(f"{cid}: {verdict.outcome} ({verdict.seeds} seeds, {time.time() - started:.0f} s)", flush=True)
-        if entry is None:
-            raise KeyError(cid)
-        verdicts.append((Verdict(**entry), None))
+        wanted = workers is not None and (not only or any(cid.startswith(o) for o in only))
+        entry = _cached_run(cache, result_key(engine, None, cid), cid, wanted,
+                            lambda: run_criterion(criterion, rules, workers=workers))
+        first = None
+        if detection_limit.needs_rerun(entry, criterion.seeds, multiple, fixed):  # M17.A.1, T-018
+            first = entry
+            key = result_key(engine, detection_limit.rerun_definition(multiple, fixed), cid)
+            entry = _cached_run(cache, key, cid, wanted, lambda: run_criterion(
+                criterion, detection_limit.rerun_rules(rules, fixed), workers=workers))
+        verdicts.append((Verdict(**entry), first))
     return render(verdicts, NOT_BUILT, rules, engine)
+
+
+def _cached_run(cache, key, cid: str, wanted: bool, run) -> dict:
+    """The cached verdict under ``key``; when missing and ``wanted``, ``run()`` it and cache it; else KeyError."""
+    entry = cache.get(key)
+    if entry is None and wanted:
+        started = time.time()
+        verdict = dataclasses.replace(run(), criterion=cid)
+        cache.put(key, dataclasses.asdict(verdict))
+        cache.flush()  # keep every finished result, whatever happens to the next criterion
+        entry = cache.get(key)
+        print(f"{cid}: {verdict.outcome} ({verdict.seeds} seeds, {time.time() - started:.0f} s)", flush=True)
+    if entry is None:
+        raise KeyError(cid)
+    return entry
 
 
 def scripted_cell(scripted: dict) -> str:
@@ -232,7 +247,7 @@ def render(verdicts, not_built, rules, hash_: str) -> str:
         "| Criterion | Class | Verdict | Seeds | Readouts (difference treatment − baseline; ± half-width; p after Holm where tested) | Scripted acts not made, of all scripted (why) | Fallback rate | Flags |",
         "|---|---|---|---|---|---|---|---|",
     ]
-    for v, _ in verdicts:
+    for v, first in verdicts:
         parts = []
         for r in v.readouts:
             text = f"`{r['readout']}` {r['mean_difference']:+.3g} ± {r['half_width']:.2g}"
@@ -249,7 +264,8 @@ def render(verdicts, not_built, rules, hash_: str) -> str:
                 text += f", pairs differing {r['nonzero_share']:.2f}"
             parts.append(text)
         flags = list(v.flagged) + [f"move never occurred: {m}" for m in v.missing_moves]
-        lines.append(f"| `{v.criterion}` | {v.cls} | **{v.outcome}** | {v.seeds} | {'; '.join(parts)} | "
+        lines.append(f"| `{v.criterion}` | {v.cls} | **{v.outcome}** | {detection_limit.seeds_cell(v.seeds, first)} | "
+                     f"{'; '.join(parts)} | "
                      f"{scripted_cell(v.scripted)} | {v.fallback_rate:.2f} | {'; '.join(flags) or '—'} |")
     counted = [(v.criterion, v.counts) for v, _ in verdicts if getattr(v, "counts", None)]
     if counted:  # T-217: every count an arm records, summed over the seeds (`M11.1f`)
@@ -267,7 +283,9 @@ def render(verdicts, not_built, rules, hash_: str) -> str:
               json.dumps([{"criterion": v.criterion, "class": v.cls, "outcome": v.outcome, "seeds": v.seeds,
                            "readouts": v.readouts, "fallback_rate": v.fallback_rate, "flags": v.flagged,
                            "missing_moves": v.missing_moves, "scripted": v.scripted,
-                           **({"counts": v.counts} if getattr(v, "counts", None) else {})} for v, _ in verdicts],
+                           **({"counts": v.counts} if getattr(v, "counts", None) else {}),
+                           **({"first_seeds": first["seeds"], "first_outcome": first["outcome"]} if first else {})}
+                          for v, first in verdicts],
                           indent=1, default=float),
               "```", ""]
     return "\n".join(lines)

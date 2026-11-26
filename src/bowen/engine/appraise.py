@@ -296,7 +296,8 @@ def _appraisal_by_channel(state: RunState, person: Person, event: Event, parts, 
     words = deviation_at(person, tie, params, clamp_unit(contact + w_contact), clamp_unit(imp + w_imp))
     full = deviation_at(person, tie, params, clamp_unit(contact + w_contact + n_contact),
                         clamp_unit(imp + w_imp + n_imp))
-    reattributed = effective_perspective(person, tie, params) * cues.own_leak_share(
+    # Revision 70, T-209: the switch removes this discount alone, for M11.C.52[by channel]'s baseline arm.
+    reattributed = params.nonverbal_reattribution_enabled * effective_perspective(person, tie, params) * cues.own_leak_share(
         state, person.id, event.sender, params.reappraisal_window
     )
     return (

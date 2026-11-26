@@ -426,6 +426,52 @@ def test_m8_3_the_side_lapses_with_the_coach_side_window():
         assert coach_live(state, HALIM, RAVI, params)
 
 
+def test_m1e7e_t019_a_sided_coach_lends_pseudo_self_that_returns_when_the_side_lapses():
+    """Revision 70, T-019 (`M1.E.7e`): the coach on Marta's side lends her pseudo-self, conserved, with no landing and
+    no change of basic level; Ravi, on the other side, gets nothing. Once the side lapses the loan goes back.
+    Adversarial: an unrecruited coach lends nothing."""
+    from src.bowen.engine.external import apply_landed_contacts, return_coach_loans
+
+    sided, live = fresh(), fresh()
+    for state in (sided, live):
+        state.tick = 10
+    _recruit(sided, MARTA, 9)
+    batches = {}
+    for state in (sided, live):
+        events = (sent(state, HALIM, MARTA, 10, index=0), sent(state, HALIM, RAVI, 10, index=1))
+        batches[id(state)] = tuple(Delivery(11, e.id, e.targets[0], Role.TARGET, emitted_tick=10, latency=1)
+                                   for e in events)
+    def total(state):
+        return sum(p.pseudo_self or 0.0 for p in state.people.values())
+    before, records = {}, {}
+    for state in (sided, live):
+        before[id(state)] = {pid: (p.functional_level, p.basic_level) for pid, p in state.people.items()}
+        start = total(state)
+        records[id(state)] = apply_landed_contacts(state, batches[id(state)], PARAMS)
+        assert total(state) == pytest.approx(start)
+    lending = [r for r in records[id(sided)] if r.mechanism == "coach_lending"]
+    assert [r.people[0][0] for r in lending] == [MARTA]
+    marta = sided.people[MARTA]
+    assert marta.functional_level > before[id(sided)][MARTA][0] and marta.basic_level == before[id(sided)][MARTA][1]
+    assert sided.people[RAVI].functional_level == before[id(sided)][RAVI][0]
+    assert not any(r.mechanism == "coach_lending" for r in records[id(live)])
+    raised = marta.functional_level
+    assert return_coach_loans(sided, PARAMS) == []  # still on her side: nothing goes back
+    from src.bowen.engine.moves import DEFAULT_AREA, apply_move_effects, relax_pseudo_self
+    sided.tie_between(HALIM, MARTA).functioning_balance[DEFAULT_AREA] = 0.3
+    relax_pseudo_self(sided, PARAMS)  # the weekly settling back leaves a coach's loan to return_coach_loans
+    assert marta.functional_level == raised
+    for state in (sided, live):  # the sided coach's OVERFUNCTION shifts nothing; the unsided one's does
+        over = sent(state, HALIM, MARTA, 10, index=2)
+        object.__setattr__(over, "kind", "OVERFUNCTION")
+        shifted = apply_move_effects(state, (Delivery(11, over.id, MARTA, Role.TARGET, emitted_tick=10, latency=1),),
+                                     PARAMS)
+        assert bool(shifted) is (state is live)
+    assert marta.functional_level == raised
+    sided.tick = 9 + PARAMS.coach_side_window
+    assert return_coach_loans(sided, PARAMS) and marta.functional_level < raised
+
+
 def test_m11c7_a_sided_coachs_contact_never_lands():
     """The gate: with binders failing, a live coach's contact can land and a sided coach's cannot. Adversarial: the
     position-blind predicate (fusion ignored, the mutant the spec names) lands for the sided coach."""

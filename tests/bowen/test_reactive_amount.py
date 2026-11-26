@@ -302,6 +302,25 @@ def test_m7c1m_t269_a_divorce_whose_spouse_has_died_is_dropped_and_recorded():
     assert source.dropped == [(0, RAVI, (MARTA,))]
 
 
+def test_m16a11_t295_a_dropped_divorce_is_logged_once_and_the_source_passes_rules_through():
+    """Revision 70, T-295: a drop reaches the run log as a ``ScheduledDropRecord`` (1); the wrapper reads its inner
+    source's ``ticks`` (2); a week asked for twice returns the same events and records its drop and build once (3)."""
+    from src.bowen.engine.log_records import CollectingEmitter, ScheduledDropRecord, serialize
+    from src.bowen.scenario.divorce import DivorceSource
+    from src.bowen.scenario.scripted_source import ScriptedSource
+
+    quiet = ScriptedSource("quiet", 3, (), ())
+    widowed, log = fresh(), CollectingEmitter()
+    widowed.people[MARTA].alive = False
+    source = DivorceSource(quiet, widowed, PARAMS, ((0, RAVI, 1.0),), emitter=log)
+    assert source.scheduled(0) == source.scheduled(0) == ()
+    assert source.dropped == [(0, RAVI, (MARTA,))] and source.ticks == 3
+    assert [r.people for r in log.records if isinstance(r, ScheduledDropRecord)] == [(MARTA,)]
+    assert '"record_type":"scheduled_drop"' in serialize(log.records[0])
+    living = DivorceSource(quiet, fresh(), PARAMS, ((0, RAVI, 1.0),))
+    assert living.scheduled(0) == living.scheduled(0) and living.built == [0]
+
+
 def test_m4d3d_t261_4_a_conflict_that_never_lands_still_costs_its_sender():
     """Revision 68, T-261 (4): the cost is charged at selection, from the sender's own energy, whether or not the act
     reaches the other (here the target has died)."""

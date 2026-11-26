@@ -407,6 +407,28 @@ def test_m4c6_sc8_attribution_reads_the_nonverbal_part_only():
     assert delta(1.0, nonverbal=False) == delta(0.0, nonverbal=False)
 
 
+def test_m4c6_t209_the_switch_removes_the_by_channel_discount_alone():
+    """Revision 70, T-209: with ``nonverbal_reattribution_enabled`` 0 the reappraiser takes the other's nonverbal
+    threat in full, as with no perspective, while the words part is unchanged; with it 1 the discount acts."""
+    import dataclasses
+
+    from src.bowen.engine.appraise import appraisal_delta
+
+    off = dataclasses.replace(NEUTRAL, nonverbal_reattribution_enabled=0)
+
+    def delta(params, perspective, nonverbal):
+        state = fresh(params)
+        state.people[MARTA].systems_perspective = perspective
+        state.store.record_event(signed(0, sender=MARTA, target=RAVI, tone=cue(expectations=-0.5)))
+        state.tick = 1
+        threat = cue(expectations=-0.8, distress=-0.8) if nonverbal else None
+        event = signed(5, tick=1, tone=threat, face=threat, posture=threat, intensity=20.0)
+        return appraisal_delta(state, deliver(state, event), event, params)
+
+    assert delta(off, 1.0, nonverbal=True) == delta(off, 0.0, nonverbal=True) > delta(NEUTRAL, 1.0, nonverbal=True)
+    assert delta(off, 1.0, nonverbal=False) == delta(NEUTRAL, 1.0, nonverbal=False)
+
+
 # --- SC-9 (M4.C.15, a proxy): attention is finite ---------------------------------------------------------------------
 
 

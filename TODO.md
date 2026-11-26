@@ -7,17 +7,15 @@ Open items, one line each: ID, date raised, title, record. **Now** blocks the cu
 `docs/todo/` (grep its ID). To close one, tick it in its record and run `python3 tools/todo_index.py`: its line
 moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's text; that form is in git history.
 
-## Now (0)
+## Now (1)
 
+- T-296 · 2026-11-25 · Regenerate every record on revision 70's engine (2026-11-25) · [record](docs/todo/2026-11-25_revision_70_t295_e2.md)
 
-## Later (34)
+## Later (32)
 
-### engine batch E2 (new mechanisms and mutants) (4)
+### engine batch E2 (new mechanisms and mutants) (1)
 
-- T-018 · 2026-10-23 · Criteria near the runner's detection limit · [record](docs/todo/2026-10-17_revision_32.md)
-- T-019 · 2026-11-17 · `M1.E.7e`'s lending of pseudo-self by a sided coach … · [record](docs/todo/2026-10-17_revision_32.md)
 - T-077 · 2026-11-17 · Not built · [record](docs/todo/2026-10-08_phase_c.md)
-- T-209 · 2026-11-09 · An arm or mutant that isolates `M4.C.6`'s by-channel … · [record](docs/todo/2026-11-07_social_cues.md)
 
 ### paper-method proposals (2026-11-23) (23)
 
@@ -57,6 +55,7 @@ moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's te
 
 - T-245 · 2026-11-14 · `M1.A.4c`: the estimator's sensitivity sweep (2026-11-14) · [record](docs/todo/2026-08-22_blocking_the_next_phase.md)
 
-### No batch yet (1)
+### No batch yet (2)
 
-- T-295 · 2026-11-24 · Revision 69's minor review items (2026-11-24) · [record](docs/todo/2026-11-24_revision_69_divorce_at_its_week.md)
+- T-297 · 2026-11-25 · Revision 70's minor review items (2026-11-25) · [record](docs/todo/2026-11-25_revision_70_t295_e2.md)
+- T-298 · 2026-11-25 · `M11.C.52`'s carriers and perceived-cue report (2026-11-25) · [record](docs/todo/2026-11-25_revision_70_t295_e2.md)

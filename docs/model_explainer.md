@@ -1287,7 +1287,7 @@ Their verdicts are in the ensemble and mutation records, not here. At the 40-see
 the constants as declared, only `M11.C.53` (a preoccupied spouse is felt as less attentive) showed a direction that
 its mutant removed; the owner chose to record all six as found, with no tuning (2026-11-08).
 
-**Two of the passes were probed, and one criterion was changed.** `M11.C.52`'s and `M11.C.55`'s passes were measured apart from the records (T-208, T-206; `docs/review/2026-11-09_sc_pass_probes.md`), and neither is a finding about what its criterion names. For `M11.C.55` the owner decided two changes, built at revision 57 (T-206): the child's learned value on the supplying kinds is compared with the child who supplied that parent most before the window and with chance (the parents supplied ÷ the children), both of which have to hold, rather than with the first-born, who predicts the window below chance on this family; and the value is read `relief_lead_weeks` (52) weeks before the window instead of at its start, so it is not the value the policy selects by over the window. Birth order is reported beside the arms. The criterion still cannot show that the supplier is learned rather than given: the predictor is the policy's own selection input, and with learning off it names no one (`M11.5`).
+**Two of the passes were probed, and one criterion was changed.** `M11.C.52`'s and `M11.C.55`'s passes were measured apart from the records (T-208, T-206; `docs/review/2026-11-09_sc_pass_probes.md`), and neither is a finding about what its criterion names. For `M11.C.55` the owner decided two changes, built at revision 57 (T-206): the child's learned value on the supplying kinds is compared with the child who supplied that parent most before the window and with chance (the parents supplied ÷ the children), both of which have to hold, rather than with the first-born, who predicts the window below chance on this family; and the value is read `relief_lead_weeks` (52) weeks before the window instead of at its start, so it is not the value the policy selects by over the window. Birth order is reported beside the arms. The criterion still cannot show that the supplier is learned rather than given: the predictor is the policy's own selection input, and with learning off it names no one (`M11.5`). For `M11.C.52`, revision 70 adds `M11.C.52[by channel]` (T-209): both arms give the member the perspective, and the baseline switches off only the by-channel discount (`nonverbal_reattribution_enabled`), so the other paths act in both arms and a pass is carried by the discount alone (pending owner review).
 
 ---
 
@@ -1380,7 +1380,11 @@ reviewed by the owner one at a time on 2026-10-17 (`docs/archive/implementation_
 
 - **Test 7, the coach's position, is built.** A coach takes a member's side when that member consults him without
   telling the others (`SPLIT`, Ch19 · L19.3), and stays on it for `coach_side_window` weeks (4, `[I]`, its own constant since revision 64, T-021, so tuning how long a triangle act stays active leaves test 7 alone). While on a
-  side he holds no live position (§13.1's `positions_live`), and his contact lands nothing. `[I]` in form; the rule
+  side he holds no live position (§13.1's `positions_live`), and his contact lands nothing. Instead, to the member he
+  sides with, it lends pseudo-self (revision 70, T-019): the over-functioning transfer with the coach as the giver,
+  which raises her functional level and not her basic level, and goes back once the side lapses, not before (his own
+  over-functioning move toward her shifts nothing then, or it would undo the loan) (`[K]` KS18.5 names
+  the failure; the sizing and the return are `[I]`, pending owner review). `[I]` in form; the rule
   that a sided coach "does not count" is §13.1's `[T]`. P9 described the sided coach as drawn in by a `TRIANGLE`, but
   a family member's moves toward a professional are `SPLIT`, `FRAME_AMBIGUITY` and `DISPLACE` (§5.7), so `SPLIT` is
   the reading. He has no move that declines, so he always goes along: a declared premise of test 7's sided arm, not a
@@ -2129,7 +2133,7 @@ Each is a rule about how a criterion is written or proved, not about what the mo
 | Rule | Spec | Why | Source |
 |---|---|---|---|
 | Graded monotonicity over four or more levels | `M11.C.38` · C16 | A two-arm test cannot see a threshold; an ordering over several levels uses the corpus's orderings more fully than a sign | `[SHOWN]` Prasad 2026, Tables 2 and 7 — whose own monotonicity claim overstated its tables, which is the point |
-| Mutants that keep an input's size and break its link to state | `M11.1b` · C17 | Shows the link to state matters, not only the input's size | `[SHOWN]` Prasad 2026, Figs 3 and 12 |
+| Mutants that keep an input's size and break its link to state | `M11.1b` · C17 | Shows the link to state matters, not only the input's size. Two are built at revision 70 (T-077): each member reads another living member's acute excess, by a per-tick keyed rotation, against `M11.C.16`; and each reads the other member's deviation on the same tie against `M11.C.27` and `M11.C.44` (`[I]`, pending owner review) | `[SHOWN]` Prasad 2026, Figs 3 and 12 |
 | A pattern learned under a spell outlasts it | `M11.C.39`, `M10.B.5` · C18 | Distance and cutoff remove the contact that would disconfirm what was learned, so the pattern persists with no persistence rule written | `[SHOWN]` Prasad 2026, Tables 4, 11, 12, some cells on five seeds |
 | Ordinal criteria | `M11.4c` · C19 | Rank order across mechanisms uses orderings without magnitudes. The owner's answer (2026-09-22) is that most mechanisms scale with differentiation and stress, so the theory orders **conditions** rather than ranking mechanisms; that ordering is tested as `M11.C.41` (§11.2), and the ranking form stays unused | `[SHOWN]` Kalluri 2026 §5.1 — eight effects ranked correctly while only four magnitudes matched |
 | Asymmetric rules tested at matched frequency | `M11.1e`, `M16.A.8` · C20 | A per-event asymmetry does not produce a cumulative one; event frequency decides the total | `[SHOWN]` Kalluri 2026, Table 5 |
@@ -2168,8 +2172,10 @@ Version 2's stage 2 builds the constant sweep (`M17.E.1`) and the detection-limi
   revision 43 raised their seeds to 200, T-163). The record shows
   a refused criterion as *refused at the rerun*: the sample, both seed counts and the samples run before it, with no
   fraction and no later sample, and it has no sweep result (revision 42; `M11.C.48` at sample 2, 2026-10-29). The multiple
-  (2.0) and the count (200) are `[I]`, in `config/sweep/sweep.md`. The gating records themselves adopt the rule
-  at their next regeneration (T-018).
+  (2.0) and the count (200) are `[I]`, in `config/sweep/sweep.md`. Since revision 70 (T-018) the gating records
+  adopt the same rule (`tools/detection_limit.py`, shared with the sweep): a criterion whose first verdict is near the
+  limit on fewer than 200 seeds is run again in one block of 200, its verdict is the second run's, and the record's
+  seed cell prints both counts and the first verdict.
 - **Per-seed readouts** (`M17.B` · C28, C29, C39, C40, C41; DL §7.10(f)). Each seed is classified — the arms
   agreed, one converted, one reversed; the trajectory settled, oscillated, or had not resolved — instead of
   averaging across seeds. A time-to-event report must not collapse a two-peaked distribution into one

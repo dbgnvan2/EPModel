@@ -64,6 +64,7 @@ from tools.phase_d_mutation_record import engine_hash as phase_d_engine_hash  # 
 from tools.phase_d_record import VERDICT_NOTES, noted  # noqa: E402  (a known defect beside a verdict, review MR-3)
 from tools.record_cache import CHILD, ERRORED, Cache, engine_hash, exit_status, result_key, run_cached, timeout_for  # noqa: E402
 from tools.record_json import record_json  # noqa: E402
+from tools.detection_limit import near_limit  # noqa: E402  (revision 70, T-018: shared with the records)
 from tools.sweep_config import SHARE_BOUND, Range, Ratio, central_values, load_config, not_run_keys  # noqa: E402
 
 RECORD = REPO / "docs" / "version_2_sweep_record.md"
@@ -155,13 +156,6 @@ def rerun_mutant(first: Mutant, seeds: int, central: dict[str, str]) -> Mutant:
 
 
 # --- the rule and the fraction ----------------------------------------------------------------------------------
-
-def near_limit(row: dict, multiple: float) -> bool:
-    """D8: any gating directional readout whose mean difference is within ``multiple`` half-widths of zero. An
-    equivalence limb (direction 0) has no detection limit of this kind and is not read (`M17.A.1`)."""
-    gating = [r for r in row.get("readouts", ()) if not r.get("report_only") and r.get("direction")]
-    return any(abs(r["mean_difference"]) < multiple * r["half_width"] for r in gating)
-
 
 def ratio_split(rows: list[dict], ratio: Ratio) -> dict:
     """D26: *held* of *counted* below and at-or-above the ratio's central value, so a direction that flips across it

@@ -58,7 +58,8 @@
 > `M4.C.12`'s and `M4.C.14`'s detection, bias and meaning error, `M4.C.15`'s attention load and `M9.9`'s beliefs
 > all act in `M11.C.52`'s and `M11.C.55`'s runs, with the cues on in both arms, and neither criterion's row nor
 > its `M11.5` row credits them, so they are out of both sets. `M11.C.52`'s set is `M4.C.6`'s window and
-> `M4.C.13`'s six leak constants, the mechanisms its rows credit; the learner is left out, as its readout is a
+> `M4.C.13`'s six leak constants, the mechanisms its rows credit (`M4.C.6`'s switch `nonverbal_reattribution_enabled`,
+> revision 70, is out: a switch has no range, and `M11.C.52[by channel]`'s baseline arm is set against it); the learner is left out, as its readout is a
 > state (the summed acute anxiety) and no row names learning. `M11.C.55`'s set is the learner's seven, which its
 > `M11.5` row credits and whose selections the readout counts; its own `relief_lead_weeks` is a criterion
 > setting in `config/bowen/criteria.md`, not a constant, so the sweep does not reach it ⟦rev57 · T-206, T-208⟧.

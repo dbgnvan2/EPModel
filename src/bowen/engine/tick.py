@@ -57,7 +57,7 @@ from src.bowen.engine.event_effects import STRUCTURAL, apply_delivered_cutoffs, 
 from src.bowen.engine.events import Event
 from src.bowen.engine.identifiers import PersonId
 from src.bowen.engine.invariants import InvariantViolation, assert_invariants, snapshot
-from src.bowen.engine.external import apply_landed_contacts, record_stances, self_practice
+from src.bowen.engine.external import apply_landed_contacts, record_stances, return_coach_loans, self_practice
 from src.bowen.engine.sinks import allocate_sinks
 from src.bowen.engine.slow_tick import record_week, run_slow_tick
 from src.bowen.engine.iposition import advance_sequences, redirect_to_sequence_tie, sequence_selections
@@ -262,6 +262,7 @@ def _run_steps(state: RunState, source: Source, params: EngineParams, visibility
     # M6.I.4a: lent functioning returns with lost capacity, just before the settling back.
     records += return_lent_functioning(state, params, start_level, exchanged(records))
     records += relax_pseudo_self(state, params)  # M6.I.4: borrowed pseudo-self settles back
+    records += return_coach_loans(state, params)  # M1.E.7e (T-019): a lapsed side's loan goes back
     records += allocate_sinks(state, params)
     records += decay_cutoff_stock(state, params)  # a cut-off tie's stock falls toward its floor (M1.D.2b)
     records += consolidate(state, params)

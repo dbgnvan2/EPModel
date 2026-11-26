@@ -43,6 +43,7 @@ GOOD_ROWS = (
     "| `witness_weight` | 0.5 | [I] | u | `M4.C.9` |\n"
     "| `speaker_echo_gain` | 0.2 | [I] | u | `M4.C.7` |\n"
     "| `reappraisal_window` | 4 | [I] | u | `M4.C.6` |\n"
+    "| `nonverbal_reattribution_enabled` | 1 | [I] | switch | `M4.C.6` |\n"
     "| `attention_gain` | 0.5 | [I] | u | `M4.C.8` |\n"
     "| `perspective_anxiety_scale` | 10.0 | [I] | u | `M4.C.4` |\n"
     "| `calm_transfer_rate` | 0.05 | [I] | u | `M4.C.10` |\n"

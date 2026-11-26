@@ -38,6 +38,7 @@ class EngineParams:
     witness_weight: float                  # M4.C.9 — a witness's share of an exchange it overhears
     speaker_echo_gain: float               # M4.C.7 — the speaker's own reaction to what it addressed
     reappraisal_window: int                # M4.C.6 — ticks of own emissions a reappraiser counts on a tie
+    nonverbal_reattribution_enabled: int   # M4.C.6 — 1 on, 0 removes only the by-channel discount (T-209)
     attention_gain: float                  # M4.C.8 — amplification of attended feeling; ordering of attended intellect
     perspective_anxiety_scale: float       # M4.C.4, M1.A.18d — excess anxiety that halves the effective perspective
     calm_transfer_rate: float              # M4.C.10 — share of the anxiety gap a calmer sender takes per unit conductance
@@ -382,8 +383,8 @@ class EngineParams:
                              "reactive_half_anxiety positive")
         # The switch is 0 or 1; every cue gain is non-negative; shares and probabilities
         # are in [0, 1]; the nonverbal weight's cap is below one and at least its base.
-        if self.social_cues_enabled not in (0, 1):
-            raise ValueError("social_cues_enabled is 0 (off) or 1 (on)")
+        if self.social_cues_enabled not in (0, 1) or self.nonverbal_reattribution_enabled not in (0, 1):
+            raise ValueError("social_cues_enabled and nonverbal_reattribution_enabled are 0 (off) or 1 (on)")
         for name in ("cue_attention_contact_weight", "cue_attention_impingement_weight", "cue_approval_contact_weight",
                      "cue_approval_impingement_weight", "cue_expectations_contact_weight",
                      "cue_expectations_impingement_weight", "cue_distress_contact_weight",

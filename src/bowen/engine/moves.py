@@ -87,7 +87,7 @@ from src.bowen.engine.cutoff_stock import raise_reference
 from src.bowen.engine.events import Delivery, Event, Mechanism, Role
 from src.bowen.engine.identifiers import PersonId, TieId, TriangleId
 from src.bowen.engine.log_records import EffectRecord
-from src.bowen.engine.objects import SCALE_MAX, Person, Relationship, TieState
+from src.bowen.engine.objects import SCALE_MAX, Person, Relationship, TieState, Role as PersonRole
 from src.bowen.engine.params import EngineParams
 from src.bowen.engine.rejection import lower_rejection
 from src.bowen.engine.state import RunState
@@ -414,6 +414,14 @@ def settle_functioning(state: RunState, params: EngineParams) -> list[EffectReco
     return [EffectRecord(state.tick, "functioning_settle", None, ties=tuple(changes))] if changes else []
 
 
+def _sided_coach(state: RunState, sender: PersonId, recipient: PersonId, params: EngineParams) -> bool:
+    """M1.E.7e (T-019): ``sender`` is an external agent on ``recipient``'s side (``external.sided_with``)."""
+    if state.people[sender].role is not PersonRole.EXTERNAL:
+        return False
+    from src.bowen.engine.external import sided_with  # external imports this module
+    return sided_with(state, sender, recipient, params)
+
+
 def relax_pseudo_self(state: RunState, params: EngineParams) -> list[EffectRecord]:
     """Purpose: step 9 — on a tie with no over/under-functioning exchange for ``exchange_window`` weeks, the pair's
     borrowed and lent pseudo-self settle back toward their own levels, as a conserved transfer.
@@ -441,6 +449,8 @@ def relax_pseudo_self(state: RunState, params: EngineParams) -> list[EffectRecor
             continue
         # T-251: what settles back is what the ledger says is owed on this tie, so a starting swing is no loan.
         for lender, borrower in ((a, b), (b, a)):
+            if lender.role is PersonRole.EXTERNAL:  # M1.E.7e (T-019): a coach's loan returns by return_coach_loans alone
+                continue
             owed = tie.lent.get(lender.id, 0.0)
             amount = params.pseudo_self_relaxation_rate * owed
             amount = max(0.0, min(amount, borrower.functional_level, SCALE_MAX - lender.functional_level))
@@ -458,10 +468,11 @@ def relax_pseudo_self(state: RunState, params: EngineParams) -> list[EffectRecor
 
 def exchanged(records) -> dict[PersonId, float]:
     """Each person's net pseudo-self moved by `M6.I.4`'s transfers among ``records`` (the week's ``functioning_shift``
-    effects), which `M6.I.4a` leaves out of the capacity it reads."""
+    and ``coach_lending`` effects), which `M6.I.4a` leaves out of the capacity it reads."""
     moved: dict[PersonId, float] = {}
     for record in records:
-        if isinstance(record, EffectRecord) and record.mechanism == "functioning_shift":
+        # Revision 70, T-019: a sided coach's lending (``coach_lending``) is the same transfer.
+        if isinstance(record, EffectRecord) and record.mechanism in ("functioning_shift", "coach_lending"):
             for pid, name, change in record.people:
                 if name == "pseudo_self":
                     moved[pid] = moved.get(pid, 0.0) + change
@@ -615,7 +626,10 @@ def apply_move_effects(state: RunState, batch: tuple[Delivery, ...], params: Eng
         elif event.kind == TRIANGLE:
             record = triangle_transfer(state, event, delivery.recipient, params)
         elif event.kind in (OVERFUNCTION, UNDERFUNCTION):
-            record = functioning_shift(state, event, tie, delivery.recipient, params)
+            # M1.E.7e (T-019): a coach on the recipient's side lends at step 4 instead, so its move shifts nothing here,
+            # or the shift's loan from the member would cancel the coach's loan to them.
+            record = None if _sided_coach(state, event.sender, delivery.recipient, params) else (
+                functioning_shift(state, event, tie, delivery.recipient, params))
         elif event.kind == REDUCE_CUTOFF:
             record = reduce_cutoff(state, event, tie, params)
         elif event.kind == I_POSITION:

@@ -46,6 +46,7 @@ RECORD = REPO / "docs" / "phase_c_mutation_record.md"
 ENSEMBLE_RECORD = REPO / "docs" / "phase_c_ensemble_record.md"
 # The mutant list here, and RULE_KEYS in tools/ensemble_record.py, are inputs to the record.
 DELETION, NAMED, SIGN, REPRESENTATION = "deletion", "named", "sign-inverted", "representation"
+SEVERING = "severing"  # M11.1b (revision 70, T-077): magnitude kept, state-contingency destroyed; must turn red
 LEVEL = ("M11.C.1", "M11.C.38", "M11.C.41", "M11.C.16")
 
 
@@ -335,6 +336,33 @@ MUTANTS = (
     Mutant("cue-belief-leak-removed", NAMED, ("M11.C.54",), "config/bowen/constants.md",
            "| `belief_leak_gain` | 0.5 |", "| `belief_leak_gain` | 0.0 |",
            "M9.9 removed: a believed distress of the partner leaks nothing"),
+    # --- M11.1b: matched-magnitude severing mutants (revision 70, T-077) -------------------------
+    # Each keeps an appraisal input's per-tick values and gives them to the wrong person, so the link to the reader's
+    # own state is cut and any input of that size is left. Claude's recommendation 2026-11-25, pending owner review. [I]
+    Mutant("acute-excess-severed", SEVERING, ("M11.C.16",), "src/bowen/engine/observe.py",
+           "acute_excess=excess(me),", "acute_excess=excess(state.people[_severed(state, person)]),",
+           "M11.1b: each member's selection reads another living member's acute excess, by a rotation of the family "
+           "keyed per tick (`severing_permutation`), so the week's values are kept and their owner is not",
+           also=(("src/bowen/engine/observe.py",
+                  "def observe(state: RunState, person: PersonId, params: EngineParams) -> Observation:",
+                  "def _severed(state, person):\n"
+                  "    from src.bowen.engine.draws import DrawKey\n"
+                  "    members = sorted(p for p, x in state.people.items() if x.alive and x.role is not Role.EXTERNAL)\n"
+                  "    if person not in members or len(members) < 2:\n"
+                  "        return person\n"
+                  "    u = state.draws.uniform(DrawKey.make('severing_permutation', tick=state.tick, purpose='rotate'))\n"
+                  "    return members[(members.index(person) + 1 + int(u * (len(members) - 1))) % len(members)]\n"
+                  "\n\n"
+                  "def observe(state: RunState, person: PersonId, params: EngineParams) -> Observation:"),
+                 ("src/bowen/engine/draws.py",
+                  '            _cls("conviction", "M5.D.3b", "tick, person, purpose", Keying.PER_PERSON),\n',
+                  '            _cls("conviction", "M5.D.3b", "tick, person, purpose", Keying.PER_PERSON),\n'
+                  '            _cls("severing_permutation", "M11.1b", "tick, purpose", Keying.COARSE),\n'))),
+    Mutant("tie-deviation-severed", SEVERING, ("M11.C.27[", "M11.C.44"), "src/bowen/engine/observe.py",
+           "deviation=deviation(me, tie, params),",
+           "deviation=deviation(state.people[other], tie, params) if state.people[other].alive else deviation(me, tie, params),",
+           "M11.1b: each member's selection reads the other member's deviation on the same tie, the pair's two "
+           "values swapped (a fixed permutation, so no draw), so the tie's values are kept and their owner is not"),
     # --- M11.1c: representation mutants, numerically equivalent by construction ------------------
     Mutant("appraisal-sum-order-reversed", REPRESENTATION, ("*",), "src/bowen/engine/appraise.py",
            "    items.sort(key=lambda x: x[0])\n", "    items.sort(key=lambda x: x[0], reverse=True)\n",

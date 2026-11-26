@@ -44,6 +44,7 @@ from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO))
+from tools import detection_limit  # noqa: E402  (M17.A.1's rerun, revision 70, T-018)
 from tools.atomic_write import write_text_atomic  # noqa: E402
 
 from tools.child_process import ChildFailed, run_child  # noqa: E402
@@ -94,7 +95,7 @@ def rules() -> dict:
     return {k: constants[k] for k in _record.RULE_KEYS}
 
 
-def verdict_row(part: int, cid: str, workers: int) -> dict:
+def verdict_row(part: int, cid: str, workers: int, fixed: int | None = None) -> dict:
     """Purpose: run criterion ``cid`` of ``part`` in this process and return its verdict as a dict, under its
              ``CRITERIA_D`` or ``CRITERIA_D2`` key (S1.7b: two variants that share an id are two rows). The child's
              work, and the tests' stand-in for a child.
@@ -103,17 +104,19 @@ def verdict_row(part: int, cid: str, workers: int) -> dict:
     """
     from src.bowen.ensemble.runner import run_criterion
 
-    verdict = run_criterion(criteria_for(part)[cid], rules(), workers=workers)
+    run_rules = rules() if fixed is None else detection_limit.rerun_rules(rules(), fixed)  # M17.A.1, T-018
+    verdict = run_criterion(criteria_for(part)[cid], run_rules, workers=workers)
     return dataclasses.asdict(dataclasses.replace(verdict, criterion=cid))
 
 
-def child_verdict(part: int, cid: str, workers: int) -> dict:
+def child_verdict(part: int, cid: str, workers: int, fixed: int | None = None) -> dict:
     """Purpose: run criterion ``cid`` in a child process of this tool, in its own process group, and return the one
              verdict it prints; a child that fails, times out or prints anything but one verdict raises ``ChildFailed``.
     Spec:    docs/implementation_plan_version_2.md#S1.5a
     Tests:   tests/bowen/test_phase_d_record.py::test_t026_a_failed_criterion_child_does_not_stop_the_others
     """
     argv = [sys.executable, str(Path(__file__).resolve()), "--child", cid, "--part", str(part), "--workers", str(workers)]
+    argv += ["--fixed-seeds", str(fixed)] if fixed is not None else []
     # One or two criteria a child: the Phase D row limit, three times the longest row measured (record_cache).
     rows = run_child(argv, REPO, f"phase_d_record.py {cid}", timeout_for(PHASE_D_CHILD, whole_part=False))
     verdicts = [r for r in rows if r.get("criterion") == cid]
@@ -138,32 +141,46 @@ def build(part: int, cache: Cache, workers: int | None = None, only: list[str] |
     from src.bowen.ensemble.runner import Verdict
 
     engine = result_hash()
+    multiple, fixed = detection_limit.limits()
     verdicts, missing = [], []
-    for cid in criteria_for(part):
-        key = result_key(engine, None, cid)
-        entry = cache.get(key)
-        if entry is None and workers is not None and (not only or any(cid.startswith(o) for o in only)):
-            started = time.time()
-            try:
-                result = child_verdict(part, cid, workers)
-            except ChildFailed as failed:
-                print(f"{cid}: the run failed, not the model; not cached, rerun next time: {failed.code}", flush=True)
-            else:
-                if result_hash() != engine:  # the child imports the live tree: an edit during it is not this hash's
-                    print(f"{cid}: the code changed while it ran; not cached, and the run stops", flush=True)
-                    raise SystemExit(1)
-                cache.put(key, result)
-                cache.flush()  # keep every finished result, whatever happens to the next criterion
-                print(f"{cid}: {result['outcome']} ({result['seeds']} seeds, {time.time() - started:.0f} s)",
-                      flush=True)
-            entry = cache.get(key)
+    for cid, criterion in criteria_for(part).items():
+        wanted = workers is not None and (not only or any(cid.startswith(o) for o in only))
+        entry = _cached_child(cache, result_key(engine, None, cid), part, cid, workers, wanted, engine, None)
+        first = None
+        if entry is not None and detection_limit.needs_rerun(entry, criterion.seeds, multiple, fixed):  # T-018
+            first = entry
+            entry = _cached_child(cache, result_key(engine, detection_limit.rerun_definition(multiple, fixed), cid),
+                                  part, cid, workers, wanted, engine, fixed)
         if entry is None:
             missing.append(cid)
             continue
-        verdicts.append((Verdict(**entry), None))
+        verdicts.append((Verdict(**entry), first))
     if missing:
         raise KeyError(", ".join(missing))
     return render(verdicts, rules(), engine, part)
+
+
+def _cached_child(cache: Cache, key, part: int, cid: str, workers, wanted: bool, engine: str,
+                  fixed: int | None) -> dict | None:
+    """The cached verdict under ``key``; when missing and ``wanted``, run it in a child and cache it. None when it is
+    still missing (a failed child, or not wanted)."""
+    entry = cache.get(key)
+    if entry is None and wanted:
+        started = time.time()
+        try:
+            result = child_verdict(part, cid, workers, fixed)
+        except ChildFailed as failed:
+            print(f"{cid}: the run failed, not the model; not cached, rerun next time: {failed.code}", flush=True)
+        else:
+            if result_hash() != engine:  # the child imports the live tree: an edit during it is not this hash's
+                print(f"{cid}: the code changed while it ran; not cached, and the run stops", flush=True)
+                raise SystemExit(1)
+            cache.put(key, result)
+            cache.flush()  # keep every finished result, whatever happens to the next criterion
+            print(f"{cid}: {result['outcome']} ({result['seeds']} seeds, {time.time() - started:.0f} s)",
+                  flush=True)
+        entry = cache.get(key)
+    return entry
 
 
 REWORDED = (
@@ -228,9 +245,10 @@ def main() -> int:
     parser.add_argument("--only", nargs="*")
     parser.add_argument("--part", type=int, choices=(1, 2), default=1)
     parser.add_argument("--child", metavar="ID", help="run one criterion and print its verdict as one JSON line")
+    parser.add_argument("--fixed-seeds", type=int, help="with --child: M17.A.1's rerun at this fixed seed count")
     args = parser.parse_args()
     if args.child:
-        print(json.dumps(verdict_row(args.part, args.child, args.workers), default=float), flush=True)
+        print(json.dumps(verdict_row(args.part, args.child, args.workers, args.fixed_seeds), default=float), flush=True)
         return 0
     cache = Cache(CACHES[args.part])
     try:

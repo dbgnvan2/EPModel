@@ -110,7 +110,7 @@ Items from `docs/archive/proposal_social_cues.md`, decided by the owner on 2026-
   Claude session):* recorded as found: the pass holds, its named mutant survives, and the pass is not a finding about
   self-attribution by channel alone. The record's wording is in `M11.5`'s row and the criterion's row (spec revision
   56). An arm or mutant that isolates the by-channel discount is T-209.
-- [ ] T-209 ⟨later⟩ **An arm or mutant that isolates `M4.C.6`'s by-channel discount in `M11.C.52` (2026-11-09).**
+- [x] T-209 ⟨later⟩ **An arm or mutant that isolates `M4.C.6`'s by-channel discount in `M11.C.52` (2026-11-09).**
   T-208's probe (`docs/review/2026-11-09_sc_pass_probes.md`): the named mutant `cue-attribution-discount-removed`
   removes a detected +4.5 ± 1.5 of the pass and a detected −12.5 ± 10.2 remains, carried by `systems_perspective`'s
   other paths. Build a mutant that removes every path but the by-channel discount, or a baseline arm that has the
@@ -119,6 +119,9 @@ Items from `docs/archive/proposal_social_cues.md`, decided by the owner on 2026-
   100, the emergence audit's carriers for `M11.C.52` under L0: on 2026-11-11 only C2's interval lay clear of L0's
   mean (T-213 (c), the owner 2026-11-11).
   ⟦batch: engine batch E2 (new mechanisms and mutants)⟧ *(triage 2026-11-17, Claude's recommendation, pending owner review)*
+  **Closed 2026-11-25 (spec revision 70):** the baseline arm `M11.C.52[by channel]` gives both arms the perspective
+  and switches off only the discount (`nonverbal_reattribution_enabled` 0); a 20-seed probe gave −9.28 ± 6.06. The
+  perceived-cue report half and the carriers at more seeds move to T-298. Claude's recommendation, pending owner review.
 - [ ] T-210 ⟨later⟩ **`M11.C.55` under frozen learning (2026-11-09).** Learning on up to the relief's read week, off
   from then: does the window's supply follow the values held at that week without further learning? Left open by the
   owner, 2026-11-09; not run (`docs/review/2026-11-09_sc_pass_probes.md`, "What this record does not cover").

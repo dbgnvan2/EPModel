@@ -118,6 +118,27 @@ def arm_c52(arm, seed, settings):
     return result({"escalation": math.fsum(total)}, records)
 
 
+def arm_c52_by_channel(arm, seed, settings):
+    """`M11.C.52[by channel]` (revision 70, T-209): both arms give ``a`` the perspective, so every other path it opens
+    acts in both; the baseline arm switches off only `M4.C.6`'s by-channel discount (``nonverbal_reattribution_enabled``
+    0). The arms differ in that discount alone. Claude's recommendation 2026-11-25, pending owner review."""
+    a, b = P("a"), P("b")
+    total = []
+
+    def setup(state):
+        for pid in (a, b):
+            p = state.people[pid]
+            p.acute_anxiety = p.chronic_anxiety + settings["start_excess"]
+        state.people[a].systems_perspective = settings["perspective"]
+
+    def watch(state):
+        total.append(state.people[a].acute_anxiety + state.people[b].acute_anxiety)
+
+    overrides = {**CUES_ON, "nonverbal_reattribution_enabled": 0 if arm == "baseline" else 1}
+    state, records = scenario("dyad", seed, settings["weeks"], setup=setup, watch=watch, overrides=overrides)
+    return result({"escalation": math.fsum(total)}, records)
+
+
 # --- M11.C.53: a preoccupied spouse is felt as less attentive (KS07.6; a proxy for life_energy) --------------------
 
 
@@ -170,6 +191,8 @@ CRITERIA = {
                   arm_c51, ("DISTANCE", "CONFLICT"), settings=SETTINGS["M11.C.51"]),
     "M11.C.52": C("M11.C.52", "composite", ("baseline", "treatment"), (Readout("escalation", -1),), arm_c52,
                   settings=SETTINGS["M11.C.52"]),
+    "M11.C.52[by channel]": C("M11.C.52[by channel]", "composite", ("baseline", "treatment"),
+                              (Readout("escalation", -1),), arm_c52_by_channel, settings=SETTINGS["M11.C.52"]),
     "M11.C.53": C("M11.C.53", "composite", ("baseline", "treatment"),
                   (Readout("too_little_on_marital_tie", +1), Readout("pursue_conflict_toward_stressed", +1)),
                   arm_c53, ("PURSUE", "CONFLICT"), settings=SETTINGS["M11.C.53"]),

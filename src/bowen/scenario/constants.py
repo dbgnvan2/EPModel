@@ -67,6 +67,7 @@ SCHEMA: Mapping[str, KeySpec] = MappingProxyType(
         "witness_weight": KeySpec(float, "[I]", "M4.C.9"),
         "speaker_echo_gain": KeySpec(float, "[I]", "M4.C.7"),
         "reappraisal_window": KeySpec(int, "[I]", "M4.C.6"),
+        "nonverbal_reattribution_enabled": KeySpec(int, "[I]", "M4.C.6"),  # revision 70, T-209: a switch
         "attention_gain": KeySpec(float, "[I]", "M4.C.8"),
         "perspective_anxiety_scale": KeySpec(float, "[I]", "M4.C.4"),
         "calm_transfer_rate": KeySpec(float, "[I]", "M4.C.10"),

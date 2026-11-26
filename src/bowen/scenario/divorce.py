@@ -14,10 +14,12 @@ child focus by construction (the owner, 2026-11-19; `M7.C.1m`). [I]
 from __future__ import annotations
 
 from dataclasses import dataclass, field
+from typing import Any
 
 from src.bowen.engine.event_sizes import sized_intensity
 from src.bowen.engine.events import Channel, Event, EventId, Mechanism, SourcePosition
 from src.bowen.engine.identifiers import PersonId
+from src.bowen.engine.log_records import Emitter, ScheduledDropRecord
 from src.bowen.engine.objects import SCALE_MAX
 from src.bowen.engine.params import EngineParams
 from src.bowen.engine.state import RunState
@@ -86,6 +88,9 @@ class DivorceSource:
     ``divorces`` holds ``(week, leaver, scale)``. A divorce whose spouse has died by its week is not a divorce: it is
     dropped and recorded in ``dropped`` as ``(week, leaver, the dead)``; ``built`` holds the weeks built, and ``summary``
     gives "N of M" with those not yet reached. ``state`` is the one object the run is given, read here, never written. [I]
+    A drop is also emitted to ``emitter``, when one is given, as a ``ScheduledDropRecord`` (revision 70, T-295 (1)).
+    A week asked for twice returns the same events and records nothing twice (T-295 (3)); ``rules`` and ``ticks`` are
+    ``inner``'s, so a tool that reads them from its source reads them through this one (T-295 (2)).
     """
 
     inner: Source
@@ -94,6 +99,8 @@ class DivorceSource:
     divorces: tuple[tuple[int, PersonId, float], ...]
     dropped: list[tuple[int, PersonId, tuple[PersonId, ...]]] = field(default_factory=list)
     built: list[int] = field(default_factory=list)
+    emitter: Emitter | None = None
+    _weeks: dict[int, tuple[Event, ...]] = field(default_factory=dict, repr=False)
 
     def __post_init__(self) -> None:
         weeks = [week for week, _, _ in self.divorces]
@@ -109,7 +116,12 @@ class DivorceSource:
     def scheduled(self, tick: int) -> tuple[Event, ...]:
         if tick != self.state.tick:
             raise RuntimeError(f"DivorceSource asked for tick {tick} while its state is at tick {self.state.tick}")
-        events = list(self.inner.scheduled(tick))
+        if tick not in self._weeks:  # T-295 (3): each week's drops and builds are recorded once
+            self._weeks[tick] = self._build(tick)
+        return tuple(self.inner.scheduled(tick)) + self._weeks[tick]
+
+    def _build(self, tick: int) -> tuple[Event, ...]:
+        events: list[Event] = []
         for week, leaver, scale in self.divorces:
             if week != tick:
                 continue
@@ -117,10 +129,20 @@ class DivorceSource:
             dead = tuple(p for p in tie.members() if not self.state.people[p].alive) if tie is not None else ()
             if dead:
                 self.dropped.append((week, leaver, dead))
+                if self.emitter is not None:
+                    self.emitter.emit(ScheduledDropRecord(tick, DIVORCE, dead, "a spouse died before the week"))
                 continue
             events += divorce_events(self.state, self.params, week, leaver, scale)
             self.built.append(week)
         return tuple(events)
+
+    @property
+    def rules(self) -> Any:
+        return self.inner.rules  # T-295 (2): the wrapped source's policy rules
+
+    @property
+    def ticks(self) -> int:
+        return self.inner.ticks
 
     def selections(self, tick: int, active: tuple[PersonId, ...], state: RunState):
         if state is not self.state:

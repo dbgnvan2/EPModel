@@ -3,7 +3,7 @@
 Purpose: define what a run records (M16.A) and how records leave the engine
          without the engine writing anything (M16.B.1).
 Spec:    docs/bowen_agent_model_spec_v2.md#M16.A.1, #M16.A.1a, #M16.A.2, #M16.A.3, #M16.A.3a, #M16.A.3b, #M16.A.3c,
-         #M16.A.4, #M16.A.5, #M16.A.5a, #M16.A.6, #M16.A.7, #M16.B.1, #M3.D.5
+         #M16.A.4, #M16.A.5, #M16.A.5a, #M16.A.6, #M16.A.7, #M16.A.11, #M16.B.1, #M3.D.5
 Tests:   tests/bowen/test_log_records.py
 
 Every record serialises to one line of canonical JSON — sorted keys, no
@@ -165,6 +165,18 @@ class BeliefWriteRecord:
         return None if self.true_value is None else self.value - self.true_value
 
 
+@dataclass(frozen=True)
+class ScheduledDropRecord:
+    """M16.A.11 (revision 70, T-295 (1)) — a scheduled event its source did not build, and why: P2, never dropped
+    silently. ``people`` are those whose state made it impossible (a divorce's dead spouse)."""
+
+    tick: int
+    kind: str
+    people: tuple[PersonId, ...]
+    reason: str
+    record_type = "scheduled_drop"
+
+
 Record = (
     LogHeader
     | TickRecord
@@ -175,6 +187,7 @@ Record = (
     | InvariantFailureRecord
     | InvariantRecord
     | BeliefWriteRecord
+    | ScheduledDropRecord
 )
 
 

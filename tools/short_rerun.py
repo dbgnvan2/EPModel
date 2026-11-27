@@ -318,7 +318,7 @@ def render(data: dict) -> str:
         seeds = s["seeds"].get(label, "")
         lines.append(f"| {label} | {data['machines'].get(label, 'Mac Mini1')} | " + " | ".join(f"{h[k]:.2f}" if k in h else "—" for k in STAGES)
                      + f" | {sum(h.get(k, 0) for k in STAGES):.2f} | {sum(h.values()):.2f} | {seeds} |")
-    lines += ["", "## Recommended mix of runs", "", "Claude's decision 2026-11-25, pending owner review.", ""]
+    lines += ["", "## Recommended mix of runs", "", "Claude's decision 2026-11-25; the owner accepted it on 2026-11-26 (an owner rule in `AGENTS.md`).", ""]
     lines += data["mix"]
     lines += ["", "## Conclusion", "", data["conclusion"], ""]
     return "\n".join(lines)

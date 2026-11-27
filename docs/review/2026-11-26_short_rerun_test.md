@@ -43,7 +43,7 @@ Wall hours per queue stage at 8 workers. `rev69` is revision 69's full queue, th
 
 ## Recommended mix of runs
 
-Claude's decision 2026-11-25, pending owner review.
+Claude's decision 2026-11-25; the owner accepted it on 2026-11-26 (an owner rule in `AGENTS.md`).
 
 **After each engine batch** (about 6 machine-hours; about 3.5 hours on the two machines at once, against revision 69's 18.7-hour full queue):
 

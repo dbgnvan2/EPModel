@@ -814,8 +814,9 @@ def test_t189_c16_row_l0_sentence_follows_the_audit_record():
     for row in mutants:
         if row["criterion"] == "M11.C.16" and row["mutant"] == "learner-disabled":
             row["seeds"] = 120
-    # The runner stops a run when it converges, so the two learner-disabled runs may differ: each count is stated.
-    assert "(120 seeds alone, 100 with availability removed)" in report.render(mutants, *records[1:])["spec_row"]
+    # The runner stops a run when it converges, so the two learner-disabled runs may differ: each count is stated. Since
+    # revision 71 (T-297 (4)) the removal's row is rerun at the detection limit, 200 seeds.
+    assert "(120 seeds alone, 200 with availability removed)" in report.render(mutants, *records[1:])["spec_row"]
     gone = _c16_audit({})
     for entry in gone["carriers"]:
         if entry["criterion"] == "M11.C.16":

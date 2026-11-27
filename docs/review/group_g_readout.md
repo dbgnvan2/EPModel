@@ -27,11 +27,11 @@ the event-kind rows, the contact classes and the loader fields that revision 36 
 
 <!-- before measurements: {'engine': '2842f0e8fea8e9e20f04a49d02ae5b9e21ab7dde80dd69e157d8c56c6e93d8ef', 'seeds': 20, 'largest_stock': {'phase_c': 975.8816476509318, 'phase_d': 1582.948148137233}, 'mean_run': {'phase_c': 2.192857142857143, 'phase_d': 1.536096256684492}, 'excess': {'phase_c': 23.897789031711973, 'phase_d': 15.083498303260505}, 'symptom_share': {'phase_c': 0.36045329670329673, 'phase_d': 0.24683339195122372}} -->
 
-## after — engine hash `9a7c6f9d7e0d`, 20 seeds per family, 2026-11-26
+## after — engine hash `ef5d457c3acc`, 20 seeds per family, 2026-11-26
 
 | family | weeks | cuts | largest stock at a cut (tie, week, seed) | median stock at a cut | seeds with a cutoff | first cutoffs | unmatched | no contact | unsided | mean run before the first cutoff | median run | mean matched uncut run | mean longest uncut run | excess anxiety | symptom weeks |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| phase_c | 520 | 267 | 560.4 (`nadia~ravi`, week 38, seed 10, bond 50) | 0 | 20 of 20 | 140 | 23 | 35 | 13 | 2.58 | 2 | 2.517 | 3.058 | 91.44 | 0.4441 |
+| phase_c | 520 | 262 | 560.4 (`nadia~ravi`, week 38, seed 10, bond 50) | 0 | 20 of 20 | 140 | 23 | 35 | 13 | 2.58 | 2 | 2.517 | 3.058 | 92.05 | 0.4413 |
 | phase_d | 2080 | 1158 | 1569 (`marta~pia`, week 132, seed 2, bond 50) | 2.505 | 20 of 20 | 749 | 211 | 209 | 46 | 2.269 | 1 | 2.531 | 3.233 | 55.37 | 0.5019 |
 
-<!-- after measurements: {'engine': '9a7c6f9d7e0de7ec166143aa9a22998973bdf14362c58fd4eb9484034d589777', 'seeds': 20, 'largest_stock': {'phase_c': 560.4398841957908, 'phase_d': 1569.0426940694758}, 'mean_run': {'phase_c': 2.579710144927536, 'phase_d': 2.2685512367491167}, 'unmatched': {'phase_c': 23, 'phase_d': 211}, 'no_contact': {'phase_c': 35, 'phase_d': 209}, 'unsided': {'phase_c': 13, 'phase_d': 46}, 'excess': {'phase_c': 91.43804810659681, 'phase_d': 55.36921349077363}, 'symptom_share': {'phase_c': 0.4440521978021978, 'phase_d': 0.5018581157495929}} -->
+<!-- after measurements: {'engine': 'ef5d457c3acc8bcd72a9f1116fd9e6843592c6d66fc1433a2af992f722179782', 'seeds': 20, 'largest_stock': {'phase_c': 560.4398841957908, 'phase_d': 1569.0426940694758}, 'mean_run': {'phase_c': 2.579710144927536, 'phase_d': 2.2685512367491167}, 'unmatched': {'phase_c': 23, 'phase_d': 211}, 'no_contact': {'phase_c': 35, 'phase_d': 209}, 'unsided': {'phase_c': 13, 'phase_d': 46}, 'excess': {'phase_c': 92.04856438827552, 'phase_d': 55.36921349077363}, 'symptom_share': {'phase_c': 0.4412912087912088, 'phase_d': 0.5018581157495929}} -->

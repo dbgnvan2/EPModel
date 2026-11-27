@@ -164,7 +164,9 @@ defect, not a lag.
   State the cost (wall time, tokens) before proposing another loop.
 - **The run mix after an engine batch** (owner rule, accepted 2026-11-26; `docs/review/2026-11-26_short_rerun_test.md`): D2 and the Phase D
   mutation record rerun at `--seed-fraction 0.2`, every other record in full, without the emergence audit. Mac Mini1
-  first, the MacBook Pro second (6 workers), this Mac only as overflow (at most 4 workers 00:00–07:30, 2 otherwise).
+  first, the MacBook Pro second (6 workers), this Mac only as overflow (at most 4 workers 00:00–07:30, 2 otherwise). From 22:00 to 07:00 (this Mac's clock) Mini1
+  and the MacBook may each run up to 10 workers at nice 19, for a step that starts in that window (owner rule,
+  2026-11-26); outside it Mini1 takes at most 8 and the MacBook 6.
   Full seeds and the audit at a milestone or before a report quotes a number.
 - **The full constant sweep runs only at a stage's end** (owner, 2026-10-23; plan §2.10, D17), before its milestone
   review or a tag. Between, a change is swept only on the criteria it targets (`tools/version_2_sweep.py --criteria`);

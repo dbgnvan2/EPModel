@@ -1,5 +1,5 @@
 {
- "4177ae3ad8687f7b019b6230c1f79bdf12d7f44f6a06a0ba0a48a119d99ef164": {
+ "6578f16bfc5150329f72c9c8cf5e21a25fb6c35825f9dd8c7e084e1078ba5dc2": {
   "rows": [
    {
     "arm": "baseline",
@@ -37,7 +37,7 @@
    }
   ]
  },
- "8a570d6c40e4824167a045c88ed851044713509454f348ed1ea50361467e28d0": {
+ "91d1b67c02a5166762a92acbb0fa5ed3f6b21dbd17a113ca14b7fb5117fdbffc": {
   "rows": [
    {
     "arm": "baseline",
@@ -47,7 +47,7 @@
     },
     "whole_run": {
      "deletion_on_every_layer": 0.07822802197802198,
-     "deletion_on_layer_1": 0.9051510989010989,
+     "deletion_on_layer_1": 0.9052884615384615,
      "layers_above_0_unavailable": 0.0
     },
     "window": {

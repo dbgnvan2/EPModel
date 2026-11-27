@@ -15,7 +15,10 @@
 > The last four classes moved here from code at spec revision 59 (T-219 (11, 12)), with the members the code held;
 > they are invented groupings, graded `[I]`. `iposition_abort` is read in the order written. An act listed twice in
 > one class fails at load. `coach_lending` (revision 71, T-297 (1)) must lie within `external_repertoire`, or the
-> file fails at load.
+> file fails at load. Its members are the owner's decision of 2026-11-27 ("all but cutoff", Claude's recommendation;
+> Kerr, KS18.5 [K]: the client gains pseudo-self from perceiving the coach as on their side, and a cutoff cannot
+> carry that perception). The row's "pending owner review" is superseded by this note; it changes with the next
+> engine batch, since the row's text is in the engine hash.
 
 | class | acts | used by |
 |---|---|---|

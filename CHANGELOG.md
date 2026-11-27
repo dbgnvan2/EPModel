@@ -50,8 +50,6 @@ All notable changes to this project are recorded here. Dates are ISO.
 - 2026-11-09 — T-206 and T-208: the two social-cue passes probed (2026-11-09)
 - 2026-11-09 — T-202: the social cues built, spec revision 55 (2026-11-09)
 - 2026-11-07 — T-202: the plan to build the social cues proposal (2026-11-07)
-- 2026-11-07 — T-183 closed: the LLM-agent experiment's closing review (2026-11-07)
-- 2026-11-07 — T-183 step 7: the cross-check (2026-11-07)
 <!-- changelog index end -->
 
 ## [Unreleased] — 2026-10-11
@@ -59,11 +57,21 @@ All notable changes to this project are recorded here. Dates are ISO.
 ### Spec revision 71: T-297, revision 70's minor items (2026-11-26)
 
 - **Engine (hash `9a7c6f9d7e0d` → `ef5d457c3acc`).** A sided coach lends only on a contact move, the new act class
-  `coach_lending`; its `CUTOFF` lends nothing (T-297 (1), *FTCP* Ch. 16 ¶64 `[B]`, KS18.5 `[K]`, Claude's decision
-  pending owner review). A retired coach's move in flight neither lends nor lands (T-297 (2)). `run_phase_b` wraps a
+  `coach_lending`; its `CUTOFF` lends nothing (T-297 (1), *FTCP* Ch. 16 ¶64 `[B]`, KS18.5 `[K]`, the owner's
+  decision of 2026-11-27). A retired coach's move in flight neither lends nor lands (T-297 (2)). `run_phase_b` wraps a
   divorce schedule in `DivorceSource` on the run's emitter (T-297 (3), `M16.A.11`).
 - **Tools.** Both mutation records rerun a near-limit row at 200 seeds; a rerun's cache key carries `rerun_rules`'
-  code (T-297 (4), (5)). The emergence audit compares a rerun twin by its first run. T-301 holds three minor items.
+  code (T-297 (4), (5)). The emergence audit compares a rerun twin by its first run. T-301 holds four minor items.
+- **Regeneration.** Under T-299's run mix on Mini1 and the MacBook Pro, 15.1 hours of wall time (17:19 to 08:25 MST):
+  Mini1 ran D2 at 0.2 (3.8 h) and two of D1's last three rows; the MacBook ran the Phase C records, the sweep, level,
+  diagnostic, sensitivity, Group G and T-176 (3.0 h), the Phase D mutation record at 0.2 (6.5 h) and the rest of D1.
+  Every step exited 0 except the split D1 halves, which each stopped, as designed, on the row the other held; the two
+  caches were merged with no clashing key (same NumPy 1.26.4) and D1 rendered from them. Mini1 sat idle 21:08 to 07:41
+  because the watcher waited for both machines; it now reports each step's end. Seven verdict moves, all with
+  overlapping intervals, four of them mutant rows first rerun at 200 seeds, join T-300.
+- **Run mix.** From 22:00 to 07:00 Mini1 and the MacBook may each run 10 workers for a step that starts in that window
+  (owner rule, 2026-11-26, in `AGENTS.md`).
+- **Suite.** 1559 tests: 1553 pass, 1 skips, 5 strict expected failures, measured 2026-11-27 on this Mac, exit 0.
 
 ### T-296 and T-299: revision 70's one regeneration under a short-rerun mix (2026-11-26)
 
@@ -829,44 +837,3 @@ All notable changes to this project are recorded here. Dates are ISO.
 - **Documents.** The plan and the draft (new), `docs/SPEC_REVIEW_CHECKLIST.md`, `docs/REVIEWER_READING_LIST.md`, T-202's and
   T-204's record, `TODO.md` and this file's index (regenerated). No rule, code, config or record changed; the engine hash
   (`0b363cb3186c`) did not move.
-
-### T-183 closed: the LLM-agent experiment's closing review (2026-11-07)
-
-- **The review.** `docs/version_3_llm_experiment_closing_review.md`: what was asked, what each live phase found (numbers
-  from the generated report and the plan's run figures), what the findings can and cannot claim (descriptive only, not
-  about a real family, A0 not ground truth, the arms' differences from A0), and five open items with recommendations.
-  New in it, from the report's token table: on Sonnet A1's choices fall on token `K1` in 0.990 and 0.855 of choices, a
-  preference for the token's name. No live call.
-- **The owner's answers**, through `AskUserQuestion`, each as recommended: T-183 closed at layer 1; T-200 closed with
-  no change (the stronger §13.5 rule reads "not gone" in 21 of 24 full-length runs by small margins both ways, counted
-  offline from the report's table, so it is not used on full-length runs); T-201 kept open with its no-cost check run;
-  LX.27 approved; no other model family now; no layer 2.
-- **T-201's check (1).** From the committed `choices.jsonl.gz`: A1's hold share by 52-week block is level on Haiku
-  (23 or 24 holds in the first 28 choices of each seed) and moves with no shared direction on Sonnet; no run shows
-  holding back growing with experience. The script is in the review's appendix.
-- **Documents.** The review (new, in `docs/SPEC_REVIEW_CHECKLIST.md` and `docs/REVIEWER_READING_LIST.md`); the plan's
-  status line, §6, §11 step 7 and §13.5; T-183's record (T-183 and T-200 ticked, T-201's evidence); `TODO.md` and
-  `docs/TODO_archive.md` (generated); `experiments/llm_agents/README.md`. Nothing under `src/bowen/` or `config/bowen/`
-  changed; the engine hash is unchanged (`0b363cb3186c`).
-
-### T-183 step 7: the cross-check (2026-11-07)
-
-- **The owner's decisions.** Through `AskUserQuestion` in this session: the cross-check's model is the plan's,
-  `claude-sonnet-5-5` (a DeepSeek model stays a separate, later question), and its cost is approved against the
-  estimate of 5,824 calls, about $23.88, a worst case of about $30.95, from the `cross_check` pool's $35.
-- **Run.** A1, A2 × seeds 1–2, 208 weeks, shuffled order, at low priority: 4 runs `complete`, 5,820 calls, 0 re-asks,
-  fallbacks, retries or failures, 10 output tokens on every call, $20.526398; the `cross_check` pool has spent
-  $20.526398 of $35, both pools $25.674134 of $45. `runner replay`: every run `complete`. The run directories
-  `experiments/llm_agents/runs/cross_check-*` and `phase-cross_check.json` committed.
-- **Report.** `experiments/llm_agents/report.py` gains the cross-check table: per pattern and readout, the second
-  model's direction against A0 and the seeds in which it is the same as the main phase's on the same seed (Claude's
-  addition, pending the owner's review), with its text key in `experiments/llm_agents/config/report_text.md` and test
-  LX.27 (`tests/experiments/llm_agents/test_report.py::test_lx27_cross_check_against_main`), proved failing by two
-  mutants. The experiment's code hash moves; replay compares summary hashes, which did not move.
-- **Result (a direction over two seeds).** For A1 and A2 every pattern and readout has the main phase's direction
-  against A0 on the same seed in 2 of 2 seeds, except A2's distance (1 of 2); no position effect in the 4 runs; A1
-  holds back in 0.446 and 0.635 of its choices against 0.916 to 0.965 on Haiku. Not a finding about families.
-- **Documents.** The plan (status line, §10 LX.27, §11 step 7), the README, T-183's record text,
-  `docs/REVIEWER_READING_LIST.md`, `CLAUDE.md`'s suite count, `tests/doc_claims.json`'s suite-size history,
-  `docs/spec_coverage.md` (generated), the report (generated). This changelog's oldest entry moved to the archive,
-  verbatim. Nothing under `src/bowen/` or `config/bowen/` changed; the engine hash is unchanged (`0b363cb3186c`).

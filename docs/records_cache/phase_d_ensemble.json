@@ -1,101 +1,5 @@
 {
- "00a857e8b30def92df4a9b3c0b3c8de1af194997f4b56186fc87479929235a10": {
-  "cls": "check",
-  "counts": {},
-  "criterion": "M11.C.31",
-  "fallback_by_person": {
-   "c1": 0.0,
-   "c2": 0.0,
-   "f": 0.0,
-   "m": 0.0,
-   "pf": 0.0,
-   "pm": 0.0
-  },
-  "fallback_rate": 0.0,
-  "flagged": [],
-  "missing_moves": [],
-  "outcome": "PASS",
-  "readouts": [
-   {
-    "baseline_position": null,
-    "baseline_sd": 16.704238635841286,
-    "direction": 1,
-    "half_width": 2.6732349317003856,
-    "holds": true,
-    "mean_difference": 36.16097513870766,
-    "n_nonzero": 150,
-    "nonzero_share": 1.0,
-    "p": 1.1358930483109819e-26,
-    "pooled_sd": 11.811680413961698,
-    "readout": "budget_rise",
-    "w_plus": 11325.0
-   }
-  ],
-  "scripted": {},
-  "seeds": 150
- },
- "092d201c6502cb17b1894a8f92ad7c63c86417546885d3317cd4c78a521f26db": {
-  "cls": "mixed",
-  "counts": {},
-  "criterion": "M11.C.7[one spouse over sided]",
-  "fallback_by_person": {
-   "ana": 0.0,
-   "bruno": 0.0,
-   "halim": 0.0,
-   "marta": 0.0,
-   "nadia": 0.0,
-   "pia": 0.0,
-   "ravi": 0.0,
-   "sofia": 0.0
-  },
-  "fallback_rate": 0.0,
-  "flagged": [],
-  "missing_moves": [],
-  "outcome": "FAIL",
-  "readouts": [
-   {
-    "baseline_position": null,
-    "baseline_sd": 0.4281777179076406,
-    "direction": 1,
-    "half_width": 0.07814615657840138,
-    "holds": false,
-    "mean_difference": -0.007167551553912337,
-    "n_nonzero": 190,
-    "nonzero_share": 1.0,
-    "p": 0.5252122469180944,
-    "pooled_sd": 0.41847758352451214,
-    "readout": "deviation_fall",
-    "w_plus": 9025.0
-   },
-   {
-    "baseline_position": null,
-    "baseline_sd": 3.4783465141302137,
-    "direction": 1,
-    "half_width": 0.4820742318617804,
-    "holds": true,
-    "mean_difference": 10.54,
-    "n_nonzero": 200,
-    "nonzero_share": 1.0,
-    "p": 6.275146291439748e-35,
-    "pooled_sd": 2.4595624074580633,
-    "readout": "landed_contacts",
-    "w_plus": 20100.0
-   }
-  ],
-  "scripted": {
-   "baseline": {
-    "dead": 0,
-    "made": 12800,
-    "not legal": 0,
-    "not reached": 0,
-    "owed a step": 0,
-    "rewritten": 0,
-    "target dead": 0
-   }
-  },
-  "seeds": 200
- },
- "0ca8323fac401e06ca37fdbf67a9ed9abbd14c2e4d14a02a3a523e9c5fb86505": {
+ "00d9409f322b49d527373a3cb0b4110c8f93d69535826cf0ff91ba70f945d04f": {
   "cls": "composite",
   "counts": {},
   "criterion": "M11.C.23",
@@ -114,23 +18,23 @@
   "readouts": [
    {
     "baseline_position": null,
-    "baseline_sd": 0.22545008425851168,
+    "baseline_sd": 0.2078243363368914,
     "direction": 1,
-    "half_width": 0.03607952770152074,
+    "half_width": 0.028802983513804305,
     "holds": true,
-    "mean_difference": 0.05333333333333334,
-    "n_nonzero": 8,
-    "nonzero_share": 0.05333333333333334,
-    "p": 0.00390625,
-    "pooled_sd": 0.15941728339827213,
+    "mean_difference": 0.045,
+    "n_nonzero": 9,
+    "nonzero_share": 0.045,
+    "p": 0.001953125,
+    "pooled_sd": 0.14695399751940968,
     "readout": "relapses",
-    "w_plus": 36.0
+    "w_plus": 45.0
    }
   ],
   "scripted": {
    "baseline": {
     "dead": 0,
-    "made": 7795,
+    "made": 10395,
     "not legal": 0,
     "not reached": 0,
     "owed a step": 5,
@@ -139,17 +43,17 @@
    },
    "treatment": {
     "dead": 0,
-    "made": 7795,
+    "made": 10394,
     "not legal": 0,
     "not reached": 0,
     "owed a step": 4,
-    "rewritten": 1,
+    "rewritten": 2,
     "target dead": 0
    }
   },
-  "seeds": 150
+  "seeds": 200
  },
- "14e770786d4b245055db1026b85b08d4cfb6b87f1f00d302c213784af7ac1037": {
+ "014edd46bf426d5490bac17db74431f7a809024222dd652150cb14c997ebb454": {
   "cls": "mixed",
   "counts": {},
   "criterion": "M11.C.34",
@@ -184,19 +88,71 @@
   "scripted": {},
   "seeds": 200
  },
- "186120dbbf0c44e5187eec3906affd6c662467f2423cbd69185aadadf2cf4534": {
-  "cls": "mixed",
+ "0cc4c45f38171ccd72ec93d324604a29bce945aa53670c68386d90aa46087432": {
+  "cls": "premise",
   "counts": {},
-  "criterion": "M11.C.7[joint over one spouse]",
+  "criterion": "M11.C.14[firmness]",
   "fallback_by_person": {
-   "ana": 0.0,
-   "bruno": 0.0,
-   "halim": 0.0,
-   "marta": 0.0,
-   "nadia": 0.0,
-   "pia": 0.0,
-   "ravi": 0.0,
-   "sofia": 0.0
+   "c1": 0.0,
+   "c2": 0.0,
+   "f": 0.0,
+   "m": 0.0,
+   "pf": 0.0,
+   "pm": 0.0
+  },
+  "fallback_rate": 0.0,
+  "flagged": [],
+  "missing_moves": [],
+  "outcome": "PASS",
+  "readouts": [
+   {
+    "assay_limit": false,
+    "baseline_position": null,
+    "baseline_sd": 67.64604195538617,
+    "bound_side": 1,
+    "direction": 0,
+    "equivalence_bound": 33.82302097769308,
+    "half_width": 15.350328447369483,
+    "mean_difference": 25.662966015140828,
+    "nonzero_share": 1.0,
+    "pooled_sd": 74.83170646591688,
+    "readout": "child_symptom_load",
+    "within_bound": true
+   }
+  ],
+  "scripted": {
+   "baseline": {
+    "dead": 0,
+    "made": 5199,
+    "not legal": 0,
+    "not reached": 0,
+    "owed a step": 1,
+    "rewritten": 0,
+    "target dead": 0
+   },
+   "treatment": {
+    "dead": 0,
+    "made": 5198,
+    "not legal": 0,
+    "not reached": 0,
+    "owed a step": 1,
+    "rewritten": 1,
+    "target dead": 0
+   }
+  },
+  "seeds": 100
+ },
+ "102f09697e46c4b1eda0aecb77ed248855df3a6dcb9fa30cfbae35136f9cecf5": {
+  "cls": "composite",
+  "counts": {},
+  "criterion": "M11.C.21",
+  "fallback_by_person": {
+   "c1": 0.0,
+   "c2": 0.0,
+   "f": 0.0,
+   "m": 0.0,
+   "pf": 0.0,
+   "pm": 0.0
   },
   "fallback_rate": 0.0,
   "flagged": [],
@@ -205,34 +161,141 @@
   "readouts": [
    {
     "baseline_position": null,
-    "baseline_sd": 0.4031012376386469,
+    "baseline_sd": 2.986510763341147,
     "direction": 1,
-    "half_width": 0.09515845815524122,
+    "half_width": 0.45125864209274535,
     "holds": false,
-    "mean_difference": 0.05964860114987215,
-    "n_nonzero": 141,
-    "nonzero_share": 1.0,
-    "p": 0.14412680163222696,
-    "pooled_sd": 0.4293905417632141,
-    "readout": "deviation_fall",
-    "w_plus": 5522.0
+    "mean_difference": -0.9317119131100803,
+    "n_nonzero": 56,
+    "nonzero_share": 0.79,
+    "p": 0.9999849262099254,
+    "pooled_sd": 2.600196815021636,
+    "readout": "target_rise",
+    "w_plus": 287.0
+   }
+  ],
+  "scripted": {
+   "baseline": {
+    "dead": 0,
+    "made": 2598,
+    "not legal": 0,
+    "not reached": 0,
+    "owed a step": 1,
+    "rewritten": 1,
+    "target dead": 0
+   },
+   "treatment": {
+    "dead": 0,
+    "made": 2598,
+    "not legal": 0,
+    "not reached": 0,
+    "owed a step": 1,
+    "rewritten": 1,
+    "target dead": 0
+   }
+  },
+  "seeds": 100
+ },
+ "31ea2f5e22ddbc61086c64157c591f778ad8dfc6b0cf8c747ddece68621368a3": {
+  "cls": "check",
+  "counts": {},
+  "criterion": "M11.C.20",
+  "fallback_by_person": {
+   "c": 0.0,
+   "f": 0.0,
+   "m": 0.0,
+   "pf": 0.0,
+   "pm": 0.0
+  },
+  "fallback_rate": 0.0,
+  "flagged": [],
+  "missing_moves": [],
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "baseline_position": null,
+    "baseline_sd": 0.0,
+    "direction": 1,
+    "half_width": 0.0,
+    "holds": false,
+    "mean_difference": 0.0,
+    "n_nonzero": 0,
+    "nonzero_share": 0.0,
+    "p": 1.0,
+    "pooled_sd": 0.0,
+    "readout": "rise",
+    "w_plus": 0.0
    },
    {
     "baseline_position": null,
-    "baseline_sd": 3.4529823701145865,
-    "direction": 1,
-    "half_width": 0.680629327067991,
-    "mean_difference": -1.4533333333333334,
-    "nonzero_share": 0.9066666666666666,
-    "pooled_sd": 3.3685145658454854,
-    "readout": "landed_contacts",
+    "baseline_sd": 0.013425474564974582,
+    "direction": -1,
+    "half_width": 0.003721351689372088,
+    "mean_difference": -0.007481094758455189,
+    "nonzero_share": 0.3,
+    "pooled_sd": 0.00949324410554104,
+    "readout": "support_blocked",
     "report_only": true
+   }
+  ],
+  "scripted": {
+   "baseline": {
+    "dead": 0,
+    "made": 1749,
+    "not legal": 0,
+    "not reached": 0,
+    "owed a step": 1,
+    "rewritten": 0,
+    "target dead": 0
+   },
+   "treatment": {
+    "dead": 0,
+    "made": 114,
+    "not legal": 783,
+    "not reached": 0,
+    "owed a step": 3,
+    "rewritten": 0,
+    "target dead": 0
+   }
+  },
+  "seeds": 50
+ },
+ "3c83ef13e80731481c6d681b66f673aa54d19868433035860a68a270e297c8f0": {
+  "cls": "check",
+  "counts": {},
+  "criterion": "M11.C.31",
+  "fallback_by_person": {
+   "c1": 0.0,
+   "c2": 0.0,
+   "f": 0.0,
+   "m": 0.0,
+   "pf": 0.0,
+   "pm": 0.0
+  },
+  "fallback_rate": 0.0,
+  "flagged": [],
+  "missing_moves": [],
+  "outcome": "PASS",
+  "readouts": [
+   {
+    "baseline_position": null,
+    "baseline_sd": 16.704238635841286,
+    "direction": 1,
+    "half_width": 2.6732349317003856,
+    "holds": true,
+    "mean_difference": 36.16097513870766,
+    "n_nonzero": 150,
+    "nonzero_share": 1.0,
+    "p": 1.1358930483109819e-26,
+    "pooled_sd": 11.811680413961698,
+    "readout": "budget_rise",
+    "w_plus": 11325.0
    }
   ],
   "scripted": {},
   "seeds": 150
  },
- "24f8c7ae174135cdcf9525ee04603bbe3dcd8b4d983c8fdca17d4eba39cb67b7": {
+ "3f4925cc5eb8c87b1ad5cd77602aed7d9ceb9e6646077f44c43d937903d94fe6": {
   "cls": "premise",
   "counts": {
    "baseline": {
@@ -304,323 +367,7 @@
   },
   "seeds": 200
  },
- "2b0087d8adea83bfb1d2d4caefd63cae7e9729c3b786fc698effa2ced7402637": {
-  "cls": "composite",
-  "counts": {},
-  "criterion": "M11.C.12",
-  "fallback_by_person": {
-   "a": 0.0,
-   "b": 0.0,
-   "pa": 0.0,
-   "pb": 0.0
-  },
-  "fallback_rate": 0.0,
-  "flagged": [],
-  "missing_moves": [],
-  "outcome": "PASS",
-  "readouts": [
-   {
-    "baseline_position": null,
-    "baseline_sd": 4.144573251516485,
-    "direction": 1,
-    "half_width": 0.9144526550300224,
-    "holds": true,
-    "mean_difference": 2.05,
-    "n_nonzero": 186,
-    "nonzero_share": 0.93,
-    "p": 0.00011678372135369918,
-    "pooled_sd": 5.450033423898246,
-    "readout": "marital_conflict",
-    "w_plus": 11398.0
-   }
-  ],
-  "scripted": {},
-  "seeds": 200
- },
- "469b93a45a3cc3e21baf57823a62ceb505f483d66e0bf65b3d6e07d61bd74d2b": {
-  "cls": "mixed",
-  "counts": {},
-  "criterion": "M11.C.11",
-  "fallback_by_person": {
-   "c1": 0.4899107142857143,
-   "c2": 0.0,
-   "f": 0.0,
-   "m": 0.0,
-   "pf": 0.0,
-   "pm": 0.0
-  },
-  "fallback_rate": 0.08165178571428572,
-  "flagged": [],
-  "missing_moves": [],
-  "outcome": "PASS",
-  "readouts": [
-   {
-    "baseline_position": null,
-    "baseline_sd": 16.213328607661097,
-    "direction": 1,
-    "half_width": 3.922502091177877,
-    "holds": true,
-    "mean_difference": 10.522212520559469,
-    "n_nonzero": 94,
-    "nonzero_share": 1.0,
-    "p": 5.115797856801568e-07,
-    "pooled_sd": 16.39909418731896,
-    "readout": "disturbance",
-    "w_plus": 3529.0
-   }
-  ],
-  "scripted": {},
-  "seeds": 100
- },
- "4974ec446554ea14fbe4cfb545745d7f5091df770c13041ed15a1c6b0c0396de": {
-  "cls": "premise",
-  "counts": {},
-  "criterion": "M11.C.14[firmness]",
-  "fallback_by_person": {
-   "c1": 0.0,
-   "c2": 0.0,
-   "f": 0.0,
-   "m": 0.0,
-   "pf": 0.0,
-   "pm": 0.0
-  },
-  "fallback_rate": 0.0,
-  "flagged": [],
-  "missing_moves": [],
-  "outcome": "PASS",
-  "readouts": [
-   {
-    "assay_limit": false,
-    "baseline_position": null,
-    "baseline_sd": 67.64604195538617,
-    "bound_side": 1,
-    "direction": 0,
-    "equivalence_bound": 33.82302097769308,
-    "half_width": 15.350328447369483,
-    "mean_difference": 25.662966015140828,
-    "nonzero_share": 1.0,
-    "pooled_sd": 74.83170646591688,
-    "readout": "child_symptom_load",
-    "within_bound": true
-   }
-  ],
-  "scripted": {
-   "baseline": {
-    "dead": 0,
-    "made": 5199,
-    "not legal": 0,
-    "not reached": 0,
-    "owed a step": 1,
-    "rewritten": 0,
-    "target dead": 0
-   },
-   "treatment": {
-    "dead": 0,
-    "made": 5198,
-    "not legal": 0,
-    "not reached": 0,
-    "owed a step": 1,
-    "rewritten": 1,
-    "target dead": 0
-   }
-  },
-  "seeds": 100
- },
- "4a060fda37eb8dde40df361392022e9af1087d8a2272cbc65639b0f845177675": {
-  "cls": "premise",
-  "counts": {},
-  "criterion": "M11.C.30",
-  "fallback_by_person": {
-   "c1": 0.0,
-   "c2": 0.0,
-   "f": 0.0,
-   "m": 0.0,
-   "pf": 0.0,
-   "pm": 0.0
-  },
-  "fallback_rate": 0.0,
-  "flagged": [],
-  "missing_moves": [],
-  "outcome": "PASS",
-  "readouts": [
-   {
-    "baseline_position": null,
-    "baseline_sd": 121.94239532700674,
-    "direction": -1,
-    "half_width": 21.35436119561783,
-    "holds": true,
-    "mean_difference": -266.08419361466605,
-    "n_nonzero": 99,
-    "nonzero_share": 1.0,
-    "p": 4.044261774849743e-18,
-    "pooled_sd": 99.80567348895082,
-    "readout": "social_load",
-    "w_plus": 4939.0
-   }
-  ],
-  "scripted": {},
-  "seeds": 100
- },
- "551aaf26a3b53171f5b0f6ddefb0b29ae90bb8478945acfd9f913ed19c3cb90c": {
-  "cls": "mixed",
-  "counts": {},
-  "criterion": "M11.C.7[joint over sided]",
-  "fallback_by_person": {
-   "ana": 0.0,
-   "bruno": 0.0,
-   "halim": 0.0,
-   "marta": 0.0,
-   "nadia": 0.0,
-   "pia": 0.0,
-   "ravi": 0.0,
-   "sofia": 0.0
-  },
-  "fallback_rate": 0.0,
-  "flagged": [],
-  "missing_moves": [],
-  "outcome": "FAIL",
-  "readouts": [
-   {
-    "baseline_position": null,
-    "baseline_sd": 0.4281777179076406,
-    "direction": 1,
-    "half_width": 0.07724234531137539,
-    "holds": false,
-    "mean_difference": 0.03888034905106055,
-    "n_nonzero": 179,
-    "nonzero_share": 1.0,
-    "p": 0.08547781215177927,
-    "pooled_sd": 0.4316512078751525,
-    "readout": "deviation_fall",
-    "w_plus": 9006.0
-   },
-   {
-    "baseline_position": null,
-    "baseline_sd": 3.2392070498129306,
-    "direction": 1,
-    "half_width": 0.44893119303563883,
-    "holds": true,
-    "mean_difference": 8.9,
-    "n_nonzero": 200,
-    "nonzero_share": 1.0,
-    "p": 6.062132163975071e-35,
-    "pooled_sd": 2.290465270589994,
-    "readout": "landed_contacts",
-    "w_plus": 20100.0
-   }
-  ],
-  "scripted": {
-   "baseline": {
-    "dead": 0,
-    "made": 12800,
-    "not legal": 0,
-    "not reached": 0,
-    "owed a step": 0,
-    "rewritten": 0,
-    "target dead": 0
-   }
-  },
-  "seeds": 200
- },
- "59c8032cd41606d2deb4e6ab49595d53067962dbeef66bb62153b701d55ad99a": {
-  "cls": "composite",
-  "counts": {},
-  "criterion": "M11.C.2",
-  "fallback_by_person": {
-   "ana": 0.0,
-   "bruno": 0.0,
-   "halim": 0.0,
-   "marta": 0.0,
-   "nadia": 0.0,
-   "pia": 0.0,
-   "ravi": 0.0,
-   "sofia": 0.0
-  },
-  "fallback_rate": 0.0,
-  "flagged": [],
-  "missing_moves": [],
-  "outcome": "FAIL",
-  "readouts": [
-   {
-    "baseline_position": null,
-    "baseline_sd": 29.730787929578145,
-    "direction": 1,
-    "half_width": 4.028350170342601,
-    "holds": false,
-    "mean_difference": 0.6230999851060265,
-    "n_nonzero": 27,
-    "nonzero_share": 0.98,
-    "p": 0.26217236106302855,
-    "pooled_sd": 29.073062283211694,
-    "readout": "symptom_load",
-    "w_plus": 216.0
-   }
-  ],
-  "scripted": {},
-  "seeds": 50
- },
- "71847277a232573bb139e02d723f60713e7c21d40fd0ce4d6bdf1609ba1233e2": {
-  "cls": "mixed",
-  "counts": {},
-  "criterion": "M11.C.7[joint over sided]",
-  "fallback_by_person": {
-   "ana": 0.0,
-   "bruno": 0.0,
-   "halim": 0.0,
-   "marta": 0.0,
-   "nadia": 0.0,
-   "pia": 0.0,
-   "ravi": 0.0,
-   "sofia": 0.0
-  },
-  "fallback_rate": 0.0,
-  "flagged": [],
-  "missing_moves": [],
-  "outcome": "PASS",
-  "readouts": [
-   {
-    "baseline_position": null,
-    "baseline_sd": 0.42362921316093954,
-    "direction": 1,
-    "half_width": 0.0899882516927275,
-    "holds": true,
-    "mean_difference": 0.0569831559995619,
-    "n_nonzero": 134,
-    "nonzero_share": 1.0,
-    "p": 0.043631184657120736,
-    "pooled_sd": 0.4391603221882419,
-    "readout": "deviation_fall",
-    "w_plus": 5293.0
-   },
-   {
-    "baseline_position": null,
-    "baseline_sd": 3.281873475974394,
-    "direction": 1,
-    "half_width": 0.525209140545415,
-    "holds": true,
-    "mean_difference": 8.966666666666667,
-    "n_nonzero": 150,
-    "nonzero_share": 1.0,
-    "p": 1.0169336420576875e-26,
-    "pooled_sd": 2.32063498985776,
-    "readout": "landed_contacts",
-    "w_plus": 11325.0
-   }
-  ],
-  "scripted": {
-   "baseline": {
-    "dead": 0,
-    "made": 9600,
-    "not legal": 0,
-    "not reached": 0,
-    "owed a step": 0,
-    "rewritten": 0,
-    "target dead": 0
-   }
-  },
-  "seeds": 150
- },
- "7e69bdc46e9cffd163165b41abe73e679dbf596d34699ba6908ef8c9ff3880ef": {
+ "4349b74c1f50eedc36cea4698720235dd56579a45d8f4705a5a10e715af733f0": {
   "cls": "check",
   "counts": {},
   "criterion": "M11.C.18",
@@ -673,55 +420,7 @@
   },
   "seeds": 50
  },
- "80664ae70b94978f259ec1a1a9b7ad00b3a054836c5e36b6ec786038b1b70dc4": {
-  "cls": "composite",
-  "counts": {},
-  "criterion": "M11.C.17",
-  "fallback_by_person": {
-   "ana": 0.0,
-   "bruno": 0.0,
-   "halim": 0.5,
-   "marta": 0.0,
-   "nadia": 0.0,
-   "pia": 0.0,
-   "ravi": 0.0,
-   "sofia": 0.0
-  },
-  "fallback_rate": 0.008771929824561403,
-  "flagged": [],
-  "missing_moves": [],
-  "outcome": "PASS",
-  "readouts": [
-   {
-    "baseline_position": null,
-    "baseline_sd": 0.010874960384108906,
-    "direction": 1,
-    "half_width": 0.004615423049256073,
-    "holds": true,
-    "mean_difference": 0.004020391032277999,
-    "n_nonzero": 17,
-    "nonzero_share": 0.11333333333333333,
-    "p": 0.01739501953125,
-    "pooled_sd": 0.020235956169602474,
-    "readout": "coached_rise",
-    "w_plus": 121.0
-   },
-   {
-    "baseline_position": null,
-    "baseline_sd": 0.0031071315383168316,
-    "direction": 1,
-    "half_width": 0.0013186922997874492,
-    "mean_difference": 0.0011486831520794282,
-    "nonzero_share": 0.11333333333333333,
-    "pooled_sd": 0.005781701762743564,
-    "readout": "family_rise",
-    "report_only": true
-   }
-  ],
-  "scripted": {},
-  "seeds": 150
- },
- "88036bb1da05b05920115ee380ef771707ac65d8dcd8652bb35190a0f0618ad6": {
+ "43b9daee01fafdf1eca4da3c950b42962bc5c5110b0c0dd032026d995f371292": {
   "cls": "composite",
   "counts": {},
   "criterion": "M11.C.43",
@@ -755,7 +454,88 @@
   "scripted": {},
   "seeds": 100
  },
- "8ef109b62b21a1531e35e74becfa79d3422003cacab9f3966d4a4a2153a08bf4": {
+ "45e72a6b81d7356ebfd8a51c49fb9f86941f7928ae1dc887036828d9cdd3ceee": {
+  "cls": "composite",
+  "counts": {},
+  "criterion": "M11.C.12",
+  "fallback_by_person": {
+   "a": 0.0,
+   "b": 0.0,
+   "pa": 0.0,
+   "pb": 0.0
+  },
+  "fallback_rate": 0.0,
+  "flagged": [],
+  "missing_moves": [],
+  "outcome": "PASS",
+  "readouts": [
+   {
+    "baseline_position": null,
+    "baseline_sd": 4.144573251516485,
+    "direction": 1,
+    "half_width": 0.9144526550300224,
+    "holds": true,
+    "mean_difference": 2.05,
+    "n_nonzero": 186,
+    "nonzero_share": 0.93,
+    "p": 0.00011678372135369918,
+    "pooled_sd": 5.450033423898246,
+    "readout": "marital_conflict",
+    "w_plus": 11398.0
+   }
+  ],
+  "scripted": {},
+  "seeds": 200
+ },
+ "47f7745b61e007530a6c45d208a9ab1b7b1b817c93ce5602d566622849a5c258": {
+  "cls": "composite",
+  "counts": {},
+  "criterion": "M11.C.17",
+  "fallback_by_person": {
+   "ana": 0.0,
+   "bruno": 0.0,
+   "halim": 0.5,
+   "marta": 0.0,
+   "nadia": 0.0,
+   "pia": 0.0,
+   "ravi": 0.0,
+   "sofia": 0.0
+  },
+  "fallback_rate": 0.008771929824561403,
+  "flagged": [],
+  "missing_moves": [],
+  "outcome": "PASS",
+  "readouts": [
+   {
+    "baseline_position": null,
+    "baseline_sd": 0.010874960384108906,
+    "direction": 1,
+    "half_width": 0.004407146271547739,
+    "holds": true,
+    "mean_difference": 0.003561543874450332,
+    "n_nonzero": 17,
+    "nonzero_share": 0.11333333333333333,
+    "p": 0.01739501953125,
+    "pooled_sd": 0.01932533594670753,
+    "readout": "coached_rise",
+    "w_plus": 121.0
+   },
+   {
+    "baseline_position": null,
+    "baseline_sd": 0.0031071315383168316,
+    "direction": 1,
+    "half_width": 0.0012591846490136397,
+    "mean_difference": 0.0010175839641286663,
+    "nonzero_share": 0.11333333333333333,
+    "pooled_sd": 0.005521524556202152,
+    "readout": "family_rise",
+    "report_only": true
+   }
+  ],
+  "scripted": {},
+  "seeds": 150
+ },
+ "57430c1e6da1e8ec013c08d227ae8d180089c4c5871d1f66be11b97bb1b8071b": {
   "cls": "check",
   "counts": {},
   "criterion": "M11.C.36",
@@ -808,176 +588,10 @@
   },
   "seeds": 50
  },
- "8f7e71f70fb027a09379c3b31a4a7be2b0dcdb24cd1f8d402c0b31a86717aa0f": {
-  "cls": "premise",
-  "counts": {},
-  "criterion": "M11.C.40",
-  "fallback_by_person": {
-   "ana": 0.0,
-   "bruno": 0.0,
-   "halim": 0.0,
-   "marta": 0.0,
-   "nadia": 0.0,
-   "pia": 0.0,
-   "ravi": 0.0,
-   "sofia": 0.0
-  },
-  "fallback_rate": 0.0,
-  "flagged": [],
-  "missing_moves": [],
-  "outcome": "PASS",
-  "readouts": [
-   {
-    "baseline_position": null,
-    "baseline_sd": 0.016202660243168826,
-    "direction": 1,
-    "half_width": 0.015384135386165862,
-    "holds": true,
-    "mean_difference": 0.3515794676435659,
-    "n_nonzero": 150,
-    "nonzero_share": 1.0,
-    "p": 1.1614203074307053e-26,
-    "pooled_sd": 0.06780872330653458,
-    "readout": "automatic_entropy_fall",
-    "w_plus": 11325.0
-   },
-   {
-    "baseline_position": null,
-    "baseline_sd": 0.34419661540116314,
-    "direction": 1,
-    "half_width": 0.0684213995738517,
-    "mean_difference": 0.5818440349906632,
-    "nonzero_share": 1.0,
-    "pooled_sd": 0.3401076592595999,
-    "readout": "automatic_less_self",
-    "report_only": true
-   },
-   {
-    "baseline_position": null,
-    "baseline_sd": 0.3445510943038717,
-    "direction": 0,
-    "half_width": 0.06549195627295769,
-    "mean_difference": -0.23026456734709735,
-    "nonzero_share": 0.9866666666666667,
-    "pooled_sd": 0.33238977628840694,
-    "readout": "self_entropy_fall",
-    "report_only": true
-   },
-   {
-    "baseline_position": null,
-    "baseline_sd": 0.2822885064873428,
-    "direction": 0,
-    "half_width": 0.05984070327819713,
-    "mean_difference": -0.03333333333333333,
-    "nonzero_share": 0.14,
-    "pooled_sd": 0.2554550267532669,
-    "readout": "empty_windows",
-    "report_only": true
-   }
-  ],
-  "scripted": {},
-  "seeds": 150
- },
- "8fca368c19dc17f9d1c469f77d737927e3277970bb4bf69ad4d135d20ecb1a61": {
-  "cls": "composite",
-  "counts": {},
-  "criterion": "M11.C.17",
-  "fallback_by_person": {
-   "ana": 0.0,
-   "bruno": 0.0,
-   "halim": 0.5,
-   "marta": 0.0,
-   "nadia": 0.0,
-   "pia": 0.0,
-   "ravi": 0.0,
-   "sofia": 0.0
-  },
-  "fallback_rate": 0.008771929824561403,
-  "flagged": [],
-  "missing_moves": [],
-  "outcome": "PASS",
-  "readouts": [
-   {
-    "baseline_position": null,
-    "baseline_sd": 0.00942792770339522,
-    "direction": 1,
-    "half_width": 0.0034676706619382715,
-    "holds": true,
-    "mean_difference": 0.003000424774123793,
-    "n_nonzero": 19,
-    "nonzero_share": 0.095,
-    "p": 0.0200653076171875,
-    "pooled_sd": 0.017587797114640178,
-    "readout": "coached_rise",
-    "w_plus": 146.0
-   },
-   {
-    "baseline_position": null,
-    "baseline_sd": 0.0026936936295414915,
-    "direction": 1,
-    "half_width": 0.0009907630462680775,
-    "mean_difference": 0.0008572642211782266,
-    "nonzero_share": 0.095,
-    "pooled_sd": 0.005025084889897192,
-    "readout": "family_rise",
-    "report_only": true
-   }
-  ],
-  "scripted": {},
-  "seeds": 200
- },
- "91a4afd63c62cb15a5648150ac48fa1773de655aa0ecf4b7d25baeb18d2cf7e5": {
+ "5febd2313676716093563674493fb5a6426d4731372067558e39f8e6638337bd": {
   "cls": "mixed",
   "counts": {},
-  "criterion": "M11.C.7[joint over one spouse]",
-  "fallback_by_person": {
-   "ana": 0.0,
-   "bruno": 0.0,
-   "halim": 0.0,
-   "marta": 0.0,
-   "nadia": 0.0,
-   "pia": 0.0,
-   "ravi": 0.0,
-   "sofia": 0.0
-  },
-  "fallback_rate": 0.0,
-  "flagged": [],
-  "missing_moves": [],
-  "outcome": "FAIL",
-  "readouts": [
-   {
-    "baseline_position": null,
-    "baseline_sd": 0.4085472037750779,
-    "direction": 1,
-    "half_width": 0.0815170482602473,
-    "holds": false,
-    "mean_difference": 0.04604790060497289,
-    "n_nonzero": 185,
-    "nonzero_share": 1.0,
-    "p": 0.1574404897360478,
-    "pooled_sd": 0.4220309171849832,
-    "readout": "deviation_fall",
-    "w_plus": 9336.0
-   },
-   {
-    "baseline_position": null,
-    "baseline_sd": 3.4783465141302137,
-    "direction": 1,
-    "half_width": 0.5883347790682669,
-    "mean_difference": -1.64,
-    "nonzero_share": 0.905,
-    "pooled_sd": 3.3609044008956577,
-    "readout": "landed_contacts",
-    "report_only": true
-   }
-  ],
-  "scripted": {},
-  "seeds": 200
- },
- "98999356796bf2f1a0d5bb98377078f7b6aa813a555049c3dfbf242a8eda6879": {
-  "cls": "composite",
-  "counts": {},
-  "criterion": "M11.C.23",
+  "criterion": "M11.C.34",
   "fallback_by_person": {
    "c1": 0.0,
    "c2": 0.0,
@@ -989,146 +603,27 @@
   "fallback_rate": 0.0,
   "flagged": [],
   "missing_moves": [],
-  "outcome": "PASS",
-  "readouts": [
-   {
-    "baseline_position": null,
-    "baseline_sd": 0.2078243363368914,
-    "direction": 1,
-    "half_width": 0.028802983513804305,
-    "holds": true,
-    "mean_difference": 0.045,
-    "n_nonzero": 9,
-    "nonzero_share": 0.045,
-    "p": 0.001953125,
-    "pooled_sd": 0.14695399751940968,
-    "readout": "relapses",
-    "w_plus": 45.0
-   }
-  ],
-  "scripted": {
-   "baseline": {
-    "dead": 0,
-    "made": 10395,
-    "not legal": 0,
-    "not reached": 0,
-    "owed a step": 5,
-    "rewritten": 0,
-    "target dead": 0
-   },
-   "treatment": {
-    "dead": 0,
-    "made": 10394,
-    "not legal": 0,
-    "not reached": 0,
-    "owed a step": 4,
-    "rewritten": 2,
-    "target dead": 0
-   }
-  },
-  "seeds": 200
- },
- "a40995f251b4e86175557914ead5389859265ff32a571aca71f519c9e45ff467": {
-  "cls": "composite",
-  "counts": {},
-  "criterion": "M11.C.43",
-  "fallback_by_person": {
-   "c": 0.0,
-   "f": 0.0,
-   "m": 0.0,
-   "pf": 0.0,
-   "pm": 0.0
-  },
-  "fallback_rate": 0.0,
-  "flagged": [],
-  "missing_moves": [],
   "outcome": "FAIL",
   "readouts": [
    {
     "baseline_position": null,
-    "baseline_sd": 17.21062763168723,
-    "direction": 1,
-    "half_width": 2.701011540681994,
+    "baseline_sd": 0.5042991903404924,
+    "direction": -1,
+    "half_width": 0.16729731245052704,
     "holds": false,
-    "mean_difference": -3.3869302521833897,
-    "n_nonzero": 181,
-    "nonzero_share": 1.0,
-    "p": 0.9859498095598165,
-    "pooled_sd": 15.51816673723561,
-    "readout": "loss_rise",
-    "w_plus": 6686.0
+    "mean_difference": 0.23333333333333334,
+    "n_nonzero": 81,
+    "nonzero_share": 0.54,
+    "p": 0.9956608541388985,
+    "pooled_sd": 0.74804742100457,
+    "readout": "automatic_reaction",
+    "w_plus": 1134.0
    }
   ],
   "scripted": {},
-  "seeds": 200
- },
- "a4abd451c76ca77d3f5e7e46c138509889288061ad98bca8c5dad25f2a937d67": {
-  "cls": "premise",
-  "counts": {},
-  "criterion": "M11.C.24",
-  "fallback_by_person": {
-   "a": 0.0,
-   "b": 0.0,
-   "pa": 0.0,
-   "pb": 0.0
-  },
-  "fallback_rate": 0.0,
-  "flagged": [],
-  "missing_moves": [],
-  "outcome": "PASS",
-  "readouts": [
-   {
-    "baseline_position": null,
-    "baseline_sd": 1.382306427531299,
-    "direction": 1,
-    "half_width": 0.48769468218281536,
-    "holds": true,
-    "mean_difference": 8.806098854851959,
-    "n_nonzero": 150,
-    "nonzero_share": 1.0,
-    "p": 1.185005392007276e-26,
-    "pooled_sd": 2.199281163672393,
-    "readout": "under_change",
-    "w_plus": 11324.0
-   },
-   {
-    "baseline_position": null,
-    "baseline_sd": 4.6966869683847285,
-    "direction": -1,
-    "half_width": 0.9919450450367578,
-    "holds": true,
-    "mean_difference": -7.9948168842484115,
-    "n_nonzero": 150,
-    "nonzero_share": 1.0,
-    "p": 1.2636642004958626e-21,
-    "pooled_sd": 4.378215848688488,
-    "readout": "over_change",
-    "w_plus": 10716.0
-   }
-  ],
-  "scripted": {
-   "baseline": {
-    "dead": 0,
-    "made": 15589,
-    "not legal": 0,
-    "not reached": 0,
-    "owed a step": 3,
-    "rewritten": 8,
-    "target dead": 0
-   },
-   "treatment": {
-    "dead": 0,
-    "made": 7789,
-    "not legal": 0,
-    "not reached": 0,
-    "owed a step": 3,
-    "rewritten": 8,
-    "target dead": 0
-   }
-  },
   "seeds": 150
  },
- "b16f84341b17ae0230104ef153d007b58ffe470d41ae97060f488ff69ac83b10": {
+ "624b54628b5bf4327ae88a2216695c6e5e63342bf49fa59000df7c94494f12b5": {
   "cls": "premise",
   "counts": {},
   "criterion": "M11.C.46",
@@ -1203,10 +698,333 @@
   },
   "seeds": 100
  },
- "be7bd8dff5e8525956897d57dc80729a46890f2692850a90d088f0f0a05d2887": {
-  "cls": "check",
+ "676005b4adac02e62034d24cb5cf01c2a99ab700ea76803affd7d720a67acf42": {
+  "cls": "composite",
   "counts": {},
-  "criterion": "M11.C.20",
+  "criterion": "M11.C.17",
+  "fallback_by_person": {
+   "ana": 0.0,
+   "bruno": 0.0,
+   "halim": 0.5,
+   "marta": 0.0,
+   "nadia": 0.0,
+   "pia": 0.0,
+   "ravi": 0.0,
+   "sofia": 0.0
+  },
+  "fallback_rate": 0.008771929824561403,
+  "flagged": [],
+  "missing_moves": [],
+  "outcome": "PASS",
+  "readouts": [
+   {
+    "baseline_position": null,
+    "baseline_sd": 0.00942792770339522,
+    "direction": 1,
+    "half_width": 0.003310086660015717,
+    "holds": true,
+    "mean_difference": 0.0026563216391561006,
+    "n_nonzero": 19,
+    "nonzero_share": 0.095,
+    "p": 0.016170501708984375,
+    "pooled_sd": 0.01679067343470763,
+    "readout": "coached_rise",
+    "w_plus": 148.0
+   },
+   {
+    "baseline_position": null,
+    "baseline_sd": 0.0026936936295414915,
+    "direction": 1,
+    "half_width": 0.0009457390457187761,
+    "mean_difference": 0.0007589490397588858,
+    "nonzero_share": 0.095,
+    "pooled_sd": 0.004797335267059322,
+    "readout": "family_rise",
+    "report_only": true
+   }
+  ],
+  "scripted": {},
+  "seeds": 200
+ },
+ "6f73debc83c327a1155d39a290edd3e7dcc09c5e66368aa0934e527f4ad58548": {
+  "cls": "mixed",
+  "counts": {},
+  "criterion": "M11.C.7[one spouse over sided]",
+  "fallback_by_person": {
+   "ana": 0.0,
+   "bruno": 0.0,
+   "halim": 0.0,
+   "marta": 0.0,
+   "nadia": 0.0,
+   "pia": 0.0,
+   "ravi": 0.0,
+   "sofia": 0.0
+  },
+  "fallback_rate": 0.0,
+  "flagged": [],
+  "missing_moves": [],
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "baseline_position": null,
+    "baseline_sd": 0.41871250355123607,
+    "direction": 1,
+    "half_width": 0.08501878407172428,
+    "holds": false,
+    "mean_difference": -0.027671085383850425,
+    "n_nonzero": 143,
+    "nonzero_share": 1.0,
+    "p": 0.7466561886347172,
+    "pooled_sd": 0.41098100224703377,
+    "readout": "deviation_fall",
+    "w_plus": 4819.0
+   },
+   {
+    "baseline_position": null,
+    "baseline_sd": 3.4529823701145865,
+    "direction": 1,
+    "half_width": 0.552592266643646,
+    "holds": true,
+    "mean_difference": 10.42,
+    "n_nonzero": 150,
+    "nonzero_share": 1.0,
+    "p": 1.0327368337658618e-26,
+    "pooled_sd": 2.441627249225621,
+    "readout": "landed_contacts",
+    "w_plus": 11325.0
+   }
+  ],
+  "scripted": {
+   "baseline": {
+    "dead": 0,
+    "made": 9600,
+    "not legal": 0,
+    "not reached": 0,
+    "owed a step": 0,
+    "rewritten": 0,
+    "target dead": 0
+   }
+  },
+  "seeds": 150
+ },
+ "7652b44f5b824fbd00f6984c5f435e1da75605e84e35abaca9a3bcb1a05c938f": {
+  "cls": "mixed",
+  "counts": {},
+  "criterion": "M11.C.11",
+  "fallback_by_person": {
+   "c1": 0.4899107142857143,
+   "c2": 0.0,
+   "f": 0.0,
+   "m": 0.0,
+   "pf": 0.0,
+   "pm": 0.0
+  },
+  "fallback_rate": 0.08165178571428572,
+  "flagged": [],
+  "missing_moves": [],
+  "outcome": "PASS",
+  "readouts": [
+   {
+    "baseline_position": null,
+    "baseline_sd": 16.213328607661097,
+    "direction": 1,
+    "half_width": 3.922502091177877,
+    "holds": true,
+    "mean_difference": 10.522212520559469,
+    "n_nonzero": 94,
+    "nonzero_share": 1.0,
+    "p": 5.115797856801568e-07,
+    "pooled_sd": 16.39909418731896,
+    "readout": "disturbance",
+    "w_plus": 3529.0
+   }
+  ],
+  "scripted": {},
+  "seeds": 100
+ },
+ "8686d8bb63d68396ab1a29a361d4226b1efefbae8dabcefefecdf88eeeeba11c": {
+  "cls": "mixed",
+  "counts": {},
+  "criterion": "M11.C.7[joint over sided]",
+  "fallback_by_person": {
+   "ana": 0.0,
+   "bruno": 0.0,
+   "halim": 0.0,
+   "marta": 0.0,
+   "nadia": 0.0,
+   "pia": 0.0,
+   "ravi": 0.0,
+   "sofia": 0.0
+  },
+  "fallback_rate": 0.0,
+  "flagged": [],
+  "missing_moves": [],
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "baseline_position": null,
+    "baseline_sd": 0.41871250355123607,
+    "direction": 1,
+    "half_width": 0.09697911895482444,
+    "holds": false,
+    "mean_difference": 0.03197751576602171,
+    "n_nonzero": 136,
+    "nonzero_share": 1.0,
+    "p": 0.15806117689310928,
+    "pooled_sd": 0.4367963069645553,
+    "readout": "deviation_fall",
+    "w_plus": 5120.0
+   },
+   {
+    "baseline_position": null,
+    "baseline_sd": 3.281873475974394,
+    "direction": 1,
+    "half_width": 0.525209140545415,
+    "holds": true,
+    "mean_difference": 8.966666666666667,
+    "n_nonzero": 150,
+    "nonzero_share": 1.0,
+    "p": 1.0169336420576875e-26,
+    "pooled_sd": 2.32063498985776,
+    "readout": "landed_contacts",
+    "w_plus": 11325.0
+   }
+  ],
+  "scripted": {
+   "baseline": {
+    "dead": 0,
+    "made": 9600,
+    "not legal": 0,
+    "not reached": 0,
+    "owed a step": 0,
+    "rewritten": 0,
+    "target dead": 0
+   }
+  },
+  "seeds": 150
+ },
+ "9610b704c49f9b0abda1bdb7f41f3e7b69cc287ac7fa7bb4c335b0f3c4086aef": {
+  "cls": "mixed",
+  "counts": {},
+  "criterion": "M11.C.7[joint over one spouse]",
+  "fallback_by_person": {
+   "ana": 0.0,
+   "bruno": 0.0,
+   "halim": 0.0,
+   "marta": 0.0,
+   "nadia": 0.0,
+   "pia": 0.0,
+   "ravi": 0.0,
+   "sofia": 0.0
+  },
+  "fallback_rate": 0.0,
+  "flagged": [],
+  "missing_moves": [],
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "baseline_position": null,
+    "baseline_sd": 0.4085472037750779,
+    "direction": 1,
+    "half_width": 0.0815170482602473,
+    "holds": false,
+    "mean_difference": 0.04604790060497289,
+    "n_nonzero": 185,
+    "nonzero_share": 1.0,
+    "p": 0.1574404897360478,
+    "pooled_sd": 0.4220309171849832,
+    "readout": "deviation_fall",
+    "w_plus": 9336.0
+   },
+   {
+    "baseline_position": null,
+    "baseline_sd": 3.4783465141302137,
+    "direction": 1,
+    "half_width": 0.5883347790682669,
+    "mean_difference": -1.64,
+    "nonzero_share": 0.905,
+    "pooled_sd": 3.3609044008956577,
+    "readout": "landed_contacts",
+    "report_only": true
+   }
+  ],
+  "scripted": {},
+  "seeds": 200
+ },
+ "980f280f0708b3a91f2e5ace520fd0c7c08f8168492000801b78e208f28c1c42": {
+  "cls": "premise",
+  "counts": {},
+  "criterion": "M11.C.40",
+  "fallback_by_person": {
+   "ana": 0.0,
+   "bruno": 0.0,
+   "halim": 0.0,
+   "marta": 0.0,
+   "nadia": 0.0,
+   "pia": 0.0,
+   "ravi": 0.0,
+   "sofia": 0.0
+  },
+  "fallback_rate": 0.0,
+  "flagged": [],
+  "missing_moves": [],
+  "outcome": "PASS",
+  "readouts": [
+   {
+    "baseline_position": null,
+    "baseline_sd": 0.016180515805193658,
+    "direction": 1,
+    "half_width": 0.015583084833704118,
+    "holds": true,
+    "mean_difference": 0.3469194038358565,
+    "n_nonzero": 150,
+    "nonzero_share": 1.0,
+    "p": 1.1614203074307053e-26,
+    "pooled_sd": 0.06802198963153588,
+    "readout": "automatic_entropy_fall",
+    "w_plus": 11325.0
+   },
+   {
+    "baseline_position": null,
+    "baseline_sd": 0.34393184030202023,
+    "direction": 1,
+    "half_width": 0.06660868496568646,
+    "mean_difference": 0.558830602788671,
+    "nonzero_share": 1.0,
+    "pooled_sd": 0.3377660755746001,
+    "readout": "automatic_less_self",
+    "report_only": true
+   },
+   {
+    "baseline_position": null,
+    "baseline_sd": 0.34442181688568824,
+    "direction": 0,
+    "half_width": 0.06411744654670098,
+    "mean_difference": -0.21191119895281452,
+    "nonzero_share": 0.9866666666666667,
+    "pooled_sd": 0.3297526052371372,
+    "readout": "self_entropy_fall",
+    "report_only": true
+   },
+   {
+    "baseline_position": null,
+    "baseline_sd": 0.2822885064873428,
+    "direction": 0,
+    "half_width": 0.058278823748761005,
+    "mean_difference": -0.04,
+    "nonzero_share": 0.13333333333333333,
+    "pooled_sd": 0.24947371898724,
+    "readout": "empty_windows",
+    "report_only": true
+   }
+  ],
+  "scripted": {},
+  "seeds": 150
+ },
+ "99463fe456d71c61b220f2bafe85f2614df04ba2d9f2b5bf6e50151213ae19c4": {
+  "cls": "premise",
+  "counts": {},
+  "criterion": "M11.C.33",
   "fallback_by_person": {
    "c": 0.0,
    "f": 0.0,
@@ -1232,33 +1050,22 @@
     "pooled_sd": 0.0,
     "readout": "rise",
     "w_plus": 0.0
-   },
-   {
-    "baseline_position": null,
-    "baseline_sd": 0.013425474564974582,
-    "direction": -1,
-    "half_width": 0.003721351689372088,
-    "mean_difference": -0.007481094758455189,
-    "nonzero_share": 0.3,
-    "pooled_sd": 0.00949324410554104,
-    "readout": "support_blocked",
-    "report_only": true
    }
   ],
   "scripted": {
    "baseline": {
     "dead": 0,
-    "made": 1749,
-    "not legal": 0,
+    "made": 114,
+    "not legal": 1633,
     "not reached": 0,
-    "owed a step": 1,
+    "owed a step": 3,
     "rewritten": 0,
     "target dead": 0
    },
    "treatment": {
     "dead": 0,
     "made": 114,
-    "not legal": 783,
+    "not legal": 1633,
     "not reached": 0,
     "owed a step": 3,
     "rewritten": 0,
@@ -1267,10 +1074,10 @@
   },
   "seeds": 50
  },
- "ca369db53e768c85e78413b61d45cea87f6c5ca64c955dd9f5359e32cc8c07ee": {
-  "cls": "mixed",
+ "9c9a81adfffce2f56821b36e87080536f584f07d1f543527d037d3168310a887": {
+  "cls": "composite",
   "counts": {},
-  "criterion": "M11.C.34",
+  "criterion": "M11.C.23",
   "fallback_by_person": {
    "c1": 0.0,
    "c2": 0.0,
@@ -1282,27 +1089,249 @@
   "fallback_rate": 0.0,
   "flagged": [],
   "missing_moves": [],
+  "outcome": "PASS",
+  "readouts": [
+   {
+    "baseline_position": null,
+    "baseline_sd": 0.22545008425851168,
+    "direction": 1,
+    "half_width": 0.03607952770152074,
+    "holds": true,
+    "mean_difference": 0.05333333333333334,
+    "n_nonzero": 8,
+    "nonzero_share": 0.05333333333333334,
+    "p": 0.00390625,
+    "pooled_sd": 0.15941728339827213,
+    "readout": "relapses",
+    "w_plus": 36.0
+   }
+  ],
+  "scripted": {
+   "baseline": {
+    "dead": 0,
+    "made": 7795,
+    "not legal": 0,
+    "not reached": 0,
+    "owed a step": 5,
+    "rewritten": 0,
+    "target dead": 0
+   },
+   "treatment": {
+    "dead": 0,
+    "made": 7795,
+    "not legal": 0,
+    "not reached": 0,
+    "owed a step": 4,
+    "rewritten": 1,
+    "target dead": 0
+   }
+  },
+  "seeds": 150
+ },
+ "a5925e827e981f35aaf15097f9f9ae423cf7ea45f96b3cd632a6fb2ae5f4e499": {
+  "cls": "mixed",
+  "counts": {},
+  "criterion": "M11.C.7[joint over sided]",
+  "fallback_by_person": {
+   "ana": 0.0,
+   "bruno": 0.0,
+   "halim": 0.0,
+   "marta": 0.0,
+   "nadia": 0.0,
+   "pia": 0.0,
+   "ravi": 0.0,
+   "sofia": 0.0
+  },
+  "fallback_rate": 0.0,
+  "flagged": [],
+  "missing_moves": [],
   "outcome": "FAIL",
   "readouts": [
    {
     "baseline_position": null,
-    "baseline_sd": 0.5042991903404924,
-    "direction": -1,
-    "half_width": 0.16729731245052704,
+    "baseline_sd": 0.41940737995006516,
+    "direction": 1,
+    "half_width": 0.08097758807211654,
     "holds": false,
-    "mean_difference": 0.23333333333333334,
-    "n_nonzero": 81,
-    "nonzero_share": 0.54,
-    "p": 0.9956608541388985,
-    "pooled_sd": 0.74804742100457,
-    "readout": "automatic_reaction",
-    "w_plus": 1134.0
+    "mean_difference": 0.03414428730297617,
+    "n_nonzero": 183,
+    "nonzero_share": 1.0,
+    "p": 0.13683000747363394,
+    "pooled_sd": 0.42732418768666697,
+    "readout": "deviation_fall",
+    "w_plus": 9204.0
+   },
+   {
+    "baseline_position": null,
+    "baseline_sd": 3.2392070498129306,
+    "direction": 1,
+    "half_width": 0.44893119303563883,
+    "holds": true,
+    "mean_difference": 8.9,
+    "n_nonzero": 200,
+    "nonzero_share": 1.0,
+    "p": 6.062132163975071e-35,
+    "pooled_sd": 2.290465270589994,
+    "readout": "landed_contacts",
+    "w_plus": 20100.0
+   }
+  ],
+  "scripted": {
+   "baseline": {
+    "dead": 0,
+    "made": 12800,
+    "not legal": 0,
+    "not reached": 0,
+    "owed a step": 0,
+    "rewritten": 0,
+    "target dead": 0
+   }
+  },
+  "seeds": 200
+ },
+ "a5d5a6a7ec4626906916523a2d00e30da4a91104029dafc4a5a5edecfe2747ba": {
+  "cls": "premise",
+  "counts": {},
+  "criterion": "M11.C.30",
+  "fallback_by_person": {
+   "c1": 0.0,
+   "c2": 0.0,
+   "f": 0.0,
+   "m": 0.0,
+   "pf": 0.0,
+   "pm": 0.0
+  },
+  "fallback_rate": 0.0,
+  "flagged": [],
+  "missing_moves": [],
+  "outcome": "PASS",
+  "readouts": [
+   {
+    "baseline_position": null,
+    "baseline_sd": 121.94239532700674,
+    "direction": -1,
+    "half_width": 21.35436119561783,
+    "holds": true,
+    "mean_difference": -266.08419361466605,
+    "n_nonzero": 99,
+    "nonzero_share": 1.0,
+    "p": 4.044261774849743e-18,
+    "pooled_sd": 99.80567348895082,
+    "readout": "social_load",
+    "w_plus": 4939.0
    }
   ],
   "scripted": {},
-  "seeds": 150
+  "seeds": 100
  },
- "cb7f1bd2634c7cc7acccf632904a72e14f57865678bc8db00bfe022d54fba949": {
+ "a6d4527d93392221cc71aa16c640aa6dbc7bdff287cad2fc8e04e0527530ddfa": {
+  "cls": "composite",
+  "counts": {},
+  "criterion": "M11.C.2",
+  "fallback_by_person": {
+   "ana": 0.0,
+   "bruno": 0.0,
+   "halim": 0.0,
+   "marta": 0.0,
+   "nadia": 0.0,
+   "pia": 0.0,
+   "ravi": 0.0,
+   "sofia": 0.0
+  },
+  "fallback_rate": 0.0,
+  "flagged": [],
+  "missing_moves": [],
+  "outcome": "PASS",
+  "readouts": [
+   {
+    "baseline_position": null,
+    "baseline_sd": 15.173736751317932,
+    "direction": 1,
+    "half_width": 2.0550702945517925,
+    "holds": true,
+    "mean_difference": 2.3439806376579027,
+    "n_nonzero": 27,
+    "nonzero_share": 0.98,
+    "p": 0.0296500093560793,
+    "pooled_sd": 16.59721634793762,
+    "readout": "symptom_load",
+    "w_plus": 268.0
+   }
+  ],
+  "scripted": {},
+  "seeds": 50
+ },
+ "ab70e7279d5d7ef86ac5d04b35f7cd389e4f769a5a4402d41339f27be4098d3a": {
+  "cls": "composite",
+  "counts": {},
+  "criterion": "M11.C.12",
+  "fallback_by_person": {
+   "a": 0.0,
+   "b": 0.0,
+   "pa": 0.0,
+   "pb": 0.0
+  },
+  "fallback_rate": 0.0,
+  "flagged": [],
+  "missing_moves": [],
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "baseline_position": null,
+    "baseline_sd": 4.3038507540493685,
+    "direction": 1,
+    "half_width": 1.2830460196286213,
+    "holds": false,
+    "mean_difference": 1.58,
+    "n_nonzero": 94,
+    "nonzero_share": 0.94,
+    "p": 0.06208576896879302,
+    "pooled_sd": 5.3518523178730595,
+    "readout": "marital_conflict",
+    "w_plus": 2640.0
+   }
+  ],
+  "scripted": {},
+  "seeds": 100
+ },
+ "ac4d76e89dac63aaa3f6c74352ce74de0f9753737c1a4ed366e2a49ea66cbbe1": {
+  "cls": "composite",
+  "counts": {},
+  "criterion": "M11.C.2",
+  "fallback_by_person": {
+   "ana": 0.0,
+   "bruno": 0.0,
+   "halim": 0.0,
+   "marta": 0.0,
+   "nadia": 0.0,
+   "pia": 0.0,
+   "ravi": 0.0,
+   "sofia": 0.0
+  },
+  "fallback_rate": 0.0,
+  "flagged": [],
+  "missing_moves": [],
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "baseline_position": null,
+    "baseline_sd": 24.74852866437309,
+    "direction": 1,
+    "half_width": 1.45889184861224,
+    "holds": false,
+    "mean_difference": 0.26039781178748983,
+    "n_nonzero": 102,
+    "nonzero_share": 0.985,
+    "p": 0.4011530730704741,
+    "pooled_sd": 24.830601422420663,
+    "readout": "symptom_load",
+    "w_plus": 2702.0
+   }
+  ],
+  "scripted": {},
+  "seeds": 200
+ },
+ "b7875f456618219652af684f84f07c75ab31a3e84f9a68a31bf936d7c3790edb": {
   "cls": "premise",
   "counts": {},
   "criterion": "M11.C.14[talking it out]",
@@ -1367,13 +1396,139 @@
   },
   "seeds": 100
  },
- "cd9fc8267742ce12a5d16cf328d3a1437a620720f8893b62f3956cac2072e1e0": {
+ "b94dea8fe69783460ca4aba2247651a14b772ae2d18c2d784f1e852709549205": {
+  "cls": "mixed",
+  "counts": {},
+  "criterion": "M11.C.7[one spouse over sided]",
+  "fallback_by_person": {
+   "ana": 0.0,
+   "bruno": 0.0,
+   "halim": 0.0,
+   "marta": 0.0,
+   "nadia": 0.0,
+   "pia": 0.0,
+   "ravi": 0.0,
+   "sofia": 0.0
+  },
+  "fallback_rate": 0.0,
+  "flagged": [],
+  "missing_moves": [],
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "baseline_position": null,
+    "baseline_sd": 0.41940737995006516,
+    "direction": 1,
+    "half_width": 0.07481186457265622,
+    "holds": false,
+    "mean_difference": -0.011903613301996706,
+    "n_nonzero": 192,
+    "nonzero_share": 1.0,
+    "p": 0.6130546600988391,
+    "pooled_sd": 0.41401290322223855,
+    "readout": "deviation_fall",
+    "w_plus": 9043.0
+   },
+   {
+    "baseline_position": null,
+    "baseline_sd": 3.4783465141302137,
+    "direction": 1,
+    "half_width": 0.4820742318617804,
+    "holds": true,
+    "mean_difference": 10.54,
+    "n_nonzero": 200,
+    "nonzero_share": 1.0,
+    "p": 6.275146291439748e-35,
+    "pooled_sd": 2.4595624074580633,
+    "readout": "landed_contacts",
+    "w_plus": 20100.0
+   }
+  ],
+  "scripted": {
+   "baseline": {
+    "dead": 0,
+    "made": 12800,
+    "not legal": 0,
+    "not reached": 0,
+    "owed a step": 0,
+    "rewritten": 0,
+    "target dead": 0
+   }
+  },
+  "seeds": 200
+ },
+ "ba3b33356cfed959d4df5dea1e33756602e2345b78f48ccb9e2cec6aad74ab51": {
+  "cls": "premise",
+  "counts": {},
+  "criterion": "M11.C.24",
+  "fallback_by_person": {
+   "a": 0.0,
+   "b": 0.0,
+   "pa": 0.0,
+   "pb": 0.0
+  },
+  "fallback_rate": 0.0,
+  "flagged": [],
+  "missing_moves": [],
+  "outcome": "PASS",
+  "readouts": [
+   {
+    "baseline_position": null,
+    "baseline_sd": 1.382306427531299,
+    "direction": 1,
+    "half_width": 0.48769468218281536,
+    "holds": true,
+    "mean_difference": 8.806098854851959,
+    "n_nonzero": 150,
+    "nonzero_share": 1.0,
+    "p": 1.185005392007276e-26,
+    "pooled_sd": 2.199281163672393,
+    "readout": "under_change",
+    "w_plus": 11324.0
+   },
+   {
+    "baseline_position": null,
+    "baseline_sd": 4.6966869683847285,
+    "direction": -1,
+    "half_width": 0.9919450450367578,
+    "holds": true,
+    "mean_difference": -7.9948168842484115,
+    "n_nonzero": 150,
+    "nonzero_share": 1.0,
+    "p": 1.2636642004958626e-21,
+    "pooled_sd": 4.378215848688488,
+    "readout": "over_change",
+    "w_plus": 10716.0
+   }
+  ],
+  "scripted": {
+   "baseline": {
+    "dead": 0,
+    "made": 15589,
+    "not legal": 0,
+    "not reached": 0,
+    "owed a step": 3,
+    "rewritten": 8,
+    "target dead": 0
+   },
+   "treatment": {
+    "dead": 0,
+    "made": 7789,
+    "not legal": 0,
+    "not reached": 0,
+    "owed a step": 3,
+    "rewritten": 8,
+    "target dead": 0
+   }
+  },
+  "seeds": 150
+ },
+ "bd89c82b294b22dbf742723ebeb7fe77b0fac9a0c5a95801e0eda8d59e90824e": {
   "cls": "composite",
   "counts": {},
-  "criterion": "M11.C.21",
+  "criterion": "M11.C.43",
   "fallback_by_person": {
-   "c1": 0.0,
-   "c2": 0.0,
+   "c": 0.0,
    "f": 0.0,
    "m": 0.0,
    "pf": 0.0,
@@ -1386,42 +1541,116 @@
   "readouts": [
    {
     "baseline_position": null,
-    "baseline_sd": 2.986510763341147,
+    "baseline_sd": 17.21062763168723,
     "direction": 1,
-    "half_width": 0.45125864209274535,
+    "half_width": 2.701011540681994,
     "holds": false,
-    "mean_difference": -0.9317119131100803,
-    "n_nonzero": 56,
-    "nonzero_share": 0.79,
-    "p": 0.9999849262099254,
-    "pooled_sd": 2.600196815021636,
-    "readout": "target_rise",
-    "w_plus": 287.0
+    "mean_difference": -3.3869302521833897,
+    "n_nonzero": 181,
+    "nonzero_share": 1.0,
+    "p": 0.9859498095598165,
+    "pooled_sd": 15.51816673723561,
+    "readout": "loss_rise",
+    "w_plus": 6686.0
    }
   ],
-  "scripted": {
-   "baseline": {
-    "dead": 0,
-    "made": 2598,
-    "not legal": 0,
-    "not reached": 0,
-    "owed a step": 1,
-    "rewritten": 1,
-    "target dead": 0
-   },
-   "treatment": {
-    "dead": 0,
-    "made": 2598,
-    "not legal": 0,
-    "not reached": 0,
-    "owed a step": 1,
-    "rewritten": 1,
-    "target dead": 0
-   }
-  },
-  "seeds": 100
+  "scripted": {},
+  "seeds": 200
  },
- "cf52bf1770888f6e86a52a6cc7d6506d886fc247a34ded5ac74804a2fd2e9f67": {
+ "dee97b8fc8355c7d61822e2e4ac64d807de7f4252d1b8e453ea6e0a568031e76": {
+  "cls": "composite",
+  "counts": {},
+  "criterion": "M11.C.39",
+  "fallback_by_person": {
+   "c": 0.0,
+   "f": 0.0,
+   "m": 0.0,
+   "pf": 0.0,
+   "pm": 0.0
+  },
+  "fallback_rate": 0.0,
+  "flagged": [],
+  "missing_moves": [],
+  "outcome": "PASS",
+  "readouts": [
+   {
+    "baseline_position": null,
+    "baseline_sd": 8.44303453829043,
+    "direction": 1,
+    "half_width": 3.928211997905939,
+    "holds": true,
+    "mean_difference": 17.56,
+    "n_nonzero": 148,
+    "nonzero_share": 0.9866666666666667,
+    "p": 8.119562300134076e-14,
+    "pooled_sd": 18.15880728129451,
+    "readout": "pattern_after_spell",
+    "w_plus": 9366.5
+   },
+   {
+    "baseline_position": null,
+    "baseline_sd": 0.3828539946351007,
+    "direction": 1,
+    "half_width": 0.06293011784148846,
+    "mean_difference": 0.08,
+    "nonzero_share": 0.1,
+    "pooled_sd": 0.3043311513211054,
+    "readout": "time_to_remission",
+    "report_only": true
+   }
+  ],
+  "scripted": {},
+  "seeds": 150
+ },
+ "e3b10f08fc8d8a63a70baf548e4f8fab2930a06d2eed33d2f30cc54735a23086": {
+  "cls": "mixed",
+  "counts": {},
+  "criterion": "M11.C.7[joint over one spouse]",
+  "fallback_by_person": {
+   "ana": 0.0,
+   "bruno": 0.0,
+   "halim": 0.0,
+   "marta": 0.0,
+   "nadia": 0.0,
+   "pia": 0.0,
+   "ravi": 0.0,
+   "sofia": 0.0
+  },
+  "fallback_rate": 0.0,
+  "flagged": [],
+  "missing_moves": [],
+  "outcome": "FAIL",
+  "readouts": [
+   {
+    "baseline_position": null,
+    "baseline_sd": 0.4031012376386469,
+    "direction": 1,
+    "half_width": 0.09515845815524122,
+    "holds": false,
+    "mean_difference": 0.05964860114987215,
+    "n_nonzero": 141,
+    "nonzero_share": 1.0,
+    "p": 0.14412680163222696,
+    "pooled_sd": 0.4293905417632141,
+    "readout": "deviation_fall",
+    "w_plus": 5522.0
+   },
+   {
+    "baseline_position": null,
+    "baseline_sd": 3.4529823701145865,
+    "direction": 1,
+    "half_width": 0.680629327067991,
+    "mean_difference": -1.4533333333333334,
+    "nonzero_share": 0.9066666666666666,
+    "pooled_sd": 3.3685145658454854,
+    "readout": "landed_contacts",
+    "report_only": true
+   }
+  ],
+  "scripted": {},
+  "seeds": 150
+ },
+ "ee6e37b25fe7cef5890c646c41c16b3b52270ea12fd16c3900b43ac3b5457626": {
   "cls": "mixed",
   "counts": {},
   "criterion": "M11.C.22",
@@ -1468,235 +1697,6 @@
    }
   ],
   "scripted": {},
-  "seeds": 150
- },
- "d69c3d84c547cda8295699dc961adc83f9f0b2fc6880d9e1b6951ed00fe9846a": {
-  "cls": "composite",
-  "counts": {},
-  "criterion": "M11.C.12",
-  "fallback_by_person": {
-   "a": 0.0,
-   "b": 0.0,
-   "pa": 0.0,
-   "pb": 0.0
-  },
-  "fallback_rate": 0.0,
-  "flagged": [],
-  "missing_moves": [],
-  "outcome": "FAIL",
-  "readouts": [
-   {
-    "baseline_position": null,
-    "baseline_sd": 4.3038507540493685,
-    "direction": 1,
-    "half_width": 1.2830460196286213,
-    "holds": false,
-    "mean_difference": 1.58,
-    "n_nonzero": 94,
-    "nonzero_share": 0.94,
-    "p": 0.06208576896879302,
-    "pooled_sd": 5.3518523178730595,
-    "readout": "marital_conflict",
-    "w_plus": 2640.0
-   }
-  ],
-  "scripted": {},
-  "seeds": 100
- },
- "dd5ffe8c9ef4146a9b1867aa45fe91ea0579fd114fed088a6cfd853fde69944a": {
-  "cls": "premise",
-  "counts": {},
-  "criterion": "M11.C.33",
-  "fallback_by_person": {
-   "c": 0.0,
-   "f": 0.0,
-   "m": 0.0,
-   "pf": 0.0,
-   "pm": 0.0
-  },
-  "fallback_rate": 0.0,
-  "flagged": [],
-  "missing_moves": [],
-  "outcome": "FAIL",
-  "readouts": [
-   {
-    "baseline_position": null,
-    "baseline_sd": 0.0,
-    "direction": 1,
-    "half_width": 0.0,
-    "holds": false,
-    "mean_difference": 0.0,
-    "n_nonzero": 0,
-    "nonzero_share": 0.0,
-    "p": 1.0,
-    "pooled_sd": 0.0,
-    "readout": "rise",
-    "w_plus": 0.0
-   }
-  ],
-  "scripted": {
-   "baseline": {
-    "dead": 0,
-    "made": 114,
-    "not legal": 1633,
-    "not reached": 0,
-    "owed a step": 3,
-    "rewritten": 0,
-    "target dead": 0
-   },
-   "treatment": {
-    "dead": 0,
-    "made": 114,
-    "not legal": 1633,
-    "not reached": 0,
-    "owed a step": 3,
-    "rewritten": 0,
-    "target dead": 0
-   }
-  },
-  "seeds": 50
- },
- "ddebf5b48a79fab0bd298174934450d27c1fcaecd5affaa81006d3df8e8f36c5": {
-  "cls": "composite",
-  "counts": {},
-  "criterion": "M11.C.2",
-  "fallback_by_person": {
-   "ana": 0.0,
-   "bruno": 0.0,
-   "halim": 0.0,
-   "marta": 0.0,
-   "nadia": 0.0,
-   "pia": 0.0,
-   "ravi": 0.0,
-   "sofia": 0.0
-  },
-  "fallback_rate": 0.0,
-  "flagged": [],
-  "missing_moves": [],
-  "outcome": "FAIL",
-  "readouts": [
-   {
-    "baseline_position": null,
-    "baseline_sd": 27.566454069863063,
-    "direction": 1,
-    "half_width": 1.543363664689463,
-    "holds": false,
-    "mean_difference": -0.2187495912227925,
-    "n_nonzero": 93,
-    "nonzero_share": 0.985,
-    "p": 0.5183365542530782,
-    "pooled_sd": 27.223252705412975,
-    "readout": "symptom_load",
-    "w_plus": 2174.0
-   }
-  ],
-  "scripted": {},
-  "seeds": 200
- },
- "fa8261bc8796b3e0671878d633f91b6211233828b3a92da88f214ad1420b6d2e": {
-  "cls": "composite",
-  "counts": {},
-  "criterion": "M11.C.39",
-  "fallback_by_person": {
-   "c": 0.0,
-   "f": 0.0,
-   "m": 0.0,
-   "pf": 0.0,
-   "pm": 0.0
-  },
-  "fallback_rate": 0.0,
-  "flagged": [],
-  "missing_moves": [],
-  "outcome": "PASS",
-  "readouts": [
-   {
-    "baseline_position": null,
-    "baseline_sd": 8.44303453829043,
-    "direction": 1,
-    "half_width": 3.928211997905939,
-    "holds": true,
-    "mean_difference": 17.56,
-    "n_nonzero": 148,
-    "nonzero_share": 0.9866666666666667,
-    "p": 8.119562300134076e-14,
-    "pooled_sd": 18.15880728129451,
-    "readout": "pattern_after_spell",
-    "w_plus": 9366.5
-   },
-   {
-    "baseline_position": null,
-    "baseline_sd": 0.3828539946351007,
-    "direction": 1,
-    "half_width": 0.06293011784148846,
-    "mean_difference": 0.08,
-    "nonzero_share": 0.1,
-    "pooled_sd": 0.3043311513211054,
-    "readout": "time_to_remission",
-    "report_only": true
-   }
-  ],
-  "scripted": {},
-  "seeds": 150
- },
- "ff80c88c667c43f4783f0360a878f4646ba777def14247086aa2437e3f21cab6": {
-  "cls": "mixed",
-  "counts": {},
-  "criterion": "M11.C.7[one spouse over sided]",
-  "fallback_by_person": {
-   "ana": 0.0,
-   "bruno": 0.0,
-   "halim": 0.0,
-   "marta": 0.0,
-   "nadia": 0.0,
-   "pia": 0.0,
-   "ravi": 0.0,
-   "sofia": 0.0
-  },
-  "fallback_rate": 0.0,
-  "flagged": [],
-  "missing_moves": [],
-  "outcome": "FAIL",
-  "readouts": [
-   {
-    "baseline_position": null,
-    "baseline_sd": 0.42362921316093954,
-    "direction": 1,
-    "half_width": 0.08882549123760158,
-    "holds": false,
-    "mean_difference": -0.002665445150310252,
-    "n_nonzero": 143,
-    "nonzero_share": 1.0,
-    "p": 0.5004019716313582,
-    "pooled_sd": 0.41349263477670656,
-    "readout": "deviation_fall",
-    "w_plus": 5148.0
-   },
-   {
-    "baseline_position": null,
-    "baseline_sd": 3.4529823701145865,
-    "direction": 1,
-    "half_width": 0.552592266643646,
-    "holds": true,
-    "mean_difference": 10.42,
-    "n_nonzero": 150,
-    "nonzero_share": 1.0,
-    "p": 1.0327368337658618e-26,
-    "pooled_sd": 2.441627249225621,
-    "readout": "landed_contacts",
-    "w_plus": 11325.0
-   }
-  ],
-  "scripted": {
-   "baseline": {
-    "dead": 0,
-    "made": 9600,
-    "not legal": 0,
-    "not reached": 0,
-    "owed a step": 0,
-    "rewritten": 0,
-    "target dead": 0
-   }
-  },
   "seeds": 150
  }
 }

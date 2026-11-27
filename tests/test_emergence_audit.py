@@ -118,11 +118,12 @@ def test_m111g_ea1_the_real_scope_is_the_plans():
     Since spec revision 67's regeneration (T-266, 2026-11-22) `M11.C.12`, `M11.C.51` and
     `M11.C.7[one spouse over sided]` fail and `M11.C.17` passes: eleven rows. Since spec revision 70's regeneration
     (T-296, 2026-11-26) `M11.C.12` and `M11.C.53` pass and `M11.C.7[joint over sided]` fails: twelve rows (each a
-    borderline move, T-300)."""
+    borderline move, T-300). Since spec revision 71's regeneration (T-297, 2026-11-27) `M11.C.51` passes: thirteen
+    rows (borderline, T-300)."""
     audited, rows, by_class, excluded = ea.in_scope(ea.read_records(), ea.read_config())
     ea.check_registries(rows)
     keys = {r.key for r in audited}
-    assert len(audited) == 12 and {"M11.C.52", "M11.C.55", "M11.C.6", "M11.C.17"} <= keys
+    assert len(audited) == 13 and {"M11.C.52", "M11.C.55", "M11.C.6", "M11.C.17"} <= keys
     assert "M11.C.48[phase_d]" not in keys
     assert "M11.C.34" not in keys
     assert [k for k, _ in excluded] == ["M11.C.39"]

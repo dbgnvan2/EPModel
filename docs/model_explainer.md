@@ -1387,7 +1387,7 @@ reviewed by the owner one at a time on 2026-10-17 (`docs/archive/implementation_
   the failure; the sizing and the return are `[I]`, pending owner review). Since revision 71 (T-297) only a contact
   move lends (`coach_lending`: `STAY-IN-CONTACT`, `I-POSITION`, `OVERFUNCTION`, `TRIANGLE`); his `CUTOFF` withdraws
   contact and lends nothing, because borrowed self is negotiated in the relationship (*FTCP* Ch. 16 ¶64 `[B]`) and
-  comes from being seen as on her side (KS18.5 `[K]`); the class is `[I]`, Claude's decision, pending owner review.
+  comes from being seen as on her side (KS18.5 `[K]`); the class is `[I]`; the owner chose it on 2026-11-27 ("all but cutoff", Claude's recommendation).
   A move still in flight when he retires (`M2.A.0k`) neither lends nor lands. `[I]` in form; the rule
   that a sided coach "does not count" is §13.1's `[T]`. P9 described the sided coach as drawn in by a `TRIANGLE`, but
   a family member's moves toward a professional are `SPLIT`, `FRAME_AMBIGUITY` and `DISPLACE` (§5.7), so `SPLIT` is

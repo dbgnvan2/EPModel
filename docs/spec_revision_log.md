@@ -6,7 +6,7 @@ The spec holds the current rules; this file holds how they got there. Until revi
 
 The sections `### Revision 34` to `### Revision 5` and the undated section are the spec's text as it stood, moved whole; a statement inside one of them (revision 34's, that revisions 13 to 33 are "not here") was true when written, before the bodies' narratives were moved under their own revisions. Those narratives are the bullets `- \`ID\`: sentence`, each the sentence as it stood in the body, under the revision it names, in sections titled "inline narratives moved from the bodies at revision 35" where no section existed.
 
-### Revision 71 — T-297, revision 70's minor items, 2026-11-26 ⟦rev71 · T-297, Claude's decision 2026-11-26, pending owner review⟧
+### Revision 71 — T-297, revision 70's minor items, 2026-11-26 ⟦rev71 · T-297, item 1 the owner's decision 2026-11-27 ("all but cutoff", Claude's recommendation)⟧
 
 The engine hash moves from `9a7c6f9d7e0d` to `ef5d457c3acc`. Items (1) and (2) change what a run computes only where a
 sided coach sends a `CUTOFF` or a retired coach's move is still in flight; (3) to (5) change no run.

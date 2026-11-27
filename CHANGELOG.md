@@ -72,7 +72,7 @@ All notable changes to this project are recorded here. Dates are ISO.
   effect (`docs/review/2026-11-26_short_rerun_test.md`). Its run mix, Claude's decision pending the owner: D2 and the
   Phase D mutation record at 0.2, every other record in full, the emergence audit at the milestone run.
 - **T-296.** Revision 70 ran under it on Mini1, the MacBook Pro and this Mac, 5.3 hours of wall time; every step
-  exited 0. `docs/version_3_revision_70_changes.md` lists nine verdict moves, none large; they wait for the milestone
+  exited 0. `docs/archive/version_3_revision_70_changes.md` lists nine verdict moves, none large; they wait for the milestone
   run (T-300). Thirty T-296 marks removed; the audit's stays. Revision 69's page frozen at `0b95abf` and archived.
 - **Suite.** 1556 tests: 1550 pass, 1 skips, 5 strict expected failures (the four standing and the audit's T-296 mark),
   measured 2026-11-26 on this Mac, exit 0.

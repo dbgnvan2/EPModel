@@ -486,3 +486,36 @@ def test_m11c7_a_sided_coachs_contact_never_lands():
     assert external.landing_probability(sided, sided.people[HALIM], sided.people[RAVI], PARAMS) == 0.0
     with mock.patch.object(external, "coach_side", return_value=None):
         assert external.landing_probability(sided, sided.people[HALIM], sided.people[RAVI], PARAMS) > 0.0
+
+
+def test_m1e7e_t297_a_sided_coach_lends_on_contact_moves_and_a_retired_one_acts_on_no_one():
+    """Revision 71, T-297 (1): the coach on Marta's side lends on a contact move (STAY-IN-CONTACT, TRIANGLE) and not on
+    its CUTOFF. T-297 (2): once the coach has retired (``inactive``) a move still in flight lends nothing and lands
+    nothing, though Ravi's binders are failing and an unsided coach's contact to him could land. Adversarial: the
+    active coach's same moves lend and land."""
+    from src.bowen.engine.external import apply_landed_contacts
+
+    def delivered(state, kind, target, index):
+        event = sent(state, HALIM, target, 10, index=index)
+        object.__setattr__(event, "kind", kind)
+        return (Delivery(11, event.id, target, Role.TARGET, emitted_tick=10, latency=1),)
+
+    state = fresh()
+    state.tick = 10
+    _recruit(state, MARTA, 9)
+    for index, kind in enumerate(("STAY-IN-CONTACT", "TRIANGLE", "CUTOFF")):
+        lent = [r for r in apply_landed_contacts(state, delivered(state, kind, MARTA, index), PARAMS)
+                if r.mechanism == "coach_lending"]
+        assert bool(lent) is (kind != "CUTOFF"), kind
+    for retired in (False, True):
+        for target, recruited, expected in ((MARTA, True, "coach_lending"), (RAVI, False, "landed_contact")):
+            state = fresh()
+            state.tick = 10
+            failing(state)
+            if recruited:
+                _recruit(state, MARTA, 9)
+            state.people[HALIM].inactive = retired
+            with mock.patch.object(state.draws, "uniform", return_value=0.0):  # any landing chance above 0 lands
+                found = {r.mechanism for r in apply_landed_contacts(state, delivered(state, "STAY-IN-CONTACT", target, 0),
+                                                                     PARAMS)}
+            assert found == (set() if retired else {expected}), (retired, expected)

@@ -27,6 +27,7 @@ from src.bowen.io.load import (
 from src.bowen.io.sinks import JsonlFileSink
 from src.bowen.render.trace import render
 from src.bowen.scenario.assemble import assemble
+from src.bowen.scenario.divorce import DivorceSource
 from src.bowen.scenario.header import build_header
 from src.bowen.scenario.scripted_source import ScriptedSource
 
@@ -37,10 +38,14 @@ class RunResult:
     records: list[Record]
 
 
-def run_phase_b(seed: int, *, script: ScriptedSource | None = None, extra: Emitter | None = None) -> RunResult:
-    """Purpose: one full Phase B run; records are collected and also sent to ``extra`` if given.
-    Spec:    docs/bowen_agent_model_spec_v2.md#M16.A.1, #M16.B.1
-    Tests:   tests/bowen/test_determinism.py::test_m11d5_same_seed_same_log
+def run_phase_b(seed: int, *, script: ScriptedSource | None = None, extra: Emitter | None = None,
+                divorces: tuple = ()) -> RunResult:
+    """Purpose: one full Phase B run; records are collected and also sent to ``extra`` if given. ``divorces`` are
+             ``(week, leaver, scale)``: the run's source is then a ``DivorceSource`` that builds each in its week and
+             emits each one it drops to the run's emitter (`M16.A.11`, revision 71, T-297 (3)).
+    Spec:    docs/bowen_agent_model_spec_v2.md#M16.A.1, #M16.B.1, #M16.A.11
+    Tests:   tests/bowen/test_determinism.py::test_m11d5_same_seed_same_log,
+             tests/bowen/test_reactive_amount.py::test_m16a11_t297_the_runner_gives_a_divorce_source_its_emitter
     """
     constants, kinds, family = load_constants(), load_event_kinds(), load_family()
     script = script or load_script(kinds=kinds, family=family)
@@ -51,9 +56,13 @@ def run_phase_b(seed: int, *, script: ScriptedSource | None = None, extra: Emitt
         build_header(
             seed=seed, spec_revision=load_spec_revision(), constants=constants, frozen=load_frozen_constants(),
             kinds=kinds, family=family, script=script, activation=parts.activation, visibility=parts.visibility,
+            divorces=divorces,
         )
     )
-    run(parts.state, parts.source, parts.params, parts.visibility, parts.activation, emitter, ticks=script.ticks)
+    source = parts.source
+    if divorces:
+        source = DivorceSource(source, parts.state, parts.params, tuple(divorces), emitter=emitter)
+    run(parts.state, source, parts.params, parts.visibility, parts.activation, emitter, ticks=script.ticks)
     return RunResult(parts.state, collector.records)
 
 

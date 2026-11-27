@@ -444,6 +444,8 @@ def test_s1_3b_an_undeclared_act_fails_to_load(tmp_path):
         "twice": (text + "| side_taking | SPLIT | again |\n", "exactly"),
         "empty": (text.replace("| side_taking | SPLIT |", "| side_taking |  |"), "no acts"),
         "off the side": (text.replace("| side_taking | SPLIT |", "| side_taking | PURSUE |"), "family-to-external"),
+        "lent off the repertoire": (text.replace("| coach_lending | STAY-IN-CONTACT,", "| coach_lending | PURSUE,"),
+                                    "external repertoire"),  # revision 71, T-297 (1)
     }
     assert all(b != text for b, _ in broken.values())
     for name, (body, message) in broken.items():

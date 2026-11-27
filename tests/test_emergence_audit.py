@@ -229,6 +229,9 @@ def test_m111g_ea8_agreement_disagreement_raises(tmp_path):
         with mock.patch.object(ea, "record_json", return_value=[{**twin, "outcome": "PASS", "seeds": 200}]):
             with pytest.raises(SystemExit, match="the same edits"):
                 ea.check_agreement(entries, ENGINE)
+        rerun = {**twin, "outcome": "PASS", "seeds": 200, "first_run": {"outcome": "FAIL", "seeds": 50}}
+        with mock.patch.object(ea, "record_json", return_value=[rerun]):  # T-297 (4): compared by its first run
+            assert any("agrees" in line for line in ea.check_agreement(entries, ENGINE))
         drifted = [dataclasses.replace(m, new="| `learning_rate` | 0.1 |") if m.id == "learner-off-share-kept" else m
                    for m in d_tool.MUTANTS]
         with mock.patch.object(d_tool, "MUTANTS", drifted):

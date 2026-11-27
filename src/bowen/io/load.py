@@ -135,6 +135,9 @@ def load_act_classes(kinds: EventKinds, path: Path = CONFIG_DIR / "act_classes.m
     if not classes["side_taking"] <= classes["family_to_external"]:  # M8.3: made toward an external agent (M5.B.4)
         raise ConfigError(f"{path}: a side-taking act must be a family-to-external move: "
                           f"{sorted(classes['side_taking'] - classes['family_to_external'])}")
+    if not classes["coach_lending"] <= classes["external_repertoire"]:  # M1.E.7e: an external agent's own moves
+        raise ConfigError(f"{path}: a lending act must be in the external repertoire: "
+                          f"{sorted(classes['coach_lending'] - classes['external_repertoire'])}")
     return classes
 
 

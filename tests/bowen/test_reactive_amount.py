@@ -321,6 +321,28 @@ def test_m16a11_t295_a_dropped_divorce_is_logged_once_and_the_source_passes_rule
     assert living.scheduled(0) == living.scheduled(0) and living.built == [0]
 
 
+
+def test_m16a11_t297_the_runner_gives_a_divorce_source_its_emitter(monkeypatch):
+    """Revision 71, T-297 (3): a Phase B run given a divorce wraps its source in a ``DivorceSource`` on the run's own
+    emitter, so a divorce whose spouse has died reaches the run's log once as a ``ScheduledDropRecord``, and the
+    header's config hash covers the divorce. Adversarial: the same run with the spouse living logs no drop."""
+    from src.bowen import run as runner
+    from src.bowen.engine.log_records import ScheduledDropRecord
+    from src.bowen.scenario.scripted_source import ScriptedSource
+
+    assemble = runner.assemble
+    for widowed in (True, False):
+        def assembled(*args, **kwargs):
+            parts = assemble(*args, **kwargs)
+            parts.state.people[MARTA].alive = not widowed
+            return parts
+        monkeypatch.setattr(runner, "assemble", assembled)
+        quiet = ScriptedSource("quiet", 4, (), ())
+        records = runner.run_phase_b(3, script=quiet, divorces=((2, RAVI, 1.0),)).records
+        drops = [r.people for r in records if isinstance(r, ScheduledDropRecord)]
+        assert drops == ([(MARTA,)] if widowed else []), widowed
+        assert records[0].config_hash != runner.run_phase_b(3, script=quiet).records[0].config_hash
+
 def test_m4d3d_t261_4_a_conflict_that_never_lands_still_costs_its_sender():
     """Revision 68, T-261 (4): the cost is charged at selection, from the sender's own energy, whether or not the act
     reaches the other (here the target has died)."""

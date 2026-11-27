@@ -1083,7 +1083,7 @@ project decisions, not corpus findings, and must never be cited as Bowen's.
 moving `expectations` against `investment` (`M7.C.1b`), and the projection line in `M11.G`'s readout.
 
 
-**Divorce** *(revision 66, the owner 2026-11-19)* is scheduled by a scenario, not drawn by the life course: a `SEPARATION` moves the leaving spouse to a household of their own and keeps every tie, bond energy and interactivity unchanged (coupling does not decay with distance, convergence C7), and a `DIVORCE` stressor of 73 LCU (Holmes and Rahe) lands on each spouse and, by tie, on each child. The family's marital tie still names the former couple, so their conflict is still marital conflict to the sinks. A scenario may size the divorce up by level or chronic anxiety, never by observed conflict. `[I]` the event's form, weeks and the children's reach. Building one fails if a spouse is dead or a parent–child tie does not join one spouse to a child (revision 68). A divorce is built in its own week from the run's state then (`DivorceSource`), so a death or a birth before that week is seen; one whose spouse has died by then is dropped and recorded, "N of M" (revision 69, approved by the owner 2026-11-24). `M7.C.1m`
+**Divorce** *(revision 66, the owner 2026-11-19)* is scheduled by a scenario, not drawn by the life course: a `SEPARATION` moves the leaving spouse to a household of their own and keeps every tie, bond energy and interactivity unchanged (coupling does not decay with distance, convergence C7), and a `DIVORCE` stressor of 73 LCU (Holmes and Rahe) lands on each spouse and, by tie, on each child. The family's marital tie still names the former couple, so their conflict is still marital conflict to the sinks. A scenario may size the divorce up by level or chronic anxiety, never by observed conflict. `[I]` the event's form, weeks and the children's reach. Building one fails if a spouse is dead or a parent–child tie does not join one spouse to a child (revision 68). A divorce is built in its own week from the run's state then (`DivorceSource`), so a death or a birth before that week is seen; one whose spouse has died by then is dropped and recorded, "N of M" (revision 69, approved by the owner 2026-11-24); the Phase B runner given a divorce wraps its source so each drop also reaches the run's log (revision 71, T-297). `M7.C.1m`
 ### 8.2 Cutoff and focus *(spec revision 29, built 2026-10-14: the owner's decisions of 2026-10-13; the forms are Claude's recommendation, approved by the owner 2026-10-16)*
 
 **What it is for.** The diagnosis of 2026-10-13 (plan §4.7) found that `M11.C.10`'s chain had no link from a parent's
@@ -1384,7 +1384,11 @@ reviewed by the owner one at a time on 2026-10-17 (`docs/archive/implementation_
   sides with, it lends pseudo-self (revision 70, T-019): the over-functioning transfer with the coach as the giver,
   which raises her functional level and not her basic level, and goes back once the side lapses, not before (his own
   over-functioning move toward her shifts nothing then, or it would undo the loan) (`[K]` KS18.5 names
-  the failure; the sizing and the return are `[I]`, pending owner review). `[I]` in form; the rule
+  the failure; the sizing and the return are `[I]`, pending owner review). Since revision 71 (T-297) only a contact
+  move lends (`coach_lending`: `STAY-IN-CONTACT`, `I-POSITION`, `OVERFUNCTION`, `TRIANGLE`); his `CUTOFF` withdraws
+  contact and lends nothing, because borrowed self is negotiated in the relationship (*FTCP* Ch. 16 ¶64 `[B]`) and
+  comes from being seen as on her side (KS18.5 `[K]`); the class is `[I]`, Claude's decision, pending owner review.
+  A move still in flight when he retires (`M2.A.0k`) neither lends nor lands. `[I]` in form; the rule
   that a sided coach "does not count" is §13.1's `[T]`. P9 described the sided coach as drawn in by a `TRIANGLE`, but
   a family member's moves toward a professional are `SPLIT`, `FRAME_AMBIGUITY` and `DISPLACE` (§5.7), so `SPLIT` is
   the reading. He has no move that declines, so he always goes along: a declared premise of test 7's sided arm, not a
@@ -2175,7 +2179,8 @@ Version 2's stage 2 builds the constant sweep (`M17.E.1`) and the detection-limi
   (2.0) and the count (200) are `[I]`, in `config/sweep/sweep.md`. Since revision 70 (T-018) the gating records
   adopt the same rule (`tools/detection_limit.py`, shared with the sweep): a criterion whose first verdict is near the
   limit on fewer than 200 seeds is run again in one block of 200, its verdict is the second run's, and the record's
-  seed cell prints both counts and the first verdict.
+  seed cell prints both counts and the first verdict. Since revision 71 (T-297) the two mutation records do the same
+  for each mutant's row, the rerun under the same mutant with the block and cap at 200 at any seed fraction.
 - **Per-seed readouts** (`M17.B` · C28, C29, C39, C40, C41; DL §7.10(f)). Each seed is classified — the arms
   agreed, one converted, one reversed; the trajectory settled, oscillated, or had not resolved — instead of
   averaging across seeds. A time-to-event report must not collapse a two-peaked distribution into one

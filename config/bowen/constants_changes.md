@@ -14,6 +14,10 @@
 > moved out of the code into `act_classes.md` (`M8.3`, `M5.B.4`, `M5.B.5`) are lists of act names, not constants, and
 > their contents did not change.
 >
+> **Spec revision 71 (2026-11-26, T-297) changed no constant.** It adds the `coach_lending` class to `act_classes.md`,
+> a list of act names (`STAY-IN-CONTACT`, `I-POSITION`, `OVERFUNCTION`, `TRIANGLE`): the moves of a sided coach that
+> lend, which until now were all its moves, `CUTOFF` included.
+>
 > **Spec revision 70 (2026-11-25, T-295 and E2) adds one constant**, `nonverbal_reattribution_enabled` (1, `[I]`, a
 > switch under `M4.C.6`): 0 removes only the by-channel discount, for `M11.C.52[by channel]`'s baseline arm (T-209).
 > At its default no run changes. T-019's coach lending reuses `pseudo_self_transfer_gain` and

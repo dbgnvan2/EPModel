@@ -6,6 +6,24 @@ The spec holds the current rules; this file holds how they got there. Until revi
 
 The sections `### Revision 34` to `### Revision 5` and the undated section are the spec's text as it stood, moved whole; a statement inside one of them (revision 34's, that revisions 13 to 33 are "not here") was true when written, before the bodies' narratives were moved under their own revisions. Those narratives are the bullets `- \`ID\`: sentence`, each the sentence as it stood in the body, under the revision it names, in sections titled "inline narratives moved from the bodies at revision 35" where no section existed.
 
+### Revision 71 — T-297, revision 70's minor items, 2026-11-26 ⟦rev71 · T-297, Claude's decision 2026-11-26, pending owner review⟧
+
+The engine hash moves from `9a7c6f9d7e0d` to `ef5d457c3acc`. Items (1) and (2) change what a run computes only where a
+sided coach sends a `CUTOFF` or a retired coach's move is still in flight; (3) to (5) change no run.
+
+- **`M1.E.7e`, T-297 (1).** A sided coach lends only on a contact move: the new act class `coach_lending`
+  (`STAY-IN-CONTACT`, `I-POSITION`, `OVERFUNCTION`, `TRIANGLE`, `[I]`), which must lie within the external repertoire.
+  Its `CUTOFF` withdraws contact and lends nothing. Source: pseudo-self is "negotiable in the relationship system"
+  and moves in exchanges between people (*FTCP* Ch. 16 ¶64 `[B]`); the person gains "pseudo-self from that perception"
+  of the coach as on their side (KS18.5 `[K]`), which a `TRIANGLE` toward the ally enacts and a cutoff ends.
+  Claude's decision, pending owner review.
+- **`M1.E.7e`, T-297 (2).** A move delivered after its coach retired (`inactive`, `M2.A.0k`) neither lends nor lands.
+- **`M16.A.11`, T-297 (3).** `run_phase_b` takes `divorces` and wraps its source in a `DivorceSource` on the run's own
+  emitter, so a dropped divorce reaches the log; the header's config hash covers the divorces.
+- **`M17.A.1`, T-297 (4), (5).** The two mutation records rerun a near-limit mutant row at the declared count (the
+  mutant plus the block and cap set to 200, at any seed fraction) and print both counts; a rerun's cache key carries
+  the code of `detection_limit.rerun_rules`, so a change to it reruns the cached reruns and nothing else.
+
 ### Revision 70 — T-295 and engine batch E2, 2026-11-25 ⟦rev70 · T-295, T-019, T-209, T-018, T-077, Claude's recommendation 2026-11-25, pending owner review⟧
 
 The engine hash moves to `9a7c6f9d7e0d`. T-019 changes what a run computes wherever a coach is on a member's side

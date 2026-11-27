@@ -27,7 +27,8 @@ probability
   member's ``SPLIT`` toward it (the family-to-external move that draws a professional onto one side; a member cannot
   send an external agent a ``TRIANGLE``, `M5.B.4`, `M5.B.5`); it has no move that declines, so it always goes along.
   The count is ``positions_live``, the predicate `M8.5` requires. A sided coach's contact lands nothing; instead,
-  delivered to the member it sides with, it **lends pseudo-self** (`M1.E.7e`, revision 70, T-019): `M6.I.4`'s
+  delivered to the member it sides with, a contact move (``coach_lending`` in ``config/bowen/act_classes.md``: not
+  its ``CUTOFF``, revision 71, T-297 (1)) **lends pseudo-self** (`M1.E.7e`, revision 70, T-019): `M6.I.4`'s
   transfer with the coach as the giver (``lend_to_side``), sized as an over-functioning act is, so the recipient's
   functional level rises and basic level is untouched (`M1.A.4k` reads functional level less pseudo-self). What the
   coach lent goes back at ``pseudo_self_relaxation_rate`` a week once the coach is no longer on that member's side
@@ -201,7 +202,9 @@ def apply_landed_contacts(state: RunState, batch: tuple[Delivery, ...], params: 
     Spec:    docs/bowen_agent_model_spec_v2.md#M1.E.7, #M1.E.7d, #M1.E.7e
     Tests:   tests/bowen/test_external.py::test_m1e7_perspective_rises_only_on_a_landed_contact_or_own_practice
 
-    A move from a coach on the recipient's side does not land; it lends (``lend_to_side``, revision 70, T-019).
+    A move from a coach on the recipient's side does not land; it lends (``lend_to_side``, revision 70, T-019) when it
+    is a contact move (``state.kinds.coach_lending``: a ``CUTOFF`` lends nothing, revision 71, T-297 (1)). A retired
+    coach's move (``inactive``, `M2.A.0k`) delivered after its retirement neither lends nor lands (T-297 (2)).
     """
     records = []
     for delivery in sorted(batch):
@@ -213,8 +216,10 @@ def apply_landed_contacts(state: RunState, batch: tuple[Delivery, ...], params: 
         coach, recipient = state.people[event.sender], state.people[delivery.recipient]
         if coach.role is not PersonRole.EXTERNAL or recipient.role is PersonRole.EXTERNAL or not recipient.alive:
             continue
+        if coach.inactive:  # T-297 (2): a move in flight when its coach retired neither lends nor lands
+            continue
         if sided_with(state, coach.id, recipient.id, params):  # M1.E.7e (T-019): lends instead of landing
-            lent = lend_to_side(state, event, coach, recipient, params)
+            lent = lend_to_side(state, event, coach, recipient, params) if event.kind in state.kinds.coach_lending else None
             records += [lent] if lent is not None else []
             continue
         p = landing_probability(state, coach, recipient, params)

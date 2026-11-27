@@ -35,7 +35,7 @@ sys.path.insert(0, str(REPO))
 from tools.atomic_write import write_text_atomic  # noqa: E402
 
 from tools.mutant_runner import Mutant, apply, run_in_copy  # noqa: E402,F401
-from tools import seed_fraction  # noqa: E402  (T-299's run mix)
+from tools import detection_limit, seed_fraction  # noqa: E402  (T-297 (4)'s rerun; T-299's run mix)
 from tools.mutation_record import NAMED, judge  # noqa: E402
 from tools.record_cache import PHASE_D_ROW_TIMEOUT, ERRORED, Cache, child_rows, exit_status, result_key  # noqa: E402
 from tools.record_json import record_json  # noqa: E402
@@ -330,6 +330,35 @@ def _part_2_keys():
     return CRITERIA_D2
 
 
+def _part_1_criteria():
+    from src.bowen.ensemble.criteria_d import CRITERIA_D
+
+    return CRITERIA_D
+
+
+def _results(cache: Cache, run: Mutant, ids: list[str], workers: int | None, engine: str) -> list[dict]:
+    """Each of ``ids``'s result under ``run``: from the cache, else run in one child and cached (an errored row is
+    reported but never cached); without ``workers`` a missing one raises KeyError."""
+    keys = {c: result_key(engine, run.definition(), c) for c in ids}
+    missing = [c for c in ids if cache.get(keys[c]) is None]
+    if missing and workers is None:
+        raise KeyError(f"{run.id}: no cached result for the current engine and edits")
+    fresh = {}
+    if missing:
+        for result in child_rows(run, CHILD.name, missing, workers, run.id, timeout=PHASE_D_ROW_TIMEOUT):
+            fresh[result["criterion"]] = result
+            if result["outcome"] not in ERRORED:  # an errored row is reported but rerun next time, never cached
+                cache.put(keys[result["criterion"]], result)
+        cache.flush()
+    out = []
+    for c in ids:
+        result = cache.get(keys[c]) or fresh.get(c)
+        if result is None:
+            raise SystemExit(f"{run.id} → {c}: the child printed no result")
+        out.append(result)
+    return out
+
+
 def build(cache: Cache, workers: int | None = None, fraction: float | None = None) -> str:
     """The record, from the cache. With ``workers``, missing results are run first; without, a missing one raises
     KeyError, so a test can check the committed record without running anything."""
@@ -337,28 +366,17 @@ def build(cache: Cache, workers: int | None = None, fraction: float | None = Non
     if fraction is None:  # a rebuild from the cache reads the fraction the committed record states
         fraction = seed_fraction.declared(RECORD)
     passed = part_2 | passing_part_1()
+    criteria = {**_part_1_criteria(), **_part_2_keys()}
     rows, skipped = [], []
     for mutant in MUTANTS:
         run_ids = [c for c in mutant.criteria if c in passed]
         skipped += [(mutant, c) for c in mutant.criteria if c not in passed]
-        run = seed_fraction.scaled_mutant(mutant, fraction)  # its copy carries the scaled seed settings
-        keys = {c: result_key(engine, run.definition(), c) for c in run_ids}
-        missing = [c for c in run_ids if cache.get(keys[c]) is None]
-        if missing and workers is None:
-            raise KeyError(f"{mutant.id}: no cached result for the current engine and edits")
-        fresh = {}
-        if missing:
-            for result in child_rows(run, CHILD.name, missing, workers, mutant.id, timeout=PHASE_D_ROW_TIMEOUT):
-                fresh[result["criterion"]] = result
-                if result["outcome"] not in ERRORED:  # an errored row is reported but rerun next time, never cached
-                    cache.put(keys[result["criterion"]], result)
-            cache.flush()
-        for c in run_ids:
-            result = cache.get(keys[c]) or fresh.get(c)
-            if result is None:
-                raise SystemExit(f"{mutant.id} → {c}: the child printed no result")
-            rows.append((mutant, result))
-    recorded = {r["criterion"] for _, r in rows}
+        first = _results(cache, seed_fraction.scaled_mutant(mutant, fraction), run_ids, workers, engine)
+        # M17.A.1 (revision 71, T-297 (4)): a near-limit row is run again at the declared count, at any fraction.
+        pairs = detection_limit.with_reruns(first, criteria, lambda ids, fixed: _results(
+            cache, detection_limit.rerun_mutant(mutant, fixed), ids, workers, engine))
+        rows += [(mutant, result, before) for result, before in pairs]
+    recorded = {r["criterion"] for _, r, _ in rows}
     unproved = sorted(part_2 - recorded - set(AD_HOC))
     stale_ad_hoc = sorted(set(AD_HOC) & recorded) + sorted(c for c in AD_HOC if c not in part_2)
     if stale_ad_hoc:  # T-037: an AD_HOC entry that now has a mutant, or no longer passes, is out of date
@@ -384,13 +402,13 @@ def render(rows, skipped, engine: str) -> str:
         "| Mutant | Kind | What it changes | Criterion | Verdict under mutant | Seeds | Difference under mutant | Result |",
         "|---|---|---|---|---|---|---|---|",
     ]
-    for mutant, result in rows:
+    for mutant, result, first in rows:
         note = f" ({result['error']})" if result.get("error") else ""
         diffs = "; ".join(f"`{x['readout']}` {x['mean_difference']:+.3g} ± {x['half_width']:.2g}"
                           + (f", p {x['p']:.2g}" if "p" in x else "") + (" (reported)" if x.get("report_only") else "")
                           for x in result.get("readouts", ()))
         lines.append(f"| `{mutant.id}` | {mutant.kind} | {mutant.what} | `{result['criterion']}` | {result['outcome']}{note} "
-                     f"| {result['seeds']} | {diffs or '—'} | "
+                     f"| {detection_limit.seeds_cell(result['seeds'], first)} | {diffs or '—'} | "
                      f"**{judge(mutant, result['outcome'], result.get('readouts', ()))}** |")
     lines += ["", "## Not run", "", "Criteria a mutant targets that do not pass in their ensemble record.", ""]
     lines += [f"- `{m.id}` → `{cid}`" for m, cid in skipped] or ["- none"]
@@ -400,8 +418,9 @@ def render(rows, skipped, engine: str) -> str:
     lines += ["", "## Machine-readable", "", "```json",
               json.dumps([{"mutant": m.id, "kind": m.kind, "criterion": r["criterion"], "outcome": r["outcome"],
                            "seeds": r["seeds"], "result": judge(m, r["outcome"], r.get("readouts", ())),
-                           "readouts": r.get("readouts", []), **({"error": r["error"]} if r.get("error") else {})}
-                          for m, r in rows], indent=1, default=float),
+                           "readouts": r.get("readouts", []), **({"error": r["error"]} if r.get("error") else {}),
+                           **({"first_run": {"seeds": f["seeds"], "outcome": f["outcome"]}} if f else {})}
+                          for m, r, f in rows], indent=1, default=float),
               "```", ""]
     return "\n".join(lines)
 

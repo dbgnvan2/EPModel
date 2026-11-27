@@ -228,6 +228,39 @@ def test_m111a_every_mutant_applies_exactly_once(tmp_path):
             assert new in (root / file).read_text(encoding="utf-8"), mutant.id
 
 
+
+def test_m17a1_t297_a_near_limit_mutant_row_is_rerun_at_the_fixed_count(tmp_path):
+    """Revision 71, T-297 (4): a mutant's result near the detection limit on fewer seeds than the declared count is run
+    again under the same mutant with the runner's block and cap set to that count, and the record prints both counts;
+    a result clear of the limit is not. T-297 (5): the rerun's cache definition moves with the code of
+    ``rerun_rules``, so a change to how a rerun's rules are built does not reuse cached reruns."""
+    from tools import detection_limit
+
+    multiple, fixed = detection_limit.limits()
+    near, clear = "M11.C.1", "M11.C.3"
+    mutant = _mutants.Mutant("t297-probe", _mutants.NAMED, (near, clear), "config/bowen/constants.md", "a", "b", "probe")
+    calls = []
+
+    def stub(cache, run, ids, workers):
+        calls.append((run.definition(), tuple(ids)))
+        rerun = len(run.also) == len(mutant.also) + 2
+        width = 0.1 if rerun or ids[0] == clear else 1.0
+        return [{"criterion": cid, "outcome": "PASS", "seeds": fixed if rerun else 3, "readouts": [
+            {"readout": "x", "direction": 1, "mean_difference": 1.0, "half_width": 0.1 if cid == clear else width}]}
+            for cid in ids]
+
+    with mock.patch.object(_mutants, "MUTANTS", (mutant,)), mock.patch.object(_mutants, "passing",
+                                                                                return_value={near, clear}), \
+            mock.patch.object(_mutants, "run_cached", side_effect=stub):
+        text = _mutants.build(Cache("unused"), workers=1)
+    assert [ids for _, ids in calls] == [(near, clear), (near,)]
+    assert [new.split(" | ")[:2] for _, _, new in calls[1][0]["edits"][1:]] == [
+        ["| `ensemble_block`", str(fixed)], ["| `ensemble_cap`", str(fixed)]]
+    assert f"| {fixed} (first run 3 seeds, PASS) |" in text and f"| `{clear}` | PASS | 3 |" in text
+    before = detection_limit.rerun_definition(multiple, fixed)
+    with mock.patch.object(detection_limit.inspect, "getsource", return_value="def rerun_rules(rules, fixed):\n    0\n"):
+        assert detection_limit.rerun_definition(multiple, fixed) != before
+
 def test_m111d_mutation_record_is_current():
     """The record is exactly what its cache renders for the current engine and every mutant's current edits: a changed
     engine or mutant has no cached result (KeyError: rerun the tool), and a hand edit does not match."""

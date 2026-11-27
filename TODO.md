@@ -56,6 +56,6 @@ moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's te
 
 ### No batch yet (3)
 
-- T-297 · 2026-11-25 · Revision 70's minor review items (2026-11-25) · [record](docs/todo/2026-11-25_revision_70_t295_e2.md)
 - T-298 · 2026-11-25 · `M11.C.52`'s carriers and perceived-cue report (2026-11-25) · [record](docs/todo/2026-11-25_revision_70_t295_e2.md)
 - T-300 · 2026-11-26 · Revision 70's nine borderline verdict moves, at the … · [record](docs/todo/2026-11-25_revision_70_t295_e2.md)
+- T-301 · 2026-11-26 · Revision 71's minor review items (2026-11-26) · [record](docs/todo/2026-11-25_revision_70_t295_e2.md)

@@ -39,6 +39,7 @@ sys.path.insert(0, str(REPO))
 from tools.atomic_write import write_text_atomic  # noqa: E402
 
 from tools.mutant_runner import BROKEN_ERRORS, Mutant, apply  # noqa: E402,F401
+from tools import detection_limit  # noqa: E402  (M17.A.1's rerun, revision 71, T-297 (4))
 from tools.record_cache import FAILED, Cache, engine_hash, exit_status, result_key, run_cached  # noqa: E402
 from tools.record_json import record_json  # noqa: E402
 
@@ -438,12 +439,12 @@ def render(rows, skipped, engine: str) -> str:
         "| Mutant | Kind | What it changes | Criterion | Verdict under mutant | Seeds | Difference under mutant | Result |",
         "|---|---|---|---|---|---|---|---|",
     ]
-    for mutant, result in rows:
+    for mutant, result, first in rows:
         note = f" ({result['error']})" if result.get("error") else ""
         diffs = "; ".join(f"`{x['readout']}` {x['mean_difference']:+.3g} ± {x['half_width']:.2g}"
                           for x in result.get("readouts", ()))
         lines.append(f"| `{mutant.id}` | {mutant.kind} | {mutant.what} | `{result['criterion']}` | "
-                     f"{result['outcome']}{note} | {result['seeds']} | {diffs or '—'} | "
+                     f"{result['outcome']}{note} | {detection_limit.seeds_cell(result['seeds'], first)} | {diffs or '—'} | "
                      f"**{judge(mutant, result['outcome'], result.get('readouts', ()))}** |")
     lines += ["", "## Not run", "",
               "Criteria a mutant targets that do not pass at the central setting — a mutant cannot prove a failing",
@@ -452,8 +453,9 @@ def render(rows, skipped, engine: str) -> str:
     lines += ["", "## Machine-readable", "", "```json",
               json.dumps([{"mutant": m.id, "kind": m.kind, "criterion": r["criterion"], "outcome": r["outcome"],
                            "seeds": r["seeds"], "result": judge(m, r["outcome"], r.get("readouts", ())),
-                           "readouts": r.get("readouts", []), **({"error": r["error"]} if r.get("error") else {})}
-                          for m, r in rows],
+                           "readouts": r.get("readouts", []), **({"error": r["error"]} if r.get("error") else {}),
+                           **({"first_run": {"seeds": f["seeds"], "outcome": f["outcome"]}} if f else {})}
+                          for m, r, f in rows],
                          indent=1, default=float),
               "```", ""]
     return "\n".join(lines)
@@ -471,13 +473,18 @@ def build(cache: Cache, workers: int | None = None) -> str:
         skipped += [(mutant, cid) for cid in not_run if mutant.criteria != ("*",)]
         if not run_ids:
             continue
-        if workers is not None:
-            results = run_cached(cache, mutant, run_ids, workers)
-        else:
-            results = [cache.get(result_key(engine, mutant.definition(), cid)) for cid in run_ids]
-            if None in results:
-                raise KeyError(f"{mutant.id}: no cached result for the current engine and edits")
-        rows += [(mutant, result) for result in results]
+        def fetch(run: Mutant, ids: list[str]) -> list[dict]:
+            if workers is not None:
+                return run_cached(cache, run, ids, workers)
+            found = [cache.get(result_key(engine, run.definition(), cid)) for cid in ids]
+            if None in found:
+                raise KeyError(f"{run.id}: no cached result for the current engine and edits")
+            return found
+
+        # M17.A.1 (revision 71, T-297 (4)): a near-limit result is run again at the fixed count, as its central verdict was.
+        pairs = detection_limit.with_reruns(fetch(mutant, run_ids), CRITERIA, lambda ids, fixed: fetch(
+            detection_limit.rerun_mutant(mutant, fixed), ids))
+        rows += [(mutant, result, first) for result, first in pairs]
     return render(rows, skipped, engine)
 
 

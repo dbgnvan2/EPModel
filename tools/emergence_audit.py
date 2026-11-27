@@ -607,6 +607,8 @@ def check_agreement(entries: list[dict], engine: str) -> list[str]:
             if mine is None:
                 lines.append(f"`{row['mutant']}` → `{row['criterion']}`: not run here yet")
                 continue
+            # T-297 (4): a mutation row rerun at the detection limit is compared by its first run, as the audit has none.
+            row = {**row, **row.get("first_run", {})}
             if (mine["outcome"], mine["seeds"]) != (row["outcome"], row["seeds"]):
                 raise SystemExit(f"L0 on {row['criterion']} gives {mine['outcome']} at {mine['seeds']} seeds; "
                                  f"{row['mutant']}, the same edits, gives {row['outcome']} at {row['seeds']} in "

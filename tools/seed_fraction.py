@@ -6,7 +6,8 @@ Purpose: after an engine batch the two slow records, the Phase D part II ensembl
          ``ensemble_block`` and ``ensemble_cap`` are multiplied by F and ``ensemble_precision`` divided by √F (the
          adaptive stop then needs about F as many seeds, since the half-width falls as 1/√n), and a criterion's fixed
          seed count (``M11.C.10``'s 600, ``M11.C.48``'s 200) by F. ``M17.A.1``'s near-limit rerun keeps its declared
-         count: a row near the detection limit is the borderline case, so it gets full precision.
+         count: a row near the detection limit is the borderline case, so it gets full precision (a criterion that
+         fixes its own seed count is not rerun, so at F it stays at F of that count).
          Nothing here is in the engine hash. A result at F is cached under its own key (``definition``), so a full
          run never reads it; the record states F in its header (``note``), and a rebuild from the cache reads F back
          from the committed record (``declared``).
@@ -69,15 +70,19 @@ def definition(base: dict | None, fraction: float) -> dict | None:
 
 def config_edits(fraction: float, root: Path = REPO) -> tuple[tuple[str, str, str], ...]:
     """The (file, old, new) line edits that put ``root``'s seed settings at ``fraction``; each line must occur once."""
-    edits = []
-    for file, start, how in SCALED_CONFIG:
-        lines = [line for line in (root / file).read_text(encoding="utf-8").splitlines() if line.startswith(start)]
-        if len(lines) != 1:
-            raise SystemExit(f"{file}: {len(lines)} lines start {start!r}, not one")
-        rest = lines[0][len(start):]
-        value = re.match(r"[0-9.]+", rest).group(0)
-        edits.append((file, lines[0], start + scaled_value(float(value), how, fraction) + rest[len(value):]))
-    return tuple(edits)
+    return tuple(line_edit(root, file, start, lambda value, how=how: scaled_value(value, how, fraction))
+                 for file, start, how in SCALED_CONFIG)
+
+
+def line_edit(root: Path, file: str, start: str, new_value) -> tuple[str, str, str]:
+    """The (file, old, new) edit that replaces the number after ``start`` on the one line of ``root``'s ``file`` that
+    begins with it by ``new_value(that number)``; also the detection-limit rerun's (``tools/detection_limit.py``)."""
+    lines = [line for line in (root / file).read_text(encoding="utf-8").splitlines() if line.startswith(start)]
+    if len(lines) != 1:
+        raise SystemExit(f"{file}: {len(lines)} lines start {start!r}, not one")
+    rest = lines[0][len(start):]
+    value = re.match(r"[0-9.]+", rest).group(0)
+    return file, lines[0], start + new_value(float(value)) + rest[len(value):]
 
 
 def scaled_mutant(mutant, fraction: float):

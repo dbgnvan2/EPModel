@@ -14,7 +14,8 @@
 >
 > The last four classes moved here from code at spec revision 59 (T-219 (11, 12)), with the members the code held;
 > they are invented groupings, graded `[I]`. `iposition_abort` is read in the order written. An act listed twice in
-> one class fails at load.
+> one class fails at load. `coach_lending` (revision 71, T-297 (1)) must lie within `external_repertoire`, or the
+> file fails at load.
 
 | class | acts | used by |
 |---|---|---|
@@ -26,3 +27,4 @@
 | position_outside | DISTANCE, CUTOFF | `criteria.OUTSIDE_ACTS`: the acts that take the outside position, read by `M11.C.44` and `M11.C.45` [I] |
 | position_inside | TRIANGLE, PURSUE | `criteria.INSIDE_ACTS`: the acts that seek the inside position, read by `M11.C.44` and `M11.C.45` [I] |
 | capacity_consuming | CONFLICT | `stress_response.consume_conflict`: the acts whose choice lowers their sender's functioning, `M4.D.3d` (revision 68, T-261 (1)) [I] |
+| coach_lending | STAY-IN-CONTACT, I-POSITION, OVERFUNCTION, TRIANGLE | `external.apply_landed_contacts`: the moves of an external agent on a member's side that lend that member pseudo-self (`M1.E.7e`); its `CUTOFF` withdraws contact and lends nothing (revision 71, T-297 (1), Claude's decision, pending owner review) [I] |

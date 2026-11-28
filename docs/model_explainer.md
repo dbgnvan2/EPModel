@@ -2141,7 +2141,7 @@ Each is a rule about how a criterion is written or proved, not about what the mo
 | A pattern learned under a spell outlasts it | `M11.C.39`, `M10.B.5` · C18 | Distance and cutoff remove the contact that would disconfirm what was learned, so the pattern persists with no persistence rule written | `[SHOWN]` Prasad 2026, Tables 4, 11, 12, some cells on five seeds |
 | Ordinal criteria | `M11.4c` · C19 | Rank order across mechanisms uses orderings without magnitudes. The owner's answer (2026-09-22) is that most mechanisms scale with differentiation and stress, so the theory orders **conditions** rather than ranking mechanisms; that ordering is tested as `M11.C.41` (§11.2), and the ranking form stays unused | `[SHOWN]` Kalluri 2026 §5.1 — eight effects ranked correctly while only four magnitudes matched |
 | Asymmetric rules tested at matched frequency | `M11.1e`, `M16.A.8` · C20 | A per-event asymmetry does not produce a cumulative one; event frequency decides the total | `[SHOWN]` Kalluri 2026, Table 5 |
-| Re-encoding mutants | `M11.1c` · C21 | A direction that changes when only the encoding changes is an artefact of the encoding | `[SHOWN]` Ye et al. 2026 (TRAILS) §3.1, for LLM agents; `[INF]` |
+| Re-encoding mutants | `M11.1c` · C21 | A direction that changes when only the encoding changes is an artefact of the encoding Three are built: same-tick appraisal summed in reverse order, the contact clamp moved 1e-12 inside [0, 1], and felt danger held on [0, 4] with every read divided by 4 and `danger_gain` quartered (revision 71, T-077), which runs the same bit for bit `[I]` | `[SHOWN]` Ye et al. 2026 (TRAILS) §3.1, for LLM agents; `[INF]` |
 | Outcome-directive audit and a premise column | `M11.1d`, `M10.C.5` · C22 | Separates what the model is told (a premise) from what follows from it | `[SHOWN]` Zhou et al. 2026 (PIMMUR) §4.4, for LLM prompts; `[INF]` |
 | Constants frozen before the tests | `M10.B.4`, `M16.A.7` · C23 | The acceptance-test twin of §17.2: tuning a constant until a test passes, then reporting the pass | `[ARGUED]` PIMMUR; Kalluri 2026 as a worked example of the failure |
 | A null at a bound is an assay limit | `M11.4d` · C24 | A readout already at its floor or ceiling cannot move | `[SHOWN]` Prasad 2026 |
@@ -2218,7 +2218,7 @@ Version 2's stage 2 builds the constant sweep (`M17.E.1`) and the detection-limi
   26 of the 34 keys. The sweep config is outside
   `config/bowen/` because the engine hash covers that directory and a sweep's ranges are an input to a
   measurement, not to the model; a dose–response curve for the one constant a criterion depends on most, sharing
-  that range (kept as two requirements, approved by the owner); for threshold constants, the exact interval within which nothing changes, computed from logged
+  that range (kept as two requirements, approved by the owner) — which constant that is, per composite criterion, is proposed by `tools/dominant_constant.py` from the sweep record and the T-236 grid (`docs/dominant_constant_proposals.md`) and confirmed by the owner (revision 71, T-077) `[I]`; for threshold constants, the exact interval within which nothing changes, computed from logged
   margins (`[SHOWN]` Kurz 2025, Lemma 3); sensitivity checked at two or more reference configurations, because a
   perturbation can be harmless at one and decisive at another (`[SHOWN]` TRAILS §4.2); and interaction
   between pairs of parameters the theory says interact (`[SHOWN]` Prasad 2026, Tables 13–14).

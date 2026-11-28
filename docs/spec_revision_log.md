@@ -23,6 +23,11 @@ sided coach sends a `CUTOFF` or a retired coach's move is still in flight; (3) t
 - **`M17.A.1`, T-297 (4), (5).** The two mutation records rerun a near-limit mutant row at the declared count (the
   mutant plus the block and cap set to 200, at any seed fraction) and print both counts; a rerun's cache key carries
   the code of `detection_limit.rerun_rules`, so a change to it reruns the cached reruns and nothing else.
+- **`M11.1c`, `M17.E.2`, T-077 (b), (c)** ⟦rev71 · T-077, owner decisions 2026-11-27⟧. The rescaled-state-range
+  re-encoding is the mutant `felt-danger-rescaled`, over felt danger, the closed quantity with the fewest dependent
+  constants (one); the integer-tick re-encoding is dropped. `tools/dominant_constant.py` proposes each composite
+  criterion's dominant constant from the sensitivity records into `docs/dominant_constant_proposals.md`, for the
+  owner to confirm. Neither changes a run.
 
 ### Revision 70 — T-295 and engine batch E2, 2026-11-25 ⟦rev70 · T-295, T-019, T-209, T-018, T-077, Claude's recommendation 2026-11-25, pending owner review⟧
 

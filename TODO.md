@@ -10,11 +10,7 @@ moves to `docs/TODO_archive.md`. Until 2026-10-22 this file held every item's te
 ## Now (0)
 
 
-## Later (33)
-
-### engine batch E2 (new mechanisms and mutants) (1)
-
-- T-077 · 2026-11-17 · Not built · [record](docs/todo/2026-10-08_phase_c.md)
+## Later (32)
 
 ### paper-method proposals (2026-11-23) (23)
 

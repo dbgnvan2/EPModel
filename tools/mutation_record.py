@@ -371,6 +371,22 @@ MUTANTS = (
     Mutant("clamp-within-tolerance", REPRESENTATION, ("*",), "src/bowen/engine/contact.py",
            "    return min(1.0, max(0.0, value))\n", "    return min(1.0 - 1e-12, max(1e-12, value))\n",
            "felt contact and impingement clamped 1e-12 inside [0, 1]"),
+    # Revision 71, T-077 (b): felt danger, the closed state quantity with the fewest dependent constants (one,
+    # `danger_gain`), held on [0, 4] instead of [0, 1]. Every read divides by 4 and `danger_gain` is quartered; a power
+    # of two scales every float exactly, so the run is the same bit for bit. Owner decision 2026-11-27.
+    Mutant("felt-danger-rescaled", REPRESENTATION, ("*",), "src/bowen/engine/danger.py",
+           "    return max(read, declared)\n", "    return 4.0 * max(read, declared)\n",
+           "felt danger held on [0, 4] (each read divided by 4, `danger_gain` quartered); 4 is a power of two, so the "
+           "run is bitwise identical by construction and an unchanged verdict shows nothing beyond that",
+           also=(("src/bowen/engine/contact.py", "    return 1.0 - tie.felt_danger.get(person.id, 0.0)\n",
+                  "    return 1.0 - tie.felt_danger.get(person.id, 0.0) / 4.0\n"),
+                 ("config/bowen/constants.md", "| `danger_gain` | 2.0 |", "| `danger_gain` | 0.5 |"),
+                 ("src/bowen/ensemble/criteria_d2.py",
+                  "felt.append(max((t.felt_danger.get(o, 0.0) for o, t in ties), default=0.0))",
+                  "felt.append(max((t.felt_danger.get(o, 0.0) / 4.0 for o, t in ties), default=0.0))"),
+                 ("src/bowen/ensemble/criteria_d2.py",
+                  "t.rejection.get(o, 0.0) * t.felt_danger.get(o, 0.0) for o, t in ties",
+                  "t.rejection.get(o, 0.0) * (t.felt_danger.get(o, 0.0) / 4.0) for o, t in ties"))),
     # T-237 (a), spec revision 59: the felt relief less the decay toward the chronic floor the week would bring anyway,
     # so a reinforced act is one followed by more relief than waiting gives. [I] Run at step 4.
     Mutant("relief-less-expected-decay", NAMED, ("M11.C.16",), "src/bowen/engine/learner.py",

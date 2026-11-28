@@ -399,6 +399,9 @@ NOT_COMPARED = (
      "`tools/version_2_sweep.py`), which has no earlier version at {side}"),
     ("docs/sensitivity_distance_triangle.md", "T-236's sensitivity grid, new on 2026-11-13 and rendered from its own "
      "cache (`tools/sensitivity_grid.py`); a measurement, not a record compared here; nothing at {side} to compare"),
+    ("docs/dominant_constant_proposals.md", "T-077 (c)'s proposals (`M17.E.2`), new at revision 71 and derived from the "
+     "sweep record and the T-236 grid (`tools/dominant_constant.py`); proposals for the owner, not a record compared "
+     "here; nothing at {side} to compare"),
     ("docs/emergence_audit_record.md", "the emergence audit (`M11.1g`), new at spec revision 48 and rendered from its own cache (`tools/emergence_audit.py`); nothing at {side} to compare"),
     ("docs/review/group_g_readout.md", "revision 36's before-and-after measurement on 20 seeds "
      "(`tools/group_g_readout.py`), new at revision 36: its \"before\" section is the earlier engine's, kept as "

@@ -23,7 +23,7 @@ tool refuses: an unchanged hash means it was not regenerated. A record with no r
 | `docs/phase_c_ensemble_record.md` | `d331276656b3` | `be9b1f5e83c9` | 31 | 1 | 0 | 110 | 0 | 0 |
 | `docs/phase_d_ensemble_record.md` | `d331276656b3` | `be9b1f5e83c9` | 25 | 0 | 0 | 47 | 0 | 0 |
 | `docs/phase_d2_ensemble_record.md` | `d331276656b3` | `be9b1f5e83c9` | 9 | 0 | 0 | 0 | 0 | 0 |
-| `docs/phase_c_mutation_record.md` | `9a7c6f9d7e0d` | `ef5d457c3acc` | 129 | 5 | 0 | 464 | 0 | 3 |
+| `docs/phase_c_mutation_record.md` | `9a7c6f9d7e0d` | `ef5d457c3acc` | 129 | 5 | 0 | 464 | 0 | 21 |
 | `docs/phase_d_mutation_record.md` | `d93561b073d3` | `7a576d63dc47` | 13 | 1 | 0 | 33 | 0 | 0 |
 | `docs/phase_c_sweep_record.md` | `9a7c6f9d7e0d` | `ef5d457c3acc` | 90 | 1 | 0 | 140 | 0 | 0 |
 | `docs/phase_c_level_occupancy.md` | `a8641dac1374` | `f9dc570fec74` | 4 | 1 | 0 | 1 | 0 | 0 |
@@ -41,6 +41,7 @@ In the level-occupancy record, which has no verdicts, "Verdicts changed" counts 
 - `docs/phase_b_mutation_record.md`: the record of Phase B's close at commit `3132c69`, frozen (plan D5) and not regenerated, so it is revision 70's apart from the status line stage 1 added; `tools/mutation_gate.py` refuses to rewrite it.
 - `docs/version_2_sweep_record.md, docs/version_2_status.md`: the status page is generated from the records compared here (`tools/version_2_status.py`); the sweep record is rendered from its own cache (`tools/version_2_sweep.py`) and is not rerun on revision 71's engine, which is the stage-end sweep: it is revision 70's, and its record-current test is a strict expected failure until then.
 - `docs/sensitivity_distance_triangle.md`: T-236's sensitivity grid, new on 2026-11-13 and rendered from its own cache (`tools/sensitivity_grid.py`); a measurement, not a record compared here; nothing at revision 70 to compare.
+- `docs/dominant_constant_proposals.md`: T-077 (c)'s proposals (`M17.E.2`), new at revision 71 and derived from the sweep record and the T-236 grid (`tools/dominant_constant.py`); proposals for the owner, not a record compared here; nothing at revision 70 to compare.
 - `docs/emergence_audit_record.md`: the emergence audit (`M11.1g`), rendered from its own cache (`tools/emergence_audit.py`) and not rerun on revision 71's engine: the run mix of T-299 leaves it for the milestone run, so it is revision 70's, and its record-current test is a strict expected failure until then.
 - `docs/review/group_g_readout.md`: revision 36's before-and-after measurement on 20 seeds (`tools/group_g_readout.py`): its "after" section is regenerated on each later engine, so `git diff 55f789d` on it shows what revision 71 moved.
 - `docs/review/stage_3_projection_trace.md, docs/review/stage_3_iposition_probe.md, docs/review/stage_3_t130_event_sizes.md, docs/review/stage_3_displaced_coping_probe.md`: stage 3's measurements before any rule changed, kept as measured on their steps' engines and not regenerated.
@@ -722,13 +723,31 @@ No change: 9 of 9 rows are exactly revision 70's, every field.
 | relief-less-expected-decay · M11.C.16 | readouts.top_move_share.half_width | 0.011357551132582976 | 0.011624706333591774 |
 | relief-less-expected-decay · M11.C.16 | readouts.top_move_share.mean_difference | 0.03590061410702424 | 0.037300800851914895 |
 
-**Rows only now: 3.**
+**Rows only now: 21.**
 
 | Mutant | Verdict | Effects |
 |---|---|---|
 | cue-belief-bias-removed · M11.C.51 | reversed | distance_conflict_share -0.01373 ± 0.00894<br>no_moves +0 ± 0 |
 | appraisal-sum-order-reversed · M11.C.51 | unchanged | distance_conflict_share +0.01136 ± 0.0132<br>no_moves +0 ± 0 |
 | clamp-within-tolerance · M11.C.51 | unchanged | distance_conflict_share +0.01244 ± 0.013<br>no_moves +0 ± 0 |
+| felt-danger-rescaled · M11.C.1 | unchanged | time_to_threshold -1.91 ± 0.158 |
+| felt-danger-rescaled · M11.C.3 | unchanged | seeker_anxiety -1.618 ± 0.164<br>third_anxiety +2.142 ± 0.335<br>partner_anxiety +0.7562 ± 0.207 |
+| felt-danger-rescaled · M11.C.4 | unchanged | actor_relief_now -4.251 ± 0.299<br>family_anxiety_at_nodal +60.44 ± 3.32 |
+| felt-danger-rescaled · M11.C.16 | unchanged | repertoire_entropy -0.1596 ± 0.0287<br>top_move_share +0.1504 ± 0.0266 |
+| felt-danger-rescaled · M11.C.19 | unchanged | outward_failed +1 ± 0<br>inward_failed -1 ± 0 |
+| felt-danger-rescaled · M11.C.25 | unchanged | first_dominant +0 ± 0 |
+| felt-danger-rescaled · M11.C.35 | unchanged | witness_appraisal +0.5808 ± 0.0329 |
+| felt-danger-rescaled · M11.C.44 | unchanged | outside_inside_ratio +0.1772 ± 0.115 |
+| felt-danger-rescaled · M11.C.27[unstable,add_third] | unchanged | pair_deviation -0.0546 ± 0.0182<br>pair_deviation_week_1 -0.0546 ± 0.0182<br>pair_deviation_week_2 -0.007492 ± 0.0205<br>pair_deviation_week_3 +0.01078 ± 0.0195<br>pair_deviation_week_4 +0.02214 ± 0.0197<br>pair_deviation_week_5 +0.03225 ± 0.0257<br>pair_deviation_week_6 +0.03367 ± 0.0272<br>pair_deviation_week_7 +0.03842 ± 0.0276<br>pair_deviation_week_8 +0.02778 ± 0.0293<br>pair_deviation_week_9 +0.03767 ± 0.0301<br>pair_deviation_week_10 +0.02795 ± 0.034<br>pair_deviation_week_11 +0.02658 ± 0.0328<br>pair_deviation_week_12 +0.02985 ± 0.0371 |
+| felt-danger-rescaled · M11.C.27[unstable,remove_one] | unchanged | pair_deviation -0.3452 ± 0.062<br>pair_deviation_week_1 -0.3452 ± 0.062<br>pair_deviation_week_2 -0.2701 ± 0.0773<br>pair_deviation_week_3 -0.2071 ± 0.0762<br>pair_deviation_week_4 -0.122 ± 0.0807<br>pair_deviation_week_5 +0.0062 ± 0.0834<br>pair_deviation_week_6 +0.05848 ± 0.0934<br>pair_deviation_week_7 +0.0632 ± 0.0785<br>pair_deviation_week_8 +0.1439 ± 0.0679<br>pair_deviation_week_9 +0.1948 ± 0.0565<br>pair_deviation_week_10 +0.1159 ± 0.0879<br>pair_deviation_week_11 +0.0984 ± 0.0813<br>pair_deviation_week_12 +0.09028 ± 0.0759 |
+| felt-danger-rescaled · M11.C.38[-0 vs -5] | unchanged | time_to_threshold -1.04 ± 0.145 |
+| felt-danger-rescaled · M11.C.38[-5 vs -10] | unchanged | time_to_threshold -0.87 ± 0.124 |
+| felt-danger-rescaled · M11.C.38[-10 vs -15] | unchanged | time_to_threshold -0.88 ± 0.116 |
+| felt-danger-rescaled · M11.C.41[light: lower level] | unchanged | mean_acute +1107 ± 113<br>reactive_over_chance +0.06105 ± 0.00307 |
+| felt-danger-rescaled · M11.C.41[heavy: lower level] | unchanged | mean_acute +1045 ± 96.5<br>reactive_over_chance +0.05948 ± 0.00296 |
+| felt-danger-rescaled · M11.C.51 | unchanged | distance_conflict_share +0.01136 ± 0.0132<br>no_moves +0 ± 0 |
+| felt-danger-rescaled · M11.C.52 | unchanged | escalation -127.5 ± 60.1 |
+| felt-danger-rescaled · M11.C.53 | unchanged | too_little_on_marital_tie +0.01286 ± 0.0062<br>pursue_conflict_toward_stressed +0.305 ± 0.238 |
 
 
 ## `docs/phase_d_mutation_record.md`
